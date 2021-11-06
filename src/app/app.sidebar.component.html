@@ -1,7 +1,20 @@
 <div class="layout-sidebar" [ngStyle]="{'overflow':appMain.sidebarActive ? 'hidden' : 'visible'}"
                             [ngClass]="{'layout-sidebar-dark':app.darkMenu}" (click)="appMain.onSidebarClick($event)">
+
+
+    
     <div class="layout-tabmenu">
         <ul class="layout-tabmenu-nav">
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <li [ngClass]="{'active-item':appMain.activeTabIndex === 5}">
+                <a routerLink="/ausrueckungen" pRipple class="tabmenuitem-link" (click)="appMain.onTabClick($event, 5)"><i class="pi pi-fw pi-clock"></i></a>
+                <div class="layout-tabmenu-tooltip">
+                    <div class="layout-tabmenu-tooltip-arrow"></div>
+                    <div class="layout-tabmenu-tooltip-text">Ausrückungen</div>
+                </div>
+            </li>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
             <li [ngClass]="{'active-item':appMain.activeTabIndex === 0}">
                 <a href="#" pRipple class="tabmenuitem-link" (click)="appMain.onTabClick($event, 0)"><i class="pi pi-fw pi-home"></i></a>
                 <div class="layout-tabmenu-tooltip">
