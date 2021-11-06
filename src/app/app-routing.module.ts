@@ -38,6 +38,8 @@ import {AppCalendarComponent} from './pages/app.calendar.component';
 import {AppTimelineDemoComponent} from './pages/app.timelinedemo.component';
 import {AppInvoiceComponent} from './pages/app.invoice.component';
 import {AppHelpComponent} from './pages/app.help.component';
+import { AusrueckungenComponent } from './mkjComponents/ausrueckungen.component';
+
 
 @NgModule({
     imports: [
@@ -46,6 +48,7 @@ import {AppHelpComponent} from './pages/app.help.component';
                 path: '', component: AppMainComponent,
                 children: [
                     {path: '', component: DashboardDemoComponent},
+                    {path: 'ausrueckungen', component: AusrueckungenComponent},
                     {path: 'uikit/formlayout', component: FormLayoutDemoComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelDemoComponent},
                     {path: 'uikit/invalidstate', component: InvalidStateDemoComponent},

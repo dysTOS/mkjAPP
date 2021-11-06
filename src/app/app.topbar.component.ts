@@ -7,13 +7,19 @@ import {AppMainComponent} from './app.main.component';
         <div class="topbar clearfix">
             <div class="logo">
                 <a href="#">
-                    <img src="assets/layout/images/logo.png">
+                    <img src="assets/mkjICONS/LOGO_APP_Favicon.png">
                 </a>
             </div>
 
+            <!--
 			<a href="#">
                 <img src="assets/layout/images/logo-text.svg" class="app-name"/>
             </a>
+-->
+
+            <div class="app-name p-text-bold" style="color: white">
+                <h3>mkjAPP</h3>
+            </div>
 
             <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
                 <i class="pi pi-bars"></i>

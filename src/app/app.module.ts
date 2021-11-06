@@ -107,6 +107,7 @@ import {AppNotfoundComponent} from './pages/app.notfound.component';
 import {AppErrorComponent} from './pages/app.error.component';
 import {AppAccessdeniedComponent} from './pages/app.accessdenied.component';
 import {AppLoginComponent} from './pages/app.login.component';
+import {MessageService} from 'primeng/api';
 
 // Demo pages
 import {DashboardDemoComponent} from './demo/view/dashboarddemo.component';
@@ -151,6 +152,7 @@ import {MenuService} from './app.menu.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { AusrueckungenComponent } from './mkjComponents/ausrueckungen.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -297,11 +299,12 @@ FullCalendarModule.registerPlugins([
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,
+        AusrueckungenComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService
+        PhotoService, ProductService, MenuService, MessageService
     ],
     bootstrap: [AppComponent]
 })
