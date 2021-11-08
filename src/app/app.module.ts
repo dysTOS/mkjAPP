@@ -152,6 +152,7 @@ import {MenuService} from './app.menu.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+
 import { AusrueckungenComponent } from './mkjComponents/ausrueckungen.component';
 
 FullCalendarModule.registerPlugins([
@@ -304,7 +305,7 @@ FullCalendarModule.registerPlugins([
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, MessageService
+        PhotoService, ProductService, MenuService
     ],
     bootstrap: [AppComponent]
 })
