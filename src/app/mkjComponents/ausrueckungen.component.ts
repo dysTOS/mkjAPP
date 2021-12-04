@@ -8,7 +8,7 @@ import { Ausrueckung } from '../mkjInterfaces/Ausrueckung';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
-    styleUrls: ['../demo/view/tabledemo.scss'],
+    styleUrls: ['./ausrueckungen.scss'],
     styles: [`
         :host ::ng-deep .p-dialog .product-image {
             width: 150px;
@@ -30,49 +30,64 @@ import { Ausrueckung } from '../mkjInterfaces/Ausrueckung';
     providers: [MessageService, ConfirmationService]
 })
 export class AusrueckungenComponent implements OnInit {
-    productDialog: boolean;
     ausrueckungDialog: boolean;
 
-    products: Product[];
-    ausrueckungen: Ausrueckung[]
+    ausrueckungenArray: Ausrueckung[]
 
-    product: Product;
-    ausrueckung: Ausrueckung;
+    singleAusrueckung: Ausrueckung;
 
-    selectedProducts: Product[];
-    selectedAusrueckung: Ausrueckung[];
+    selectedAusrueckungen: Ausrueckung[];
 
     submitted: boolean;
+    updateAusrueckung: boolean;
+    loading: boolean;
 
     cols: any[];
 
-    constructor(private productService: ProductService, private ausrueckungService: AusrueckungenService, private messageService: MessageService,
+    kategorien: any[];
+    status: any[];
+
+    constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
                 private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
-
+        this.loading = true;
         this.ausrueckungService.getAusrueckungen().subscribe(
-        ausrueckungen => (this.ausrueckungen = ausrueckungen),
-        (error) => {console.log(error);}
-    );
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen),
+            (error) => console.log(error),
+            () => this.loading = false
+        );
 
         this.cols = [
             { field: 'name', header: 'Name' },
-            { field: 'price', header: 'Price' },
-            { field: 'category', header: 'Category' },
-            { field: 'rating', header: 'Reviews' },
-            { field: 'inventoryStatus', header: 'Status' }
+            { field: 'von', header: 'Datum' },
+            { field: 'typ', header: 'typ' },
+            { field: 'status', header: 'Status' }
+        ];
+
+        this.kategorien = [
+            { typ: 'Kurkonzert'},
+            { typ: 'Weckruf'},
+            { typ: 'Ständchen'},
+        ];
+
+        this.status = [
+            { status: 'Fixiert'},
+            { status: 'Geplant'},
+            { status: 'Abgesagt'},
         ];
     }
 
     openNew() {
-        this.ausrueckung = {};
+        this.singleAusrueckung = {};
         this.submitted = false;
+        this.updateAusrueckung = false;
         this.ausrueckungDialog = true;
     }
 
     editAusrueckung(ausrueckung: Ausrueckung) {
-        this.ausrueckung = {...ausrueckung};
+        this.singleAusrueckung = {...ausrueckung};
+        this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
 
@@ -83,7 +98,7 @@ export class AusrueckungenComponent implements OnInit {
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.ausrueckungService.deleteAusrueckung(ausrueckung).subscribe(
-                    () => this.ausrueckungen = this.ausrueckungen.filter(val => val.id !== ausrueckung.id),
+                    () => this.ausrueckungenArray = this.ausrueckungenArray.filter(val => val.id !== ausrueckung.id),
                     (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht gelöscht werden!', life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung gelöscht!', life: 3000})
                 );
@@ -99,33 +114,33 @@ export class AusrueckungenComponent implements OnInit {
     saveAusrueckung() {
         this.submitted = true;
 
-        if (this.ausrueckung.name.trim()) {
-            if (this.ausrueckung.id) {
-                let index = this.ausrueckungen[this.findIndexById(this.ausrueckung.id)];
-                this.ausrueckungService.updateAusrueckung(this.ausrueckung).subscribe(
-                    (ausrueckungAPI) => this.ausrueckungen[this.findIndexById(this.ausrueckung.id)] = ausrueckungAPI,
+        if (this.singleAusrueckung.name.trim()) {
+            if (this.singleAusrueckung.id) {
+                let index = this.ausrueckungenArray[this.findIndexById(this.singleAusrueckung.id)];
+                this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
+                    (ausrueckungAPI) => this.ausrueckungenArray[this.findIndexById(this.singleAusrueckung.id)] = ausrueckungAPI,
                     (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden!', life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000})
                 );
             }
             else {
-                this.ausrueckungService.createAusrueckung(this.ausrueckung).subscribe(
-                    (ausrueckungAPI) => this.ausrueckungen.push(ausrueckungAPI),
+                this.ausrueckungService.createAusrueckung(this.singleAusrueckung).subscribe(
+                    (ausrueckungAPI) => this.ausrueckungenArray.push(ausrueckungAPI),
                     (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht erstellt werden!', life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000})
                 );
             }
 
-            //this.ausrueckungen = [...this.ausrueckungen];
+            this.ausrueckungenArray = [...this.ausrueckungenArray];
             this.ausrueckungDialog = false;
-            this.ausrueckung = {};
+            this.singleAusrueckung = {};
         }
     }
 
     findIndexById(id: string): number {
         let index = -1;
-        for (let i = 0; i < this.ausrueckungen.length; i++) {
-            if (this.ausrueckungen[i].id === id) {
+        for (let i = 0; i < this.ausrueckungenArray.length; i++) {
+            if (this.ausrueckungenArray[i].id === id) {
                 index = i;
                 break;
             }

@@ -1,7 +1,7 @@
 <div class="p-grid">
     <div class="p-col-12">
 
-        <p-toast></p-toast>
+        <p-toast position="top-center"></p-toast>
 
         <div class="card">
             <p-toolbar styleClass="p-mb-4">
@@ -17,10 +17,18 @@
 
 
             <!-- Tabelle -->
-            <p-table #dt [value]="ausrueckungen" [columns]="cols" [rows]="10" [paginator]="false" [globalFilterFields]="['name','country.name','representative.name','status']"
-                     [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-                     styleClass="p-datatable-customers p-datatable-striped"
-                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            <p-table #dt
+                [value]="ausrueckungenArray"
+                [lazy]="true" [loading]="loading"
+                [columns]="cols" [rows]="10"
+                [paginator]="false"
+                [globalFilterFields]="['name','von','kategorie','status']"
+                [rowHover]="true" dataKey="id"
+                styleClass="p-datatable-customers p-datatable-striped rowexpand-table"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                responsiveLayout="scroll"
+                [showCurrentPageReport]="true">
+
                 <ng-template pTemplate="caption">
                     <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
                         <h5 class="p-m-0">Ausrückungen 2021</h5>
@@ -30,85 +38,126 @@
                     </span>
                     </div>
                 </ng-template>
+
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
+                        <th style="width: 3rem"></th>
                         <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="beschreibung">Beschreibung <p-sortIcon field="beschreibung"></p-sortIcon></th>
-                        <th pSortableColumn="price">Von <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Bis <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th pSortableColumn="von">Datum <p-sortIcon field="von"></p-sortIcon></th>
+                        <th pSortableColumn="typ">Kategorie <p-sortIcon field="typ"></p-sortIcon></th>
+                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-ausrueckung>
+
+                <ng-template pTemplate="body" let-ausrueckung let-expanded="expanded">
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="ausrueckung"></p-tableCheckbox>
+                            <button type="button" pButton pRipple
+                                [pRowToggler]="ausrueckung"
+                                class="p-button-text p-button-rounded p-button-plain"
+                                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                            ></button>
                         </td>
                         <td><span class="p-column-title">Name</span>
-                            {{ausrueckung.name}}
+                            <span class="p-text-bold">{{ausrueckung.name}}</span>
                         </td>
-                        <td><span class="p-column-title">Image</span>
-
+                        <td><span class="p-column-title">Datum</span>
+                            {{ausrueckung.von | date : "d. MMM / HH:mm"}}
                         </td>
-                        <td><span class="p-column-title">Price</span>
-                            {{ausrueckung.von}}
-                        </td>
-                        <td><span class="p-column-title">Category</span>
-                            {{ausrueckung.bis | date}}
-                        </td>
-                        <td><span class="p-column-title">Reviews</span>
-
+                        <td><span class="p-column-title">Kategorie</span>
+                            {{ausrueckung.typ}}
                         </td>
                         <td><span class="p-column-title">Status</span>
-                            <!--
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">
-                                {{product.inventoryStatus}}
-                            </span>-->
+                            <span [class]="'ausrueckungen-badge status-' + (ausrueckung.status ? ausrueckung.status.toLowerCase() : '')">
+                                {{ausrueckung.status}}
+                            </span>
                         </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editAusrueckung(ausrueckung)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteAusrueckung(ausrueckung)"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-mr-2" (click)="editAusrueckung(ausrueckung)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteAusrueckung(ausrueckung)"></button>
                         </td>
                     </tr>
                 </ng-template>
+
+                <ng-template pTemplate="rowexpansion" let-ausrueckung>
+                    <tr>
+                        <td colspan="4">{{ausrueckung.infoMusiker}}</td>
+                        <td colspan="4">{{ausrueckung.beschreibung}}</td>
+
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">In diesem Zeitraum sind keine Ausrückungen vorhanden!</td>
+                    </tr>
+                </ng-template>
+
                 <ng-template pTemplate="summary">
-                    <div class="p-d-flex p-ai-center p-jc-between">
-                        Insgesamt sind das {{ausrueckungen ? ausrueckungen.length : 0 }} Ausrückungen.
+                    <div *ngIf="ausrueckungenArray.length > 0" class="p-d-flex p-ai-center p-jc-between">
+                        Insgesamt sind das {{ausrueckungenArray ? ausrueckungenArray.length : 0 }} Ausrückungen.
                     </div>
                 </ng-template>
             </p-table>
         </div>
 
-        <p-dialog [(visible)]="ausrueckungDialog" [style]="{width: '450px'}" header="Ausrückung" [modal]="true" styleClass="p-fluid">
+
+
+        <!-- Save/Update Ausrückung -->
+        <p-dialog
+            [(visible)]="ausrueckungDialog"
+            [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '450px'}"
+            [header]="!updateAusrueckung ? 'Ausrückung anlegen' : 'Ausrückung aktualisieren'"
+            [modal]="true" styleClass="p-fluid">
             <ng-template pTemplate="content">
                 <div class="p-field">
                     <label for="name">Name</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="ausrueckung.name" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !ausrueckung.name">Name ist erforderlich!.</small>
+                    <input type="text" pInputText id="name" [(ngModel)]="singleAusrueckung.name" required autofocus />
+                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
                 </div>
                 <div class="p-field">
                     <label for="beschreibung">Beschreibung</label>
-                    <textarea id="beschreibung" pInputTextarea [(ngModel)]="ausrueckung.beschreibung" required rows="3" cols="20"></textarea>
+                    <textarea id="beschreibung" pInputTextarea [(ngModel)]="singleAusrueckung.beschreibung" rows="2" cols="20"></textarea>
                 </div>
                 <div class="p-field">
-                    <label for="name">infoMusiker</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="ausrueckung.infoMusiker" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !ausrueckung.name">Name ist erforderlich!.</small>
+                    <label for="infoMusiker">Infos für die Musiker</label>
+                    <textarea type="text" pInputTextarea id="infoMusiker"
+                        [(ngModel)]="singleAusrueckung.infoMusiker"
+                        placeholder ="z.B. Adjustierung oder Treffpunkt"
+                        rows="2" cols="20"></textarea>
                 </div>
                 <div class="p-field">
-                    <label for="name">von</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="ausrueckung.von" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !ausrueckung.name">Name ist erforderlich!.</small>
+                    <label for="kategorie">Kategorie</label>
+                    <p-dropdown inputId="kategorie"
+                        [autoDisplayFirst]="updateAusrueckung"
+                        [options]="kategorien"
+                        [(ngModel)]="singleAusrueckung.typ"
+                        optionLabel="typ"
+                        required
+                    ></p-dropdown>
+                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Kategorie ist erforderlich!.</small>
                 </div>
                 <div class="p-field">
-                    <label for="name">von</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="ausrueckung.bis" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !ausrueckung.name">Name ist erforderlich!.</small>
+                    <label for="status">Status</label>
+                    <p-dropdown inputId="status"
+                        [autoDisplayFirst]="updateAusrueckung"
+                        [options]="status"
+                        [(ngModel)]="singleAusrueckung.status"
+                        optionLabel="status"
+                        required
+                    ></p-dropdown>
+                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Status ist erforderlich!.</small>
+                </div>
+                <div class="p-field">
+                    <label for="d">von</label>
+                    <input type="text" pInputText id="d" [(ngModel)]="singleAusrueckung.von" required autofocus />
+                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
+                </div>
+                <div class="p-field">
+                    <label for="f">von</label>
+                    <input type="text" pInputText id="f" [(ngModel)]="singleAusrueckung.bis" required autofocus />
+                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
                 </div>
                 <!--
                 <div class="p-field">
@@ -151,6 +200,9 @@
             </ng-template>
         </p-dialog>
 
-        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+        <!-- Löschbestätigung? -->
+        <p-confirmDialog
+            [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '450px'}"
+        ></p-confirmDialog>
     </div>
 </div>
