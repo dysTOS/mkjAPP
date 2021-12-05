@@ -5,6 +5,9 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../mkjServices/ausrueckungen.service';
 import { Ausrueckung } from '../mkjInterfaces/Ausrueckung';
+import { Time } from '@angular/common';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -35,8 +38,10 @@ export class AusrueckungenComponent implements OnInit {
     ausrueckungenArray: Ausrueckung[]
 
     singleAusrueckung: Ausrueckung;
+    vonDatumDate: Date;
+    bisDatumDate: Date;
 
-    selectedAusrueckungen: Ausrueckung[];
+    selectedAusrueckungen: Ausrueckung[]; //not used atm
 
     submitted: boolean;
     updateAusrueckung: boolean;
@@ -80,6 +85,8 @@ export class AusrueckungenComponent implements OnInit {
 
     openNew() {
         this.singleAusrueckung = {};
+        this.vonDatumDate = null;
+        this.bisDatumDate = null;
         this.submitted = false;
         this.updateAusrueckung = false;
         this.ausrueckungDialog = true;
@@ -87,6 +94,8 @@ export class AusrueckungenComponent implements OnInit {
 
     editAusrueckung(ausrueckung: Ausrueckung) {
         this.singleAusrueckung = {...ausrueckung};
+        this.vonDatumDate = new Date(this.singleAusrueckung.von);
+        this.bisDatumDate = new Date(this.singleAusrueckung.bis);
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
@@ -115,25 +124,42 @@ export class AusrueckungenComponent implements OnInit {
         this.submitted = true;
 
         if (this.singleAusrueckung.name.trim()) {
-            if (this.singleAusrueckung.id) {
-                let index = this.ausrueckungenArray[this.findIndexById(this.singleAusrueckung.id)];
+
+            if (this.singleAusrueckung.id) { //update
+                this.singleAusrueckung.von = moment(this.vonDatumDate.toISOString()).format("YYYY-MM-DD hh:mm:ss").toString();
+                this.singleAusrueckung.bis = moment(this.bisDatumDate.toISOString()).format("YYYY-MM-DD hh:mm:ss").toString();
+
+                let index = this.findIndexById(this.singleAusrueckung.id);
+
                 this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
-                    (ausrueckungAPI) => this.ausrueckungenArray[this.findIndexById(this.singleAusrueckung.id)] = ausrueckungAPI,
+                    (ausrueckungFromAPI) => this.ausrueckungenArray[index] = ausrueckungFromAPI,
                     (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden!', life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000})
                 );
             }
-            else {
+            else { //neue
+                this.singleAusrueckung.von = moment(this.vonDatumDate.toISOString()).format("YYYY-MM-DD hh:mm:ss").toString();
+                this.singleAusrueckung.bis = moment(this.bisDatumDate.toISOString()).format("YYYY-MM-DD hh:mm:ss").toString();
+
                 this.ausrueckungService.createAusrueckung(this.singleAusrueckung).subscribe(
                     (ausrueckungAPI) => this.ausrueckungenArray.push(ausrueckungAPI),
                     (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht erstellt werden!', life: 3000}),
-                    () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000})
+                    () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung erstellt!', life: 3000})
                 );
             }
 
+            //console.log(this.singleAusrueckung);
             this.ausrueckungenArray = [...this.ausrueckungenArray];
             this.ausrueckungDialog = false;
             this.singleAusrueckung = {};
+        }
+    }
+
+    onVonCalendarChange(){
+        if(this.vonDatumDate){
+            let v = moment(this.vonDatumDate);
+            let b = v.add(2, 'h');
+            this.bisDatumDate = new Date(b.toISOString());
         }
     }
 
@@ -149,12 +175,4 @@ export class AusrueckungenComponent implements OnInit {
         return index;
     }
 
-    createId(): string {
-        let id = '';
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for ( let i = 0; i < 5; i++ ) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
 }

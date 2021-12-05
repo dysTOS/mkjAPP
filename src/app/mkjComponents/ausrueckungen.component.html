@@ -106,92 +106,95 @@
 
         <!-- Save/Update Ausrückung -->
         <p-dialog
+            #ausrDialog
             [(visible)]="ausrueckungDialog"
             [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '450px'}"
             [header]="!updateAusrueckung ? 'Ausrückung anlegen' : 'Ausrückung aktualisieren'"
             [modal]="true" styleClass="p-fluid">
-            <ng-template pTemplate="content">
-                <div class="p-field">
-                    <label for="name">Name</label>
-                    <input type="text" pInputText id="name" [(ngModel)]="singleAusrueckung.name" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
-                </div>
-                <div class="p-field">
-                    <label for="beschreibung">Beschreibung</label>
-                    <textarea id="beschreibung" pInputTextarea [(ngModel)]="singleAusrueckung.beschreibung" rows="2" cols="20"></textarea>
-                </div>
-                <div class="p-field">
-                    <label for="infoMusiker">Infos für die Musiker</label>
-                    <textarea type="text" pInputTextarea id="infoMusiker"
-                        [(ngModel)]="singleAusrueckung.infoMusiker"
-                        placeholder ="z.B. Adjustierung oder Treffpunkt"
-                        rows="2" cols="20"></textarea>
-                </div>
-                <div class="p-field">
-                    <label for="kategorie">Kategorie</label>
-                    <p-dropdown inputId="kategorie"
-                        [autoDisplayFirst]="updateAusrueckung"
-                        [options]="kategorien"
-                        [(ngModel)]="singleAusrueckung.typ"
-                        optionLabel="typ"
-                        required
-                    ></p-dropdown>
-                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Kategorie ist erforderlich!.</small>
-                </div>
-                <div class="p-field">
-                    <label for="status">Status</label>
-                    <p-dropdown inputId="status"
-                        [autoDisplayFirst]="updateAusrueckung"
-                        [options]="status"
-                        [(ngModel)]="singleAusrueckung.status"
-                        optionLabel="status"
-                        required
-                    ></p-dropdown>
-                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Status ist erforderlich!.</small>
-                </div>
-                <div class="p-field">
-                    <label for="d">von</label>
-                    <input type="text" pInputText id="d" [(ngModel)]="singleAusrueckung.von" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
-                </div>
-                <div class="p-field">
-                    <label for="f">von</label>
-                    <input type="text" pInputText id="f" [(ngModel)]="singleAusrueckung.bis" required autofocus />
-                    <small class="p-invalid" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!.</small>
-                </div>
-                <!--
-                <div class="p-field">
-                    <label class="p-mb-3">Category</label>
-                    <div class="p-formgrid p-grid">
-                        <div class="p-field-radiobutton p-col-6">
-                            <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
-                            <label for="category1">Accessories</label>
-                        </div>
-                        <div class="p-field-radiobutton p-col-6">
-                            <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
-                            <label for="category2">Clothing</label>
-                        </div>
-                        <div class="p-field-radiobutton p-col-6">
-                            <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
-                            <label for="category3">Electronics</label>
-                        </div>
-                        <div class="p-field-radiobutton p-col-6">
-                            <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
-                            <label for="category4">Fitness</label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="p-formgrid p-grid">
-                    <div class="p-field p-col">
-                        <label for="price">Price</label>
-                        <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <ng-template pTemplate="content">
+                <div class="p-fluid p-grid" style="margin-top: 5px;">
+                    <div class="p-field p-col-12">
+                        <span class="p-float-label">
+                            <input type="text" pInputText inputId="name" [(ngModel)]="singleAusrueckung.name" required autofocus />
+                            <small class="p-error" *ngIf="submitted && !singleAusrueckung.name">Name ist erforderlich!</small>
+                            <label for="name">Name</label>
+                        </span>
                     </div>
-                    <div class="p-field p-col">
-                        <label for="quantity">Quantity</label>
-                        <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-calendar
+                                inputId="von"
+                                [(ngModel)]="vonDatumDate"
+                                [showTime]="true"
+                                showIcon="true"
+                                [appendTo]="ausrDialog"
+                                (ngModelChange)="onVonCalendarChange()"
+                                required
+                            ></p-calendar>
+                            <small class="p-error" *ngIf="submitted && !vonDatumDate">Datum/Zeit ist erforderlich!</small>
+                            <label for="von">Von</label>
+                        </span>
                     </div>
-                </div>-->
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-calendar
+                                inputId="bis"
+                                [(ngModel)]="bisDatumDate"
+                                [showTime]="true"
+                                showIcon="true"
+                                [appendTo]="ausrDialog"
+                                required
+                            ></p-calendar>
+                            <small class="p-error" *ngIf="submitted && !bisDatumDate">Datum/Zeit ist erforderlich!</small>
+                            <label for="bis">Bis</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="kategorie"
+                                [autoDisplayFirst]="updateAusrueckung"
+                                [options]="kategorien"
+                                [(ngModel)]="singleAusrueckung.typ"
+                                optionLabel="typ"
+                                optionValue="typ"
+                                required
+                            ></p-dropdown>
+                            <small class="p-error" *ngIf="submitted && !singleAusrueckung.kategorie">Kategorie ist erforderlich!</small>
+                            <label for="kategorie">Kategorie</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <span class="p-float-label">
+                            <p-dropdown inputId="status"
+                                [autoDisplayFirst]="updateAusrueckung"
+                                [options]="status"
+                                [(ngModel)]="singleAusrueckung.status"
+                                optionLabel="status"
+                                optionValue="status"
+                                required
+                            ></p-dropdown>
+                            <small class="p-error" *ngIf="submitted && !singleAusrueckung.status">Status ist erforderlich!</small>
+                            <label for="status">Status</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12">
+                        <span class="p-float-label">
+                            <textarea id="beschreibung" pInputTextarea [(ngModel)]="singleAusrueckung.beschreibung" rows="2" cols="20"></textarea>
+                            <label for="beschreibung">Beschreibung</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12">
+                        <span class="p-float-label">
+                            <textarea type="text" pInputTextarea id="infoMusiker"
+                                [(ngModel)]="singleAusrueckung.infoMusiker"
+                                [placeholder] ="isFocused ? 'z.B. Adjustierung oder Treffpunkt' : ''"
+                                rows="2" cols="20"
+                            ></textarea>
+                            <label for="infoMusiker">Infos für die Musiker</label>
+                        </span>
+                    </div>
+                </div>
             </ng-template>
 
             <ng-template pTemplate="footer">
