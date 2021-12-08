@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import { Product } from '../demo/domain/product';
-import { ProductService } from '../demo/service/productservice';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../mkjServices/ausrueckungen.service';
 import { Ausrueckung } from '../mkjInterfaces/Ausrueckung';
-import { Time } from '@angular/common';
-import { Moment } from 'moment';
 import * as moment from 'moment';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import * as FileSaver from 'file-saver';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -52,6 +51,8 @@ export class AusrueckungenComponent implements OnInit {
     kategorien: any[];
     status: any[];
 
+    exportOptions: MenuItem[];
+
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
                 private confirmationService: ConfirmationService) {}
 
@@ -77,11 +78,20 @@ export class AusrueckungenComponent implements OnInit {
         ];
 
         this.status = [
-            { status: 'Fixiert'},
-            { status: 'Geplant'},
-            { status: 'Abgesagt'},
+            { label: 'Fixiert', value: 'fixiert'},
+            { label: 'Geplant', value: 'geplant'},
+            { label: 'Abgesagt', value: 'abgesagt'},
         ];
+
+        this.exportOptions = [
+            { label: 'als Excel', icon: 'pi pi-file-excel',
+                command: () => this.exportExcel()
+            },
+            { label: 'als PDF', icon: 'pi pi-file-pdf',
+                command: () => this.exportPdf()
+            }];
     }
+
 
     openNew() {
         this.singleAusrueckung = {};
@@ -155,6 +165,42 @@ export class AusrueckungenComponent implements OnInit {
         }
     }
 
+    setFilteredRows(e){
+        this.selectedAusrueckungen = e.filteredValue;
+        console.log(this.selectedAusrueckungen)
+    }
+
+    exportPdf() {
+        let columns = ["ID", "Name", "Country"];
+        let rows = [
+            [1, "Shaw", "Tanzania"],
+            [2, "Nelson", "Kazakhstan"],
+            [3, "Garcia", "Madagascar"],
+        ];
+        const doc:any = new jsPDF('p','pt');
+
+          doc.autoTable(columns, rows);
+          doc.save("Ausrückungen.pdf");
+    }
+
+    exportExcel() {
+        import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(this.selectedAusrueckungen);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, "Ausrückungen");
+        });
+    }
+
+    saveAsExcelFile(buffer: any, fileName: string): void {
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    }
+
     onVonCalendarChange(){
         if(this.vonDatumDate){
             let v = moment(this.vonDatumDate);
@@ -171,7 +217,6 @@ export class AusrueckungenComponent implements OnInit {
                 break;
             }
         }
-
         return index;
     }
 
