@@ -98,6 +98,14 @@
     }
 }
 
+.buttons-hide{
+    visibility: hidden;
+}
+
+.buttons-hide:hover{
+    visibility:visible;
+}
+
 .ausrueckungen-badge {
     border-radius: 2px;
     padding: .25em .5rem;
