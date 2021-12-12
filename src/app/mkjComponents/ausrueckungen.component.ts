@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../mkjServices/ausrueckungen.service';
@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as FileSaver from 'file-saver';
+import { Table } from 'primeng/table';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -53,13 +54,15 @@ export class AusrueckungenComponent implements OnInit {
 
     exportOptions: MenuItem[];
 
+    @ViewChild('dt') ausrueckungenTabelle: Table;
+
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
                 private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
         this.loading = true;
         this.ausrueckungService.getAusrueckungen().subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen),
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
             (error) => console.log(error),
             () => this.loading = false
         );
@@ -68,13 +71,15 @@ export class AusrueckungenComponent implements OnInit {
             { field: 'name', header: 'Name' },
             { field: 'von', header: 'Datum' },
             { field: 'typ', header: 'typ' },
-            { field: 'status', header: 'Status' }
+            { field: 'status', header: 'Status' },
+            { field: 'beschreibung', header: 'Beschreibung'},
+            { field: 'infoMusiker', header: 'Infos für die Musiker'}
         ];
 
         this.kategorien = [
-            { typ: 'Kurkonzert'},
-            { typ: 'Weckruf'},
-            { typ: 'Ständchen'},
+            { label: 'Kurkonzert', value: 'Kurkonzert'},
+            { label: 'Weckruf', value: 'Weckruf'},
+            { label: 'Ständchen', value: 'Ständchen'},
         ];
 
         this.status = [
@@ -89,6 +94,9 @@ export class AusrueckungenComponent implements OnInit {
             },
             { label: 'als PDF', icon: 'pi pi-file-pdf',
                 command: () => this.exportPdf()
+            },
+            { label: ' als CSV', icon: 'pi pi-file',
+                command: () => this.exportCsv()
             }];
     }
 
@@ -167,20 +175,37 @@ export class AusrueckungenComponent implements OnInit {
 
     setFilteredRows(e){
         this.selectedAusrueckungen = e.filteredValue;
-        console.log(this.selectedAusrueckungen)
+    }
+
+    exportCsv(){
+        this.ausrueckungenTabelle.exportCSV({filteredValues: true});
     }
 
     exportPdf() {
-        let columns = ["ID", "Name", "Country"];
-        let rows = [
-            [1, "Shaw", "Tanzania"],
-            [2, "Nelson", "Kazakhstan"],
-            [3, "Garcia", "Madagascar"],
+        let columns = [
+            {title: "Name", dataKey: "name"},
+            {title: "Datum", dataKey: "von"},
+            {title: "Kategorie", dataKey: "typ"},
+            {title: "Status", dataKey: "status"},
+            {title: "Beschreibung", dataKey: "beschreibung"},
+            {title: "Infos", dataKey: "infosMusiker"}
         ];
-        const doc:any = new jsPDF('p','pt');
+        let rows = this.selectedAusrueckungen;
+        const doc:any = new jsPDF('l','pt');
 
-          doc.autoTable(columns, rows);
-          doc.save("Ausrückungen.pdf");
+        doc.autoTable(columns, rows, {
+            theme: 'striped',
+            styles: {},
+            headstyles: {fillColor: [0,66,0]},
+            bodyStyles: {},
+            alternateRowStyles: {},
+            columnStyles: {columnWidth: 'auto'},
+            margin: {top: 50},
+            beforePageContent: function(data) {
+                doc.text("Ausrückungen", 40, 30);
+            }
+        });
+        doc.save("Ausrückungen.pdf");
     }
 
     exportExcel() {

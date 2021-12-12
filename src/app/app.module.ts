@@ -5,6 +5,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de-AT';
+registerLocaleData(localeDe);
 
 // PrimeNG Components for demos
 import {AccordionModule} from 'primeng/accordion';
@@ -304,6 +308,7 @@ FullCalendarModule.registerPlugins([
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: LOCALE_ID, useValue: 'de-AT'},
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService
     ],

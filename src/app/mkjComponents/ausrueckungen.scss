@@ -99,11 +99,12 @@
 }
 
 .buttons-hide{
-    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
-.buttons-hide:hover{
-    visibility:visible;
+.p-selectable-row:hover .buttons-hide{
+    opacity: 1;
 }
 
 .ausrueckungen-badge {
