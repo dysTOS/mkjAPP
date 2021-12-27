@@ -21,7 +21,7 @@
             <p-table #dt
                 [columns]="cols"
                 [value]="ausrueckungenArray"
-                [globalFilterFields]="['name','von','typ']"
+                [globalFilterFields]="['name','von','kategorie']"
                 [rowHover]="true" dataKey="id"
                 styleClass="p-datatable-customers p-datatable-striped rowexpand-table"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -51,7 +51,7 @@
                         <th pSortableColumn="von">Datum <p-sortIcon field="von"></p-sortIcon></th>
                         <th>
                             <span>Kategorie</span>
-                            <p-columnFilter field="typ" matchMode="equals" display="menu"
+                            <p-columnFilter field="kategorie" matchMode="equals" display="menu"
                                 [showOperator]="false" [showClearButton]="true" [showApplyButton]="true"
                                 [showMatchModes]="false" [showAddButton]="false" [hideOnClear]="true">
                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -83,7 +83,7 @@
 
                 <ng-template pTemplate="body" let-ausrueckung let-expanded="expanded">
                     <tr class="p-selectable-row">
-                        <td>
+                        <td class="not-on-small">
                             <button type="button" pButton pRipple
                                 [pRowToggler]="ausrueckung"
                                 style="color: #006600"
@@ -91,21 +91,21 @@
                                 [icon]="expanded ? 'pi pi-caret-down' : 'pi pi-caret-right'"
                             ></button>
                         </td>
-                        <td><span class="p-column-title">Name</span>
+                        <td><span class="p-column-title not-on-small">Name</span>
                             <span class="p-text-bold">{{ausrueckung.name}}</span>
                         </td>
-                        <td><span class="p-column-title">Datum</span>
+                        <td><span class="p-column-title not-on-small">Datum</span>
                             {{ausrueckung.von | date : "d. MMM / HH:mm"}}
                         </td>
-                        <td><span class="p-column-title">Kategorie</span>
-                            {{ausrueckung.typ}}
+                        <td class="not-on-small"><span class="p-column-title">Kategorie</span>
+                            {{ausrueckung.kategorie}}
                         </td>
-                        <td><span class="p-column-title">Status</span>
+                        <td><span class="p-column-title not-on-small">Status</span>
                             <span [class]="'ausrueckungen-badge status-' + (ausrueckung.status ? ausrueckung.status.toLowerCase() : '')">
                                 {{ausrueckung.status}}
                             </span>
                         </td>
-                        <td>
+                        <td class="not-on-small">
                             <div class="buttons-hide">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-mr-2" (click)="editAusrueckung(ausrueckung)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteAusrueckung(ausrueckung)"></button>
@@ -116,8 +116,19 @@
 
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
-                        <td colspan="4">{{ausrueckung.infoMusiker}}</td>
-                        <td colspan="4">{{ausrueckung.beschreibung}}</td>
+                        <td></td>
+                        <td colspan="5">
+                            <div class="p-col-12 p-grid">
+                                <p-panel *ngIf="ausrueckung.beschreibung"
+                                    header="Beschreibung" class="p-md-6"
+                                >{{ausrueckung.beschreibung}}</p-panel>
+
+                                <p-panel *ngIf="ausrueckung.infoMusiker"
+                                    header="Infos für die Musiker/innen" class="p-md-6"
+                                >{{ausrueckung.infoMusiker}}</p-panel>
+                            </div>
+
+                        </td>
 
                     </tr>
                 </ng-template>
@@ -187,10 +198,10 @@
                             <p-dropdown inputId="kategorie"
                                 [autoDisplayFirst]="updateAusrueckung"
                                 [options]="kategorien"
-                                [(ngModel)]="singleAusrueckung.typ"
+                                [(ngModel)]="singleAusrueckung.kategorie"
                                 required
                             ></p-dropdown>
-                            <small class="p-error" *ngIf="submitted && !singleAusrueckung.typ">Kategorie ist erforderlich!</small>
+                            <small class="p-error" *ngIf="submitted && !singleAusrueckung.kategorie">Kategorie ist erforderlich!</small>
                             <label for="kategorie">Kategorie</label>
                         </span>
                     </div>

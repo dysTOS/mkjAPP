@@ -3,7 +3,7 @@ export interface Ausrueckung {
   name?: string;
   beschreibung?: string;
   infoMusiker?: string;
-  typ?: string;
+  kategorie?: string;
   status?: string;
   von?: string;
   bis?: string;

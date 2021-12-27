@@ -41,7 +41,7 @@ export class AusrueckungenComponent implements OnInit {
     vonDatumDate: Date;
     bisDatumDate: Date;
 
-    selectedAusrueckungen: Ausrueckung[]; //not used atm
+    selectedAusrueckungen: Ausrueckung[];
 
     submitted: boolean;
     updateAusrueckung: boolean;
@@ -70,7 +70,7 @@ export class AusrueckungenComponent implements OnInit {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'von', header: 'Datum' },
-            { field: 'typ', header: 'typ' },
+            { field: 'kategorie', header: 'kategorie' },
             { field: 'status', header: 'Status' },
             { field: 'beschreibung', header: 'Beschreibung'},
             { field: 'infoMusiker', header: 'Infos für die Musiker'}
@@ -150,8 +150,8 @@ export class AusrueckungenComponent implements OnInit {
                 let index = this.findIndexById(this.singleAusrueckung.id);
 
                 this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
-                    (ausrueckungFromAPI) => this.ausrueckungenArray[index] = ausrueckungFromAPI,
-                    (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden!', life: 3000}),
+                    (ausrueckungFromAPI) => (this.ausrueckungenArray[index] = ausrueckungFromAPI, this.ausrueckungenArray = [...this.ausrueckungenArray]),
+                    (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000})
                 );
             }
@@ -160,14 +160,14 @@ export class AusrueckungenComponent implements OnInit {
                 this.singleAusrueckung.bis = moment(this.bisDatumDate.toISOString()).format("YYYY-MM-DD hh:mm:ss").toString();
 
                 this.ausrueckungService.createAusrueckung(this.singleAusrueckung).subscribe(
-                    (ausrueckungAPI) => this.ausrueckungenArray.push(ausrueckungAPI),
-                    (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht erstellt werden!', life: 3000}),
+                    (ausrueckungAPI) => {this.ausrueckungenArray.push(ausrueckungAPI); this.ausrueckungenArray = [...this.ausrueckungenArray]},
+                    (error) => this.messageService.add({severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht erstellt werden! ' + error, life: 3000}),
                     () => this.messageService.add({severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung erstellt!', life: 3000})
                 );
             }
 
             //console.log(this.singleAusrueckung);
-            this.ausrueckungenArray = [...this.ausrueckungenArray];
+            //this.ausrueckungenArray = [...this.ausrueckungenArray];
             this.ausrueckungDialog = false;
             this.singleAusrueckung = {};
         }
