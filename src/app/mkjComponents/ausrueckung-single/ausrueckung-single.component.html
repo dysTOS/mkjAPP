@@ -1,0 +1,24 @@
+<div class="card">
+    <p-toolbar class="p-mb-5">
+        <ng-template pTemplate="left">
+            <button
+                pButton
+                pRipple
+                label="Zurück"
+                icon="pi pi-arrow-left"
+                class="p-button-danger"
+                (click)="navigateBack()"
+            ></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-skeleton *ngIf="loading"></p-skeleton>
+    <div class="card" *ngIf="!loading">
+        <p>{{ ausrueckung.id }}</p>
+        <p>{{ ausrueckung.name }}</p>
+        <p>{{ ausrueckung.von }}</p>
+        <p>{{ ausrueckung.bis }}</p>
+        <p>{{ ausrueckung.beschreibung }}</p>
+        <p>{{ ausrueckung.infoMusiker }}</p>
+    </div>
+</div>
