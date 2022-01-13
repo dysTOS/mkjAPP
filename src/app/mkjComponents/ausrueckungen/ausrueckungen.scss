@@ -1,3 +1,7 @@
+.small-text {
+    font-size: 0.8em;
+}
+
 :host ::ng-deep {
     .p-paginator {
         .p-paginator-current {
@@ -6,11 +10,11 @@
     }
 
     .p-progressbar {
-        height: .5rem;
-        background-color: #D8DADC;
+        height: 0.5rem;
+        background-color: #d8dadc;
 
         .p-progressbar-value {
-            background-color: #607D8B;
+            background-color: #607d8b;
         }
     }
 
@@ -59,103 +63,36 @@
     }
 }
 
-.customer-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.status-qualified {
-        background: #C8E6C9;
-        color: #256029;
-    }
-
-    &.status-unqualified {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-
-    &.status-negotiation {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-
-    &.status-new {
-        background: #B3E5FC;
-        color: #23547B;
-    }
-
-    &.status-renewal {
-        background: #ECCFFF;
-        color: #694382;
-    }
-
-    &.status-proposal {
-        background: #FFD8B2;
-        color: #805B36;
-    }
+.buttons-hide {
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
-.buttons-hide{
-    visibility: hidden;
-}
-
-.buttons-hide:hover{
-    visibility:visible;
+.p-selectable-row:hover .buttons-hide {
+    opacity: 1;
 }
 
 .ausrueckungen-badge {
     border-radius: 2px;
-    padding: .25em .5rem;
+    padding: 0.25em 0.5rem;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 12px;
-    letter-spacing: .3px;
+    letter-spacing: 0.3px;
 
     &.status-fixiert {
-        background: #C8E6C9;
+        background: #c8e6c9;
         color: #256029;
     }
 
     &.status-abgesagt {
-        background: #FFCDD2;
-        color: #C63737;
+        background: #ffcdd2;
+        color: #c63737;
     }
 
     &.status-geplant {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-}
-
-.order-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.order-delivered {
-        background: #C8E6C9;
-        color: #256029;
-    }
-
-    &.order-cancelled {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-
-    &.order-pending {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-
-    &.order-returned {
-        background: #ECCFFF;
-        color: #694382;
+        background: #feedaf;
+        color: #8a5340;
     }
 }
 
@@ -163,16 +100,20 @@
     :host ::ng-deep {
         .p-datatable {
             &.p-datatable-customers {
-                .p-datatable-thead > tr > th,
-                .p-datatable-tfoot > tr > td {
+                .p-datatable-thead > tr > th {
                     display: none !important;
                 }
 
                 .p-datatable-tbody > tr {
                     border-bottom: 1px solid var(--surface-d);
+                    display: flex;
+                    align-items: center;
+
+                    .not-on-small {
+                        display: none !important;
+                    }
 
                     > td {
-                        text-align: left;
                         display: block;
                         border: 0 none !important;
                         width: 100% !important;
@@ -181,20 +122,19 @@
                         border: 0 none;
 
                         .p-column-title {
-                            padding: .4rem;
+                            padding: 0.4rem;
                             min-width: 30%;
                             display: inline-block;
-                            margin: -.4rem 1rem -.4rem -.4rem;
+                            margin: -0.4rem 1rem -0.4rem -0.4rem;
                             font-weight: bold;
                         }
 
                         .p-progressbar {
-                            margin-top: .5rem;
+                            margin-top: 0.5rem;
                         }
                     }
                 }
             }
         }
     }
-
 }
