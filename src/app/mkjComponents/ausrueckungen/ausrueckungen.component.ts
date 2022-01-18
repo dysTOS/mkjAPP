@@ -138,8 +138,7 @@ export class AusrueckungenComponent implements OnInit {
 
     deleteAusrueckung(ausrueckung: Ausrueckung) {
         this.confirmationService.confirm({
-            message: 'Soll die Ausrückung <b>"' + ausrueckung.name + '"</b> wirklich gelöscht werden?',
-            header: 'Löschen?',
+            header: '<b>' + ausrueckung.name + '</b> löschen?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.ausrueckungService.deleteAusrueckung(ausrueckung).subscribe(

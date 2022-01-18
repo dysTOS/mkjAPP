@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
+import { ServiceWorkerModule, SwPush, SwUpdate } from '@angular/service-worker';
 registerLocaleData(localeDe);
 
 // PrimeNG Components for demos
@@ -111,7 +112,7 @@ import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { AppErrorComponent } from './pages/app.error.component';
 import { AppAccessdeniedComponent } from './pages/app.accessdenied.component';
 import { AppLoginComponent } from './pages/app.login.component';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 // Demo pages
 import { DashboardDemoComponent } from './demo/view/dashboarddemo.component';
@@ -160,6 +161,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { AusrueckungenComponent } from './mkjComponents/ausrueckungen/ausrueckungen.component';
 import { AusrueckungSingleComponent } from './mkjComponents/ausrueckung-single/ausrueckung-single.component';
 import { ZeitraumPickerComponent } from './mkjUtilities/zeitraum-picker/zeitraum-picker.component';
+import { environment } from 'src/environments/environment';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -253,7 +255,10 @@ FullCalendarModule.registerPlugins([
         TreeModule,
         TreeTableModule,
         VirtualScrollerModule,
-        AppCodeModule
+        AppCodeModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production
+        }),
     ],
     declarations: [
         AppComponent,
@@ -314,8 +319,26 @@ FullCalendarModule.registerPlugins([
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: LOCALE_ID, useValue: 'de-AT' },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService
+        PhotoService, ProductService, MenuService, ConfirmationService
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    //Service Worker
+    constructor(update: SwUpdate, push: SwPush) {
+        update.available.subscribe(update => {
+            if (confirm("Update verfügbar!")) window.location.reload();
+            // confirmationService.confirm({
+            //     message: 'Die App wird aktualisiert!',
+            //     header: 'Update',
+            //     icon: 'pi pi-exclamation-triangle',
+            //     rejectVisible: false,
+            //     acceptLabel: 'OK',
+            //     accept: () => {
+            //         window.location.reload();
+            //     }
+            // });
+        });
+    }
+}
+
