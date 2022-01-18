@@ -327,7 +327,7 @@ export class AppModule {
     //Service Worker
     constructor(update: SwUpdate, push: SwPush) {
         update.available.subscribe(update => {
-            if (confirm("Update")) window.location.reload();
+            if (confirm("Update verfügbar!")) window.location.reload();
             // confirmationService.confirm({
             //     message: 'Die App wird aktualisiert!',
             //     header: 'Update',
