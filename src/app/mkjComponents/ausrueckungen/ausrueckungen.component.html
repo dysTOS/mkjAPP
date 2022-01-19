@@ -49,6 +49,7 @@
                 (onFilter)="setFilteredRows($event)"
                 stateStorage="session"
                 stateKey="ausrueckungenTable-session"
+                selectionMode="single"
             >
                 <ng-template pTemplate="caption">
                     <div
@@ -195,7 +196,7 @@
                     let-ausrueckung
                     let-expanded="expanded"
                 >
-                    <tr class="p-selectable-row">
+                    <tr class="p-selectable-row" [pSelectableRow]="ausrueckung">
                         <td style="width: 2px">
                             <button
                                 type="button"
