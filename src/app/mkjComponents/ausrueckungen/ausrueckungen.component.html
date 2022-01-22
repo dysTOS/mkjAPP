@@ -206,7 +206,8 @@
                                 >Datum</span
                             >
                             {{
-                                ausrueckung.von | date: "E d. MMMM YYYY / HH:mm"
+                                ausrueckung.von.replace(" ", "T")
+                                    | date: "E d. MMMM YYYY"
                             }}
                         </td>
                         <td class="not-on-small">

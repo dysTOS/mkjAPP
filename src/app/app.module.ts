@@ -162,6 +162,7 @@ import { AusrueckungenComponent } from './mkjComponents/ausrueckungen/ausrueckun
 import { AusrueckungSingleComponent } from './mkjComponents/ausrueckung-single/ausrueckung-single.component';
 import { ZeitraumPickerComponent } from './mkjUtilities/zeitraum-picker/zeitraum-picker.component';
 import { environment } from 'src/environments/environment';
+import { MkjDatePipe } from './mkjUtilities/mkj-date.pipe';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -313,7 +314,8 @@ FullCalendarModule.registerPlugins([
         AppAccessdeniedComponent,
         AusrueckungenComponent,
         AusrueckungSingleComponent,
-        ZeitraumPickerComponent
+        ZeitraumPickerComponent,
+        MkjDatePipe
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
