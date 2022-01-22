@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,8 +7,24 @@ import { EventEmitter } from '@angular/core';
     styleUrls: ['./zeitraum-picker.component.scss']
 })
 export class ZeitraumPickerComponent implements OnInit {
-    vonDatum: String;
-    bisDatum: String;
+    private _vonDatum: String;
+
+    @Input()
+    public get vonDatum(): String {
+        return this._vonDatum;
+    }
+    public set vonDatum(value: String) {
+        this._vonDatum = value;
+    }
+    private _bisDatum: String;
+
+    @Input()
+    public get bisDatum(): String {
+        return this._bisDatum;
+    }
+    public set bisDatum(value: String) {
+        this._bisDatum = value;
+    }
 
     @Output()
     vonDatumChange = new EventEmitter();
