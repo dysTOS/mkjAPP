@@ -33,7 +33,7 @@ export const statusOptions = [
     { label: 'Fixiert', value: 'fixiert' },
     { label: 'Geplant', value: 'geplant' },
     { label: 'Abgesagt', value: 'abgesagt' },
-    { label: 'Ausweichtermin', value: 'ausweichtermin' }
+    { label: 'Ersatztermin', value: 'ersatztermin' }
 ];
 
 export const columnOptions = [

@@ -9,7 +9,7 @@ export class MkjDatePipe implements PipeTransform {
 
     transform(date: any, format: string): any {
         if (date) {
-            return moment(date).format("YYYY-MM-DD");
+            return moment(date).format("YYYY-MM-DD"); //not used atm, beware of using invalid formats!
         }
     }
 
