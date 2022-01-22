@@ -78,11 +78,12 @@ export class AusrueckungenComponent implements OnInit {
         }
 
         this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen,
-                this.ausrueckungenArray.forEach(element => {
-                    element.von = element.von.replace('-', '/'); //because of iphone/safari date problem!!
-                    element.bis = element.bis.replace('-', '/');
-                })),
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen
+                // this.ausrueckungenArray.forEach(element => {
+                //     element.von = element.von.replace('-', '/'); //because of iphone/safari date problem!!
+                //     element.bis = element.bis.replace('-', '/');
+                // })
+            ),
             (error) => console.log(error.message),
             () => this.loading = false
         );
