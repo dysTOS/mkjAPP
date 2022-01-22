@@ -5,9 +5,22 @@
         <div class="card">
             <p-toolbar styleClass="p-mb-2">
                 <ng-template pTemplate="left">
-                    <h2>Ausrückungen</h2>
+                    <h3>Ausrückungen {{ zeitraumDisplayText }}</h3>
                 </ng-template>
-                <ng-template pTemplate="right">
+                <ng-template pTemplate="right" class="p-d-flex p-ai-center">
+                    <button
+                        pButton
+                        pRipple
+                        label="Zeitraum"
+                        icon="pi pi-filter"
+                        class="p-button-rounded p-button-text p-button-plain p-mr-2 p-mb-2"
+                        (click)="zeitraumMenu.toggle($event)"
+                    ></button>
+                    <p-menu
+                        #zeitraumMenu
+                        [popup]="true"
+                        [model]="zeitraumOptions"
+                    ></p-menu>
                     <button
                         pButton
                         pRipple
@@ -50,37 +63,16 @@
                 stateStorage="session"
                 stateKey="ausrueckungenTable-session"
                 selectionMode="single"
+                (onRowSelect)="onRowSelect($event)"
+                (onRowUnselect)="onRowUnselect($event)"
+                rowExpandMode="single"
+                [(selection)]="selectedRow"
             >
                 <ng-template pTemplate="caption">
                     <div
                         class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
                     >
-                        <div class="small-text">
-                            <span *ngIf="!ausrueckungFilterInput?.vonFilter">
-                                2022
-                            </span>
-                            <span *ngIf="ausrueckungFilterInput?.vonFilter">
-                                Von
-                                {{
-                                    ausrueckungFilterInput?.vonFilter
-                                        | date: "d. MMMM YYYY"
-                                }}
-                                bis
-                                {{
-                                    ausrueckungFilterInput?.bisFilter
-                                        | date: "d. MMMM YYYY"
-                                }}
-                            </span>
-                            <button
-                                pButton
-                                pRipple
-                                type="button"
-                                label="Zeitraum"
-                                icon="pi pi-filter"
-                                class="p-button-rounded p-button-text p-button-plain"
-                                (click)="showRangeSelectDialog()"
-                            ></button>
-                        </div>
+                        <div></div>
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input
@@ -100,7 +92,6 @@
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th></th>
                         <th pSortableColumn="name">
                             Name <p-sortIcon field="name"></p-sortIcon>
                         </th>
@@ -195,23 +186,13 @@
                     pTemplate="body"
                     let-ausrueckung
                     let-expanded="expanded"
+                    let-rowIndex="rowIndex"
                 >
-                    <tr class="p-selectable-row" [pSelectableRow]="ausrueckung">
-                        <td style="width: 2px">
-                            <button
-                                type="button"
-                                pButton
-                                pRipple
-                                [pRowToggler]="ausrueckung"
-                                style="color: #006600"
-                                class="p-button-text p-button-rounded p-button-plain"
-                                [icon]="
-                                    expanded
-                                        ? 'pi pi-caret-down'
-                                        : 'pi pi-caret-right'
-                                "
-                            ></button>
-                        </td>
+                    <tr
+                        class="p-selectable-row"
+                        [pSelectableRow]="ausrueckung"
+                        [pSelectableRowIndex]="rowIndex"
+                    >
                         <td>
                             <span class="p-column-title not-on-small"
                                 >Name</span
@@ -281,7 +262,6 @@
 
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
-                        <td></td>
                         <td colspan="5">
                             <div class="p-col-12 p-grid">
                                 <p-panel
@@ -518,24 +498,6 @@
             styleClass="p-fluid"
         >
             <ng-template pTemplate="content">
-                <div class="p-mb-5">
-                    <button
-                        pButton
-                        pRipple
-                        label="Alle Ausrückungen"
-                        icon="pi pi-align-justify"
-                        class="p-button-plain p-button-info p-mb-2"
-                        (click)="getAllAusrueckungen()"
-                    ></button>
-                    <button
-                        pButton
-                        pRipple
-                        label="Aktuelles Jahr"
-                        icon="pi pi-calendar"
-                        class="p-button-plain p-button-info p-mb-2"
-                        (click)="saveZeitraum(0)"
-                    ></button>
-                </div>
                 <div>
                     <app-zeitraum-picker
                         (vonDatumChange)="vonZeitraum = $event"

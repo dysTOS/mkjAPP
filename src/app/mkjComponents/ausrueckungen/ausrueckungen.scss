@@ -98,6 +98,11 @@
         background: #feedaf;
         color: #8a5340;
     }
+
+    &.status-ausweichtermin {
+        background: #b2ebfd;
+        color: #008ab4;
+    }
 }
 
 @media screen and (max-width: 960px) {
