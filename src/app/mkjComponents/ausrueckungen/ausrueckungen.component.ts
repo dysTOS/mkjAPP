@@ -78,12 +78,7 @@ export class AusrueckungenComponent implements OnInit {
         }
 
         this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen
-                // this.ausrueckungenArray.forEach(element => {
-                //     element.von = element.von.replace('-', '/'); //because of iphone/safari date problem!!
-                //     element.bis = element.bis.replace('-', '/');
-                // })
-            ),
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
             (error) => console.log(error.message),
             () => this.loading = false
         );
@@ -199,15 +194,11 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     getAllAusrueckungen() {
-        this.zeitraumDisplayText = "(Alle)";
+        this.zeitraumDisplayText = "Alle Ausrückungen";
         sessionStorage.removeItem("ausrueckungenFilter");
         this.loading = true;
         this.ausrueckungService.getAusrueckungen().subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen,
-                this.ausrueckungenArray.forEach(element => {
-                    element.von = element.von.replace('-', '/'); //because of iphone/safari date problem!!
-                    element.bis = element.bis.replace('-', '/');
-                })),
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
             (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Ausrückungen konnten nicht geladen werden! ' + error, life: 3000 }),
             () => (this.messageService.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Alle Ausrückungen geladen!', life: 3000 }), this.loading = false)
         );
@@ -234,11 +225,7 @@ export class AusrueckungenComponent implements OnInit {
 
         this.loading = true;
         this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = [...ausrueckungen],
-                this.ausrueckungenArray.forEach(element => {
-                    element.von = element.von.replace('-', '/'); //because of iphone/safari date problem!!
-                    element.bis = element.bis.replace('-', '/');
-                })),
+            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = [...ausrueckungen]),
             (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Zeitraum konnte nicht geändert werden! ' + error, life: 3000 }),
             () => (this.messageService.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Zeitraum geändert!', life: 3000 }), this.loading = false)
         );
@@ -247,11 +234,12 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     generateZeitraumDisplayText(filter: AusrueckungFilterInput): string {
-        return moment(filter.vonFilter).format("D. M. YYYY") + " bis " + moment(filter.bisFilter).format("D. M. YYYY");
+        return moment(filter.vonFilter).format("D.MM.YYYY") + " bis " + moment(filter.bisFilter).format("D.MM.YYYY");
     }
 
-    navigateSingleAusrueckung(id: number) {
-        this.router.navigate(['../ausrueckung/' + id], { relativeTo: this.route });
+    navigateSingleAusrueckung(ausrueckung: Ausrueckung) {
+        this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
+        this.router.navigate(['../ausrueckung/' + ausrueckung.id], { relativeTo: this.route });
     }
 
     setFilteredRows(e) {

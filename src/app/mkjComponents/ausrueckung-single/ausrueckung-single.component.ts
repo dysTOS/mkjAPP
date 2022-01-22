@@ -15,16 +15,23 @@ export class AusrueckungSingleComponent implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute, private ausrueckungenService: AusrueckungenService) { }
 
     ngOnInit(): void {
-        let ausrueckungID;
-        this.route.params.subscribe(e => ausrueckungID = e.id);
-        this.ausrueckungenService.getSingleAusrueckung(ausrueckungID).subscribe(
-            (ausrueckung) => this.ausrueckung = ausrueckung,
-            (error) => { },
-            () => this.loading = false
-        );
+        if (this.ausrueckungenService.hasSelectedAusrueckung()) {
+            this.ausrueckung = this.ausrueckungenService.getSelectedAusrueckung();
+            this.loading = false;
+        }
+        else {
+            let ausrueckungID;
+            this.route.params.subscribe(e => ausrueckungID = e.id);
+            this.ausrueckungenService.getSingleAusrueckung(ausrueckungID).subscribe(
+                (ausrueckung) => this.ausrueckung = ausrueckung,
+                (error) => { },
+                () => this.loading = false
+            );
+        }
     }
 
     navigateBack() {
+        this.ausrueckungenService.setSelectedAusrueckung(null);
         this.router.navigate(['/ausrueckungen'], { relativeTo: this.route });
     }
 

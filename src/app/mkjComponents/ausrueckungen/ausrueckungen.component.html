@@ -5,43 +5,45 @@
         <div class="card">
             <p-toolbar styleClass="p-mb-2">
                 <ng-template pTemplate="left">
-                    <h3>Ausrückungen {{ zeitraumDisplayText }}</h3>
+                    <h3>Ausrückungen</h3>
                 </ng-template>
-                <ng-template pTemplate="right" class="p-d-flex p-ai-center">
-                    <button
-                        pButton
-                        pRipple
-                        label="Zeitraum"
-                        icon="pi pi-filter"
-                        class="p-button-rounded p-button-text p-button-plain p-mr-2 p-mb-2"
-                        (click)="zeitraumMenu.toggle($event)"
-                    ></button>
-                    <p-menu
-                        #zeitraumMenu
-                        [popup]="true"
-                        [model]="zeitraumOptions"
-                    ></p-menu>
-                    <button
-                        pButton
-                        pRipple
-                        label="Neue Ausrückung"
-                        icon="pi pi-plus"
-                        class="p-button-success p-mr-2 p-mb-2"
-                        (click)="openNew()"
-                    ></button>
-                    <button
-                        pButton
-                        pRipple
-                        label="Export"
-                        icon="pi pi-upload"
-                        class="p-button-info p-mb-2"
-                        (click)="exportMenu.toggle($event)"
-                    ></button>
-                    <p-menu
-                        #exportMenu
-                        [popup]="true"
-                        [model]="exportOptions"
-                    ></p-menu>
+                <ng-template pTemplate="right">
+                    <div class="p-grid">
+                        <button
+                            pButton
+                            pRipple
+                            [label]="zeitraumDisplayText"
+                            icon="pi pi-filter"
+                            class="p-button-rounded p-button-text p-button-plain p-mr-2 p-mb-2"
+                            (click)="zeitraumMenu.toggle($event)"
+                        ></button>
+                        <p-menu
+                            #zeitraumMenu
+                            [popup]="true"
+                            [model]="zeitraumOptions"
+                        ></p-menu>
+                        <button
+                            pButton
+                            pRipple
+                            label="Neue Ausrückung"
+                            icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openNew()"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            label="Export"
+                            icon="pi pi-upload"
+                            class="p-button-info p-mb-2"
+                            (click)="exportMenu.toggle($event)"
+                        ></button>
+                        <p-menu
+                            #exportMenu
+                            [popup]="true"
+                            [model]="exportOptions"
+                        ></p-menu>
+                    </div>
                 </ng-template>
             </p-toolbar>
 
@@ -237,9 +239,7 @@
                                     icon="pi pi-list"
                                     class="p-button-rounded p-button-info p-mr-2"
                                     (click)="
-                                        navigateSingleAusrueckung(
-                                            ausrueckung.id
-                                        )
+                                        navigateSingleAusrueckung(ausrueckung)
                                     "
                                 ></button>
                                 <button
@@ -503,6 +503,7 @@
                     <app-zeitraum-picker
                         (vonDatumChange)="vonZeitraum = $event"
                         (bisDatumChange)="bisZeitraum = $event"
+                        zeitraumCorrect
                     ></app-zeitraum-picker>
                 </div>
             </ng-template>

@@ -17,7 +17,7 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class AusrueckungenService {
-
+    private selectedAusrueckung: Ausrueckung; //for fast routing to single Ausrueckung
     private apiURL = environment.apiUrl;
 
 
@@ -54,4 +54,13 @@ export class AusrueckungenService {
         return this.http.delete<Ausrueckung>(url, httpOptions);
     }
 
+    hasSelectedAusrueckung() {
+        return this.selectedAusrueckung != undefined || this.selectedAusrueckung != null;
+    }
+    getSelectedAusrueckung() {
+        return this.selectedAusrueckung;
+    }
+    setSelectedAusrueckung(ausrueckung: Ausrueckung) {
+        this.selectedAusrueckung = ausrueckung;
+    }
 }
