@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AppMainComponent} from './app.main.component';
+import { Component } from '@angular/core';
+import { AppMainComponent } from './app.main.component';
 
 @Component({
     selector: 'app-topbar',
@@ -11,12 +11,6 @@ import {AppMainComponent} from './app.main.component';
                 </a>
             </div>
 
-            <!--
-			<a href="#">
-                <img src="assets/layout/images/logo-text.svg" class="app-name"/>
-            </a>
--->
-
             <div class="app-name p-text-bold" style="color: white">
                 <h3>mkjAPP</h3>
             </div>
@@ -27,7 +21,7 @@ import {AppMainComponent} from './app.main.component';
 
             <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-visible': appMain.topbarMenuActive}">
                 <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
-                    <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
+                    <!-- <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
                         <div class="profile-image">
                             <img src="assets/layout/images/profile-image.png">
                         </div>
@@ -65,8 +59,8 @@ import {AppMainComponent} from './app.main.component';
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li #settings [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === settings}">
+                </li> -->
+                <!-- <li #settings [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === settings}">
                     <a href="#" (click)="appMain.onTopbarItemClick($event,settings)">
                         <i class="topbar-icon pi pi-cog"></i>
                         <span class="topbar-item-name">Settings</span>
@@ -97,8 +91,8 @@ import {AppMainComponent} from './app.main.component';
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li #messages [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === messages}">
+                </li> -->
+                <!-- <li #messages [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === messages}">
                     <a href="#" (click)="appMain.onTopbarItemClick($event,messages)">
                         <i class="topbar-icon pi pi-envelope"></i>
                         <span class="topbar-badge">5</span>
@@ -136,53 +130,42 @@ import {AppMainComponent} from './app.main.component';
                             </a>
                         </li>
                     </ul>
+                </li> -->
+                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
+                    <a routerLink="" (click)="appMain.onTopbarItemClick($event,profile, false)">
+                        <i class="topbar-icon pi pi-home"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Dashboard</span>
+                    </a>
                 </li>
                 <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
-                    <a href="#" (click)="appMain.onTopbarItemClick($event,notifications)">
-                        <i class="topbar-icon pi pi-clock"></i>
-                        <span class="topbar-badge">4</span>
-                        <span class="topbar-item-name">Notifications</span>
+                    <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,notifications, false)">
+                        <i class="topbar-icon pi pi-calendar"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Ausrückungen</span>
                     </a>
                     <ul class="fadeInDown">
                         <li role="menuitem">
-                            <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
-                                <i class="pi pi-sliders-h"></i>
-                                <span>Pending tasks</span>
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
-                                <i class="pi pi-calendar"></i>
-                                <span>Meeting today at 3pm</span>
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
-                                <i class="pi pi-download"></i>
-                                <span>Download documents</span>
-                            </a>
-                        </li>
-                        <li role="menuitem">
-                            <a href="#" (click)="appMain.onTopbarSubItemClick($event)">
-                                <i class="pi pi-ticket"></i>
-                                <span>Book flight</span>
+                            <a routerLink="/ausrueckungen" (click)="appMain.onTopbarSubItemClick($event)">
+                                <i class="pi pi-calendar-times"></i>
+                                <span>Ausrückungen</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li #search class="search-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === search}"
+                <!-- <li #search class="search-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === search}"
                     (click)="appMain.onTopbarItemClick($event,search)">
                         <span class="p-input-icon-right">
                             <input type="text" pInputText placeholder="Search">
                             <i class="topbar-icon pi pi-search"></i>
                         </span>
-                </li>
+                </li> -->
             </ul>
         </div>
     `
 })
 export class AppTopbarComponent {
 
-    constructor(public appMain: AppMainComponent) {}
+    constructor(public appMain: AppMainComponent) { }
 
 }

@@ -1641,6 +1641,7 @@ body a {
     transition: color 0.3s;
 }
 .layout-wrapper .topbar .topbar-menu {
+    display: none;
     float: right;
     margin: 16px 10px 0 0;
     padding: 0;
@@ -2584,7 +2585,6 @@ body a {
 }
 .layout-wrapper .layout-main {
     flex: 1 1 0;
-    margin-left: 65px;
     padding: 80px 10px 0px 10px;
     -moz-transition: margin-left 0.3s;
     -o-transition: margin-left 0.3s;
@@ -2593,7 +2593,6 @@ body a {
 }
 
 .layout-wrapper .footer {
-    margin-left: 65px;
     padding: 0.5em;
     -moz-transition: margin-left 0.3s;
     -o-transition: margin-left 0.3s;
@@ -2743,6 +2742,12 @@ body a {
     .layout-config .layout-config-close {
         right: 10px;
     }
+    .layout-main {
+        margin-left: 0px;
+    }
+    .layout-sidebar {
+        display: none;
+    }
 }
 @media (min-width: 1025px) {
     .layout-wrapper.layout-wrapper-menu-active .layout-sidebar {
@@ -2765,6 +2770,12 @@ body a {
         margin-left: 65px;
     }
     .layout-wrapper.layout-overlay-menu.layout-wrapper-menu-active .footer {
+        margin-left: 65px;
+    }
+    .layout-main {
+        margin-left: 65px;
+    }
+    .footer {
         margin-left: 65px;
     }
 }
@@ -2967,10 +2978,10 @@ body a {
         width: 290px;
     }
     .layout-wrapper .layout-main {
-        margin-left: 40px;
+        margin-left: 0px;
     }
     .layout-wrapper .footer {
-        margin-left: 40px;
+        margin-left: 0px;
     }
 }
 .layout-tabmenu-content .inbox-tab {

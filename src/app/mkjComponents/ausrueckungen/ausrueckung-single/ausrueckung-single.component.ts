@@ -1,4 +1,4 @@
-import { AusrueckungenService } from './../../mkjServices/ausrueckungen.service';
+import { AusrueckungenService } from '../../../mkjServices/ausrueckungen.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Ausrueckung } from 'src/app/mkjInterfaces/Ausrueckung';

@@ -86,9 +86,8 @@
             @include flex-wrap(wrap);
 
             > div {
-                padding: .25rem;
+                padding: 0.25rem;
             }
-
 
             a {
                 width: 2rem;
@@ -99,15 +98,15 @@
                 @include flex-align-center();
                 @include flex-justify-center();
                 transition: transform $transitionDuration;
-                box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+                box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 
                 i {
                     font-size: 1rem;
                     position: absolute;
                     top: 50%;
                     left: 50%;
-                    margin-left: -.5rem;
-                    margin-top: -.5rem;
+                    margin-left: -0.5rem;
+                    margin-top: -0.5rem;
                     color: #ffffff;
                 }
 
@@ -129,7 +128,7 @@
     }
 }
 
-.blocked-scroll-config{
+.blocked-scroll-config {
     overflow: hidden;
 }
 

@@ -39,7 +39,7 @@ import { AppTimelineDemoComponent } from './pages/app.timelinedemo.component';
 import { AppInvoiceComponent } from './pages/app.invoice.component';
 import { AppHelpComponent } from './pages/app.help.component';
 import { AusrueckungenComponent } from './mkjComponents/ausrueckungen/ausrueckungen.component';
-import { AusrueckungSingleComponent } from './mkjComponents/ausrueckung-single/ausrueckung-single.component';
+import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component';
 
 
 @NgModule({
