@@ -15,6 +15,7 @@ export interface Ausrueckung {
 export interface AusrueckungFilterInput {
     vonFilter?: string;
     bisFilter?: string;
+    alle?: boolean;
 }
 
 export enum ZeitraumOptions {

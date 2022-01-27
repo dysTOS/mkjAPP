@@ -1,6 +1,6 @@
-import {Component, AfterViewInit, Renderer2, OnInit, OnDestroy} from '@angular/core';
+import { Component, AfterViewInit, Renderer2, OnInit, OnDestroy } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
 @Component({
     selector: 'app-main',
@@ -26,7 +26,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
-    constructor(public renderer: Renderer2, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
+    constructor(public renderer: Renderer2, private primengConfig: PrimeNGConfig, public app: AppComponent) { }
 
     ngAfterViewInit() {
         this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
@@ -51,7 +51,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
 
     onTabClick(event: Event, index: number) {
         // TEST für Menüeintrag
-        if(index === 5){
+        if (index === 5) {
             this.activeTabIndex = index;
             this.sidebarActive = false;
             return;
@@ -84,12 +84,14 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
         event.preventDefault();
     }
 
-    onTopbarItemClick(event, item) {
-        this.topbarItemClick = true;
+    onTopbarItemClick(event, item, topItemClick) {
+        this.topbarItemClick = topItemClick;
 
         if (this.activeTopbarItem === item) {
-            this.activeTopbarItem = null; } else {
-            this.activeTopbarItem = item; }
+            this.activeTopbarItem = null;
+        } else {
+            this.activeTopbarItem = item;
+        }
 
         event.preventDefault();
     }

@@ -159,7 +159,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 import { AusrueckungenComponent } from './mkjComponents/ausrueckungen/ausrueckungen.component';
-import { AusrueckungSingleComponent } from './mkjComponents/ausrueckung-single/ausrueckung-single.component';
+import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component';
 import { ZeitraumPickerComponent } from './mkjUtilities/zeitraum-picker/zeitraum-picker.component';
 import { environment } from 'src/environments/environment';
 import { MkjDatePipe } from './mkjUtilities/mkj-date.pipe';
@@ -327,19 +327,19 @@ FullCalendarModule.registerPlugins([
 })
 export class AppModule {
     //Service Worker
-    constructor(update: SwUpdate, push: SwPush) {
+    constructor(update: SwUpdate, push: SwPush, confirmationService: ConfirmationService) {
         update.available.subscribe(update => {
-            if (confirm("Update verfügbar!")) window.location.reload();
-            // confirmationService.confirm({
-            //     message: 'Die App wird aktualisiert!',
-            //     header: 'Update',
-            //     icon: 'pi pi-exclamation-triangle',
-            //     rejectVisible: false,
-            //     acceptLabel: 'OK',
-            //     accept: () => {
-            //         window.location.reload();
-            //     }
-            // });
+            // if (confirm("Update verfügbar!")) window.location.reload();
+            confirmationService.confirm({
+                message: 'Die App wird kurz aktualisiert!',
+                header: 'Update',
+                icon: 'pi pi-exclamation-triangle',
+                rejectVisible: false,
+                acceptLabel: 'OK',
+                accept: () => {
+                    window.location.reload();
+                }
+            });
         });
     }
 }

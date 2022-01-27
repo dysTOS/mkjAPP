@@ -72,16 +72,20 @@ export class AusrueckungenComponent implements OnInit {
             this.zeitraumDisplayText = year;
             this.ausrueckungFilterInput = {
                 vonFilter: year + "-01-01 00:00:00",
-                bisFilter: year + "-12-31 23:59:59"
+                bisFilter: year + "-12-31 23:59:59",
+                alle: false
             }
 
         }
 
-        this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-            ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
-            (error) => console.log(error.message),
-            () => this.loading = false
-        );
+        if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
+        else {
+            this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
+                ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
+                (error) => console.log(error.message),
+                () => this.loading = false
+            );
+        }
 
         this.exportOptions = [
             {
@@ -103,7 +107,7 @@ export class AusrueckungenComponent implements OnInit {
                 command: () => this.saveZeitraum(ZeitraumOptions.ActualYear)
             },
             {
-                label: 'Spezifisch', icon: 'pi pi-calendar-times',
+                label: 'Zeitraum', icon: 'pi pi-pencil',
                 command: () => this.showZeitraumDialog()
             },
             {
@@ -195,7 +199,8 @@ export class AusrueckungenComponent implements OnInit {
 
     getAllAusrueckungen() {
         this.zeitraumDisplayText = "Alle Ausrückungen";
-        sessionStorage.removeItem("ausrueckungenFilter");
+        this.ausrueckungFilterInput.alle = true;
+        sessionStorage.setItem("ausrueckungenFilter", JSON.stringify(this.ausrueckungFilterInput));
         this.loading = true;
         this.ausrueckungService.getAusrueckungen().subscribe(
             ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
@@ -208,7 +213,8 @@ export class AusrueckungenComponent implements OnInit {
         if (zeitraum == ZeitraumOptions.SpecificRange && this.vonZeitraum && this.bisZeitraum) {
             this.ausrueckungFilterInput = {
                 vonFilter: moment(new Date(this.vonZeitraum)).format("YYYY-MM-DD HH:mm:ss").toString(),
-                bisFilter: moment(new Date(this.bisZeitraum)).format("YYYY-MM-DD HH:mm:ss").toString()
+                bisFilter: moment(new Date(this.bisZeitraum)).format("YYYY-MM-DD HH:mm:ss").toString(),
+                alle: false
             }
             this.zeitraumDisplayText = this.generateZeitraumDisplayText(this.ausrueckungFilterInput);
             sessionStorage.setItem("ausrueckungenFilter", JSON.stringify(this.ausrueckungFilterInput));
@@ -218,7 +224,8 @@ export class AusrueckungenComponent implements OnInit {
             let year = new Date().getFullYear();
             this.ausrueckungFilterInput = {
                 vonFilter: year + "-01-01 00:00:00",
-                bisFilter: year + "-12-31 23:59:59"
+                bisFilter: year + "-12-31 23:59:59",
+                alle: false
             }
             sessionStorage.removeItem("ausrueckungenFilter");
         }
