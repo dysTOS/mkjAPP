@@ -53,7 +53,7 @@
 
     .p-datatable.p-datatable-customers:not(.p-datatable-gridlines) {
         .p-datatable-tbody > tr > td {
-            cursor: auto;
+            cursor: pointer;
         }
     }
 
@@ -101,7 +101,7 @@
 
     &.status-ersatztermin {
         background: #b2ebfd;
-        color: #008ab4;
+        color: #016a8a;
     }
 }
 

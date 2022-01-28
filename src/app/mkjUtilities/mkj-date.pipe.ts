@@ -1,16 +1,19 @@
+import { DatePipe } from '@angular/common';
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import * as moment from 'moment';
 
 @Pipe({
     name: 'mkjDate'
 })
 @Injectable()
 export class MkjDatePipe implements PipeTransform {
+    constructor(private datePipe: DatePipe) { }
 
-    transform(date: any, format: string): any {
+    transform(date: string): string {
         if (date) {
-            return moment(date).format("YYYY-MM-DD"); //not used atm, beware of using invalid formats!
+            date = date.replace(' ', 'T');
+            return this.datePipe.transform(date, "E d. MMMM YYYY hh:mm");
         }
+        else return '';
     }
 
 }

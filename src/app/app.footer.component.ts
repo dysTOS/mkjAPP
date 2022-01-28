@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-footer',
@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
             <div class="card clearfix">
                 <span class="footer-text-left"><a href="https://www.mk-jainzen.at" target="_blank">www.mk-jainzen.at</a></span>
                 <span class="footer-text-right">
-                    <span>Developed by Roland Sams</span>
+                    <span>Developed by Gulaschmusi</span>
                 </span>
             </div>
         </div>

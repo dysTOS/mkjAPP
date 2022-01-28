@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -163,6 +163,7 @@ import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrue
 import { ZeitraumPickerComponent } from './mkjUtilities/zeitraum-picker/zeitraum-picker.component';
 import { environment } from 'src/environments/environment';
 import { MkjDatePipe } from './mkjUtilities/mkj-date.pipe';
+import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -315,13 +316,14 @@ FullCalendarModule.registerPlugins([
         AusrueckungenComponent,
         AusrueckungSingleComponent,
         ZeitraumPickerComponent,
-        MkjDatePipe
+        MkjDatePipe,
+        MkjDashboardComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: LOCALE_ID, useValue: 'de-AT' },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, ConfirmationService
+        PhotoService, ProductService, MenuService, ConfirmationService, DatePipe
     ],
     bootstrap: [AppComponent]
 })
