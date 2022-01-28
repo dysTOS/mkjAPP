@@ -1,0 +1,23 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <div class="card p-d-flex p-jc-center">
+            <div style="text-align: center" *ngIf="!nextAusrueckung">
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </div>
+            <div style="text-align: center" *ngIf="nextAusrueckung">
+                <h4>Nächste Spielerei:</h4>
+                <h2>{{ nextAusrueckung?.name }}</h2>
+                <p>{{ nextAusrueckung?.von | mkjDate }}</p>
+                <p>{{ nextAusrueckung?.ort }}</p>
+                <p>{{ nextAusrueckung?.infoMusiker }}</p>
+                <p>{{ nextAusrueckung?.beschreibung }}</p>
+                <button
+                    pButton
+                    label="Alle Ausrückungen"
+                    routerLink="/ausrueckungen"
+                    class="p-button-outlined"
+                ></button>
+            </div>
+        </div>
+    </div>
+</div>

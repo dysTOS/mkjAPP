@@ -34,6 +34,11 @@ export class AusrueckungenService {
         return this.http.get<Ausrueckung>(url, httpOptions);
     }
 
+    getNextAusrueckung(): Observable<Ausrueckung> {
+        const url = this.apiURL + "/api/nextausrueckung";
+        return this.http.get<Ausrueckung>(url, httpOptions);
+    }
+
     getAusrueckungenFiltered(filterInput: AusrueckungFilterInput): Observable<Ausrueckung[]> {
         const url = this.apiURL + "/api/ausrueckungenfiltered";
         return this.http.post<Ausrueckung[]>(url, filterInput, httpOptions);

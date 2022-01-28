@@ -1,3 +1,4 @@
+import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardDemoComponent } from './demo/view/dashboarddemo.component';
@@ -48,10 +49,11 @@ import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrue
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    { path: '', component: DashboardDemoComponent },
+                    { path: '', component: MkjDashboardComponent },
                     { path: 'ausrueckungen', component: AusrueckungenComponent },
                     { path: 'ausrueckung/:id', component: AusrueckungSingleComponent },
 
+                    { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },
                     { path: 'uikit/floatlabel', component: FloatLabelDemoComponent },
                     { path: 'uikit/invalidstate', component: InvalidStateDemoComponent },

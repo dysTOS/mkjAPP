@@ -2,7 +2,7 @@
     <div class="p-col-12">
         <p-toast position="top-right"></p-toast>
 
-        <div class="card">
+        <div>
             <p-toolbar styleClass="p-mb-2">
                 <ng-template pTemplate="left">
                     <h3>Ausrückungen</h3>
@@ -216,10 +216,8 @@
                             <span class="p-column-title">Kategorie</span>
                             {{ ausrueckung.kategorie }}
                         </td>
-                        <td>
-                            <span class="p-column-title not-on-small"
-                                >Status</span
-                            >
+                        <td class="not-on-small">
+                            <span class="p-column-title">Status</span>
                             <span
                                 [class]="
                                     'ausrueckungen-badge status-' +

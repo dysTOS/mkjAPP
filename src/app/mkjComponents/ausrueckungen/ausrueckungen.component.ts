@@ -167,7 +167,7 @@ export class AusrueckungenComponent implements OnInit {
     saveAusrueckung() {
         this.submitted = true;
 
-        if (!this.singleAusrueckung.name.trim() || !this.singleAusrueckung.kategorie || !this.singleAusrueckung.status || !this.singleAusrueckung.von || !this.singleAusrueckung.bis) return;
+        if (!this.singleAusrueckung.name.trim() || !this.singleAusrueckung.kategorie || !this.singleAusrueckung.status || !this.vonDatumDate || !this.bisDatumDate) return;
 
 
         if (this.singleAusrueckung.id) { //update
