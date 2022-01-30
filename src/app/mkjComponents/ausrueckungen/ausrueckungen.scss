@@ -72,10 +72,6 @@
     opacity: 1;
 }
 
-.p-highlight .buttons-hide {
-    opacity: 1;
-}
-
 .ausrueckungen-badge {
     border-radius: 2px;
     padding: 0.25em 0.5rem;
@@ -105,6 +101,12 @@
     }
 }
 
+@media (min-width: 961px) {
+    .just-on-small {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 960px) {
     :host ::ng-deep {
         .p-datatable {
@@ -113,14 +115,17 @@
                     display: none !important;
                 }
 
+                .not-on-small {
+                    display: none !important;
+                }
+                .just-on-small {
+                    display: block;
+                }
+
                 .p-datatable-tbody > tr {
                     border-bottom: 1px solid var(--surface-d);
                     display: flex;
                     align-items: center;
-
-                    .not-on-small {
-                        display: none !important;
-                    }
 
                     > td {
                         display: block;

@@ -75,7 +75,7 @@
                         class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
                     >
                         <div></div>
-                        <span class="p-input-icon-left">
+                        <span class="p-input-icon-left not-on-small">
                             <i class="pi pi-search"></i>
                             <input
                                 pInputText
@@ -196,28 +196,17 @@
                         [pSelectableRowIndex]="rowIndex"
                     >
                         <td>
-                            <span class="p-column-title not-on-small"
-                                >Name</span
-                            >
                             <span class="p-text-bold">{{
                                 ausrueckung.name
                             }}</span>
                         </td>
                         <td>
-                            <span class="p-column-title not-on-small"
-                                >Datum</span
-                            >
-                            {{
-                                ausrueckung.von.replace(" ", "T")
-                                    | date: "E d. MMMM YYYY"
-                            }}
+                            {{ ausrueckung.von | mkjDate: "E d. MMMM YYYY" }}
                         </td>
                         <td class="not-on-small">
-                            <span class="p-column-title">Kategorie</span>
                             {{ ausrueckung.kategorie }}
                         </td>
                         <td class="not-on-small">
-                            <span class="p-column-title">Status</span>
                             <span
                                 [class]="
                                     'ausrueckungen-badge status-' +
@@ -264,24 +253,84 @@
                         <td colspan="5">
                             <div class="p-col-12 p-grid">
                                 <p-panel
-                                    *ngIf="ausrueckung.beschreibung"
-                                    header="Beschreibung"
-                                    class="p-md-6"
-                                    >{{ ausrueckung.beschreibung }}</p-panel
+                                    class="p-md-12 p-sm-12 p-"
+                                    style="text-align: left"
                                 >
+                                    <div
+                                        class="p-d-flex p-flex-wrap p-jc-between p-ai-center"
+                                    >
+                                        <div class="p-mr-2 p-mb-2">
+                                            {{ ausrueckung.kategorie }}
+                                        </div>
+                                        <div
+                                            class="p-mr-2 p-mb-2"
+                                            *ngIf="ausrueckung.status"
+                                        >
+                                            <span
+                                                [class]="
+                                                    'ausrueckungen-badge status-' +
+                                                    (ausrueckung.status
+                                                        ? ausrueckung.status.toLowerCase()
+                                                        : '')
+                                                "
+                                            >
+                                                {{ ausrueckung.status }}
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="p-mr-2 p-mb-2"
+                                            *ngIf="ausrueckung.treffzeit"
+                                        >
+                                            Treffzeit:
+                                            {{
+                                                ausrueckung.von
+                                                    | mkjDate: "hh:mm"
+                                            }}
+                                        </div>
+                                        <div
+                                            class="p-mr-2 p-mb-2"
+                                            *ngIf="ausrueckung.ort"
+                                        >
+                                            Ort:
+                                            {{ ausrueckung.ort }}
+                                        </div>
 
+                                        <div
+                                            class="p-mr-2 p-mb-2 just-on-small"
+                                        >
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-ellipsis-h"
+                                                class="p-button-rounded p-button-warning p-mr-2"
+                                                (click)="
+                                                    navigateSingleAusrueckung(
+                                                        ausrueckung
+                                                    )
+                                                "
+                                            ></button>
+                                        </div>
+                                    </div>
+                                </p-panel>
                                 <p-panel
                                     *ngIf="ausrueckung.infoMusiker"
-                                    header="Infos für die Musiker/innen"
-                                    class="p-md-6"
-                                    >{{ ausrueckung.infoMusiker }}</p-panel
+                                    header="Info"
+                                    class="p-md-6 p-sm-12"
+                                    style="text-align: left"
                                 >
-                                <p-panel class="p-md-12">
-                                    Erstellt am:
-                                    {{ ausrueckung.created_at | date: "d.M.Y"
-                                    }}<br />
-                                    Bearbeitet am:
-                                    {{ ausrueckung.updated_at | date: "d.M.Y" }}
+                                    {{ ausrueckung.infoMusiker }}
+                                </p-panel>
+                                <p-panel
+                                    *ngIf="ausrueckung.beschreibung"
+                                    [header]="
+                                        ausrueckung.oeffentlich
+                                            ? 'Beschreibung (www.mk-jainzen.at)'
+                                            : 'Beschreibung'
+                                    "
+                                    class="p-md-6 p-sm-12"
+                                    style="text-align: left"
+                                >
+                                    {{ ausrueckung.beschreibung }}
                                 </p-panel>
                             </div>
                         </td>
@@ -328,15 +377,16 @@
             "
             [modal]="true"
             styleClass="p-fluid"
+            position="top"
         >
             <ng-template pTemplate="content">
                 <div class="p-fluid p-grid" style="margin-top: 5px">
                     <div class="p-col-12">
-                        <div class="p-d-flex p-jc-end p-ai-center card">
-                            <div class="p-mr-2">Auf Homepage anzeigen?</div>
+                        <div class="p-d-flex p-jc-center">
                             <p-checkbox
                                 [(ngModel)]="singleAusrueckung.oeffentlich"
                                 [binary]="true"
+                                label="Auf www.mk-jainzen.at anzeigen?"
                             ></p-checkbox>
                         </div>
                     </div>
@@ -358,7 +408,27 @@
                             <label for="name">Name</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-6">
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <p-calendar
+                                inputId="treffzeit"
+                                [(ngModel)]="treffZeit"
+                                [timeOnly]="true"
+                                showIcon="true"
+                                [appendTo]="ausrDialog"
+                                (ngModelChange)="onVonCalendarChange()"
+                                required
+                            ></p-calendar>
+                            <small
+                                class="p-error"
+                                *ngIf="submitted && !vonDatumDate"
+                                >Datum/Zeit ist erforderlich!</small
+                            >
+                            <label for="treffzeit">Treffzeit</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
                         <span class="p-float-label">
                             <p-calendar
                                 inputId="von"
@@ -377,7 +447,7 @@
                             <label for="von">Von</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-6">
+                    <div class="p-field p-col-12 p-md-4">
                         <span class="p-float-label">
                             <p-calendar
                                 inputId="bis"
@@ -396,7 +466,19 @@
                         </span>
                     </div>
 
-                    <div class="p-field p-col-12 p-md-6">
+                    <div class="p-field p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <input
+                                type="text"
+                                pInputText
+                                inputId="ort"
+                                [(ngModel)]="singleAusrueckung.ort"
+                            />
+
+                            <label for="ort">Ort</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
                         <span class="p-float-label">
                             <p-dropdown
                                 inputId="kategorie"
@@ -415,7 +497,7 @@
                             <label for="kategorie">Kategorie</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-6">
+                    <div class="p-field p-col-12 p-md-4">
                         <span class="p-float-label">
                             <p-dropdown
                                 inputId="status"
@@ -423,7 +505,31 @@
                                 [options]="status"
                                 [(ngModel)]="singleAusrueckung.status"
                                 required
-                            ></p-dropdown>
+                                ><ng-template pTemplate="selectedItem">
+                                    <div
+                                        *ngIf="singleAusrueckung.status"
+                                        [class]="
+                                            'ausrueckungen-badge status-' +
+                                            (singleAusrueckung.status
+                                                ? singleAusrueckung.status.toLowerCase()
+                                                : '')
+                                        "
+                                    >
+                                        {{ singleAusrueckung.status }}
+                                    </div>
+                                </ng-template>
+                                <ng-template let-status pTemplate="item">
+                                    <div
+                                        [class]="
+                                            'ausrueckungen-badge status-' +
+                                            status.value
+                                        "
+                                    >
+                                        {{ status.label }}
+                                    </div>
+                                </ng-template></p-dropdown
+                            >
+
                             <small
                                 class="p-error"
                                 *ngIf="submitted && !singleAusrueckung.status"
@@ -495,6 +601,7 @@
             [closable]="false"
             [modal]="true"
             styleClass="p-fluid"
+            position="top"
         >
             <ng-template pTemplate="content">
                 <div>

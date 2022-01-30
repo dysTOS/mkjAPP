@@ -10,6 +10,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
+import { Time } from '@angular/common';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -20,8 +21,8 @@ import { Table } from 'primeng/table';
                 text-align: center;
             }
 
-            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:first-child {
-                width: auto !important;
+            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:nth-child(2) {
+                text-align: right;
             }
         }
 
@@ -40,6 +41,7 @@ export class AusrueckungenComponent implements OnInit {
     singleAusrueckung: Ausrueckung;
     vonDatumDate: Date;
     bisDatumDate: Date;
+    treffZeit: Time;
     vonZeitraum: string;
     bisZeitraum: string;
     zeitraumDisplayText: string;
@@ -55,7 +57,7 @@ export class AusrueckungenComponent implements OnInit {
     status = statusOptions;
 
     @ViewChild('dt') ausrueckungenTabelle: Table;
-    selectedRow;
+    selectedRow: any;
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
@@ -166,7 +168,7 @@ export class AusrueckungenComponent implements OnInit {
 
     saveAusrueckung() {
         this.submitted = true;
-
+        console.log(this.treffZeit)
         if (!this.singleAusrueckung.name.trim() || !this.singleAusrueckung.kategorie || !this.singleAusrueckung.status || !this.vonDatumDate || !this.bisDatumDate) return;
 
 
