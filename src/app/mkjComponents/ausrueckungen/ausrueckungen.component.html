@@ -412,31 +412,14 @@
                     <div class="p-field p-col-12 p-md-4">
                         <span class="p-float-label">
                             <p-calendar
-                                inputId="treffzeit"
-                                [(ngModel)]="treffZeit"
-                                [timeOnly]="true"
-                                showIcon="true"
-                                [appendTo]="ausrDialog"
-                                (ngModelChange)="onVonCalendarChange()"
-                                required
-                            ></p-calendar>
-                            <small
-                                class="p-error"
-                                *ngIf="submitted && !vonDatumDate"
-                                >Datum/Zeit ist erforderlich!</small
-                            >
-                            <label for="treffzeit">Treffzeit</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-4">
-                        <span class="p-float-label">
-                            <p-calendar
                                 inputId="von"
                                 [(ngModel)]="vonDatumDate"
                                 [showTime]="true"
                                 showIcon="true"
                                 [appendTo]="ausrDialog"
+                                [showButtonBar]="true"
                                 (ngModelChange)="onVonCalendarChange()"
+                                [hideOnDateTimeSelect]="false"
                                 required
                             ></p-calendar>
                             <small
@@ -463,6 +446,20 @@
                                 >Datum/Zeit ist erforderlich!</small
                             >
                             <label for="bis">Bis</label>
+                        </span>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <span class="p-float-label">
+                            <p-calendar
+                                inputId="treffzeit"
+                                [(ngModel)]="treffZeitDate"
+                                [timeOnly]="true"
+                                showIcon="true"
+                                [stepMinute]="15"
+                                [appendTo]="ausrDialog"
+                                icon="pi pi-clock"
+                            ></p-calendar>
+                            <label for="treffzeit">Treffzeit</label>
                         </span>
                     </div>
 

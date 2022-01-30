@@ -329,19 +329,9 @@ FullCalendarModule.registerPlugins([
 })
 export class AppModule {
     //Service Worker
-    constructor(update: SwUpdate, push: SwPush, confirmationService: ConfirmationService) {
+    constructor(update: SwUpdate, push: SwPush) {
         update.available.subscribe(update => {
-            // if (confirm("Update verfügbar!")) window.location.reload();
-            confirmationService.confirm({
-                message: 'Die App wird kurz aktualisiert!',
-                header: 'Update',
-                icon: 'pi pi-exclamation-triangle',
-                rejectVisible: false,
-                acceptLabel: 'OK',
-                accept: () => {
-                    window.location.reload();
-                }
-            });
+            if (confirm("Update verfügbar!")) window.location.reload();
         });
     }
 }

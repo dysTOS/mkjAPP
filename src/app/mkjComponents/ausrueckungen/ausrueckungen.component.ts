@@ -41,7 +41,8 @@ export class AusrueckungenComponent implements OnInit {
     singleAusrueckung: Ausrueckung;
     vonDatumDate: Date;
     bisDatumDate: Date;
-    treffZeit: Time;
+    treffZeitDate: Date;
+
     vonZeitraum: string;
     bisZeitraum: string;
     zeitraumDisplayText: string;
@@ -56,7 +57,7 @@ export class AusrueckungenComponent implements OnInit {
     kategorien = kategorienOptions;
     status = statusOptions;
 
-    @ViewChild('dt') ausrueckungenTabelle: Table;
+    @ViewChild('dt') ausrueckungenTable: Table;
     selectedRow: any;
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
@@ -124,6 +125,7 @@ export class AusrueckungenComponent implements OnInit {
         this.singleAusrueckung.oeffentlich = true;
         this.vonDatumDate = null;
         this.bisDatumDate = null;
+        this.treffZeitDate = null;
         this.submitted = false;
         this.updateAusrueckung = false;
         this.ausrueckungDialog = true;
@@ -133,6 +135,7 @@ export class AusrueckungenComponent implements OnInit {
         this.singleAusrueckung = { ...ausrueckung };
         this.vonDatumDate = new Date(this.singleAusrueckung.von);
         this.bisDatumDate = new Date(this.singleAusrueckung.bis);
+        this.treffZeitDate = this.singleAusrueckung.treffzeit ? new Date(this.singleAusrueckung.treffzeit) : null;
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
@@ -168,16 +171,18 @@ export class AusrueckungenComponent implements OnInit {
 
     saveAusrueckung() {
         this.submitted = true;
-        console.log(this.treffZeit)
+
         if (!this.singleAusrueckung.name.trim() || !this.singleAusrueckung.kategorie || !this.singleAusrueckung.status || !this.vonDatumDate || !this.bisDatumDate) return;
 
 
         if (this.singleAusrueckung.id) { //update
             this.singleAusrueckung.von = moment(this.vonDatumDate).format("YYYY-MM-DD HH:mm:ss").toString();
             this.singleAusrueckung.bis = moment(this.bisDatumDate).format("YYYY-MM-DD HH:mm:ss").toString();
+            if (this.treffZeitDate)
+                this.singleAusrueckung.treffzeit = moment(this.treffZeitDate).format("YYYY-MM-DD HH:mm:ss").toString();
 
             let index = this.findIndexById(this.singleAusrueckung.id);
-
+            console.log(this.singleAusrueckung.treffzeit)
             this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
                 (ausrueckungFromAPI) => (this.ausrueckungenArray[index] = ausrueckungFromAPI, this.ausrueckungenArray = [...this.ausrueckungenArray]),
                 (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000 }),
@@ -187,6 +192,8 @@ export class AusrueckungenComponent implements OnInit {
         else { //neue
             this.singleAusrueckung.von = moment(this.vonDatumDate).format("YYYY-MM-DD HH:mm:ss").toString();
             this.singleAusrueckung.bis = moment(this.bisDatumDate).format("YYYY-MM-DD HH:mm:ss").toString();
+            if (this.treffZeitDate)
+                this.singleAusrueckung.treffzeit = moment(this.treffZeitDate).format("YYYY-MM-DD HH:mm:ss").toString();
 
             this.ausrueckungService.createAusrueckung(this.singleAusrueckung).subscribe(
                 (ausrueckungAPI) => { this.ausrueckungenArray.push(ausrueckungAPI); this.ausrueckungenArray = [...this.ausrueckungenArray] },
@@ -256,7 +263,7 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     exportCsv() {
-        this.ausrueckungenTabelle.exportCSV({ filteredValues: true });
+        this.ausrueckungenTable.exportCSV({ filteredValues: true });
     }
 
     exportPdf() {
@@ -307,6 +314,7 @@ export class AusrueckungenComponent implements OnInit {
     onVonCalendarChange() {
         if (this.vonDatumDate) {
             let v = moment(this.vonDatumDate);
+            this.treffZeitDate = new Date(v.toISOString());
             let b = v.add(2, 'h');
             this.bisDatumDate = new Date(b.toISOString());
         }
@@ -324,11 +332,11 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     onRowSelect(event) {
-        this.ausrueckungenTabelle.toggleRow(event.data);
+        this.ausrueckungenTable.toggleRow(event.data);
     }
 
     onRowUnselect(event) {
-        this.ausrueckungenTabelle.toggleRow(event.data);
+        this.ausrueckungenTable.toggleRow(event.data);
     }
 
 }
