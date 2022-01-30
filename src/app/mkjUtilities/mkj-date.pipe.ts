@@ -8,10 +8,10 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 export class MkjDatePipe implements PipeTransform {
     constructor(private datePipe: DatePipe) { }
 
-    transform(date: string): string {
+    transform(date: string, format: string): string {
         if (date) {
             date = date.replace(' ', 'T');
-            return this.datePipe.transform(date, "E d. MMMM YYYY hh:mm");
+            return this.datePipe.transform(date, format);
         }
         else return '';
     }

@@ -6,6 +6,8 @@ export interface Ausrueckung {
     oeffentlich?: boolean;
     kategorie?: string;
     status?: string;
+    ort?: string;
+    treffzeit?: string;
     von?: string;
     bis?: string;
     created_at?: string;
