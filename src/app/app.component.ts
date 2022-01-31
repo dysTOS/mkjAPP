@@ -1,11 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {PrimeNGConfig} from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PrimeNGConfig } from 'primeng/api';
+import { AuthStateService } from './mkjServices/authentication/auth-state.service';
+import { TokenService } from './mkjServices/authentication/token.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+    isSignedIn: boolean;
 
     layoutMode = 'static';
 
@@ -17,9 +21,22 @@ export class AppComponent implements OnInit{
 
     compactMode = false;
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: PrimeNGConfig, private auth: AuthStateService,
+        public router: Router,
+        public tokenService: TokenService,) { }
+
+    // Signout
+    signOut() {
+        this.auth.setAuthState(false);
+        this.tokenService.removeToken();
+        this.router.navigate(['login']);
+    }
 
     ngOnInit() {
+        this.auth.userAuthState.subscribe(val => {
+            this.isSignedIn = val;
+        });
+
         this.primengConfig.ripple = true;
 
         this.primengConfig.setTranslation({
@@ -56,8 +73,8 @@ export class AppComponent implements OnInit{
             "dayNames": ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
             "dayNamesShort": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
             "dayNamesMin": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-            "monthNames": ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],
-            "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun","Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+            "monthNames": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+            "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
             "dateFormat": "d. M yy",
             "today": "Heute",
             "weekHeader": "Wk",

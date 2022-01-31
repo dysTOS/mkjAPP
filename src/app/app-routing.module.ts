@@ -1,3 +1,5 @@
+import { LoginComponent } from './mkjServices/authentication/login/login.component';
+import { SignupComponent } from './mkjServices/authentication/signup/signup.component';
 import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -19,7 +21,6 @@ import { AppMainComponent } from './app.main.component';
 import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { AppErrorComponent } from './pages/app.error.component';
 import { AppAccessdeniedComponent } from './pages/app.accessdenied.component';
-import { AppLoginComponent } from './pages/app.login.component';
 import { InputDemoComponent } from './demo/view/inputdemo.component';
 import { ButtonDemoComponent } from './demo/view/buttondemo.component';
 import { TableDemoComponent } from './demo/view/tabledemo.component';
@@ -41,6 +42,9 @@ import { AppInvoiceComponent } from './pages/app.invoice.component';
 import { AppHelpComponent } from './pages/app.help.component';
 import { AusrueckungenComponent } from './mkjComponents/ausrueckungen/ausrueckungen.component';
 import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component';
+import {
+    AuthGuardService
+} from './mkjServices/authentication/auth-guard.service'
 
 
 @NgModule({
@@ -51,7 +55,7 @@ import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrue
                 children: [
                     { path: '', component: MkjDashboardComponent },
                     { path: 'ausrueckungen', component: AusrueckungenComponent },
-                    { path: 'ausrueckung/:id', component: AusrueckungSingleComponent },
+                    { path: 'ausrueckung/:id', component: AusrueckungSingleComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },
@@ -91,7 +95,8 @@ import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrue
             { path: 'error', component: AppErrorComponent },
             { path: 'access', component: AppAccessdeniedComponent },
             { path: 'notfound', component: AppNotfoundComponent },
-            { path: 'login', component: AppLoginComponent },
+            { path: 'signup', component: SignupComponent },
+            { path: 'login', component: LoginComponent },
             { path: '**', redirectTo: '/notfound' },
         ], { scrollPositionRestoration: 'enabled' })
     ],

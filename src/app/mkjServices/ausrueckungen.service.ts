@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 1|FyB2Kg6W8vfuhTngnNvPpEmjfFJSRTIg5Ck9Pou0'
+        // 'Authorization': 'Bearer 1|FyB2Kg6W8vfuhTngnNvPpEmjfFJSRTIg5Ck9Pou0'
     }),
 };
 
