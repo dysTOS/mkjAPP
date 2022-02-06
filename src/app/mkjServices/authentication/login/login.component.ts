@@ -11,6 +11,8 @@ import { TokenService } from '../token.service';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    submitted: boolean = false;
+
     user: User = {
         name: null,
         email: null,
@@ -25,21 +27,23 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
     }
     onSubmit() {
-        this.authService.login(this.user).subscribe(
-            result => {
-                this.responseHandler(result);
-            },
-            error => {
-                console.log(error);
-            }, () => {
-                this.authState.setAuthState(true);
-                this.router.navigate(['']);
-            }
-        );
+        this.submitted = true;
+        if (this.checkInput()) {
+            this.authService.login(this.user).subscribe(
+                result => {
+                    this.tokenService.saveToken(result.token);
+                    this.authState.setAuthState(true);
+                    this.router.navigate(['']);
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+        }
     }
 
-    // Handle response
-    responseHandler(data) {
-        this.tokenService.saveToken(data.token);
+    checkInput(): boolean {
+        if (this.user.name && this.user.email && this.user.passwort) return true;
+        return false;
     }
 }

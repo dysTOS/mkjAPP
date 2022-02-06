@@ -3,23 +3,48 @@
         <div class="p-grid p-nogutter">
             <div class="p-col-12 login-header">
                 <h1>LOGIN</h1>
-                <img src="assets/layout/images/logo.png" />
+                <h2>Willkommen bei der mkjAPP!</h2>
+                <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
             </div>
             <div class="p-col-12">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.name" />
+                    <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="user.name"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.name"
+                        >Name ist erforderlich!</small
+                    >
                     <label>Name</label>
                 </span>
             </div>
             <div class="p-col-12">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.email" />
+                    <input
+                        type="email"
+                        pInputText
+                        [(ngModel)]="user.email"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.email"
+                        >Name ist erforderlich!</small
+                    >
                     <label>E-Mail</label>
                 </span>
             </div>
             <div class="p-col-12">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.passwort" />
+                    <input
+                        type="password"
+                        pInputText
+                        [(ngModel)]="user.passwort"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.passwort"
+                        >Name ist erforderlich!</small
+                    >
                     <label>Passwort</label>
                 </span>
             </div>
@@ -27,7 +52,7 @@
                 <button
                     pButton
                     type="button"
-                    label="Sign In"
+                    label="Login"
                     icon="pi pi-user"
                     (click)="onSubmit()"
                 ></button>

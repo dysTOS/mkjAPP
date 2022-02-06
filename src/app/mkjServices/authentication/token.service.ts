@@ -25,22 +25,25 @@ export class TokenService {
     // Verify the token
     isValidToken() {
         const token = this.getToken();
-        return true;
-        if (token) {
-            const payload = this.payload(token);
-            if (payload) {
-                return Object.values(this.issuer).indexOf(payload.iss) > -1 ? true : false;
-            }
-        } else {
+        if (token)
+            return true;
+        else
             return false;
-        }
-        return null;
+        // if (token) {
+        //     const payload = this.payload(token);
+        //     if (payload) {
+        //         return Object.values(this.issuer).indexOf(payload.iss) > -1 ? true : false;
+        //     }
+        // } else {
+        //     return false;
+        // }
+        // return null;
     }
 
-    payload(token) {
-        const jwtPayload = token.split('.')[1];
-        return JSON.parse(atob(jwtPayload));
-    }
+    // payload(token) {
+    //     const jwtPayload = token.split('.')[1];
+    //     return JSON.parse(atob(jwtPayload));
+    // }
 
     // User state based on valid token
     isLoggedIn() {

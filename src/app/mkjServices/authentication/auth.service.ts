@@ -31,4 +31,14 @@ export class AuthService {
         return this.http.post<any>(url, user);
     }
 
+    logout(user: User): Observable<any> {
+        const url = this.apiURL + "/api/logout";
+        return this.http.post<any>(url, user);
+    }
+
+    deleteUser(user: User): Observable<any> {
+        const url = this.apiURL + "/api/deleteuser";
+        return this.http.post<any>(url, user);
+    }
+
 }
