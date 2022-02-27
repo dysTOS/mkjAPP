@@ -12,21 +12,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MkjDashboardComponent implements OnInit {
     nextAusrueckung: Ausrueckung;
+    nextAusrueckungLoading: boolean = false;
 
     constructor(private router: Router, private ausrueckungService: AusrueckungenService, private authService: AuthService, private tokenService: TokenService) { }
 
     ngOnInit(): void {
-        this.ausrueckungService.getNextAusrueckung().subscribe((ausrueckung) => this.nextAusrueckung = ausrueckung);
+        this.nextAusrueckungLoading = true;
+        this.ausrueckungService.getNextAusrueckung().subscribe((ausrueckung) => {
+            this.nextAusrueckung = ausrueckung, this.nextAusrueckungLoading = false
+        }, () => this.nextAusrueckungLoading = false);
     }
 
-    logout() {
-        this.authService.logout({ name: "Roland", email: "rolandsams@gmail.com", passwort: "acdc" }).subscribe
-            ((res) => console.log(res), (error) => console.log(error), () => this.tokenService.removeToken());
-        this.router.navigate(['login']);
-    }
 
     deleteUser() {
-        this.authService.deleteUser({ name: "Roland", email: "rolandsams@gmail.com", passwort: "acdc" }).subscribe
+        this.authService.deleteUser({ name: "Roland", email: "rolandsams@gmail.com" }).subscribe
             ((res) => console.log(res), (error) => console.log(error), () => this.tokenService.removeToken());
         this.router.navigate(['login']);
     }

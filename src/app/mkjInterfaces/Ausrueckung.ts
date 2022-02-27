@@ -1,5 +1,5 @@
 export interface Ausrueckung {
-    id?: string;
+    id?: number;
     name?: string;
     beschreibung?: string;
     infoMusiker?: string;
@@ -42,7 +42,7 @@ export const statusOptions = [
 export const columnOptions = [
     { field: 'name', header: 'Name' },
     { field: 'von', header: 'Datum' },
-    { field: 'kategorie', header: 'kategorie' },
+    { field: 'kategorie', header: 'Kategorie' },
     { field: 'status', header: 'Status' },
     { field: 'beschreibung', header: 'Beschreibung' },
     { field: 'infoMusiker', header: 'Infos für die Musiker' }

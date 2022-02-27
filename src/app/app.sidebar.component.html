@@ -6,6 +6,21 @@
 >
     <div class="layout-tabmenu">
         <ul class="layout-tabmenu-nav">
+            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 6 }">
+                <a
+                    href="#"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, 6)"
+                    pTooltip="Home"
+                    ><i class="pi pi-fw pi-home"></i
+                ></a>
+
+                <div class="layout-tabmenu-tooltip">
+                    <div class="layout-tabmenu-tooltip-arrow"></div>
+                    <div class="layout-tabmenu-tooltip-text">Home</div>
+                </div>
+            </li>
             <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 5 }">
                 <a
@@ -13,6 +28,7 @@
                     pRipple
                     class="tabmenuitem-link"
                     (click)="appMain.onTabClick($event, 5)"
+                    pTooltip="Ausrückungen"
                     ><i class="pi pi-fw pi-calendar"></i
                 ></a>
                 <div class="layout-tabmenu-tooltip">
@@ -22,7 +38,7 @@
             </li>
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 0 }">
+            <!-- <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 0 }">
                 <a
                     href="#"
                     pRipple
@@ -30,6 +46,7 @@
                     (click)="appMain.onTabClick($event, 0)"
                     ><i class="pi pi-fw pi-home"></i
                 ></a>
+
                 <div class="layout-tabmenu-tooltip">
                     <div class="layout-tabmenu-tooltip-arrow"></div>
                     <div class="layout-tabmenu-tooltip-text">Features</div>
@@ -86,6 +103,20 @@
                     <div class="layout-tabmenu-tooltip-arrow"></div>
                     <div class="layout-tabmenu-tooltip-text">Team</div>
                 </div>
+            </li> -->
+        </ul>
+
+        <ul class="layout-tabmenu-nav">
+            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 7 }">
+                <a
+                    href="#"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, 7)"
+                    pTooltip="Logout"
+                    (click)="logout()"
+                    ><i class="pi pi-sign-out"></i
+                ></a>
             </li>
         </ul>
 
@@ -368,7 +399,7 @@
                 }"
             >
                 <div class="layout-submenu-title clearfix">
-                    <span>Team</span>
+                    <span>User</span>
                     <a
                         href="#"
                         class="menu-button pi pi-bars"
@@ -376,47 +407,8 @@
                     ></a>
                 </div>
                 <app-sidebarTabContent>
-                    <div class="team-tab">
-                        <ul>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar1.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Joshua Williams</span>
-                                <span class="location">New York, USA</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar2.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Jennifer Clarkson</span>
-                                <span class="location">Paris, France</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar3.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Tim Johnson</span>
-                                <span class="location"
-                                    >London, United Kingdom</span
-                                >
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar4.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">David Stark</span>
-                                <span class="location">San Francisco, USA</span>
-                            </li>
-                        </ul>
+                    <div class="team-tab p-p-2">
+                        <div>{{ user?.name }}</div>
                     </div>
                 </app-sidebarTabContent>
             </div>

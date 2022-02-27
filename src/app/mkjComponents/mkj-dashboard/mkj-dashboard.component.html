@@ -1,7 +1,7 @@
 <div class="p-grid">
     <div class="p-col-12">
         <div class="card p-d-flex p-jc-center">
-            <div style="text-align: center" *ngIf="!nextAusrueckung">
+            <div style="text-align: center" *ngIf="nextAusrueckungLoading">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
             </div>
             <div style="text-align: center" *ngIf="nextAusrueckung">
@@ -22,17 +22,22 @@
                 ></button>
             </div>
         </div>
-        <button
-            pButton
-            label="Logout"
-            class="p-button-danger"
-            (click)="logout()"
-        ></button>
-        <button
+
+        <div class="card p-d-flex p-jc-center">
+            <div style="text-align: center">
+                <h4>Hallo!</h4>
+                <p>
+                    Das ist die erste Demo-Version unserer App für die mobile
+                    Vereinsverwaltung.
+                </p>
+            </div>
+        </div>
+
+        <!-- <button
             pButton
             label="deleteUser"
             class="p-button-danger"
             (click)="deleteUser()"
-        ></button>
+        ></button> -->
     </div>
 </div>

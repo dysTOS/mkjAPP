@@ -8,8 +8,14 @@
             </div>
             <div class="p-col-12">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.name" />
-                    <label>Benutzername</label>
+                    <input type="text" pInputText [(ngModel)]="user.vorname" />
+                    <label>Vorname</label>
+                </span>
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="user.zuname" />
+                    <label>Familienname</label>
                 </span>
             </div>
             <div class="p-col-12">
@@ -29,7 +35,7 @@
                     pButton
                     type="button"
                     label="Sign In"
-                    icon="pi pi-user"
+                    [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
                     (click)="onSubmit()"
                 ></button>
             </div>

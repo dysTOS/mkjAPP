@@ -51,7 +51,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
 
     onTabClick(event: Event, index: number) {
         // TEST für Menüeintrag
-        if (index === 5) {
+        if (index >= 5) {
             this.activeTabIndex = index;
             this.sidebarActive = false;
             return;

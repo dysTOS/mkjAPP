@@ -25,20 +25,23 @@ export class AppComponent implements OnInit {
         public router: Router,
         public tokenService: TokenService,) { }
 
-    // Signout
-    signOut() {
-        this.auth.setAuthState(false);
-        this.tokenService.removeToken();
-        this.router.navigate(['login']);
-    }
 
     ngOnInit() {
         this.auth.userAuthState.subscribe(val => {
             this.isSignedIn = val;
         });
-
         this.primengConfig.ripple = true;
+        this.initTranslation();
 
+    }
+
+    logout() {
+        this.auth.setAuthState(false);
+        this.tokenService.removeToken();
+        this.router.navigate(['login']);
+    }
+
+    private initTranslation() {
         this.primengConfig.setTranslation({
             "startsWith": "beginnt mit",
             "contains": "enthält",

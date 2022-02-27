@@ -320,7 +320,7 @@ export class AusrueckungenComponent implements OnInit {
         }
     }
 
-    findIndexById(id: string): number {
+    findIndexById(id: number): number {
         let index = -1;
         for (let i = 0; i < this.ausrueckungenArray.length; i++) {
             if (this.ausrueckungenArray[i].id === id) {

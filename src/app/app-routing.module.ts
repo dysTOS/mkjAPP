@@ -53,8 +53,8 @@ import {
             {
                 path: '', component: AppMainComponent,
                 children: [
-                    { path: '', component: MkjDashboardComponent },
-                    { path: 'ausrueckungen', component: AusrueckungenComponent },
+                    { path: '', component: MkjDashboardComponent, canActivate: [AuthGuardService] },
+                    { path: 'ausrueckungen', component: AusrueckungenComponent, canActivate: [AuthGuardService] },
                     { path: 'ausrueckung/:id', component: AusrueckungSingleComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from './mkjServices/authentication/user.service';
+import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
+import { AuthService } from './mkjServices/authentication/auth.service';
+import { TokenService } from './mkjServices/authentication/token.service';
 
 @Component({
     selector: 'app-topbar',
@@ -19,9 +23,10 @@ import { AppMainComponent } from './app.main.component';
                 <i class="pi pi-bars"></i>
             </a>
 
+
             <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-visible': appMain.topbarMenuActive}">
-                <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
-                    <!-- <a href="#" (click)="appMain.onTopbarItemClick($event,profile)">
+                <!-- <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
+                    <a href="#" (click)="appMain.onTopbarItemClick($event,profile,true)">
                         <div class="profile-image">
                             <img src="assets/layout/images/profile-image.png">
                         </div>
@@ -61,7 +66,7 @@ import { AppMainComponent } from './app.main.component';
                     </ul>
                 </li> -->
                 <!-- <li #settings [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === settings}">
-                    <a href="#" (click)="appMain.onTopbarItemClick($event,settings)">
+                    <a href="#" (click)="appMain.onTopbarItemClick($event,settings, true)">
                         <i class="topbar-icon pi pi-cog"></i>
                         <span class="topbar-item-name">Settings</span>
                     </a>
@@ -93,7 +98,7 @@ import { AppMainComponent } from './app.main.component';
                     </ul>
                 </li> -->
                 <!-- <li #messages [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === messages}">
-                    <a href="#" (click)="appMain.onTopbarItemClick($event,messages)">
+                    <a href="#" (click)="appMain.onTopbarItemClick($event,messages,true)">
                         <i class="topbar-icon pi pi-envelope"></i>
                         <span class="topbar-badge">5</span>
                         <span class="topbar-item-name">Messages</span>
@@ -131,8 +136,8 @@ import { AppMainComponent } from './app.main.component';
                         </li>
                     </ul>
                 </li> -->
-                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
-                    <a routerLink="" (click)="appMain.onTopbarItemClick($event,profile, false)">
+                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
+                    <a routerLink="" (click)="appMain.onTopbarItemClick($event,notifications, false)">
                         <i class="topbar-icon pi pi-home"></i>
                         <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Dashboard</span>
@@ -153,6 +158,14 @@ import { AppMainComponent } from './app.main.component';
                         </li>
                     </ul>
                 </li>
+
+                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
+                    <a routerLink="/login" (click)="appMain.onTopbarItemClick($event,notifications, false); logout()">
+                        <i class="topbar-icon pi pi-sign-out"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Logout</span>
+                    </a>
+                </li>
                 <!-- <li #search class="search-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === search}"
                     (click)="appMain.onTopbarItemClick($event,search)">
                         <span class="p-input-icon-right">
@@ -164,8 +177,23 @@ import { AppMainComponent } from './app.main.component';
         </div>
     `
 })
-export class AppTopbarComponent {
+export class AppTopbarComponent implements OnInit {
 
-    constructor(public appMain: AppMainComponent) { }
+
+    constructor(public appMain: AppMainComponent,
+        private tokenService: TokenService,
+        private authService: AuthService,
+        private userService: UserService
+    ) { }
+
+    ngOnInit(): void {
+    }
+
+    logout() {
+        this.userService.onLogout();
+        this.authService.logout().subscribe(() => {
+            this.tokenService.removeToken();
+        });
+    }
 
 }
