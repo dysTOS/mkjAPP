@@ -1,0 +1,44 @@
+<div class="login-body">
+    <div class="login-panel p-fluid">
+        <div class="p-grid p-nogutter">
+            <div class="p-col-12 login-header">
+                <h1>Registrierung</h1>
+                <h2>Wilkommen bei der mkjAPP!</h2>
+                <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="user.vorname" />
+                    <label>Vorname</label>
+                </span>
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="user.zuname" />
+                    <label>Familienname</label>
+                </span>
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="user.email" />
+                    <label>E-Mail</label>
+                </span>
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText [(ngModel)]="user.passwort" />
+                    <label>Passwort</label>
+                </span>
+            </div>
+            <div class="p-col-12 button-container">
+                <button
+                    pButton
+                    type="button"
+                    label="Sign In"
+                    [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
+                    (click)="onSubmit()"
+                ></button>
+            </div>
+        </div>
+    </div>
+</div>

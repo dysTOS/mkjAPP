@@ -1,0 +1,55 @@
+<div class="login-body">
+    <div class="login-panel p-fluid">
+        <div class="p-grid p-nogutter">
+            <div class="p-col-12 login-header">
+                <h1>LOGIN</h1>
+                <h2>Willkommen bei der mkjAPP!</h2>
+                <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input
+                        type="email"
+                        pInputText
+                        [(ngModel)]="user.email"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.email"
+                        >Name ist erforderlich!</small
+                    >
+                    <label>E-Mail</label>
+                </span>
+            </div>
+            <div class="p-col-12">
+                <span class="p-float-label">
+                    <input
+                        type="password"
+                        pInputText
+                        [(ngModel)]="user.passwort"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.passwort"
+                        >Name ist erforderlich!</small
+                    >
+                    <label>Passwort</label>
+                </span>
+            </div>
+            <div class="p-col-12 button-container">
+                <button
+                    pButton
+                    type="button"
+                    label="Login"
+                    [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
+                    (click)="onSubmit()"
+                ></button>
+                <button
+                    pButton
+                    type="button"
+                    class="p-button p-button-outlined p-button-small p-mt-3"
+                    label="Zur Registrierung"
+                    [routerLink]="['/signup']"
+                ></button>
+            </div>
+        </div>
+    </div>
+</div>

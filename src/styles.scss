@@ -9,20 +9,21 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #d8d8d8;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #118a01;
+    background: #949494;
+    border-radius: 3px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
+    background: #118a01;
 }

@@ -398,7 +398,6 @@
                                 inputId="name"
                                 [(ngModel)]="singleAusrueckung.name"
                                 required
-                                autofocus
                             />
                             <small
                                 class="p-error"
@@ -584,7 +583,7 @@
                     pRipple
                     label="Speichern"
                     icon="pi pi-check"
-                    class="p-button-text"
+                    class="p-button-plain"
                     (click)="saveAusrueckung()"
                 ></button>
             </ng-template>

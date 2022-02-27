@@ -1,6 +1,7 @@
+import { AuthGuardService } from './mkjServices/authentication/auth-guard.service';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -164,6 +165,9 @@ import { ZeitraumPickerComponent } from './mkjUtilities/zeitraum-picker/zeitraum
 import { environment } from 'src/environments/environment';
 import { MkjDatePipe } from './mkjUtilities/mkj-date.pipe';
 import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
+import { AuthInterceptor } from './mkjServices/authentication/auth-interceptor/auth-interceptor.component';
+import { SignupComponent } from './mkjServices/authentication/signup/signup.component';
+import { LoginComponent } from './mkjServices/authentication/login/login.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -258,6 +262,7 @@ FullCalendarModule.registerPlugins([
         TreeTableModule,
         VirtualScrollerModule,
         AppCodeModule,
+        ReactiveFormsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production
         }),
@@ -317,13 +322,21 @@ FullCalendarModule.registerPlugins([
         AusrueckungSingleComponent,
         ZeitraumPickerComponent,
         MkjDatePipe,
-        MkjDashboardComponent
+        MkjDashboardComponent,
+        SignupComponent,
+        LoginComponent,
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: LOCALE_ID, useValue: 'de-AT' },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, ConfirmationService, DatePipe
+        PhotoService, ProductService, MenuService, ConfirmationService, DatePipe, AuthGuardService
     ],
     bootstrap: [AppComponent]
 })
