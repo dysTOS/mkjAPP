@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AuthStateService } from '../auth-state.service';
 import { AuthService } from '../auth.service';
 import { TokenService } from '../token.service';
-import { LoginCredentials } from '../User';
+import { LoginCredentials } from '../../../mkjInterfaces/User';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -20,14 +21,15 @@ export class LoginComponent implements OnInit {
         passwort: null
     }
 
-    constructor(public router: Router,
-        public authService: AuthService,
+    constructor(private router: Router,
+        private authService: AuthService,
         private tokenService: TokenService,
         private authState: AuthStateService,
-        private userService: UserService) { }
+        private userService: UserService,
+        private messageService: MessageService) { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
+
     onSubmit() {
         this.submitted = true;
         if (this.checkInput()) {
@@ -37,11 +39,16 @@ export class LoginComponent implements OnInit {
                     this.tokenService.saveToken(result.token);
                     this.authState.setAuthState(true);
                     this.userService.setCurrentUser(result.user);
+                    this.userService.setCurrentMitglied(result.mitglied);
                     this.userService.setCurrentUserRoles(result.roles);
                     this.router.navigate(['']);
                 },
                 error => {
-                    console.log(error), this.isChecking = false
+                    this.messageService.add(
+                        {
+                            severity: 'error', summary: "Fehler",
+                            detail: error.error.message, life: 3000
+                        }), this.isChecking = false
                 },
                 () => this.isChecking = false
             );

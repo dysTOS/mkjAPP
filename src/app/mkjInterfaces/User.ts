@@ -1,3 +1,5 @@
+import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+
 export interface User {
     id?: number;
     name?: string;
@@ -41,4 +43,5 @@ export class LoginResponse {
     token?: string;
     user?: User;
     roles?: Array<Role>;
+    mitglied: Mitglied;
 }

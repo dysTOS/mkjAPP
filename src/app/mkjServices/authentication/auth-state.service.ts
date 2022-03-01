@@ -12,7 +12,7 @@ export class AuthStateService {
     userAuthState = this.userState.asObservable();
 
     constructor(
-        public token: TokenService
+        private token: TokenService
     ) { }
 
     setAuthState(value: boolean) {

@@ -1,3 +1,5 @@
+import { AuthService } from './mkjServices/authentication/auth.service';
+import { UserService } from './mkjServices/authentication/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -21,24 +23,38 @@ export class AppComponent implements OnInit {
 
     compactMode = false;
 
-    constructor(private primengConfig: PrimeNGConfig, private auth: AuthStateService,
-        public router: Router,
-        public tokenService: TokenService,) { }
+    constructor(private primengConfig: PrimeNGConfig, private authStatService: AuthStateService,
+        private router: Router, private userService: UserService, private authService: AuthService,
+        private tokenService: TokenService,) { }
 
 
     ngOnInit() {
-        this.auth.userAuthState.subscribe(val => {
-            this.isSignedIn = val;
+        this.authStatService.userAuthState.subscribe(val => {
+            if (!val) this.logout();
         });
+
         this.primengConfig.ripple = true;
+        this.checkUser();
         this.initTranslation();
 
     }
 
     logout() {
-        this.auth.setAuthState(false);
+        this.authService.logout();
+        this.userService.onLogout();
         this.tokenService.removeToken();
         this.router.navigate(['login']);
+    }
+
+    private checkUser() {
+        if (!this.userService.isSet()) {
+            this.authService.getCurrentUser().subscribe(
+                (result) => {
+                    this.userService.setCurrentUser(result.user),
+                    this.userService.setCurrentMitglied(result.mitglied),
+                    this.userService.setCurrentUserRoles(result.roles)
+                });
+        }
     }
 
     private initTranslation() {
