@@ -1,40 +1,100 @@
+<p-toast></p-toast>
 <div class="login-body">
     <div class="login-panel p-fluid">
         <div class="p-grid p-nogutter">
-            <div class="p-col-12 login-header">
+            <div class="p-col-12 login-header" style="margin-top: -7em">
                 <h1>Registrierung</h1>
                 <h2>Wilkommen bei der mkjAPP!</h2>
                 <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 p-pb-0 p-pt-0">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.vorname" />
+                    <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="user.vorname"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.vorname
+                        }"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.vorname"
+                        >Vorname ist erforderlich!</small
+                    >
                     <label>Vorname</label>
                 </span>
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 p-pb-0">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.zuname" />
+                    <input
+                        type="text"
+                        pInputText
+                        [(ngModel)]="user.zuname"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.zuname
+                        }"
+                        required
+                    /><small class="p-error" *ngIf="submitted && !user.zuname"
+                        >Familienname ist erforderlich!</small
+                    >
                     <label>Familienname</label>
                 </span>
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 p-pb-0">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.email" />
+                    <input
+                        type="email"
+                        pInputText
+                        [(ngModel)]="user.email"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.email
+                        }"
+                        required
+                    /><small class="p-error" *ngIf="submitted && !user.email"
+                        >Email ist erforderlich!</small
+                    >
                     <label>E-Mail</label>
                 </span>
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 p-pb-0">
                 <span class="p-float-label">
-                    <input type="text" pInputText [(ngModel)]="user.passwort" />
-                    <label>Passwort</label>
+                    <input
+                        type="password"
+                        pInputText
+                        [(ngModel)]="user.passwort"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.passwort
+                        }"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !user.passwort"
+                        >Passwort ist erforderlich!</small
+                    >
+                    <label>Passwort wählen</label>
                 </span>
             </div>
-            <div class="p-col-12 button-container">
+            <div class="p-col-12 p-pb-0">
+                <span class="p-float-label">
+                    <input
+                        type="password"
+                        pInputText
+                        [(ngModel)]="pwdCheck"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !pwdCheck
+                        }"
+                        required
+                    />
+                    <small class="p-error" *ngIf="submitted && !pwdCheck"
+                        >Wiederholung ist erforderlich!</small
+                    >
+                    <label>Passwort wiederholen</label>
+                </span>
+            </div>
+            <div class="p-col-12 p-pb-0 button-container">
                 <button
                     pButton
                     type="button"
-                    label="Sign In"
+                    label="Registrieren"
                     [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
                     (click)="onSubmit()"
                 ></button>

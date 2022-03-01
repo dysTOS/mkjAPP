@@ -1,3 +1,5 @@
+import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
+import { UserService } from './../../mkjServices/authentication/user.service';
 import { Router } from '@angular/router';
 import { TokenService } from './../../mkjServices/authentication/token.service';
 import { AuthService } from './../../mkjServices/authentication/auth.service';
@@ -14,19 +16,22 @@ export class MkjDashboardComponent implements OnInit {
     nextAusrueckung: Ausrueckung;
     nextAusrueckungLoading: boolean = false;
 
-    constructor(private router: Router, private ausrueckungService: AusrueckungenService, private authService: AuthService, private tokenService: TokenService) { }
+    currentMitglied: Mitglied;
+
+    constructor(private ausrueckungService: AusrueckungenService,
+        private userService: UserService) { }
 
     ngOnInit(): void {
         this.nextAusrueckungLoading = true;
         this.ausrueckungService.getNextAusrueckung().subscribe((ausrueckung) => {
             this.nextAusrueckung = ausrueckung, this.nextAusrueckungLoading = false
-        }, () => this.nextAusrueckungLoading = false);
+        }, (error) => this.nextAusrueckungLoading = false);
+
+        this.userService.getCurrentMitglied().subscribe((m) => this.currentMitglied = m)
+        this.userService.getCurrentUser().subscribe((m) => console.log(m))
+        this.userService.getCurrentUserRoles().subscribe((m) => console.log(m))
     }
 
 
-    deleteUser() {
-        this.authService.deleteUser({ name: "Roland", email: "rolandsams@gmail.com" }).subscribe
-            ((res) => console.log(res), (error) => console.log(error), () => this.tokenService.removeToken());
-        this.router.navigate(['login']);
-    }
+
 }

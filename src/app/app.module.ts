@@ -336,7 +336,8 @@ FullCalendarModule.registerPlugins([
             multi: true
         },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, ConfirmationService, DatePipe, AuthGuardService
+        PhotoService, ProductService, MenuService, ConfirmationService, DatePipe, AuthGuardService,
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

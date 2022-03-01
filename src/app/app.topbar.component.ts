@@ -1,9 +1,7 @@
+import { AuthStateService } from './mkjServices/authentication/auth-state.service';
 import { Router } from '@angular/router';
-import { UserService } from './mkjServices/authentication/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
-import { AuthService } from './mkjServices/authentication/auth.service';
-import { TokenService } from './mkjServices/authentication/token.service';
 
 @Component({
     selector: 'app-topbar',
@@ -19,10 +17,38 @@ import { TokenService } from './mkjServices/authentication/token.service';
                 <h3>mkjAPP</h3>
             </div>
 
-            <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
+            <!-- <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
+                <i class="pi pi-bars"></i>
+            </a> -->
+            <a id="topbar-menu-button" href="#" (click)="sidebarVisible = true">
                 <i class="pi pi-bars"></i>
             </a>
 
+            <p-sidebar [(visible)]="sidebarVisible" [autoZIndex]="false" position="right">
+                <h4>Test</h4>
+
+                <div><a routerLink="" (click)="appMain.onTopbarItemClick($event,notifications, false); sidebarVisible = false">
+                        <i class="pi pi-home"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        Dashboard
+                    </a></div>
+                    <div>
+                        <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,notifications, false); sidebarVisible = false">
+                            <i class="topbar-icon pi pi-calendar"></i>
+                            <!-- <span class="topbar-badge">4</span> -->
+                            <span class="topbar-item-name">Ausrückungen</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a routerLink="/login" (click)="appMain.onTopbarItemClick($event,notifications, false);sidebarVisible = false; logout()">
+                            <i class="topbar-icon pi pi-sign-out"></i>
+                            <!-- <span class="topbar-badge">4</span> -->
+                            <span class="topbar-item-name">Logout</span>
+                        </a>
+                    </div>
+
+
+</p-sidebar>
 
             <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-visible': appMain.topbarMenuActive}">
                 <!-- <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">
@@ -178,22 +204,17 @@ import { TokenService } from './mkjServices/authentication/token.service';
     `
 })
 export class AppTopbarComponent implements OnInit {
-
+    sidebarVisible: boolean = false;
 
     constructor(public appMain: AppMainComponent,
-        private tokenService: TokenService,
-        private authService: AuthService,
-        private userService: UserService
+        private authStateService: AuthStateService,
     ) { }
 
     ngOnInit(): void {
     }
 
     logout() {
-        this.userService.onLogout();
-        this.authService.logout().subscribe(() => {
-            this.tokenService.removeToken();
-        });
+        this.authStateService.setAuthState(false)
     }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { LoginCredentials, RegistrationCredentials, User, LoginResponse } from './User';
+import { LoginCredentials, RegistrationCredentials, User, LoginResponse } from '../../mkjInterfaces/User';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +27,11 @@ export class AuthService {
 
     logout(): Observable<any> {
         const url = this.apiURL + "/api/logout";
+        return this.http.post<any>(url, {});
+    }
+
+    getCurrentUser(): Observable<LoginResponse> {
+        const url = this.apiURL + "/api/user";
         return this.http.post<any>(url, {});
     }
 

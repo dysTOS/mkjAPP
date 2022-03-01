@@ -1,6 +1,9 @@
 <div class="p-grid">
     <div class="p-col-12">
-        <div class="card p-d-flex p-jc-center">
+        <div
+            class="card p-d-flex p-jc-center"
+            *ngIf="nextAusrueckungLoading || nextAusrueckung"
+        >
             <div style="text-align: center" *ngIf="nextAusrueckungLoading">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
             </div>
@@ -25,7 +28,7 @@
 
         <div class="card p-d-flex p-jc-center">
             <div style="text-align: center">
-                <h4>Hallo!</h4>
+                <h4>Hallo {{ currentMitglied?.vorname }}!</h4>
                 <p>
                     Das ist die erste Demo-Version unserer App für die mobile
                     Vereinsverwaltung.

@@ -10,7 +10,6 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
-import { Time } from '@angular/common';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -64,7 +63,6 @@ export class AusrueckungenComponent implements OnInit {
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.loading = true;
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
             let filter = sessionStorage.getItem("ausrueckungenFilter");
             this.zeitraumDisplayText = this.generateZeitraumDisplayText(JSON.parse(filter));
@@ -78,16 +76,24 @@ export class AusrueckungenComponent implements OnInit {
                 bisFilter: year + "-12-31 23:59:59",
                 alle: false
             }
-
         }
 
-        if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
+        if (this.ausrueckungService.hasAusrueckungArray()) {
+            this.ausrueckungenArray = this.ausrueckungService.getAusrueckungArray();
+            this.selectedAusrueckungen = this.ausrueckungService.getAusrueckungArray();
+        }
         else {
-            this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-                ausrueckungen => (this.ausrueckungenArray = ausrueckungen, this.selectedAusrueckungen = ausrueckungen),
-                (error) => console.log(error.message),
-                () => this.loading = false
-            );
+            this.loading = true;
+            if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
+            else {
+                this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
+                    ausrueckungen => (
+                        this.ausrueckungenArray = ausrueckungen,
+                        this.selectedAusrueckungen = ausrueckungen),
+                    (error) => console.log(error.message),
+                    () => this.loading = false
+                );
+            }
         }
 
         this.exportOptions = [
@@ -254,6 +260,7 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     navigateSingleAusrueckung(ausrueckung: Ausrueckung) {
+        this.ausrueckungService.setAusrueckungArray(this.ausrueckungenArray);
         this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
         this.router.navigate(['../ausrueckung/' + ausrueckung.id], { relativeTo: this.route });
     }

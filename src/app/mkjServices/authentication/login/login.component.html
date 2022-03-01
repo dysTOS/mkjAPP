@@ -1,17 +1,21 @@
+<p-toast></p-toast>
 <div class="login-body">
     <div class="login-panel p-fluid">
         <div class="p-grid p-nogutter">
-            <div class="p-col-12 login-header">
+            <div class="p-col-12 login-header" style="margin-top: -5em">
                 <h1>LOGIN</h1>
                 <h2>Willkommen bei der mkjAPP!</h2>
                 <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
             </div>
-            <div class="p-col-12">
+            <div class="p-col-12 p-pb-0 p-pt-0">
                 <span class="p-float-label">
                     <input
                         type="email"
                         pInputText
                         [(ngModel)]="user.email"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.email
+                        }"
                         required
                     />
                     <small class="p-error" *ngIf="submitted && !user.email"
@@ -26,10 +30,13 @@
                         type="password"
                         pInputText
                         [(ngModel)]="user.passwort"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !user.passwort
+                        }"
                         required
                     />
                     <small class="p-error" *ngIf="submitted && !user.passwort"
-                        >Name ist erforderlich!</small
+                        >Passwort ist erforderlich!</small
                     >
                     <label>Passwort</label>
                 </span>
@@ -46,7 +53,7 @@
                     pButton
                     type="button"
                     class="p-button p-button-outlined p-button-small p-mt-3"
-                    label="Zur Registrierung"
+                    label="Erste Anmeldung"
                     [routerLink]="['/signup']"
                 ></button>
             </div>
