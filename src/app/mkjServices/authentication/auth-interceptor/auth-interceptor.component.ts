@@ -26,8 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     httpErrorResponse: HttpErrorResponse,
                     _: Observable<HttpEvent<any>>
                 ) => {
-                    if (httpErrorResponse.status === HttpStatusCode.Unauthorized ||
-                        httpErrorResponse.status === HttpStatusCode.Forbidden) {
+                    if (httpErrorResponse.status === HttpStatusCode.Unauthorized) {
                         this.authStateService.setAuthState(false);
                     }
                     return throwError(httpErrorResponse);

@@ -17,38 +17,9 @@ import { AppMainComponent } from './app.main.component';
                 <h3>mkjAPP</h3>
             </div>
 
-            <!-- <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
-                <i class="pi pi-bars"></i>
-            </a> -->
-            <a id="topbar-menu-button" href="#" (click)="sidebarVisible = true">
+            <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
                 <i class="pi pi-bars"></i>
             </a>
-
-            <p-sidebar [(visible)]="sidebarVisible" [autoZIndex]="false" position="right">
-                <h4>Test</h4>
-
-                <div><a routerLink="" (click)="appMain.onTopbarItemClick($event,notifications, false); sidebarVisible = false">
-                        <i class="pi pi-home"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
-                        Dashboard
-                    </a></div>
-                    <div>
-                        <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,notifications, false); sidebarVisible = false">
-                            <i class="topbar-icon pi pi-calendar"></i>
-                            <!-- <span class="topbar-badge">4</span> -->
-                            <span class="topbar-item-name">Ausrückungen</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a routerLink="/login" (click)="appMain.onTopbarItemClick($event,notifications, false);sidebarVisible = false; logout()">
-                            <i class="topbar-icon pi pi-sign-out"></i>
-                            <!-- <span class="topbar-badge">4</span> -->
-                            <span class="topbar-item-name">Logout</span>
-                        </a>
-                    </div>
-
-
-</p-sidebar>
 
             <ul class="topbar-menu fadeInDown" [ngClass]="{'topbar-menu-visible': appMain.topbarMenuActive}">
                 <!-- <li #profile class="profile-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === profile}">

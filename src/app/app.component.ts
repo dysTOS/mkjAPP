@@ -34,25 +34,25 @@ export class AppComponent implements OnInit {
         });
 
         this.primengConfig.ripple = true;
-        this.checkUser();
+        this.checkFetchUser();
         this.initTranslation();
 
     }
 
-    logout() {
+    private logout() {
         this.authService.logout();
         this.userService.onLogout();
         this.tokenService.removeToken();
         this.router.navigate(['login']);
     }
 
-    private checkUser() {
+    private checkFetchUser() {
         if (!this.userService.isSet()) {
             this.authService.getCurrentUser().subscribe(
                 (result) => {
                     this.userService.setCurrentUser(result.user),
-                    this.userService.setCurrentMitglied(result.mitglied),
-                    this.userService.setCurrentUserRoles(result.roles)
+                        this.userService.setCurrentMitglied(result.mitglied),
+                        this.userService.setCurrentUserRoles(result.roles)
                 });
         }
     }

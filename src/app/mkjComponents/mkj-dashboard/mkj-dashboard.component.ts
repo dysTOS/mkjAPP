@@ -6,6 +6,7 @@ import { AuthService } from './../../mkjServices/authentication/auth.service';
 import { AusrueckungenService } from './../../mkjServices/ausrueckungen.service';
 import { Ausrueckung } from 'src/app/mkjInterfaces/Ausrueckung';
 import { Component, OnInit } from '@angular/core';
+import { RoleType } from 'src/app/mkjInterfaces/User';
 
 @Component({
     selector: 'app-mkj-dashboard',
@@ -19,7 +20,7 @@ export class MkjDashboardComponent implements OnInit {
     currentMitglied: Mitglied;
 
     constructor(private ausrueckungService: AusrueckungenService,
-        private userService: UserService) { }
+        public userService: UserService) { }
 
     ngOnInit(): void {
         this.nextAusrueckungLoading = true;
@@ -30,8 +31,11 @@ export class MkjDashboardComponent implements OnInit {
         this.userService.getCurrentMitglied().subscribe((m) => this.currentMitglied = m)
         this.userService.getCurrentUser().subscribe((m) => console.log(m))
         this.userService.getCurrentUserRoles().subscribe((m) => console.log(m))
+
     }
 
-
-
 }
+
+
+
+
