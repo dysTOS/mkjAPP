@@ -10,6 +10,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
+import { UserService } from 'src/app/mkjServices/authentication/user.service';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -59,7 +60,7 @@ export class AusrueckungenComponent implements OnInit {
     @ViewChild('dt') ausrueckungenTable: Table;
     selectedRow: any;
 
-    constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
+    constructor(public userService: UserService, private ausrueckungService: AusrueckungenService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {

@@ -230,6 +230,10 @@
                                     "
                                 ></button>
                                 <button
+                                    *ngIf="
+                                        userService.isAdmin ||
+                                        userService.isAusschuss
+                                    "
                                     pButton
                                     pRipple
                                     icon="pi pi-pencil"
@@ -237,6 +241,10 @@
                                     (click)="editAusrueckung(ausrueckung)"
                                 ></button>
                                 <button
+                                    *ngIf="
+                                        userService.isAdmin ||
+                                        userService.isAusschuss
+                                    "
                                     pButton
                                     pRipple
                                     icon="pi pi-trash"

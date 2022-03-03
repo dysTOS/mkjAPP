@@ -12,6 +12,9 @@ export class UserService {
     private currentUserRoles: BehaviorSubject<Array<Role>> = new BehaviorSubject<Array<Role>>(null);
     private currentMitglied: BehaviorSubject<Mitglied> = new BehaviorSubject<Mitglied>(null);
 
+    public isAdmin: boolean = false;
+    public isAusschuss: boolean = false;
+
     constructor() { }
 
     public isSet(): boolean {
@@ -43,6 +46,8 @@ export class UserService {
 
     public setCurrentUserRoles(roles: Array<Role>) {
         this.currentUserRoles.next(roles);
+        if (this.hasRole(RoleType.admin)) this.isAdmin = true;
+        if (this.hasRole(RoleType.ausschuss)) this.isAusschuss = true;
     }
 
     public hasRole(role: RoleType): boolean {
@@ -56,6 +61,8 @@ export class UserService {
     }
 
     public onLogout() {
+        this.isAdmin = false;
+        this.isAusschuss = false;
         this.currentUser.next(null);
         this.currentUserRoles.next(null);
         this.currentMitglied.next(null);
