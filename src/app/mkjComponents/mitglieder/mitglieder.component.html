@@ -5,25 +5,30 @@
         <p-table
             [value]="mitglieder"
             [loading]="loading"
-            class="p-datatable-sm"
+            styleClass="p-datatable-sm"
         >
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>
                     <th>Adresse</th>
+                    <th>E-Mail</th>
                     <th></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-mitglied>
                 <tr>
                     <td>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</td>
-                    <td>{{ mitglied?.strasse }} {{ mitglied?.hausnummer }}</td>
+                    <td>
+                        {{ mitglied?.strasse }} {{ mitglied?.hausnummer }}
+                        {{ mitglied?.plz }} {{ mitglied?.ort }}
+                    </td>
+                    <td>{{ mitglied?.email }}</td>
                     <td>
                         <button
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             icon="pi pi-pencil"
-                            class="p-button-rounded p-button-info"
+                            class="p-button-sm p-button-rounded p-button-outlined p-button-info"
                         ></button>
                     </td>
                 </tr>

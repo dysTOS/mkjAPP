@@ -1,1 +1,28 @@
-<p>mitglieder-single works!</p>
+<p-toolbar
+    ><div class="p-toolbar-group-left">
+        <button
+            pButton
+            pRipple
+            label="Zurück"
+            icon="pi pi-arrow-left"
+            class="p-button-danger"
+            (click)="navigateBack()"
+        ></button></div
+></p-toolbar>
+
+<div class="p-col-12 card">{{ mitglied?.vorname }} {{ mitglied?.zuname }}</div>
+
+<div class="card">
+    <div class="p-grid p-col-12">
+        <h4>Rollen</h4>
+
+        <div class="p-md-6">
+            <p-multiSelect
+                [options]="allRoles"
+                [(ngModel)]="selectedRoles"
+                optionLabel="role"
+                dataKey="id"
+            ></p-multiSelect>
+        </div>
+    </div>
+</div>
