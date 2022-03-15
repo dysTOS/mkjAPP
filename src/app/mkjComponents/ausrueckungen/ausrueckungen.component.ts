@@ -1,3 +1,4 @@
+import { RoleType } from './../../mkjInterfaces/User';
 import { kategorienOptions, statusOptions, columnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -56,6 +57,8 @@ export class AusrueckungenComponent implements OnInit {
     cols = columnOptions; //columns for csv export
     kategorien = kategorienOptions;
     status = statusOptions;
+
+    RoleType = RoleType;
 
     @ViewChild('dt') ausrueckungenTable: Table;
     selectedRow: any;

@@ -22,9 +22,9 @@ export interface Role {
 }
 
 export enum RoleType {
-    'mitglied' = 1,
-    'admin' = 2,
-    'ausschuss' = 3
+    MITGLIED = 1,
+    ADMIN = 2,
+    AUSSCHUSS = 3
 }
 
 export class RegistrationCredentials {
@@ -43,5 +43,5 @@ export class LoginResponse {
     token?: string;
     user?: User;
     roles?: Array<Role>;
-    mitglied: Mitglied;
+    mitglied?: Mitglied;
 }

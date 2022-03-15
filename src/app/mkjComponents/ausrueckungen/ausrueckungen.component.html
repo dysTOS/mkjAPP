@@ -1,7 +1,6 @@
 <div class="p-grid">
     <div class="p-col-12">
         <p-toast position="top-right"></p-toast>
-
         <div>
             <p-toolbar styleClass="p-mb-2">
                 <ng-template pTemplate="left">
@@ -231,8 +230,10 @@
                                 ></button>
                                 <button
                                     *ngIf="
-                                        userService.isAdmin ||
-                                        userService.isAusschuss
+                                        userService.userRoles[RoleType.ADMIN] ||
+                                        userService.userRoles[
+                                            RoleType.AUSSCHUSS
+                                        ]
                                     "
                                     pButton
                                     pRipple
@@ -242,8 +243,10 @@
                                 ></button>
                                 <button
                                     *ngIf="
-                                        userService.isAdmin ||
-                                        userService.isAusschuss
+                                        userService.userRoles[RoleType.ADMIN] ||
+                                        userService.userRoles[
+                                            RoleType.AUSSCHUSS
+                                        ]
                                     "
                                     pButton
                                     pRipple

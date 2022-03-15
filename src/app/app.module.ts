@@ -168,6 +168,9 @@ import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboa
 import { AuthInterceptor } from './mkjServices/authentication/auth-interceptor/auth-interceptor.component';
 import { SignupComponent } from './mkjServices/authentication/signup/signup.component';
 import { LoginComponent } from './mkjServices/authentication/login/login.component';
+import { MitgliederComponent } from './mkjComponents/mitglieder/mitglieder.component';
+import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component';
+import { AdministrationComponent } from './mkjComponents/administration/administration.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -325,7 +328,9 @@ FullCalendarModule.registerPlugins([
         MkjDashboardComponent,
         SignupComponent,
         LoginComponent,
-
+        MitgliederComponent,
+        MitgliederSingleComponent,
+        AdministrationComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

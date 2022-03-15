@@ -1,0 +1,33 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast position="top-right"></p-toast>
+
+        <p-table
+            [value]="mitglieder"
+            [loading]="loading"
+            class="p-datatable-sm"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Adresse</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-mitglied>
+                <tr>
+                    <td>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</td>
+                    <td>{{ mitglied?.strasse }} {{ mitglied?.hausnummer }}</td>
+                    <td>
+                        <button
+                            pButton
+                            (click)="navigateSingleMitglied(mitglied)"
+                            icon="pi pi-pencil"
+                            class="p-button-rounded p-button-info"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

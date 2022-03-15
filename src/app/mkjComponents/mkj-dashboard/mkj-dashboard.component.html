@@ -22,6 +22,7 @@
                     label="Alle Ausrückungen"
                     routerLink="/ausrueckungen"
                     class="p-button-outlined"
+                    (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
                 ></button>
             </div>
         </div>
@@ -37,10 +38,18 @@
         </div>
 
         <div class="p-grid p-col-12">
-            <!-- <div *ngIf="userService.isAdmin" class="p-md-6 p-sm-12">ADMIN</div>
-            <div *ngIf="userService.isAusschuss" class="p-md-6 p-sm-12">
+            <div
+                *ngIf="userService.userRoles[RoleType.ADMIN]"
+                class="p-md-6 p-sm-12"
+            >
+                ADMIN
+            </div>
+            <div
+                *ngIf="userService.userRoles[RoleType.AUSSCHUSS]"
+                class="p-md-6 p-sm-12"
+            >
                 AUSSCHUSS
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

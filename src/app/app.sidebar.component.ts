@@ -1,21 +1,24 @@
+import { UserService } from 'src/app/mkjServices/authentication/user.service';
+import { RoleType } from './mkjInterfaces/User';
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app.main.component';
 import { AuthStateService } from './mkjServices/authentication/auth-state.service';
+import { MenuLabels } from './mkjInterfaces/Menu';
 
 @Component({
     selector: 'app-sidebar',
     templateUrl: './app.sidebar.component.html'
 })
 export class AppSideBarComponent implements OnInit {
+    RoleType = RoleType;
+    MenuLabels = MenuLabels;
 
     constructor(public app: AppComponent, public appMain: AppMainComponent,
-        private authStateService: AuthStateService,
-    ) {
+        private authStateService: AuthStateService, public userService: UserService
+    ) { }
 
-    }
     ngOnInit(): void { }
-
 
     logout() {
         this.authStateService.setAuthState(false)

@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 
 @Component({
     selector: 'app-main',
-    templateUrl: './app.main.component.html'
+    templateUrl: './app.main.component.html',
 })
 export class AppMainComponent implements AfterViewInit, OnDestroy {
 
@@ -85,7 +85,7 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
     }
 
     onTopbarItemClick(event, item, topItemClick) {
-        this.topbarItemClick = topItemClick;
+        this.activeTabIndex = item;
 
         if (this.activeTopbarItem === item) {
             this.activeTopbarItem = null;

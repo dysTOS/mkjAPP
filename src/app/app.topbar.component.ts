@@ -1,3 +1,4 @@
+import { MenuLabels } from './mkjInterfaces/Menu';
 import { AuthStateService } from './mkjServices/authentication/auth-state.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -133,15 +134,15 @@ import { AppMainComponent } from './app.main.component';
                         </li>
                     </ul>
                 </li> -->
-                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
-                    <a routerLink="" (click)="appMain.onTopbarItemClick($event,notifications, false)">
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.DASHBOARD}">
+                    <a routerLink="" (click)="appMain.onTopbarItemClick($event,MenuLabels.DASHBOARD, false)">
                         <i class="topbar-icon pi pi-home"></i>
                         <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Dashboard</span>
                     </a>
                 </li>
-                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
-                    <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,notifications, false)">
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.AUSRUECKUNGEN}">
+                    <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,MenuLabels.AUSRUECKUNGEN, true)">
                         <i class="topbar-icon pi pi-calendar"></i>
                         <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Ausrückungen</span>
@@ -155,9 +156,16 @@ import { AppMainComponent } from './app.main.component';
                         </li>
                     </ul>
                 </li>
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.MITGLIEDER}">
+                    <a routerLink="/mitglieder" (click)="appMain.onTopbarItemClick($event,MenuLabels.MITGLIEDER, false)">
+                        <i class="topbar-icon pi pi-users"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Mitglieder</span>
+                    </a>
+                </li>
 
-                <li #notifications [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === notifications}">
-                    <a routerLink="/login" (click)="appMain.onTopbarItemClick($event,notifications, false); logout()">
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.LOGOUT}">
+                    <a routerLink="/login" (click)="appMain.onTopbarItemClick($event, MenuLabels.LOGOUT, false); logout()">
                         <i class="topbar-icon pi pi-sign-out"></i>
                         <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Logout</span>
@@ -176,6 +184,7 @@ import { AppMainComponent } from './app.main.component';
 })
 export class AppTopbarComponent implements OnInit {
     sidebarVisible: boolean = false;
+    MenuLabels = MenuLabels;
 
     constructor(public appMain: AppMainComponent,
         private authStateService: AuthStateService,

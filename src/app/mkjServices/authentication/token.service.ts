@@ -7,10 +7,10 @@ import { environment } from 'src/environments/environment';
 
 export class TokenService {
 
-    private issuer = {
-        login: environment.apiUrl + '/api/login',
-        register: environment.apiUrl + '/api/register'
-    }
+    // private issuer = {
+    //     login: environment.apiUrl + '/api/login',
+    //     register: environment.apiUrl + '/api/register'
+    // }
 
     constructor() { }
 

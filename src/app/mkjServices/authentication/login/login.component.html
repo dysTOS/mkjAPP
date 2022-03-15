@@ -46,13 +46,16 @@
                     pButton
                     type="button"
                     label="Login"
-                    [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
+                    [icon]="
+                        isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'
+                    "
                     (click)="onSubmit()"
                 ></button>
                 <button
                     pButton
                     class="p-button p-button-outlined p-button-sm p-mt-3"
                     label="Erste Anmeldung"
+                    icon="pi pi-user"
                     routerLink="/signup"
                 ></button>
             </div>

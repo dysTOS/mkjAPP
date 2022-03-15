@@ -6,37 +6,74 @@
 >
     <div class="layout-tabmenu">
         <ul class="layout-tabmenu-nav">
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 6 }">
+            <li
+                [ngClass]="{
+                    'active-item':
+                        appMain.activeTabIndex === MenuLabels.DASHBOARD
+                }"
+            >
                 <a
                     href="#"
                     pRipple
                     class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 6)"
+                    (click)="appMain.onTabClick($event, MenuLabels.DASHBOARD)"
                     pTooltip="Home"
                     ><i class="pi pi-fw pi-home"></i
                 ></a>
-
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Home</div>
-                </div>
             </li>
             <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 5 }">
+            <li
+                [ngClass]="{
+                    'active-item':
+                        appMain.activeTabIndex === MenuLabels.AUSRUECKUNGEN
+                }"
+            >
                 <a
                     routerLink="/ausrueckungen"
                     pRipple
                     class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 5)"
+                    (click)="
+                        appMain.onTabClick($event, MenuLabels.AUSRUECKUNGEN)
+                    "
                     pTooltip="Ausrückungen"
                     ><i class="pi pi-fw pi-calendar"></i
                 ></a>
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Ausrückungen</div>
-                </div>
             </li>
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <li
+                [ngClass]="{
+                    'active-item':
+                        appMain.activeTabIndex === MenuLabels.MITGLIEDER
+                }"
+            >
+                <a
+                    routerLink="/mitglieder"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, MenuLabels.MITGLIEDER)"
+                    pTooltip="Mitglieder"
+                    ><i class="pi pi-fw pi-users"></i
+                ></a>
+            </li>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <li
+                *ngIf="userService.userRoles[RoleType.ADMIN]"
+                [ngClass]="{
+                    'active-item':
+                        appMain.activeTabIndex === MenuLabels.ADMINISTRATION
+                }"
+            >
+                <a
+                    routerLink="/administration"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="
+                        appMain.onTabClick($event, MenuLabels.ADMINISTRATION)
+                    "
+                    pTooltip="Administration"
+                    ><i class="pi pi-fw pi-cog"></i
+                ></a>
+            </li>
 
             <!-- <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 0 }">
                 <a
@@ -107,12 +144,16 @@
         </ul>
 
         <ul class="layout-tabmenu-nav">
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 7 }">
+            <li
+                [ngClass]="{
+                    'active-item': appMain.activeTabIndex === MenuLabels.LOGOUT
+                }"
+            >
                 <a
                     href="#"
                     pRipple
                     class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 7)"
+                    (click)="appMain.onTabClick($event, MenuLabels.LOGOUT)"
                     pTooltip="Logout"
                     (click)="logout()"
                     ><i class="pi pi-sign-out"></i

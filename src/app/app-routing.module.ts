@@ -1,3 +1,5 @@
+import { AdministrationComponent } from './mkjComponents/administration/administration.component';
+import { MitgliederComponent } from './mkjComponents/mitglieder/mitglieder.component';
 import { LoginComponent } from './mkjServices/authentication/login/login.component';
 import { SignupComponent } from './mkjServices/authentication/signup/signup.component';
 import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
@@ -45,6 +47,7 @@ import { AusrueckungSingleComponent } from './mkjComponents/ausrueckungen/ausrue
 import {
     AuthGuardService
 } from './mkjServices/authentication/auth-guard.service'
+import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component';
 
 
 @NgModule({
@@ -56,6 +59,9 @@ import {
                     { path: '', component: MkjDashboardComponent, canActivate: [AuthGuardService] },
                     { path: 'ausrueckungen', component: AusrueckungenComponent, canActivate: [AuthGuardService] },
                     { path: 'ausrueckung/:id', component: AusrueckungSingleComponent, canActivate: [AuthGuardService] },
+                    { path: 'mitglieder', component: MitgliederComponent, canActivate: [AuthGuardService] },
+                    { path: 'mitglieder/:id', component: MitgliederSingleComponent, canActivate: [AuthGuardService] },
+                    { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },
