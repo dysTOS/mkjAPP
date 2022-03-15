@@ -35,7 +35,7 @@
         "primeicons": "^5.0.0",
         "primeng": "^13.2.1",
         "prismjs": "^1.25.0",
-        "rxjs": "~6.6.0",
+        "rxjs": "^7.4.0",
         "tslib": "^2.0.0",
         "web-animations-js": "^2.3.2",
         "xlsx": "^0.17.4",
