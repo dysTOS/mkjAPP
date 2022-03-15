@@ -1,3 +1,4 @@
+import { Role } from './../mkjInterfaces/User';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
