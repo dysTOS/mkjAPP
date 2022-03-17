@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
 import { Role } from './../../../mkjInterfaces/User';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,9 +16,10 @@ export class MitgliederSingleComponent implements OnInit {
     selectedRoles: Role[];
     allRoles: Role[];
     loading: boolean = false;
+    rolesLoading: boolean = false;
 
     constructor(private mitgliederService: MitgliederService, private roleService: RoleService,
-        private router: Router, private route: ActivatedRoute) { }
+        private router: Router, private route: ActivatedRoute, private messageService: MessageService) { }
 
     ngOnInit(): void {
         if (this.mitgliederService.hasSelectedMitglied()) {
@@ -25,22 +27,53 @@ export class MitgliederSingleComponent implements OnInit {
             this.getRoles(this.mitglied.id);
         }
         else {
-            let mitgliedID;
             this.loading = true;
-            this.route.params.subscribe(e => { mitgliedID = e.id, this.getRoles(e.id) });
-            this.mitgliederService.getSingleMitglied(mitgliedID).subscribe(
-                {
-                    next: (m) => this.mitglied = m,
-                    error: (error) => { },
-                    complete: () => this.loading = false
-                }
-            );
+            this.route.params.subscribe(e => {
+                this.getRoles(e.id)
+                this.mitgliederService.getSingleMitglied(e.id).subscribe(
+                    {
+                        next: (m) => this.mitglied = m,
+                        error: (error) => { },
+                        complete: () => this.loading = false
+                    }
+                );
+            });
         }
     }
 
     getRoles(id: number) {
+        this.rolesLoading = true;
         this.roleService.getAllRoles().subscribe({ next: roles => this.allRoles = roles })
-        this.roleService.getRolesForMitglied(id).subscribe({ next: (roles) => this.selectedRoles = roles })
+        this.roleService.getRolesForMitglied(id).subscribe({
+            next: (roles) => {
+                this.selectedRoles = roles
+            },
+            complete: () => this.rolesLoading = false
+        })
+    }
+
+    onRoleChange(event) {
+        let newRoles = event.value;
+        let attachRole = newRoles.filter(e => !this.selectedRoles.includes(e))
+        let detachRole = this.selectedRoles.filter(e => !newRoles.includes(e))
+        // console.log("ATTACH", attachRole, "DETACH", detachRole)
+        this.selectedRoles = newRoles;
+        if (attachRole[0]) {
+            this.roleService.attachRoleToMitglied(this.mitglied.id, attachRole[0].id).subscribe({
+                next: (res) => this.messageService.add(
+                    { severity: 'success', summary: 'Erfolg', detail: res.message, life: 3000 }),
+                error: (error) => this.messageService.add(
+                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+            })
+        }
+        if (detachRole[0]) {
+            this.roleService.detachRoleFromMitglied(this.mitglied.id, detachRole[0].id).subscribe({
+                next: (res) => this.messageService.add(
+                    { severity: 'warn', summary: 'Erfolg', detail: res.message, life: 3000 }),
+                error: (error) => this.messageService.add(
+                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+            })
+        }
     }
 
     navigateBack() {

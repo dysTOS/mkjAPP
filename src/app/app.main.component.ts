@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, Renderer2, OnInit, OnDestroy } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, MessageService } from 'primeng/api';
 import { AppComponent } from './app.component';
 
 @Component({
@@ -26,7 +26,9 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
-    constructor(public renderer: Renderer2, private primengConfig: PrimeNGConfig, public app: AppComponent) { }
+    constructor(public renderer: Renderer2, private primengConfig: PrimeNGConfig,
+        private messageService: MessageService,
+        public app: AppComponent) { }
 
     ngAfterViewInit() {
         this.documentClickListener = this.renderer.listen('body', 'click', (event) => {

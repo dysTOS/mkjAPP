@@ -32,4 +32,14 @@ export class RoleService {
         const url = this.apiURL + "/api/getrolesforuser";
         return this.http.post<Role[]>(url, { id: userId }, httpOptions);
     }
+
+    attachRoleToMitglied(mitgliedId: number, roleId: number): Observable<any> {
+        const url = this.apiURL + "/api/addrole";
+        return this.http.post<Role[]>(url, { mitglied_id: mitgliedId, role_id: roleId }, httpOptions);
+    }
+
+    detachRoleFromMitglied(mitgliedId: number, roleId: number): Observable<any> {
+        const url = this.apiURL + "/api/removerole";
+        return this.http.post<Role[]>(url, { mitglied_id: mitgliedId, role_id: roleId }, httpOptions);
+    }
 }

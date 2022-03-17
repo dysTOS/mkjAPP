@@ -163,6 +163,13 @@ import { AppMainComponent } from './app.main.component';
                         <span class="topbar-item-name">Mitglieder</span>
                     </a>
                 </li>
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.NOTEN}">
+                    <a routerLink="/notenarchiv" (click)="appMain.onTopbarItemClick($event,MenuLabels.NOTEN, false)">
+                        <i class="topbar-icon pi pi-users"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Notenarchiv</span>
+                    </a>
+                </li>
 
                 <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.LOGOUT}">
                     <a routerLink="/login" (click)="appMain.onTopbarItemClick($event, MenuLabels.LOGOUT, false); logout()">

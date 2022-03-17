@@ -171,6 +171,7 @@ import { LoginComponent } from './mkjServices/authentication/login/login.compone
 import { MitgliederComponent } from './mkjComponents/mitglieder/mitglieder.component';
 import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component';
 import { AdministrationComponent } from './mkjComponents/administration/administration.component';
+import { NotenarchivComponent } from './mkjComponents/notenarchiv/notenarchiv.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -331,6 +332,7 @@ FullCalendarModule.registerPlugins([
         MitgliederComponent,
         MitgliederSingleComponent,
         AdministrationComponent,
+        NotenarchivComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

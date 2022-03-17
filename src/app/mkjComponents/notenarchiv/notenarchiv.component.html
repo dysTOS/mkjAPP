@@ -1,0 +1,24 @@
+<p-table [value]="notenArray">
+    <ng-template pTemplate="header"
+        ><tr>
+            <th>Inventar Nr</th>
+            <th>Titel</th>
+            <th>Komponist</th>
+            <th>Arrangeur</th>
+            <th>Gattung</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-noten>
+        <tr>
+            <td>{{ noten.inventarId }}</td>
+            <td>
+                {{ noten.titel }}
+            </td>
+            <td>
+                {{ noten.komponist }}
+            </td>
+            <td>{{ noten.arrangeur }}</td>
+            <td>{{ noten.gattung }}</td>
+        </tr>
+    </ng-template>
+</p-table>

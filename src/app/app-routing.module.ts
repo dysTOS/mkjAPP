@@ -1,3 +1,4 @@
+import { NotenarchivComponent } from './mkjComponents/notenarchiv/notenarchiv.component';
 import { AdministrationComponent } from './mkjComponents/administration/administration.component';
 import { MitgliederComponent } from './mkjComponents/mitglieder/mitglieder.component';
 import { LoginComponent } from './mkjServices/authentication/login/login.component';
@@ -62,6 +63,7 @@ import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder
                     { path: 'mitglieder', component: MitgliederComponent, canActivate: [AuthGuardService] },
                     { path: 'mitglieder/:id', component: MitgliederSingleComponent, canActivate: [AuthGuardService] },
                     { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuardService] },
+                    { path: 'notenarchiv', component: NotenarchivComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },

@@ -24,7 +24,8 @@ export interface Role {
 export enum RoleType {
     MITGLIED = 1,
     ADMIN = 2,
-    AUSSCHUSS = 3
+    AUSSCHUSS = 3,
+    FESTAUSSCHUSS = 4
 }
 
 export class RegistrationCredentials {

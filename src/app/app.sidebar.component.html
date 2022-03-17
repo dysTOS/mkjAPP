@@ -57,6 +57,21 @@
             </li>
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <li
+                [ngClass]="{
+                    'active-item': appMain.activeTabIndex === MenuLabels.NOTEN
+                }"
+            >
+                <a
+                    routerLink="/notenarchiv"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, MenuLabels.NOTEN)"
+                    pTooltip="Notenarchiv"
+                    ><i class="pi pi-fw pi-file"></i
+                ></a>
+            </li>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <li
                 *ngIf="userService.userRoles[RoleType.ADMIN]"
                 [ngClass]="{
                     'active-item':
