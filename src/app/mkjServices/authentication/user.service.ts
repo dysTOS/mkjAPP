@@ -1,26 +1,28 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Mitglied } from './../../mkjInterfaces/Mitglied';
-import { Injectable } from '@angular/core';
-import { Role, User, RoleType } from '../../mkjInterfaces/User';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { Mitglied } from "./../../mkjInterfaces/Mitglied";
+import { Injectable } from "@angular/core";
+import { Role, User, RoleType } from "../../mkjInterfaces/User";
+import { Observable } from "rxjs";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class UserService {
-    private currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-    private currentUserRoles: BehaviorSubject<Array<Role>> = new BehaviorSubject<Array<Role>>(null);
-    private currentMitglied: BehaviorSubject<Mitglied> = new BehaviorSubject<Mitglied>(null);
+    private currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(
+        null
+    );
+    private currentUserRoles: BehaviorSubject<Array<Role>> =
+        new BehaviorSubject<Array<Role>>(null);
+    private currentMitglied: BehaviorSubject<Mitglied> =
+        new BehaviorSubject<Mitglied>(null);
 
     public userRoles = [];
 
-    constructor() { }
+    constructor() {}
 
     public isSet(): boolean {
-        if (this.currentUser.getValue())
-            return true;
-        else
-            return false;
+        if (this.currentUser.getValue()) return true;
+        else return false;
     }
 
     public getCurrentUser(): Observable<User> {
@@ -45,7 +47,7 @@ export class UserService {
 
     public setCurrentUserRoles(roles: Array<Role>) {
         this.currentUserRoles.next(roles);
-        this.currentUserRoles.getValue().forEach(e => {
+        this.currentUserRoles.getValue().forEach((e) => {
             this.userRoles[e.id] = true;
         });
     }
@@ -53,10 +55,9 @@ export class UserService {
     public hasRole(role: RoleType): boolean {
         if (!this.currentUserRoles.getValue()) return false;
         let bool = false;
-        this.currentUserRoles.getValue().forEach(e => {
-            if (e.id == role)
-                bool = true;
-        })
+        this.currentUserRoles.getValue().forEach((e) => {
+            if (e.id == role) bool = true;
+        });
         return bool;
     }
 

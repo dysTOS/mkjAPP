@@ -1,22 +1,22 @@
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { environment } from 'src/environments/environment';
-import { Role } from '../mkjInterfaces/User';
+import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/internal/Observable";
+import { environment } from "src/environments/environment";
+import { Role } from "../mkjInterfaces/User";
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     }),
 };
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class RoleService {
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getAllRoles(): Observable<Role[]> {
         const url = this.apiURL + "/api/roles";
@@ -35,11 +35,22 @@ export class RoleService {
 
     attachRoleToMitglied(mitgliedId: number, roleId: number): Observable<any> {
         const url = this.apiURL + "/api/addrole";
-        return this.http.post<Role[]>(url, { mitglied_id: mitgliedId, role_id: roleId }, httpOptions);
+        return this.http.post<Role[]>(
+            url,
+            { mitglied_id: mitgliedId, role_id: roleId },
+            httpOptions
+        );
     }
 
-    detachRoleFromMitglied(mitgliedId: number, roleId: number): Observable<any> {
+    detachRoleFromMitglied(
+        mitgliedId: number,
+        roleId: number
+    ): Observable<any> {
         const url = this.apiURL + "/api/removerole";
-        return this.http.post<Role[]>(url, { mitglied_id: mitgliedId, role_id: roleId }, httpOptions);
+        return this.http.post<Role[]>(
+            url,
+            { mitglied_id: mitgliedId, role_id: roleId },
+            httpOptions
+        );
     }
 }
