@@ -72,10 +72,10 @@
             </li>
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
             <li
-                *ngIf="userService.userRoles[RoleType.ADMIN]"
+                *visibleFor="[RoleType.ADMIN]"
                 [ngClass]="{
                     'active-item':
-                        appMain.activeTabIndex === MenuLabels.ADMINISTRATION
+                        appMain.activeTabIndex === MenuLabels.ADMINBEREICH
                 }"
             >
                 <a
@@ -83,9 +83,9 @@
                     pRipple
                     class="tabmenuitem-link"
                     (click)="
-                        appMain.onTabClick($event, MenuLabels.ADMINISTRATION)
+                        appMain.onTabClick($event, MenuLabels.ADMINBEREICH)
                     "
-                    pTooltip="Administration"
+                    pTooltip="Adminbereich"
                     ><i class="pi pi-fw pi-cog"></i
                 ></a>
             </li>

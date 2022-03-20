@@ -13,6 +13,7 @@ export interface User {
 export interface Role {
     id?: number;
     role?: string;
+    name?: string;
     created_at?: string;
     updated_at?: string;
     pivot?: {
@@ -22,10 +23,10 @@ export interface Role {
 }
 
 export enum RoleType {
-    MITGLIED = 1,
-    ADMIN = 2,
-    AUSSCHUSS = 3,
-    FESTAUSSCHUSS = 4
+    MITGLIED = 'mitglied',
+    ADMIN = 'admin',
+    AUSSCHUSS = 'ausschuss',
+    FESTAUSSCHUSS = 'festausschuss'
 }
 
 export class RegistrationCredentials {

@@ -54,7 +54,7 @@
                 [globalFilterFields]="['name', 'von', 'kategorie']"
                 [rowHover]="true"
                 dataKey="id"
-                styleClass="p-datatable-customers p-datatable-striped rowexpand-table"
+                styleClass="p-datatable-ausrueckungen p-datatable-striped rowexpand-table"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 responsiveLayout="scroll"
                 [showCurrentPageReport]="true"
@@ -62,7 +62,7 @@
                 sortField="von"
                 (onFilter)="setFilteredRows($event)"
                 stateStorage="session"
-                stateKey="ausrueckungenTable-session"
+                stateKey="ausrueckungenTable-local"
                 selectionMode="single"
                 (onRowSelect)="onRowSelect($event)"
                 (onRowUnselect)="onRowUnselect($event)"
@@ -223,36 +223,35 @@
                                     pButton
                                     pRipple
                                     icon="pi pi-list"
-                                    class="p-button-rounded p-button-info p-mr-2"
+                                    class="p-button-rounded p-button-outlined p-button-sm p-button-info p-mr-2"
                                     (click)="
                                         navigateSingleAusrueckung(ausrueckung)
                                     "
+                                    pTooltip="Details"
                                 ></button>
                                 <button
-                                    *ngIf="
-                                        userService.userRoles[RoleType.ADMIN] ||
-                                        userService.userRoles[
-                                            RoleType.AUSSCHUSS
-                                        ]
-                                    "
+                                    *visibleFor="[
+                                        RoleType.ADMIN,
+                                        RoleType.AUSSCHUSS
+                                    ]"
                                     pButton
                                     pRipple
                                     icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-warning p-mr-2"
+                                    class="p-button-rounded p-button-outlined p-button-sm p-button-warning p-mr-2"
                                     (click)="editAusrueckung(ausrueckung)"
+                                    pTooltip="Bearbeiten"
                                 ></button>
                                 <button
-                                    *ngIf="
-                                        userService.userRoles[RoleType.ADMIN] ||
-                                        userService.userRoles[
-                                            RoleType.AUSSCHUSS
-                                        ]
-                                    "
+                                    *visibleFor="[
+                                        RoleType.ADMIN,
+                                        RoleType.AUSSCHUSS
+                                    ]"
                                     pButton
                                     pRipple
                                     icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger"
+                                    class="p-button-rounded p-button-outlined p-button-sm p-button-danger"
                                     (click)="deleteAusrueckung(ausrueckung)"
+                                    pTooltip="Löschen"
                                 ></button>
                             </div>
                         </td>
@@ -264,7 +263,7 @@
                         <td colspan="5">
                             <div class="p-col-12 p-grid">
                                 <p-panel
-                                    class="p-md-12 p-sm-12 p-"
+                                    class="p-md-12 p-sm-12"
                                     style="text-align: left"
                                 >
                                     <div

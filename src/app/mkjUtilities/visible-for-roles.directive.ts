@@ -10,16 +10,22 @@ export class VisibleForDirective {
         private userService: UserService,
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef
-    ) {}
+    ) { }
 
     @Input() set visibleFor(roles: RoleType[]) {
-        let hasRole = false;
-        console.log(roles);
-
-        if (hasRole) {
-            this.viewContainer.createEmbeddedView(this.templateRef);
-        } else {
-            this.viewContainer.clear();
-        }
+        let isVisible: boolean = false;
+        this.userService.getCurrentUserRoles().subscribe({
+            next: () => {
+                roles.forEach(r => {
+                    if (this.userService.hasRole(r)) isVisible = true
+                });
+                if (isVisible) {
+                    this.viewContainer.createEmbeddedView(this.templateRef);
+                }
+                else {
+                    this.viewContainer.clear();
+                }
+            }
+        })
     }
 }

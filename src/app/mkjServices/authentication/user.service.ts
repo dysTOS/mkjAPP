@@ -18,7 +18,7 @@ export class UserService {
 
     public userRoles = [];
 
-    constructor() {}
+    constructor() { }
 
     public isSet(): boolean {
         if (this.currentUser.getValue()) return true;
@@ -56,7 +56,7 @@ export class UserService {
         if (!this.currentUserRoles.getValue()) return false;
         let bool = false;
         this.currentUserRoles.getValue().forEach((e) => {
-            if (e.id == role) bool = true;
+            if (e.role == role) bool = true;
         });
         return bool;
     }

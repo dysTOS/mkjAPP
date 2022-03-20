@@ -1,34 +1,73 @@
 <div class="p-grid">
     <div class="p-col-12">
-        <!-- <p-toast position="top-right"></p-toast> -->
-
         <p-table
+            #mitgliederTable
             [value]="mitglieder"
             [loading]="loading"
-            styleClass="p-datatable-sm"
+            [globalFilterFields]="['vorname', 'zuname', 'email']"
+            responsiveLayout="stack"
+            styleClass="p-datatable-sm p-datatable-mitglieder p-datatable-striped"
         >
-            <ng-template pTemplate="header">
+            <ng-template pTemplate="caption">
+                <div
+                    class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
+                >
+                    <div></div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="
+                                mitgliederTable.filterGlobal(
+                                    $event.target.value,
+                                    'contains'
+                                )
+                            "
+                            placeholder="Suchen..."
+                        />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th>Name</th>
-                    <th>Adresse</th>
+                    <th pSortableColumn="zuname">
+                        Name <p-sortIcon field="zuname"></p-sortIcon>
+                    </th>
+                    <th class="not-on-small">Adresse</th>
                     <th>E-Mail</th>
+                    <th class="not-on-small">Mobil-Nr.</th>
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-mitglied>
-                <tr>
-                    <td>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</td>
+            <ng-template pTemplate="body" let-mitglied let-columns="columns">
+                <tr [pSelectableRow]="mitglied">
+                    <td>
+                        <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
+
+                        <button
+                            pButton
+                            (click)="navigateSingleMitglied(mitglied)"
+                            pTooltip="Details"
+                            tooltipPosition="left"
+                            icon="pi pi-ellipsis-h"
+                            class="just-on-small p-button-sm p-button-rounded p-button-outlined buttons-hide p-button-info"
+                        ></button>
+                    </td>
                     <td>
                         {{ mitglied?.strasse }} {{ mitglied?.hausnummer }}
                         {{ mitglied?.plz }} {{ mitglied?.ort }}
                     </td>
                     <td>{{ mitglied?.email }}</td>
-                    <td>
+                    <td>{{ mitglied.telefonMobil }}</td>
+                    <td class="not-on-small">
                         <button
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
-                            icon="pi pi-pencil"
-                            class="p-button-sm p-button-rounded p-button-outlined p-button-info"
+                            pTooltip="Details"
+                            tooltipPosition="left"
+                            icon="pi pi-ellipsis-h"
+                            class="p-button-sm p-button-rounded p-button-outlined buttons-hide p-button-info"
                         ></button>
                     </td>
                 </tr>

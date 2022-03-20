@@ -31,7 +31,7 @@
         }
     }
 
-    .p-datatable.p-datatable-customers {
+    .p-datatable.p-datatable-ausrueckungen {
         .p-datatable-header {
             padding: 1rem;
             text-align: left;
@@ -51,20 +51,20 @@
         }
     }
 
-    .p-datatable.p-datatable-customers:not(.p-datatable-gridlines) {
+    .p-datatable.p-datatable-ausrueckungen:not(.p-datatable-gridlines) {
         .p-datatable-tbody > tr > td {
             cursor: pointer;
         }
     }
 
     /* Responsive */
-    .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+    .p-datatable-ausrueckungen .p-datatable-tbody > tr > td .p-column-title {
         display: none;
     }
 }
 
 .buttons-hide {
-    opacity: 0;
+    opacity: 0.3;
     transition: opacity 0.2s;
 }
 
@@ -110,7 +110,7 @@
 @media screen and (max-width: 960px) {
     :host ::ng-deep {
         .p-datatable {
-            &.p-datatable-customers {
+            &.p-datatable-ausrueckungen {
                 .p-datatable-thead > tr > th {
                     display: none !important;
                 }

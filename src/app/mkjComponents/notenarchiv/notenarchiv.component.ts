@@ -9,16 +9,24 @@ import { Noten } from "src/app/mkjInterfaces/Noten";
 })
 export class NotenarchivComponent implements OnInit {
     notenArray: Noten[];
+    selectedNoten: Noten[];
 
-    constructor(private notenService: NotenService) {}
+    loading: boolean = false;
+
+    constructor(private notenService: NotenService) { }
 
     ngOnInit(): void {
         this.getAllNoten();
     }
 
     getAllNoten() {
+        this.loading = true;
         this.notenService.getAllNoten().subscribe({
-            next: (res) => (this.notenArray = res),
+            next: (res) => { (this.notenArray = res), this.loading = false }
         });
+    }
+
+    setFilteredRows(e) {
+        this.selectedNoten = e.filteredValue;
     }
 }

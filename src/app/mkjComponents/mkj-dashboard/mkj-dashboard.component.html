@@ -41,12 +41,9 @@
             <div *visibleFor="[RoleType.ADMIN]" class="p-md-6 p-sm-12">
                 ADMIN
             </div>
-            <!-- <div
-                *ngIf="userService.userRoles[RoleType.AUSSCHUSS]"
-                class="p-md-6 p-sm-12"
-            >
+            <div *visibleFor="[RoleType.AUSSCHUSS]" class="p-md-6 p-sm-12">
                 AUSSCHUSS
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

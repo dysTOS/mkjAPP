@@ -1,5 +1,5 @@
 import { RoleType } from './../../mkjInterfaces/User';
-import { kategorienOptions, statusOptions, columnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
+import { KategorienOptions, StatusOptions, ColumnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem } from 'primeng/api';
@@ -11,18 +11,17 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
-import { UserService } from 'src/app/mkjServices/authentication/user.service';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
     styleUrls: ['./ausrueckungen.scss'],
     styles: [`
         @media screen and (max-width: 960px) {
-            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:last-child {
+            :host ::ng-deep .p-datatable.p-datatable-ausrueckungen .p-datatable-tbody > tr > td:last-child {
                 text-align: center;
             }
 
-            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:nth-child(2) {
+            :host ::ng-deep .p-datatable.p-datatable-ausrueckungen .p-datatable-tbody > tr > td:nth-child(2) {
                 text-align: right;
             }
         }
@@ -54,16 +53,16 @@ export class AusrueckungenComponent implements OnInit {
     updateAusrueckung: boolean;
     loading: boolean;
 
-    cols = columnOptions; //columns for csv export
-    kategorien = kategorienOptions;
-    status = statusOptions;
+    cols = ColumnOptions; //columns for csv export
+    kategorien = KategorienOptions;
+    status = StatusOptions;
 
     RoleType = RoleType;
 
     @ViewChild('dt') ausrueckungenTable: Table;
     selectedRow: any;
 
-    constructor(public userService: UserService, private ausrueckungService: AusrueckungenService, private messageService: MessageService,
+    constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {

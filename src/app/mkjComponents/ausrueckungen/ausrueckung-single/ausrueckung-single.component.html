@@ -1,65 +1,63 @@
-<div>
-    <p-toolbar class="p-mb-5">
-        <ng-template pTemplate="left">
-            <button
-                pButton
-                pRipple
-                label="Zurück"
-                icon="pi pi-arrow-left"
-                class="p-button-danger"
-                (click)="navigateBack()"
-            ></button>
-        </ng-template>
-    </p-toolbar>
+<div class="mkj-toolbar p-col-12 p-p-0 p-d-flex p-jc-md-between p-mb-3">
+    <button
+        pButton
+        icon="pi pi-arrow-left"
+        class="p-button-sm p-button-rounded p-button-text"
+        (click)="navigateBack()"
+    ></button>
+    <div></div>
+</div>
 
-    <p-skeleton *ngIf="loading"></p-skeleton>
-    <div class="p-col-12 p-grid" *ngIf="!loading">
-        <p-panel class="p-md-12 p-sm-12" style="text-align: left">
-            <div class="p-d-flex p-flex-wrap p-jc-between p-ai-center">
-                <div class="p-mr-2 p-mb-2">
-                    {{ ausrueckung.kategorie }}
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.status">
-                    <span
-                        [class]="
-                            'ausrueckungen-badge status-' +
-                            (ausrueckung.status
-                                ? ausrueckung.status.toLowerCase()
-                                : '')
-                        "
-                    >
-                        {{ ausrueckung.status }}
-                    </span>
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.treffzeit">
-                    Treffzeit:
-                    {{ ausrueckung.von | mkjDate: "hh:mm" }}
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.ort">
-                    Ort:
-                    {{ ausrueckung.ort }}
-                </div>
+<div *ngIf="loading" class="p-d-flex p-jc-center">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+</div>
+
+<div class="p-col-12 p-grid" *ngIf="!loading">
+    <p-panel class="p-md-12 p-sm-12" style="text-align: left">
+        <div class="p-d-flex p-flex-wrap p-jc-between p-ai-center">
+            <div class="p-mr-2 p-mb-2">
+                {{ ausrueckung.kategorie }}
             </div>
-        </p-panel>
-        <p-panel
-            *ngIf="ausrueckung.infoMusiker"
-            header="Info"
-            class="p-md-6 p-sm-12"
-            style="text-align: left"
-        >
-            {{ ausrueckung.infoMusiker }}
-        </p-panel>
-        <p-panel
-            *ngIf="ausrueckung.beschreibung"
-            [header]="
-                ausrueckung.oeffentlich
-                    ? 'Beschreibung (www.mk-jainzen.at)'
-                    : 'Beschreibung'
-            "
-            class="p-md-6 p-sm-12"
-            style="text-align: left"
-        >
-            {{ ausrueckung.beschreibung }}
-        </p-panel>
-    </div>
+            <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.status">
+                <span
+                    [class]="
+                        'ausrueckungen-badge status-' +
+                        (ausrueckung.status
+                            ? ausrueckung.status.toLowerCase()
+                            : '')
+                    "
+                >
+                    {{ ausrueckung.status }}
+                </span>
+            </div>
+            <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.treffzeit">
+                Treffzeit:
+                {{ ausrueckung.von | mkjDate: "hh:mm" }}
+            </div>
+            <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.ort">
+                Ort:
+                {{ ausrueckung.ort }}
+            </div>
+        </div>
+    </p-panel>
+    <p-panel
+        *ngIf="ausrueckung.infoMusiker"
+        header="Info"
+        class="p-md-6 p-sm-12"
+        style="text-align: left"
+    >
+        {{ ausrueckung.infoMusiker }}
+    </p-panel>
+    <p-panel
+        *ngIf="ausrueckung.beschreibung"
+        [header]="
+            ausrueckung.oeffentlich
+                ? 'Beschreibung (www.mk-jainzen.at)'
+                : 'Beschreibung'
+        "
+        class="p-md-6 p-sm-12"
+        style="text-align: left"
+    >
+        {{ ausrueckung.beschreibung }}
+    </p-panel>
 </div>
