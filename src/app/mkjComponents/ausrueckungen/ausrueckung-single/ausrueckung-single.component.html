@@ -61,3 +61,19 @@
         {{ ausrueckung.beschreibung }}
     </p-panel>
 </div>
+
+<div class="p-col-12 card">
+    <p-autoComplete
+        [(ngModel)]="gespielteNoten"
+        [suggestions]="searchNotenResult"
+        [multiple]="true"
+        [autoHighlight]="true"
+        placeholder="Gespielte Stücke"
+        (completeMethod)="searchNoten($event)"
+        (onSelect)="attachNoten($event)"
+        (onUnselect)="detachNoten($event)"
+        field="titel"
+        dataKey="id"
+    ></p-autoComplete>
+    <table></table>
+</div>

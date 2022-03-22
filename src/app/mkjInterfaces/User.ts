@@ -29,19 +29,19 @@ export enum RoleType {
     FESTAUSSCHUSS = 'festausschuss'
 }
 
-export class RegistrationCredentials {
+export interface RegistrationCredentials {
     vorname?: string;
     zuname?: string;
     email?: string;
     passwort?: string;
 }
 
-export class LoginCredentials {
+export interface LoginCredentials {
     email?: string;
     passwort?: string;
 }
 
-export class LoginResponse {
+export interface LoginResponse {
     token?: string;
     user?: User;
     roles?: Array<Role>;
