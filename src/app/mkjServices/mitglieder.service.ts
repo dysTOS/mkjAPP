@@ -30,9 +30,35 @@ export class MitgliederService {
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 
+    getMitgliederForAusrueckung(ausrueckungId: number): Observable<Mitglied[]> {
+        const url = this.apiURL + "/api/mitgliederausrueckung/" + ausrueckungId.toString();
+        return this.http.get<Mitglied[]>(url, httpOptions);
+    }
+
     getSingleMitglied(id: number): Observable<Mitglied> {
         const url = this.apiURL + "/api/mitglieder/" + id;
         return this.http.get<Mitglied>(url, httpOptions);
+    }
+
+    attachMitgliedToAusrueckung(ausrueckungId: number, mitgliedId: number): Observable<any> {
+        const url = this.apiURL + "/api/addmitglied";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
+    }
+
+    detachMitgliedFromAusrueckung(
+        ausrueckungId: number,
+        mitgliedId: number
+    ): Observable<any> {
+        const url = this.apiURL + "/api/removemitglied";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
     }
 
     hasSelectedMitglied(): boolean {

@@ -8,8 +8,8 @@
     <div></div>
 </div>
 
-<div *ngIf="loading" class="p-d-flex p-jc-center">
-    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+<div *ngIf="loading" class="p-d-flex p-jc-center" style="height: 7rem">
+    <div><i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i></div>
 </div>
 
 <div class="p-col-12 p-grid" *ngIf="!loading">
@@ -63,17 +63,64 @@
 </div>
 
 <div class="p-col-12 card">
-    <p-autoComplete
-        [(ngModel)]="gespielteNoten"
-        [suggestions]="searchNotenResult"
+    <div *ngIf="!mitglieder" class="p-d-flex p-jc-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    </div>
+    <p-listbox
+        *ngIf="mitglieder && presentMitglieder"
+        [options]="mitglieder"
+        [ngModel]="presentMitglieder"
         [multiple]="true"
-        [autoHighlight]="true"
-        placeholder="Gespielte Stücke"
-        (completeMethod)="searchNoten($event)"
-        (onSelect)="attachNoten($event)"
-        (onUnselect)="detachNoten($event)"
-        field="titel"
+        [checkbox]="true"
+        [filter]="true"
+        optionLabel="vorname"
+        [showToggleAll]="false"
         dataKey="id"
-    ></p-autoComplete>
-    <table></table>
+        [listStyle]="{ 'max-height': '250px' }"
+        (onChange)="onMitgliederChange($event)"
+    >
+        <ng-template pTemplate="header"> Musiker </ng-template>
+        <ng-template let-mitglied pTemplate="item">
+            <div>
+                <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>
+            </div>
+        </ng-template>
+    </p-listbox>
+</div>
+
+<div class="p-col-12 card">
+    <p-table
+        [value]="gespielteNoten"
+        [loading]="notenLoading"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-sm p-datatable-striped"
+    >
+        <ng-template pTemplate="caption"
+            ><div class="p-d-flex p-jc-center">
+                <p-autoComplete
+                    [(ngModel)]="selectedNoten"
+                    [suggestions]="searchNotenResult"
+                    [autoHighlight]="true"
+                    placeholder="Musikstück suchen..."
+                    (completeMethod)="searchNoten($event)"
+                    (onSelect)="attachNoten($event)"
+                    field="titel"
+                    dataKey="id"
+                ></p-autoComplete></div
+        ></ng-template>
+        <ng-template pTemplate="body" let-noten>
+            <tr>
+                <td>{{ noten.titel }}</td>
+                <td>
+                    <button
+                        pButton
+                        class="p-button-rounded p-button-outlined p-button-sm p-button-danger p-p-0"
+                        icon="pi pi-trash"
+                        pTooltip="Entfernen"
+                        (click)="detachNoten(noten)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
