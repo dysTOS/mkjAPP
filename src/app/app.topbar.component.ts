@@ -143,19 +143,19 @@ import { AppMainComponent } from './app.main.component';
                     </a>
                 </li>
                 <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.AUSRUECKUNGEN}">
-                    <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,MenuLabels.AUSRUECKUNGEN, true)">
+                    <a routerLink="/ausrueckungen" (click)="appMain.onTopbarItemClick($event,MenuLabels.AUSRUECKUNGEN, false)">
                         <i class="topbar-icon pi pi-calendar"></i>
                         <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Ausrückungen</span>
                     </a>
-                    <ul class="fadeInDown">
+                    <!-- <ul class="fadeInDown">
                         <li role="menuitem">
                             <a routerLink="/ausrueckungen" (click)="appMain.onTopbarSubItemClick($event)">
                                 <i class="pi pi-calendar-times"></i>
                                 <span>Ausrückungen</span>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.MITGLIEDER}">
                     <a routerLink="/mitglieder" (click)="appMain.onTopbarItemClick($event,MenuLabels.MITGLIEDER, false)">

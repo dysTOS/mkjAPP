@@ -262,86 +262,94 @@
                     <tr>
                         <td colspan="5">
                             <div class="p-col-12 p-grid">
-                                <p-panel
-                                    class="p-md-12 p-sm-12"
-                                    style="text-align: left"
+                                <div class="p-md-4 p-sm-12 card">
+                                    <div>Termin:</div>
+                                    <h5 class="p-m-1">
+                                        {{
+                                            ausrueckung?.von
+                                                | mkjDate: "d. MMMM YYYY hh:mm"
+                                        }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-4 p-sm-12 card"
+                                    *ngIf="ausrueckung.treffzeit"
                                 >
-                                    <div
-                                        class="p-d-flex p-flex-wrap p-jc-between p-ai-center"
-                                    >
-                                        <div class="p-mr-2 p-mb-2">
-                                            {{ ausrueckung.kategorie }}
-                                        </div>
-                                        <div
-                                            class="p-mr-2 p-mb-2"
-                                            *ngIf="ausrueckung.status"
-                                        >
-                                            <span
-                                                [class]="
-                                                    'ausrueckungen-badge status-' +
-                                                    (ausrueckung.status
-                                                        ? ausrueckung.status.toLowerCase()
-                                                        : '')
-                                                "
-                                            >
-                                                {{ ausrueckung.status }}
-                                            </span>
-                                        </div>
-                                        <div
-                                            class="p-mr-2 p-mb-2"
-                                            *ngIf="ausrueckung.treffzeit"
-                                        >
-                                            Treffzeit:
-                                            {{
-                                                ausrueckung.von
-                                                    | mkjDate: "hh:mm"
-                                            }}
-                                        </div>
-                                        <div
-                                            class="p-mr-2 p-mb-2"
-                                            *ngIf="ausrueckung.ort"
-                                        >
-                                            Ort:
-                                            {{ ausrueckung.ort }}
-                                        </div>
+                                    <div>Zusammenkunft um:</div>
+                                    <h5 class="p-m-1">
+                                        {{
+                                            ausrueckung?.treffzeit
+                                                | mkjDate: "hh:mm"
+                                        }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-4 p-sm-12 card"
+                                    *ngIf="ausrueckung.ort"
+                                >
+                                    <div>Ort:</div>
+                                    <h5 class="p-m-1">
+                                        {{ ausrueckung?.ort }}
+                                    </h5>
+                                </div>
 
-                                        <div
-                                            class="p-mr-2 p-mb-2 just-on-small"
-                                        >
-                                            <button
-                                                pButton
-                                                pRipple
-                                                icon="pi pi-ellipsis-h"
-                                                class="p-button-rounded p-button-warning p-mr-2"
-                                                (click)="
-                                                    navigateSingleAusrueckung(
-                                                        ausrueckung
-                                                    )
-                                                "
-                                            ></button>
-                                        </div>
-                                    </div>
-                                </p-panel>
-                                <p-panel
+                                <div
                                     *ngIf="ausrueckung.infoMusiker"
-                                    header="Info"
                                     class="p-md-6 p-sm-12"
-                                    style="text-align: left"
                                 >
-                                    {{ ausrueckung.infoMusiker }}
-                                </p-panel>
-                                <p-panel
+                                    <p-panel header="Musikerinfos">
+                                        {{ ausrueckung.infoMusiker }}
+                                    </p-panel>
+                                </div>
+                                <div
                                     *ngIf="ausrueckung.beschreibung"
-                                    [header]="
-                                        ausrueckung.oeffentlich
-                                            ? 'Beschreibung (www.mk-jainzen.at)'
-                                            : 'Beschreibung'
-                                    "
                                     class="p-md-6 p-sm-12"
-                                    style="text-align: left"
                                 >
-                                    {{ ausrueckung.beschreibung }}
-                                </p-panel>
+                                    <p-panel header="Öffentliche Beschreibung">
+                                        {{ ausrueckung.beschreibung }}
+                                    </p-panel>
+                                </div>
+
+                                <div
+                                    class="p-col-12 p-d-flex p-flex-wrap p-jc-around just-on-small"
+                                >
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-list"
+                                        label="Details"
+                                        class="p-button-outlined p-button-sm p-button-info p-mr-2 p-mb-2"
+                                        (click)="
+                                            navigateSingleAusrueckung(
+                                                ausrueckung
+                                            )
+                                        "
+                                    ></button>
+                                    <button
+                                        *visibleFor="[
+                                            RoleType.ADMIN,
+                                            RoleType.AUSSCHUSS
+                                        ]"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-pencil"
+                                        label="Bearbeiten"
+                                        class="p-button-outlined p-button-sm p-button-warning p-mr-2 p-mb-2"
+                                        (click)="editAusrueckung(ausrueckung)"
+                                    ></button>
+                                    <button
+                                        *visibleFor="[
+                                            RoleType.ADMIN,
+                                            RoleType.AUSSCHUSS
+                                        ]"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-trash"
+                                        label="Löschen"
+                                        class="p-button-outlined p-button-sm p-button-danger p-mr-2 p-mb-2"
+                                        (click)="deleteAusrueckung(ausrueckung)"
+                                    ></button>
+                                </div>
                             </div>
                         </td>
                     </tr>

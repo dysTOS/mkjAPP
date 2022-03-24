@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Ausrueckung } from 'src/app/mkjInterfaces/Ausrueckung';
 import { Noten } from 'src/app/mkjInterfaces/Noten';
+import { RoleType } from 'src/app/mkjInterfaces/User';
 
 @Component({
     selector: 'app-ausrueckung-single',
@@ -25,6 +26,8 @@ export class AusrueckungSingleComponent implements OnInit {
 
     mitglieder: Mitglied[];
     presentMitglieder: Mitglied[] = [];
+
+    RoleType = RoleType;
 
     constructor(private router: Router, private route: ActivatedRoute,
         private ausrueckungenService: AusrueckungenService, private messageService: MessageService,
