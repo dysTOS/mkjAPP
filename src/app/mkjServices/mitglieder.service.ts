@@ -49,6 +49,21 @@ export class MitgliederService {
         );
     }
 
+    createMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder";
+        return this.http.post<Mitglied>(url, mitglied, httpOptions);
+    }
+
+    updateMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder/" + mitglied.id.toString();
+        return this.http.put<Mitglied>(url, mitglied, httpOptions);
+    }
+
+    deleteMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder/" + mitglied.id.toString();
+        return this.http.delete<Mitglied>(url, httpOptions);
+    }
+
     detachMitgliedFromAusrueckung(
         ausrueckungId: number,
         mitgliedId: number

@@ -142,9 +142,9 @@ export class AusrueckungenComponent implements OnInit {
 
     editAusrueckung(ausrueckung: Ausrueckung) {
         this.singleAusrueckung = { ...ausrueckung };
-        this.vonDatumDate = new Date(this.singleAusrueckung.von);
-        this.bisDatumDate = new Date(this.singleAusrueckung.bis);
-        this.treffZeitDate = this.singleAusrueckung.treffzeit ? new Date(this.singleAusrueckung.treffzeit) : null;
+        this.vonDatumDate = new Date(this.singleAusrueckung.von.replace(' ', 'T'));
+        this.bisDatumDate = new Date(this.singleAusrueckung.bis.replace(' ', 'T'));
+        this.treffZeitDate = this.singleAusrueckung.treffzeit ? new Date(this.singleAusrueckung.treffzeit.replace(' ', 'T')) : null;
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
@@ -155,7 +155,7 @@ export class AusrueckungenComponent implements OnInit {
 
     deleteAusrueckung(ausrueckung: Ausrueckung) {
         this.confirmationService.confirm({
-            header: '<b>' + ausrueckung.name + '</b> löschen?',
+            header: 'Ausrückung löschen?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.ausrueckungService.deleteAusrueckung(ausrueckung).subscribe(
@@ -191,7 +191,6 @@ export class AusrueckungenComponent implements OnInit {
                 this.singleAusrueckung.treffzeit = moment(this.treffZeitDate).format("YYYY-MM-DD HH:mm:ss").toString();
 
             let index = this.findIndexById(this.singleAusrueckung.id);
-            console.log(this.singleAusrueckung.treffzeit)
             this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
                 (ausrueckungFromAPI) => (this.ausrueckungenArray[index] = ausrueckungFromAPI, this.ausrueckungenArray = [...this.ausrueckungenArray]),
                 (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000 }),

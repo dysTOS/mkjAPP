@@ -105,11 +105,10 @@
                 [ngModel]="presentMitglieder"
                 [multiple]="true"
                 [checkbox]="true"
-                [filter]="true"
+                [filter]="false"
                 optionLabel="vorname"
                 [showToggleAll]="false"
                 dataKey="id"
-                [listStyle]="{ 'max-height': '400px' }"
                 (onChange)="onMitgliederChange($event)"
             >
                 <ng-template let-mitglied pTemplate="item">
@@ -133,7 +132,7 @@
                 styleClass="p-datatable-sm p-datatable-striped"
             >
                 <ng-template pTemplate="caption"
-                    ><div class="p-d-flex p-jc-center">
+                    ><div class="p-col-12 p-d-flex p-jc-center">
                         <p-autoComplete
                             [(ngModel)]="selectedNoten"
                             [suggestions]="searchNotenResult"
@@ -147,11 +146,11 @@
                         >
                             <ng-template pTemplate="item" let-item>
                                 <div class="p-d-flex p-jc-between">
-                                    <div [style.width]="'40%'">
+                                    <div [style.width]="'20rem'">
                                         {{ item.titel }}
                                     </div>
                                     <div
-                                        [style.width]="'40%'"
+                                        [style.width]="'10rem'"
                                         style="color: grey"
                                     >
                                         {{ item.gattung }}
@@ -168,7 +167,7 @@
                         <td>
                             <button
                                 pButton
-                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger p-p-0"
+                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger p-m-0 p-p-0"
                                 icon="pi pi-trash"
                                 pTooltip="Entfernen"
                                 (click)="detachNoten(noten)"

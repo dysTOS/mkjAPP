@@ -37,33 +37,74 @@
             <div *ngIf="mitglied?.eintrittDatum">
                 Datum Eintritt: {{ mitglied?.eintrittDatum }}
             </div>
-        </div>
 
-        <div class="p-md-4 p-sm-12">
-            <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div>
-            <p-listbox
-                *ngIf="allRoles && selectedRoles"
-                [options]="allRoles"
-                [ngModel]="selectedRoles"
-                [multiple]="true"
-                [checkbox]="true"
-                [filter]="false"
-                [showToggleAll]="false"
-                optionLabel="role"
-                dataKey="id"
-                [listStyle]="{ 'max-height': '250px' }"
-                (onChange)="onRoleChange($event)"
-            >
-                <ng-template pTemplate="header"> Rollen </ng-template>
-                <ng-template let-role pTemplate="item">
-                    <div>
-                        <div>{{ role.name }}</div>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="footer"></ng-template>
-            </p-listbox>
+            <button
+                *ngIf="mitglied"
+                pButton
+                label="Bearbeiten"
+                icon="pi pi-pencil"
+                class="p-button-info p-button-outlined p-mt-5"
+                (click)="openEditDialog()"
+            ></button>
         </div>
     </div>
 </div>
+<div class="p-md-4 p-sm-12">
+    <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    </div>
+    <p-listbox
+        *ngIf="allRoles && selectedRoles"
+        [options]="allRoles"
+        [ngModel]="selectedRoles"
+        [multiple]="true"
+        [checkbox]="true"
+        [filter]="false"
+        [showToggleAll]="false"
+        optionLabel="role"
+        dataKey="id"
+        [listStyle]="{ 'max-height': '250px' }"
+        (onChange)="onRoleChange($event)"
+    >
+        <ng-template pTemplate="header"> Rollen </ng-template>
+        <ng-template let-role pTemplate="item">
+            <div>
+                <div>{{ role.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer"></ng-template>
+    </p-listbox>
+</div>
+
+<!-- Save/Update Mitglied -->
+<p-dialog
+    [(visible)]="editDialogVisible"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '75vw' }"
+    [header]="'Mitglied bearbeiten'"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <app-mitglied-editor [(mitglied)]="editMitglied"></app-mitglied-editor>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Abbrechen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="cancelEdit()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Speichern"
+            icon="pi pi-check"
+            class="p-button-plain"
+            (click)="saveMitglied()"
+        ></button
+    ></ng-template>
+</p-dialog>

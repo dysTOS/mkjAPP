@@ -1,3 +1,4 @@
+import { RoleType } from 'src/app/mkjInterfaces/User';
 import { MessageService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
 import { Role } from './../../../mkjInterfaces/User';
@@ -17,6 +18,10 @@ export class MitgliederSingleComponent implements OnInit {
     allRoles: Role[];
     loading: boolean = false;
     rolesLoading: boolean = false;
+    RoleType = RoleType;
+
+    editMitglied: Mitglied;
+    editDialogVisible: boolean = false;
 
     constructor(private mitgliederService: MitgliederService, private roleService: RoleService,
         private router: Router, private route: ActivatedRoute, private messageService: MessageService) { }
@@ -56,7 +61,6 @@ export class MitgliederSingleComponent implements OnInit {
         let newRoles = event.value;
         let attachRole = newRoles.filter(e => !this.selectedRoles.includes(e))
         let detachRole = this.selectedRoles.filter(e => !newRoles.includes(e))
-        // console.log("ATTACH", attachRole, "DETACH", detachRole)
         this.selectedRoles = newRoles;
         if (attachRole[0]) {
             this.roleService.attachRoleToMitglied(this.mitglied.id, attachRole[0].id).subscribe({
@@ -74,6 +78,29 @@ export class MitgliederSingleComponent implements OnInit {
                     { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
             })
         }
+    }
+
+    openEditDialog() {
+        this.editMitglied = { ...this.mitglied };
+        this.editDialogVisible = true;
+    }
+
+    cancelEdit() {
+        this.editMitglied = null;
+        this.editDialogVisible = false;
+    }
+
+    saveMitglied() {
+        this.mitgliederService.updateMitglied(this.editMitglied).subscribe({
+            next: res => {
+                this.mitglied = res;
+                this.messageService.add(
+                    { severity: 'success', summary: 'Erfolg', detail: 'Daten gespeichert!', life: 3000 });
+                this.editDialogVisible = false
+            },
+            error: (error) => this.messageService.add(
+                { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+        })
     }
 
     navigateBack() {

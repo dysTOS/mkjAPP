@@ -108,22 +108,30 @@ export class AusrueckungSingleComponent implements OnInit {
     }
 
     attachNoten(event) {
+        this.notenLoading = true;
         this.notenService.attachNotenToAusrueckung(event.id, this.ausrueckung.id).subscribe({
             next: res => {
-                console.log(res);
                 this.gespielteNoten = [event, ...this.gespielteNoten];
+                this.notenLoading = false;
+                this.selectedNoten = null;
             },
-            complete: () => this.selectedNoten = null
+            error: error => {
+                this.messageService.add(
+                    { severity: 'warn', summary: 'Fehler', detail: error.error.message, life: 3000 });
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            }
         })
     }
 
     detachNoten(event) {
+        this.notenLoading = true;
         this.notenService.detachNotenFromAusrueckung(event.id, this.ausrueckung.id).subscribe({
             next: res => {
-                console.log(res);
                 this.gespielteNoten = this.gespielteNoten.filter(e => e.id !== event.id);
-            },
-            complete: () => this.selectedNoten = null
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            }
         })
     }
 

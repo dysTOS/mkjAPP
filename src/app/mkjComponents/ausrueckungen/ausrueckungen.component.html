@@ -399,16 +399,7 @@
         >
             <ng-template pTemplate="content">
                 <div class="p-fluid p-grid" style="margin-top: 5px">
-                    <div class="p-col-12">
-                        <div class="p-d-flex p-jc-center">
-                            <p-checkbox
-                                [(ngModel)]="singleAusrueckung.oeffentlich"
-                                [binary]="true"
-                                label="Auf www.mk-jainzen.at anzeigen?"
-                            ></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="p-field p-col-12">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <input
                                 type="text"
@@ -425,8 +416,27 @@
                             <label for="name">Name</label>
                         </span>
                     </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <div
+                            style="height: 100%"
+                            class="p-d-flex p-jc-center p-ai-center"
+                        >
+                            <p-checkbox
+                                [ngModel]="
+                                    singleAusrueckung?.oeffentlich
+                                        ? true
+                                        : false
+                                "
+                                (ngModelChange)="
+                                    singleAusrueckung.oeffentlich = $event
+                                "
+                                [binary]="true"
+                                label="Auf www.mk-jainzen.at anzeigen?"
+                            ></p-checkbox>
+                        </div>
+                    </div>
 
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <p-calendar
                                 inputId="von"
@@ -447,7 +457,7 @@
                             <label for="von">Von</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <p-calendar
                                 inputId="bis"
@@ -465,7 +475,7 @@
                             <label for="bis">Bis</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <p-calendar
                                 inputId="treffzeit"
@@ -476,11 +486,11 @@
                                 [appendTo]="ausrDialog"
                                 icon="pi pi-clock"
                             ></p-calendar>
-                            <label for="treffzeit">Treffzeit</label>
+                            <label for="treffzeit">Zusammenkunft</label>
                         </span>
                     </div>
 
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <input
                                 type="text"
@@ -492,7 +502,7 @@
                             <label for="ort">Ort</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <p-dropdown
                                 inputId="kategorie"
@@ -511,7 +521,7 @@
                             <label for="kategorie">Kategorie</label>
                         </span>
                     </div>
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-6">
                         <span class="p-float-label">
                             <p-dropdown
                                 inputId="status"

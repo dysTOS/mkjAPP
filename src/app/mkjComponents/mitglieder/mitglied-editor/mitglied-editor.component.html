@@ -1,0 +1,196 @@
+<div class="p-grid p-mt-3">
+    <div class="p-field p-col-12 p-md-6">
+        <div style="height: 100%" class="p-d-flex p-jc-center p-ai-center">
+            <p-checkbox
+                [ngModel]="mitglied?.aktiv ? true : false"
+                (ngModelChange)="mitglied.aktiv = $event"
+                [binary]="true"
+                label="Aktives Mitglied"
+            ></p-checkbox>
+        </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.vorname"
+                required
+            />
+
+            <label for="name">Vorname</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.zuname"
+                required
+            />
+
+            <label for="name">Familienname</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="email"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.email"
+                required
+            />
+
+            <label for="name">E-Mail</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.titelVor"
+                required
+            />
+
+            <label for="name">Titel Vor</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.titelNach"
+                required
+            />
+
+            <label for="name">Titel Nach</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="geburtsdatum"
+                [(ngModel)]="mitglied.geburtsdatum"
+                [showTime]="false"
+                showIcon="true"
+                [appendTo]="'body'"
+                [showButtonBar]="true"
+                required
+            ></p-calendar>
+
+            <label for="von">Geburtsdatum</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="geschlecht"
+                [(ngModel)]="mitglied.geschlecht"
+                required
+            />
+
+            <label for="name">Geschlecht</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="strasse"
+                [(ngModel)]="mitglied.strasse"
+                required
+            />
+
+            <label for="name">Straße</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.hausnummer"
+                required
+            />
+
+            <label for="name">Hausnummer</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.ort"
+                required
+            />
+
+            <label for="name">Ort</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.plz"
+                required
+            />
+
+            <label for="name">Postleitzahl</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.telefonHaupt"
+                required
+            />
+
+            <label for="name">Telefon Festnetz</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.telefonMobil"
+                required
+            />
+
+            <label for="name">Telefon Mobil</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="mitglied.beruf"
+                required
+            />
+
+            <label for="name">Beruf</label>
+        </span>
+    </div>
+</div>
