@@ -58,9 +58,9 @@ export class MitgliederSingleComponent implements OnInit {
     }
 
     onRoleChange(event) {
-        let newRoles = event.value;
-        let attachRole = newRoles.filter(e => !this.selectedRoles.includes(e))
-        let detachRole = this.selectedRoles.filter(e => !newRoles.includes(e))
+        const newRoles = event.value;
+        const attachRole = newRoles.filter(e => !this.selectedRoles.includes(e))
+        const detachRole = this.selectedRoles.filter(e => !newRoles.includes(e))
         this.selectedRoles = newRoles;
         if (attachRole[0]) {
             this.roleService.attachRoleToMitglied(this.mitglied.id, attachRole[0].id).subscribe({
@@ -68,7 +68,7 @@ export class MitgliederSingleComponent implements OnInit {
                     { severity: 'success', summary: 'Erfolg', detail: res.message, life: 3000 }),
                 error: (error) => this.messageService.add(
                     { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
-            })
+            });
         }
         if (detachRole[0]) {
             this.roleService.detachRoleFromMitglied(this.mitglied.id, detachRole[0].id).subscribe({

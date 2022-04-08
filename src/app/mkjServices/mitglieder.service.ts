@@ -21,7 +21,7 @@ export class MitgliederService {
     constructor(private http: HttpClient) { }
 
     getAllMitglieder(): Observable<Mitglied[]> {
-        const url = this.apiURL + "/api/mitglieder";
+        const url = this.apiURL + '/api/mitglieder';
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 

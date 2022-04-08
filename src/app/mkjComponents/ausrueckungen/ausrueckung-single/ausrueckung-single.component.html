@@ -6,7 +6,16 @@
         (click)="navigateBack()"
         pTooltip="Zurück"
     ></button>
-    <div></div>
+    <div>
+        <button
+            *ngIf="ausrueckung"
+            pButton
+            icon="pi pi-download"
+            label="Termin exportieren"
+            class="p-button-info p-button-outlined"
+            (click)="exportToCalendar()"
+        ></button>
+    </div>
 </div>
 
 <p-accordion>

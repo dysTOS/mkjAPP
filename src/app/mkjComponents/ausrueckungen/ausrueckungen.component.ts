@@ -26,8 +26,7 @@ import { Table } from 'primeng/table';
             }
         }
 
-    `],
-    providers: [MessageService, ConfirmationService]
+    `]
 })
 
 export class AusrueckungenComponent implements OnInit {
