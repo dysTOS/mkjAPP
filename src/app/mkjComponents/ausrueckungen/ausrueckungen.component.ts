@@ -1,3 +1,4 @@
+import { ExportService } from './../../mkjServices/export.service';
 import { RoleType } from './../../mkjInterfaces/User';
 import { KategorienOptions, StatusOptions, ColumnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,11 +7,8 @@ import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../../mkjServices/ausrueckungen.service';
 import { Ausrueckung, AusrueckungFilterInput } from '../../mkjInterfaces/Ausrueckung';
-import * as moment from 'moment';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
@@ -62,7 +60,8 @@ export class AusrueckungenComponent implements OnInit {
     selectedRow: any;
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
-        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
+        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
+        private exportService: ExportService) { }
 
     ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
@@ -284,39 +283,12 @@ export class AusrueckungenComponent implements OnInit {
             { title: "Infos", dataKey: "infosMusiker" }
         ];
         let rows = this.selectedAusrueckungen;
-        const doc: any = new jsPDF('l', 'pt');
 
-        doc.autoTable(columns, rows, {
-            theme: 'striped',
-            styles: {},
-            headstyles: { fillColor: [0, 66, 0] },
-            bodyStyles: {},
-            alternateRowStyles: {},
-            columnStyles: { columnWidth: 'auto' },
-            margin: { top: 50 },
-            beforePageContent: function (data) {
-                doc.text("Ausrückungen", 40, 30);
-            }
-        });
-        doc.save("Ausrückungen.pdf");
+        this.exportService.savePDF(columns, rows);
     }
 
     exportExcel() {
-        import("xlsx").then(xlsx => {
-            const worksheet = xlsx.utils.json_to_sheet(this.selectedAusrueckungen);
-            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-            this.saveAsExcelFile(excelBuffer, "Ausrückungen");
-        });
-    }
-
-    saveAsExcelFile(buffer: any, fileName: string): void {
-        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-        let EXCEL_EXTENSION = '.xlsx';
-        const data: Blob = new Blob([buffer], {
-            type: EXCEL_TYPE
-        });
-        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen");
     }
 
     onVonCalendarChange() {

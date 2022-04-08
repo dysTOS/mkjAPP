@@ -1,13 +1,15 @@
-import { Ausrueckung } from './../mkjInterfaces/Ausrueckung';
+import { Ausrueckung } from '../mkjInterfaces/Ausrueckung';
 import { Injectable } from '@angular/core';
 import * as ics from 'ics';
 import * as FileSaver from 'file-saver';
 import * as moment from 'moment';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CalendarExportService {
+export class ExportService {
 
     constructor() { }
 
@@ -25,7 +27,7 @@ export class CalendarExportService {
             // status: 'CONFIRMED',
             // busyStatus: 'BUSY',
             // organizer: { name: 'Admin', email: 'Race@BolderBOULDER.com' },
-            attendees: []
+            // attendees: []
         }
 
         if (ausrueckung.ort) {
@@ -42,7 +44,7 @@ export class CalendarExportService {
             }
         }
 
-        this.saveEvent(event, ausrueckung.name + '.ics');
+        this.saveEvent(event, ausrueckung.name);
     }
 
     private saveEvent(event: ics.EventAttributes, fileName: string) {
@@ -52,9 +54,45 @@ export class CalendarExportService {
                 return
             }
             if (value) {
-                const data = new File([value], "cal", { type: "text/plain" });
-                FileSaver.saveAs(data, fileName);
+                const data = new Blob([value], { type: "text/calendar" });
+                FileSaver.saveAs(data, fileName + '.ics');
             }
         })
+    }
+
+    public exportExcel(array: any, fileName: string) {
+        import("xlsx").then(xlsx => {
+            const worksheet = xlsx.utils.json_to_sheet(array);
+            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            this.saveAsExcelFile(excelBuffer, fileName);
+        });
+    }
+
+    private saveAsExcelFile(buffer: any, fileName: string): void {
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data: Blob = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+    }
+
+    public savePDF(columns, rows) {
+        const doc: any = new jsPDF('l', 'pt');
+
+        doc.autoTable(columns, rows, {
+            theme: 'striped',
+            styles: {},
+            headstyles: { fillColor: [0, 66, 0] },
+            bodyStyles: {},
+            alternateRowStyles: {},
+            columnStyles: { columnWidth: 'auto' },
+            margin: { top: 50 },
+            beforePageContent: function (data) {
+                doc.text("Ausrückungen", 40, 30);
+            }
+        });
+        doc.save("Ausrückungen.pdf");
     }
 }

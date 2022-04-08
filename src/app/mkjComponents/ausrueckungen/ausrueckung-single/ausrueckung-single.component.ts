@@ -1,4 +1,4 @@
-import { CalendarExportService } from './../../../mkjServices/calendar-export.service';
+import { ExportService } from '../../../mkjServices/export.service';
 import { MessageService } from 'primeng/api';
 import { MitgliederService } from './../../../mkjServices/mitglieder.service';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
@@ -33,7 +33,7 @@ export class AusrueckungSingleComponent implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute,
         private ausrueckungenService: AusrueckungenService, private messageService: MessageService,
         private mitgliedService: MitgliederService, private notenService: NotenService,
-        private calExport: CalendarExportService) { }
+        private calExport: ExportService) { }
 
     ngOnInit(): void {
         if (this.ausrueckungenService.hasSelectedAusrueckung()) {
