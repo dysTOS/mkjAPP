@@ -70,19 +70,6 @@
             <input
                 type="text"
                 pInputText
-                inputId="geschlecht"
-                [(ngModel)]="noten.anmerkungen"
-                required
-            />
-
-            <label for="name">Anmerkungen</label>
-        </span>
-    </div>
-    <div class="p-field p-col-12 p-md-6">
-        <span class="p-float-label">
-            <input
-                type="text"
-                pInputText
                 inputId="strasse"
                 [(ngModel)]="noten.aufbewahrungsort"
                 required
@@ -100,6 +87,7 @@
                 showIcon="true"
                 [appendTo]="'body'"
                 [showButtonBar]="true"
+                [touchUI]="true"
                 required
             ></p-calendar>
 
@@ -117,6 +105,19 @@
             />
 
             <label for="name">Ausgeliehen Von</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12">
+        <span class="p-float-label">
+            <textarea
+                type="text"
+                pInputTextarea
+                inputId="geschlecht"
+                [(ngModel)]="noten.anmerkungen"
+                required
+            ></textarea>
+
+            <label for="name">Anmerkungen</label>
         </span>
     </div>
 </div>

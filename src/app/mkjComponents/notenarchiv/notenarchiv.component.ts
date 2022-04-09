@@ -19,6 +19,7 @@ export class NotenarchivComponent implements OnInit {
     editNoten: Noten;
 
     RoleType = RoleType;
+    globalFilterText: string = '';
 
     constructor(private notenService: NotenService,
         private confirmationService: ConfirmationService,
@@ -26,6 +27,7 @@ export class NotenarchivComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllNoten();
+        this.checkGlobalFilter();
     }
 
     getAllNoten() {
@@ -109,5 +111,12 @@ export class NotenarchivComponent implements OnInit {
             }
         }
         return index;
+    }
+
+    private checkGlobalFilter() {
+        const globalFilter = JSON.parse(sessionStorage.getItem('notenTable-session'));
+        if (globalFilter?.filters?.global?.value) {
+            this.globalFilterText = globalFilter.filters.global.value;
+        }
     }
 }

@@ -1,12 +1,7 @@
-<div class="mkj-toolbar p-col-12 p-p-0 p-d-flex p-jc-md-between p-mb-3">
-    <button
-        pButton
-        icon="pi pi-arrow-left"
-        class="p-button-sm p-button-rounded p-button-text"
-        (click)="navigateBack()"
-    ></button>
-    <div></div>
-</div>
+<app-mkj-toolbar
+    [showAddButton]="false"
+    (navigateBack)="navigateBack()"
+></app-mkj-toolbar>
 
 <div class="card">
     <div class="p-grid p-col-12">

@@ -1,22 +1,8 @@
-<div class="mkj-toolbar p-col-12 p-d-flex p-jc-md-between p-mb-3">
-    <button
-        pButton
-        icon="pi pi-arrow-left"
-        class="p-button-sm p-button-rounded p-button-outlined"
-        (click)="navigateBack()"
-        pTooltip="Zurück"
-    ></button>
-    <div>
-        <button
-            *ngIf="ausrueckung"
-            pButton
-            icon="pi pi-download"
-            label="Termin exportieren"
-            class="p-button-info p-button-outlined"
-            (click)="exportToCalendar()"
-        ></button>
-    </div>
-</div>
+<app-mkj-toolbar
+    [showAddButton]="false"
+    [showBackButton]="true"
+    (navigateBack)="navigateBack()"
+></app-mkj-toolbar>
 
 <p-accordion>
     <p-accordionTab [selected]="true">
@@ -71,9 +57,19 @@
                     {{ ausrueckung.beschreibung }}
                 </p-panel>
             </div>
+            <div class="p-md-6 p-sm-12">
+                <button
+                    *ngIf="ausrueckung"
+                    pButton
+                    icon="pi pi-download"
+                    label="Termin exportieren"
+                    class="p-button-info p-button-outlined"
+                    (click)="exportToCalendar()"
+                ></button>
+            </div>
             <div style="color: grey; font-size: 0.9em" class="p-col-12">
                 <p-divider></p-divider>
-                <div class="p-d-flex p-flex-wrap p-jc-between">
+                <div class="p-d-flex p-flex-wrap p-jc-between p-sm-mt-1">
                     <div>
                         {{
                             ausrueckung.oeffentlich

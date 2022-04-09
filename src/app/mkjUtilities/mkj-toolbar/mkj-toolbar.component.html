@@ -1,0 +1,25 @@
+<div class="mkj-toolbar p-col-12 p-d-flex p-jc-between p-ai-center p-mb-3">
+    <div>
+        <button
+            *ngIf="showBackButton"
+            pButton
+            icon="pi pi-arrow-left"
+            class="p-button-sm p-button-text p-button-plain button-opacity p-p-1"
+            (click)="navigateBack.emit()"
+            pTooltip="Zurück"
+        ></button>
+    </div>
+    <div *ngIf="header" class="toolbar-header">
+        {{ header }}
+    </div>
+    <div>
+        <button
+            *ngIf="showAddButton"
+            pButton
+            class="p-button-sm p-button-text p-button-plain button-opacity p-p-1"
+            icon="pi pi-plus"
+            (click)="clickAdd.emit()"
+            [pTooltip]="addButtonTooltip"
+        ></button>
+    </div>
+</div>

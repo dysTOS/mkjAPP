@@ -269,28 +269,6 @@ export class AusrueckungenComponent implements OnInit {
         this.selectedAusrueckungen = e.filteredValue;
     }
 
-    exportCsv() {
-        this.ausrueckungenTable.exportCSV({ filteredValues: true });
-    }
-
-    exportPdf() {
-        let columns = [
-            { title: "Name", dataKey: "name" },
-            { title: "Datum", dataKey: "von" },
-            { title: "Kategorie", dataKey: "typ" },
-            { title: "Status", dataKey: "status" },
-            { title: "Beschreibung", dataKey: "beschreibung" },
-            { title: "Infos", dataKey: "infosMusiker" }
-        ];
-        let rows = this.selectedAusrueckungen;
-
-        this.exportService.savePDF(columns, rows);
-    }
-
-    exportExcel() {
-        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen");
-    }
-
     onVonCalendarChange() {
         if (this.vonDatumDate) {
             let v = moment(this.vonDatumDate);
@@ -319,4 +297,25 @@ export class AusrueckungenComponent implements OnInit {
         this.ausrueckungenTable.toggleRow(event.data);
     }
 
+    exportCsv() {
+        this.ausrueckungenTable.exportCSV({ filteredValues: true });
+    }
+
+    exportPdf() {
+        let columns = [
+            { title: "Name", dataKey: "name" },
+            { title: "Datum", dataKey: "von" },
+            { title: "Kategorie", dataKey: "typ" },
+            { title: "Status", dataKey: "status" },
+            { title: "Beschreibung", dataKey: "beschreibung" },
+            { title: "Infos", dataKey: "infosMusiker" }
+        ];
+        let rows = this.selectedAusrueckungen;
+
+        this.exportService.savePDF(columns, rows);
+    }
+
+    exportExcel() {
+        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen");
+    }
 }

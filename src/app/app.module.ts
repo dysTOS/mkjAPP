@@ -180,6 +180,7 @@ import { VisibleForDirective } from "./mkjUtilities/visible-for-roles.directive"
 import { NotVisibleForRolesDirective } from './mkjUtilities/not-visible-for-roles.directive';
 import { MitgliedEditorComponent } from './mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component';
 import { NotenEditorComponent } from './mkjComponents/notenarchiv/noten-editor/noten-editor.component';
+import { MkjToolbarComponent } from './mkjUtilities/mkj-toolbar/mkj-toolbar.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -345,6 +346,7 @@ FullCalendarModule.registerPlugins([
         NotVisibleForRolesDirective,
         MitgliedEditorComponent,
         NotenEditorComponent,
+        MkjToolbarComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
