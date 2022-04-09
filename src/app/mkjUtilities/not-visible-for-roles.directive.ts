@@ -14,6 +14,7 @@ export class NotVisibleForRolesDirective {
 
     @Input() set notVisibleFor(roles: RoleType[]) {
         let isNotVisible: boolean = false;
+        this.viewContainer.clear();
         this.userService.getCurrentUserRoles().subscribe({
             next: () => {
                 roles.forEach(r => {

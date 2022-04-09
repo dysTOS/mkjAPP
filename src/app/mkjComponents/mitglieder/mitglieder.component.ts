@@ -2,6 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MitgliederService } from './../../mkjServices/mitglieder.service';
 import { Component, OnInit } from '@angular/core';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
+import { RoleType } from 'src/app/mkjInterfaces/User';
 
 @Component({
     selector: 'app-mitglieder',
@@ -12,6 +13,7 @@ export class MitgliederComponent implements OnInit {
     mitglieder: Array<Mitglied>;
 
     loading: boolean = false;
+    RoleType = RoleType;
 
     constructor(private mitgliederService: MitgliederService,
         private router: Router, private route: ActivatedRoute) { }

@@ -368,6 +368,7 @@ FullCalendarModule.registerPlugins([
         DatePipe,
         AuthGuardService,
         MessageService,
+        MkjDatePipe
     ],
     bootstrap: [AppComponent],
 })

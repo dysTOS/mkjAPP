@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../../mkjServices/ausrueckungen.service';
 import { Ausrueckung, AusrueckungFilterInput } from '../../mkjInterfaces/Ausrueckung';
 import { Table } from 'primeng/table';
+import { MkjDatePipe } from 'src/app/mkjUtilities/mkj-date.pipe';
 import * as moment from 'moment';
 
 @Component({
@@ -61,7 +62,7 @@ export class AusrueckungenComponent implements OnInit {
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
-        private exportService: ExportService) { }
+        private exportService: ExportService, private mkjDate: MkjDatePipe) { }
 
     ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
@@ -305,14 +306,20 @@ export class AusrueckungenComponent implements OnInit {
         let columns = [
             { title: "Name", dataKey: "name" },
             { title: "Datum", dataKey: "von" },
-            { title: "Kategorie", dataKey: "typ" },
+            { title: "Ort", dataKey: "ort" },
+            // { title: "Kategorie", dataKey: "typ" },
             { title: "Status", dataKey: "status" },
-            { title: "Beschreibung", dataKey: "beschreibung" },
+            // { title: "Beschreibung", dataKey: "beschreibung" },
             { title: "Infos", dataKey: "infosMusiker" }
         ];
-        let rows = this.selectedAusrueckungen;
+        let rows = this.selectedAusrueckungen.map(e => {
+            const r = { ...e };
+            r.von = this.mkjDate.transform(r.von, "E dd. MMM YYYY") + this.mkjDate.transform(r.treffzeit, ", HH:mm");
+            return r;
+        });
 
         this.exportService.savePDF(columns, rows);
+
     }
 
     exportExcel() {

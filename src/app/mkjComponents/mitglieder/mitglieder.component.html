@@ -43,7 +43,7 @@
                     <th class="not-on-small">Adresse</th>
                     <th>E-Mail</th>
                     <th class="not-on-small">Mobil-Nr.</th>
-                    <th></th>
+                    <th *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-mitglied let-columns="columns">
@@ -52,6 +52,7 @@
                         <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
 
                         <button
+                            *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
@@ -66,7 +67,10 @@
                     </td>
                     <td>{{ mitglied?.email }}</td>
                     <td>{{ mitglied.telefonMobil }}</td>
-                    <td class="not-on-small">
+                    <td
+                        *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                        class="not-on-small"
+                    >
                         <button
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
