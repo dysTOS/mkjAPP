@@ -23,7 +23,7 @@ export class NotenService {
         return this.http.get<Noten[]>(url, httpOptions);
     }
 
-    getNotenForAusrueckung(ausrueckungId: number): Observable<Noten[]> {
+    getNotenForAusrueckung(ausrueckungId: string): Observable<Noten[]> {
         const url = this.apiURL + "/api/notenausrueckung/" + ausrueckungId.toString();
         return this.http.get<Noten[]>(url, httpOptions);
     }
@@ -48,7 +48,7 @@ export class NotenService {
         return this.http.delete<Noten>(url, httpOptions);
     }
 
-    attachNotenToAusrueckung(notenId: number, ausrueckungId: number): Observable<any> {
+    attachNotenToAusrueckung(notenId: string, ausrueckungId: string): Observable<any> {
         const url = this.apiURL + "/api/addnoten";
         return this.http.post<any>(
             url,
@@ -58,8 +58,8 @@ export class NotenService {
     }
 
     detachNotenFromAusrueckung(
-        notenId: number,
-        ausrueckungId: number
+        notenId: string,
+        ausrueckungId: string
     ): Observable<any> {
         const url = this.apiURL + "/api/removenoten";
         return this.http.post<any>(

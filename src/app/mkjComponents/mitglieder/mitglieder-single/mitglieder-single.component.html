@@ -1,5 +1,9 @@
 <app-mkj-toolbar
-    [showAddButton]="false"
+    [showEditButton]="mitglied"
+    [showBackButton]="true"
+    [showDeleteButton]="mitglied"
+    (clickEdit)="openEditDialog()"
+    (clickDelete)="deleteMitglied()"
     (navigateBack)="navigateBack()"
 ></app-mkj-toolbar>
 
@@ -32,15 +36,6 @@
             <div *ngIf="mitglied?.eintrittDatum">
                 Datum Eintritt: {{ mitglied?.eintrittDatum }}
             </div>
-
-            <button
-                *ngIf="mitglied"
-                pButton
-                label="Bearbeiten"
-                icon="pi pi-pencil"
-                class="p-button-info p-button-outlined p-mt-5"
-                (click)="openEditDialog()"
-            ></button>
         </div>
     </div>
 </div>
@@ -56,9 +51,9 @@
         [checkbox]="true"
         [filter]="false"
         [showToggleAll]="false"
+        [listStyle]="{ 'max-height': '250px' }"
         optionLabel="role"
         dataKey="id"
-        [listStyle]="{ 'max-height': '250px' }"
         (onChange)="onRoleChange($event)"
     >
         <ng-template pTemplate="header"> Rollen </ng-template>
@@ -103,3 +98,8 @@
         ></button
     ></ng-template>
 </p-dialog>
+
+<p-confirmDialog
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '450px' }"
+></p-confirmDialog>

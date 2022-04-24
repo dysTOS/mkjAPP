@@ -31,6 +31,7 @@ import * as moment from 'moment';
 export class AusrueckungenComponent implements OnInit {
     ausrueckungDialog: boolean;
     zeitraumDialog: boolean;
+    exportDialogVisible: boolean = false;
 
     ausrueckungenArray: Ausrueckung[];
     ausrueckungFilterInput: AusrueckungFilterInput;
@@ -105,7 +106,7 @@ export class AusrueckungenComponent implements OnInit {
             },
             {
                 label: 'als PDF', icon: 'pi pi-file-pdf',
-                command: () => this.exportPdf()
+                command: () => { this.exportPdf(), this.exportDialogVisible = false }
             },
             {
                 label: 'als CSV', icon: 'pi pi-file',
@@ -279,7 +280,7 @@ export class AusrueckungenComponent implements OnInit {
         }
     }
 
-    findIndexById(id: number): number {
+    findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.ausrueckungenArray.length; i++) {
             if (this.ausrueckungenArray[i].id === id) {

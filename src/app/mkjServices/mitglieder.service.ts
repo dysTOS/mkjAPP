@@ -1,4 +1,3 @@
-import { Role } from './../mkjInterfaces/User';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -30,17 +29,17 @@ export class MitgliederService {
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 
-    getMitgliederForAusrueckung(ausrueckungId: number): Observable<Mitglied[]> {
+    getMitgliederForAusrueckung(ausrueckungId: string): Observable<Mitglied[]> {
         const url = this.apiURL + "/api/mitgliederausrueckung/" + ausrueckungId.toString();
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 
-    getSingleMitglied(id: number): Observable<Mitglied> {
+    getSingleMitglied(id: string): Observable<Mitglied> {
         const url = this.apiURL + "/api/mitglieder/" + id;
         return this.http.get<Mitglied>(url, httpOptions);
     }
 
-    attachMitgliedToAusrueckung(ausrueckungId: number, mitgliedId: number): Observable<any> {
+    attachMitgliedToAusrueckung(ausrueckungId: string, mitgliedId: string): Observable<any> {
         const url = this.apiURL + "/api/addmitglied";
         return this.http.post<any>(
             url,
@@ -65,8 +64,8 @@ export class MitgliederService {
     }
 
     detachMitgliedFromAusrueckung(
-        ausrueckungId: number,
-        mitgliedId: number
+        ausrueckungId: string,
+        mitgliedId: string
     ): Observable<any> {
         const url = this.apiURL + "/api/removemitglied";
         return this.http.post<any>(

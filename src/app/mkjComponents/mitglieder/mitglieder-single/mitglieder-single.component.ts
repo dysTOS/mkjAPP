@@ -1,5 +1,5 @@
 import { RoleType } from 'src/app/mkjInterfaces/User';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
 import { Role } from './../../../mkjInterfaces/User';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class MitgliederSingleComponent implements OnInit {
     editDialogVisible: boolean = false;
 
     constructor(private mitgliederService: MitgliederService, private roleService: RoleService,
-        private router: Router, private route: ActivatedRoute, private messageService: MessageService) { }
+        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private messageService: MessageService) { }
 
     ngOnInit(): void {
         if (this.mitgliederService.hasSelectedMitglied()) {
@@ -46,7 +46,7 @@ export class MitgliederSingleComponent implements OnInit {
         }
     }
 
-    getRoles(id: number) {
+    getRoles(id: string) {
         this.rolesLoading = true;
         this.roleService.getAllRoles().subscribe({ next: roles => this.allRoles = roles })
         this.roleService.getRolesForMitglied(id).subscribe({
@@ -99,8 +99,30 @@ export class MitgliederSingleComponent implements OnInit {
                 this.editDialogVisible = false
             },
             error: (error) => this.messageService.add(
-                { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                { severity: 'error', summary: 'Fehler', detail: error.error.message })
         })
+    }
+
+    public deleteMitglied() {
+        let name = this.mitglied.vorname + ' ' + this.mitglied.zuname;
+        this.confirmationService.confirm({
+            header: 'Mitglied ' + name + ' löschen?',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.mitgliederService.deleteMitglied(this.mitglied).subscribe({
+                    next: (res) => {
+                        this.messageService.add({
+                            severity: 'success', summary: 'Erfolg',
+                            detail: 'Mitglied ' + name + ' gelöscht!'
+                        });
+                        this.navigateBack();
+                    },
+                    error: (error) => this.messageService.add(
+                        { severity: 'error', summary: 'Fehler', detail: error.error.message })
+
+                });
+            }
+        });
     }
 
     navigateBack() {

@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface Role {
-    id?: number;
+    id?: string;
     role?: string;
     name?: string;
     created_at?: string;

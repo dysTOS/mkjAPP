@@ -14,6 +14,7 @@ export class NotenarchivComponent implements OnInit {
     selectedNoten: Noten[];
 
     loading: boolean = false;
+    isAdding: boolean = false;
 
     editDialogVisible: boolean = false;
     editNoten: Noten;
@@ -52,22 +53,26 @@ export class NotenarchivComponent implements OnInit {
     }
 
     cancelEdit() {
-        this.editNoten = null;
         this.editDialogVisible = false;
+        this.editNoten = null;
 
     }
 
     saveNoten() {
+        this.isAdding = true;
         if (this.editNoten.id) {
             this.notenService.updateNoten(this.editNoten).subscribe({
                 next: res => {
-                    this.editNoten = null;
                     let index = this.findIndexById(this.editNoten.id);
-                    this.notenArray[index] = res; this.notenArray = [...this.notenArray];
+                    this.notenArray[index] = res;
+                    this.notenArray = [...this.notenArray];
                     this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Noten aktualisiert!', life: 3000 });
                     this.editDialogVisible = false;
+                    this.editNoten = null;
+                    this.isAdding = false;
                 },
                 error: error => {
+                    this.isAdding = false;
                     this.messageService.add({ severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
                 }
             })
@@ -75,13 +80,16 @@ export class NotenarchivComponent implements OnInit {
         else {
             this.notenService.createNoten(this.editNoten).subscribe({
                 next: res => {
-                    this.editNoten = null;
                     this.notenArray.push(res);
                     this.notenArray = [...this.notenArray]
                     this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Noten hinzugefügt!', life: 3000 });
                     this.editDialogVisible = false;
+                    this.editNoten = null;
+                    this.isAdding = false;
                 },
                 error: error => {
+                    this.isAdding = false;
+
                     this.messageService.add({ severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
                 }
             })
@@ -102,7 +110,7 @@ export class NotenarchivComponent implements OnInit {
         });
     }
 
-    private findIndexById(id: number): number {
+    private findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.notenArray.length; i++) {
             if (this.notenArray[i].id === id) {

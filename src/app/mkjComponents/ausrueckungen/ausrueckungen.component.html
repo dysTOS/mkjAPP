@@ -1,8 +1,11 @@
 <app-mkj-toolbar
-    [showBackButton]="false"
+    [showAddButton]="true"
+    [showExportButton]="true"
     header="Ausrückungen"
     (clickAdd)="openNew()"
+    (clickExport)="exportDialogVisible = true"
     addButtonTooltip="Neue Ausrückung"
+    exportButtonTooltip="Ausrückungen exportieren"
 ></app-mkj-toolbar>
 
 <div class="p-grid">
@@ -21,15 +24,6 @@
                 [popup]="true"
                 [model]="zeitraumOptions"
             ></p-menu>
-            <button
-                pButton
-                pRipple
-                label="Export"
-                icon="pi pi-upload"
-                class="p-button-info p-button-outlined p-button-sm p-mb-2"
-                (click)="exportMenu.toggle($event)"
-            ></button>
-            <p-menu #exportMenu [popup]="true" [model]="exportOptions"></p-menu>
         </div>
         <div>
             <!-- Tabelle -->
@@ -641,6 +635,33 @@
                     icon="pi pi-check"
                     class="p-button"
                     (click)="saveZeitraum(1)"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <!-- Export Dialog -->
+        <p-dialog
+            #exportDialog
+            [(visible)]="exportDialogVisible"
+            header="Ausrückungen exportieren"
+            [closable]="false"
+            [modal]="true"
+            styleClass="p-fluid"
+            position="top"
+        >
+            <ng-template pTemplate="content">
+                <div>
+                    <p-menu [model]="exportOptions"></p-menu>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Schließen"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="exportDialogVisible = false"
                 ></button>
             </ng-template>
         </p-dialog>

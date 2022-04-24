@@ -4,22 +4,63 @@
             *ngIf="showBackButton"
             pButton
             icon="pi pi-arrow-left"
-            class="p-button-sm p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-p-1"
             (click)="navigateBack.emit()"
             pTooltip="Zurück"
+            tooltipPosition="bottom"
         ></button>
+        <div *ngIf="headerLeft" class="toolbar-header">
+            {{ headerLeft }}
+        </div>
     </div>
     <div *ngIf="header" class="toolbar-header">
         {{ header }}
     </div>
     <div>
         <button
+            *ngIf="showEditButton"
+            pButton
+            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            icon="pi pi-pencil"
+            (click)="clickEdit.emit()"
+            [pTooltip]="editButtonTooltip"
+            tooltipPosition="bottom"
+        ></button>
+        <button
             *ngIf="showAddButton"
             pButton
-            class="p-button-sm p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-plus"
             (click)="clickAdd.emit()"
             [pTooltip]="addButtonTooltip"
+            tooltipPosition="bottom"
+        ></button>
+        <button
+            *ngIf="showDeleteButton"
+            pButton
+            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            icon="pi pi-trash"
+            (click)="clickDelete.emit()"
+            [pTooltip]="deleteButtonTooltip"
+            tooltipPosition="bottom"
+        ></button>
+        <button
+            *ngIf="showFilterButton"
+            pButton
+            class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
+            icon="pi pi-filter"
+            (click)="clickFilter.emit()"
+            [pTooltip]="filterButtonTooltip"
+            tooltipPosition="bottom"
+        ></button>
+        <button
+            *ngIf="showExportButton"
+            pButton
+            class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
+            icon="pi pi-download"
+            (click)="clickExport.emit()"
+            [pTooltip]="exportButtonTooltip"
+            tooltipPosition="bottom"
         ></button>
     </div>
 </div>

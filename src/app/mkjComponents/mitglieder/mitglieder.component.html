@@ -1,7 +1,11 @@
 <app-mkj-toolbar
-    [showBackButton]="false"
-    [showAddButton]="false"
-    header="Mitglieder"
+    [showAddButton]="true"
+    [showFilterButton]="true"
+    addButtonTooltip="Mitglied erstellen"
+    filterButtonTooltip="Liste filtern"
+    (clickFilter)="filterDialogVisible = true"
+    (clickAdd)="openEditDialog()"
+    headerLeft="Mitglieder"
 ></app-mkj-toolbar>
 
 <div class="p-grid">
@@ -18,7 +22,10 @@
                 <div
                     class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
                 >
-                    <div></div>
+                    <div class="p-mb-2">
+                        Anzahl:
+                        {{ mitglieder?.length }}
+                    </div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input
@@ -85,3 +92,76 @@
         </p-table>
     </div>
 </div>
+
+<!-- Create Mitglied -->
+<p-dialog
+    [(visible)]="editDialogVisible"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '75vw' }"
+    [header]="'Mitglied erstellen'"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <app-mitglied-editor [(mitglied)]="addMitglied"></app-mitglied-editor>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Abbrechen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="cancelAdd()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Speichern"
+            [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+            class="p-button-plain"
+            [disabled]="isAdding"
+            (click)="saveMitglied()"
+        ></button
+    ></ng-template>
+</p-dialog>
+
+<!-- Filter Dialog -->
+<p-dialog
+    #filterDialog
+    [(visible)]="filterDialogVisible"
+    [closable]="false"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <span class="p-buttonset">
+            <button
+                pButton
+                type="button"
+                class="p-button-outlined p-button-info"
+                label="Aktive Mitglieder"
+                (click)="loadAktiveMitglieder(); filterDialogVisible = false"
+            ></button>
+            <button
+                pButton
+                type="button"
+                class="p-button-outlined p-button-info"
+                label="Alle Mitglieder"
+                (click)="loadAllMitglieder(); filterDialogVisible = false"
+            ></button>
+        </span>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Schließen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="filterDialogVisible = false"
+        ></button>
+    </ng-template>
+</p-dialog>

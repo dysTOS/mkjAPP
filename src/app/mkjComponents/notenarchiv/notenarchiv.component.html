@@ -1,8 +1,8 @@
 <app-mkj-toolbar
-    [showBackButton]="false"
+    [showAddButton]="true"
     (clickAdd)="openEditDialog()"
     addButtonTooltip="Noten anlegen"
-    [header]="'Notenarchiv'"
+    [headerLeft]="'Notenarchiv'"
 ></app-mkj-toolbar>
 
 <p-table
@@ -15,13 +15,14 @@
     responsiveLayout="scroll"
     stateStorage="session"
     stateKey="notenTable-session"
+    rowExpandMode="single"
     (onFilter)="setFilteredRows($event)"
 >
     <ng-template pTemplate="caption">
         <div
             class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
         >
-            <div>
+            <div class="p-m-2">
                 Anzahl:
                 {{ selectedNoten ? selectedNoten?.length + "/" : ""
                 }}{{ notenArray?.length }}
@@ -53,10 +54,10 @@
             <th class="not-on-small">Arrangeur</th>
             <th class="not-on-small">Verlag</th>
             <th class="not-on-small">Gattung</th>
-            <th></th>
+            <th class="not-on-small"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-noten>
+    <ng-template pTemplate="body" let-noten let-expanded="expanded">
         <tr pSelectableRow="row">
             <td>{{ noten.inventarId }}</td>
             <td>
@@ -93,9 +94,14 @@
             </td>
         </tr>
     </ng-template>
+    <ng-template pTemplate="rowexpansion" let-noten>
+        <tr>
+            <td colspan="12"></td>
+        </tr>
+    </ng-template>
 </p-table>
 
-<!-- Save/Update Mitglied -->
+<!-- Save/Update Noten -->
 <p-dialog
     [(visible)]="editDialogVisible"
     [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
@@ -121,7 +127,8 @@
             pButton
             pRipple
             label="Speichern"
-            icon="pi pi-check"
+            [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+            [disabled]="isAdding"
             class="p-button-plain"
             (click)="saveNoten()"
         ></button

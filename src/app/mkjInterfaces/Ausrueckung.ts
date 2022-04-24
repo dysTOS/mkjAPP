@@ -1,5 +1,5 @@
 export interface Ausrueckung {
-    id?: number;
+    id?: string;
     name?: string;
     beschreibung?: string;
     infoMusiker?: string;

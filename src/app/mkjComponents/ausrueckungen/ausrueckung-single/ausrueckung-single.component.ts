@@ -58,7 +58,7 @@ export class AusrueckungSingleComponent implements OnInit {
 
     }
 
-    getAktiveMitglieder(id: number) {
+    getAktiveMitglieder(id: string) {
         this.mitgliedService.getAllMitglieder().subscribe({
             next: res => {
                 this.mitglieder = res;

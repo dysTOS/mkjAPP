@@ -15,13 +15,13 @@ export class ExportService {
 
     public exportAusrueckungIcs(ausrueckung: Ausrueckung) {
         const event: ics.EventAttributes = {
-            start: [moment(ausrueckung.von).year(), moment(ausrueckung.von).month(),
-            moment(ausrueckung.von).day(), moment(ausrueckung.von).hour(), moment(ausrueckung.von).minute()],
-            end: [moment(ausrueckung.bis).year(), moment(ausrueckung.bis).month(),
-            moment(ausrueckung.bis).day(), moment(ausrueckung.bis).hour(), moment(ausrueckung.bis).minute()],
+            start: [moment(ausrueckung.von).year(), moment(ausrueckung.von).month() + 1,
+            moment(ausrueckung.von).date(), moment(ausrueckung.von).hour(), moment(ausrueckung.von).minute()],
+            end: [moment(ausrueckung.bis).year(), moment(ausrueckung.bis).month() + 1,
+            moment(ausrueckung.bis).date(), moment(ausrueckung.bis).hour(), moment(ausrueckung.bis).minute()],
             // duration: { hours: 6, minutes: 30 },
             title: ausrueckung.name,
-            url: 'http://www.mk-jainzen.at/',
+            url: 'https://www.mk-jainzen.at/',
             // geo: { lat: 40.0095, lon: 105.2669 },
             categories: ['MK Jainzen', 'Ausrückung', ausrueckung.kategorie],
             // status: 'CONFIRMED',
@@ -44,10 +44,10 @@ export class ExportService {
             }
         }
 
-        this.saveEvent(event, ausrueckung.name);
+        this.saveIcsEvent(event, ausrueckung.name);
     }
 
-    private saveEvent(event: ics.EventAttributes, fileName: string) {
+    private saveIcsEvent(event: ics.EventAttributes, fileName: string) {
         ics.createEvent(event, (error, value) => {
             if (error) {
                 console.log(error)
@@ -70,8 +70,8 @@ export class ExportService {
     }
 
     private saveAsExcelFile(buffer: any, fileName: string): void {
-        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-        let EXCEL_EXTENSION = '.xlsx';
+        const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const EXCEL_EXTENSION = '.xlsx';
         const data: Blob = new Blob([buffer], {
             type: EXCEL_TYPE
         });

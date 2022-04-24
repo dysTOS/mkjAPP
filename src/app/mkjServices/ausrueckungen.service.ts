@@ -27,7 +27,7 @@ export class AusrueckungenService {
         return this.http.get<Ausrueckung[]>(url, httpOptions);
     }
 
-    getSingleAusrueckung(id: number): Observable<Ausrueckung> {
+    getSingleAusrueckung(id: string): Observable<Ausrueckung> {
         const url = this.apiURL + "/api/ausrueckungen/" + id;
         return this.http.get<Ausrueckung>(url, httpOptions);
     }
