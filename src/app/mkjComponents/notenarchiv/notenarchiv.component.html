@@ -1,24 +1,142 @@
-<p-table [value]="notenArray">
+<app-mkj-toolbar
+    [showAddButton]="true"
+    (clickAdd)="openEditDialog()"
+    addButtonTooltip="Noten anlegen"
+    [headerLeft]="'Notenarchiv'"
+></app-mkj-toolbar>
+
+<p-table
+    #notenTable
+    [value]="notenArray"
+    [loading]="loading"
+    [globalFilterFields]="['titel', 'komponist', 'gattung', 'inventarId']"
+    styleClass="p-datatable-striped p-datatable-sm p-datatable-noten"
+    dataKey="id"
+    responsiveLayout="scroll"
+    stateStorage="session"
+    stateKey="notenTable-session"
+    rowExpandMode="single"
+    (onFilter)="setFilteredRows($event)"
+>
+    <ng-template pTemplate="caption">
+        <div
+            class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
+        >
+            <div class="p-m-2">
+                Anzahl:
+                {{ selectedNoten ? selectedNoten?.length + "/" : ""
+                }}{{ notenArray?.length }}
+            </div>
+
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                    pInputText
+                    type="text"
+                    [value]="globalFilterText"
+                    (input)="
+                        notenTable.filterGlobal($event.target.value, 'contains')
+                    "
+                    placeholder="Suchen..."
+                />
+            </span>
+        </div>
+    </ng-template>
     <ng-template pTemplate="header"
         ><tr>
-            <th>Inventar Nr</th>
-            <th>Titel</th>
-            <th>Komponist</th>
-            <th>Arrangeur</th>
-            <th>Gattung</th>
+            <th pSortableColumn="inventarId">
+                Inv. Nr <p-sortIcon field="inventarId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="titel">
+                Titel <p-sortIcon field="titel"></p-sortIcon>
+            </th>
+            <th class="not-on-small">Komponist</th>
+            <th class="not-on-small">Arrangeur</th>
+            <th class="not-on-small">Verlag</th>
+            <th class="not-on-small">Gattung</th>
+            <th class="not-on-small"></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-noten>
-        <tr>
+    <ng-template pTemplate="body" let-noten let-expanded="expanded">
+        <tr pSelectableRow="row">
             <td>{{ noten.inventarId }}</td>
             <td>
                 {{ noten.titel }}
             </td>
-            <td>
+            <td class="not-on-small">
                 {{ noten.komponist }}
             </td>
-            <td>{{ noten.arrangeur }}</td>
-            <td>{{ noten.gattung }}</td>
+            <td class="not-on-small">{{ noten.arrangeur }}</td>
+            <td class="not-on-small">{{ noten.verlag }}</td>
+            <td class="not-on-small">{{ noten.gattung }}</td>
+            <td class="not-on-small">
+                <div class="p-d-flex buttons-hide">
+                    <button
+                        *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-text p-button-sm p-button-info p-mr-1"
+                        (click)="openEditDialog(noten)"
+                        pTooltip="Bearbeiten"
+                        tooltipPosition="left"
+                    ></button>
+                    <button
+                        *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-text p-button-sm p-button-danger"
+                        (click)="deleteNoten(noten)"
+                        pTooltip="Löschen"
+                    ></button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-noten>
+        <tr>
+            <td colspan="12"></td>
         </tr>
     </ng-template>
 </p-table>
+
+<!-- Save/Update Noten -->
+<p-dialog
+    [(visible)]="editDialogVisible"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '75vw' }"
+    [header]="editNoten?.id ? 'Noten aktualisieren' : 'Noten erstellen'"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <app-noten-editor [(noten)]="editNoten"></app-noten-editor>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Abbrechen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="cancelEdit()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Speichern"
+            [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+            [disabled]="isAdding"
+            class="p-button-plain"
+            (click)="saveNoten()"
+        ></button
+    ></ng-template>
+</p-dialog>
+
+<!-- Löschbestätigung? -->
+<p-confirmDialog
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '450px' }"
+></p-confirmDialog>

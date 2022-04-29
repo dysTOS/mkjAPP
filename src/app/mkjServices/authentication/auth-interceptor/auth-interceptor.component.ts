@@ -6,7 +6,6 @@ import { catchError, map } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 
 @Injectable()
-
 export class AuthInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService, private authStateService: AuthStateService) { }
 

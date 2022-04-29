@@ -1,5 +1,5 @@
 export interface Mitglied {
-    id?: number;
+    id?: string;
     user_id?: number;
     vorname?: string;
     zuname?: string;

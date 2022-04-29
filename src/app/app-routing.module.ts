@@ -62,8 +62,8 @@ import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder
                     { path: 'ausrueckung/:id', component: AusrueckungSingleComponent, canActivate: [AuthGuardService] },
                     { path: 'mitglieder', component: MitgliederComponent, canActivate: [AuthGuardService] },
                     { path: 'mitglieder/:id', component: MitgliederSingleComponent, canActivate: [AuthGuardService] },
-                    { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuardService] },
                     { path: 'notenarchiv', component: NotenarchivComponent, canActivate: [AuthGuardService] },
+                    { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },

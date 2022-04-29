@@ -1,34 +1,90 @@
+<app-mkj-toolbar
+    [showAddButton]="true"
+    [showFilterButton]="true"
+    addButtonTooltip="Mitglied erstellen"
+    filterButtonTooltip="Liste filtern"
+    (clickFilter)="filterDialogVisible = true"
+    (clickAdd)="openEditDialog()"
+    headerLeft="Mitglieder"
+></app-mkj-toolbar>
+
 <div class="p-grid">
     <div class="p-col-12">
-        <!-- <p-toast position="top-right"></p-toast> -->
-
         <p-table
+            #mitgliederTable
             [value]="mitglieder"
             [loading]="loading"
-            styleClass="p-datatable-sm"
+            [globalFilterFields]="['vorname', 'zuname', 'email']"
+            responsiveLayout="stack"
+            styleClass="p-datatable-sm p-datatable-mitglieder p-datatable-striped"
         >
-            <ng-template pTemplate="header">
+            <ng-template pTemplate="caption">
+                <div
+                    class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
+                >
+                    <div class="p-mb-2">
+                        Anzahl:
+                        {{ mitglieder?.length }}
+                    </div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="
+                                mitgliederTable.filterGlobal(
+                                    $event.target.value,
+                                    'contains'
+                                )
+                            "
+                            placeholder="Suchen..."
+                        />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th>Name</th>
-                    <th>Adresse</th>
+                    <th pSortableColumn="zuname">
+                        Name <p-sortIcon field="zuname"></p-sortIcon>
+                    </th>
+                    <th class="not-on-small">Adresse</th>
                     <th>E-Mail</th>
-                    <th></th>
+                    <th class="not-on-small">Mobil-Nr.</th>
+                    <th *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-mitglied>
-                <tr>
-                    <td>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</td>
+            <ng-template pTemplate="body" let-mitglied let-columns="columns">
+                <tr [pSelectableRow]="mitglied">
+                    <td>
+                        <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
+
+                        <button
+                            *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                            pButton
+                            (click)="navigateSingleMitglied(mitglied)"
+                            pTooltip="Details"
+                            tooltipPosition="left"
+                            icon="pi pi-ellipsis-h"
+                            class="just-on-small p-button-sm p-button-text buttons-hide p-button-info"
+                        ></button>
+                    </td>
                     <td>
                         {{ mitglied?.strasse }} {{ mitglied?.hausnummer }}
                         {{ mitglied?.plz }} {{ mitglied?.ort }}
                     </td>
                     <td>{{ mitglied?.email }}</td>
-                    <td>
+                    <td>{{ mitglied.telefonMobil }}</td>
+                    <td
+                        *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                        class="not-on-small"
+                    >
                         <button
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
-                            icon="pi pi-pencil"
-                            class="p-button-sm p-button-rounded p-button-outlined p-button-info"
+                            pTooltip="Details"
+                            tooltipPosition="left"
+                            icon="pi pi-ellipsis-h"
+                            class="p-button-sm p-button-text buttons-hide p-button-info p-p-2"
                         ></button>
                     </td>
                 </tr>
@@ -36,3 +92,76 @@
         </p-table>
     </div>
 </div>
+
+<!-- Create Mitglied -->
+<p-dialog
+    [(visible)]="editDialogVisible"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '75vw' }"
+    [header]="'Mitglied erstellen'"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <app-mitglied-editor [(mitglied)]="addMitglied"></app-mitglied-editor>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Abbrechen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="cancelAdd()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Speichern"
+            [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+            class="p-button-plain"
+            [disabled]="isAdding"
+            (click)="saveMitglied()"
+        ></button
+    ></ng-template>
+</p-dialog>
+
+<!-- Filter Dialog -->
+<p-dialog
+    #filterDialog
+    [(visible)]="filterDialogVisible"
+    [closable]="false"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <span class="p-buttonset">
+            <button
+                pButton
+                type="button"
+                class="p-button-outlined p-button-info"
+                label="Aktive Mitglieder"
+                (click)="loadAktiveMitglieder(); filterDialogVisible = false"
+            ></button>
+            <button
+                pButton
+                type="button"
+                class="p-button-outlined p-button-info"
+                label="Alle Mitglieder"
+                (click)="loadAllMitglieder(); filterDialogVisible = false"
+            ></button>
+        </span>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Schließen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="filterDialogVisible = false"
+        ></button>
+    </ng-template>
+</p-dialog>

@@ -1,43 +1,105 @@
-<!-- <p-toast position="top-right"></p-toast> -->
-<p-toolbar
-    ><div class="p-toolbar-group-left">
+<app-mkj-toolbar
+    [showEditButton]="mitglied"
+    [showBackButton]="true"
+    [showDeleteButton]="mitglied"
+    (clickEdit)="openEditDialog()"
+    (clickDelete)="deleteMitglied()"
+    (navigateBack)="navigateBack()"
+></app-mkj-toolbar>
+
+<div class="card">
+    <div class="p-grid p-col-12">
+        <div class="p-md-8 p-sm-12">
+            <div>
+                <b
+                    >{{ mitglied?.titelVor }} {{ mitglied?.vorname }}
+                    {{ mitglied?.zuname }} {{ mitglied?.titelNach }}</b
+                >
+            </div>
+            <div *ngIf="mitglied?.geburtsdatum">
+                Geburtsdatum: {{ mitglied?.geburtsdatum | mkjDate }}
+            </div>
+            <div *ngIf="mitglied?.strasse">
+                Adresse: {{ mitglied?.strasse }} {{ mitglied?.hausnummer }}
+                {{ mitglied?.plz }} {{ mitglied?.ort }}
+            </div>
+            <div *ngIf="mitglied?.email">
+                E-Mail:
+                {{ mitglied?.email }}
+            </div>
+            <div *ngIf="mitglied?.telefonMobil">
+                Handy: {{ mitglied?.telefonMobil }}
+            </div>
+            <div *ngIf="mitglied?.telefonHaupt">
+                Festnetz: {{ mitglied?.telefonHaupt }}
+            </div>
+            <div *ngIf="mitglied?.eintrittDatum">
+                Datum Eintritt: {{ mitglied?.eintrittDatum }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="p-md-4 p-sm-12">
+    <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+    </div>
+    <p-listbox
+        *ngIf="allRoles && selectedRoles"
+        [options]="allRoles"
+        [ngModel]="selectedRoles"
+        [multiple]="true"
+        [checkbox]="true"
+        [filter]="false"
+        [showToggleAll]="false"
+        [listStyle]="{ 'max-height': '250px' }"
+        optionLabel="role"
+        dataKey="id"
+        (onChange)="onRoleChange($event)"
+    >
+        <ng-template pTemplate="header"> Rollen </ng-template>
+        <ng-template let-role pTemplate="item">
+            <div>
+                <div>{{ role.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer"></ng-template>
+    </p-listbox>
+</div>
+
+<!-- Save/Update Mitglied -->
+<p-dialog
+    [(visible)]="editDialogVisible"
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '75vw' }"
+    [header]="'Mitglied bearbeiten'"
+    [modal]="true"
+    styleClass="p-fluid"
+    position="top"
+>
+    <ng-template pTemplate="content">
+        <app-mitglied-editor [(mitglied)]="editMitglied"></app-mitglied-editor>
+    </ng-template>
+    <ng-template pTemplate="footer">
         <button
             pButton
             pRipple
-            label="Zurück"
-            icon="pi pi-arrow-left"
-            class="p-button-danger"
-            (click)="navigateBack()"
-        ></button></div
-></p-toolbar>
+            label="Abbrechen"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="cancelEdit()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Speichern"
+            icon="pi pi-check"
+            class="p-button-plain"
+            (click)="saveMitglied()"
+        ></button
+    ></ng-template>
+</p-dialog>
 
-<div class="p-col-12 card">{{ mitglied?.vorname }} {{ mitglied?.zuname }}</div>
-
-<div class="p-grid p-col-12">
-    <div class="p-md-6">
-        <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
-            <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-        </div>
-        <p-listbox
-            *ngIf="allRoles && selectedRoles"
-            [options]="allRoles"
-            [ngModel]="selectedRoles"
-            [multiple]="true"
-            [checkbox]="true"
-            [filter]="false"
-            [showToggleAll]="false"
-            optionLabel="role"
-            dataKey="id"
-            [listStyle]="{ 'max-height': '250px' }"
-            (onChange)="onRoleChange($event)"
-        >
-            <ng-template pTemplate="header"> Zugewiesene Rollen </ng-template>
-            <ng-template let-role pTemplate="item">
-                <div>
-                    <div>{{ role.role }}</div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="footer"></ng-template>
-        </p-listbox>
-    </div>
-</div>
+<p-confirmDialog
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '450px' }"
+></p-confirmDialog>

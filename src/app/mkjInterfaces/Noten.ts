@@ -1,5 +1,5 @@
 export interface Noten {
-    id?: number;
+    id?: string;
     inventarId?: string;
     titel?: string;
     komponist?: string;

@@ -16,24 +16,24 @@ const httpOptions = {
 export class RoleService {
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getAllRoles(): Observable<Role[]> {
         const url = this.apiURL + "/api/roles";
         return this.http.get<Role[]>(url, httpOptions);
     }
 
-    getRolesForMitglied(mitgliedId: number): Observable<Role[]> {
+    getRolesForMitglied(mitgliedId: string): Observable<Role[]> {
         const url = this.apiURL + "/api/getrolesformitglied";
         return this.http.post<Role[]>(url, { id: mitgliedId }, httpOptions);
     }
 
-    getRolesForUser(userId: number): Observable<Role[]> {
+    getRolesForUser(userId: string): Observable<Role[]> {
         const url = this.apiURL + "/api/getrolesforuser";
         return this.http.post<Role[]>(url, { id: userId }, httpOptions);
     }
 
-    attachRoleToMitglied(mitgliedId: number, roleId: number): Observable<any> {
+    attachRoleToMitglied(mitgliedId: string, roleId: string): Observable<any> {
         const url = this.apiURL + "/api/addrole";
         return this.http.post<Role[]>(
             url,
@@ -43,8 +43,8 @@ export class RoleService {
     }
 
     detachRoleFromMitglied(
-        mitgliedId: number,
-        roleId: number
+        mitgliedId: string,
+        roleId: string
     ): Observable<any> {
         const url = this.apiURL + "/api/removerole";
         return this.http.post<Role[]>(

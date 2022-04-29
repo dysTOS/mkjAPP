@@ -1,7 +1,14 @@
+import { ExportService } from '../../../mkjServices/export.service';
+import { MessageService } from 'primeng/api';
+import { MitgliederService } from './../../../mkjServices/mitglieder.service';
+import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
+import { NotenService } from './../../../mkjServices/noten.service';
 import { AusrueckungenService } from '../../../mkjServices/ausrueckungen.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Ausrueckung } from 'src/app/mkjInterfaces/Ausrueckung';
+import { Noten } from 'src/app/mkjInterfaces/Noten';
+import { RoleType } from 'src/app/mkjInterfaces/User';
 
 @Component({
     selector: 'app-ausrueckung-single',
@@ -10,24 +17,124 @@ import { Ausrueckung } from 'src/app/mkjInterfaces/Ausrueckung';
 })
 export class AusrueckungSingleComponent implements OnInit {
     ausrueckung: Ausrueckung;
-    loading: boolean = true;
 
-    constructor(private router: Router, private route: ActivatedRoute, private ausrueckungenService: AusrueckungenService) { }
+    loading: boolean = true;
+    notenLoading: boolean = true;
+
+    gespielteNoten: Noten[] = [];
+    searchNotenResult: Noten[];
+    selectedNoten: Noten;
+
+    mitglieder: Mitglied[];
+    presentMitglieder: Mitglied[] = [];
+
+    RoleType = RoleType;
+
+    constructor(private router: Router, private route: ActivatedRoute,
+        private ausrueckungenService: AusrueckungenService, private messageService: MessageService,
+        private mitgliedService: MitgliederService, private notenService: NotenService,
+        private calExport: ExportService) { }
 
     ngOnInit(): void {
         if (this.ausrueckungenService.hasSelectedAusrueckung()) {
             this.ausrueckung = this.ausrueckungenService.getSelectedAusrueckung();
             this.loading = false;
+            this.getGespielteNoten();
+            this.getAktiveMitglieder(this.ausrueckung.id);
         }
         else {
-            let ausrueckungID;
-            this.route.params.subscribe(e => ausrueckungID = e.id);
-            this.ausrueckungenService.getSingleAusrueckung(ausrueckungID).subscribe(
-                (ausrueckung) => this.ausrueckung = ausrueckung,
-                (error) => { },
-                () => this.loading = false
-            );
+            this.route.params.subscribe(e => {
+                this.getAktiveMitglieder(e.id);
+                this.ausrueckungenService.getSingleAusrueckung(e.id).subscribe(
+                    (ausrueckung) => {
+                        this.ausrueckung = ausrueckung
+                            , this.getGespielteNoten()
+                    },
+                    (error) => { },
+                    () => this.loading = false
+                );
+            });
         }
+
+    }
+
+    getAktiveMitglieder(id: string) {
+        this.mitgliedService.getAllMitglieder().subscribe({
+            next: res => {
+                this.mitglieder = res;
+            }
+        })
+        this.mitgliedService.getMitgliederForAusrueckung(id).subscribe({
+            next: res =>
+                this.presentMitglieder = res
+        })
+    }
+
+    onMitgliederChange(event) {
+        console.log(event)
+        let newSelection = event.value;
+        let attachMitglied = newSelection.filter(e => !this.presentMitglieder.includes(e))
+        let detachMitglied = this.presentMitglieder.filter(e => !newSelection.includes(e))
+        // console.log("ATTACH", attachRole, "DETACH", detachMitglied)
+        this.presentMitglieder = newSelection;
+        if (attachMitglied[0]) {
+            this.mitgliedService.attachMitgliedToAusrueckung(this.ausrueckung.id, attachMitglied[0].id).subscribe({
+                next: (res) => this.messageService.add(
+                    { severity: 'success', summary: 'Erfolg', detail: res.message, life: 3000 }),
+                error: (error) => this.messageService.add(
+                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+            })
+        }
+        if (detachMitglied[0]) {
+            this.mitgliedService.detachMitgliedFromAusrueckung(this.ausrueckung.id, detachMitglied[0].id).subscribe({
+                next: (res) => this.messageService.add(
+                    { severity: 'warn', summary: 'Erfolg', detail: res.message, life: 3000 }),
+                error: (error) => this.messageService.add(
+                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+            })
+        }
+    }
+
+    getGespielteNoten() {
+        this.notenLoading = true;
+        this.notenService.getNotenForAusrueckung(this.ausrueckung.id).subscribe({
+            next: res => { this.gespielteNoten = res },
+            complete: () => this.notenLoading = false
+        })
+    }
+
+    searchNoten(event) {
+        this.notenService.searchNoten(event.query).subscribe({
+            next: res => this.searchNotenResult = res
+        })
+    }
+
+    attachNoten(event) {
+        this.notenLoading = true;
+        this.notenService.attachNotenToAusrueckung(event.id, this.ausrueckung.id).subscribe({
+            next: res => {
+                this.gespielteNoten = [event, ...this.gespielteNoten];
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            },
+            error: error => {
+                this.messageService.add(
+                    { severity: 'warn', summary: 'Fehler', detail: error.error.message, life: 3000 });
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            }
+        })
+    }
+
+    detachNoten(event) {
+        this.notenLoading = true;
+        this.notenService.detachNotenFromAusrueckung(event.id, this.ausrueckung.id).subscribe({
+            next: res => {
+                this.gespielteNoten = this.gespielteNoten.filter(e => e.id !== event.id);
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            }
+        })
     }
 
     navigateBack() {
@@ -35,4 +142,7 @@ export class AusrueckungSingleComponent implements OnInit {
         this.router.navigate(['/ausrueckungen'], { relativeTo: this.route });
     }
 
+    exportToCalendar() {
+        this.calExport.exportAusrueckungIcs(this.ausrueckung);
+    }
 }

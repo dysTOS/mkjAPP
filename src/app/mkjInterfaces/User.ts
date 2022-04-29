@@ -11,8 +11,9 @@ export interface User {
 }
 
 export interface Role {
-    id?: number;
+    id?: string;
     role?: string;
+    name?: string;
     created_at?: string;
     updated_at?: string;
     pivot?: {
@@ -22,25 +23,25 @@ export interface Role {
 }
 
 export enum RoleType {
-    MITGLIED = 1,
-    ADMIN = 2,
-    AUSSCHUSS = 3,
-    FESTAUSSCHUSS = 4
+    MITGLIED = 'mitglied',
+    ADMIN = 'admin',
+    AUSSCHUSS = 'ausschuss',
+    FESTAUSSCHUSS = 'festausschuss'
 }
 
-export class RegistrationCredentials {
+export interface RegistrationCredentials {
     vorname?: string;
     zuname?: string;
     email?: string;
     passwort?: string;
 }
 
-export class LoginCredentials {
+export interface LoginCredentials {
     email?: string;
     passwort?: string;
 }
 
-export class LoginResponse {
+export interface LoginResponse {
     token?: string;
     user?: User;
     roles?: Array<Role>;

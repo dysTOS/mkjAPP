@@ -1,4 +1,3 @@
-import { Role } from './../mkjInterfaces/User';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,7 +20,7 @@ export class MitgliederService {
     constructor(private http: HttpClient) { }
 
     getAllMitglieder(): Observable<Mitglied[]> {
-        const url = this.apiURL + "/api/mitglieder";
+        const url = this.apiURL + '/api/mitglieder';
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 
@@ -30,9 +29,50 @@ export class MitgliederService {
         return this.http.get<Mitglied[]>(url, httpOptions);
     }
 
-    getSingleMitglied(id: number): Observable<Mitglied> {
+    getMitgliederForAusrueckung(ausrueckungId: string): Observable<Mitglied[]> {
+        const url = this.apiURL + "/api/mitgliederausrueckung/" + ausrueckungId.toString();
+        return this.http.get<Mitglied[]>(url, httpOptions);
+    }
+
+    getSingleMitglied(id: string): Observable<Mitglied> {
         const url = this.apiURL + "/api/mitglieder/" + id;
         return this.http.get<Mitglied>(url, httpOptions);
+    }
+
+    attachMitgliedToAusrueckung(ausrueckungId: string, mitgliedId: string): Observable<any> {
+        const url = this.apiURL + "/api/addmitglied";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
+    }
+
+    createMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder";
+        return this.http.post<Mitglied>(url, mitglied, httpOptions);
+    }
+
+    updateMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder/" + mitglied.id.toString();
+        return this.http.put<Mitglied>(url, mitglied, httpOptions);
+    }
+
+    deleteMitglied(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitglieder/" + mitglied.id.toString();
+        return this.http.delete<Mitglied>(url, httpOptions);
+    }
+
+    detachMitgliedFromAusrueckung(
+        ausrueckungId: string,
+        mitgliedId: string
+    ): Observable<any> {
+        const url = this.apiURL + "/api/removemitglied";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
     }
 
     hasSelectedMitglied(): boolean {

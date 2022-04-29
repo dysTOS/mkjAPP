@@ -1,39 +1,37 @@
+import { ExportService } from './../../mkjServices/export.service';
 import { RoleType } from './../../mkjInterfaces/User';
-import { kategorienOptions, statusOptions, columnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
+import { KategorienOptions, StatusOptions, ColumnOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../../mkjServices/ausrueckungen.service';
 import { Ausrueckung, AusrueckungFilterInput } from '../../mkjInterfaces/Ausrueckung';
-import * as moment from 'moment';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import * as FileSaver from 'file-saver';
 import { Table } from 'primeng/table';
-import { UserService } from 'src/app/mkjServices/authentication/user.service';
+import { MkjDatePipe } from 'src/app/mkjUtilities/mkj-date.pipe';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './ausrueckungen.component.html',
     styleUrls: ['./ausrueckungen.scss'],
     styles: [`
         @media screen and (max-width: 960px) {
-            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:last-child {
+            :host ::ng-deep .p-datatable.p-datatable-ausrueckungen .p-datatable-tbody > tr > td:last-child {
                 text-align: center;
             }
 
-            :host ::ng-deep .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td:nth-child(2) {
+            :host ::ng-deep .p-datatable.p-datatable-ausrueckungen .p-datatable-tbody > tr > td:nth-child(2) {
                 text-align: right;
             }
         }
 
-    `],
-    providers: [MessageService, ConfirmationService]
+    `]
 })
 
 export class AusrueckungenComponent implements OnInit {
     ausrueckungDialog: boolean;
     zeitraumDialog: boolean;
+    exportDialogVisible: boolean = false;
 
     ausrueckungenArray: Ausrueckung[];
     ausrueckungFilterInput: AusrueckungFilterInput;
@@ -54,17 +52,18 @@ export class AusrueckungenComponent implements OnInit {
     updateAusrueckung: boolean;
     loading: boolean;
 
-    cols = columnOptions; //columns for csv export
-    kategorien = kategorienOptions;
-    status = statusOptions;
+    cols = ColumnOptions; //columns for csv export
+    kategorien = KategorienOptions;
+    status = StatusOptions;
 
     RoleType = RoleType;
 
     @ViewChild('dt') ausrueckungenTable: Table;
     selectedRow: any;
 
-    constructor(public userService: UserService, private ausrueckungService: AusrueckungenService, private messageService: MessageService,
-        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute) { }
+    constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
+        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
+        private exportService: ExportService, private mkjDate: MkjDatePipe) { }
 
     ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
@@ -107,7 +106,7 @@ export class AusrueckungenComponent implements OnInit {
             },
             {
                 label: 'als PDF', icon: 'pi pi-file-pdf',
-                command: () => this.exportPdf()
+                command: () => { this.exportPdf(), this.exportDialogVisible = false }
             },
             {
                 label: 'als CSV', icon: 'pi pi-file',
@@ -143,9 +142,9 @@ export class AusrueckungenComponent implements OnInit {
 
     editAusrueckung(ausrueckung: Ausrueckung) {
         this.singleAusrueckung = { ...ausrueckung };
-        this.vonDatumDate = new Date(this.singleAusrueckung.von);
-        this.bisDatumDate = new Date(this.singleAusrueckung.bis);
-        this.treffZeitDate = this.singleAusrueckung.treffzeit ? new Date(this.singleAusrueckung.treffzeit) : null;
+        this.vonDatumDate = new Date(this.singleAusrueckung.von.replace(' ', 'T'));
+        this.bisDatumDate = new Date(this.singleAusrueckung.bis.replace(' ', 'T'));
+        this.treffZeitDate = this.singleAusrueckung.treffzeit ? new Date(this.singleAusrueckung.treffzeit.replace(' ', 'T')) : null;
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
@@ -156,7 +155,7 @@ export class AusrueckungenComponent implements OnInit {
 
     deleteAusrueckung(ausrueckung: Ausrueckung) {
         this.confirmationService.confirm({
-            header: '<b>' + ausrueckung.name + '</b> löschen?',
+            header: 'Ausrückung löschen?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.ausrueckungService.deleteAusrueckung(ausrueckung).subscribe(
@@ -192,7 +191,6 @@ export class AusrueckungenComponent implements OnInit {
                 this.singleAusrueckung.treffzeit = moment(this.treffZeitDate).format("YYYY-MM-DD HH:mm:ss").toString();
 
             let index = this.findIndexById(this.singleAusrueckung.id);
-            console.log(this.singleAusrueckung.treffzeit)
             this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
                 (ausrueckungFromAPI) => (this.ausrueckungenArray[index] = ausrueckungFromAPI, this.ausrueckungenArray = [...this.ausrueckungenArray]),
                 (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000 }),
@@ -273,55 +271,6 @@ export class AusrueckungenComponent implements OnInit {
         this.selectedAusrueckungen = e.filteredValue;
     }
 
-    exportCsv() {
-        this.ausrueckungenTable.exportCSV({ filteredValues: true });
-    }
-
-    exportPdf() {
-        let columns = [
-            { title: "Name", dataKey: "name" },
-            { title: "Datum", dataKey: "von" },
-            { title: "Kategorie", dataKey: "typ" },
-            { title: "Status", dataKey: "status" },
-            { title: "Beschreibung", dataKey: "beschreibung" },
-            { title: "Infos", dataKey: "infosMusiker" }
-        ];
-        let rows = this.selectedAusrueckungen;
-        const doc: any = new jsPDF('l', 'pt');
-
-        doc.autoTable(columns, rows, {
-            theme: 'striped',
-            styles: {},
-            headstyles: { fillColor: [0, 66, 0] },
-            bodyStyles: {},
-            alternateRowStyles: {},
-            columnStyles: { columnWidth: 'auto' },
-            margin: { top: 50 },
-            beforePageContent: function (data) {
-                doc.text("Ausrückungen", 40, 30);
-            }
-        });
-        doc.save("Ausrückungen.pdf");
-    }
-
-    exportExcel() {
-        import("xlsx").then(xlsx => {
-            const worksheet = xlsx.utils.json_to_sheet(this.selectedAusrueckungen);
-            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-            const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-            this.saveAsExcelFile(excelBuffer, "Ausrückungen");
-        });
-    }
-
-    saveAsExcelFile(buffer: any, fileName: string): void {
-        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-        let EXCEL_EXTENSION = '.xlsx';
-        const data: Blob = new Blob([buffer], {
-            type: EXCEL_TYPE
-        });
-        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-    }
-
     onVonCalendarChange() {
         if (this.vonDatumDate) {
             let v = moment(this.vonDatumDate);
@@ -331,7 +280,7 @@ export class AusrueckungenComponent implements OnInit {
         }
     }
 
-    findIndexById(id: number): number {
+    findIndexById(id: string): number {
         let index = -1;
         for (let i = 0; i < this.ausrueckungenArray.length; i++) {
             if (this.ausrueckungenArray[i].id === id) {
@@ -350,4 +299,31 @@ export class AusrueckungenComponent implements OnInit {
         this.ausrueckungenTable.toggleRow(event.data);
     }
 
+    exportCsv() {
+        this.ausrueckungenTable.exportCSV({ filteredValues: true });
+    }
+
+    exportPdf() {
+        let columns = [
+            { title: "Name", dataKey: "name" },
+            { title: "Datum", dataKey: "von" },
+            { title: "Ort", dataKey: "ort" },
+            // { title: "Kategorie", dataKey: "typ" },
+            { title: "Status", dataKey: "status" },
+            // { title: "Beschreibung", dataKey: "beschreibung" },
+            { title: "Infos", dataKey: "infosMusiker" }
+        ];
+        let rows = this.selectedAusrueckungen.map(e => {
+            const r = { ...e };
+            r.von = this.mkjDate.transform(r.von, "E dd. MMM YYYY") + this.mkjDate.transform(r.treffzeit, ", HH:mm");
+            return r;
+        });
+
+        this.exportService.savePDF(columns, rows);
+
+    }
+
+    exportExcel() {
+        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen");
+    }
 }

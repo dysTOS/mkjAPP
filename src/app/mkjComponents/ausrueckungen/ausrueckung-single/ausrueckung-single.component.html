@@ -1,65 +1,185 @@
-<div>
-    <p-toolbar class="p-mb-5">
-        <ng-template pTemplate="left">
-            <button
-                pButton
-                pRipple
-                label="Zurück"
-                icon="pi pi-arrow-left"
-                class="p-button-danger"
-                (click)="navigateBack()"
-            ></button>
-        </ng-template>
-    </p-toolbar>
+<app-mkj-toolbar
+    [showBackButton]="true"
+    (navigateBack)="navigateBack()"
+></app-mkj-toolbar>
 
-    <p-skeleton *ngIf="loading"></p-skeleton>
-    <div class="p-col-12 p-grid" *ngIf="!loading">
-        <p-panel class="p-md-12 p-sm-12" style="text-align: left">
-            <div class="p-d-flex p-flex-wrap p-jc-between p-ai-center">
-                <div class="p-mr-2 p-mb-2">
-                    {{ ausrueckung.kategorie }}
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.status">
-                    <span
-                        [class]="
-                            'ausrueckungen-badge status-' +
-                            (ausrueckung.status
-                                ? ausrueckung.status.toLowerCase()
-                                : '')
-                        "
-                    >
-                        {{ ausrueckung.status }}
-                    </span>
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.treffzeit">
-                    Treffzeit:
-                    {{ ausrueckung.von | mkjDate: "hh:mm" }}
-                </div>
-                <div class="p-mr-2 p-mb-2" *ngIf="ausrueckung.ort">
-                    Ort:
-                    {{ ausrueckung.ort }}
+<p-accordion>
+    <p-accordionTab [selected]="true">
+        <ng-template pTemplate="header"
+            ><h5 class="p-m-0">{{ ausrueckung?.name }}</h5>
+            <div class="p-ml-2" *ngIf="ausrueckung?.status">
+                <span
+                    [class]="
+                        'ausrueckungen-badge status-' +
+                        (ausrueckung.status
+                            ? ausrueckung.status.toLowerCase()
+                            : '')
+                    "
+                >
+                    {{ ausrueckung.status }}
+                </span>
+            </div>
+        </ng-template>
+        <div *ngIf="loading" class="p-d-flex p-jc-center" style="height: 7rem">
+            <div>
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </div>
+        </div>
+
+        <div class="p-grid p-col-12" *ngIf="!loading">
+            <div class="p-md-4 p-sm-12">
+                <div>Termin:</div>
+                <h5 class="p-m-1">
+                    {{ ausrueckung?.von | mkjDate: "d. MMMM YYYY hh:mm" }}
+                </h5>
+            </div>
+            <div class="p-md-4 p-sm-12" *ngIf="ausrueckung.treffzeit">
+                <div>Zusammenkunft um:</div>
+                <h5 class="p-m-1">
+                    {{ ausrueckung?.treffzeit | mkjDate: "hh:mm" }}
+                </h5>
+            </div>
+            <div class="p-md-4 p-sm-12" *ngIf="ausrueckung.ort">
+                <div>Ort:</div>
+                <h5 class="p-m-1">
+                    {{ ausrueckung?.ort }}
+                </h5>
+            </div>
+
+            <div *ngIf="ausrueckung.infoMusiker" class="p-md-6 p-sm-12">
+                <p-panel header="Musikerinfos">
+                    {{ ausrueckung.infoMusiker }}
+                </p-panel>
+            </div>
+            <div *ngIf="ausrueckung.beschreibung" class="p-md-6 p-sm-12">
+                <p-panel header="Öffentliche Beschreibung">
+                    {{ ausrueckung.beschreibung }}
+                </p-panel>
+            </div>
+            <div class="p-md-6 p-sm-12">
+                <button
+                    *ngIf="ausrueckung"
+                    pButton
+                    icon="pi pi-download"
+                    label="Termin exportieren"
+                    class="p-button-info p-button-outlined"
+                    (click)="exportToCalendar()"
+                ></button>
+            </div>
+            <div style="color: grey; font-size: 0.9em" class="p-col-12">
+                <p-divider></p-divider>
+                <div class="p-d-flex p-flex-wrap p-jc-between p-sm-mt-1">
+                    <div>
+                        {{
+                            ausrueckung.oeffentlich
+                                ? "Öffentlich auf mk-jainzen.at"
+                                : "Nicht sichtbar auf mk.jainzen.at"
+                        }}
+                    </div>
+                    <div>
+                        <div *ngIf="ausrueckung.created_at" class="p-mr-2">
+                            Erstellt am:
+                            {{
+                                ausrueckung?.created_at | mkjDate: "d. MMM YYYY"
+                            }}
+                        </div>
+                        <div *ngIf="ausrueckung.updated">
+                            Aktualisiert am:
+                            {{
+                                ausrueckung?.updated_at | mkjDate: "d. MMM YYYY"
+                            }}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </p-panel>
-        <p-panel
-            *ngIf="ausrueckung.infoMusiker"
-            header="Info"
-            class="p-md-6 p-sm-12"
-            style="text-align: left"
+        </div>
+    </p-accordionTab>
+
+    <p-accordionTab *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]">
+        <ng-template pTemplate="header"
+            ><h5 class="p-m-0">Teilnehmende Musiker</h5></ng-template
         >
-            {{ ausrueckung.infoMusiker }}
-        </p-panel>
-        <p-panel
-            *ngIf="ausrueckung.beschreibung"
-            [header]="
-                ausrueckung.oeffentlich
-                    ? 'Beschreibung (www.mk-jainzen.at)'
-                    : 'Beschreibung'
-            "
-            class="p-md-6 p-sm-12"
-            style="text-align: left"
+        <div class="p-col-12">
+            <div *ngIf="!mitglieder" class="p-d-flex p-jc-center">
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </div>
+            <p-listbox
+                *ngIf="mitglieder && presentMitglieder"
+                [options]="mitglieder"
+                [ngModel]="presentMitglieder"
+                [multiple]="true"
+                [checkbox]="true"
+                [filter]="false"
+                optionLabel="vorname"
+                [showToggleAll]="false"
+                dataKey="id"
+                (onChange)="onMitgliederChange($event)"
+            >
+                <ng-template let-mitglied pTemplate="item">
+                    <div>
+                        <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+    </p-accordionTab>
+
+    <p-accordionTab *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]">
+        <ng-template pTemplate="header"
+            ><h5 class="p-m-0">Gespielte Stücke</h5></ng-template
         >
-            {{ ausrueckung.beschreibung }}
-        </p-panel>
-    </div>
-</div>
+        <div class="p-col-12">
+            <p-table
+                [value]="gespielteNoten"
+                [loading]="notenLoading"
+                responsiveLayout="scroll"
+                styleClass="p-datatable-sm p-datatable-striped"
+            >
+                <ng-template pTemplate="caption"
+                    ><div class="p-col-12 p-d-flex p-jc-center">
+                        <p-autoComplete
+                            [(ngModel)]="selectedNoten"
+                            [suggestions]="searchNotenResult"
+                            [autoHighlight]="true"
+                            class="gespielte-stuecke-autocomplete"
+                            placeholder="Musikstück suchen..."
+                            (completeMethod)="searchNoten($event)"
+                            (onSelect)="attachNoten($event)"
+                            field="titel"
+                            dataKey="id"
+                        >
+                            <ng-template pTemplate="item" let-item>
+                                <div class="p-d-flex p-jc-between">
+                                    <div [style.width]="'20rem'">
+                                        {{ item.titel }}
+                                    </div>
+                                    <div
+                                        [style.width]="'10rem'"
+                                        style="color: grey"
+                                    >
+                                        {{ item.gattung }}
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-autoComplete>
+                    </div></ng-template
+                >
+                <ng-template pTemplate="body" let-noten>
+                    <tr>
+                        <td>{{ noten.titel }}</td>
+                        <td style="color: grey">{{ noten.gattung }}</td>
+                        <td>
+                            <button
+                                pButton
+                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger p-m-0 p-p-0"
+                                icon="pi pi-trash"
+                                pTooltip="Entfernen"
+                                (click)="detachNoten(noten)"
+                            ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-accordionTab>
+</p-accordion>

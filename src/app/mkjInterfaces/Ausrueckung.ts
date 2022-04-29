@@ -1,5 +1,5 @@
 export interface Ausrueckung {
-    id?: number;
+    id?: string;
     name?: string;
     beschreibung?: string;
     infoMusiker?: string;
@@ -26,20 +26,22 @@ export enum ZeitraumOptions {
     All = 2
 }
 
-export const kategorienOptions = [
+export const KategorienOptions = [
     { label: 'Kurkonzert', value: 'Kurkonzert' },
     { label: 'Weckruf', value: 'Weckruf' },
     { label: 'Ständchen', value: 'Ständchen' },
+    { label: 'Kirchlich', value: 'kirchlich' },
+    { label: 'Sonstige', value: 'sonstige' },
 ];
 
-export const statusOptions = [
+export const StatusOptions = [
     { label: 'Fixiert', value: 'fixiert' },
     { label: 'Geplant', value: 'geplant' },
+    { label: 'Ersatztermin', value: 'ersatztermin' },
     { label: 'Abgesagt', value: 'abgesagt' },
-    { label: 'Ersatztermin', value: 'ersatztermin' }
 ];
 
-export const columnOptions = [
+export const ColumnOptions = [
     { field: 'name', header: 'Name' },
     { field: 'von', header: 'Datum' },
     { field: 'kategorie', header: 'Kategorie' },
