@@ -200,6 +200,7 @@ export class AusrueckungenComponent implements OnInit {
                         severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000
                     });
                     this.isSaving = false;
+                    this.submitted = true;
                     this.ausrueckungDialog = false;
                 }
             );
@@ -222,6 +223,7 @@ export class AusrueckungenComponent implements OnInit {
                         severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung erstellt!', life: 3000
                     });
                     this.isSaving = false;
+                    this.submitted = true;
                     this.ausrueckungDialog = false;
                 }
             );

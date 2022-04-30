@@ -11,8 +11,8 @@
                 <h4>Nächste Spielerei:</h4>
                 <h2>{{ nextAusrueckung?.name }}</h2>
                 <p>
-                    {{ nextAusrueckung?.von | mkjDate: "E d. MMMM" }}
-                    <b>{{ nextAusrueckung?.treffzeit | mkjDate: "hh:mm" }}</b>
+                    {{ nextAusrueckung?.vonDatum | mkjDate: "E d. MMMM" }}
+                    <b>{{ nextAusrueckung?.treffzeit }}</b>
                 </p>
                 <p>{{ nextAusrueckung?.ort }}</p>
                 <p>{{ nextAusrueckung?.infoMusiker }}</p>
