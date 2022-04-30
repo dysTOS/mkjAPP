@@ -7,6 +7,8 @@
 @import "../node_modules/@fullcalendar/timegrid/main.min.css";
 @import "assets/demo/flags/flags.css";
 
+@import "~@mdi/font/css/materialdesignicons.css";
+
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
@@ -26,4 +28,34 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
+}
+
+.ausrueckungen-badge {
+    border-radius: 2px;
+    padding: 0.25em 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    margin: 0;
+
+    &.status-fixiert {
+        background: #c8e6c9;
+        color: #256029;
+    }
+
+    &.status-abgesagt {
+        background: #ffcdd2;
+        color: #c63737;
+    }
+
+    &.status-geplant {
+        background: #feedaf;
+        color: #8a5340;
+    }
+
+    &.status-ersatztermin {
+        background: #b2ebfd;
+        color: #016a8a;
+    }
 }

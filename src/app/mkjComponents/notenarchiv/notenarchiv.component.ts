@@ -1,8 +1,9 @@
 import { RoleType } from 'src/app/mkjInterfaces/User';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotenService } from "./../../mkjServices/noten.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/mkjInterfaces/Noten";
+import { Table } from 'primeng/table';
 
 @Component({
     selector: "app-notenarchiv",
@@ -21,6 +22,11 @@ export class NotenarchivComponent implements OnInit {
 
     RoleType = RoleType;
     globalFilterText: string = '';
+
+    selectedRow: any;
+
+    @ViewChild('notenTable')
+    notenTable: Table;
 
     constructor(private notenService: NotenService,
         private confirmationService: ConfirmationService,
@@ -126,5 +132,13 @@ export class NotenarchivComponent implements OnInit {
         if (globalFilter?.filters?.global?.value) {
             this.globalFilterText = globalFilter.filters.global.value;
         }
+    }
+
+    onRowSelect(event) {
+        this.notenTable.toggleRow(event.data);
+    }
+
+    onRowUnselect(event) {
+        this.notenTable.toggleRow(event.data);
     }
 }

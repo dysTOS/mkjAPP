@@ -15,10 +15,10 @@ export class ExportService {
 
     public exportAusrueckungIcs(ausrueckung: Ausrueckung) {
         const event: ics.EventAttributes = {
-            start: [moment(ausrueckung.von).year(), moment(ausrueckung.von).month() + 1,
-            moment(ausrueckung.von).date(), moment(ausrueckung.von).hour(), moment(ausrueckung.von).minute()],
-            end: [moment(ausrueckung.bis).year(), moment(ausrueckung.bis).month() + 1,
-            moment(ausrueckung.bis).date(), moment(ausrueckung.bis).hour(), moment(ausrueckung.bis).minute()],
+            start: [moment(ausrueckung.vonDatum).year(), moment(ausrueckung.vonDatum).month() + 1,
+            moment(ausrueckung.vonDatum).date(), +ausrueckung.vonZeit.substring(0, 2), +ausrueckung.vonZeit.substring(4, 6)],
+            end: [moment(ausrueckung.bisDatum).year(), moment(ausrueckung.bisDatum).month() + 1,
+            moment(ausrueckung.bisDatum).date(), +ausrueckung.bisZeit.substring(0, 2), +ausrueckung.bisZeit.substring(4, 6)],
             // duration: { hours: 6, minutes: 30 },
             title: ausrueckung.name,
             url: 'https://www.mk-jainzen.at/',

@@ -1,0 +1,215 @@
+<div *ngIf="ausrueckung" class="p-fluid p-grid" style="margin-top: 5px">
+    <div class="p-field p-col-12 p-md-6">
+        <div style="height: 100%" class="p-d-flex p-jc-center p-ai-center">
+            <p-checkbox
+                [ngModel]="ausrueckung?.oeffentlich ? true : false"
+                (ngModelChange)="ausrueckung.oeffentlich = $event"
+                [binary]="true"
+                label="Öffentlich"
+                [pTooltip]="
+                    ausrueckung?.oeffentlich
+                        ? 'Wird auf mk-jainzen angezeigt'
+                        : 'Wird nicht auf mk-jainzen.at angezeigt'
+                "
+            ></p-checkbox>
+        </div>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                [(ngModel)]="ausrueckung.name"
+                [class.ng-dirty]="submitted && !ausrueckung.name"
+                [class.ng-invalid]="submitted && !ausrueckung.name"
+                required
+            />
+            <small class="p-error" *ngIf="submitted && !ausrueckung.name"
+                >Name ist erforderlich!</small
+            >
+            <label for="name">Name</label>
+        </span>
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="vonDatum"
+                [(ngModel)]="vonDate"
+                (ngModelChange)="setVonDate()"
+                [showTime]="false"
+                showIcon="true"
+                [showButtonBar]="true"
+                [touchUI]="true"
+                [readonlyInput]="true"
+                [appendTo]="'body'"
+                [class.ng-dirty]="submitted && !ausrueckung.vonDatum"
+                [class.ng-invalid]="submitted && !ausrueckung.vonDatum"
+                required
+            ></p-calendar>
+            <small class="p-error" *ngIf="submitted && !ausrueckung.vonDatum"
+                >Datum ist erforderlich!</small
+            >
+            <label for="vonDatum">Datum</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="vonZeit"
+                [(ngModel)]="vonTime"
+                (ngModelChange)="setVonZeit()"
+                [timeOnly]="true"
+                showIcon="true"
+                [appendTo]="'body'"
+                [touchUI]="false"
+                icon="pi pi-clock"
+                required
+            ></p-calendar>
+            <label for="vonZeit">Spielbeginn</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="bisDatum"
+                [(ngModel)]="bisDate"
+                (ngModelChange)="setBisDate()"
+                [showTime]="false"
+                showIcon="true"
+                [showButtonBar]="true"
+                [touchUI]="true"
+                [readonlyInput]="true"
+                [appendTo]="'body'"
+                [class.ng-dirty]="submitted && !ausrueckung.bisDatum"
+                [class.ng-invalid]="submitted && !ausrueckung.bisDatum"
+                required
+            ></p-calendar>
+            <small class="p-error" *ngIf="submitted && !ausrueckung.bisDatum"
+                >Enddatum ist erforderlich!</small
+            >
+            <label for="bisDatum">Enddatum</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="bisZeit"
+                [(ngModel)]="bisTime"
+                (ngModelChange)="setBisTime()"
+                [timeOnly]="true"
+                showIcon="true"
+                [appendTo]="'body'"
+                [touchUI]="false"
+                icon="pi pi-clock"
+                required
+            ></p-calendar>
+            <label for="bisZeit">Endzeit</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="treffzeit"
+                [(ngModel)]="treffTime"
+                (ngModelChange)="setTreffzeit()"
+                [timeOnly]="true"
+                showIcon="true"
+                [stepMinute]="15"
+                [appendTo]="'body'"
+                icon="pi pi-clock"
+            ></p-calendar>
+            <label for="treffzeit">Zusammenkunft</label>
+        </span>
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="ort"
+                [(ngModel)]="ausrueckung.ort"
+            />
+
+            <label for="ort">Ort</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-dropdown
+                inputId="kategorie"
+                [options]="kategorien"
+                [(ngModel)]="ausrueckung.kategorie"
+                [class.ng-dirty]="submitted && !ausrueckung.kategorie"
+                [class.ng-invalid]="submitted && !ausrueckung.kategorie"
+                required
+            ></p-dropdown>
+            <small class="p-error" *ngIf="submitted && !ausrueckung.kategorie"
+                >Kategorie ist erforderlich!</small
+            >
+            <label for="kategorie">Kategorie</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+        <span class="p-float-label">
+            <p-dropdown
+                inputId="status"
+                [options]="status"
+                [(ngModel)]="ausrueckung.status"
+                [class.ng-dirty]="submitted && !ausrueckung.status"
+                [class.ng-invalid]="submitted && !ausrueckung.status"
+                required
+                ><ng-template pTemplate="selectedItem">
+                    <div
+                        *ngIf="ausrueckung.status"
+                        [class]="
+                            'ausrueckungen-badge status-' +
+                            (ausrueckung.status
+                                ? ausrueckung.status.toLowerCase()
+                                : '')
+                        "
+                    >
+                        {{ ausrueckung.status }}
+                    </div>
+                </ng-template>
+                <ng-template let-status pTemplate="item">
+                    <div [class]="'ausrueckungen-badge status-' + status.value">
+                        {{ status.label }}
+                    </div>
+                </ng-template></p-dropdown
+            >
+
+            <small class="p-error" *ngIf="submitted && !ausrueckung.status"
+                >Status ist erforderlich!</small
+            >
+            <label for="status">Status</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12">
+        <span class="p-float-label">
+            <textarea
+                id="beschreibung"
+                pInputTextarea
+                [(ngModel)]="ausrueckung.beschreibung"
+                rows="2"
+                cols="20"
+            ></textarea>
+            <label for="beschreibung">Beschreibung</label>
+        </span>
+    </div>
+    <div class="p-field p-col-12">
+        <span class="p-float-label">
+            <textarea
+                type="text"
+                pInputTextarea
+                id="infoMusiker"
+                [(ngModel)]="ausrueckung.infoMusiker"
+                rows="2"
+                cols="20"
+            ></textarea>
+            <label for="infoMusiker">Infos für die Musiker</label>
+        </span>
+    </div>
+</div>

@@ -26,43 +26,67 @@
             </div>
         </div>
 
-        <div class="p-grid p-col-12" *ngIf="!loading">
-            <div class="p-md-4 p-sm-12">
-                <div>Termin:</div>
-                <h5 class="p-m-1">
-                    {{ ausrueckung?.von | mkjDate: "d. MMMM YYYY hh:mm" }}
-                </h5>
-            </div>
-            <div class="p-md-4 p-sm-12" *ngIf="ausrueckung.treffzeit">
-                <div>Zusammenkunft um:</div>
-                <h5 class="p-m-1">
-                    {{ ausrueckung?.treffzeit | mkjDate: "hh:mm" }}
-                </h5>
-            </div>
-            <div class="p-md-4 p-sm-12" *ngIf="ausrueckung.ort">
-                <div>Ort:</div>
-                <h5 class="p-m-1">
-                    {{ ausrueckung?.ort }}
-                </h5>
-            </div>
+        <div *ngIf="!loading">
+            <div class="p-col-12 ausrueckung-expanded-info">
+                <div class="p-md-3 p-sm-12 card">
+                    <div>Termin:</div>
+                    <h5 class="p-m-1">
+                        {{ ausrueckung?.vonDatum | mkjDate: "d. MMMM YYYY" }}
+                        {{ ausrueckung?.vonZeit }}
+                    </h5>
+                </div>
+                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.treffzeit">
+                    <div>Zusammenkunft um:</div>
+                    <h5 class="p-m-1">
+                        {{ ausrueckung?.treffzeit }}
+                    </h5>
+                </div>
+                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.bisZeit">
+                    <div>Ende:</div>
+                    <h5 class="p-m-1">
+                        <div
+                            *ngIf="
+                                ausrueckung?.bisDatum !== ausrueckung?.vonDatum
+                            "
+                        >
+                            {{
+                                ausrueckung?.bisDatum | mkjDate: "d. MMMM YYYY"
+                            }}
+                        </div>
+                        {{ ausrueckung?.bisZeit }}
+                    </h5>
+                </div>
+                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.ort">
+                    <div>Ort:</div>
+                    <h5 class="p-m-1">
+                        {{ ausrueckung?.ort }}
+                    </h5>
+                </div>
 
-            <div *ngIf="ausrueckung.infoMusiker" class="p-md-6 p-sm-12">
-                <p-panel header="Musikerinfos">
-                    {{ ausrueckung.infoMusiker }}
-                </p-panel>
+                <div
+                    *ngIf="ausrueckung.infoMusiker"
+                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                >
+                    <p-panel header="Musikerinfos">
+                        {{ ausrueckung.infoMusiker }}
+                    </p-panel>
+                </div>
+                <div
+                    *ngIf="ausrueckung.beschreibung"
+                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                >
+                    <p-panel header="Öffentliche Beschreibung">
+                        {{ ausrueckung.beschreibung }}
+                    </p-panel>
+                </div>
             </div>
-            <div *ngIf="ausrueckung.beschreibung" class="p-md-6 p-sm-12">
-                <p-panel header="Öffentliche Beschreibung">
-                    {{ ausrueckung.beschreibung }}
-                </p-panel>
-            </div>
-            <div class="p-md-6 p-sm-12">
+            <div class="p-col-12 p-d-flex p-jc-center">
                 <button
-                    *ngIf="ausrueckung"
                     pButton
-                    icon="pi pi-download"
-                    label="Termin exportieren"
-                    class="p-button-info p-button-outlined"
+                    pRipple
+                    label="in Mobil-Kalender exportieren"
+                    class="p-button-sm p-button-info"
+                    icon="pi pi-calendar"
                     (click)="exportToCalendar()"
                 ></button>
             </div>

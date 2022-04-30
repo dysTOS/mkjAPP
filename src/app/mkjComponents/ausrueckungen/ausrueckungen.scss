@@ -106,6 +106,11 @@
     .just-on-small {
         display: none !important;
     }
+
+    .ausrueckung-expanded-info {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
 @media screen and (max-width: 960px) {

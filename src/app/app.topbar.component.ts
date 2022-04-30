@@ -166,8 +166,8 @@ import { AppMainComponent } from './app.main.component';
                 </li>
                 <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.NOTEN}">
                     <a routerLink="/notenarchiv" (click)="appMain.onTopbarItemClick($event,MenuLabels.NOTEN, false)">
-                        <i class="topbar-icon pi pi-file"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
+                        <i class="topbar-icon mdi mdi-music"></i>
+                    <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Notenarchiv</span>
                     </a>
                 </li>

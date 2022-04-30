@@ -1,9 +1,11 @@
 <app-mkj-toolbar
     [showAddButton]="true"
     [showExportButton]="true"
-    header="Ausrückungen"
+    [showFilterButton]="true"
+    [headerLeft]="'Ausrückungen ' + zeitraumDisplayText"
     (clickAdd)="openNew()"
     (clickExport)="exportDialogVisible = true"
+    (clickFilter)="zeitraumDialog = true"
     addButtonTooltip="Neue Ausrückung"
     exportButtonTooltip="Ausrückungen exportieren"
 ></app-mkj-toolbar>
@@ -11,27 +13,12 @@
 <div class="p-grid">
     <div class="p-col-12">
         <div>
-            <button
-                pButton
-                pRipple
-                [label]="zeitraumDisplayText"
-                icon="pi pi-filter"
-                class="p-button-outlined p-button-sm p-button-plain p-mr-2 p-mb-2"
-                (click)="zeitraumMenu.toggle($event)"
-            ></button>
-            <p-menu
-                #zeitraumMenu
-                [popup]="true"
-                [model]="zeitraumOptions"
-            ></p-menu>
-        </div>
-        <div>
             <!-- Tabelle -->
             <p-table
                 #dt
                 [columns]="cols"
                 [value]="ausrueckungenArray"
-                [globalFilterFields]="['name', 'von', 'kategorie']"
+                [globalFilterFields]="['name', 'vonDatum', 'kategorie']"
                 [rowHover]="true"
                 dataKey="id"
                 styleClass="p-datatable-ausrueckungen p-datatable-striped rowexpand-table"
@@ -39,7 +26,7 @@
                 responsiveLayout="scroll"
                 [showCurrentPageReport]="true"
                 [loading]="loading"
-                sortField="von"
+                sortField="vonDatum"
                 (onFilter)="setFilteredRows($event)"
                 stateStorage="session"
                 stateKey="ausrueckungenTable-local"
@@ -55,7 +42,7 @@
                     >
                         <div></div>
 
-                        <span class="p-input-icon-left not-on-small">
+                        <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input
                                 pInputText
@@ -77,8 +64,8 @@
                         <th pSortableColumn="name">
                             Name <p-sortIcon field="name"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="von">
-                            Datum <p-sortIcon field="von"></p-sortIcon>
+                        <th pSortableColumn="vonDatum">
+                            Datum <p-sortIcon field="vonDatum"></p-sortIcon>
                         </th>
                         <th>
                             <span>Kategorie</span>
@@ -108,13 +95,7 @@
                                             let-option
                                             pTemplate="item"
                                         >
-                                            <span
-                                                [class]="
-                                                    'ausrueckungen-badge status-' +
-                                                    option.value
-                                                "
-                                                >{{ option.label }}</span
-                                            >
+                                            <span>{{ option.label }}</span>
                                         </ng-template>
                                     </p-dropdown>
                                 </ng-template>
@@ -160,7 +141,9 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th></th>
+                        <th
+                            *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
+                        ></th>
                     </tr>
                 </ng-template>
 
@@ -181,10 +164,12 @@
                             }}</span>
                         </td>
                         <td>
-                            {{ ausrueckung.von | mkjDate: "E d. MMMM YYYY" }}
+                            {{
+                                ausrueckung.vonDatum | mkjDate: "E d. MMMM YYYY"
+                            }}
                         </td>
                         <td class="not-on-small">
-                            {{ ausrueckung.kategorie }}
+                            {{ ausrueckung.kategorie | uppercase }}
                         </td>
                         <td class="not-on-small">
                             <span
@@ -204,7 +189,7 @@
                                     pButton
                                     pRipple
                                     icon="pi pi-ellipsis-h"
-                                    class="p-button-text p-button-sm p-button-info p-mr-2"
+                                    class="p-button-text p-button-sm"
                                     (click)="
                                         navigateSingleAusrueckung(ausrueckung)
                                     "
@@ -217,8 +202,20 @@
                                     ]"
                                     pButton
                                     pRipple
+                                    icon="pi pi-copy"
+                                    class="p-button-text p-button-sm p-button-info"
+                                    (click)="duplicateAusrueckung(ausrueckung)"
+                                    pTooltip="Duplizieren"
+                                ></button>
+                                <button
+                                    *visibleFor="[
+                                        RoleType.ADMIN,
+                                        RoleType.AUSSCHUSS
+                                    ]"
+                                    pButton
+                                    pRipple
                                     icon="pi pi-pencil"
-                                    class="p-button-text p-button-sm p-button-warning p-mr-2"
+                                    class="p-button-text p-button-sm p-button-warning"
                                     (click)="editAusrueckung(ausrueckung)"
                                     pTooltip="Bearbeiten"
                                 ></button>
@@ -242,30 +239,48 @@
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
                         <td colspan="5">
-                            <div class="p-col-12 p-grid">
-                                <div class="p-md-4 p-sm-12 card">
+                            <div class="p-col-12 ausrueckung-expanded-info">
+                                <div class="p-md-3 p-sm-12 card">
                                     <div>Termin:</div>
                                     <h5 class="p-m-1">
                                         {{
-                                            ausrueckung?.von
-                                                | mkjDate: "d. MMMM YYYY HH:mm"
+                                            ausrueckung?.vonDatum
+                                                | mkjDate: "d. MMMM YYYY"
                                         }}
+                                        {{ ausrueckung?.vonZeit }}
                                     </h5>
                                 </div>
                                 <div
-                                    class="p-md-4 p-sm-12 card"
+                                    class="p-md-3 p-sm-12 card"
                                     *ngIf="ausrueckung.treffzeit"
                                 >
                                     <div>Zusammenkunft um:</div>
                                     <h5 class="p-m-1">
-                                        {{
-                                            ausrueckung?.treffzeit
-                                                | mkjDate: "HH:mm"
-                                        }}
+                                        {{ ausrueckung?.treffzeit }}
                                     </h5>
                                 </div>
                                 <div
-                                    class="p-md-4 p-sm-12 card"
+                                    class="p-md-3 p-sm-12 card"
+                                    *ngIf="ausrueckung.bisZeit"
+                                >
+                                    <div>Ende:</div>
+                                    <h5 class="p-m-1">
+                                        <div
+                                            *ngIf="
+                                                ausrueckung?.bisDatum !==
+                                                ausrueckung?.vonDatum
+                                            "
+                                        >
+                                            {{
+                                                ausrueckung?.bisDatum
+                                                    | mkjDate: "d. MMMM YYYY"
+                                            }}
+                                        </div>
+                                        {{ ausrueckung?.bisZeit }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-3 p-sm-12 card"
                                     *ngIf="ausrueckung.ort"
                                 >
                                     <div>Ort:</div>
@@ -276,7 +291,7 @@
 
                                 <div
                                     *ngIf="ausrueckung.infoMusiker"
-                                    class="p-md-6 p-sm-12"
+                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
                                 >
                                     <p-panel header="Musikerinfos">
                                         {{ ausrueckung.infoMusiker }}
@@ -284,13 +299,23 @@
                                 </div>
                                 <div
                                     *ngIf="ausrueckung.beschreibung"
-                                    class="p-md-6 p-sm-12"
+                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
                                 >
                                     <p-panel header="Öffentliche Beschreibung">
                                         {{ ausrueckung.beschreibung }}
                                     </p-panel>
                                 </div>
-
+                                <div class="p-col-12 p-d-flex p-jc-center">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="in Mobil-Kalender exportieren"
+                                        class="p-button-sm p-button-info"
+                                        icon="pi pi-calendar"
+                                        (click)="exportToCalendar(ausrueckung)"
+                                    ></button>
+                                </div>
+                                <p-divider class="just-on-small"></p-divider>
                                 <div
                                     class="p-col-12 p-d-flex p-flex-wrap p-jc-around just-on-small"
                                 >
@@ -299,11 +324,25 @@
                                         pRipple
                                         icon="pi pi-list"
                                         label="Details"
-                                        class="p-button-outlined p-button-sm p-button-info p-mr-2 p-mb-2"
+                                        class="p-button-outlined p-button-sm p-mr-2 p-mb-2"
                                         (click)="
                                             navigateSingleAusrueckung(
                                                 ausrueckung
                                             )
+                                        "
+                                    ></button>
+                                    <button
+                                        *visibleFor="[
+                                            RoleType.ADMIN,
+                                            RoleType.AUSSCHUSS
+                                        ]"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-copy"
+                                        label="Duplizieren"
+                                        class="p-button-outlined p-button-sm p-button-info p-mr-2 p-mb-2"
+                                        (click)="
+                                            duplicateAusrueckung(ausrueckung)
                                         "
                                     ></button>
                                     <button
@@ -378,208 +417,11 @@
             styleClass="p-fluid"
             position="top"
         >
-            <ng-template pTemplate="content">
-                <div class="p-fluid p-grid" style="margin-top: 5px">
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <input
-                                type="text"
-                                pInputText
-                                inputId="name"
-                                [(ngModel)]="singleAusrueckung.name"
-                                required
-                            />
-                            <small
-                                class="p-error"
-                                *ngIf="submitted && !singleAusrueckung.name"
-                                >Name ist erforderlich!</small
-                            >
-                            <label for="name">Name</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <div
-                            style="height: 100%"
-                            class="p-d-flex p-jc-center p-ai-center"
-                        >
-                            <p-checkbox
-                                [ngModel]="
-                                    singleAusrueckung?.oeffentlich
-                                        ? true
-                                        : false
-                                "
-                                (ngModelChange)="
-                                    singleAusrueckung.oeffentlich = $event
-                                "
-                                [binary]="true"
-                                label="Auf www.mk-jainzen.at anzeigen?"
-                            ></p-checkbox>
-                        </div>
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <p-calendar
-                                inputId="von"
-                                [(ngModel)]="vonDatumDate"
-                                [showTime]="true"
-                                showIcon="true"
-                                [appendTo]="ausrDialog"
-                                [showButtonBar]="true"
-                                (ngModelChange)="onVonCalendarChange()"
-                                [hideOnDateTimeSelect]="false"
-                                [touchUI]="true"
-                                [readonlyInput]="true"
-                                required
-                            ></p-calendar>
-                            <small
-                                class="p-error"
-                                *ngIf="submitted && !vonDatumDate"
-                                >Datum/Zeit ist erforderlich!</small
-                            >
-                            <label for="von">Von</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <p-calendar
-                                inputId="bis"
-                                [(ngModel)]="bisDatumDate"
-                                [showTime]="true"
-                                showIcon="true"
-                                [appendTo]="ausrDialog"
-                                required
-                            ></p-calendar>
-                            <small
-                                class="p-error"
-                                *ngIf="submitted && !bisDatumDate"
-                                >Datum/Zeit ist erforderlich!</small
-                            >
-                            <label for="bis">Bis</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <p-calendar
-                                inputId="treffzeit"
-                                [(ngModel)]="treffZeitDate"
-                                [timeOnly]="true"
-                                showIcon="true"
-                                [stepMinute]="15"
-                                [appendTo]="ausrDialog"
-                                icon="pi pi-clock"
-                            ></p-calendar>
-                            <label for="treffzeit">Zusammenkunft</label>
-                        </span>
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <input
-                                type="text"
-                                pInputText
-                                inputId="ort"
-                                [(ngModel)]="singleAusrueckung.ort"
-                            />
-
-                            <label for="ort">Ort</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <p-dropdown
-                                inputId="kategorie"
-                                [autoDisplayFirst]="updateAusrueckung"
-                                [options]="kategorien"
-                                [(ngModel)]="singleAusrueckung.kategorie"
-                                required
-                            ></p-dropdown>
-                            <small
-                                class="p-error"
-                                *ngIf="
-                                    submitted && !singleAusrueckung.kategorie
-                                "
-                                >Kategorie ist erforderlich!</small
-                            >
-                            <label for="kategorie">Kategorie</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
-                        <span class="p-float-label">
-                            <p-dropdown
-                                inputId="status"
-                                [autoDisplayFirst]="updateAusrueckung"
-                                [options]="status"
-                                [(ngModel)]="singleAusrueckung.status"
-                                required
-                                ><ng-template pTemplate="selectedItem">
-                                    <div
-                                        *ngIf="singleAusrueckung.status"
-                                        [class]="
-                                            'ausrueckungen-badge status-' +
-                                            (singleAusrueckung.status
-                                                ? singleAusrueckung.status.toLowerCase()
-                                                : '')
-                                        "
-                                    >
-                                        {{ singleAusrueckung.status }}
-                                    </div>
-                                </ng-template>
-                                <ng-template let-status pTemplate="item">
-                                    <div
-                                        [class]="
-                                            'ausrueckungen-badge status-' +
-                                            status.value
-                                        "
-                                    >
-                                        {{ status.label }}
-                                    </div>
-                                </ng-template></p-dropdown
-                            >
-
-                            <small
-                                class="p-error"
-                                *ngIf="submitted && !singleAusrueckung.status"
-                                >Status ist erforderlich!</small
-                            >
-                            <label for="status">Status</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12">
-                        <span class="p-float-label">
-                            <textarea
-                                id="beschreibung"
-                                pInputTextarea
-                                [(ngModel)]="singleAusrueckung.beschreibung"
-                                rows="2"
-                                cols="20"
-                            ></textarea>
-                            <label for="beschreibung">Beschreibung</label>
-                        </span>
-                    </div>
-                    <div class="p-field p-col-12">
-                        <span class="p-float-label">
-                            <textarea
-                                type="text"
-                                pInputTextarea
-                                id="infoMusiker"
-                                [(ngModel)]="singleAusrueckung.infoMusiker"
-                                [placeholder]="
-                                    isFocused
-                                        ? 'z.B. Adjustierung oder Treffpunkt'
-                                        : ''
-                                "
-                                rows="2"
-                                cols="20"
-                            ></textarea>
-                            <label for="infoMusiker"
-                                >Infos für die Musiker</label
-                            >
-                        </span>
-                    </div>
-                </div>
-            </ng-template>
-
+            <ng-template pTemplate="content"> </ng-template>
+            <app-ausrueckung-editor
+                [(ausrueckung)]="singleAusrueckung"
+                [submitted]="submitted"
+            ></app-ausrueckung-editor>
             <ng-template pTemplate="footer">
                 <button
                     pButton
@@ -593,8 +435,9 @@
                     pButton
                     pRipple
                     label="Speichern"
-                    icon="pi pi-check"
+                    [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
                     class="p-button-plain"
+                    [disabled]="isSaving"
                     (click)="saveAusrueckung()"
                 ></button>
             </ng-template>
@@ -611,7 +454,13 @@
             position="top"
         >
             <ng-template pTemplate="content">
-                <div>
+                <div class="p-ai-center">
+                    <p-menu
+                        #zeitraumMenu
+                        [popup]="false"
+                        [model]="zeitraumOptions"
+                        style="width: 100%"
+                    ></p-menu>
                     <app-zeitraum-picker
                         (vonDatumChange)="vonZeitraum = $event"
                         (bisDatumChange)="bisZeitraum = $event"

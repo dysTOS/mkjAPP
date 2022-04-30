@@ -21,7 +21,7 @@ export class AusrueckungenService {
     private selectedAusrueckung: Ausrueckung; //for fast routing to single Ausrueckung
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getAusrueckungen(): Observable<Ausrueckung[]> {
         const url = this.apiURL + "/api/ausrueckungen";
@@ -47,11 +47,6 @@ export class AusrueckungenService {
 
     createAusrueckung(ausrueckung: Ausrueckung): Observable<Ausrueckung> {
         const url = this.apiURL + "/api/ausrueckungen";
-        return this.http.post<Ausrueckung>(url, ausrueckung, httpOptions);
-    }
-
-    duplicateAusrueckung(ausrueckung: Ausrueckung): Observable<Ausrueckung> {
-        const url = this.apiURL + "/api/ausrueckungduplicate";
         return this.http.post<Ausrueckung>(url, ausrueckung, httpOptions);
     }
 
