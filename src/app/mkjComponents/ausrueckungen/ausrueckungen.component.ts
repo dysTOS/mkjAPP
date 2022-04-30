@@ -59,6 +59,7 @@ export class AusrueckungenComponent implements OnInit {
 
     @ViewChild('dt') ausrueckungenTable: Table;
 
+    globalFilterText: string = '';
     selectedRow: any;
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
@@ -363,5 +364,12 @@ export class AusrueckungenComponent implements OnInit {
 
     exportToCalendar(ausrueckung: Ausrueckung) {
         this.exportService.exportAusrueckungIcs(ausrueckung);
+    }
+
+    private checkGlobalFilter() {
+        const globalFilter = JSON.parse(sessionStorage.getItem('ausrueckungenTable-local'));
+        if (globalFilter?.filters?.global?.value) {
+            this.globalFilterText = globalFilter.filters.global.value;
+        }
     }
 }
