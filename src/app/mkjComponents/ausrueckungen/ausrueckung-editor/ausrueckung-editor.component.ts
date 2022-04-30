@@ -69,11 +69,16 @@ export class AusrueckungEditorComponent {
     }
 
     setVonZeit() {
-        this.ausrueckung.vonZeit = moment(this.vonTime).format("HH:mm")
-        this.bisTime = new Date(moment(this.vonTime).add(2, 'hours').toISOString());
-        this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm")
-        this.treffTime = new Date(moment(this.vonTime).subtract(30, 'minutes').toISOString());
-        this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm")
+        if (this.vonTime) {
+            this.ausrueckung.vonZeit = moment(this.vonTime).format("HH:mm")
+            this.bisTime = new Date(moment(this.vonTime).add(2, 'hours').toISOString());
+            this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm")
+            this.treffTime = new Date(moment(this.vonTime).subtract(30, 'minutes').toISOString());
+            this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm")
+        }
+        else {
+            this.ausrueckung.vonZeit = null;
+        }
     }
 
     setBisDate() {
@@ -81,10 +86,20 @@ export class AusrueckungEditorComponent {
     }
 
     setBisTime() {
-        this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm")
+        if (this.bisTime) {
+            this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm")
+        }
+        else {
+            this.ausrueckung.bisZeit = null;
+        }
     }
 
     setTreffzeit() {
-        this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm")
+        if (this.treffTime) {
+            this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm")
+        }
+        else {
+            this.ausrueckung.treffzeit = null;
+        }
     }
 }

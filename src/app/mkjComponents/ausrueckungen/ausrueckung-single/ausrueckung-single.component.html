@@ -80,7 +80,10 @@
                     </p-panel>
                 </div>
             </div>
-            <div class="p-col-12 p-d-flex p-jc-center">
+            <div
+                *ngIf="ausrueckung.vonZeit && ausrueckung.bisZeit"
+                class="p-col-12 p-d-flex p-jc-center"
+            >
                 <button
                     pButton
                     pRipple
