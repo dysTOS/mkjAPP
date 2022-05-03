@@ -165,7 +165,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { ZeitraumPickerComponent } from "./mkjUtilities/zeitraum-picker/zeitraum-picker.component";
 import { environment } from "src/environments/environment";
 import { MkjDatePipe } from "./mkjUtilities/mkj-date.pipe";
 import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
@@ -335,7 +334,6 @@ FullCalendarModule.registerPlugins([
         AppAccessdeniedComponent,
         AusrueckungenComponent,
         AusrueckungSingleComponent,
-        ZeitraumPickerComponent,
         MkjDatePipe,
         MkjDashboardComponent,
         SignupComponent,

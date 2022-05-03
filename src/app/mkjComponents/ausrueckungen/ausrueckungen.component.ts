@@ -1,3 +1,4 @@
+import { MkjDatePipe } from './../../mkjUtilities/mkj-date.pipe';
 import { ExportService } from './../../mkjServices/export.service';
 import { RoleType } from './../../mkjInterfaces/User';
 import { CsvColumns, KategorienOptions, StatusOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
@@ -8,7 +9,6 @@ import { MessageService } from 'primeng/api';
 import { AusrueckungenService } from '../../mkjServices/ausrueckungen.service';
 import { Ausrueckung, AusrueckungFilterInput } from '../../mkjInterfaces/Ausrueckung';
 import { Table } from 'primeng/table';
-import { MkjDatePipe } from 'src/app/mkjUtilities/mkj-date.pipe';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -40,12 +40,12 @@ export class AusrueckungenComponent implements OnInit {
 
     singleAusrueckung: Ausrueckung;
 
-    vonZeitraum: string;
-    bisZeitraum: string;
+    vonBisZeitraum: Date[] = [];
     zeitraumDisplayText: string;
+    actualYear = new Date().getFullYear().toString();
+    actualDate = moment(new Date()).format("YYYY-MM-DD").toString();
+    ZeitraumOptions = ZeitraumOptions;
 
-    exportOptions: MenuItem[];
-    zeitraumOptions: MenuItem[];
     submitted: boolean;
     updateAusrueckung: boolean;
     loading: boolean;
@@ -59,12 +59,11 @@ export class AusrueckungenComponent implements OnInit {
 
     @ViewChild('dt') ausrueckungenTable: Table;
 
-    globalFilterText: string = '';
     selectedRow: any;
 
     constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
-        private exportService: ExportService, private mkjDate: MkjDatePipe) { }
+        private exportService: ExportService, private mkjDatePipe: MkjDatePipe) { }
 
     ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
@@ -73,56 +72,25 @@ export class AusrueckungenComponent implements OnInit {
             this.ausrueckungFilterInput = JSON.parse(filter);
         }
         else {
-            let year = new Date().getFullYear().toString();
-            this.zeitraumDisplayText = year;
+            this.zeitraumDisplayText = this.actualYear;
             this.ausrueckungFilterInput = {
-                vonFilter: year + "-01-01 00:00:00",
-                bisFilter: year + "-12-31 23:59:59",
+                vonFilter: this.actualYear + "-01-01 00:00:00",
+                bisFilter: this.actualYear + "-12-31 23:59:59",
                 alle: false
             }
         }
 
-        if (this.ausrueckungService.hasAusrueckungArray()) {
-            this.ausrueckungenArray = this.ausrueckungService.getAusrueckungArray();
-            this.selectedAusrueckungen = this.ausrueckungService.getAusrueckungArray();
-        }
+        this.loading = true;
+        if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
         else {
-            this.loading = true;
-            if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
-            else {
-                this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
-                    ausrueckungen => (
-                        this.ausrueckungenArray = ausrueckungen,
-                        this.selectedAusrueckungen = ausrueckungen),
-                    (error) => console.log(error.error.message),
-                    () => this.loading = false
-                );
-            }
+            this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
+                ausrueckungen => (
+                    this.ausrueckungenArray = ausrueckungen,
+                    this.selectedAusrueckungen = ausrueckungen),
+                (error) => console.log(error.error.message),
+                () => this.loading = false
+            );
         }
-
-        this.exportOptions = [
-            {
-                label: 'als Excel', icon: 'pi pi-file-excel',
-                command: () => this.exportExcel()
-            },
-            {
-                label: 'als PDF', icon: 'pi pi-file-pdf',
-                command: () => { this.exportPdf(), this.exportDialogVisible = false }
-            },
-            {
-                label: 'als CSV', icon: 'pi pi-file',
-                command: () => this.exportCsv()
-            }];
-
-        this.zeitraumOptions = [
-            {
-                label: new Date().getFullYear().toString(), icon: 'pi pi-calendar-plus',
-                command: () => { this.saveZeitraum(ZeitraumOptions.ActualYear); this.zeitraumDialog = false; }
-            },
-            {
-                label: 'Alle Ausrückungen', icon: 'pi pi-calendar',
-                command: () => { this.getAllAusrueckungen(); this.zeitraumDialog = false; }
-            }];
     }
 
 
@@ -138,10 +106,6 @@ export class AusrueckungenComponent implements OnInit {
         this.singleAusrueckung = { ...ausrueckung };
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
-    }
-
-    showZeitraumDialog() {
-        this.zeitraumDialog = true;
     }
 
     deleteAusrueckung(ausrueckung: Ausrueckung) {
@@ -170,12 +134,6 @@ export class AusrueckungenComponent implements OnInit {
         this.ausrueckungDialog = false;
         this.submitted = false;
         this.singleAusrueckung = {};
-    }
-
-    hideZeitraumDialog() {
-        this.zeitraumDialog = false;
-        this.vonZeitraum = null;
-        this.bisZeitraum = null;
     }
 
     saveAusrueckung() {
@@ -269,10 +227,10 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     saveZeitraum(zeitraum: ZeitraumOptions) {
-        if (zeitraum == ZeitraumOptions.SpecificRange && this.vonZeitraum && this.bisZeitraum) {
+        if (zeitraum == ZeitraumOptions.SpecificRange && this.vonBisZeitraum[0] && this.vonBisZeitraum[1]) {
             this.ausrueckungFilterInput = {
-                vonFilter: moment(new Date(this.vonZeitraum)).format("YYYY-MM-DD HH:mm:ss").toString(),
-                bisFilter: moment(new Date(this.bisZeitraum)).format("YYYY-MM-DD HH:mm:ss").toString(),
+                vonFilter: moment(new Date(this.vonBisZeitraum[0])).format("YYYY-MM-DD HH:mm:ss").toString(),
+                bisFilter: moment(new Date(this.vonBisZeitraum[1])).format("YYYY-MM-DD HH:mm:ss").toString(),
                 alle: false
             }
             this.zeitraumDisplayText = this.generateZeitraumDisplayText(this.ausrueckungFilterInput);
@@ -306,7 +264,6 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     navigateSingleAusrueckung(ausrueckung: Ausrueckung) {
-        this.ausrueckungService.setAusrueckungArray(this.ausrueckungenArray);
         this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
         this.router.navigate(['../ausrueckung/' + ausrueckung.id], { relativeTo: this.route });
     }
@@ -339,37 +296,29 @@ export class AusrueckungenComponent implements OnInit {
     }
 
     exportPdf() {
-        let columns = [
+        const columns = [
             { title: "Name", dataKey: "name" },
             { title: "Datum", dataKey: "vonDatum" },
-            { title: "Ort", dataKey: "ort" },
-            // { title: "Kategorie", dataKey: "typ" },
+            { title: "Zusammenkunft", dataKey: "treffzeit" },
+            { title: "Spielbeginn", dataKey: "vonZeit" },
             { title: "Status", dataKey: "status" },
-            // { title: "Beschreibung", dataKey: "beschreibung" },
             { title: "Infos", dataKey: "infosMusiker" }
         ];
-        let rows = this.selectedAusrueckungen.map(e => {
-            const r = { ...e };
-            // r.von = this.mkjDate.transform(r.von, "E dd. MMM YYYY") + this.mkjDate.transform(r.treffzeit, ", HH:mm");
-            return r;
+        const rows = this.selectedAusrueckungen.map(e => {
+            const ausr = { ...e };
+            ausr.vonDatum = this.mkjDatePipe.transform(ausr.vonDatum, "E d. MMM YYYY");
+            return ausr;
         });
 
-        this.exportService.savePDF(columns, rows);
+        this.exportService.savePDF(columns, rows, "Ausrückungen " + this.zeitraumDisplayText);
 
     }
 
     exportExcel() {
-        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen");
+        this.exportService.exportExcel(this.selectedAusrueckungen, "Ausrückungen " + this.zeitraumDisplayText);
     }
 
     exportToCalendar(ausrueckung: Ausrueckung) {
         this.exportService.exportAusrueckungIcs(ausrueckung);
-    }
-
-    private checkGlobalFilter() {
-        const globalFilter = JSON.parse(sessionStorage.getItem('ausrueckungenTable-local'));
-        if (globalFilter?.filters?.global?.value) {
-            this.globalFilterText = globalFilter.filters.global.value;
-        }
     }
 }

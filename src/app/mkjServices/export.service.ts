@@ -21,6 +21,7 @@ export class ExportService {
             moment(ausrueckung.bisDatum).date(), +ausrueckung.bisZeit.substring(0, 2), +ausrueckung.bisZeit.substring(4, 6)],
             // duration: { hours: 6, minutes: 30 },
             title: ausrueckung.name,
+            uid: ausrueckung.id,
             url: 'https://www.mk-jainzen.at/',
             // geo: { lat: 40.0095, lon: 105.2669 },
             categories: ['MK Jainzen', 'Ausrückung', ausrueckung.kategorie],
@@ -78,21 +79,21 @@ export class ExportService {
         FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     }
 
-    public savePDF(columns, rows) {
+    public savePDF(columns, rows, filename: string) {
         const doc: any = new jsPDF('l', 'pt');
 
         doc.autoTable(columns, rows, {
             theme: 'striped',
             styles: {},
-            headstyles: { fillColor: [0, 66, 0] },
+            headStyles: { fillColor: [0, 66, 0] },
             bodyStyles: {},
             alternateRowStyles: {},
             columnStyles: { columnWidth: 'auto' },
             margin: { top: 50 },
             beforePageContent: function (data) {
-                doc.text("Ausrückungen", 40, 30);
+                doc.text(filename, 40, 30);
             }
         });
-        doc.save("Ausrückungen.pdf");
+        doc.save(filename + ".pdf");
     }
 }

@@ -28,8 +28,6 @@
                 [loading]="loading"
                 sortField="vonDatum"
                 (onFilter)="setFilteredRows($event)"
-                stateStorage="session"
-                stateKey="ausrueckungenTable-local"
                 selectionMode="single"
                 (onRowSelect)="onRowSelect($event)"
                 (onRowUnselect)="onRowUnselect($event)"
@@ -38,9 +36,16 @@
             >
                 <ng-template pTemplate="caption">
                     <div
-                        class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
+                        class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
                     >
-                        <div></div>
+                        <div>
+                            Anzahl:
+                            {{
+                                selectedAusrueckungen
+                                    ? selectedAusrueckungen.length
+                                    : 0
+                            }}
+                        </div>
 
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
@@ -157,6 +162,9 @@
                         class="p-selectable-row"
                         [pSelectableRow]="ausrueckung"
                         [pSelectableRowIndex]="rowIndex"
+                        [class.ausrueckung-expired]="
+                            ausrueckung.vonDatum < actualDate
+                        "
                     >
                         <td>
                             <span class="p-text-bold">{{
@@ -388,23 +396,6 @@
                         </td>
                     </tr>
                 </ng-template>
-
-                <ng-template pTemplate="summary">
-                    <div
-                        *ngIf="
-                            ausrueckungenArray && ausrueckungenArray.length > 0
-                        "
-                        class="p-d-flex p-ai-center p-jc-between"
-                    >
-                        Insgesamt sind das
-                        {{
-                            selectedAusrueckungen
-                                ? selectedAusrueckungen.length
-                                : 0
-                        }}
-                        Ausrückungen.
-                    </div>
-                </ng-template>
             </p-table>
         </div>
 
@@ -454,43 +445,64 @@
             #ausrDialog
             [(visible)]="zeitraumDialog"
             header="Zeitraum auswählen"
-            [closable]="false"
+            [closable]="true"
             [modal]="true"
+            [dismissableMask]="true"
             styleClass="p-fluid"
             position="top"
         >
             <ng-template pTemplate="content">
-                <div class="p-ai-center">
-                    <p-menu
-                        #zeitraumMenu
-                        [popup]="false"
-                        [model]="zeitraumOptions"
-                        style="width: 100%"
-                    ></p-menu>
-                    <app-zeitraum-picker
-                        (vonDatumChange)="vonZeitraum = $event"
-                        (bisDatumChange)="bisZeitraum = $event"
-                        zeitraumCorrect
-                    ></app-zeitraum-picker>
+                <div class="p-d-flex p-flex-column">
+                    <button
+                        pButton
+                        pRipple
+                        [label]="actualYear"
+                        (click)="
+                            saveZeitraum(ZeitraumOptions.ActualYear);
+                            zeitraumDialog = false
+                        "
+                        class="p-button-lg p-button-outlined p-mb-4"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        label="Alle"
+                        (click)="getAllAusrueckungen(); zeitraumDialog = false"
+                        class="p-button-lg p-button-outlined p-mb-3"
+                    ></button>
+                    <div class="field">
+                        <label for="range">Spezifischer Zeitraum</label>
+                        <p-calendar
+                            [(ngModel)]="vonBisZeitraum"
+                            selectionMode="range"
+                            [readonlyInput]="true"
+                            [showIcon]="true"
+                            [touchUI]="true"
+                            [appendTo]="'body'"
+                            [showButtonBar]="true"
+                            inputId="range"
+                            ><ng-template pTemplate="footer"
+                                ><div class="p-d-flex p-jc-center">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="Übernehmen"
+                                        icon="pi pi-check"
+                                        class="p-button"
+                                        [disabled]="
+                                            !vonBisZeitraum ||
+                                            !vonBisZeitraum[0] ||
+                                            !vonBisZeitraum[1]
+                                        "
+                                        (click)="
+                                            saveZeitraum(
+                                                ZeitraumOptions.SpecificRange
+                                            )
+                                        "
+                                    ></button></div></ng-template
+                        ></p-calendar>
+                    </div>
                 </div>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    label="Verwerfen"
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    (click)="hideZeitraumDialog()"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Übernehmen"
-                    icon="pi pi-check"
-                    class="p-button"
-                    (click)="saveZeitraum(1)"
-                ></button>
             </ng-template>
         </p-dialog>
 
@@ -499,24 +511,36 @@
             #exportDialog
             [(visible)]="exportDialogVisible"
             header="Ausrückungen exportieren"
-            [closable]="false"
+            [closable]="true"
+            [dismissableMask]="true"
             [modal]="true"
             styleClass="p-fluid"
             position="top"
         >
             <ng-template pTemplate="content">
-                <div>
-                    <p-menu [model]="exportOptions"></p-menu>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="footer">
                 <button
                     pButton
                     pRipple
-                    label="Schließen"
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    (click)="exportDialogVisible = false"
+                    label="PDF"
+                    icon="pi pi-file-pdf"
+                    (click)="exportPdf(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined p-mb-3"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Excel"
+                    icon="pi pi-file-excel"
+                    (click)="exportExcel(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined p-mb-3"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="CSV"
+                    icon="pi pi-file"
+                    (click)="exportCsv(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined"
                 ></button>
             </ng-template>
         </p-dialog>
