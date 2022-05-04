@@ -6,6 +6,7 @@
     (clickFilter)="filterDialogVisible = true"
     (clickAdd)="openEditDialog()"
     headerLeft="Mitglieder"
+    [addButtonPermissionFor]="[RoleType.ADMIN]"
 ></app-mkj-toolbar>
 
 <div class="p-grid">
@@ -132,36 +133,30 @@
     #filterDialog
     [(visible)]="filterDialogVisible"
     [closable]="false"
+    [dismissableMask]="true"
     [modal]="true"
     styleClass="p-fluid"
     position="top"
 >
     <ng-template pTemplate="content">
-        <span class="p-buttonset">
+        <div class="p-d-flex p-flex-column">
             <button
                 pButton
                 type="button"
-                class="p-button-outlined p-button-info"
+                class="p-button-lg p-mb-4"
                 label="Aktive Mitglieder"
                 (click)="loadAktiveMitglieder(); filterDialogVisible = false"
             ></button>
             <button
                 pButton
                 type="button"
-                class="p-button-outlined p-button-info"
+                class="p-button-lg"
                 label="Alle Mitglieder"
                 (click)="loadAllMitglieder(); filterDialogVisible = false"
             ></button>
-        </span>
+        </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <button
-            pButton
-            pRipple
-            label="Schließen"
-            icon="pi pi-times"
-            class="p-button-text"
-            (click)="filterDialogVisible = false"
-        ></button>
+        <div style="height: 10px"></div>
     </ng-template>
 </p-dialog>

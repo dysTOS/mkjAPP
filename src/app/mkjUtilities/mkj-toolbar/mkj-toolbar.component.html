@@ -18,7 +18,7 @@
     </div>
     <div>
         <button
-            *ngIf="showEditButton"
+            *ngIf="showEditButton && editButtonPermission"
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-pencil"
@@ -27,7 +27,7 @@
             tooltipPosition="bottom"
         ></button>
         <button
-            *ngIf="showAddButton"
+            *ngIf="showAddButton && addButtonPermission"
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-plus"
@@ -36,7 +36,7 @@
             tooltipPosition="bottom"
         ></button>
         <button
-            *ngIf="showDeleteButton"
+            *ngIf="showDeleteButton && deleteButtonPermission"
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-trash"
@@ -45,7 +45,7 @@
             tooltipPosition="bottom"
         ></button>
         <button
-            *ngIf="showFilterButton"
+            *ngIf="showFilterButton && filterButtonPermission"
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
             icon="pi pi-filter"
@@ -54,7 +54,7 @@
             tooltipPosition="bottom"
         ></button>
         <button
-            *ngIf="showExportButton"
+            *ngIf="showExportButton && exportButtonPermission"
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
             icon="pi pi-download"

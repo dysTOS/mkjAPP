@@ -33,6 +33,7 @@
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.passwort
                         }"
+                        (keydown.enter)="onSubmit()"
                         required
                     />
                     <small class="p-error" *ngIf="submitted && !user.passwort"

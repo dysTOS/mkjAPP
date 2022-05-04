@@ -376,7 +376,7 @@ FullCalendarModule.registerPlugins([
 export class AppModule {
     //Service Worker
     constructor(update: SwUpdate, push: SwPush) {
-        update.available.subscribe((update) => {
+        update.versionUpdates.subscribe((update) => {
             if (confirm("Update verfügbar!")) window.location.reload();
         });
     }

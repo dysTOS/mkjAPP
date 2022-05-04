@@ -15,14 +15,15 @@ export class ExportService {
 
     public exportAusrueckungIcs(ausrueckung: Ausrueckung) {
         const event: ics.EventAttributes = {
+            //TODO: fix minuten
             start: [moment(ausrueckung.vonDatum).year(), moment(ausrueckung.vonDatum).month() + 1,
-            moment(ausrueckung.vonDatum).date(), +ausrueckung.vonZeit.substring(0, 2), +ausrueckung.vonZeit.substring(4, 6)],
+            moment(ausrueckung.vonDatum).date(), +ausrueckung.vonZeit.substring(0, 2), +ausrueckung.vonZeit.substring(3, 5)],
             end: [moment(ausrueckung.bisDatum).year(), moment(ausrueckung.bisDatum).month() + 1,
-            moment(ausrueckung.bisDatum).date(), +ausrueckung.bisZeit.substring(0, 2), +ausrueckung.bisZeit.substring(4, 6)],
+            moment(ausrueckung.bisDatum).date(), +ausrueckung.bisZeit.substring(0, 2), +ausrueckung.bisZeit.substring(3, 5)],
             // duration: { hours: 6, minutes: 30 },
             title: ausrueckung.name,
             uid: ausrueckung.id,
-            url: 'https://www.mk-jainzen.at/',
+            url: 'https://app.mk-jainzen.at/',
             // geo: { lat: 40.0095, lon: 105.2669 },
             categories: ['MK Jainzen', 'Ausrückung', ausrueckung.kategorie],
             // status: 'CONFIRMED',

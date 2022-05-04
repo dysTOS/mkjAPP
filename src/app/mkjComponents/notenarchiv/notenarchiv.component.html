@@ -3,6 +3,7 @@
     (clickAdd)="openEditDialog()"
     addButtonTooltip="Noten anlegen"
     [headerLeft]="'Notenarchiv'"
+    [addButtonPermissionFor]="[RoleType.ADMIN]"
 ></app-mkj-toolbar>
 
 <p-table
@@ -103,7 +104,7 @@
                         icon="pi pi-trash"
                         class="p-button-text p-button-sm p-button-danger"
                         (click)="deleteNoten(noten)"
-                        pTooltip="Löschen"
+                        pTooltip="  Löschen  "
                     ></button>
                 </div>
             </td>
@@ -125,7 +126,7 @@
                         pButton
                         pRipple
                         icon="pi pi-trash"
-                        label="Löschen"
+                        label="  Löschen  "
                         class="p-button-outlined p-button-sm p-button-danger"
                         (click)="deleteNoten(noten)"
                     ></button>

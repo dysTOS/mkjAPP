@@ -82,6 +82,7 @@
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !pwdCheck
                         }"
+                        (keydown.enter)="onSubmit()"
                         required
                     />
                     <small class="p-error" *ngIf="submitted && !pwdCheck"

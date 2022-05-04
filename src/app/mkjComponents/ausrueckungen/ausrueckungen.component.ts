@@ -1,11 +1,11 @@
+import { InfoService } from './../../mkjServices/info.service';
 import { MkjDatePipe } from './../../mkjUtilities/mkj-date.pipe';
 import { ExportService } from './../../mkjServices/export.service';
 import { RoleType } from './../../mkjInterfaces/User';
 import { CsvColumns, KategorienOptions, StatusOptions, ZeitraumOptions } from './../../mkjInterfaces/Ausrueckung';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService, MenuItem } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { AusrueckungenService } from '../../mkjServices/ausrueckungen.service';
 import { Ausrueckung, AusrueckungFilterInput } from '../../mkjInterfaces/Ausrueckung';
 import { Table } from 'primeng/table';
@@ -61,7 +61,7 @@ export class AusrueckungenComponent implements OnInit {
 
     selectedRow: any;
 
-    constructor(private ausrueckungService: AusrueckungenService, private messageService: MessageService,
+    constructor(private ausrueckungService: AusrueckungenService, private infoService: InfoService,
         private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
         private exportService: ExportService, private mkjDatePipe: MkjDatePipe) { }
 
@@ -87,7 +87,7 @@ export class AusrueckungenComponent implements OnInit {
                 ausrueckungen => (
                     this.ausrueckungenArray = ausrueckungen,
                     this.selectedAusrueckungen = ausrueckungen),
-                (error) => console.log(error.error.message),
+                (error) => this.infoService.error(error),
                 () => this.loading = false
             );
         }
@@ -118,13 +118,12 @@ export class AusrueckungenComponent implements OnInit {
                     () => {
                         this.ausrueckungenArray = this.ausrueckungenArray.filter(val => val.id !== ausrueckung.id);
                         this.loading = false;
+                        this.infoService.success('Ausrückung gelöscht!')
                     },
                     (error) => {
-                        this.messageService.add(
-                            { severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht gelöscht werden!' });
+                        this.infoService.error(error);
                         this.loading = false;
                     },
-                    () => this.messageService.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung gelöscht!', life: 3000 })
                 );
             }
         });
@@ -148,16 +147,12 @@ export class AusrueckungenComponent implements OnInit {
             this.ausrueckungService.updateAusrueckung(this.singleAusrueckung).subscribe(
                 (ausrueckungFromAPI) => (this.ausrueckungenArray[index] = ausrueckungFromAPI, this.ausrueckungenArray = [...this.ausrueckungenArray]),
                 (error) => {
-                    this.messageService.add({
-                        severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000
-                    });
+                    this.infoService.error(error);
                     this.isSaving = false;
                     this.singleAusrueckung = {};
                 },
                 () => {
-                    this.messageService.add({
-                        severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung aktualisert!', life: 3000
-                    });
+                    this.infoService.success('Ausrückung aktualisert!');
                     this.isSaving = false;
                     this.submitted = true;
                     this.ausrueckungDialog = false;
@@ -171,16 +166,12 @@ export class AusrueckungenComponent implements OnInit {
                     this.ausrueckungenTable.sort({ field: 'vonDatum', order: '1' });
                 },
                 (error) => {
-                    this.messageService.add({
-                        severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht aktualisiert werden! ' + error, life: 3000
-                    });
+                    this.infoService.error(error);
                     this.isSaving = false;
                     this.singleAusrueckung = {};
                 },
                 () => {
-                    this.messageService.add({
-                        severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung erstellt!', life: 3000
-                    });
+                    this.infoService.success('Ausrückung angelegt!');
                     this.isSaving = false;
                     this.submitted = true;
                     this.ausrueckungDialog = false;
@@ -200,15 +191,12 @@ export class AusrueckungenComponent implements OnInit {
             next: res => {
                 this.ausrueckungenArray = [res, ... this.ausrueckungenArray];
                 this.editAusrueckung(res);
-                this.messageService.add({
-                    severity: 'success', summary: 'Erfolgreich', detail: 'Ausrückung dupliziert!', life: 3000
-                });
+                this.infoService.success('Ausrückung dupliziert!');
                 this.loading = false;
             },
             error: err => {
-                this.messageService.add({
-                    severity: 'error', summary: 'Fehler', detail: 'Ausrückung konnte nicht dupliziert werden! ' + err.error.message
-                }); this.loading = false;
+                this.infoService.error(err);
+                ; this.loading = false;
             }
         });
     }
@@ -221,8 +209,8 @@ export class AusrueckungenComponent implements OnInit {
         this.ausrueckungService.getAusrueckungen().subscribe(
             ausrueckungen => { this.ausrueckungenArray = ausrueckungen; this.selectedAusrueckungen = ausrueckungen; this.loading = false; },
             (error) => {
-                this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Ausrückungen konnten nicht geladen werden! ' + error, life: 3000 })
-                    ; this.loading = false;
+                this.infoService.error(error);
+                this.loading = false;
             });
     }
 
@@ -251,9 +239,8 @@ export class AusrueckungenComponent implements OnInit {
         this.ausrueckungService.getAusrueckungenFiltered(this.ausrueckungFilterInput).subscribe(
             ausrueckungen => { this.ausrueckungenArray = ausrueckungen; this.selectedAusrueckungen = [...ausrueckungen]; this.loading = false; },
             (error) => {
-                this.messageService.add({
-                    severity: 'error', summary: 'Fehler', detail: 'Zeitraum konnte nicht geändert werden! ' + error, life: 3000
-                }); this.loading = false;
+                this.infoService.error(error);
+                this.loading = false;
             });
 
         this.zeitraumDialog = false;

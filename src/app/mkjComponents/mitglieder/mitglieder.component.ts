@@ -1,3 +1,4 @@
+import { InfoService } from './../../mkjServices/info.service';
 import { Mitglied } from './../../mkjInterfaces/Mitglied';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MitgliederService } from './../../mkjServices/mitglieder.service';
@@ -22,7 +23,7 @@ export class MitgliederComponent implements OnInit {
 
     constructor(private mitgliederService: MitgliederService,
         private router: Router, private route: ActivatedRoute,
-        private messageService: MessageService) { }
+        private infoService: InfoService) { }
 
     ngOnInit(): void {
         this.loadAktiveMitglieder();
@@ -31,9 +32,13 @@ export class MitgliederComponent implements OnInit {
     public loadAktiveMitglieder() {
         this.mitglieder = null;
         this.loading = true;
-        this.mitgliederService.getAktiveMitglieder().subscribe(
-            (res) => { this.mitglieder = res, this.loading = false },
-            (error) => { this.loading = false; },
+        this.mitgliederService.getAktiveMitglieder().subscribe({
+            next: (res) => { this.mitglieder = res, this.loading = false },
+            error: (error) => {
+                this.loading = false;
+                this.infoService.error(error);
+            },
+        }
         );
     }
 
@@ -62,17 +67,11 @@ export class MitgliederComponent implements OnInit {
                 }
                 this.isAdding = false;
                 this.editDialogVisible = false;
-                this.messageService.add({
-                    severity: 'success', summary: 'Erfolg',
-                    detail: 'Miglied ' + res.vorname + ' ' + res.zuname + ' angelegt!'
-                })
+                this.infoService.success('Miglied ' + res.vorname + ' ' + res.zuname + ' angelegt!');
             },
             error: err => {
                 this.isAdding = false;
-                this.messageService.add({
-                    severity: 'error', summary: 'Fehler',
-                    detail: 'Ausrückung konnte nicht aktualisiert werden! ' + err.error.message
-                })
+                this.infoService.error(err);
             }
         })
     }

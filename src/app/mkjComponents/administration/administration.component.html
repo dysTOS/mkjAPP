@@ -1,1 +1,11 @@
-<app-mkj-toolbar header="Einstellungen"></app-mkj-toolbar>
+<app-mkj-toolbar headerLeft="Einstellungen"></app-mkj-toolbar>
+
+<p-tabView
+    ><p-tabPanel header="Meine Daten"
+        ><div class="p-col-12">
+            <app-mitglied-editor
+                *ngIf="mitglied"
+                [(mitglied)]="mitglied"
+            ></app-mitglied-editor></div></p-tabPanel
+    ><p-tabPanel header="Einstellungen"></p-tabPanel
+></p-tabView>

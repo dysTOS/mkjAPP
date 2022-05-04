@@ -8,6 +8,7 @@
     (clickFilter)="zeitraumDialog = true"
     addButtonTooltip="Neue Ausrückung"
     exportButtonTooltip="Ausrückungen exportieren"
+    [addButtonPermissionFor]="[RoleType.AUSSCHUSS, RoleType.ADMIN]"
 ></app-mkj-toolbar>
 
 <div class="p-grid">

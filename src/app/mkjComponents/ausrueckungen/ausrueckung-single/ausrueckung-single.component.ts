@@ -1,5 +1,5 @@
+import { InfoService } from './../../../mkjServices/info.service';
 import { ExportService } from '../../../mkjServices/export.service';
-import { MessageService } from 'primeng/api';
 import { MitgliederService } from './../../../mkjServices/mitglieder.service';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
 import { NotenService } from './../../../mkjServices/noten.service';
@@ -31,7 +31,7 @@ export class AusrueckungSingleComponent implements OnInit {
     RoleType = RoleType;
 
     constructor(private router: Router, private route: ActivatedRoute,
-        private ausrueckungenService: AusrueckungenService, private messageService: MessageService,
+        private ausrueckungenService: AusrueckungenService, private infoService: InfoService,
         private mitgliedService: MitgliederService, private notenService: NotenService,
         private calExport: ExportService) { }
 
@@ -50,23 +50,24 @@ export class AusrueckungSingleComponent implements OnInit {
                         this.ausrueckung = ausrueckung
                             , this.getGespielteNoten()
                     },
-                    (error) => { },
+                    (error) => this.infoService.error(error),
                     () => this.loading = false
                 );
             });
         }
-
     }
 
     getAktiveMitglieder(id: string) {
         this.mitgliedService.getAllMitglieder().subscribe({
             next: res => {
                 this.mitglieder = res;
-            }
+            },
+            error: err => this.infoService.error(err)
         })
         this.mitgliedService.getMitgliederForAusrueckung(id).subscribe({
             next: res =>
-                this.presentMitglieder = res
+                this.presentMitglieder = res,
+            error: err => this.infoService.error(err)
         })
     }
 
@@ -79,18 +80,16 @@ export class AusrueckungSingleComponent implements OnInit {
         this.presentMitglieder = newSelection;
         if (attachMitglied[0]) {
             this.mitgliedService.attachMitgliedToAusrueckung(this.ausrueckung.id, attachMitglied[0].id).subscribe({
-                next: (res) => this.messageService.add(
-                    { severity: 'success', summary: 'Erfolg', detail: res.message, life: 3000 }),
-                error: (error) => this.messageService.add(
-                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                next: (res) => this.infoService.success(
+                    res.message),
+                error: (error) => this.infoService.error(error)
             })
         }
         if (detachMitglied[0]) {
             this.mitgliedService.detachMitgliedFromAusrueckung(this.ausrueckung.id, detachMitglied[0].id).subscribe({
-                next: (res) => this.messageService.add(
-                    { severity: 'warn', summary: 'Erfolg', detail: res.message, life: 3000 }),
-                error: (error) => this.messageService.add(
-                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                next: (res) => this.infoService.success(
+                    res.message),
+                error: (error) => this.infoService.error(error)
             })
         }
     }
@@ -118,8 +117,7 @@ export class AusrueckungSingleComponent implements OnInit {
                 this.selectedNoten = null;
             },
             error: error => {
-                this.messageService.add(
-                    { severity: 'warn', summary: 'Fehler', detail: error.error.message, life: 3000 });
+                this.infoService.error(error);
                 this.notenLoading = false;
                 this.selectedNoten = null;
             }
@@ -131,6 +129,11 @@ export class AusrueckungSingleComponent implements OnInit {
         this.notenService.detachNotenFromAusrueckung(event.id, this.ausrueckung.id).subscribe({
             next: res => {
                 this.gespielteNoten = this.gespielteNoten.filter(e => e.id !== event.id);
+                this.notenLoading = false;
+                this.selectedNoten = null;
+            },
+            error: error => {
+                this.infoService.error(error);
                 this.notenLoading = false;
                 this.selectedNoten = null;
             }

@@ -53,10 +53,32 @@ export class UserService {
     }
 
     public hasRole(role: RoleType): boolean {
-        if (!this.currentUserRoles.getValue()) return false;
+        if (!this.currentUserRoles.getValue() || role === null) return false;
         let bool = false;
         this.currentUserRoles.getValue().forEach((e) => {
             if (e.role == role) bool = true;
+        });
+        return bool;
+    }
+
+    public hasOneOfRoles(roles: RoleType[]): boolean {
+        if (!this.currentUserRoles.getValue() || !roles) return false;
+        let bool = false;
+        roles.forEach(e => {
+            if (this.hasRole(e)) {
+                bool = true;
+            }
+        });
+        return bool;
+    }
+
+    public hasAllOfRoles(roles: RoleType[]): boolean {
+        if (!this.currentUserRoles.getValue() || !roles) return false;
+        let bool = true;
+        roles.forEach(e => {
+            if (!this.hasRole(e)) {
+                bool = false;
+            }
         });
         return bool;
     }

@@ -168,6 +168,7 @@
                             [(ngModel)]="selectedNoten"
                             [suggestions]="searchNotenResult"
                             [autoHighlight]="true"
+                            [minLength]="3"
                             class="gespielte-stuecke-autocomplete"
                             placeholder="Musikstück suchen..."
                             (completeMethod)="searchNoten($event)"
