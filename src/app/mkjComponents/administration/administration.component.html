@@ -6,6 +6,12 @@
             <app-mitglied-editor
                 *ngIf="mitglied"
                 [(mitglied)]="mitglied"
-            ></app-mitglied-editor></div></p-tabPanel
+            ></app-mitglied-editor>
+            <button
+                pButton
+                icon="pi pi-save"
+                label="Speichern"
+                (click)="updateOwnMitgliedData()"
+            ></button></div></p-tabPanel
     ><p-tabPanel header="Einstellungen"></p-tabPanel
 ></p-tabView>

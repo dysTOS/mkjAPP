@@ -48,6 +48,11 @@ export class MitgliederService {
         );
     }
 
+    updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
+        const url = this.apiURL + "/api/mitgliedselbst";
+        return this.http.post<any>(url, mitglied, httpOptions);
+    }
+
     createMitglied(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "/api/mitglieder";
         return this.http.post<Mitglied>(url, mitglied, httpOptions);

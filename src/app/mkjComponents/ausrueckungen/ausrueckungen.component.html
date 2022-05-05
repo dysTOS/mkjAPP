@@ -147,9 +147,6 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th
-                            *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
-                        ></th>
                     </tr>
                 </ng-template>
 
@@ -192,62 +189,12 @@
                                 {{ ausrueckung.status }}
                             </span>
                         </td>
-                        <td class="not-on-small">
-                            <div class="buttons-hide">
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-ellipsis-h"
-                                    class="p-button-text p-button-sm"
-                                    (click)="
-                                        navigateSingleAusrueckung(ausrueckung)
-                                    "
-                                    pTooltip="Details"
-                                ></button>
-                                <button
-                                    *visibleFor="[
-                                        RoleType.ADMIN,
-                                        RoleType.AUSSCHUSS
-                                    ]"
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-copy"
-                                    class="p-button-text p-button-sm p-button-info"
-                                    (click)="duplicateAusrueckung(ausrueckung)"
-                                    pTooltip="Duplizieren"
-                                ></button>
-                                <button
-                                    *visibleFor="[
-                                        RoleType.ADMIN,
-                                        RoleType.AUSSCHUSS
-                                    ]"
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-pencil"
-                                    class="p-button-text p-button-sm p-button-warning"
-                                    (click)="editAusrueckung(ausrueckung)"
-                                    pTooltip="Bearbeiten"
-                                ></button>
-                                <button
-                                    *visibleFor="[
-                                        RoleType.ADMIN,
-                                        RoleType.AUSSCHUSS
-                                    ]"
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    class="p-button-text p-button-sm p-button-danger"
-                                    (click)="deleteAusrueckung(ausrueckung)"
-                                    pTooltip="Löschen"
-                                ></button>
-                            </div>
-                        </td>
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
-                        <td colspan="5">
+                        <td colspan="4">
                             <div class="p-col-12 ausrueckung-expanded-info">
                                 <div class="p-md-3 p-sm-12 card">
                                     <div>Termin:</div>
@@ -314,6 +261,21 @@
                                         {{ ausrueckung.beschreibung }}
                                     </p-panel>
                                 </div>
+                                <div class="p-col-12 p-d-flex p-jc-center">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-list"
+                                        label="Detailansicht"
+                                        class="p-button-raised p-button-info"
+                                        style="width: 18rem"
+                                        (click)="
+                                            navigateSingleAusrueckung(
+                                                ausrueckung
+                                            )
+                                        "
+                                    ></button>
+                                </div>
                                 <div
                                     *ngIf="
                                         ausrueckung.vonZeit &&
@@ -324,66 +286,59 @@
                                     <button
                                         pButton
                                         pRipple
-                                        label="in Mobil-Kalender exportieren"
-                                        class="p-button-sm p-button-info"
+                                        label="in Mobil-Kalender speichern"
+                                        class="p-button-raised p-button-info p-button-outlined"
                                         icon="pi pi-calendar"
+                                        style="width: 18rem"
                                         (click)="exportToCalendar(ausrueckung)"
                                     ></button>
                                 </div>
-                                <p-divider class="just-on-small"></p-divider>
                                 <div
-                                    class="p-col-12 p-d-flex p-flex-wrap p-jc-around just-on-small"
+                                    class="p-col-12"
+                                    *visibleFor="[
+                                        RoleType.ADMIN,
+                                        RoleType.AUSSCHUSS
+                                    ]"
                                 >
-                                    <button
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-list"
-                                        label="Details"
-                                        class="p-button-outlined p-button-sm p-mr-2 p-mb-2"
-                                        (click)="
-                                            navigateSingleAusrueckung(
-                                                ausrueckung
-                                            )
-                                        "
-                                    ></button>
-                                    <button
-                                        *visibleFor="[
-                                            RoleType.ADMIN,
-                                            RoleType.AUSSCHUSS
-                                        ]"
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-copy"
-                                        label="Duplizieren"
-                                        class="p-button-outlined p-button-sm p-button-info p-mr-2 p-mb-2"
-                                        (click)="
-                                            duplicateAusrueckung(ausrueckung)
-                                        "
-                                    ></button>
-                                    <button
-                                        *visibleFor="[
-                                            RoleType.ADMIN,
-                                            RoleType.AUSSCHUSS
-                                        ]"
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-pencil"
-                                        label="Bearbeiten"
-                                        class="p-button-outlined p-button-sm p-button-warning p-mr-2 p-mb-2"
-                                        (click)="editAusrueckung(ausrueckung)"
-                                    ></button>
-                                    <button
-                                        *visibleFor="[
-                                            RoleType.ADMIN,
-                                            RoleType.AUSSCHUSS
-                                        ]"
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-trash"
-                                        label="Löschen"
-                                        class="p-button-outlined p-button-sm p-button-danger p-mr-2 p-mb-2"
-                                        (click)="deleteAusrueckung(ausrueckung)"
-                                    ></button>
+                                    <p-divider class="p-col-12"></p-divider>
+                                    <div class="p-col-12 p-d-flex p-jc-center">
+                                        <span class="p-buttonset">
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-copy"
+                                                label="Duplizieren"
+                                                class="p-button-outlined p-button-secondary p-button-sm"
+                                                (click)="
+                                                    duplicateAusrueckung(
+                                                        ausrueckung
+                                                    )
+                                                "
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-pencil"
+                                                label="Bearbeiten"
+                                                class="p-button-outlined p-button-sm p-button-info"
+                                                (click)="
+                                                    editAusrueckung(ausrueckung)
+                                                "
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-trash"
+                                                label="Löschen"
+                                                class="p-button-outlined p-button-sm p-button-danger"
+                                                (click)="
+                                                    deleteAusrueckung(
+                                                        ausrueckung
+                                                    )
+                                                "
+                                            ></button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -469,10 +424,9 @@
                         pRipple
                         label="Alle"
                         (click)="getAllAusrueckungen(); zeitraumDialog = false"
-                        class="p-button-lg p-button-outlined p-mb-3"
+                        class="p-button-lg p-button-outlined p-mb-4"
                     ></button>
-                    <div class="field">
-                        <label for="range">Spezifischer Zeitraum</label>
+                    <span class="p-float-label">
                         <p-calendar
                             [(ngModel)]="vonBisZeitraum"
                             selectionMode="range"
@@ -502,9 +456,13 @@
                                         "
                                     ></button></div></ng-template
                         ></p-calendar>
-                    </div>
+                        <label for="range">Spezifischer Zeitraum</label>
+                    </span>
                 </div>
             </ng-template>
+            <ng-template pTemplate="footer"
+                ><div style="height: 10px"></div
+            ></ng-template>
         </p-dialog>
 
         <!-- Export Dialog -->
@@ -544,6 +502,9 @@
                     class="p-button-lg p-button-outlined"
                 ></button>
             </ng-template>
+            <ng-template pTemplate="footer"
+                ><div style="height: 10px"></div
+            ></ng-template>
         </p-dialog>
 
         <!-- Löschbestätigung? -->
