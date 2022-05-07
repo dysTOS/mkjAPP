@@ -20,7 +20,7 @@ export class InfoService {
         this.messageService.add({
             severity: 'error', summary: 'Fehler',
             detail: error.error?.message,
-            sticky: true,
+            life: 5000,
         })
     }
 

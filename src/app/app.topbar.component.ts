@@ -9,6 +9,7 @@ import { AppMainComponent } from './app.main.component';
     selector: 'app-topbar',
     template: `
         <div class="topbar clearfix">
+        <p-toast [baseZIndex]="10000"></p-toast>
             <div class="logo">
                 <a href="#">
                     <img src="assets/mkjICONS/LOGO_APP_Favicon.png">
