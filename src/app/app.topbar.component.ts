@@ -1,7 +1,6 @@
 import { RoleType } from 'src/app/mkjInterfaces/User';
 import { MenuLabels } from './mkjInterfaces/Menu';
 import { AuthStateService } from './mkjServices/authentication/auth-state.service';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
 
@@ -9,7 +8,8 @@ import { AppMainComponent } from './app.main.component';
     selector: 'app-topbar',
     template: `
         <div class="topbar clearfix">
-        <p-toast [baseZIndex]="10000"></p-toast>
+        <p-toast [autoZIndex]="true"
+        [baseZIndex]="10010"></p-toast>
             <div class="logo">
                 <a href="#">
                     <img src="assets/mkjICONS/LOGO_APP_Favicon.png">

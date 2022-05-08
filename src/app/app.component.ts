@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
     constructor(private primengConfig: PrimeNGConfig, private authStatService: AuthStateService,
         private router: Router, private userService: UserService, private authService: AuthService,
-        private tokenService: TokenService,) { }
+        private tokenService: TokenService) { }
 
 
     ngOnInit() {

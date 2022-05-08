@@ -20,7 +20,7 @@ export class InfoService {
         this.messageService.add({
             severity: 'error', summary: 'Fehler',
             detail: error.error?.message,
-            life: 5000,
+            life: 8000,
         })
     }
 
@@ -28,7 +28,7 @@ export class InfoService {
         this.messageService.add({
             severity: 'info', summary: 'Info',
             detail: details,
-            life: 4000,
+            life: 8000,
         })
     }
 
@@ -36,7 +36,7 @@ export class InfoService {
         this.messageService.add({
             severity: 'danger', summary: 'Warnung',
             detail: details,
-            life: 4000,
+            life: 6000,
         })
     }
 }

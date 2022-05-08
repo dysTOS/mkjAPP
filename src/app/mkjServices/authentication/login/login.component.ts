@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
             this.isChecking = true;
             this.authService.login(this.user).subscribe(
                 result => {
+                    console.log(result)
                     this.tokenService.saveToken(result.token);
                     this.authState.setAuthState(true);
                     this.userService.setCurrentUser(result.user);

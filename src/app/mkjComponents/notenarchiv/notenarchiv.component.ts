@@ -1,5 +1,6 @@
+import { InfoService } from './../../mkjServices/info.service';
 import { RoleType } from 'src/app/mkjInterfaces/User';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { NotenService } from "./../../mkjServices/noten.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/mkjInterfaces/Noten";
@@ -30,7 +31,7 @@ export class NotenarchivComponent implements OnInit {
 
     constructor(private notenService: NotenService,
         private confirmationService: ConfirmationService,
-        private messageService: MessageService) { }
+        private infoService: InfoService) { }
 
     ngOnInit(): void {
         this.getAllNoten();
@@ -40,8 +41,12 @@ export class NotenarchivComponent implements OnInit {
     getAllNoten() {
         this.loading = true;
         this.notenService.getAllNoten().subscribe({
-            next: (res) => { (this.notenArray = res), this.loading = false }
-        });
+            next: (res) => { (this.notenArray = res), this.loading = false },
+            error: (err) => {
+                this.infoService.error(err), this.loading = false
+            }
+        }
+        );
     }
 
     setFilteredRows(e) {
@@ -72,14 +77,14 @@ export class NotenarchivComponent implements OnInit {
                     let index = this.findIndexById(this.editNoten.id);
                     this.notenArray[index] = res;
                     this.notenArray = [...this.notenArray];
-                    this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Noten aktualisiert!', life: 3000 });
+                    this.infoService.success(this.editNoten.titel + ' aktualisiert!');
                     this.editDialogVisible = false;
                     this.editNoten = null;
                     this.isAdding = false;
                 },
                 error: error => {
                     this.isAdding = false;
-                    this.messageService.add({ severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                    this.infoService.error(error);
                 }
             })
         }
@@ -88,15 +93,14 @@ export class NotenarchivComponent implements OnInit {
                 next: res => {
                     this.notenArray.push(res);
                     this.notenArray = [...this.notenArray]
-                    this.messageService.add({ severity: 'success', summary: 'Erfolg', detail: 'Noten hinzugefügt!', life: 3000 });
+                    this.infoService.success('Noten hinzugefügt!');
                     this.editDialogVisible = false;
                     this.editNoten = null;
                     this.isAdding = false;
                 },
                 error: error => {
                     this.isAdding = false;
-
-                    this.messageService.add({ severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                    this.infoService.error(error);
                 }
             })
         }
@@ -108,9 +112,13 @@ export class NotenarchivComponent implements OnInit {
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.notenService.deleteNoten(noten).subscribe(
-                    () => this.notenArray = this.notenArray.filter(val => val.id !== noten.id),
-                    (error) => this.messageService.add({ severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 }),
-                    () => this.messageService.add({ severity: 'success', summary: 'Erfolgreich', detail: 'Noten gelöscht!', life: 3000 })
+                    {
+                        next: () => {
+                            this.notenArray = this.notenArray.filter(val => val.id !== noten.id);
+                            this.infoService.success('Noten gelöscht!')
+                        },
+                        error: (err) => this.infoService.error(err)
+                    }
                 );
             }
         });

@@ -1,3 +1,4 @@
+import { InfoService } from './../../info.service';
 import { AuthStateService } from './../auth-state.service';
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
@@ -7,7 +8,8 @@ import { Observable, throwError } from "rxjs";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private tokenService: TokenService, private authStateService: AuthStateService) { }
+    constructor(private tokenService: TokenService, private authStateService: AuthStateService,
+        private infoService: InfoService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const accessToken = this.tokenService.getToken();
@@ -26,6 +28,8 @@ export class AuthInterceptor implements HttpInterceptor {
                     _: Observable<HttpEvent<any>>
                 ) => {
                     if (httpErrorResponse.status === HttpStatusCode.Unauthorized) {
+                        setTimeout(() => this.infoService.info(
+                            "Sitzung ungültig oder abgelaufen! Bitte erneut anmelden, evtl. musst du dich noch einmal registrieren!"), 2000);
                         this.authStateService.setAuthState(false);
                     }
                     return throwError(httpErrorResponse);

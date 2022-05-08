@@ -15,7 +15,6 @@ export class ExportService {
 
     public exportAusrueckungIcs(ausrueckung: Ausrueckung) {
         const event: ics.EventAttributes = {
-            //TODO: fix minuten
             start: [moment(ausrueckung.vonDatum).year(), moment(ausrueckung.vonDatum).month() + 1,
             moment(ausrueckung.vonDatum).date(), +ausrueckung.vonZeit.substring(0, 2), +ausrueckung.vonZeit.substring(3, 5)],
             end: [moment(ausrueckung.bisDatum).year(), moment(ausrueckung.bisDatum).month() + 1,
