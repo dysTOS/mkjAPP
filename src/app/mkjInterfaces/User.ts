@@ -4,7 +4,7 @@ export interface User {
     id?: number;
     name?: string;
     email?: string;
-    mitglied_id?: number;
+    mitglied_id?: string;
     email_verified_at?: string;
     created_at?: string;
     updated_at?: string;
@@ -12,12 +12,13 @@ export interface User {
 
 export interface Role {
     id?: string;
-    role?: string;
     name?: string;
+    guard_name?: string;
     created_at?: string;
     updated_at?: string;
     pivot?: {
-        mitglied_id?: number;
+        model_id?: number;
+        model_type?: string;
         role_id?: number;
     };
 }

@@ -172,7 +172,7 @@ import { AppMainComponent } from './app.main.component';
                         <span class="topbar-item-name">Notenarchiv</span>
                     </a>
                 </li>
-                <li *visibleFor="[RoleType.ADMIN]" [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.ADMINBEREICH}">
+                <li [ngClass]="{'active-topmenuitem':appMain.activeTabIndex === MenuLabels.ADMINBEREICH}">
                     <a routerLink="/administration" (click)="appMain.onTopbarItemClick($event,MenuLabels.ADMINBEREICH, false)">
                         <i class="topbar-icon pi pi-fw pi-cog"></i>
                         <!-- <span class="topbar-badge">4</span> -->

@@ -1,3 +1,4 @@
+import { InfoService } from './../../info.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -24,7 +25,7 @@ export class SignupComponent implements OnInit {
     constructor(
         private router: Router,
         private authService: AuthService,
-        private messageService: MessageService
+        private infoService: InfoService
     ) { }
 
     ngOnInit() { }
@@ -35,20 +36,12 @@ export class SignupComponent implements OnInit {
             this.isChecking = true;
             this.authService.register(this.user).subscribe(
                 result => {
-                    this.messageService.add(
-                        {
-                            severity: 'success', summary: result.message,
-                            life: 3000
-                        });
+                    this.infoService.success(result.message);
                     setTimeout(() => this.router.navigate(['login']), 2000);
                 },
                 error => {
-                    this.messageService.add(
-                        {
-                            severity: 'error', summary: 'Fehler',
-                            detail: error.error.message, life: 2000
-                        }),
-                        this.isChecking = false
+                    this.infoService.error(error);
+                    this.isChecking = false;
                 }
             )
         }
@@ -60,10 +53,7 @@ export class SignupComponent implements OnInit {
             if (this.user.passwort !== this.pwdCheck) {
                 this.user.passwort = null;
                 this.pwdCheck = null;
-                this.messageService.add({
-                    severity: 'error', summary: "Fehler",
-                    detail: "Passwörter stimmen nicht überein!", life: 5000
-                });
+                this.infoService.error("Passwörter stimmen nicht überein!");
                 return false;
             }
             return true;

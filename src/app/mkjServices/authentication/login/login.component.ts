@@ -1,3 +1,4 @@
+import { InfoService } from './../../info.service';
 import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { AuthStateService } from '../auth-state.service';
 import { AuthService } from '../auth.service';
 import { TokenService } from '../token.service';
 import { LoginCredentials } from '../../../mkjInterfaces/User';
-import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
         private tokenService: TokenService,
         private authState: AuthStateService,
         private userService: UserService,
-        private messageService: MessageService) { }
+        private infoService: InfoService) { }
 
     ngOnInit(): void { }
 
@@ -45,11 +45,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['']);
                 },
                 error => {
-                    this.messageService.add(
-                        {
-                            severity: 'error', summary: "Fehler",
-                            detail: error.error.message, life: 3000
-                        }), this.isChecking = false
+                    this.infoService.error(error);
+                    this.isChecking = false;
                 },
                 () => this.isChecking = false
             );

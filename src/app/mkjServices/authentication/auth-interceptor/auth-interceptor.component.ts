@@ -29,10 +29,10 @@ export class AuthInterceptor implements HttpInterceptor {
                 ) => {
                     if (httpErrorResponse.status === HttpStatusCode.Unauthorized) {
                         setTimeout(() => this.infoService.info(
-                            "Sitzung ungültig oder abgelaufen! Bitte erneut anmelden, evtl. musst du dich noch einmal registrieren!"), 2000);
+                            "Sitzung abgelaufen/ungültig!"), 1000);
                         this.authStateService.setAuthState(false);
                     }
-                    return throwError(httpErrorResponse);
+                    return throwError(() => httpErrorResponse);
                 }))
     }
 }

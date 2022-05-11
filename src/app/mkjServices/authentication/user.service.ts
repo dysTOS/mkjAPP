@@ -56,7 +56,7 @@ export class UserService {
         if (!this.currentUserRoles.getValue() || role === null) return false;
         let bool = false;
         this.currentUserRoles.getValue().forEach((e) => {
-            if (e.role == role) bool = true;
+            if (e.name == role) bool = true;
         });
         return bool;
     }

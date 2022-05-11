@@ -61,10 +61,7 @@
             <th class="not-on-small">Arrangeur</th>
             <th class="not-on-small">Verlag</th>
             <th class="not-on-small">Gattung</th>
-            <th
-                *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
-                class="not-on-small"
-            ></th>
+            <th class="not-on-small"></th>
         </tr>
     </ng-template>
     <ng-template
@@ -84,10 +81,7 @@
             <td class="not-on-small">{{ noten.arrangeur }}</td>
             <td class="not-on-small">{{ noten.verlag }}</td>
             <td class="not-on-small">{{ noten.gattung }}</td>
-            <td
-                *visibleFor="[RoleType.ADMIN, RoleType.AUSSCHUSS]"
-                class="not-on-small"
-            >
+            <td class="not-on-small">
                 <div class="p-d-flex buttons-hide">
                     <button
                         pButton

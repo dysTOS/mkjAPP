@@ -1,3 +1,4 @@
+import { InfoService } from './mkjServices/info.service';
 import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
 import { NgModule } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms";
@@ -375,9 +376,14 @@ FullCalendarModule.registerPlugins([
 })
 export class AppModule {
     //Service Worker
-    constructor(update: SwUpdate, push: SwPush) {
+    constructor(update: SwUpdate, push: SwPush, private infoService: InfoService) {
         update.versionUpdates.subscribe((update) => {
-            if (confirm("Update verfügbar!")) window.location.reload();
+            if (update.type === 'VERSION_READY') {
+                if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
+                    setTimeout(() => this.infoService.info("Update erfolgreich!"), 2000);
+                    window.location.reload();
+                }
+            }
         });
     }
 }
