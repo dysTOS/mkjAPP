@@ -6,7 +6,6 @@
     (clickFilter)="filterDialogVisible = true"
     (clickAdd)="openEditDialog()"
     headerLeft="Mitglieder"
-    [addButtonPermissionFor]="[RoleType.ADMIN]"
 ></app-mkj-toolbar>
 
 <div class="p-grid">
@@ -25,7 +24,7 @@
                 >
                     <div class="p-mb-2">
                         Anzahl:
-                        {{ mitglieder?.length }}
+                        {{ mitglieder?.length || "-" }}
                     </div>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>

@@ -182,6 +182,9 @@ import { MitgliedEditorComponent } from './mkjComponents/mitglieder/mitglied-edi
 import { NotenEditorComponent } from './mkjComponents/notenarchiv/noten-editor/noten-editor.component';
 import { MkjToolbarComponent } from './mkjUtilities/mkj-toolbar/mkj-toolbar.component';
 import { AusrueckungEditorComponent } from './mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component';
+import { RollenEditComponent } from './mkjComponents/administration/rollen-edit/rollen-edit.component';
+import { MkjTextTransformPipe } from './mkjUtilities/mkj-text-transform.pipe';
+
 
 
 FullCalendarModule.registerPlugins([
@@ -349,6 +352,8 @@ FullCalendarModule.registerPlugins([
         NotenEditorComponent,
         MkjToolbarComponent,
         AusrueckungEditorComponent,
+        RollenEditComponent,
+        MkjTextTransformPipe,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -17,6 +17,7 @@
                             'ng-invalid ng-dirty': submitted && !user.email
                         }"
                         required
+                        autofocus
                     />
                     <small class="p-error" *ngIf="submitted && !user.email"
                         >Name ist erforderlich!</small
@@ -42,6 +43,7 @@
                     <label>Passwort</label>
                 </span>
             </div>
+            <!-- <div style="height: 400px"></div> -->
             <div class="p-col-12 button-container">
                 <button
                     pButton

@@ -1,3 +1,4 @@
+import { InfoService } from './../../../mkjServices/info.service';
 import { RoleType } from 'src/app/mkjInterfaces/User';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
@@ -24,21 +25,25 @@ export class MitgliederSingleComponent implements OnInit {
     editDialogVisible: boolean = false;
 
     constructor(private mitgliederService: MitgliederService, private roleService: RoleService,
-        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private messageService: MessageService) { }
+        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private infoService: InfoService) { }
 
     ngOnInit(): void {
         if (this.mitgliederService.hasSelectedMitglied()) {
             this.mitglied = this.mitgliederService.getSelectedMitglied();
-            this.getRoles(this.mitglied.id);
+            this.getRoles(this.mitglied.user_id);
         }
         else {
             this.loading = true;
             this.route.params.subscribe(e => {
-                this.getRoles(e.id)
                 this.mitgliederService.getSingleMitglied(e.id).subscribe(
                     {
-                        next: (m) => this.mitglied = m,
-                        error: (error) => { },
+                        next: (m) => {
+                            this.mitglied = m;
+                            this.getRoles(this.mitglied.user_id)
+                        },
+                        error: (error) => {
+                            this.infoService.error(error);
+                        },
                         complete: () => this.loading = false
                     }
                 );
@@ -46,10 +51,12 @@ export class MitgliederSingleComponent implements OnInit {
         }
     }
 
-    getRoles(id: string) {
+    getRoles(id: any) {
         this.rolesLoading = true;
         this.roleService.getAllRoles().subscribe({ next: roles => this.allRoles = roles })
-        this.roleService.getRolesForMitglied(id).subscribe({
+
+        if (!id) return;
+        this.roleService.getUserRoles(id).subscribe({
             next: (roles) => {
                 this.selectedRoles = roles
             },
@@ -64,18 +71,14 @@ export class MitgliederSingleComponent implements OnInit {
         this.selectedRoles = newRoles;
         if (attachRole[0]) {
             this.roleService.attachRoleToMitglied(this.mitglied.id, attachRole[0].id).subscribe({
-                next: (res) => this.messageService.add(
-                    { severity: 'success', summary: 'Erfolg', detail: res.message, life: 3000 }),
-                error: (error) => this.messageService.add(
-                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                next: (res) => this.infoService.success(res.message),
+                error: (error) => this.infoService.error(error)
             });
         }
         if (detachRole[0]) {
             this.roleService.detachRoleFromMitglied(this.mitglied.id, detachRole[0].id).subscribe({
-                next: (res) => this.messageService.add(
-                    { severity: 'warn', summary: 'Erfolg', detail: res.message, life: 3000 }),
-                error: (error) => this.messageService.add(
-                    { severity: 'error', summary: 'Fehler', detail: error.error.message, life: 3000 })
+                next: (res) => this.infoService.success(res.message),
+                error: (error) => this.infoService.error(error)
             })
         }
     }
@@ -94,12 +97,11 @@ export class MitgliederSingleComponent implements OnInit {
         this.mitgliederService.updateMitglied(this.editMitglied).subscribe({
             next: res => {
                 this.mitglied = res;
-                this.messageService.add(
-                    { severity: 'success', summary: 'Erfolg', detail: 'Daten gespeichert!', life: 3000 });
+                this.infoService.success('Daten gespeichert!');
                 this.editDialogVisible = false
             },
-            error: (error) => this.messageService.add(
-                { severity: 'error', summary: 'Fehler', detail: error.error.message })
+            error: (error) => this.infoService.error(error)
+
         })
     }
 
@@ -111,15 +113,10 @@ export class MitgliederSingleComponent implements OnInit {
             accept: () => {
                 this.mitgliederService.deleteMitglied(this.mitglied).subscribe({
                     next: (res) => {
-                        this.messageService.add({
-                            severity: 'success', summary: 'Erfolg',
-                            detail: 'Mitglied ' + name + ' gelöscht!'
-                        });
+                        this.infoService.success('Mitglied ' + name + ' gelöscht!');
                         this.navigateBack();
                     },
-                    error: (error) => this.messageService.add(
-                        { severity: 'error', summary: 'Fehler', detail: error.error.message })
-
+                    error: (error) => this.infoService.error(error)
                 });
             }
         });

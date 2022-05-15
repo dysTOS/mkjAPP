@@ -581,7 +581,8 @@
     padding-top: 200px;
     height: auto;
     background: url("../../layout/images/login/login-image.png") no-repeat;
-    background-position: 0 -100px;
+    background-position: 0 -50px;
+    background-size: cover !important;
 }
 .login-body .login-panel {
     background-color: #ffffff;

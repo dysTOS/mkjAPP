@@ -17,6 +17,7 @@
                             'ng-invalid ng-dirty': submitted && !user.vorname
                         }"
                         required
+                        autofocus
                     />
                     <small class="p-error" *ngIf="submitted && !user.vorname"
                         >Vorname ist erforderlich!</small
