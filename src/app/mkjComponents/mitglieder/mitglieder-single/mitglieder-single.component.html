@@ -46,17 +46,28 @@
     <p-listbox
         *ngIf="allRoles && selectedRoles"
         [options]="allRoles"
-        [ngModel]="selectedRoles"
+        [(ngModel)]="selectedRoles"
         [multiple]="true"
         [checkbox]="true"
         [filter]="false"
         [showToggleAll]="false"
         [listStyle]="{ 'max-height': '250px' }"
-        optionLabel="role"
+        optionLabel="name"
         dataKey="id"
-        (onChange)="onRoleChange($event)"
     >
-        <ng-template pTemplate="header"> Rollen </ng-template>
+        <ng-template pTemplate="header">
+            <div class="p-col-12 p-d-flex p-jc-between p-ai-center p-p-0">
+                <span> Rollen</span>
+                <p-button
+                    label="Update"
+                    [icon]="
+                        rolesSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
+                    "
+                    class="p-m-2"
+                    [disabled]="rolesSaving"
+                    (click)="updateRoles()"
+                ></p-button></div
+        ></ng-template>
         <ng-template let-role pTemplate="item">
             <div>
                 <div>{{ role.name }}</div>

@@ -55,37 +55,9 @@ export class RoleService {
         return this.http.delete<any>(url, httpOptions);
     }
 
-
-    // ----------------------------------------
-
-    getRolesForMitglied(mitgliedId: string): Observable<Role[]> {
-        const url = this.apiURL + "/api/getrolesformitglied";
-        return this.http.post<Role[]>(url, { id: mitgliedId }, httpOptions);
-    }
-
-    getRolesForUser(userId: string): Observable<Role[]> {
-        const url = this.apiURL + "/api/getrolesforuser";
-        return this.http.post<Role[]>(url, { id: userId }, httpOptions);
-    }
-
-    attachRoleToMitglied(mitgliedId: string, roleId: string): Observable<any> {
-        const url = this.apiURL + "/api/addrole";
-        return this.http.post<Role[]>(
-            url,
-            { mitglied_id: mitgliedId, role_id: roleId },
-            httpOptions
-        );
-    }
-
-    detachRoleFromMitglied(
-        mitgliedId: string,
-        roleId: string
-    ): Observable<any> {
-        const url = this.apiURL + "/api/removerole";
-        return this.http.post<Role[]>(
-            url,
-            { mitglied_id: mitgliedId, role_id: roleId },
-            httpOptions
-        );
+    assignRolesToUser(roles: Role[], userId: string): Observable<Role[]> {
+        const url = this.apiURL + "/api/roles/assign/" + userId;
+        const syncRoles = roles.map(r => { return r.name })
+        return this.http.post<Role[]>(url, { roles: syncRoles }, httpOptions);
     }
 }

@@ -1,6 +1,6 @@
 export interface Mitglied {
     id?: string;
-    user_id?: number;
+    user_id?: string;
     vorname?: string;
     zuname?: string;
     email?: string;

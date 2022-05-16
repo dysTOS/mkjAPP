@@ -18,7 +18,11 @@
                     icon="pi pi-plus"
                     styleClass="p-button-info p-button-outlined"
                     [disabled]="isCreating || isSaving"
-                    (click)="addDialogVisible = true"
+                    (click)="
+                        addDialogVisible = true;
+                        rolePermissions = [];
+                        selectedRole = null
+                    "
                 ></p-button></div
         ></ng-template>
         <ng-template pTemplate="body" let-role let-expanded="expanded"
@@ -26,14 +30,7 @@
                 <td>
                     <b>{{ role.name | mkjTextTransform }}</b>
                 </td>
-                <td>
-                    <p-button
-                        icon="pi pi-trash"
-                        styleClass="p-button-danger p-button-outlined p-button-rounded p-button-sm p-p-0"
-                        pTooltip="Löschen"
-                        (click)="deleteRole(role)"
-                    ></p-button>
-                </td></tr></ng-template
+            </tr></ng-template
         ><ng-template pTemplate="rowexpansion" let-role
             ><div class="p-ml-6">
                 <p-listbox
@@ -75,6 +72,16 @@
                             </div>
                         </div>
                     </ng-template>
+                    <ng-template pTemplate="footer">
+                        <div class="p-d-flex p-jc-center">
+                            <p-button
+                                icon="pi pi-trash"
+                                styleClass="p-button-danger p-button-outlined p-button-rounded p-button-sm p-m-2"
+                                label="Rolle löschen"
+                                (click)="deleteRole(role)"
+                            ></p-button>
+                        </div>
+                    </ng-template>
                 </p-listbox>
                 <div
                     *ngIf="!rolePermissions"
@@ -103,9 +110,32 @@
             pInputText
             [(ngModel)]="addRoleName"
             placeholder="Name der neuen Rolle"
+            class="p-mb-3"
             required
         />
+
+        <p-listbox
+            [options]="permissions"
+            [(ngModel)]="rolePermissions"
+            [multiple]="true"
+            [checkbox]="true"
+            [filter]="false"
+            [showToggleAll]="false"
+            [listStyle]="{ 'max-height': '250px' }"
+            optionLabel="name"
+            dataKey="id"
+        >
+            <ng-template pTemplate="header"> Berechtigungen </ng-template>
+            <ng-template let-permission pTemplate="item">
+                <div>
+                    <div>
+                        {{ permission.name | mkjTextTransform }}
+                    </div>
+                </div>
+            </ng-template>
+        </p-listbox>
     </ng-template>
+
     <ng-template pTemplate="footer">
         <button
             pButton
@@ -126,3 +156,9 @@
         ></button
     ></ng-template>
 </p-dialog>
+
+<!-- Löschbestätigung? -->
+<p-confirmDialog
+    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+    [style]="{ width: '450px' }"
+></p-confirmDialog>

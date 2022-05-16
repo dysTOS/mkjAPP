@@ -1,8 +1,8 @@
+import { ConfirmationService } from 'primeng/api';
 import { InfoService } from './../../../mkjServices/info.service';
 import { Permission, Role } from './../../../mkjInterfaces/User';
 import { RoleService } from './../../../mkjServices/role.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-rollen-edit',
@@ -24,7 +24,8 @@ export class RollenEditComponent implements OnInit {
     public addDialogVisible = false;
     public addRoleName: string;
 
-    constructor(private roleService: RoleService, private infoService: InfoService) { }
+    constructor(private roleService: RoleService, private infoService: InfoService,
+        private confirmationService: ConfirmationService) { }
 
     public ngOnInit(): void {
         this.init();
@@ -89,12 +90,13 @@ export class RollenEditComponent implements OnInit {
 
     public createRole(name: string) {
         this.isCreating = true;
-        this.roleService.createRole(name, [this.permissions[0]]).subscribe({
+        this.roleService.createRole(name, this.rolePermissions).subscribe({
             next: (res) => {
                 this.init();
                 this.isCreating = false;
                 this.infoService.success("Rolle erstellt!");
                 this.addRoleName = null;
+                this.rolePermissions = null;
                 this.addDialogVisible = false;
             },
             error: (err) => {
@@ -106,18 +108,23 @@ export class RollenEditComponent implements OnInit {
     }
 
     public deleteRole(role: Role) {
-        this.rolesLoading = true;
-        this.roleService.deleteRole(role).subscribe({
-            next: (res) => {
-                this.init();
-                this.infoService.success("Rolle gelöscht!");
-            },
-            error: (err) => {
-                this.init()
-                this.infoService.error(err);
-
+        this.selectedRole = null;
+        this.confirmationService.confirm({
+            header: 'Rolle löschen?',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.rolesLoading = true;
+                this.roleService.deleteRole(role).subscribe({
+                    next: (res) => {
+                        this.init();
+                        this.infoService.success("Rolle gelöscht!");
+                    },
+                    error: (err) => {
+                        this.init()
+                        this.infoService.error(err);
+                    }
+                })
             }
         })
     }
-
 }

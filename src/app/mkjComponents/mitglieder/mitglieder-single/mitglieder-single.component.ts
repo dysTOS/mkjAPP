@@ -1,6 +1,6 @@
 import { InfoService } from './../../../mkjServices/info.service';
 import { RoleType } from 'src/app/mkjInterfaces/User';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
 import { Role } from './../../../mkjInterfaces/User';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +19,7 @@ export class MitgliederSingleComponent implements OnInit {
     allRoles: Role[];
     loading: boolean = false;
     rolesLoading: boolean = false;
+    rolesSaving: boolean = false;
     RoleType = RoleType;
 
     editMitglied: Mitglied;
@@ -52,10 +53,10 @@ export class MitgliederSingleComponent implements OnInit {
     }
 
     getRoles(id: any) {
+        if (!id) return;
+
         this.rolesLoading = true;
         this.roleService.getAllRoles().subscribe({ next: roles => this.allRoles = roles })
-
-        if (!id) return;
         this.roleService.getUserRoles(id).subscribe({
             next: (roles) => {
                 this.selectedRoles = roles
@@ -64,23 +65,20 @@ export class MitgliederSingleComponent implements OnInit {
         })
     }
 
-    onRoleChange(event) {
-        const newRoles = event.value;
-        const attachRole = newRoles.filter(e => !this.selectedRoles.includes(e))
-        const detachRole = this.selectedRoles.filter(e => !newRoles.includes(e))
-        this.selectedRoles = newRoles;
-        if (attachRole[0]) {
-            this.roleService.attachRoleToMitglied(this.mitglied.id, attachRole[0].id).subscribe({
-                next: (res) => this.infoService.success(res.message),
-                error: (error) => this.infoService.error(error)
-            });
-        }
-        if (detachRole[0]) {
-            this.roleService.detachRoleFromMitglied(this.mitglied.id, detachRole[0].id).subscribe({
-                next: (res) => this.infoService.success(res.message),
-                error: (error) => this.infoService.error(error)
-            })
-        }
+    updateRoles() {
+        this.rolesSaving = true;
+        this.roleService.assignRolesToUser(this.selectedRoles, this.mitglied.user_id).subscribe({
+            next: (res) => {
+                this.selectedRoles = res;
+                this.rolesSaving = false;
+                this.infoService.success("Rollen aktualisiert!")
+            },
+            error: (err) => {
+                this.infoService.error(err);
+                this.selectedRoles = null;
+                this.rolesSaving = false;
+            }
+        })
     }
 
     openEditDialog() {
