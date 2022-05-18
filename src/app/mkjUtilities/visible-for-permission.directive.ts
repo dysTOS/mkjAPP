@@ -1,24 +1,23 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
-import { RoleType } from "../mkjInterfaces/User";
 import { UserService } from "../mkjServices/authentication/user.service";
 
 @Directive({
     selector: "[visibleFor]",
 })
-export class VisibleForDirective {
+export class VisibleForPermissionDirective {
     constructor(
         private userService: UserService,
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef
     ) { }
 
-    @Input() set visibleFor(roles: RoleType[]) {
+    @Input() set visibleFor(permissions: string[]) {
         let isVisible: boolean = false;
         this.viewContainer.clear();
-        this.userService.getCurrentUserRoles().subscribe({
+        this.userService.currentPermissions.subscribe({
             next: () => {
-                roles.forEach(r => {
-                    if (this.userService.hasRole(r)) isVisible = true
+                permissions.forEach(r => {
+                    if (this.userService.hasPermission(r)) isVisible = true
                 });
                 if (isVisible) {
                     this.viewContainer.createEmbeddedView(this.templateRef);

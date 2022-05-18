@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
                     this.userService.setCurrentUser(result.user);
                     this.userService.setCurrentMitglied(result.mitglied);
                     this.userService.setCurrentUserRoles(result.roles);
+                    this.userService.currentPermissions.next(result.permissions);
                     this.router.navigate(['']);
                 },
                 error => {

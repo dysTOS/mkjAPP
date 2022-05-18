@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Mitglied } from "./../../mkjInterfaces/Mitglied";
 import { Injectable } from "@angular/core";
-import { Role, User, RoleType } from "../../mkjInterfaces/User";
+import { Role, User, RoleType, Permission } from "../../mkjInterfaces/User";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,6 +15,8 @@ export class UserService {
         new BehaviorSubject<Array<Role>>(null);
     private currentMitglied: BehaviorSubject<Mitglied> =
         new BehaviorSubject<Mitglied>(null);
+
+    public currentPermissions: BehaviorSubject<Permission[]> = new BehaviorSubject<Permission[]>(null);
 
     public userRoles = [];
 
@@ -52,31 +54,31 @@ export class UserService {
         });
     }
 
-    public hasRole(role: RoleType): boolean {
-        if (!this.currentUserRoles.getValue() || role === null) return false;
+    public hasPermission(permission: string): boolean {
+        if (!this.currentPermissions.getValue() || permission === null) return false;
         let bool = false;
-        this.currentUserRoles.getValue().forEach((e) => {
-            if (e.name == role) bool = true;
+        this.currentPermissions.getValue().forEach((e) => {
+            if (e.name === permission) bool = true;
         });
         return bool;
     }
 
-    public hasOneOfRoles(roles: RoleType[]): boolean {
-        if (!this.currentUserRoles.getValue() || !roles) return false;
+    public hasOneOfPermissions(permissions: string[]): boolean {
+        if (!this.currentPermissions.getValue() || !permissions) return false;
         let bool = false;
-        roles.forEach(e => {
-            if (this.hasRole(e)) {
+        permissions.forEach(e => {
+            if (this.hasPermission(e)) {
                 bool = true;
             }
         });
         return bool;
     }
 
-    public hasAllOfRoles(roles: RoleType[]): boolean {
-        if (!this.currentUserRoles.getValue() || !roles) return false;
+    public hasAllOfPermissions(permissions: string[]): boolean {
+        if (!this.currentPermissions.getValue() || !permissions) return false;
         let bool = true;
-        roles.forEach(e => {
-            if (!this.hasRole(e)) {
+        permissions.forEach(e => {
+            if (!this.hasPermission(e)) {
                 bool = false;
             }
         });
@@ -88,5 +90,6 @@ export class UserService {
         this.currentUser.next(null);
         this.currentUserRoles.next(null);
         this.currentMitglied.next(null);
+        this.currentPermissions.next(null);
     }
 }

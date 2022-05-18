@@ -176,8 +176,7 @@ import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.compo
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
 import { AdministrationComponent } from "./mkjComponents/administration/administration.component";
 import { NotenarchivComponent } from "./mkjComponents/notenarchiv/notenarchiv.component";
-import { VisibleForDirective } from "./mkjUtilities/visible-for-roles.directive";
-import { NotVisibleForRolesDirective } from './mkjUtilities/not-visible-for-roles.directive';
+import { VisibleForPermissionDirective } from "./mkjUtilities/visible-for-permission.directive";
 import { MitgliedEditorComponent } from './mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component';
 import { NotenEditorComponent } from './mkjComponents/notenarchiv/noten-editor/noten-editor.component';
 import { MkjToolbarComponent } from './mkjUtilities/mkj-toolbar/mkj-toolbar.component';
@@ -346,8 +345,7 @@ FullCalendarModule.registerPlugins([
         MitgliederSingleComponent,
         AdministrationComponent,
         NotenarchivComponent,
-        VisibleForDirective,
-        NotVisibleForRolesDirective,
+        VisibleForPermissionDirective,
         MitgliedEditorComponent,
         NotenEditorComponent,
         MkjToolbarComponent,

@@ -57,5 +57,6 @@ export interface LoginResponse {
     token?: string;
     user?: User;
     roles?: Array<Role>;
+    permissions?: Array<Permission>;
     mitglied?: Mitglied;
 }

@@ -1,7 +1,5 @@
-import { RoleType } from './../../mkjInterfaces/User';
 import { UserService } from './../../mkjServices/authentication/user.service';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Role } from 'src/app/mkjInterfaces/User';
 
 @Component({
     selector: 'app-mkj-toolbar',
@@ -38,19 +36,19 @@ export class MkjToolbarComponent implements OnInit {
     deleteButtonTooltip = "Löschen";
 
     @Input()
-    addButtonPermissionFor: RoleType[];
+    addButtonPermissionFor: string[];
     addButtonPermission: boolean = false;
     @Input()
-    editButtonPermissionFor: RoleType[];
+    editButtonPermissionFor: string[];
     editButtonPermission: boolean = false;
     @Input()
-    exportButtonPermissionFor: RoleType[];
+    exportButtonPermissionFor: string[];
     exportButtonPermission: boolean = false;
     @Input()
-    filterButtonPermissionFor: RoleType[];
+    filterButtonPermissionFor: string[];
     filterButtonPermission: boolean = false;
     @Input()
-    deleteButtonPermissionFor: RoleType[];
+    deleteButtonPermissionFor: string[];
     deleteButtonPermission: boolean = false;
 
     @Output()
@@ -69,7 +67,7 @@ export class MkjToolbarComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     public ngOnInit() {
-        this.userService.getCurrentUserRoles().subscribe({
+        this.userService.currentPermissions.subscribe({
             next: (res) => {
                 this.checkPermissions();
             }
@@ -77,31 +75,31 @@ export class MkjToolbarComponent implements OnInit {
     }
 
     private checkPermissions() {
-        if (this.addButtonPermissionFor && !this.userService.hasOneOfRoles(this.addButtonPermissionFor)) {
+        if (this.addButtonPermissionFor && !this.userService.hasOneOfPermissions(this.addButtonPermissionFor)) {
             this.addButtonPermission = false;
         }
         else {
             this.addButtonPermission = true;
         }
-        if (this.editButtonPermissionFor && !this.userService.hasOneOfRoles(this.editButtonPermissionFor)) {
+        if (this.editButtonPermissionFor && !this.userService.hasOneOfPermissions(this.editButtonPermissionFor)) {
             this.editButtonPermission = false;
         }
         else {
             this.editButtonPermission = true;
         }
-        if (this.filterButtonPermissionFor && !this.userService.hasOneOfRoles(this.filterButtonPermissionFor)) {
+        if (this.filterButtonPermissionFor && !this.userService.hasOneOfPermissions(this.filterButtonPermissionFor)) {
             this.filterButtonPermission = false;
         }
         else {
             this.filterButtonPermission = true;
         }
-        if (this.exportButtonPermissionFor && !this.userService.hasOneOfRoles(this.exportButtonPermissionFor)) {
+        if (this.exportButtonPermissionFor && !this.userService.hasOneOfPermissions(this.exportButtonPermissionFor)) {
             this.exportButtonPermission = false;
         }
         else {
             this.exportButtonPermission = true;
         }
-        if (this.deleteButtonPermissionFor && !this.userService.hasOneOfRoles(this.deleteButtonPermissionFor)) {
+        if (this.deleteButtonPermissionFor && !this.userService.hasOneOfPermissions(this.deleteButtonPermissionFor)) {
             this.deleteButtonPermission = false;
         }
         else {
