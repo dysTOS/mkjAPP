@@ -67,7 +67,7 @@ export class MkjToolbarComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     public ngOnInit() {
-        this.userService.currentPermissions.subscribe({
+        this.userService.getCurrentUserPermissions().subscribe({
             next: (res) => {
                 this.checkPermissions();
             }

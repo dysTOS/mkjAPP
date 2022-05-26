@@ -1,7 +1,7 @@
 import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
 
 export interface User {
-    id?: number;
+    id?: string;
     name?: string;
     email?: string;
     mitglied_id?: string;

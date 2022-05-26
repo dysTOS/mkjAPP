@@ -16,9 +16,7 @@ export class UserService {
     private currentMitglied: BehaviorSubject<Mitglied> =
         new BehaviorSubject<Mitglied>(null);
 
-    public currentPermissions: BehaviorSubject<Permission[]> = new BehaviorSubject<Permission[]>(null);
-
-    public userRoles = [];
+    private currentPermissions: BehaviorSubject<Permission[]> = new BehaviorSubject<Permission[]>(null);
 
     constructor() { }
 
@@ -49,9 +47,14 @@ export class UserService {
 
     public setCurrentUserRoles(roles: Array<Role>) {
         this.currentUserRoles.next(roles);
-        this.currentUserRoles.getValue().forEach((e) => {
-            this.userRoles[e.id] = true;
-        });
+    }
+
+    public getCurrentUserPermissions(): Observable<Array<Permission>> {
+        return this.currentPermissions.asObservable();
+    }
+
+    public setCurrentUserPermissions(permissions: Array<Permission>) {
+        this.currentPermissions.next(permissions);
     }
 
     public hasPermission(permission: string): boolean {
@@ -86,7 +89,6 @@ export class UserService {
     }
 
     public onLogout() {
-        this.userRoles = [];
         this.currentUser.next(null);
         this.currentUserRoles.next(null);
         this.currentMitglied.next(null);

@@ -14,7 +14,7 @@ export class VisibleForPermissionDirective {
     @Input() set visibleFor(permissions: string[]) {
         let isVisible: boolean = false;
         this.viewContainer.clear();
-        this.userService.currentPermissions.subscribe({
+        this.userService.getCurrentUserPermissions().subscribe({
             next: () => {
                 permissions.forEach(r => {
                     if (this.userService.hasPermission(r)) isVisible = true
