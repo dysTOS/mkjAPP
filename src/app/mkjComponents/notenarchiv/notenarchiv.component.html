@@ -1,9 +1,9 @@
 <app-mkj-toolbar
     [showAddButton]="true"
+    [addButtonPermissions]="['create noten']"
     (clickAdd)="openEditDialog()"
     addButtonTooltip="Noten anlegen"
     [headerLeft]="'Notenarchiv'"
-    [addButtonPermissionFor]="['edit noten']"
 ></app-mkj-toolbar>
 
 <p-table

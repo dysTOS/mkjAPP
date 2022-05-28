@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/mkjServices/authentication/user.service';
 import { ConfirmationService } from 'primeng/api';
 import { InfoService } from './../../../mkjServices/info.service';
 import { Permission, Role } from './../../../mkjInterfaces/User';
@@ -25,7 +26,7 @@ export class RollenEditComponent implements OnInit {
     public addRoleName: string;
 
     constructor(private roleService: RoleService, private infoService: InfoService,
-        private confirmationService: ConfirmationService) { }
+        private confirmationService: ConfirmationService, private userService: UserService) { }
 
     public ngOnInit(): void {
         this.init();
@@ -79,6 +80,7 @@ export class RollenEditComponent implements OnInit {
             next: (res) => {
                 this.selectedRole = res;
                 this.isSaving = false;
+                this.userService.renewCurrentUserPermissions();
                 this.infoService.success("Rolle aktualisiert!");
             },
             error: (err) => {
@@ -102,21 +104,20 @@ export class RollenEditComponent implements OnInit {
             error: (err) => {
                 this.isCreating = false;
                 this.infoService.error(err);
-                this.addRoleName = null;
             }
         })
     }
 
     public deleteRole(role: Role) {
-        this.selectedRole = null;
         this.confirmationService.confirm({
-            header: 'Rolle löschen?',
+            header: 'Rolle ' + role.name + ' löschen?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 this.rolesLoading = true;
                 this.roleService.deleteRole(role).subscribe({
                     next: (res) => {
                         this.init();
+                        this.userService.renewCurrentUserPermissions();
                         this.infoService.success("Rolle gelöscht!");
                     },
                     error: (err) => {

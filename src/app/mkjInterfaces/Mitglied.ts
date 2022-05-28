@@ -22,3 +22,8 @@ export interface Mitglied {
     updated_at?: string;
 }
 
+export const Mitglied_Geschlecht = [
+    { name: 'Männlich', value: 'M' },
+    { name: 'Weiblich', value: 'W' },
+    { name: 'Divers', value: 'D' },
+]

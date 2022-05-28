@@ -1,10 +1,13 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
+import { Subscription } from 'rxjs';
+import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from "@angular/core";
 import { UserService } from "../mkjServices/authentication/user.service";
 
 @Directive({
     selector: "[visibleFor]",
 })
-export class VisibleForPermissionDirective {
+export class VisibleForPermissionDirective implements OnDestroy {
+    private subscription: Subscription;
+
     constructor(
         private userService: UserService,
         private templateRef: TemplateRef<any>,
@@ -14,7 +17,7 @@ export class VisibleForPermissionDirective {
     @Input() set visibleFor(permissions: string[]) {
         let isVisible: boolean = false;
         this.viewContainer.clear();
-        this.userService.getCurrentUserPermissions().subscribe({
+        this.subscription = this.userService.getCurrentUserPermissions().subscribe({
             next: () => {
                 permissions.forEach(r => {
                     if (this.userService.hasPermission(r)) isVisible = true
@@ -27,5 +30,10 @@ export class VisibleForPermissionDirective {
                 }
             }
         })
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+        this.subscription = null;
     }
 }

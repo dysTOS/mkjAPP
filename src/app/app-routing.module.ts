@@ -5,7 +5,7 @@ import { LoginComponent } from './mkjServices/authentication/login/login.compone
 import { SignupComponent } from './mkjServices/authentication/signup/signup.component';
 import { MkjDashboardComponent } from './mkjComponents/mkj-dashboard/mkj-dashboard.component';
 import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { DashboardDemoComponent } from './demo/view/dashboarddemo.component';
 import { FormLayoutDemoComponent } from './demo/view/formlayoutdemo.component';
 import { FloatLabelDemoComponent } from './demo/view/floatlabeldemo.component';
@@ -64,6 +64,7 @@ import { MitgliederSingleComponent } from './mkjComponents/mitglieder/mitglieder
                     { path: 'mitglieder/:id', component: MitgliederSingleComponent, canActivate: [AuthGuardService] },
                     { path: 'notenarchiv', component: NotenarchivComponent, canActivate: [AuthGuardService] },
                     { path: 'administration', component: AdministrationComponent, canActivate: [AuthGuardService] },
+                    { path: 'administration/:tab', component: AdministrationComponent, canActivate: [AuthGuardService] },
 
                     { path: 'dashboarddemo', component: DashboardDemoComponent },
                     { path: 'uikit/formlayout', component: FormLayoutDemoComponent },

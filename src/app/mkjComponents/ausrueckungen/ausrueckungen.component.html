@@ -8,7 +8,7 @@
     (clickFilter)="zeitraumDialog = true"
     addButtonTooltip="Neue Ausrückung"
     exportButtonTooltip="Ausrückungen exportieren"
-    [addButtonPermissionFor]="['create ausrueckungen']"
+    [addButtonPermissions]="['create ausrueckungen']"
 ></app-mkj-toolbar>
 
 <div class="p-grid">
@@ -298,6 +298,9 @@
                                     <div class="p-col-12 p-d-flex p-jc-center">
                                         <span class="p-buttonset">
                                             <button
+                                                *visibleFor="[
+                                                    'create ausrueckungen'
+                                                ]"
                                                 pButton
                                                 pRipple
                                                 icon="pi pi-copy"

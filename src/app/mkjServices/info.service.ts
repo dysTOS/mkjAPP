@@ -26,11 +26,11 @@ export class InfoService {
             })
         }
 
-        if (error?.errors) {
-            error.errors.foreach((e) =>
+        if (error?.error?.errors) {
+            Object.values(error.error.errors).forEach((e) =>
                 this.messageService.add({
                     severity: 'error', summary: 'Fehler',
-                    detail: e,
+                    detail: e[0],
                     life: 8000,
                 })
             )

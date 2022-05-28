@@ -1,12 +1,12 @@
 import { InfoService } from './../../../mkjServices/info.service';
-import { RoleType } from 'src/app/mkjInterfaces/User';
 import { ConfirmationService } from 'primeng/api';
 import { RoleService } from '../../../mkjServices/role.service';
-import { Role } from './../../../mkjInterfaces/User';
+import { Permission, Role } from './../../../mkjInterfaces/User';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MitgliederService } from './../../../mkjServices/mitglieder.service';
 import { Component, OnInit } from '@angular/core';
 import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
+import { UserService } from 'src/app/mkjServices/authentication/user.service';
 
 @Component({
     selector: 'app-mitglieder-single',
@@ -17,52 +17,65 @@ export class MitgliederSingleComponent implements OnInit {
     mitglied: Mitglied;
     selectedRoles: Role[];
     allRoles: Role[];
-    loading: boolean = false;
+    mitgliedLoading: boolean = false;
     rolesLoading: boolean = false;
     rolesSaving: boolean = false;
-    RoleType = RoleType;
+
 
     editMitglied: Mitglied;
     editDialogVisible: boolean = false;
+    mitgliedSaving: boolean = false;
 
     constructor(private mitgliederService: MitgliederService, private roleService: RoleService,
-        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute, private infoService: InfoService) { }
+        private confirmationService: ConfirmationService, private router: Router, private route: ActivatedRoute,
+        private infoService: InfoService, private userService: UserService) { }
 
     ngOnInit(): void {
         if (this.mitgliederService.hasSelectedMitglied()) {
             this.mitglied = this.mitgliederService.getSelectedMitglied();
-            this.getRoles(this.mitglied.user_id);
+            this.initRolesAndPermissions(this.mitglied.user_id);
         }
         else {
-            this.loading = true;
+            this.mitgliedLoading = true;
             this.route.params.subscribe(e => {
                 this.mitgliederService.getSingleMitglied(e.id).subscribe(
                     {
                         next: (m) => {
                             this.mitglied = m;
-                            this.getRoles(this.mitglied.user_id)
+                            this.initRolesAndPermissions(this.mitglied.user_id);
+                            this.mitgliedLoading = false;
                         },
                         error: (error) => {
                             this.infoService.error(error);
+                            this.mitgliedLoading = false;
                         },
-                        complete: () => this.loading = false
                     }
                 );
             });
         }
     }
 
-    getRoles(id: any) {
+    initRolesAndPermissions(id: any) {
         if (!id) return;
-
         this.rolesLoading = true;
-        this.roleService.getAllRoles().subscribe({ next: roles => this.allRoles = roles })
+        this.roleService.getAllRoles().subscribe({
+            next: roles => { this.allRoles = roles },
+            error: err => {
+                this.infoService.error(err);
+                this.allRoles = null;
+            }
+        });
         this.roleService.getUserRoles(id).subscribe({
             next: (roles) => {
-                this.selectedRoles = roles
+                this.selectedRoles = roles;
+                this.rolesLoading = false;
             },
-            complete: () => this.rolesLoading = false
-        })
+            error: (error) => {
+                this.rolesLoading = false;
+                this.allRoles = null;
+                this.infoService.error(error)
+            }
+        });
     }
 
     updateRoles() {
@@ -71,7 +84,14 @@ export class MitgliederSingleComponent implements OnInit {
             next: (res) => {
                 this.selectedRoles = res;
                 this.rolesSaving = false;
-                this.infoService.success("Rollen aktualisiert!")
+                this.userService.setCurrentUserRoles(res);
+                console.log(this.mitglied.user_id, this.userService.getCurrentUserId())
+                if (this.mitglied.user_id === this.userService.getCurrentUserId()) {
+                    this.roleService.getUserPermissions(this.mitglied.user_id).subscribe({
+                        next: (res) => this.userService.setCurrentUserPermissions(res)
+                    })
+                }
+                this.infoService.success("Rollen aktualisiert!");
             },
             error: (err) => {
                 this.infoService.error(err);
@@ -92,14 +112,18 @@ export class MitgliederSingleComponent implements OnInit {
     }
 
     saveMitglied() {
+        this.mitgliedSaving = true;
         this.mitgliederService.updateMitglied(this.editMitglied).subscribe({
             next: res => {
                 this.mitglied = res;
                 this.infoService.success('Daten gespeichert!');
-                this.editDialogVisible = false
+                this.editDialogVisible = false;
+                this.mitgliedSaving = false;
             },
-            error: (error) => this.infoService.error(error)
-
+            error: (error) => {
+                this.mitgliedSaving = false;
+                this.infoService.error(error)
+            }
         })
     }
 

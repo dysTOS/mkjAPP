@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<div class="p-md-4 p-sm-12">
+<div class="p-md-6 p-sm-12">
     <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
         <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
     </div>
@@ -51,7 +51,7 @@
         [checkbox]="true"
         [filter]="false"
         [showToggleAll]="false"
-        [listStyle]="{ 'max-height': '250px' }"
+        [listStyle]="{ 'max-height': '500px' }"
         optionLabel="name"
         dataKey="id"
     >
@@ -104,6 +104,8 @@
             pRipple
             label="Speichern"
             icon="pi pi-check"
+            [icon]="mitgliedSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+            [disabled]="mitgliedSaving"
             class="p-button-plain"
             (click)="saveMitglied()"
         ></button

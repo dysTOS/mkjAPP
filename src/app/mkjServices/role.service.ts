@@ -38,6 +38,11 @@ export class RoleService {
         return this.http.get<Role[]>(url, httpOptions);
     }
 
+    getUserPermissions(id: string): Observable<Permission[]> {
+        const url = this.apiURL + "/api/permissions/" + id;
+        return this.http.get<Role[]>(url, httpOptions);
+    }
+
     createRole(roleName: string, permissions: Permission[]): Observable<Role> {
         const url = this.apiURL + "/api/role";
         const syncPermissions = permissions.map(p => { return p.name })

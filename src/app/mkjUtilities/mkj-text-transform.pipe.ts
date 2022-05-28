@@ -13,7 +13,7 @@ export class MkjTextTransformPipe implements PipeTransform {
 
             }
             text = textArr.join(' ');
-            return text;
+            return text.replace(/ue/g, 'ü').replace(/ae/g, 'ä').replace(/oe/g, 'ö');
         }
         else return '';
     }

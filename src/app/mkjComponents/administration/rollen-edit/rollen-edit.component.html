@@ -7,12 +7,12 @@
         responsiveLayout="scroll"
         selectionMode="single"
         rowExpandMode="single"
-        styleClass="p-datatable-sm p-datatable-striped"
+        styleClass="p-datatable p-datatable-striped"
         (onRowSelect)="loadPermissionsForRole()"
     >
         <ng-template pTemplate="caption"
             ><div class="p-col-12 p-d-flex p-jc-between p-ai-center p-p-0">
-                <span>Rollen</span>
+                <span></span>
                 <p-button
                     label="Neue Rolle"
                     icon="pi pi-plus"
@@ -27,7 +27,7 @@
         ></ng-template>
         <ng-template pTemplate="body" let-role let-expanded="expanded"
             ><tr [pSelectableRow]="role" [pRowToggler]="role">
-                <td>
+                <td style="font-size: 1.2rem">
                     <b>{{ role.name | mkjTextTransform }}</b>
                 </td>
             </tr></ng-template
@@ -40,8 +40,9 @@
                     [multiple]="true"
                     [checkbox]="true"
                     [filter]="true"
-                    [showToggleAll]="true"
-                    [listStyle]="{ 'max-height': '250px' }"
+                    filterPlaceHolder="Berechtigung filtern..."
+                    [showToggleAll]="false"
+                    [listStyle]="{ 'max-height': '500px' }"
                     optionLabel="name"
                     dataKey="id"
                 >
@@ -53,33 +54,32 @@
                                 >{{ role.name | mkjTextTransform }} -
                                 Berechtigungen</span
                             >
-                            <p-button
-                                label="Update"
-                                [icon]="
-                                    isSaving
-                                        ? 'pi pi-spin pi-spinner'
-                                        : 'pi pi-save'
-                                "
-                                class="p-m-2"
-                                [disabled]="isSaving"
-                                (click)="saveRolePermissions()"
-                            ></p-button></div
+                            <div>
+                                <p-button
+                                    label="Update"
+                                    [icon]="
+                                        isSaving
+                                            ? 'pi pi-spin pi-spinner'
+                                            : 'pi pi-save'
+                                    "
+                                    class="p-m-2"
+                                    [disabled]="isSaving"
+                                    (click)="saveRolePermissions()"
+                                ></p-button>
+                                <p-button
+                                    icon="pi pi-trash"
+                                    styleClass="p-button-danger p-button-outlined p-button-sm p-ml-2"
+                                    label="Rolle löschen"
+                                    [disabled]="isSaving"
+                                    (click)="deleteRole(role)"
+                                ></p-button>
+                            </div></div
                     ></ng-template>
                     <ng-template let-permission pTemplate="item">
                         <div>
                             <div>
                                 {{ permission.name | mkjTextTransform }}
                             </div>
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="footer">
-                        <div class="p-d-flex p-jc-center">
-                            <p-button
-                                icon="pi pi-trash"
-                                styleClass="p-button-danger p-button-outlined p-button-rounded p-button-sm p-m-2"
-                                label="Rolle löschen"
-                                (click)="deleteRole(role)"
-                            ></p-button>
                         </div>
                     </ng-template>
                 </p-listbox>
@@ -121,9 +121,9 @@
             [checkbox]="true"
             [filter]="false"
             [showToggleAll]="false"
-            [listStyle]="{ 'max-height': '250px' }"
             optionLabel="name"
             dataKey="id"
+            required
         >
             <ng-template pTemplate="header"> Berechtigungen </ng-template>
             <ng-template let-permission pTemplate="item">
@@ -150,7 +150,7 @@
             pRipple
             label="Speichern"
             [icon]="isCreating ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-            [disabled]="isCreating || !addRoleName"
+            [disabled]="isCreating || !addRoleName || !rolePermissions?.length"
             class="p-button-plain"
             (click)="createRole(addRoleName)"
         ></button

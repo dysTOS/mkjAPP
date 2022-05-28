@@ -1,18 +1,21 @@
-<app-mkj-toolbar headerLeft="Einstellungen"></app-mkj-toolbar>
-
 <p-tabView
-    ><p-tabPanel header="Meine Daten"
-        ><div class="p-col-12">
-            <app-mitglied-editor
-                *ngIf="mitglied"
-                [(mitglied)]="mitglied"
-            ></app-mitglied-editor>
+    [activeIndex]="activeTabIndex"
+    (activeIndexChange)="rewriteUrl($event)"
+    ><p-tabPanel header="Meine Daten">
+        <ng-container *ngIf="mitglied">
+            <div class="p-fluid">
+                <app-mitglied-editor
+                    [(mitglied)]="mitglied"
+                    [personalMode]="true"
+                ></app-mitglied-editor>
+            </div>
             <button
                 pButton
-                icon="pi pi-save"
+                [icon]="mitgliedSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+                [disabled]="mitgliedSaving"
                 label="Speichern"
                 (click)="updateOwnMitgliedData()"
-            ></button></div></p-tabPanel
-    ><p-tabPanel header="Rollen">
+            ></button> </ng-container></p-tabPanel
+    ><p-tabPanel *visibleFor="['read role']" header="Rollenverwaltung">
         <app-rollen-edit></app-rollen-edit></p-tabPanel
 ></p-tabView>

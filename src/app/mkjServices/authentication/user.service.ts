@@ -1,7 +1,8 @@
+import { RoleService } from './../role.service';
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Mitglied } from "./../../mkjInterfaces/Mitglied";
 import { Injectable } from "@angular/core";
-import { Role, User, RoleType, Permission } from "../../mkjInterfaces/User";
+import { Role, User, Permission } from "../../mkjInterfaces/User";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -18,11 +19,20 @@ export class UserService {
 
     private currentPermissions: BehaviorSubject<Permission[]> = new BehaviorSubject<Permission[]>(null);
 
-    constructor() { }
+    constructor(private roleService: RoleService) { }
 
     public isSet(): boolean {
         if (this.currentUser.getValue()) return true;
         else return false;
+    }
+
+    public getCurrentUserId() {
+        if (this.currentUser.getValue()) {
+            return this.currentUser.getValue().id;
+        }
+        else {
+            return false;
+        }
     }
 
     public getCurrentUser(): Observable<User> {
@@ -86,6 +96,19 @@ export class UserService {
             }
         });
         return bool;
+    }
+
+    public renewCurrentUserPermissions() {
+        const userId = this.getCurrentUserId();
+        if (userId) {
+            this.roleService.getUserPermissions(userId).subscribe({
+                next: (res) => this.setCurrentUserPermissions(res)
+            });
+            this.roleService.getUserRoles(userId).subscribe({
+                next: (res) => this.setCurrentUserRoles(res)
+            });
+        }
+
     }
 
     public onLogout() {
