@@ -183,6 +183,7 @@ import { MkjToolbarComponent } from './mkjUtilities/mkj-toolbar/mkj-toolbar.comp
 import { AusrueckungEditorComponent } from './mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component';
 import { RollenEditComponent } from './mkjComponents/administration/rollen-edit/rollen-edit.component';
 import { MkjTextTransformPipe } from './mkjUtilities/mkj-text-transform.pipe';
+import { MkjDisplayFieldComponent } from './mkjUtilities/mkj-display-field/mkj-display-field.component';
 
 
 
@@ -352,6 +353,7 @@ FullCalendarModule.registerPlugins([
         AusrueckungEditorComponent,
         RollenEditComponent,
         MkjTextTransformPipe,
+        MkjDisplayFieldComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

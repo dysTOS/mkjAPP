@@ -21,8 +21,6 @@
     [rowHover]="true"
     dataKey="id"
     selectionMode="single"
-    (onRowSelect)="onRowSelect($event)"
-    (onRowUnselect)="onRowUnselect($event)"
     (onFilter)="setFilteredRows($event)"
 >
     <ng-template pTemplate="caption">
@@ -70,7 +68,11 @@
         let-expanded="expanded"
         let-rowIndex="rowIndex"
     >
-        <tr [pSelectableRow]="noten" [pSelectableRowIndex]="rowIndex">
+        <tr
+            [pSelectableRow]="noten"
+            [pSelectableRowIndex]="rowIndex"
+            [pRowToggler]="noten"
+        >
             <td>{{ noten.inventarId }}</td>
             <td>
                 {{ noten.titel }}
@@ -84,6 +86,7 @@
             <td class="not-on-small">
                 <div class="p-d-flex buttons-hide">
                     <button
+                        *visibleFor="['update noten']"
                         pButton
                         pRipple
                         icon="pi pi-pencil"
@@ -93,12 +96,14 @@
                         tooltipPosition="left"
                     ></button>
                     <button
+                        *visibleFor="['delete noten']"
                         pButton
                         pRipple
                         icon="pi pi-trash"
                         class="p-button-text p-button-sm p-button-danger"
                         (click)="deleteNoten(noten)"
-                        pTooltip="  Löschen  "
+                        pTooltip="Löschen"
+                        tooltipPosition="left"
                     ></button>
                 </div>
             </td>
@@ -107,23 +112,89 @@
     <ng-template pTemplate="rowexpansion" let-noten>
         <tr>
             <td colspan="12">
-                <div class="p-col-12 p-d-flex p-jc-center">
-                    <button
-                        pButton
-                        pRipple
-                        label="Bearbeiten"
-                        icon="pi pi-pencil"
-                        class="p-button-outlined p-button-sm p-button-info p-mr-1"
-                        (click)="openEditDialog(noten)"
-                    ></button>
-                    <button
-                        pButton
-                        pRipple
-                        icon="pi pi-trash"
-                        label="  Löschen  "
-                        class="p-button-outlined p-button-sm p-button-danger"
-                        (click)="deleteNoten(noten)"
-                    ></button>
+                <div class="p-grid p-col-12 card">
+                    <div *ngIf="noten.komponist" class="p-lg-3 p-md-4 p-sm-12">
+                        <mkj-display-field
+                            label="Komponist"
+                            [displaystring]="noten.komponist"
+                        ></mkj-display-field>
+                    </div>
+                    <div *ngIf="noten.arrangeur" class="p-lg-3 p-md-4 p-sm-12">
+                        <mkj-display-field
+                            label="Arrangeur"
+                            [displaystring]="noten.arrangeur"
+                        ></mkj-display-field>
+                    </div>
+                    <div *ngIf="noten.verlag" class="p-lg-3 p-md-4 p-sm-12">
+                        <mkj-display-field
+                            label="Verlag"
+                            [displaystring]="noten.verlag"
+                        ></mkj-display-field>
+                    </div>
+                    <div *ngIf="noten.gattung" class="p-lg-3 p-md-4 p-sm-12">
+                        <mkj-display-field
+                            label="Gattung"
+                            [displaystring]="noten.gattung"
+                        ></mkj-display-field>
+                    </div>
+                    <div
+                        *ngIf="noten.ausgeliehenAb"
+                        class="p-lg-3 p-md-4 p-sm-12"
+                    >
+                        <mkj-display-field
+                            label="Ausgeliehen seit"
+                            [displaystring]="noten.ausgeliehenAb | mkjDate"
+                        ></mkj-display-field>
+                    </div>
+                    <div
+                        *ngIf="noten.ausgeliehenVon"
+                        class="p-lg-3 p-md-4 p-sm-12"
+                    >
+                        <mkj-display-field
+                            label="Ausgeliehen von"
+                            [displaystring]="noten.ausgeliehenVon"
+                        ></mkj-display-field>
+                    </div>
+                    <div
+                        *ngIf="noten.aufbewahrungsort"
+                        class="p-lg-3 p-md-4 p-sm-12"
+                    >
+                        <mkj-display-field
+                            label="Aufbewahrungsort"
+                            [displaystring]="noten.aufbewahrungsort"
+                        ></mkj-display-field>
+                    </div>
+                    <div
+                        *ngIf="noten.anmerkungen"
+                        class="p-lg-6 p-md-12 p-sm-12"
+                    >
+                        <mkj-display-field
+                            label="Anmerkungen"
+                            [displaystring]="noten.anmerkungen"
+                        ></mkj-display-field>
+                    </div>
+                </div>
+                <div class="just-on-small">
+                    <div class="p-col-12 p-d-flex p-jc-center">
+                        <button
+                            *visibleFor="['update noten']"
+                            pButton
+                            pRipple
+                            label="Bearbeiten"
+                            icon="pi pi-pencil"
+                            class="p-button-outlined p-button-sm p-button-info p-mr-1"
+                            (click)="openEditDialog(noten)"
+                        ></button>
+                        <button
+                            *visibleFor="['delete noten']"
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            label="Löschen"
+                            class="p-button-outlined p-button-sm p-button-danger"
+                            (click)="deleteNoten(noten)"
+                        ></button>
+                    </div>
                 </div>
             </td>
         </tr>

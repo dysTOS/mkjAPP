@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.authStatService.userAuthState.subscribe(val => {
-            if (!val) this.logout();
+            if (!val && this.tokenService.isLoggedIn()) this.logout();
         });
 
         this.primengConfig.ripple = true;
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
     }
 
     private logout() {
-        this.authService.logout();
         this.userService.onLogout();
         this.tokenService.removeToken();
         this.router.navigate(['login']);

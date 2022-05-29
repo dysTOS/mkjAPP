@@ -3,6 +3,6 @@ export const MenuLabels = {
     AUSRUECKUNGEN: 7,
     MITGLIEDER: 8,
     NOTEN: 11,
-    ADMINBEREICH: 10,
+    ADMINBEREICH: 1,
     LOGOUT: 9
 }

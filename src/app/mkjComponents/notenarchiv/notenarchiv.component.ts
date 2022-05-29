@@ -1,3 +1,4 @@
+import { UtilFunctions } from './../../mkjUtilities/util-functions';
 import { InfoService } from './../../mkjServices/info.service';
 import { RoleType } from 'src/app/mkjInterfaces/User';
 import { ConfirmationService } from 'primeng/api';
@@ -74,7 +75,7 @@ export class NotenarchivComponent implements OnInit {
         if (this.editNoten.id) {
             this.notenService.updateNoten(this.editNoten).subscribe({
                 next: res => {
-                    let index = this.findIndexById(this.editNoten.id);
+                    let index = UtilFunctions.findIndexById(this.editNoten.id, this.notenArray);
                     this.notenArray[index] = res;
                     this.notenArray = [...this.notenArray];
                     this.infoService.success(this.editNoten.titel + ' aktualisiert!');
@@ -124,29 +125,10 @@ export class NotenarchivComponent implements OnInit {
         });
     }
 
-    private findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.notenArray.length; i++) {
-            if (this.notenArray[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
     private checkGlobalFilter() {
         const globalFilter = JSON.parse(sessionStorage.getItem('notenTable-session'));
         if (globalFilter?.filters?.global?.value) {
             this.globalFilterText = globalFilter.filters.global.value;
         }
-    }
-
-    onRowSelect(event) {
-        this.notenTable.toggleRow(event.data);
-    }
-
-    onRowUnselect(event) {
-        this.notenTable.toggleRow(event.data);
     }
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { RoleService } from './../role.service';
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Mitglied } from "./../../mkjInterfaces/Mitglied";
@@ -19,7 +20,7 @@ export class UserService {
 
     private currentPermissions: BehaviorSubject<Permission[]> = new BehaviorSubject<Permission[]>(null);
 
-    constructor(private roleService: RoleService) { }
+    constructor(private roleService: RoleService, private authService: AuthService) { }
 
     public isSet(): boolean {
         if (this.currentUser.getValue()) return true;
@@ -112,6 +113,9 @@ export class UserService {
     }
 
     public onLogout() {
+        this.authService.logout().subscribe({
+            next: (res) => { }
+        })
         this.currentUser.next(null);
         this.currentUserRoles.next(null);
         this.currentMitglied.next(null);
