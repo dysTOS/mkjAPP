@@ -164,6 +164,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+// MKJ
 import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { environment } from "src/environments/environment";
@@ -184,6 +185,7 @@ import { AusrueckungEditorComponent } from './mkjComponents/ausrueckungen/ausrue
 import { RollenEditComponent } from './mkjComponents/administration/rollen-edit/rollen-edit.component';
 import { MkjTextTransformPipe } from './mkjUtilities/mkj-text-transform.pipe';
 import { MkjDisplayFieldComponent } from './mkjUtilities/mkj-display-field/mkj-display-field.component';
+import { AatestComponent } from './mkjComponents/aatest/aatest.component';
 
 
 
@@ -354,6 +356,7 @@ FullCalendarModule.registerPlugins([
         RollenEditComponent,
         MkjTextTransformPipe,
         MkjDisplayFieldComponent,
+        AatestComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

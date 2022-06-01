@@ -78,7 +78,7 @@
                 }"
             >
                 <a
-                    href="#"
+                    routerLink="/administration"
                     pRipple
                     class="tabmenuitem-link"
                     (click)="
@@ -171,6 +171,23 @@
                     pTooltip="Logout"
                     (click)="logout()"
                     ><i class="pi pi-sign-out"></i
+                ></a>
+            </li>
+        </ul>
+
+        <ul *ngIf="isDevEnvironment" class="layout-tabmenu-nav">
+            <li
+                [ngClass]="{
+                    'active-item': appMain.activeTabIndex === MenuLabels.TEST
+                }"
+            >
+                <a
+                    routerLink="/test"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, MenuLabels.TEST)"
+                    pTooltip="TEST"
+                    ><i class="pi pi-pencil"></i
                 ></a>
             </li>
         </ul>

@@ -1,3 +1,4 @@
+import { FileService } from './../../mkjServices/file.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { InfoService } from './../../mkjServices/info.service';
@@ -21,7 +22,8 @@ export class AdministrationComponent implements OnInit, OnDestroy {
     public activeTabIndex: number = 0;
 
     constructor(private userservice: UserService, private mitgliederService: MitgliederService,
-        private infoService: InfoService, private route: ActivatedRoute, private router: Router, private location: Location) { }
+        private infoService: InfoService,
+        private route: ActivatedRoute, private router: Router, private location: Location) { }
 
     public ngOnInit(): void {
         this.mitgliedSub$ = this.userservice.getCurrentMitglied().subscribe({
@@ -33,7 +35,7 @@ export class AdministrationComponent implements OnInit, OnDestroy {
                     this.activeTabIndex = 1;
                 }
             }
-        })
+        });
     }
 
     public ngOnDestroy(): void {

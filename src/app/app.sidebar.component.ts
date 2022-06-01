@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { UserService } from 'src/app/mkjServices/authentication/user.service';
 import { RoleType } from './mkjInterfaces/User';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +14,8 @@ import { MenuLabels } from './mkjInterfaces/Menu';
 export class AppSideBarComponent implements OnInit {
     RoleType = RoleType;
     MenuLabels = MenuLabels;
+
+    public isDevEnvironment = !environment.production;
 
     constructor(public app: AppComponent, public appMain: AppMainComponent,
         private authStateService: AuthStateService, public userService: UserService
