@@ -145,7 +145,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
     private initActiveTabIndex() {
         this.route.firstChild.url.pipe(first()).subscribe((urlSeg) => {
             const first = urlSeg[0]?.path;
-            console.log(first);
             if (!first) {
                 this.activeTabIndex = MenuLabels.DASHBOARD;
             } else if (first === "notenarchiv") {

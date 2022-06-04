@@ -1,14 +1,14 @@
-import { UserService } from 'src/app/mkjServices/authentication/user.service';
-import { ConfirmationService } from 'primeng/api';
-import { InfoService } from './../../../mkjServices/info.service';
-import { Permission, Role } from './../../../mkjInterfaces/User';
-import { RoleService } from './../../../mkjServices/role.service';
-import { Component, OnInit } from '@angular/core';
+import { UserService } from "src/app/mkjServices/authentication/user.service";
+import { ConfirmationService } from "primeng/api";
+import { InfoService } from "./../../../mkjServices/info.service";
+import { Permission, Role } from "./../../../mkjInterfaces/User";
+import { RoleService } from "./../../../mkjServices/role.service";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'app-rollen-edit',
-    templateUrl: './rollen-edit.component.html',
-    styleUrls: ['./rollen-edit.component.scss']
+    selector: "app-rollen-edit",
+    templateUrl: "./rollen-edit.component.html",
+    styleUrls: ["./rollen-edit.component.scss"],
 })
 export class RollenEditComponent implements OnInit {
     public roles: Role[];
@@ -25,8 +25,12 @@ export class RollenEditComponent implements OnInit {
     public addDialogVisible = false;
     public addRoleName: string;
 
-    constructor(private roleService: RoleService, private infoService: InfoService,
-        private confirmationService: ConfirmationService, private userService: UserService) { }
+    constructor(
+        private roleService: RoleService,
+        private infoService: InfoService,
+        private confirmationService: ConfirmationService,
+        private userService: UserService
+    ) {}
 
     public ngOnInit(): void {
         this.init();
@@ -43,8 +47,8 @@ export class RollenEditComponent implements OnInit {
             error: (err) => {
                 this.rolesLoading = false;
                 this.infoService.error(err);
-            }
-        })
+            },
+        });
         this.roleService.getAllPermissions().subscribe({
             next: (res) => {
                 this.permissions = res;
@@ -53,8 +57,8 @@ export class RollenEditComponent implements OnInit {
             error: (err) => {
                 this.permissionsLoading = false;
                 this.infoService.error(err);
-            }
-        })
+            },
+        });
     }
 
     public loadPermissionsForRole() {
@@ -65,29 +69,30 @@ export class RollenEditComponent implements OnInit {
             next: (res) => {
                 this.rolePermissions = res;
                 this.rolePermissionsLoading = false;
-                console.log(this.rolePermissions)
             },
             error: (err) => {
                 this.rolePermissionsLoading = false;
                 this.infoService.error(err);
-            }
-        })
+            },
+        });
     }
 
     public saveRolePermissions() {
         this.isSaving = true;
-        this.roleService.updateRole(this.selectedRole, this.rolePermissions).subscribe({
-            next: (res) => {
-                this.selectedRole = res;
-                this.isSaving = false;
-                this.userService.renewCurrentUserPermissions();
-                this.infoService.success("Rolle aktualisiert!");
-            },
-            error: (err) => {
-                this.isSaving = false;
-                this.infoService.error(err);
-            }
-        })
+        this.roleService
+            .updateRole(this.selectedRole, this.rolePermissions)
+            .subscribe({
+                next: (res) => {
+                    this.selectedRole = res;
+                    this.isSaving = false;
+                    this.userService.renewCurrentUserPermissions();
+                    this.infoService.success("Rolle aktualisiert!");
+                },
+                error: (err) => {
+                    this.isSaving = false;
+                    this.infoService.error(err);
+                },
+            });
     }
 
     public createRole(name: string) {
@@ -104,14 +109,14 @@ export class RollenEditComponent implements OnInit {
             error: (err) => {
                 this.isCreating = false;
                 this.infoService.error(err);
-            }
-        })
+            },
+        });
     }
 
     public deleteRole(role: Role) {
         this.confirmationService.confirm({
-            header: 'Rolle ' + role.name + ' löschen?',
-            icon: 'pi pi-exclamation-triangle',
+            header: "Rolle " + role.name + " löschen?",
+            icon: "pi pi-exclamation-triangle",
             accept: () => {
                 this.rolesLoading = true;
                 this.roleService.deleteRole(role).subscribe({
@@ -121,11 +126,11 @@ export class RollenEditComponent implements OnInit {
                         this.infoService.success("Rolle gelöscht!");
                     },
                     error: (err) => {
-                        this.init()
+                        this.init();
                         this.infoService.error(err);
-                    }
-                })
-            }
-        })
+                    },
+                });
+            },
+        });
     }
 }

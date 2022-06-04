@@ -1,4 +1,4 @@
-import { InfoService } from './mkjServices/info.service';
+import { InfoService } from "./mkjServices/info.service";
 import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
 import { NgModule } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule } from "@angular/forms";
@@ -175,20 +175,17 @@ import { SignupComponent } from "./mkjServices/authentication/signup/signup.comp
 import { LoginComponent } from "./mkjServices/authentication/login/login.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
-import { AdministrationComponent } from "./mkjComponents/administration/administration.component";
 import { NotenarchivComponent } from "./mkjComponents/notenarchiv/notenarchiv.component";
 import { VisibleForPermissionDirective } from "./mkjUtilities/visible-for-permission.directive";
-import { MitgliedEditorComponent } from './mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component';
-import { NotenEditorComponent } from './mkjComponents/notenarchiv/noten-editor/noten-editor.component';
-import { MkjToolbarComponent } from './mkjUtilities/mkj-toolbar/mkj-toolbar.component';
-import { AusrueckungEditorComponent } from './mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component';
-import { RollenEditComponent } from './mkjComponents/administration/rollen-edit/rollen-edit.component';
-import { MkjTextTransformPipe } from './mkjUtilities/mkj-text-transform.pipe';
-import { MkjDisplayFieldComponent } from './mkjUtilities/mkj-display-field/mkj-display-field.component';
-import { AatestComponent } from './mkjComponents/aatest/aatest.component';
-import { MitgliedPersonalEditComponent } from './mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component';
-
-
+import { MitgliedEditorComponent } from "./mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component";
+import { NotenEditorComponent } from "./mkjComponents/notenarchiv/noten-editor/noten-editor.component";
+import { MkjToolbarComponent } from "./mkjUtilities/mkj-toolbar/mkj-toolbar.component";
+import { AusrueckungEditorComponent } from "./mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { RollenEditComponent } from "./mkjComponents/administration/rollen-edit/rollen-edit.component";
+import { MkjTextTransformPipe } from "./mkjUtilities/mkj-text-transform.pipe";
+import { MkjDisplayFieldComponent } from "./mkjUtilities/mkj-display-field/mkj-display-field.component";
+import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
+import { MitgliedPersonalEditComponent } from "./mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -347,7 +344,6 @@ FullCalendarModule.registerPlugins([
         LoginComponent,
         MitgliederComponent,
         MitgliederSingleComponent,
-        AdministrationComponent,
         NotenarchivComponent,
         VisibleForPermissionDirective,
         MitgliedEditorComponent,
@@ -380,17 +376,24 @@ FullCalendarModule.registerPlugins([
         DatePipe,
         AuthGuardService,
         MessageService,
-        MkjDatePipe
+        MkjDatePipe,
     ],
     bootstrap: [AppComponent],
 })
 export class AppModule {
     //Service Worker
-    constructor(update: SwUpdate, push: SwPush, private infoService: InfoService) {
+    constructor(
+        update: SwUpdate,
+        push: SwPush,
+        private infoService: InfoService
+    ) {
         update.versionUpdates.subscribe((update) => {
-            if (update.type === 'VERSION_READY') {
+            if (update.type === "VERSION_READY") {
                 if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
-                    setTimeout(() => this.infoService.info("Update erfolgreich!"), 2000);
+                    setTimeout(
+                        () => this.infoService.info("Update erfolgreich!"),
+                        2000
+                    );
                     window.location.reload();
                 }
             }

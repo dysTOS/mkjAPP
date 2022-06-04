@@ -2,7 +2,6 @@ import { MitgliedPersonalEditComponent } from "./mkjComponents/administration/mi
 import { RollenEditComponent } from "./mkjComponents/administration/rollen-edit/rollen-edit.component";
 import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
 import { NotenarchivComponent } from "./mkjComponents/notenarchiv/notenarchiv.component";
-import { AdministrationComponent } from "./mkjComponents/administration/administration.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { LoginComponent } from "./mkjServices/authentication/login/login.component";
 import { SignupComponent } from "./mkjServices/authentication/signup/signup.component";
