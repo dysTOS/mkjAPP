@@ -1807,6 +1807,10 @@ body a {
     display: block;
 }
 
+.active-topmenuitem .topbar-item-name {
+    font-weight: bold;
+}
+
 .layout-wrapper .layout-sidebar {
     position: fixed;
     top: 60px;

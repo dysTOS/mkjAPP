@@ -1,13 +1,21 @@
-import { Component, AfterViewInit, Renderer2, OnInit, OnDestroy } from '@angular/core';
-import { PrimeNGConfig, MessageService } from 'primeng/api';
-import { AppComponent } from './app.component';
+import { MenuLabels } from "./mkjInterfaces/Menu";
+import { ActivatedRoute } from "@angular/router";
+import {
+    Component,
+    AfterViewInit,
+    Renderer2,
+    OnInit,
+    OnDestroy,
+} from "@angular/core";
+import { PrimeNGConfig, MessageService } from "primeng/api";
+import { AppComponent } from "./app.component";
+import { first } from "rxjs";
 
 @Component({
-    selector: 'app-main',
-    templateUrl: './app.main.component.html',
+    selector: "app-main",
+    templateUrl: "./app.main.component.html",
 })
-export class AppMainComponent implements AfterViewInit, OnDestroy {
-
+export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
     activeTabIndex: number;
 
     sidebarActive: boolean;
@@ -26,29 +34,40 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
-    constructor(public renderer: Renderer2, private primengConfig: PrimeNGConfig,
-        private messageService: MessageService,
-        public app: AppComponent) { }
+    constructor(
+        public renderer: Renderer2,
+        private primengConfig: PrimeNGConfig,
+        public app: AppComponent,
+        private route: ActivatedRoute
+    ) {}
+
+    public ngOnInit(): void {
+        this.initActiveTabIndex();
+    }
 
     ngAfterViewInit() {
-        this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
-            if (!this.topbarItemClick) {
-                this.activeTopbarItem = null;
-                this.topbarMenuActive = false;
-            }
+        this.documentClickListener = this.renderer.listen(
+            "body",
+            "click",
+            (event) => {
+                if (!this.topbarItemClick) {
+                    this.activeTopbarItem = null;
+                    this.topbarMenuActive = false;
+                }
 
-            if (!this.sidebarClick && (this.overlay || !this.isDesktop())) {
-                this.sidebarActive = false;
-            }
+                if (!this.sidebarClick && (this.overlay || !this.isDesktop())) {
+                    this.sidebarActive = false;
+                }
 
-            if (this.configActive && !this.configClick) {
-                this.configActive = false;
-            }
+                if (this.configActive && !this.configClick) {
+                    this.configActive = false;
+                }
 
-            this.configClick = false;
-            this.topbarItemClick = false;
-            this.sidebarClick = false;
-        });
+                this.configClick = false;
+                this.topbarItemClick = false;
+                this.sidebarClick = false;
+            }
+        );
     }
 
     onTabClick(event: Event, index: number) {
@@ -86,11 +105,15 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
         event.preventDefault();
     }
 
-    onTopbarItemClick(event, item, topItemClick) {
+    onTopbarItemClick(event, item, topItemClick: boolean) {
+        if (topItemClick) {
+            this.topbarItemClick = true;
+        }
         this.activeTabIndex = item;
 
         if (this.activeTopbarItem === item) {
             this.activeTopbarItem = null;
+            this.topbarItemClick = false;
         } else {
             this.activeTopbarItem = item;
         }
@@ -112,11 +135,31 @@ export class AppMainComponent implements AfterViewInit, OnDestroy {
     }
 
     get overlay(): boolean {
-        return this.app.layoutMode === 'overlay';
+        return this.app.layoutMode === "overlay";
     }
 
     isDesktop() {
         return window.innerWidth > 1024;
+    }
+
+    private initActiveTabIndex() {
+        this.route.firstChild.url.pipe(first()).subscribe((urlSeg) => {
+            const first = urlSeg[0]?.path;
+            console.log(first);
+            if (!first) {
+                this.activeTabIndex = MenuLabels.DASHBOARD;
+            } else if (first === "notenarchiv") {
+                this.activeTabIndex = MenuLabels.NOTEN;
+            } else if (first === "ausrueckungen") {
+                this.activeTabIndex = MenuLabels.AUSRUECKUNGEN;
+            } else if (first === "mitglieder") {
+                this.activeTabIndex = MenuLabels.MITGLIEDER;
+            } else if (first === "test") {
+                this.activeTabIndex = MenuLabels.TEST;
+            } else if (first === "einstellungen") {
+                this.activeTabIndex = MenuLabels.EINSTELLUNGEN;
+            }
+        });
     }
 
     ngOnDestroy() {

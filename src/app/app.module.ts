@@ -186,6 +186,7 @@ import { RollenEditComponent } from './mkjComponents/administration/rollen-edit/
 import { MkjTextTransformPipe } from './mkjUtilities/mkj-text-transform.pipe';
 import { MkjDisplayFieldComponent } from './mkjUtilities/mkj-display-field/mkj-display-field.component';
 import { AatestComponent } from './mkjComponents/aatest/aatest.component';
+import { MitgliedPersonalEditComponent } from './mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component';
 
 
 
@@ -357,6 +358,7 @@ FullCalendarModule.registerPlugins([
         MkjTextTransformPipe,
         MkjDisplayFieldComponent,
         AatestComponent,
+        MitgliedPersonalEditComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

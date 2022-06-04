@@ -74,15 +74,15 @@
             <li
                 [ngClass]="{
                     'active-item':
-                        appMain.activeTabIndex === MenuLabels.ADMINBEREICH
+                        appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
                 }"
             >
                 <a
-                    routerLink="/administration"
+                    href="#"
                     pRipple
                     class="tabmenuitem-link"
                     (click)="
-                        appMain.onTabClick($event, MenuLabels.ADMINBEREICH)
+                        appMain.onTabClick($event, MenuLabels.EINSTELLUNGEN)
                     "
                     pTooltip="Adminbereich"
                     ><i class="pi pi-fw pi-cog"></i
@@ -191,6 +191,23 @@
                 ></a>
             </li>
         </ul>
+        <ul *ngIf="isDevEnvironment" class="layout-tabmenu-nav">
+            <li
+                [ngClass]="{
+                    'active-item':
+                        appMain.activeTabIndex === MenuLabels.PRIMEMENU
+                }"
+            >
+                <a
+                    href="#"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, MenuLabels.PRIMEMENU)"
+                    pTooltip="PRIMEMENU"
+                    ><i class="pi pi-list"></i
+                ></a>
+            </li>
+        </ul>
 
         <div class="layout-tabmenu-contents">
             <div
@@ -212,15 +229,16 @@
                     <app-menu></app-menu>
                 </app-sidebarTabContent>
             </div>
+
             <div
                 class="layout-tabmenu-content"
                 [ngClass]="{
                     'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === MenuLabels.ADMINBEREICH
+                        appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
                 }"
             >
                 <div class="layout-submenu-title clearfix">
-                    <span>Inbox</span>
+                    <span>Einstellungen</span>
                     <a
                         href="#"
                         class="menu-button pi pi-bars"
@@ -229,257 +247,26 @@
                 </div>
                 <app-sidebarTabContent>
                     <div class="inbox-tab">
-                        <ul>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar1.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Joshua Williams</span>
-                                <span class="message">Reports attached</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar1.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Joshua Williams</span>
-                                <span class="message">About the meeting</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar2.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Emily Clark</span>
-                                <span class="message">TODO Update</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar3.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">Tim Johnson</span>
-                                <span class="message">Expense Reports</span>
-                            </li>
-                            <li class="clearfix">
-                                <img
-                                    src="assets/layout/images/avatar4.png"
-                                    alt=""
-                                    width="45"
-                                />
-                                <span class="name">David Stark</span>
-                                <span class="message">Rating Reviews</span>
-                            </li>
-                        </ul>
                         <div class="inbox-labels">
-                            <span>Labels</span>
                             <ul>
-                                <li class="clearfix">
-                                    <span class="inbox-label">Work</span>
-                                    <span class="inbox-label-badge">4</span>
+                                <li role="menuitem">
+                                    <a
+                                        routerLink="/einstellungen/mitgliedsdaten"
+                                    >
+                                        <i class="pi pi-user p-mr-2"></i>
+                                        <span>Meine Daten</span>
+                                    </a>
                                 </li>
-                                <li class="clearfix">
-                                    <span class="inbox-label">Personel</span>
-                                    <span class="inbox-label-badge">2</span>
-                                </li>
-                                <li class="clearfix">
-                                    <span class="inbox-label">Shared</span>
-                                    <span class="inbox-label-badge">3</span>
-                                </li>
-                                <li class="clearfix">
-                                    <span class="inbox-label">General</span>
-                                    <span class="inbox-label-badge">5</span>
+
+                                <li role="menuitem">
+                                    <a routerLink="/einstellungen/rollen">
+                                        <i class="pi pi-check p-mr-2"></i>
+                                        <span>Rollen & Rechte</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </app-sidebarTabContent>
-            </div>
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === 2
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Calendar</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <div class="calendar-tab">
-                        <ul>
-                            <li class="clearfix">
-                                <div class="calendar-event-date">
-                                    <span>21</span>
-                                    <span>OCT</span>
-                                </div>
-                                <div class="calendar-event-detail">
-                                    <span class="calendar-event-title"
-                                        >Project Meeting</span
-                                    >
-                                    <i class="pi pi-map-marker"></i>
-                                    <span class="calendar-event-location"
-                                        >Chicago</span
-                                    >
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="calendar-event-date">
-                                    <span>13</span>
-                                    <span>NOV</span>
-                                </div>
-                                <div class="calendar-event-detail">
-                                    <span class="calendar-event-title"
-                                        >Presentation 1</span
-                                    >
-                                    <i class="pi pi-map-marker"></i>
-                                    <span class="calendar-event-location"
-                                        >New York</span
-                                    >
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="calendar-event-date">
-                                    <span>01</span>
-                                    <span>DEC</span>
-                                </div>
-                                <div class="calendar-event-detail">
-                                    <span class="calendar-event-title"
-                                        >Presentation 2</span
-                                    >
-                                    <i class="pi pi-map-marker"></i>
-                                    <span class="calendar-event-location"
-                                        >New York</span
-                                    >
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <div class="calendar-event-date">
-                                    <span>25</span>
-                                    <span>DEC</span>
-                                </div>
-                                <div class="calendar-event-detail">
-                                    <span class="calendar-event-title"
-                                        >New Year Party</span
-                                    >
-                                    <i class="pi pi-map-marker"></i>
-                                    <span class="calendar-event-location"
-                                        >San Francisco</span
-                                    >
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </app-sidebarTabContent>
-            </div>
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === 3
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Projects</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <div class="projects-tab">
-                        <ul>
-                            <li class="clearfix">
-                                <i class="pi pi-sliders-h"></i>
-                                <span class="project-title">Current Tasks</span>
-                                <span>3 open, 4 closed</span>
-                                <div class="project-progressbar">
-                                    <div
-                                        class="project-progressbar-value"
-                                        style="width: 50%"
-                                    ></div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <i class="pi pi-video"></i>
-                                <span class="project-title">Latest Videos</span>
-                                <span>12 new, 2 subscribers</span>
-                                <div class="project-progressbar">
-                                    <div
-                                        class="project-progressbar-value"
-                                        style="width: 20%"
-                                    ></div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <i class="pi pi-comment"></i>
-                                <span class="project-title">Unread Posts</span>
-                                <span>24 new messages</span>
-                                <div class="project-progressbar">
-                                    <div
-                                        class="project-progressbar-value"
-                                        style="width: 65%"
-                                    ></div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <i class="pi pi-heart"></i>
-                                <span class="project-title"
-                                    >Favorite Contacts</span
-                                >
-                                <span>8 total, 4 approved</span>
-                                <div class="project-progressbar">
-                                    <div
-                                        class="project-progressbar-value"
-                                        style="width: 80%"
-                                    ></div>
-                                </div>
-                            </li>
-                            <li class="clearfix">
-                                <i class="pi pi-lock"></i>
-                                <span class="project-title"
-                                    >Verified Users</span
-                                >
-                                <span>90 total, 45 pending</span>
-                                <div class="project-progressbar">
-                                    <div
-                                        class="project-progressbar-value"
-                                        style="width: 90%"
-                                    ></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </app-sidebarTabContent>
-            </div>
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === 4
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>User</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <div class="team-tab p-p-2"></div>
                 </app-sidebarTabContent>
             </div>
         </div>
