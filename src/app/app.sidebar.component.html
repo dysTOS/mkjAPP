@@ -88,73 +88,6 @@
                     ><i class="pi pi-fw pi-cog"></i
                 ></a>
             </li>
-
-            <!-- <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 0 }">
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 0)"
-                    ><i class="pi pi-fw pi-home"></i
-                ></a>
-
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Features</div>
-                </div>
-            </li>
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 1 }">
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 1)"
-                    ><i class="pi pi-fw pi-inbox"></i
-                ></a>
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Inbox</div>
-                </div>
-            </li>
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 2 }">
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 2)"
-                    ><i class="pi pi-fw pi-calendar"></i
-                ></a>
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Calendar</div>
-                </div>
-            </li>
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 3 }">
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 3)"
-                    ><i class="pi pi-fw pi-chart-bar"></i
-                ></a>
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Projects</div>
-                </div>
-            </li>
-            <li [ngClass]="{ 'active-item': appMain.activeTabIndex === 4 }">
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, 4)"
-                    ><i class="pi pi-user"></i
-                ></a>
-                <div class="layout-tabmenu-tooltip">
-                    <div class="layout-tabmenu-tooltip-arrow"></div>
-                    <div class="layout-tabmenu-tooltip-text">Team</div>
-                </div>
-            </li> -->
         </ul>
 
         <ul class="layout-tabmenu-nav">
@@ -167,9 +100,10 @@
                     href="#"
                     pRipple
                     class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.LOGOUT)"
+                    (click)="
+                        appMain.onTabClick($event, MenuLabels.LOGOUT); logout()
+                    "
                     pTooltip="Logout"
-                    (click)="logout()"
                     ><i class="pi pi-sign-out"></i
                 ></a>
             </li>
@@ -209,6 +143,8 @@
             </li>
         </ul>
 
+        <!-- TABMENU CONTENTS ------------------------------------------------------------------------------------------------------------------>
+
         <div class="layout-tabmenu-contents">
             <div
                 class="layout-tabmenu-content"
@@ -246,26 +182,22 @@
                     ></a>
                 </div>
                 <app-sidebarTabContent>
-                    <div class="inbox-tab">
-                        <div class="inbox-labels">
-                            <ul>
-                                <li role="menuitem">
-                                    <a
-                                        routerLink="/einstellungen/mitgliedsdaten"
-                                    >
-                                        <i class="pi pi-user p-mr-2"></i>
-                                        <span>Meine Daten</span>
-                                    </a>
-                                </li>
+                    <div class="menu-scroll-content">
+                        <ul class="navigation-menu">
+                            <li>
+                                <a routerLink="/einstellungen/mitgliedsdaten">
+                                    <i class="pi pi-user p-mr-2"></i>
+                                    <span>Meine Daten</span>
+                                </a>
+                            </li>
 
-                                <li role="menuitem">
-                                    <a routerLink="/einstellungen/rollen">
-                                        <i class="pi pi-check p-mr-2"></i>
-                                        <span>Rollen & Rechte</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                            <li>
+                                <a routerLink="/einstellungen/rollen">
+                                    <i class="pi pi-check p-mr-2"></i>
+                                    <span>Rollen & Rechte</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </app-sidebarTabContent>
             </div>

@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    templateUrl: './app.invoice.component.html'
+    templateUrl: "./app.invoice.component.html",
 })
 export class AppInvoiceComponent {
-    print() {
+    public print() {
         window.print();
     }
 }

@@ -186,6 +186,7 @@ import { MkjTextTransformPipe } from "./mkjUtilities/mkj-text-transform.pipe";
 import { MkjDisplayFieldComponent } from "./mkjUtilities/mkj-display-field/mkj-display-field.component";
 import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
 import { MitgliedPersonalEditComponent } from "./mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component";
+import { MkjRechnungComponent } from "./mkjUtilities/mkj-rechnung/mkj-rechnung.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -355,6 +356,7 @@ FullCalendarModule.registerPlugins([
         MkjDisplayFieldComponent,
         AatestComponent,
         MitgliedPersonalEditComponent,
+        MkjRechnungComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -1,0 +1,105 @@
+<button
+    pButton
+    label="Print"
+    type="button"
+    icon="pi pi-print"
+    (click)="print()"
+    style="display: block; margin-bottom: 20px; margin-left: 6px"
+></button>
+
+<div class="p-grid">
+    <div class="p-col">
+        <div class="card">
+            <div id="invoice-content">
+                <div class="invoice">
+                    <div class="invoice-header">
+                        <div class="invoice-company">
+                            <img
+                                id="invoice-logo"
+                                class="logo-image"
+                                src="assets/mkjICONS/Favicon_MKJ/android-icon-72x72.png"
+                                alt="barcelona-layout"
+                            />
+                            <div class="company-name">Musikkapelle Jainzen</div>
+                            <div>Kreutererstraße 40</div>
+                            <div>4820 Bad Ischl</div>
+                        </div>
+                        <div>
+                            <div class="invoice-title">RECHNUNG</div>
+                            <div class="invoice-details">
+                                <div class="invoice-label">Datum</div>
+                                <div class="invoice-value">
+                                    {{ re.datum | mkjDate }}
+                                </div>
+
+                                <ng-container *ngIf="re.reNummer">
+                                    <div class="invoice-label">
+                                        Rechnungs-Nr.
+                                    </div>
+                                    <div class="invoice-value">
+                                        {{ re.reNummer }}
+                                    </div>
+                                </ng-container>
+
+                                <!-- <div class="invoice-label">CUSTOMER ID</div>
+                                <div class="invoice-value">C1613</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-to">
+                        <div class="bill-to">Rechnungsempfänger</div>
+                        <div class="invoice-to-info">
+                            <div>
+                                {{ re.empfaenger.vorname }}
+                                {{ re.empfaenger.zuname }}
+                            </div>
+                            <div>{{ re.empfaenger.firma }}</div>
+                            <div>
+                                {{ re.empfaenger.strasse }}
+                                {{ re.empfaenger.hausnummer }}
+                            </div>
+                            <div>
+                                {{ re.empfaenger.plz }} {{ re.empfaenger.ort }}
+                            </div>
+                            <div>{{ re.empfaenger.staat }}</div>
+                        </div>
+                    </div>
+                    <div class="invoice-items">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Bezeichnung</th>
+                                    <th>Menge</th>
+                                    <th>Einzelpreis</th>
+                                    <th>Gesamtpreis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pos of re.positionen">
+                                    <td>{{ pos.bezeichnung }}</td>
+                                    <td>{{ pos.menge }}</td>
+                                    <td>{{ pos.einzelpreis }}</td>
+                                    <td>{{ pos.gesamtpreis }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="invoice-summary">
+                        <div class="invoice-notes">
+                            <b>Anmerkungen</b>
+                            <div>{{ re.anmerkungen }}</div>
+                        </div>
+                        <div>
+                            <div class="invoice-details">
+                                <div class="invoice-label">GESAMT</div>
+                                <div class="invoice-value">
+                                    {{ re.gesamtpreis }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
