@@ -59,7 +59,7 @@
             </div>
             <div class="p-col-12 p-pb-0">
                 <span class="p-float-label">
-                    <input
+                    <!-- <input
                         type="password"
                         pInputText
                         [(ngModel)]="user.passwort"
@@ -67,7 +67,26 @@
                             'ng-invalid ng-dirty': submitted && !user.passwort
                         }"
                         required
-                    />
+                    /> -->
+                    <p-password
+                        [(ngModel)]="user.passwort"
+                        [inputStyleClass]="
+                            submitted && !user.passwort
+                                ? 'ng-invalid ng-dirty'
+                                : ''
+                        "
+                    >
+                        <ng-template pTemplate="footer">
+                            <p-divider></p-divider>
+                            <p class="mt-2">Empfohlen:</p>
+                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                <li>min. 1 Kleinbuchstabe</li>
+                                <li>min. 1 Großbuchstabe</li>
+                                <li>min. 1 Zahl</li>
+                                <li>min. 8 Zeichen lang</li>
+                            </ul>
+                        </ng-template>
+                    </p-password>
                     <small class="p-error" *ngIf="submitted && !user.passwort"
                         >Passwort ist erforderlich!</small
                     >

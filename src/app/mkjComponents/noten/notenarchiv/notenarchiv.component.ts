@@ -1,11 +1,11 @@
-import { UtilFunctions } from './../../mkjUtilities/util-functions';
-import { InfoService } from './../../mkjServices/info.service';
-import { RoleType } from 'src/app/mkjInterfaces/User';
-import { ConfirmationService } from 'primeng/api';
-import { NotenService } from "./../../mkjServices/noten.service";
+import { RoleType } from "src/app/mkjInterfaces/User";
+import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/mkjInterfaces/Noten";
-import { Table } from 'primeng/table';
+import { Table } from "primeng/table";
+import { InfoService } from "src/app/mkjServices/info.service";
+import { NotenService } from "src/app/mkjServices/noten.service";
+import { UtilFunctions } from "src/app/mkjUtilities/util-functions";
 
 @Component({
     selector: "app-notenarchiv",
@@ -23,16 +23,18 @@ export class NotenarchivComponent implements OnInit {
     editNoten: Noten;
 
     RoleType = RoleType;
-    globalFilterText: string = '';
+    globalFilterText: string = "";
 
     selectedRow: any;
 
-    @ViewChild('notenTable')
+    @ViewChild("notenTable")
     notenTable: Table;
 
-    constructor(private notenService: NotenService,
+    constructor(
+        private notenService: NotenService,
         private confirmationService: ConfirmationService,
-        private infoService: InfoService) { }
+        private infoService: InfoService
+    ) {}
 
     ngOnInit(): void {
         this.getAllNoten();
@@ -42,12 +44,13 @@ export class NotenarchivComponent implements OnInit {
     getAllNoten() {
         this.loading = true;
         this.notenService.getAllNoten().subscribe({
-            next: (res) => { (this.notenArray = res), this.loading = false },
+            next: (res) => {
+                (this.notenArray = res), (this.loading = false);
+            },
             error: (err) => {
-                this.infoService.error(err), this.loading = false
-            }
-        }
-        );
+                this.infoService.error(err), (this.loading = false);
+            },
+        });
     }
 
     setFilteredRows(e) {
@@ -57,8 +60,7 @@ export class NotenarchivComponent implements OnInit {
     openEditDialog(noten?: Noten) {
         if (noten) {
             this.editNoten = { ...noten };
-        }
-        else {
+        } else {
             this.editNoten = {};
         }
         this.editDialogVisible = true;
@@ -67,66 +69,71 @@ export class NotenarchivComponent implements OnInit {
     cancelEdit() {
         this.editDialogVisible = false;
         this.editNoten = null;
-
     }
 
     saveNoten() {
         this.isAdding = true;
         if (this.editNoten.id) {
             this.notenService.updateNoten(this.editNoten).subscribe({
-                next: res => {
-                    let index = UtilFunctions.findIndexById(this.editNoten.id, this.notenArray);
+                next: (res) => {
+                    let index = UtilFunctions.findIndexById(
+                        this.editNoten.id,
+                        this.notenArray
+                    );
                     this.notenArray[index] = res;
                     this.notenArray = [...this.notenArray];
-                    this.infoService.success(this.editNoten.titel + ' aktualisiert!');
+                    this.infoService.success(
+                        this.editNoten.titel + " aktualisiert!"
+                    );
                     this.editDialogVisible = false;
                     this.editNoten = null;
                     this.isAdding = false;
                 },
-                error: error => {
+                error: (error) => {
                     this.isAdding = false;
                     this.infoService.error(error);
-                }
-            })
-        }
-        else {
+                },
+            });
+        } else {
             this.notenService.createNoten(this.editNoten).subscribe({
-                next: res => {
+                next: (res) => {
                     this.notenArray.push(res);
-                    this.notenArray = [...this.notenArray]
-                    this.infoService.success('Noten hinzugefügt!');
+                    this.notenArray = [...this.notenArray];
+                    this.infoService.success("Noten hinzugefügt!");
                     this.editDialogVisible = false;
                     this.editNoten = null;
                     this.isAdding = false;
                 },
-                error: error => {
+                error: (error) => {
                     this.isAdding = false;
                     this.infoService.error(error);
-                }
-            })
+                },
+            });
         }
     }
 
     deleteNoten(noten: Noten) {
         this.confirmationService.confirm({
-            header: 'Noten löschen?',
-            icon: 'pi pi-exclamation-triangle',
+            header: "Noten löschen?",
+            icon: "pi pi-exclamation-triangle",
             accept: () => {
-                this.notenService.deleteNoten(noten).subscribe(
-                    {
-                        next: () => {
-                            this.notenArray = this.notenArray.filter(val => val.id !== noten.id);
-                            this.infoService.success('Noten gelöscht!')
-                        },
-                        error: (err) => this.infoService.error(err)
-                    }
-                );
-            }
+                this.notenService.deleteNoten(noten).subscribe({
+                    next: () => {
+                        this.notenArray = this.notenArray.filter(
+                            (val) => val.id !== noten.id
+                        );
+                        this.infoService.success("Noten gelöscht!");
+                    },
+                    error: (err) => this.infoService.error(err),
+                });
+            },
         });
     }
 
     private checkGlobalFilter() {
-        const globalFilter = JSON.parse(sessionStorage.getItem('notenTable-session'));
+        const globalFilter = JSON.parse(
+            sessionStorage.getItem("notenTable-session")
+        );
         if (globalFilter?.filters?.global?.value) {
             this.globalFilterText = globalFilter.filters.global.value;
         }

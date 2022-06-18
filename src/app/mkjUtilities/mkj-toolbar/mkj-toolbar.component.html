@@ -5,7 +5,7 @@
             pButton
             icon="pi pi-arrow-left"
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
-            (click)="navigateBack.emit()"
+            (click)="navigateBack.emit($event)"
             pTooltip="Zurück"
             tooltipPosition="bottom"
         ></button>
@@ -22,7 +22,7 @@
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-pencil"
-            (click)="clickEdit.emit()"
+            (click)="clickEdit.emit($event)"
             [pTooltip]="editButtonTooltip"
             tooltipPosition="bottom"
         ></button>
@@ -31,7 +31,7 @@
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-plus"
-            (click)="clickAdd.emit()"
+            (click)="clickAdd.emit($event)"
             [pTooltip]="addButtonTooltip"
             tooltipPosition="bottom"
         ></button>
@@ -40,7 +40,7 @@
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1"
             icon="pi pi-trash"
-            (click)="clickDelete.emit()"
+            (click)="clickDelete.emit($event)"
             [pTooltip]="deleteButtonTooltip"
             tooltipPosition="bottom"
         ></button>
@@ -49,7 +49,7 @@
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
             icon="pi pi-filter"
-            (click)="clickFilter.emit()"
+            (click)="clickFilter.emit($event)"
             [pTooltip]="filterButtonTooltip"
             tooltipPosition="bottom"
         ></button>
@@ -58,7 +58,7 @@
             pButton
             class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
             icon="pi pi-download"
-            (click)="clickExport.emit()"
+            (click)="clickExport.emit($event)"
             [pTooltip]="exportButtonTooltip"
             tooltipPosition="bottom"
         ></button>

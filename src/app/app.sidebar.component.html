@@ -62,12 +62,27 @@
                 }"
             >
                 <a
-                    routerLink="/notenarchiv"
+                    href="#"
                     pRipple
                     class="tabmenuitem-link"
                     (click)="appMain.onTabClick($event, MenuLabels.NOTEN)"
-                    pTooltip="Notenarchiv"
+                    pTooltip="Noten"
                     ><i class="mdi mdi-music"></i
+                ></a>
+            </li>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <li
+                [ngClass]="{
+                    'active-item': appMain.activeTabIndex === MenuLabels.TOOLS
+                }"
+            >
+                <a
+                    href="#"
+                    pRipple
+                    class="tabmenuitem-link"
+                    (click)="appMain.onTabClick($event, MenuLabels.TOOLS)"
+                    pTooltip="Tools"
+                    ><i class="mdi mdi-tools"></i
                 ></a>
             </li>
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
@@ -84,7 +99,7 @@
                     (click)="
                         appMain.onTabClick($event, MenuLabels.EINSTELLUNGEN)
                     "
-                    pTooltip="Adminbereich"
+                    pTooltip="Einstellungen"
                     ><i class="pi pi-fw pi-cog"></i
                 ></a>
             </li>
@@ -170,6 +185,34 @@
                 class="layout-tabmenu-content"
                 [ngClass]="{
                     'layout-tabmenu-content-active':
+                        appMain.activeTabIndex === MenuLabels.TOOLS
+                }"
+            >
+                <div class="layout-submenu-title clearfix">
+                    <span>Tools</span>
+                    <a
+                        href="#"
+                        class="menu-button pi pi-bars"
+                        (click)="appMain.closeSidebar($event)"
+                    ></a>
+                </div>
+                <app-sidebarTabContent>
+                    <div class="menu-scroll-content">
+                        <ul class="navigation-menu">
+                            <li>
+                                <a routerLink="/tools/rechnungsgenerator">
+                                    <i class="mdi mdi-currency-eur p-mr-2"></i>
+                                    <span>Rechnungs-Generator</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </app-sidebarTabContent>
+            </div>
+            <div
+                class="layout-tabmenu-content"
+                [ngClass]="{
+                    'layout-tabmenu-content-active':
                         appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
                 }"
             >
@@ -195,6 +238,53 @@
                                 <a routerLink="/einstellungen/rollen">
                                     <i class="pi pi-check p-mr-2"></i>
                                     <span>Rollen & Rechte</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </app-sidebarTabContent>
+            </div>
+            <div
+                class="layout-tabmenu-content"
+                [ngClass]="{
+                    'layout-tabmenu-content-active':
+                        appMain.activeTabIndex === MenuLabels.NOTEN
+                }"
+            >
+                <div class="layout-submenu-title clearfix">
+                    <span>Noten</span>
+                    <a
+                        href="#"
+                        class="menu-button pi pi-bars"
+                        (click)="appMain.closeSidebar($event)"
+                    ></a>
+                </div>
+                <app-sidebarTabContent>
+                    <div class="menu-scroll-content">
+                        <ul class="navigation-menu">
+                            <li>
+                                <a routerLink="/noten/archiv">
+                                    <i
+                                        class="mdi mdi-archive-music-outline p-mr-2"
+                                    ></i>
+                                    <span>Archiv</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/noten/mappen">
+                                    <i
+                                        class="mdi mdi-book-music-outline p-mr-2"
+                                    ></i>
+                                    <span>Mappen</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a routerLink="/noten/konzerte">
+                                    <i
+                                        class="mdi mdi-folder-play-outline p-mr-2"
+                                    ></i>
+                                    <span>Konzerte</span>
                                 </a>
                             </li>
                         </ul>

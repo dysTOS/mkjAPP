@@ -100,19 +100,84 @@ import { environment } from "src/environments/environment";
                     }"
                 >
                     <a
-                        routerLink="/notenarchiv"
+                        href="#"
                         (click)="
                             appMain.onTopbarItemClick(
                                 $event,
                                 MenuLabels.NOTEN,
-                                false
+                                true
                             )
                         "
                     >
                         <i class="topbar-icon mdi mdi-music"></i>
                         <!-- <span class="topbar-badge">4</span> -->
-                        <span class="topbar-item-name">Notenarchiv</span>
+                        <span class="topbar-item-name">Noten</span>
                     </a>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a
+                                routerLink="/noten/archiv"
+                                (click)="appMain.onTopbarSubItemClick($event)"
+                            >
+                                <i class="mdi mdi-archive-music-outline"></i>
+                                <span>Archiv</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a
+                                routerLink="/noten/mappen"
+                                (click)="appMain.onTopbarSubItemClick($event)"
+                            >
+                                <i class="mdi mdi-book-music-outline"></i>
+                                <span>Mappen</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a
+                                routerLink="/noten/konzerte"
+                                (click)="appMain.onTopbarSubItemClick($event)"
+                            >
+                                <i class="mdi mdi-folder-play-outline"></i>
+                                <span>Konzerte</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li
+                    [ngClass]="{
+                        'active-topmenuitem':
+                            appMain.activeTabIndex === MenuLabels.TOOLS
+                    }"
+                >
+                    <a
+                        href="#"
+                        (click)="
+                            appMain.onTopbarItemClick(
+                                $event,
+                                MenuLabels.TOOLS,
+                                true
+                            )
+                        "
+                    >
+                        <i class="topbar-icon mdi mdi-tools"></i>
+                        <!-- <span class="topbar-badge">4</span> -->
+                        <span class="topbar-item-name">Tools</span>
+                    </a>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a
+                                routerLink="/tools/rechnungsgenerator"
+                                (click)="appMain.onTopbarSubItemClick($event)"
+                            >
+                                <i class="mdi mdi-currency-eur"></i>
+                                <span>Rechnungs-Generator</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li
                     [ngClass]="{

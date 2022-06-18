@@ -1,8 +1,8 @@
 import { UserService } from "src/app/mkjServices/authentication/user.service";
 import { ConfirmationService } from "primeng/api";
-import { InfoService } from "./../../../mkjServices/info.service";
-import { Permission, Role } from "./../../../mkjInterfaces/User";
-import { RoleService } from "./../../../mkjServices/role.service";
+import { InfoService } from "../../../mkjServices/info.service";
+import { Permission, Role } from "../../../mkjInterfaces/User";
+import { RoleService } from "../../../mkjServices/role.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({

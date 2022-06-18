@@ -1,7 +1,6 @@
-import { MitgliedPersonalEditComponent } from "./mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component";
-import { RollenEditComponent } from "./mkjComponents/administration/rollen-edit/rollen-edit.component";
+import { MitgliedPersonalEditComponent } from "./mkjComponents/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
+import { RollenEditComponent } from "./mkjComponents/einstellungen/rollen-edit/rollen-edit.component";
 import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
-import { NotenarchivComponent } from "./mkjComponents/notenarchiv/notenarchiv.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { LoginComponent } from "./mkjServices/authentication/login/login.component";
 import { SignupComponent } from "./mkjServices/authentication/signup/signup.component";
@@ -49,6 +48,10 @@ import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckun
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
+import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
+import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
+import { KonzerteComponent } from "./mkjComponents/noten/konzerte/konzerte.component";
+import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 
 @NgModule({
     imports: [
@@ -84,8 +87,23 @@ import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder
                             canActivate: [AuthGuardService],
                         },
                         {
-                            path: "notenarchiv",
+                            path: "noten/archiv",
                             component: NotenarchivComponent,
+                            canActivate: [AuthGuardService],
+                        },
+                        {
+                            path: "noten/mappen",
+                            component: NotenmappenComponent,
+                            canActivate: [AuthGuardService],
+                        },
+                        {
+                            path: "noten/konzerte",
+                            component: KonzerteComponent,
+                            canActivate: [AuthGuardService],
+                        },
+                        {
+                            path: "tools/rechnungsgenerator",
+                            component: RechnungsGeneratorComponent,
                             canActivate: [AuthGuardService],
                         },
                         {

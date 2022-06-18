@@ -55,8 +55,11 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.topbarMenuActive = false;
                 }
 
-                if (!this.sidebarClick && (this.overlay || !this.isDesktop())) {
-                    this.sidebarActive = false;
+                if (!this.sidebarClick) {
+                    if (this.sidebarActive) {
+                        this.initActiveTabIndex();
+                        this.sidebarActive = false;
+                    }
                 }
 
                 if (this.configActive && !this.configClick) {
@@ -147,7 +150,7 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
             const first = urlSeg[0]?.path;
             if (!first) {
                 this.activeTabIndex = MenuLabels.DASHBOARD;
-            } else if (first === "notenarchiv") {
+            } else if (first === "noten") {
                 this.activeTabIndex = MenuLabels.NOTEN;
             } else if (first === "ausrueckungen") {
                 this.activeTabIndex = MenuLabels.AUSRUECKUNGEN;

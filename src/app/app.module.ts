@@ -175,18 +175,21 @@ import { SignupComponent } from "./mkjServices/authentication/signup/signup.comp
 import { LoginComponent } from "./mkjServices/authentication/login/login.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
-import { NotenarchivComponent } from "./mkjComponents/notenarchiv/notenarchiv.component";
 import { VisibleForPermissionDirective } from "./mkjUtilities/visible-for-permission.directive";
 import { MitgliedEditorComponent } from "./mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component";
-import { NotenEditorComponent } from "./mkjComponents/notenarchiv/noten-editor/noten-editor.component";
 import { MkjToolbarComponent } from "./mkjUtilities/mkj-toolbar/mkj-toolbar.component";
 import { AusrueckungEditorComponent } from "./mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
-import { RollenEditComponent } from "./mkjComponents/administration/rollen-edit/rollen-edit.component";
+import { RollenEditComponent } from "./mkjComponents/einstellungen/rollen-edit/rollen-edit.component";
 import { MkjTextTransformPipe } from "./mkjUtilities/mkj-text-transform.pipe";
 import { MkjDisplayFieldComponent } from "./mkjUtilities/mkj-display-field/mkj-display-field.component";
 import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
-import { MitgliedPersonalEditComponent } from "./mkjComponents/administration/mitglied-personal-edit/mitglied-personal-edit.component";
+import { MitgliedPersonalEditComponent } from "./mkjComponents/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { MkjRechnungComponent } from "./mkjUtilities/mkj-rechnung/mkj-rechnung.component";
+import { NotenEditorComponent } from "./mkjComponents/noten/noten-editor/noten-editor.component";
+import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
+import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
+import { KonzerteComponent } from "./mkjComponents/noten/konzerte/konzerte.component";
+import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -357,6 +360,9 @@ FullCalendarModule.registerPlugins([
         AatestComponent,
         MitgliedPersonalEditComponent,
         MkjRechnungComponent,
+        NotenmappenComponent,
+        KonzerteComponent,
+        RechnungsGeneratorComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

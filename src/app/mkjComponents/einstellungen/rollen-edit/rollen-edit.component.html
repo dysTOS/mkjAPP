@@ -1,3 +1,11 @@
+<app-mkj-toolbar
+    headerLeft="Rollen & Rechte"
+    showAddButton="true"
+    (clickAdd)="
+        addDialogVisible = true; rolePermissions = []; selectedRole = null
+    "
+></app-mkj-toolbar>
+
 <div class="p-col-12">
     <p-table
         [value]="roles"
@@ -10,21 +18,6 @@
         styleClass="p-datatable p-datatable-striped"
         (onRowSelect)="loadPermissionsForRole()"
     >
-        <ng-template pTemplate="caption"
-            ><div class="p-col-12 p-d-flex p-jc-between p-ai-center p-p-0">
-                <span></span>
-                <p-button
-                    label="Neue Rolle"
-                    icon="pi pi-plus"
-                    styleClass="p-button-info p-button-outlined"
-                    [disabled]="isCreating || isSaving"
-                    (click)="
-                        addDialogVisible = true;
-                        rolePermissions = [];
-                        selectedRole = null
-                    "
-                ></p-button></div
-        ></ng-template>
         <ng-template pTemplate="body" let-role let-expanded="expanded"
             ><tr [pSelectableRow]="role" [pRowToggler]="role">
                 <td style="font-size: 1.2rem">
@@ -39,10 +32,9 @@
                     [(ngModel)]="rolePermissions"
                     [multiple]="true"
                     [checkbox]="true"
-                    [filter]="true"
+                    [filter]="false"
                     filterPlaceHolder="Berechtigung filtern..."
                     [showToggleAll]="false"
-                    [listStyle]="{ 'max-height': '500px' }"
                     optionLabel="name"
                     dataKey="id"
                 >

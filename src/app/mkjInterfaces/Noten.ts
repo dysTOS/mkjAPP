@@ -14,3 +14,14 @@ export interface Noten {
     updated_at?: string;
 }
 
+export interface Notenmappe {
+    id?: string;
+    name?: string;
+}
+
+export interface Konzert {
+    id?: string;
+    name?: string;
+    datum?: string;
+    ort?: string;
+}
