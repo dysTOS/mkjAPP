@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Rechnung } from "src/app/mkjInterfaces/Rechnung";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-rechnungs-generator',
-  templateUrl: './rechnungs-generator.component.html',
-  styleUrls: ['./rechnungs-generator.component.scss']
+    selector: "app-rechnungs-generator",
+    templateUrl: "./rechnungs-generator.component.html",
+    styleUrls: ["./rechnungs-generator.component.scss"],
 })
 export class RechnungsGeneratorComponent implements OnInit {
+    public rechnung: Rechnung = {
+        empfaenger: {},
+        datum: null,
+        positionen: [],
+        gesamtpreis: null,
+    };
 
-  constructor() { }
+    public rForm: FormGroup;
 
-  ngOnInit(): void {
-  }
+    public printDialogVisible: boolean = false;
 
+    constructor(private fb: FormBuilder) {
+        this.rForm = fb.group({
+            datum: [null, Validators.required],
+            gesamtpreis: [null, Validators.compose([Validators.required])],
+        });
+    }
+
+    public ngOnInit(): void {}
+
+    public onSubmit(any) {
+        console.log(any);
+    }
 }
