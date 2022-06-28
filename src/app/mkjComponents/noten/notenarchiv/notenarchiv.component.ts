@@ -1,4 +1,3 @@
-import { RoleType } from "src/app/mkjInterfaces/User";
 import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/mkjInterfaces/Noten";
@@ -22,7 +21,6 @@ export class NotenarchivComponent implements OnInit {
     editDialogVisible: boolean = false;
     editNoten: Noten;
 
-    RoleType = RoleType;
     globalFilterText: string = "";
 
     selectedRow: any;

@@ -31,14 +31,6 @@ export interface Permission {
     guard_name?: string;
     created_at?: string;
     updated_at?: string;
-
-}
-
-export enum RoleType {
-    MITGLIED = 'mitglied',
-    ADMIN = 'admin',
-    AUSSCHUSS = 'ausschuss',
-    FESTAUSSCHUSS = 'festausschuss'
 }
 
 export interface RegistrationCredentials {

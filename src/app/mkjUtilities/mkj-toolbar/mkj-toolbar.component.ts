@@ -1,11 +1,18 @@
-import { Subscription } from 'rxjs';
-import { UserService } from './../../mkjServices/authentication/user.service';
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from "rxjs";
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    OnInit,
+    OnDestroy,
+} from "@angular/core";
+import { UserService } from "src/app/authentication/user.service";
 
 @Component({
-    selector: 'app-mkj-toolbar',
-    templateUrl: './mkj-toolbar.component.html',
-    styleUrls: ['./mkj-toolbar.component.scss']
+    selector: "app-mkj-toolbar",
+    templateUrl: "./mkj-toolbar.component.html",
+    styleUrls: ["./mkj-toolbar.component.scss"],
 })
 export class MkjToolbarComponent implements OnInit, OnDestroy {
     @Input()
@@ -16,17 +23,17 @@ export class MkjToolbarComponent implements OnInit, OnDestroy {
     @Input()
     showAddButton = false;
     @Input()
-    addButtonTooltip = 'Neu';
+    addButtonTooltip = "Neu";
     @Input()
     showBackButton = false;
     @Input()
     showExportButton = false;
     @Input()
-    exportButtonTooltip = 'Exportieren';
+    exportButtonTooltip = "Exportieren";
     @Input()
     showFilterButton = false;
     @Input()
-    filterButtonTooltip = 'Filtern';
+    filterButtonTooltip = "Filtern";
     @Input()
     showEditButton = false;
     @Input()
@@ -67,14 +74,14 @@ export class MkjToolbarComponent implements OnInit, OnDestroy {
 
     private userSub$: Subscription;
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService) {}
 
     public ngOnInit() {
         this.userSub$ = this.userService.getCurrentUserPermissions().subscribe({
             next: (res) => {
                 this.checkPermissions();
-            }
-        })
+            },
+        });
     }
 
     public ngOnDestroy(): void {
@@ -82,34 +89,44 @@ export class MkjToolbarComponent implements OnInit, OnDestroy {
     }
 
     private checkPermissions() {
-        if (this.addButtonPermissions && !this.userService.hasOneOfPermissions(this.addButtonPermissions)) {
+        if (
+            this.addButtonPermissions &&
+            !this.userService.hasOneOfPermissions(this.addButtonPermissions)
+        ) {
             this.addButtonPermission = false;
-        }
-        else {
+        } else {
             this.addButtonPermission = true;
         }
-        if (this.editButtonPermissions && !this.userService.hasOneOfPermissions(this.editButtonPermissions)) {
+        if (
+            this.editButtonPermissions &&
+            !this.userService.hasOneOfPermissions(this.editButtonPermissions)
+        ) {
             this.editButtonPermission = false;
-        }
-        else {
+        } else {
             this.editButtonPermission = true;
         }
-        if (this.filterButtonPermissions && !this.userService.hasOneOfPermissions(this.filterButtonPermissions)) {
+        if (
+            this.filterButtonPermissions &&
+            !this.userService.hasOneOfPermissions(this.filterButtonPermissions)
+        ) {
             this.filterButtonPermission = false;
-        }
-        else {
+        } else {
             this.filterButtonPermission = true;
         }
-        if (this.exportButtonPermissions && !this.userService.hasOneOfPermissions(this.exportButtonPermissions)) {
+        if (
+            this.exportButtonPermissions &&
+            !this.userService.hasOneOfPermissions(this.exportButtonPermissions)
+        ) {
             this.exportButtonPermission = false;
-        }
-        else {
+        } else {
             this.exportButtonPermission = true;
         }
-        if (this.deleteButtonPermissions && !this.userService.hasOneOfPermissions(this.deleteButtonPermissions)) {
+        if (
+            this.deleteButtonPermissions &&
+            !this.userService.hasOneOfPermissions(this.deleteButtonPermissions)
+        ) {
             this.deleteButtonPermission = false;
-        }
-        else {
+        } else {
             this.deleteButtonPermission = true;
         }
     }

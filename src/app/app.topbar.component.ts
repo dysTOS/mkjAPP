@@ -1,8 +1,8 @@
 import { MenuLabels } from "./mkjInterfaces/Menu";
-import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
 import { Component, OnInit } from "@angular/core";
 import { AppMainComponent } from "./app.main.component";
 import { environment } from "src/environments/environment";
+import { AuthStateService } from "./authentication/auth-state.service";
 
 @Component({
     selector: "app-topbar",

@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { LoginCredentials, RegistrationCredentials, User, LoginResponse } from '../../mkjInterfaces/User';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import {
+    RegistrationCredentials,
+    LoginCredentials,
+    LoginResponse,
+    User,
+} from "../mkjInterfaces/User";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
-
 export class AuthService {
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     // User registration
     register(user: RegistrationCredentials): Observable<any> {
@@ -39,5 +43,4 @@ export class AuthService {
         const url = this.apiURL + "/api/deleteuser";
         return this.http.post<any>(url, user);
     }
-
 }

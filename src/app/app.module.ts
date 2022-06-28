@@ -1,5 +1,5 @@
 import { InfoService } from "./mkjServices/info.service";
-import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
+import { AuthGuardService } from "./authentication/auth-guard.service";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -170,9 +170,8 @@ import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrue
 import { environment } from "src/environments/environment";
 import { MkjDatePipe } from "./mkjUtilities/mkj-date.pipe";
 import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
-import { AuthInterceptor } from "./mkjServices/authentication/auth-interceptor/auth-interceptor.component";
-import { SignupComponent } from "./mkjServices/authentication/signup/signup.component";
-import { LoginComponent } from "./mkjServices/authentication/login/login.component";
+import { SignupComponent } from "./authentication/signup/signup.component";
+import { LoginComponent } from "./authentication/login/login.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
 import { VisibleForPermissionDirective } from "./mkjUtilities/visible-for-permission.directive";
@@ -189,7 +188,8 @@ import { NotenEditorComponent } from "./mkjComponents/noten/noten-editor/noten-e
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
-import { MkjNotensucheComponent } from './mkjUtilities/mkj-notensuche/mkj-notensuche.component';
+import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notensuche.component";
+import { AuthInterceptor } from "./authentication/auth-interceptor.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,

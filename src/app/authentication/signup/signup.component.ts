@@ -1,14 +1,13 @@
-import { InfoService } from './../../info.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { AuthService } from '../auth.service';
-import { RegistrationCredentials } from '../../../mkjInterfaces/User';
+import { InfoService } from "../../mkjServices/info.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { RegistrationCredentials } from "../../mkjInterfaces/User";
+import { AuthService } from "../auth.service";
 
 @Component({
-    selector: 'app-signup',
-    templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss']
+    selector: "app-signup",
+    templateUrl: "./signup.component.html",
+    styleUrls: ["./signup.component.scss"],
 })
 export class SignupComponent implements OnInit {
     submitted: boolean = false;
@@ -19,37 +18,42 @@ export class SignupComponent implements OnInit {
         vorname: null,
         zuname: null,
         email: null,
-        passwort: null
-    }
+        passwort: null,
+    };
 
     constructor(
         private router: Router,
         private authService: AuthService,
         private infoService: InfoService
-    ) { }
+    ) {}
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     onSubmit() {
         this.submitted = true;
         if (this.checkInput()) {
             this.isChecking = true;
             this.authService.register(this.user).subscribe(
-                result => {
+                (result) => {
                     this.infoService.success(result.message);
-                    setTimeout(() => this.router.navigate(['login']), 2000);
+                    setTimeout(() => this.router.navigate(["login"]), 2000);
                 },
-                error => {
+                (error) => {
                     this.infoService.error(error);
                     this.isChecking = false;
                 }
-            )
+            );
         }
     }
 
     private checkInput(): boolean {
-        if (this.user.email && this.user.passwort && this.pwdCheck
-            && this.user.vorname && this.user.zuname) {
+        if (
+            this.user.email &&
+            this.user.passwort &&
+            this.pwdCheck &&
+            this.user.vorname &&
+            this.user.zuname
+        ) {
             if (this.user.passwort !== this.pwdCheck) {
                 this.user.passwort = null;
                 this.pwdCheck = null;
@@ -57,8 +61,6 @@ export class SignupComponent implements OnInit {
                 return false;
             }
             return true;
-        } else
-            return false;
+        } else return false;
     }
-
 }

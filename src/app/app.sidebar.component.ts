@@ -1,10 +1,10 @@
 import { environment } from "./../environments/environment";
-import { UserService } from "src/app/mkjServices/authentication/user.service";
 import { Component, OnInit } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
-import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
 import { MenuLabels } from "./mkjInterfaces/Menu";
+import { AuthStateService } from "./authentication/auth-state.service";
+import { UserService } from "./authentication/user.service";
 
 @Component({
     selector: "app-sidebar",

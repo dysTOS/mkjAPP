@@ -1,16 +1,16 @@
-import { InfoService } from './../../info.service';
-import { UserService } from './../user.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthStateService } from '../auth-state.service';
-import { AuthService } from '../auth.service';
-import { TokenService } from '../token.service';
-import { LoginCredentials } from '../../../mkjInterfaces/User';
+import { InfoService } from "../../mkjServices/info.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { LoginCredentials } from "../../mkjInterfaces/User";
+import { AuthStateService } from "../auth-state.service";
+import { AuthService } from "../auth.service";
+import { TokenService } from "../token.service";
+import { UserService } from "../user.service";
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
     submitted: boolean = false;
@@ -18,38 +18,42 @@ export class LoginComponent implements OnInit {
 
     user: LoginCredentials = {
         email: null,
-        passwort: null
-    }
+        passwort: null,
+    };
 
-    constructor(private router: Router,
+    constructor(
+        private router: Router,
         private authService: AuthService,
         private tokenService: TokenService,
         private authState: AuthStateService,
         private userService: UserService,
-        private infoService: InfoService) { }
+        private infoService: InfoService
+    ) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     onSubmit() {
         this.submitted = true;
         if (this.checkInput()) {
             this.isChecking = true;
             this.authService.login(this.user).subscribe(
-                result => {
-                    console.log(result)
+                (result) => {
+                    console.log(result);
                     this.tokenService.saveToken(result.token);
                     this.authState.setAuthState(true);
                     this.userService.setCurrentUser(result.user);
                     this.userService.setCurrentMitglied(result.mitglied);
                     this.userService.setCurrentUserRoles(result.roles);
-                    this.userService.setCurrentUserPermissions(result.permissions);
-                    this.router.navigate(['']);
+                    this.userService.setCurrentUserPermissions(
+                        result.permissions
+                    );
+                    this.router.navigate([""]);
                 },
-                error => {
+                (error) => {
                     this.infoService.error(error);
                     this.isChecking = false;
                 },
-                () => this.isChecking = false
+                () => (this.isChecking = false)
             );
         }
     }

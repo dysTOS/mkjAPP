@@ -1,34 +1,29 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
-
 export class TokenService {
-
     // private issuer = {
     //     login: environment.apiUrl + '/api/login',
     //     register: environment.apiUrl + '/api/register'
     // }
 
-    constructor() { }
+    constructor() {}
 
     saveToken(token) {
-        localStorage.setItem('auth_token', token);
+        localStorage.setItem("auth_token", token);
     }
 
     getToken() {
-        return localStorage.getItem('auth_token');
+        return localStorage.getItem("auth_token");
     }
 
     // Verify the token
     isValidToken() {
         const token = this.getToken();
-        if (token)
-            return true;
-        else
-            return false;
+        if (token) return true;
+        else return false;
         // if (token) {
         //     const payload = this.payload(token);
         //     if (payload) {
@@ -52,7 +47,6 @@ export class TokenService {
 
     // Remove token
     removeToken() {
-        localStorage.removeItem('auth_token');
+        localStorage.removeItem("auth_token");
     }
-
 }

@@ -42,8 +42,8 @@ export class ExportService {
             event.start.push(+ausrueckung.vonZeit.substring(3, 5));
         }
         if (ausrueckung.bisZeit) {
-            event.start.push(+ausrueckung.bisZeit.substring(0, 2));
-            event.start.push(+ausrueckung.bisZeit.substring(3, 5));
+            event.end.push(+ausrueckung.bisZeit.substring(0, 2));
+            event.end.push(+ausrueckung.bisZeit.substring(3, 5));
         }
 
         if (ausrueckung.ort) {
