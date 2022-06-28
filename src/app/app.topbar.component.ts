@@ -135,17 +135,6 @@ import { environment } from "src/environments/environment";
                             </a>
                         </li>
                     </ul>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/noten/konzerte"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i class="mdi mdi-folder-play-outline"></i>
-                                <span>Konzerte</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li
                     [ngClass]="{
@@ -221,6 +210,14 @@ import { environment } from "src/environments/environment";
                             </a>
                         </li>
                     </ul>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a (click)="reloadApp()">
+                                <i class="pi pi-refresh"></i>
+                                <span>Reload App</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li
@@ -291,7 +288,11 @@ export class AppTopbarComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    logout() {
+    public logout() {
         this.authStateService.setAuthState(false);
+    }
+
+    public reloadApp() {
+        window.location.reload();
     }
 }

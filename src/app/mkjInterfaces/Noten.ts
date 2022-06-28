@@ -12,16 +12,14 @@ export interface Noten {
     aufbewahrungsort?: string;
     created_at?: string;
     updated_at?: string;
+    pivot?: {
+        verzeichnisNr?: string;
+    };
 }
 
 export interface Notenmappe {
     id?: string;
     name?: string;
-}
-
-export interface Konzert {
-    id?: string;
-    name?: string;
-    datum?: string;
-    ort?: string;
+    hatVerzeichnis?: boolean;
+    noten?: Noten[];
 }

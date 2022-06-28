@@ -164,34 +164,11 @@
             >
                 <ng-template pTemplate="caption"
                     ><div class="p-col-12 p-d-flex p-jc-center">
-                        <p-autoComplete
-                            [(ngModel)]="selectedNoten"
-                            [suggestions]="searchNotenResult"
-                            [autoHighlight]="true"
-                            [minLength]="3"
-                            class="gespielte-stuecke-autocomplete"
-                            placeholder="Musikstück suchen..."
-                            (completeMethod)="searchNoten($event)"
+                        <app-mkj-notensuche
+                            [(selectedNoten)]="selectedNoten"
                             (onSelect)="attachNoten($event)"
-                            field="titel"
-                            dataKey="id"
-                        >
-                            <ng-template pTemplate="item" let-item>
-                                <div class="p-d-flex p-jc-between">
-                                    <div [style.width]="'20rem'">
-                                        {{ item.titel }}
-                                    </div>
-                                    <div
-                                        [style.width]="'10rem'"
-                                        style="color: grey"
-                                    >
-                                        {{ item.gattung }}
-                                    </div>
-                                </div>
-                            </ng-template>
-                        </p-autoComplete>
-                    </div></ng-template
-                >
+                        ></app-mkj-notensuche></div
+                ></ng-template>
                 <ng-template pTemplate="body" let-noten>
                     <tr>
                         <td>{{ noten.titel }}</td>

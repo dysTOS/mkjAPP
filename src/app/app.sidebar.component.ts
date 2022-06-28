@@ -24,7 +24,11 @@ export class AppSideBarComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    logout() {
+    public logout() {
         this.authStateService.setAuthState(false);
+    }
+
+    public reloadApp() {
+        window.location.reload();
     }
 }

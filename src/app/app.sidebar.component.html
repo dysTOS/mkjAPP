@@ -240,6 +240,12 @@
                                     <span>Rollen & Rechte</span>
                                 </a>
                             </li>
+                            <li>
+                                <a (click)="reloadApp()">
+                                    <i class="pi pi-refresh p-mr-2"></i>
+                                    <span>Reload App</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </app-sidebarTabContent>
@@ -276,15 +282,6 @@
                                         class="mdi mdi-book-music-outline p-mr-2"
                                     ></i>
                                     <span>Mappen</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a routerLink="/noten/konzerte">
-                                    <i
-                                        class="mdi mdi-folder-play-outline p-mr-2"
-                                    ></i>
-                                    <span>Konzerte</span>
                                 </a>
                             </li>
                         </ul>

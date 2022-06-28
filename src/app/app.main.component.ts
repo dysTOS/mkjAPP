@@ -160,6 +160,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.activeTabIndex = MenuLabels.TEST;
             } else if (first === "einstellungen") {
                 this.activeTabIndex = MenuLabels.EINSTELLUNGEN;
+            } else if (first === "tools") {
+                this.activeTabIndex = MenuLabels.TOOLS;
             }
         });
     }

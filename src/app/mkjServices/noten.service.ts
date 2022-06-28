@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { environment } from "src/environments/environment";
-import { Konzert, Noten, Notenmappe } from "../mkjInterfaces/Noten";
+import { Noten, Notenmappe } from "../mkjInterfaces/Noten";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -89,13 +89,14 @@ export class NotenService {
     }
 
     public deleteNotenmappe(mappe: Notenmappe): Observable<Notenmappe> {
-        const url = this.apiURL + "/api/notenmappen/" + mappe.id.toString();
+        const url = this.apiURL + "/api/notenmappen/" + mappe.id;
         return this.http.delete<Notenmappe>(url, httpOptions);
     }
 
     public attachNotenToMappe(
         notenId: string,
-        mappeId: string
+        mappeId: string,
+        verzeichnisNr: string = null
     ): Observable<any> {
         const url = this.apiURL + "/api/notenmappenattach";
         return this.http.post<any>(
@@ -115,10 +116,5 @@ export class NotenService {
             { noten_id: notenId, mappe_id: mappeId },
             httpOptions
         );
-    }
-
-    public getKonzerte(): Observable<Konzert[]> {
-        const url = this.apiURL + "/api/konzerte";
-        return this.http.get<Konzert[]>(url, httpOptions);
     }
 }

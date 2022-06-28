@@ -50,7 +50,6 @@ import { AuthGuardService } from "./mkjServices/authentication/auth-guard.servic
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
-import { KonzerteComponent } from "./mkjComponents/noten/konzerte/konzerte.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 
 @NgModule({
@@ -94,11 +93,6 @@ import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-gen
                         {
                             path: "noten/mappen",
                             component: NotenmappenComponent,
-                            canActivate: [AuthGuardService],
-                        },
-                        {
-                            path: "noten/konzerte",
-                            component: KonzerteComponent,
                             canActivate: [AuthGuardService],
                         },
                         {

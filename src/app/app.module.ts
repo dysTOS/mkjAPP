@@ -188,8 +188,8 @@ import { MkjRechnungComponent } from "./mkjUtilities/mkj-rechnung/mkj-rechnung.c
 import { NotenEditorComponent } from "./mkjComponents/noten/noten-editor/noten-editor.component";
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
-import { KonzerteComponent } from "./mkjComponents/noten/konzerte/konzerte.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
+import { MkjNotensucheComponent } from './mkjUtilities/mkj-notensuche/mkj-notensuche.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -361,8 +361,8 @@ FullCalendarModule.registerPlugins([
         MitgliedPersonalEditComponent,
         MkjRechnungComponent,
         NotenmappenComponent,
-        KonzerteComponent,
         RechnungsGeneratorComponent,
+        MkjNotensucheComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
