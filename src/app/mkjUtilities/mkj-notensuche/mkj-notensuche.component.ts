@@ -11,10 +11,23 @@ export class MkjNotensucheComponent implements OnInit {
     @Input()
     public selectedNoten: Noten;
 
+    @Input()
+    public verzeichnisMode: boolean = false;
+
+    @Input()
+    public placeholder: string = "Musikstück suchen...";
+
+    @Input()
+    public minLength = 2;
+
+    @Input()
+    public autoHighlight: boolean = true;
+
     public searchNotenResult: Noten[];
+    public verzeichnisNr: string;
 
     @Output()
-    public onSelect = new EventEmitter<Noten>();
+    public notenSelect = new EventEmitter<NotenSucheOutput>();
 
     constructor(private notenService: NotenService) {}
 
@@ -25,4 +38,16 @@ export class MkjNotensucheComponent implements OnInit {
             next: (res) => (this.searchNotenResult = res),
         });
     }
+
+    public onSelect(noten: Noten) {
+        this.notenSelect.emit({
+            noten: noten,
+            verzeichnisNr: this.verzeichnisNr,
+        });
+    }
+}
+
+export interface NotenSucheOutput {
+    noten: Noten;
+    verzeichnisNr: string;
 }

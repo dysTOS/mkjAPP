@@ -1,24 +1,28 @@
-<p-autoComplete
-    [(ngModel)]="selectedNoten"
-    [suggestions]="searchNotenResult"
-    [autoHighlight]="true"
-    [minLength]="2"
-    placeholder="Musikstück suchen..."
-    (completeMethod)="searchNoten($event)"
-    (onSelect)="onSelect.emit($event)"
-    field="titel"
-    dataKey="id"
-    [showEmptyMessage]="true"
-    emptyMessage="Keine Noten gefunden..."
->
-    <ng-template pTemplate="item" let-item>
-        <div class="p-d-flex p-jc-between p-text-truncate">
-            <div [style.width]="'20rem'">
-                {{ item.titel }}
+<div class="p-d-flex">
+    <input *ngIf="verzeichnisMode" pInputText [(ngModel)]="verzeichnisNr" />
+    <p-autoComplete
+        [(ngModel)]="selectedNoten"
+        [suggestions]="searchNotenResult"
+        [autoHighlight]="autoHighlight"
+        [forceSelection]="true"
+        [minLength]="minLength"
+        [placeholder]="placeholder"
+        (completeMethod)="searchNoten($event)"
+        (onSelect)="onSelect($event)"
+        field="titel"
+        dataKey="id"
+        [showEmptyMessage]="true"
+        emptyMessage="Keine Noten gefunden..."
+    >
+        <ng-template pTemplate="item" let-item>
+            <div class="p-d-flex p-jc-between p-text-truncate">
+                <div [style.width]="'20rem'">
+                    {{ item.titel }}
+                </div>
+                <div [style.width]="'10rem'" style="color: grey">
+                    {{ item.gattung }}
+                </div>
             </div>
-            <div [style.width]="'10rem'" style="color: grey">
-                {{ item.gattung }}
-            </div>
-        </div>
-    </ng-template>
-</p-autoComplete>
+        </ng-template>
+    </p-autoComplete>
+</div>

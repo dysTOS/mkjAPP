@@ -101,7 +101,11 @@ export class NotenService {
         const url = this.apiURL + "/api/notenmappenattach";
         return this.http.post<any>(
             url,
-            { noten_id: notenId, mappe_id: mappeId },
+            {
+                noten_id: notenId,
+                mappe_id: mappeId,
+                verzeichnisNr: verzeichnisNr,
+            },
             httpOptions
         );
     }
