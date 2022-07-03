@@ -1,4 +1,3 @@
-import { InfoService } from "./mkjServices/info.service";
 import { AuthGuardService } from "./authentication/auth-guard.service";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -14,7 +13,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localeDe from "@angular/common/locales/de-AT";
-import { ServiceWorkerModule, SwPush, SwUpdate } from "@angular/service-worker";
+import { ServiceWorkerModule } from "@angular/service-worker";
 registerLocaleData(localeDe);
 
 // PrimeNG Components for demos
@@ -167,7 +166,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 // MKJ
 import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { environment } from "src/environments/environment";
 import { MkjDatePipe } from "./mkjUtilities/mkj-date.pipe";
 import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
 import { SignupComponent } from "./authentication/signup/signup.component";
@@ -190,6 +188,7 @@ import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmap
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notensuche.component";
 import { AuthInterceptor } from "./authentication/auth-interceptor.component";
+import { environment } from "src/environments/environment";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -388,23 +387,4 @@ FullCalendarModule.registerPlugins([
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
-    //Service Worker
-    constructor(
-        update: SwUpdate,
-        push: SwPush,
-        private infoService: InfoService
-    ) {
-        update.versionUpdates.subscribe((update) => {
-            if (update.type === "VERSION_READY") {
-                if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
-                    setTimeout(
-                        () => this.infoService.info("Update erfolgreich!"),
-                        2000
-                    );
-                    window.location.reload();
-                }
-            }
-        });
-    }
-}
+export class AppModule {}
