@@ -8,6 +8,7 @@ import { AuthService } from "./authentication/auth.service";
 import { TokenService } from "./authentication/token.service";
 import { UserService } from "./authentication/user.service";
 import { InfoService } from "./mkjServices/info.service";
+import { PushNotificationsService } from "./mkjServices/push-notifications.service";
 
 @Component({
     selector: "app-root",
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
     compactMode = false;
 
     readonly VAPID_PUBLIC_KEY =
-        "BLBx-hf2WrL2qEa0qKb-aCJbcxEvyn62GDTyyP9KTS5K7ZL0K7TfmOKSPqp8vQF0DaG8hpSBknz_x3qf5F4iEFo";
+        "BGENo_p8KhjSBILPkraq4UYqvRHg3VnPUulZ-0NONyVHMb_-pQZAL2GJaIRKs6CM9jZ4YpIvgyWUBpAEGIGhGoI";
 
     constructor(
         private primengConfig: PrimeNGConfig,
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
         private tokenService: TokenService,
         private swUpdate: SwUpdate,
         private swPush: SwPush,
+        private pushNotiService: PushNotificationsService,
         private infoService: InfoService
     ) {
         this.swUpdate.versionUpdates.subscribe((update) => {
@@ -55,7 +57,7 @@ export class AppComponent implements OnInit {
             .requestSubscription({
                 serverPublicKey: this.VAPID_PUBLIC_KEY,
             })
-            .then((sub) => console.log(sub))
+            .then((sub) => this.pushNotiService.subscribeUser(sub))
             .catch((err) =>
                 console.error("Could not subscribe to notifications", err)
             );
