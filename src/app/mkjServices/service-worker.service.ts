@@ -9,7 +9,7 @@ import { first } from "rxjs";
 })
 export class ServiceWorkerService {
     readonly VAPID_PUBLIC_KEY =
-        "BGENo_p8KhjSBILPkraq4UYqvRHg3VnPUulZ-0NONyVHMb_-pQZAL2GJaIRKs6CM9jZ4YpIvgyWUBpAEGIGhGoI";
+        "BIsIB28fImumACBAnl09t3HKyJLBJDGKj17Nc7HFKhiRSzFYQdRUBfL0Yfrab8QpEl1ItEajx72I1Wje-yq7j-s";
 
     constructor(
         private appRef: ApplicationRef,
@@ -54,5 +54,10 @@ export class ServiceWorkerService {
             .catch((err) =>
                 console.error("Could not subscribe to notifications", err)
             );
+
+        this.swPush.messages.subscribe({
+            next: (res) => console.log(res),
+            error: (err) => console.log(err),
+        });
     }
 }

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class MenuService {
@@ -9,8 +9,7 @@ export class MenuService {
     public menuSource$ = this.menuSource.asObservable();
     public resetSource$ = this.resetSource.asObservable();
 
-    constructor() {
-    }
+    constructor() {}
 
     onMenuStateChange(key: string) {
         this.menuSource.next(key);
@@ -20,7 +19,3 @@ export class MenuService {
         this.resetSource.next(null);
     }
 }
-
-
-
-

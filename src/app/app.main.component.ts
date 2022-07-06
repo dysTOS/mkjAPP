@@ -10,6 +10,7 @@ import {
 import { PrimeNGConfig, MessageService } from "primeng/api";
 import { AppComponent } from "./app.component";
 import { first } from "rxjs";
+import { ServiceWorkerService } from "./mkjServices/service-worker.service";
 
 @Component({
     selector: "app-main",
@@ -38,7 +39,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
         public renderer: Renderer2,
         private primengConfig: PrimeNGConfig,
         public app: AppComponent,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private serviceWorker: ServiceWorkerService
     ) {}
 
     public ngOnInit(): void {

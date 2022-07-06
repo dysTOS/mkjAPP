@@ -34,8 +34,7 @@ export class AppComponent implements OnInit {
         private router: Router,
         private userService: UserService,
         private authService: AuthService,
-        private tokenService: TokenService,
-        private serviceWorker: ServiceWorkerService
+        private tokenService: TokenService
     ) {}
 
     ngOnInit() {
