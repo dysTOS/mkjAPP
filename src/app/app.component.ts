@@ -9,6 +9,7 @@ import { TokenService } from "./authentication/token.service";
 import { UserService } from "./authentication/user.service";
 import { InfoService } from "./mkjServices/info.service";
 import { PushNotificationsService } from "./mkjServices/push-notifications.service";
+import { ServiceWorkerService } from "./mkjServices/service-worker.service";
 
 @Component({
     selector: "app-root",
@@ -27,9 +28,6 @@ export class AppComponent implements OnInit {
 
     compactMode = false;
 
-    readonly VAPID_PUBLIC_KEY =
-        "BGENo_p8KhjSBILPkraq4UYqvRHg3VnPUulZ-0NONyVHMb_-pQZAL2GJaIRKs6CM9jZ4YpIvgyWUBpAEGIGhGoI";
-
     constructor(
         private primengConfig: PrimeNGConfig,
         private authStatService: AuthStateService,
@@ -37,31 +35,8 @@ export class AppComponent implements OnInit {
         private userService: UserService,
         private authService: AuthService,
         private tokenService: TokenService,
-        private swUpdate: SwUpdate,
-        private swPush: SwPush,
-        private pushNotiService: PushNotificationsService,
-        private infoService: InfoService
-    ) {
-        this.swUpdate.versionUpdates.subscribe((update) => {
-            if (update.type === "VERSION_DETECTED") {
-                if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
-                    setTimeout(
-                        () => this.infoService.info("Update erfolgreich!"),
-                        2000
-                    );
-                    window.location.reload();
-                }
-            }
-        });
-        this.swPush
-            .requestSubscription({
-                serverPublicKey: this.VAPID_PUBLIC_KEY,
-            })
-            .then((sub) => this.pushNotiService.subscribeUser(sub))
-            .catch((err) =>
-                console.error("Could not subscribe to notifications", err)
-            );
-    }
+        private serviceWorker: ServiceWorkerService
+    ) {}
 
     ngOnInit() {
         this.authStatService.userAuthState.subscribe((val) => {
