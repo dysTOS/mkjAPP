@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
+import { ApplicationRef, Injectable } from "@angular/core";
 import { SwUpdate, SwPush } from "@angular/service-worker";
 import { InfoService } from "./info.service";
 import { PushNotificationsService } from "./push-notifications.service";
+import { first } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -11,11 +12,20 @@ export class ServiceWorkerService {
         "BGENo_p8KhjSBILPkraq4UYqvRHg3VnPUulZ-0NONyVHMb_-pQZAL2GJaIRKs6CM9jZ4YpIvgyWUBpAEGIGhGoI";
 
     constructor(
+        private appRef: ApplicationRef,
         private swUpdate: SwUpdate,
         private swPush: SwPush,
         private pushNotiService: PushNotificationsService,
         private infoService: InfoService
     ) {
+        // Allow the app to stabilize first, before starting
+        // polling for updates with `interval()`.
+        const appIsStable$ = appRef.isStable.pipe(
+            first((isStable) => isStable === true)
+        );
+
+        appIsStable$.subscribe(() => swUpdate.checkForUpdate());
+
         this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_DETECTED") {
                 if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
