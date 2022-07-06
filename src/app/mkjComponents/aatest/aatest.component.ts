@@ -31,6 +31,22 @@ export class AatestComponent implements OnInit {
         });
     }
 
+    pushSub() {
+        const input = {
+            endpoint:
+                "https://fcm.googleapis.com/fcm/send/dWZuExvBZuM:APA91bGnDd2OyBgRQ0pRtTNmWUF6QwLuLZ9wstbxfIiJTNLbuscTGqa4dD222IG3-qigOvTP51vjmtvrGKzvmbwWDgn1_NeEmwYoLD39UJXvf3YZe246tG1qeWNGMNCaAFMXzeSoGd5X",
+            expirationTime: null,
+            keys: {
+                p256dh: "BLVmG70jBZOQGp6_QbKXEl7Uku2ew0w2nLVVJr070K5unPQW6iNhLaCdgmy0H5rmhse5MCrVzDVnft6sjgTi-kU",
+                auth: "gGi4SIf-t5JGYCfprOT-4A",
+            },
+        };
+        this.pushService.subscribeUser(null).subscribe({
+            next: (res) => console.log(res),
+            error: (err) => console.log(err),
+        });
+    }
+
     public notenTest() {
         this.notenService.getNotenmappen().subscribe((res) => console.log(res));
     }
