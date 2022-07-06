@@ -286,7 +286,6 @@ FullCalendarModule.registerPlugins([
         ReactiveFormsModule,
         ServiceWorkerModule.register("ngsw-worker.js", {
             enabled: environment.production,
-            registrationStrategy: "10000",
         }),
     ],
     declarations: [
