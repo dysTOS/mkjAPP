@@ -19,33 +19,33 @@ export class NotenService {
     constructor(private http: HttpClient) {}
 
     getAllNoten(): Observable<Noten[]> {
-        const url = this.apiURL + "/api/noten";
+        const url = this.apiURL + "noten";
         return this.http.get<Noten[]>(url, httpOptions);
     }
 
     getNotenForAusrueckung(ausrueckungId: string): Observable<Noten[]> {
         const url =
-            this.apiURL + "/api/notenausrueckung/" + ausrueckungId.toString();
+            this.apiURL + "notenausrueckung/" + ausrueckungId.toString();
         return this.http.get<Noten[]>(url, httpOptions);
     }
 
     searchNoten(searchkey: string): Observable<Noten[]> {
-        const url = this.apiURL + "/api/noten/search/" + searchkey;
+        const url = this.apiURL + "noten/search/" + searchkey;
         return this.http.get<Noten[]>(url, httpOptions);
     }
 
     createNoten(noten: Noten): Observable<Noten> {
-        const url = this.apiURL + "/api/noten";
+        const url = this.apiURL + "noten";
         return this.http.post<Noten>(url, noten, httpOptions);
     }
 
     updateNoten(noten: Noten): Observable<Noten> {
-        const url = this.apiURL + "/api/noten/" + noten.id.toString();
+        const url = this.apiURL + "noten/" + noten.id.toString();
         return this.http.put<Noten>(url, noten, httpOptions);
     }
 
     deleteNoten(noten: Noten): Observable<Noten> {
-        const url = this.apiURL + "/api/noten/" + noten.id.toString();
+        const url = this.apiURL + "noten/" + noten.id.toString();
         return this.http.delete<Noten>(url, httpOptions);
     }
 
@@ -53,7 +53,7 @@ export class NotenService {
         notenId: string,
         ausrueckungId: string
     ): Observable<any> {
-        const url = this.apiURL + "/api/addnoten";
+        const url = this.apiURL + "addnoten";
         return this.http.post<any>(
             url,
             { noten_id: notenId, ausrueckung_id: ausrueckungId },
@@ -65,7 +65,7 @@ export class NotenService {
         notenId: string,
         ausrueckungId: string
     ): Observable<any> {
-        const url = this.apiURL + "/api/removenoten";
+        const url = this.apiURL + "removenoten";
         return this.http.post<any>(
             url,
             { noten_id: notenId, ausrueckung_id: ausrueckungId },
@@ -74,22 +74,22 @@ export class NotenService {
     }
 
     public getNotenmappen(): Observable<Notenmappe[]> {
-        const url = this.apiURL + "/api/notenmappen";
+        const url = this.apiURL + "notenmappen";
         return this.http.get<Notenmappe[]>(url, httpOptions);
     }
 
     public createNotenmappe(mappe: Notenmappe): Observable<Notenmappe> {
-        const url = this.apiURL + "/api/notenmappen";
+        const url = this.apiURL + "notenmappen";
         return this.http.post<Notenmappe>(url, mappe, httpOptions);
     }
 
     public updateNotenmappe(mappe: Notenmappe): Observable<Notenmappe> {
-        const url = this.apiURL + "/api/notenmappen/" + mappe.id.toString();
+        const url = this.apiURL + "notenmappen/" + mappe.id.toString();
         return this.http.put<Notenmappe>(url, mappe, httpOptions);
     }
 
     public deleteNotenmappe(mappe: Notenmappe): Observable<Notenmappe> {
-        const url = this.apiURL + "/api/notenmappen/" + mappe.id;
+        const url = this.apiURL + "notenmappen/" + mappe.id;
         return this.http.delete<Notenmappe>(url, httpOptions);
     }
 
@@ -98,7 +98,7 @@ export class NotenService {
         mappeId: string,
         verzeichnisNr: string = null
     ): Observable<any> {
-        const url = this.apiURL + "/api/notenmappenattach";
+        const url = this.apiURL + "notenmappenattach";
         return this.http.post<any>(
             url,
             {
@@ -114,7 +114,7 @@ export class NotenService {
         notenId: string,
         mappeId: string
     ): Observable<any> {
-        const url = this.apiURL + "/api/notenmappendetach";
+        const url = this.apiURL + "notenmappendetach";
         return this.http.post<any>(
             url,
             { noten_id: notenId, mappe_id: mappeId },

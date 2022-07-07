@@ -19,28 +19,28 @@ export class AuthService {
 
     // User registration
     register(user: RegistrationCredentials): Observable<any> {
-        const url = this.apiURL + "/api/register";
+        const url = this.apiURL + "register";
         return this.http.post(url, user);
     }
 
     // Login
     login(user: LoginCredentials): Observable<LoginResponse> {
-        const url = this.apiURL + "/api/login";
+        const url = this.apiURL + "login";
         return this.http.post<any>(url, user);
     }
 
     logout(): Observable<any> {
-        const url = this.apiURL + "/api/logout";
+        const url = this.apiURL + "logout";
         return this.http.post<any>(url, {});
     }
 
     getCurrentUser(): Observable<LoginResponse> {
-        const url = this.apiURL + "/api/user";
+        const url = this.apiURL + "user";
         return this.http.post<any>(url, {});
     }
 
     deleteUser(user: User): Observable<any> {
-        const url = this.apiURL + "/api/deleteuser";
+        const url = this.apiURL + "deleteuser";
         return this.http.post<any>(url, user);
     }
 }

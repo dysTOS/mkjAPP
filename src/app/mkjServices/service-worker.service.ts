@@ -3,14 +3,12 @@ import { SwUpdate, SwPush } from "@angular/service-worker";
 import { InfoService } from "./info.service";
 import { PushNotificationsService } from "./push-notifications.service";
 import { first } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
 export class ServiceWorkerService {
-    readonly VAPID_PUBLIC_KEY =
-        "BIsIB28fImumACBAnl09t3HKyJLBJDGKj17Nc7HFKhiRSzFYQdRUBfL0Yfrab8QpEl1ItEajx72I1Wje-yq7j-s";
-
     constructor(
         private appRef: ApplicationRef,
         private swUpdate: SwUpdate,
@@ -40,9 +38,10 @@ export class ServiceWorkerService {
                 }
             }
         });
+
         this.swPush
             .requestSubscription({
-                serverPublicKey: this.VAPID_PUBLIC_KEY,
+                serverPublicKey: environment.vapidPublicKey,
             })
             .then((sub) => {
                 console.log("Push subscription: ", sub);

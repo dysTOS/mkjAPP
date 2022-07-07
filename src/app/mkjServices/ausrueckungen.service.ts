@@ -20,44 +20,42 @@ export class AusrueckungenService {
     private selectedAusrueckung: Ausrueckung; //for fast routing to single Ausrueckung
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getAusrueckungen(): Observable<Ausrueckung[]> {
-        const url = this.apiURL + "/api/ausrueckungen";
+        const url = this.apiURL + "ausrueckungen";
         return this.http.get<Ausrueckung[]>(url, httpOptions);
     }
 
     getSingleAusrueckung(id: string): Observable<Ausrueckung> {
-        const url = this.apiURL + "/api/ausrueckungen/" + id;
+        const url = this.apiURL + "ausrueckungen/" + id;
         return this.http.get<Ausrueckung>(url, httpOptions);
     }
 
     getNextAusrueckung(): Observable<Ausrueckung> {
-        const url = this.apiURL + "/api/nextausrueckung";
+        const url = this.apiURL + "nextausrueckung";
         return this.http.get<Ausrueckung>(url, httpOptions);
     }
 
     getAusrueckungenFiltered(
         filterInput: AusrueckungFilterInput
     ): Observable<Ausrueckung[]> {
-        const url = this.apiURL + "/api/ausrueckungenfiltered";
+        const url = this.apiURL + "ausrueckungenfiltered";
         return this.http.post<Ausrueckung[]>(url, filterInput, httpOptions);
     }
 
     createAusrueckung(ausrueckung: Ausrueckung): Observable<Ausrueckung> {
-        const url = this.apiURL + "/api/ausrueckungen";
+        const url = this.apiURL + "ausrueckungen";
         return this.http.post<Ausrueckung>(url, ausrueckung, httpOptions);
     }
 
     updateAusrueckung(ausrueckung: Ausrueckung): Observable<Ausrueckung> {
-        const url =
-            this.apiURL + "/api/ausrueckungen/" + ausrueckung.id.toString();
+        const url = this.apiURL + "ausrueckungen/" + ausrueckung.id.toString();
         return this.http.put<Ausrueckung>(url, ausrueckung, httpOptions);
     }
 
     deleteAusrueckung(ausrueckung: Ausrueckung): Observable<Ausrueckung> {
-        const url =
-            this.apiURL + "/api/ausrueckungen/" + ausrueckung.id.toString();
+        const url = this.apiURL + "ausrueckungen/" + ausrueckung.id.toString();
         return this.http.delete<Ausrueckung>(url, httpOptions);
     }
 

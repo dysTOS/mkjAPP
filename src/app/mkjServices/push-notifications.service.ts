@@ -18,12 +18,12 @@ export class PushNotificationsService {
     constructor(private http: HttpClient) {}
 
     public subscribeUser(sub: PushSubscription) {
-        const url = this.apiURL + "/api/pushsub";
+        const url = this.apiURL + "pushsub";
         return this.http.post<any>(url, sub, httpOptions);
     }
 
     public push(): Observable<any> {
-        const url = this.apiURL + "/api/push";
+        const url = this.apiURL + "push";
         return this.http.get<any>(url);
     }
 }
