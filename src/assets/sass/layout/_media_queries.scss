@@ -1,5 +1,11 @@
 @media (min-width: 1025px) {
     .layout-wrapper {
+        .topbar {
+            .topbar-menu {
+                display: none;
+            }
+        }
+
         &.layout-wrapper-menu-active {
             .layout-sidebar {
                 width: 310px;
@@ -49,9 +55,9 @@
                 top: 60px;
                 right: 15px;
                 width: 250px;
-                -webkit-animation-duration: .5s;
-                -moz-animation-duration: .5s;
-                animation-duration: .5s;
+                -webkit-animation-duration: 0.5s;
+                -moz-animation-duration: 0.5s;
+                animation-duration: 0.5s;
                 display: none;
                 background-color: $topbarSubmenuBgColor;
                 list-style-type: none;
@@ -73,7 +79,7 @@
                         color: $textColor;
                         padding: $listItemPadding;
                         position: relative;
-                        @include transition(background-color .3s);
+                        @include transition(background-color 0.3s);
 
                         .topbar-icon {
                             display: inline-block;
@@ -122,7 +128,10 @@
                                 width: 100%;
                                 box-sizing: border-box;
 
-                                span, img, .fa, i {
+                                span,
+                                img,
+                                .fa,
+                                i {
                                     display: inline-block;
                                     vertical-align: middle;
                                 }
@@ -132,7 +141,8 @@
                                     margin-right: 8px;
                                 }
 
-                                .fa, i {
+                                .fa,
+                                i {
                                     margin-right: 8px;
                                 }
                             }
@@ -140,8 +150,6 @@
                     }
 
                     &.active-topmenuitem {
-
-
                         > ul {
                             display: block;
                         }
@@ -263,11 +271,11 @@
         }
 
         .layout-main {
-            margin-left:40px;
+            margin-left: 40px;
         }
 
         .footer {
-            margin-left:40px;
+            margin-left: 40px;
         }
     }
 }

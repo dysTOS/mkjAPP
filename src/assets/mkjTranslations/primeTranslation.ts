@@ -70,7 +70,7 @@ export const MkjPrimeTranslation = {
     ],
     dateFormat: "d. M yy",
     today: "Heute",
-    weekHeader: "Wk",
+    weekHeader: "Woche",
     weak: "Schwach",
     medium: "Mittel",
     strong: "Stark",

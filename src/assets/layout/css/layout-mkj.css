@@ -1433,7 +1433,9 @@ body a {
 .layout-wrapper .topbar .topbar-menu > li > ul a img {
   margin-right: 8px;
 }
-.layout-wrapper .topbar .topbar-menu > li > ul a i, .layout-wrapper .topbar .topbar-menu > li > ul a img, .layout-wrapper .topbar .topbar-menu > li > ul a span {
+.layout-wrapper .topbar .topbar-menu > li > ul a i,
+.layout-wrapper .topbar .topbar-menu > li > ul a img,
+.layout-wrapper .topbar .topbar-menu > li > ul a span {
   vertical-align: middle;
 }
 .layout-wrapper .topbar .topbar-menu > li > ul a .topbar-submenuitem-badge {
@@ -1965,6 +1967,9 @@ body a {
   }
 }
 @media (min-width: 1025px) {
+  .layout-wrapper .topbar .topbar-menu {
+    display: none;
+  }
   .layout-wrapper.layout-wrapper-menu-active .layout-sidebar {
     width: 310px;
   }
@@ -2070,7 +2075,10 @@ body a {
     width: 100%;
     box-sizing: border-box;
   }
-  .layout-wrapper .topbar .topbar-menu > li > ul li a span, .layout-wrapper .topbar .topbar-menu > li > ul li a img, .layout-wrapper .topbar .topbar-menu > li > ul li a .fa, .layout-wrapper .topbar .topbar-menu > li > ul li a i {
+  .layout-wrapper .topbar .topbar-menu > li > ul li a span,
+.layout-wrapper .topbar .topbar-menu > li > ul li a img,
+.layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
+.layout-wrapper .topbar .topbar-menu > li > ul li a i {
     display: inline-block;
     vertical-align: middle;
   }
@@ -2078,7 +2086,8 @@ body a {
     width: 1.28571429em;
     margin-right: 8px;
   }
-  .layout-wrapper .topbar .topbar-menu > li > ul li a .fa, .layout-wrapper .topbar .topbar-menu > li > ul li a i {
+  .layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
+.layout-wrapper .topbar .topbar-menu > li > ul li a i {
     margin-right: 8px;
   }
   .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem > ul {
