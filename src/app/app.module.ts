@@ -189,6 +189,7 @@ import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-gen
 import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notensuche.component";
 import { AuthInterceptor } from "./authentication/auth-interceptor.component";
 import { environment } from "src/environments/environment";
+import { LokaleEinstellungenComponent } from './mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -362,6 +363,7 @@ FullCalendarModule.registerPlugins([
         NotenmappenComponent,
         RechnungsGeneratorComponent,
         MkjNotensucheComponent,
+        LokaleEinstellungenComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

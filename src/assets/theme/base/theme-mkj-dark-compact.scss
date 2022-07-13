@@ -1,0 +1,11 @@
+$primaryColor: #006600;
+$primaryTextColor: #ffffff;
+$accentColor: #ffc107;
+$accentTextColor: #000000;
+
+@import "../../sass/theme/_variables";
+@import "../../sass/theme/_variables_compact";
+@import "../../sass/overrides/theme_variables";
+@import "../../sass/theme/designer/_components";
+@import "../../sass/theme/extensions/_vendor_extensions";
+@import "../../sass/overrides/_theme_styles";

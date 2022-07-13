@@ -1,7 +1,7 @@
 <div
     class="layout-sidebar"
     [ngStyle]="{ overflow: appMain.sidebarActive ? 'hidden' : 'visible' }"
-    [ngClass]="{ 'layout-sidebar-dark': app.darkMenu }"
+    [ngClass]="{ 'layout-sidebar-dark': themeService.darkMode }"
     (click)="appMain.onSidebarClick($event)"
 >
     <div class="layout-tabmenu">
@@ -238,6 +238,12 @@
                                 <a routerLink="/einstellungen/rollen">
                                     <i class="pi pi-check p-mr-2"></i>
                                     <span>Rollen & Rechte</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/einstellungen/lokal">
+                                    <i class="pi pi-check p-mr-2"></i>
+                                    <span>Lokal</span>
                                 </a>
                             </li>
                             <li>

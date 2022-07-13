@@ -1,57 +1,80 @@
 import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
+import { AppComponent } from "../app.component";
 
 @Injectable({
     providedIn: "root",
 })
 export class ThemeService {
+    private themePrefix = environment.filePrefix;
+
+    public compactMode: boolean = false;
+    public darkMode: boolean = false;
+    public layoutMode: string = "static";
+    public inputStyle: string = "outlined";
+
     constructor() {}
 
-    // changeTheme(theme) {
-    //     this.themeColor = theme;
-    //     if (this.app.compactMode) {
-    //         this.changeStyleSheetsColor(
-    //             "theme-css",
-    //             "theme-" + theme + "-compact.css"
-    //         );
-    //     } else {
-    //         this.changeStyleSheetsColor("theme-css", "theme-" + theme + ".css");
-    //     }
-    //     this.changeStyleSheetsColor("layout-css", "layout-" + theme + ".css");
-    // }
+    public changeTheme() {
+        if (this.compactMode && this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-dark-compact.css"
+            );
+        } else if (this.compactMode && !this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-light-compact.css"
+            );
+        } else if (!this.compactMode && this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-dark.css"
+            );
+        } else if (!this.compactMode && !this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-light.css"
+            );
+        }
 
-    // changeStyleSheetsColor(id, value) {
-    //     const element = document.getElementById(id);
-    //     const urlTokens = element.getAttribute("href").split("/");
-    //     urlTokens[urlTokens.length - 1] = value;
+        this.changeStyleSheetsColor(
+            "layout-css",
+            "layout-" + this.themePrefix + ".css"
+        );
+    }
 
-    //     const newURL = urlTokens.join("/");
+    private changeStyleSheetsColor(id: string, value: string) {
+        const element = document.getElementById(id);
+        const urlTokens = element.getAttribute("href").split("/");
+        urlTokens[urlTokens.length - 1] = value;
 
-    //     this.replaceLink(element, newURL);
-    // }
+        const newURL = urlTokens.join("/");
 
-    // isIE() {
-    //     return /(MSIE|Trident\/|Edge\/)/i.test(window.navigator.userAgent);
-    // }
+        element.setAttribute("href", newURL);
+    }
 
-    // replaceLink(linkElement, href) {
-    //     if (this.isIE()) {
-    //         linkElement.setAttribute("href", href);
-    //     } else {
-    //         const id = linkElement.getAttribute("id");
-    //         const cloneLinkElement = linkElement.cloneNode(true);
-
-    //         cloneLinkElement.setAttribute("href", href);
-    //         cloneLinkElement.setAttribute("id", id + "-clone");
-
-    //         linkElement.parentNode.insertBefore(
-    //             cloneLinkElement,
-    //             linkElement.nextSibling
-    //         );
-
-    //         cloneLinkElement.addEventListener("load", () => {
-    //             linkElement.remove();
-    //             cloneLinkElement.setAttribute("id", id);
-    //         });
-    //     }
-    // }
+    public changeThemeStyle(compactMode: boolean) {
+        if (compactMode && this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-dark-compact.css"
+            );
+        } else if (compactMode && !this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-light-compact.css"
+            );
+        } else if (!compactMode && this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-dark.css"
+            );
+        } else if (!compactMode && !this.darkMode) {
+            this.changeStyleSheetsColor(
+                "theme-css",
+                "theme-" + this.themePrefix + "-light.css"
+            );
+        }
+    }
 }

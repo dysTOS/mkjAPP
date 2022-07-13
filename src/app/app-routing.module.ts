@@ -51,6 +51,7 @@ import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
+import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 
 @NgModule({
     imports: [
@@ -108,6 +109,11 @@ import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-gen
                         {
                             path: "einstellungen/rollen",
                             component: RollenEditComponent,
+                            canActivate: [AuthGuardService],
+                        },
+                        {
+                            path: "einstellungen/lokal",
+                            component: LokaleEinstellungenComponent,
                             canActivate: [AuthGuardService],
                         },
 

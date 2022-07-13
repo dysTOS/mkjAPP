@@ -5,6 +5,7 @@ import { AppMainComponent } from "./app.main.component";
 import { MenuLabels } from "./mkjInterfaces/Menu";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
+import { ThemeService } from "./mkjServices/theme.service";
 
 @Component({
     selector: "app-sidebar",
@@ -18,6 +19,7 @@ export class AppSideBarComponent implements OnInit {
     constructor(
         public app: AppComponent,
         public appMain: AppMainComponent,
+        public themeService: ThemeService,
         private authStateService: AuthStateService,
         public userService: UserService
     ) {}

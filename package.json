@@ -8,7 +8,7 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "build-css": "sass src/assets/theme/theme-mkjAPP.scss:src/assets/theme/theme-mkjAPP.css src/assets/layout/css/layout-mkjAPP.scss:src/assets/layout/css/layout-mkjAPP.css"
+        "build-css": "sass src/assets/theme/base/theme-mkj-dark-compact.scss:src/assets/theme/theme-mkj-dark-compact.css src/assets/theme/base/theme-mkj-light-compact.scss:src/assets/theme/theme-mkj-light-compact.css src/assets/theme/base/theme-mkj-dark.scss:src/assets/theme/theme-mkj-dark.css src/assets/theme/base/theme-mkj-light.scss:src/assets/theme/theme-mkj-light.css src/assets/layout/css/base/layout-mkj.scss:src/assets/layout/css/layout-mkj.css"
     },
     "private": true,
     "dependencies": {

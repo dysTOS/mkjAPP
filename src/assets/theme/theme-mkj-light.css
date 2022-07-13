@@ -1,4 +1,3 @@
-@charset "UTF-8";
 :root {
   --surface-a:#ffffff;
   --surface-b:#fafafa;
@@ -8,7 +7,7 @@
   --surface-f:#ffffff;
   --text-color:#000001;
   --text-color-secondary:textSecondaryColor;
-  --primary-color:#2f4050;
+  --primary-color:#f80639;
   --primary-color-text:#ffffff;
   --font-family:Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
@@ -57,13 +56,13 @@
 }
 
 .p-autocomplete .p-autocomplete-loader {
-  right: 0.75rem;
+  right: 1rem;
 }
 .p-autocomplete.p-autocomplete-dd .p-autocomplete-loader {
-  right: 3rem;
+  right: 4rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
 }
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   border-color: #000001;
@@ -72,10 +71,10 @@
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token {
-  padding: 0.375rem 0;
+  padding: 0.5rem 0;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
@@ -85,10 +84,10 @@
   margin: 0;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
   margin-right: 0.5rem;
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
   border-radius: 4px;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token .p-autocomplete-token-icon {
@@ -114,7 +113,7 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
   margin: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 0 none;
   color: #000001;
   background: transparent;
@@ -126,17 +125,17 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
   background: rgba(0, 0, 0, 0.04);
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   background: transparent;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item-group {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
@@ -173,8 +172,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker .p-datepicker-header .p-datepicker-prev,
 .p-datepicker .p-datepicker-header .p-datepicker-next {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -194,7 +193,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: none;
 }
 .p-datepicker .p-datepicker-header .p-datepicker-title {
-  line-height: 2rem;
+  line-height: 2.5rem;
 }
 .p-datepicker .p-datepicker-header .p-datepicker-title select {
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -203,7 +202,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
   margin-right: 0.5rem;
@@ -216,22 +215,22 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   padding: 0.5rem;
 }
 .p-datepicker table th > span {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 .p-datepicker table td {
   padding: 0.5rem;
 }
 .p-datepicker table td > span {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   transition: none;
   border: 1px solid transparent;
 }
 .p-datepicker table td > span.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-datepicker table td > span:focus {
   outline: 0 none;
@@ -244,11 +243,11 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-color: black;
 }
 .p-datepicker table td.p-datepicker-today > span.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-datepicker .p-datepicker-buttonbar {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 .p-datepicker .p-datepicker-buttonbar .p-button {
@@ -259,8 +258,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   padding: 0.5rem;
 }
 .p-datepicker .p-timepicker button {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -298,8 +297,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-radius: 4px;
 }
 .p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
@@ -350,12 +349,12 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-cascadeselect .p-cascadeselect-label {
   background: transparent;
   border: 0 none;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-cascadeselect .p-cascadeselect-label.p-placeholder {
   color: rgba(0, 0, 0, 0.6);
@@ -391,7 +390,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   border-radius: 0;
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content:focus {
   outline: 0 none;
@@ -399,8 +398,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: none;
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled):hover {
   color: #000001;
@@ -443,8 +442,8 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   font-size: 14px;
 }
 .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: #2f4050;
-  background: #2f4050;
+  border-color: #f80639;
+  background: #f80639;
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   border-color: #000001;
@@ -453,11 +452,11 @@ p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-  border-color: #2f4050;
-  background: #2f4050;
+  border-color: #f80639;
+  background: #f80639;
   color: #ffffff;
 }
 
@@ -469,13 +468,13 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   background-color: #f5f5f5;
 }
 .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
-  background: #2f4050;
+  background: #f80639;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
   background-color: #ececec;
 }
 .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-  background: #2f4050;
+  background: #f80639;
 }
 
 .p-checkbox-label {
@@ -483,7 +482,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 
 .p-chips .p-chips-multiple-container {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled):hover {
   border-color: #000001;
@@ -492,20 +491,20 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-chips .p-chips-multiple-container .p-chips-token {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
   margin-right: 0.5rem;
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
   border-radius: 4px;
 }
 .p-chips .p-chips-multiple-container .p-chips-token .p-chips-token-icon {
   margin-left: 0.5rem;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token {
-  padding: 0.375rem 0;
+  padding: 0.5rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
@@ -551,10 +550,10 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-dropdown.p-dropdown-clearable .p-dropdown-label {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-dropdown .p-dropdown-label {
   background: transparent;
@@ -587,7 +586,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .p-dropdown-panel .p-dropdown-header {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   color: #000001;
   background: #ffffff;
@@ -596,10 +595,10 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-top-left-radius: 4px;
 }
 .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-dropdown-panel .p-dropdown-items:not(.p-dropdown-virtualscroll) {
@@ -610,7 +609,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
   margin: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 0 none;
   color: #000001;
   background: transparent;
@@ -618,21 +617,21 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
   border-radius: 0;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
   color: #000001;
   background: rgba(0, 0, 0, 0.04);
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   background: transparent;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
@@ -703,7 +702,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   background: rgba(0, 0, 0, 0.04);
 }
 .p-editor-container .p-editor-toolbar.ql-snow .ql-picker.ql-expanded:not(.ql-icon-picker) .ql-picker-item {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-editor-container .p-editor-content {
   border-bottom-right-radius: 4px;
@@ -733,22 +732,22 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 .p-editor-container .ql-snow.ql-toolbar button.ql-active,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-stroke,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke {
-  stroke: #2f4050;
+  stroke: #f80639;
 }
 .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-fill,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill {
-  fill: #2f4050;
+  fill: #f80639;
 }
 .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-picker-label,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-picker-label,
 .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-picker-label {
-  color: #2f4050;
+  color: #f80639;
 }
 
 .p-inputgroup-addon {
@@ -757,7 +756,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   border-top: 1px solid rgba(0, 0, 0, 0.38);
   border-left: 1px solid rgba(0, 0, 0, 0.38);
   border-bottom: 1px solid rgba(0, 0, 0, 0.38);
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   min-width: 2.357rem;
 }
 .p-inputgroup-addon:last-child {
@@ -810,7 +809,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
   width: auto;
 }
 .p-fluid .p-inputgroup .p-button.p-button-icon-only {
-  width: 2.25rem;
+  width: 3rem;
 }
 
 p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
@@ -851,13 +850,13 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
   background: rgba(0, 0, 0, 0.38);
 }
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-  background: rgba(47, 64, 80, 0.5);
+  background: rgba(248, 6, 57, 0.5);
 }
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
-  background: #2f4050;
+  background: #f80639;
 }
 .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
-  background: rgba(47, 64, 80, 0.5);
+  background: rgba(248, 6, 57, 0.5);
 }
 
 p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
@@ -869,7 +868,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   font-size: 1rem;
   color: #000001;
   background: #ffffff;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid rgba(0, 0, 0, 0.38);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   appearance: none;
@@ -882,22 +881,22 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-inputtext.ng-dirty.ng-invalid {
   border-color: #B00020;
 }
 .p-inputtext.p-inputtext-sm {
   font-size: 0.875rem;
-  padding: 0.65625rem 0.65625rem;
+  padding: 0.875rem 0.875rem;
 }
 .p-inputtext.p-inputtext-lg {
   font-size: 1.25rem;
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 
 .p-float-label > label {
-  left: 0.75rem;
+  left: 1rem;
   color: rgba(0, 0, 0, 0.6);
   transition-duration: 0.2s;
 }
@@ -907,25 +906,25 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-input-icon-left > i:first-of-type {
-  left: 0.75rem;
+  left: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 
 .p-input-icon-left > .p-inputtext {
-  padding-left: 2.5rem;
+  padding-left: 3rem;
 }
 
 .p-input-icon-left.p-float-label > label {
-  left: 2.5rem;
+  left: 3rem;
 }
 
 .p-input-icon-right > i:last-of-type {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 
 .p-input-icon-right > .p-inputtext {
-  padding-right: 2.5rem;
+  padding-right: 3rem;
 }
 
 ::-webkit-input-placeholder {
@@ -956,12 +955,12 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 
 .p-inputtext-sm .p-inputtext {
   font-size: 0.875rem;
-  padding: 0.65625rem 0.65625rem;
+  padding: 0.875rem 0.875rem;
 }
 
 .p-inputtext-lg .p-inputtext {
   font-size: 1.25rem;
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 
 .p-listbox {
@@ -971,7 +970,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   border-radius: 4px;
 }
 .p-listbox .p-listbox-header {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   color: #000001;
   background: #ffffff;
@@ -980,10 +979,10 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   border-top-left-radius: 4px;
 }
 .p-listbox .p-listbox-header .p-listbox-filter {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-listbox .p-listbox-header .p-listbox-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-listbox .p-listbox-header .p-checkbox {
@@ -994,15 +993,15 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 .p-listbox .p-listbox-list .p-listbox-item {
   margin: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 0 none;
   color: #000001;
   transition: none;
   border-radius: 0;
 }
 .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-listbox .p-listbox-list .p-listbox-item:focus {
   outline: 0 none;
@@ -1014,13 +1013,13 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 .p-listbox .p-listbox-list .p-listbox-item-group {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
 }
 .p-listbox .p-listbox-list .p-listbox-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   background: transparent;
 }
@@ -1046,20 +1045,20 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-multiselect .p-multiselect-label {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(0, 0, 0, 0.6);
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
   margin-right: 0.5rem;
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
   border-radius: 4px;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
@@ -1074,7 +1073,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 
 .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
 }
 
 .p-multiselect-panel {
@@ -1085,7 +1084,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 .p-multiselect-panel .p-multiselect-header {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   color: #000001;
   background: #ffffff;
@@ -1094,10 +1093,10 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   border-top-left-radius: 4px;
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-inputtext {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-multiselect-panel .p-multiselect-header .p-checkbox {
@@ -1105,8 +1104,8 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
   margin-left: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -1131,7 +1130,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
   margin: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 0 none;
   color: #000001;
   background: transparent;
@@ -1139,8 +1138,8 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   border-radius: 0;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
   color: #000001;
@@ -1156,13 +1155,13 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item-group {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   background: transparent;
 }
@@ -1186,7 +1185,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
 }
 
 .p-password-panel {
-  padding: 0.75rem;
+  padding: 1rem;
   background: #ffffff;
   color: #000001;
   border: 0 none;
@@ -1195,7 +1194,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
 }
 .p-password-panel .p-password-meter {
   margin-bottom: 0.5rem;
-  background: rgba(47, 64, 80, 0.32);
+  background: rgba(248, 6, 57, 0.32);
 }
 .p-password-panel .p-password-meter .p-password-strength.weak {
   background: #D32F2F;
@@ -1227,22 +1226,22 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
   width: 10px;
   height: 10px;
   transition-duration: 0.2s;
-  background-color: #2f4050;
+  background-color: #f80639;
 }
 .p-radiobutton .p-radiobutton-box.p-highlight {
-  border-color: #2f4050;
+  border-color: #f80639;
   background: #ffffff;
 }
 .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
-  border-color: #2f4050;
+  border-color: #f80639;
   background: #ffffff;
-  color: #2f4050;
+  color: #f80639;
 }
 
 p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
@@ -1267,10 +1266,10 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 }
 
 .p-rating .p-rating-icon {
-  color: #2f4050;
+  color: #f80639;
   margin-left: 0.5rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
-  font-size: 1rem;
+  font-size: 1.143rem;
 }
 .p-rating .p-rating-icon.p-rating-cancel {
   color: #B00020;
@@ -1284,10 +1283,10 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   margin-left: 0;
 }
 .p-rating .p-rating-icon.pi-star {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon.p-rating-cancel:hover {
   color: #B00020;
@@ -1357,7 +1356,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
 .p-slider .p-slider-handle {
   height: 20px;
   width: 20px;
-  background: #2f4050;
+  background: #f80639;
   border: 0 none;
   border-radius: 50%;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -1368,10 +1367,10 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
   box-shadow: none;
 }
 .p-slider .p-slider-range {
-  background: #2f4050;
+  background: #f80639;
 }
 .p-slider:not(.p-disabled) .p-slider-handle:hover {
-  background: #2f4050;
+  background: #f80639;
   border-color: 0 none;
 }
 .p-slider.p-slider-animate.p-slider-horizontal .p-slider-handle {
@@ -1442,17 +1441,17 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-treeselect .p-treeselect-label {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
 .p-treeselect .p-treeselect-label.p-placeholder {
   color: rgba(0, 0, 0, 0.6);
 }
 .p-treeselect.p-treeselect-chip .p-treeselect-token {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   background: rgba(0, 0, 0, 0.12);
   color: #000001;
@@ -1470,7 +1469,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-inputwrapper-filled .p-treeselect.p-treeselect-chip .p-treeselect-label {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
 }
 
 .p-treeselect-panel {
@@ -1484,7 +1483,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 0 none;
 }
 .p-treeselect-panel .p-treeselect-items-wrapper .p-treeselect-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   background: transparent;
 }
@@ -1501,36 +1500,36 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 
 .p-button {
   color: #ffffff;
-  background: #2f4050;
+  background: #f80639;
   border: 0 none;
-  padding: 0.571rem 0.75rem;
+  padding: 0.714rem 1rem;
   font-size: 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
 }
 .p-button:enabled:hover {
-  background: rgba(47, 64, 80, 0.92);
+  background: rgba(248, 6, 57, 0.92);
   color: #ffffff;
   border-color: transparent;
 }
 .p-button:enabled:active {
-  background: rgba(47, 64, 80, 0.68);
+  background: rgba(248, 6, 57, 0.68);
   color: #ffffff;
   border-color: transparent;
 }
 .p-button.p-button-outlined {
   background-color: transparent;
-  color: #2f4050;
+  color: #f80639;
   border: 1px solid;
 }
 .p-button.p-button-outlined:enabled:hover {
-  background: rgba(47, 64, 80, 0.04);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.04);
+  color: #f80639;
   border: 1px solid;
 }
 .p-button.p-button-outlined:enabled:active {
-  background: rgba(47, 64, 80, 0.16);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.16);
+  color: #f80639;
   border: 1px solid;
 }
 .p-button.p-button-outlined.p-button-plain {
@@ -1547,17 +1546,17 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button.p-button-text {
   background-color: transparent;
-  color: #2f4050;
+  color: #f80639;
   border-color: transparent;
 }
 .p-button.p-button-text:enabled:hover {
-  background: rgba(47, 64, 80, 0.04);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.04);
+  color: #f80639;
   border-color: transparent;
 }
 .p-button.p-button-text:enabled:active {
-  background: rgba(47, 64, 80, 0.16);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.16);
+  color: #f80639;
   border-color: transparent;
 }
 .p-button.p-button-text.p-button-plain {
@@ -1593,7 +1592,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
-  color: #2f4050;
+  color: #f80639;
   background-color: #ffffff;
 }
 .p-button.p-button-raised {
@@ -1603,8 +1602,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 2rem;
 }
 .p-button.p-button-icon-only {
-  width: 2.25rem;
-  padding: 0.571rem;
+  width: 3rem;
+  padding: 0.714rem;
 }
 .p-button.p-button-icon-only .p-button-icon-left,
 .p-button.p-button-icon-only .p-button-icon-right {
@@ -1612,18 +1611,18 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button.p-button-icon-only.p-button-rounded {
   border-radius: 50%;
-  height: 2.25rem;
+  height: 3rem;
 }
 .p-button.p-button-sm {
   font-size: 0.875rem;
-  padding: 0.499625rem 0.65625rem;
+  padding: 0.62475rem 0.875rem;
 }
 .p-button.p-button-sm .p-button-icon {
   font-size: 0.875rem;
 }
 .p-button.p-button-lg {
   font-size: 1.25rem;
-  padding: 0.71375rem 0.9375rem;
+  padding: 0.8925rem 1.25rem;
 }
 .p-button.p-button-lg .p-button-icon {
   font-size: 1.25rem;
@@ -1639,7 +1638,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   width: 100%;
 }
 .p-fluid .p-button-icon-only {
-  width: 2.25rem;
+  width: 3rem;
 }
 .p-fluid .p-buttonset {
   display: flex;
@@ -1649,52 +1648,52 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
-  color: #ffffff;
-  background: #1ab394;
+  color: #000000;
+  background: #ffc107;
   border: 0 none;
 }
 .p-button.p-button-secondary:enabled:hover, .p-buttonset.p-button-secondary > .p-button:enabled:hover, .p-splitbutton.p-button-secondary > .p-button:enabled:hover {
-  background: rgba(26, 179, 148, 0.92);
-  color: #ffffff;
+  background: rgba(255, 193, 7, 0.92);
+  color: #000000;
   border-color: transparent;
 }
 .p-button.p-button-secondary:enabled:focus, .p-buttonset.p-button-secondary > .p-button:enabled:focus, .p-splitbutton.p-button-secondary > .p-button:enabled:focus {
   box-shadow: none;
 }
 .p-button.p-button-secondary:enabled:active, .p-buttonset.p-button-secondary > .p-button:enabled:active, .p-splitbutton.p-button-secondary > .p-button:enabled:active {
-  background: rgba(26, 179, 148, 0.68);
-  color: #ffffff;
+  background: rgba(255, 193, 7, 0.68);
+  color: #000000;
   border-color: transparent;
 }
 .p-button.p-button-secondary.p-button-outlined, .p-buttonset.p-button-secondary > .p-button.p-button-outlined, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined {
   background-color: transparent;
-  color: #1ab394;
+  color: #ffc107;
   border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-outlined:enabled:hover, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:hover, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:hover {
-  background: rgba(26, 179, 148, 0.04);
-  color: #1ab394;
+  background: rgba(255, 193, 7, 0.04);
+  color: #ffc107;
   border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-outlined:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:active {
-  background: rgba(26, 179, 148, 0.16);
-  color: #1ab394;
+  background: rgba(255, 193, 7, 0.16);
+  color: #ffc107;
   border: 1px solid;
 }
 .p-button.p-button-secondary.p-button-text, .p-buttonset.p-button-secondary > .p-button.p-button-text, .p-splitbutton.p-button-secondary > .p-button.p-button-text {
   background-color: transparent;
-  color: #1ab394;
+  color: #ffc107;
   border-color: transparent;
 }
 .p-button.p-button-secondary.p-button-text:enabled:hover, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:hover, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:hover {
-  background: rgba(26, 179, 148, 0.04);
+  background: rgba(255, 193, 7, 0.04);
   border-color: transparent;
-  color: #1ab394;
+  color: #ffc107;
 }
 .p-button.p-button-secondary.p-button-text:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:active {
-  background: rgba(26, 179, 148, 0.16);
+  background: rgba(255, 193, 7, 0.16);
   border-color: transparent;
-  color: #1ab394;
+  color: #ffc107;
 }
 
 .p-button.p-button-info, .p-buttonset.p-button-info > .p-button, .p-splitbutton.p-button-info > .p-button {
@@ -1943,13 +1942,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-button.p-button-link {
-  color: #2f4050;
+  color: #f80639;
   background: transparent;
   border: transparent;
 }
 .p-button.p-button-link:enabled:hover {
   background: transparent;
-  color: #2f4050;
+  color: #f80639;
   border-color: transparent;
 }
 .p-button.p-button-link:enabled:hover .p-button-label {
@@ -1962,7 +1961,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button.p-button-link:enabled:active {
   background: transparent;
-  color: #2f4050;
+  color: #f80639;
   border-color: transparent;
 }
 
@@ -1977,11 +1976,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-speeddial-action {
   width: 3rem;
   height: 3rem;
-  background: #1ab394;
+  background: #ffc107;
   color: #fff;
 }
 .p-speeddial-action:hover {
-  background: rgba(26, 179, 148, 0.92);
+  background: rgba(255, 193, 7, 0.92);
   color: #fff;
 }
 
@@ -2032,8 +2031,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 
 .p-carousel .p-carousel-content .p-carousel-prev,
 .p-carousel .p-carousel-content .p-carousel-next {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -2071,8 +2070,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ececec;
 }
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 
 .p-datatable .p-paginator-top {
@@ -2088,7 +2087,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-datatable .p-datatable-footer {
@@ -2096,12 +2095,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-datatable .p-datatable-thead > tr > th {
   text-align: left;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
   font-weight: 500;
@@ -2111,7 +2110,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-datatable .p-datatable-tfoot > tr > td {
   text-align: left;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
   font-weight: 500;
@@ -2127,8 +2126,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   height: 1.143rem;
   min-width: 1.143rem;
   line-height: 1.143rem;
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
   margin-left: 0.5rem;
 }
 .p-datatable .p-sortable-column:not(.p-highlight):hover {
@@ -2166,14 +2165,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   text-align: left;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -2200,21 +2199,21 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-right: 0.5rem;
 }
 .p-datatable .p-datatable-tbody > tr.p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
-  box-shadow: inset 0 2px 0 0 rgba(47, 64, 80, 0.12);
+  box-shadow: inset 0 2px 0 0 rgba(248, 6, 57, 0.12);
 }
 .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
-  box-shadow: inset 0 -2px 0 0 rgba(47, 64, 80, 0.12);
+  box-shadow: inset 0 -2px 0 0 rgba(248, 6, 57, 0.12);
 }
 .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
   background: rgba(0, 0, 0, 0.04);
   color: #000001;
 }
 .p-datatable .p-column-resizer-helper {
-  background: #2f4050;
+  background: #f80639;
 }
 .p-datatable .p-datatable-scrollable-header,
 .p-datatable .p-datatable-scrollable-footer {
@@ -2248,44 +2247,44 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: rgba(0, 0, 0, 0.02);
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight .p-row-toggler {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight .p-row-toggler:hover {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-datatable.p-datatable-sm .p-datatable-header {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-datatable.p-datatable-sm .p-datatable-tbody > tr > td {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-datatable.p-datatable-sm .p-datatable-tfoot > tr > td {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-datatable.p-datatable-sm .p-datatable-footer {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-datatable.p-datatable-lg .p-datatable-header {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-datatable.p-datatable-lg .p-datatable-thead > tr > th {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-datatable.p-datatable-lg .p-datatable-tbody > tr > td {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-datatable.p-datatable-lg .p-datatable-tfoot > tr > td {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-datatable.p-datatable-lg .p-datatable-footer {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 
 .p-dataview .p-paginator-top {
@@ -2301,14 +2300,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-dataview .p-dataview-content {
   background: #ffffff;
   color: #000001;
   border: 0 none;
-  padding: 0.75rem;
+  padding: 1rem 0;
 }
 .p-dataview.p-dataview-list .p-dataview-content > .grid > div {
   border: solid rgba(0, 0, 0, 0.12);
@@ -2319,7 +2318,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -2328,7 +2327,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 2rem;
 }
 .p-dataview .p-dataview-emptymessage {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .p-column-filter-row .p-column-filter-menu-button,
@@ -2337,8 +2336,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-column-filter-menu-button {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -2355,8 +2354,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgba(0, 0, 0, 0.6);
 }
 .p-column-filter-menu-button.p-column-filter-menu-button-active, .p-column-filter-menu-button.p-column-filter-menu-button-active:hover {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-column-filter-menu-button:focus {
   outline: 0 none;
@@ -2365,8 +2364,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-column-filter-clear-button {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -2397,7 +2396,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item {
   margin: 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 0 none;
   color: #000001;
   background: transparent;
@@ -2405,8 +2404,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 0;
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:not(.p-highlight):not(.p-disabled):hover {
   color: #000001;
@@ -2423,7 +2422,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-column-filter-overlay-menu .p-column-filter-operator {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   color: #000001;
   background: #ffffff;
@@ -2432,7 +2431,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top-left-radius: 4px;
 }
 .p-column-filter-overlay-menu .p-column-filter-constraint {
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 .p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-matchmode-dropdown {
@@ -2445,10 +2444,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom: 0 none;
 }
 .p-column-filter-overlay-menu .p-column-filter-add-rule {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-column-filter-overlay-menu .p-column-filter-buttonbar {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .fc {
@@ -2472,9 +2471,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-right: 1px solid #e0e0e0;
 }
 .fc.fc-unthemed .fc-view-container .fc-event {
-  background: rgba(47, 64, 80, 0.12);
-  border: 1px solid rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  border: 1px solid rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .fc.fc-unthemed .fc-view-container .fc-divider {
   background: #ffffff;
@@ -2482,7 +2481,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-unthemed .fc-toolbar .fc-button {
   color: #ffffff;
-  background: #2f4050;
+  background: #f80639;
   border: 0 none;
   font-size: 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -2491,12 +2490,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   align-items: center;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button:enabled:hover {
-  background: rgba(47, 64, 80, 0.92);
+  background: rgba(248, 6, 57, 0.92);
   color: #ffffff;
   border-color: transparent;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button:enabled:active {
-  background: rgba(47, 64, 80, 0.68);
+  background: rgba(248, 6, 57, 0.68);
   color: #ffffff;
   border-color: transparent;
 }
@@ -2511,7 +2510,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1rem;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-left:before {
-  content: "";
+  content: "\e900";
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-right {
   font-family: "PrimeIcons" !important;
@@ -2519,7 +2518,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1rem;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button .fc-icon-chevron-right:before {
-  content: "";
+  content: "\e901";
 }
 .fc.fc-unthemed .fc-toolbar .fc-button:focus {
   outline: 0 none;
@@ -2585,7 +2584,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-header {
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
   background: #ffffff;
   color: #000001;
 }
@@ -2597,8 +2596,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   overflow: hidden;
   font-family: "PrimeIcons" !important;
   font-size: 1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -2606,7 +2605,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-header .fc-popover-close:before {
-  content: "";
+  content: "\e90b";
 }
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-header .fc-popover-close:enabled:hover {
   color: rgba(0, 0, 0, 0.6);
@@ -2619,23 +2618,23 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-body {
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid #e0e0e0;
   background: #ffffff;
   color: #000001;
   border-top: 0 none;
 }
 .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-block-event {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
-  border-color: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
+  border-color: rgba(248, 6, 57, 0.12);
 }
 .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-block-event .fc-event-main {
-  color: #2f4050;
+  color: #f80639;
 }
 .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-dot-event .fc-daygrid-event-dot {
-  background: rgba(47, 64, 80, 0.12);
-  border-color: rgba(47, 64, 80, 0.12);
+  background: rgba(248, 6, 57, 0.12);
+  border-color: rgba(248, 6, 57, 0.12);
 }
 .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-dot-event:hover {
   background: rgba(0, 0, 0, 0.04);
@@ -2646,19 +2645,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button {
   color: #ffffff;
-  background: #2f4050;
+  background: #f80639;
   border: 0 none;
   font-size: 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:hover {
-  background: rgba(47, 64, 80, 0.92);
+  background: rgba(248, 6, 57, 0.92);
   color: #ffffff;
   border-color: transparent;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:active {
-  background: rgba(47, 64, 80, 0.68);
+  background: rgba(248, 6, 57, 0.68);
   color: #ffffff;
   border-color: transparent;
 }
@@ -2670,7 +2669,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .fc.fc-theme-standard .fc-toolbar .fc-button:disabled {
   opacity: 0.38;
   color: #ffffff;
-  background: #2f4050;
+  background: #f80639;
   border: 0 none;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-left {
@@ -2679,7 +2678,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1rem;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-left:before {
-  content: "";
+  content: "\e900";
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-right {
   font-family: "PrimeIcons" !important;
@@ -2687,7 +2686,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1rem;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button .fc-icon-chevron-right:before {
-  content: "";
+  content: "\e901";
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:focus {
   outline: 0 none;
@@ -2737,7 +2736,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-orderlist .p-orderlist-controls {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-orderlist .p-orderlist-controls .p-button {
   margin-bottom: 0.5rem;
@@ -2746,7 +2745,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ffffff;
   color: #000001;
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 0 none;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -2755,16 +2754,16 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-weight: 500;
 }
 .p-orderlist .p-orderlist-filter-container {
-  padding: 0.75rem;
+  padding: 1rem;
   background: #ffffff;
   border: 1px solid #e0e0e0;
   border-bottom: 0 none;
 }
 .p-orderlist .p-orderlist-filter-container .p-orderlist-filter-input {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-orderlist .p-orderlist-filter-container .p-orderlist-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-orderlist .p-orderlist-list {
@@ -2776,7 +2775,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom-left-radius: 4px;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   margin: 0;
   border: 0 none;
   color: #000001;
@@ -2789,11 +2788,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-orderlist .p-orderlist-list .p-orderlist-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
 }
 .p-orderlist .p-orderlist-list:not(.cdk-drop-list-dragging) .p-orderlist-item:not(.p-highlight):hover {
@@ -2802,7 +2801,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-orderlist-item.cdk-drag-preview {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   border: 0 none;
   color: #000001;
@@ -2815,11 +2814,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
 }
 .p-organizationchart .p-organizationchart-node-content.p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-organizationchart .p-organizationchart-node-content.p-highlight .p-node-toggler i {
-  color: rgba(0, 0, 0, 0.12);
+  color: rgba(124, 3, 28, 0.12);
 }
 .p-organizationchart .p-organizationchart-line-down {
   background: rgba(0, 0, 0, 0.12);
@@ -2836,7 +2835,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 1px solid #e0e0e0;
   background: #ffffff;
   color: #000001;
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-organizationchart .p-organizationchart-node-content .p-node-toggler {
   background: inherit;
@@ -2854,7 +2853,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: solid #e4e4e4;
   border-width: 0;
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
 }
 .p-paginator .p-paginator-first,
@@ -2914,9 +2913,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 50%;
 }
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  border-color: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  border-color: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
   background: rgba(0, 0, 0, 0.04);
@@ -2925,7 +2924,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-picklist .p-picklist-buttons {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-picklist .p-picklist-buttons .p-button {
   margin-bottom: 0.5rem;
@@ -2934,7 +2933,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ffffff;
   color: #000001;
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
   border-bottom: 0 none;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -2943,16 +2942,16 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-weight: 500;
 }
 .p-picklist .p-picklist-filter-container {
-  padding: 0.75rem;
+  padding: 1rem;
   background: #ffffff;
   border: 1px solid #e0e0e0;
   border-bottom: 0 none;
 }
 .p-picklist .p-picklist-filter-container .p-picklist-filter-input {
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-picklist .p-picklist-filter-container .p-picklist-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-picklist .p-picklist-list {
@@ -2964,7 +2963,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom-left-radius: 4px;
 }
 .p-picklist .p-picklist-list .p-picklist-item {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   margin: 0;
   border: 0 none;
   color: #000001;
@@ -2977,11 +2976,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-picklist .p-picklist-list .p-picklist-empty-message {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
 }
 .p-picklist .p-picklist-list:not(.cdk-drop-list-dragging) .p-picklist-item:not(.p-highlight):hover {
@@ -2990,7 +2989,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-picklist-item.cdk-drag-preview {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   border: 0 none;
   color: #000001;
@@ -3027,7 +3026,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border: 1px solid #e0e0e0;
   background: #ffffff;
   color: #000001;
-  padding: 0.75rem;
+  padding: 1rem;
   border-radius: 4px;
 }
 .p-tree .p-tree-container .p-treenode {
@@ -3036,12 +3035,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-tree .p-tree-container .p-treenode .p-treenode-content {
   border-radius: 4px;
   transition: none;
-  padding: 0.571rem;
+  padding: 0.75rem;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
   margin-right: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -3074,16 +3073,16 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover,
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-treenode-icon:hover {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
   background: rgba(0, 0, 0, 0.04);
@@ -3098,10 +3097,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tree .p-tree-filter-container .p-tree-filter {
   width: 100%;
-  padding-right: 1.75rem;
+  padding-right: 2rem;
 }
 .p-tree .p-tree-filter-container .p-tree-filter-icon {
-  right: 0.75rem;
+  right: 1rem;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-tree .p-treenode-children {
@@ -3111,22 +3110,22 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 2rem;
 }
 .p-tree .p-treenode-droppoint.p-treenode-droppoint-active {
-  background-color: rgba(38, 51, 64, 0.12);
+  background-color: rgba(198, 5, 46, 0.12);
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content {
   border-radius: 4px;
   border: 1px solid #e0e0e0;
   background-color: #ffffff;
   color: #000001;
-  padding: 0.571rem;
+  padding: 0.75rem;
   transition: none;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight {
-  background-color: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background-color: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content .p-tree-toggler {
   margin-right: 0.5rem;
@@ -3165,7 +3164,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-treetable .p-treetable-footer {
@@ -3173,12 +3172,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-treetable .p-treetable-thead > tr > th {
   text-align: left;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
   font-weight: 500;
@@ -3188,7 +3187,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-treetable .p-treetable-tfoot > tr > td {
   text-align: left;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
   font-weight: 500;
@@ -3207,8 +3206,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   height: 1.143rem;
   min-width: 1.143rem;
   line-height: 1.143rem;
-  color: #2f4050;
-  background: rgba(47, 64, 80, 0.12);
+  color: #f80639;
+  background: rgba(248, 6, 57, 0.12);
   margin-left: 0.5rem;
 }
 .p-treetable .p-sortable-column:not(.p-highlight):hover {
@@ -3235,11 +3234,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   text-align: left;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -3264,14 +3263,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight .p-treetable-toggler {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight .p-treetable-toggler:hover {
-  color: #2f4050;
+  color: #f80639;
 }
 .p-treetable.p-treetable-hoverable-rows .p-treetable-tbody > tr:not(.p-highlight):hover {
   background: rgba(0, 0, 0, 0.04);
@@ -3281,7 +3280,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
 }
 .p-treetable .p-column-resizer-helper {
-  background: #2f4050;
+  background: #f80639;
 }
 .p-treetable .p-treetable-scrollable-header,
 .p-treetable .p-treetable-scrollable-footer {
@@ -3312,34 +3311,34 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-width: 1px;
 }
 .p-treetable.p-treetable-sm .p-treetable-header {
-  padding: 0.65625rem 0.65625rem;
+  padding: 0.875rem 0.875rem;
 }
 .p-treetable.p-treetable-sm .p-treetable-thead > tr > th {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-treetable.p-treetable-sm .p-treetable-tbody > tr > td {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-treetable.p-treetable-sm .p-treetable-tfoot > tr > td {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-treetable.p-treetable-sm .p-treetable-footer {
-  padding: 0.375rem 0.375rem;
+  padding: 0.5rem 0.5rem;
 }
 .p-treetable.p-treetable-lg .p-treetable-header {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-treetable.p-treetable-lg .p-treetable-thead > tr > th {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-treetable.p-treetable-lg .p-treetable-tbody > tr > td {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-treetable.p-treetable-lg .p-treetable-tfoot > tr > td {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 .p-treetable.p-treetable-lg .p-treetable-footer {
-  padding: 0.9375rem 0.9375rem;
+  padding: 1.25rem 1.25rem;
 }
 
 .p-virtualscroller .p-virtualscroller-header {
@@ -3347,28 +3346,28 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
 }
 .p-virtualscroller .p-virtualscroller-content {
   background: #ffffff;
   color: #000001;
   border: 0 none;
-  padding: 0.75rem;
+  padding: 1rem 0;
 }
 .p-virtualscroller .p-virtualscroller-footer {
   background: #ffffff;
   color: #000001;
   border: 1px solid #e4e4e4;
   border-width: 0 0 1px 0;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   font-weight: 500;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
 .p-accordion .p-accordion-header .p-accordion-header-link {
-  padding: 1.25rem;
+  padding: 1.5rem;
   border: 0 none;
   color: #000001;
   background: #ffffff;
@@ -3402,7 +3401,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
 }
 .p-accordion .p-accordion-content {
-  padding: 0.75rem 1.25rem;
+  padding: 1rem 1.5rem;
   border: 0 none;
   background: #ffffff;
   color: #000001;
@@ -3447,7 +3446,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 4px;
 }
 .p-card .p-card-body {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-card .p-card-title {
   font-size: 1.5rem;
@@ -3460,10 +3459,10 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgba(0, 0, 0, 0.6);
 }
 .p-card .p-card-content {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
 }
 .p-card .p-card-footer {
-  padding: 0.75rem 0 0 0;
+  padding: 1rem 0 0 0;
 }
 
 .p-divider .p-divider-content {
@@ -3497,7 +3496,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 4px;
 }
 .p-fieldset .p-fieldset-legend {
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid #e0e0e0;
   color: #000001;
   background: #ffffff;
@@ -3509,7 +3508,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a {
-  padding: 0.75rem;
+  padding: 1rem;
   color: #000001;
   border-radius: 4px;
   transition: none;
@@ -3528,12 +3527,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #000001;
 }
 .p-fieldset .p-fieldset-content {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .p-panel .p-panel-header {
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
   background: #ffffff;
   color: #000001;
   border-top-right-radius: 4px;
@@ -3543,8 +3542,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-weight: 500;
 }
 .p-panel .p-panel-header .p-panel-header-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -3565,7 +3564,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 0.5rem 1rem;
 }
 .p-panel .p-panel-content {
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid #e0e0e0;
   background: #ffffff;
   color: #000001;
@@ -3574,7 +3573,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-top: 0 none;
 }
 .p-panel .p-panel-footer {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   border: 1px solid #e0e0e0;
   background: #ffffff;
   color: #000001;
@@ -3617,7 +3616,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: transparent transparent transparent transparent;
   background: #ffffff;
   color: rgba(0, 0, 0, 0.6);
-  padding: 0.75rem 1.25rem;
+  padding: 1rem 1.5rem;
   font-weight: 500;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -3630,14 +3629,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-  background: rgba(47, 64, 80, 0.04);
+  background: rgba(248, 6, 57, 0.04);
   border-color: transparent;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background: #ffffff;
   border-color: transparent;
-  color: #2f4050;
+  color: #f80639;
 }
 .p-tabview .p-tabview-left-icon {
   margin-right: 0.5rem;
@@ -3650,7 +3649,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-tabview .p-tabview-panels {
   background: #ffffff;
-  padding: 0.75rem;
+  padding: 1rem;
   border: 0 none;
   color: #000001;
   border-bottom-right-radius: 4px;
@@ -3660,7 +3659,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-toolbar {
   background: #ffffff;
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
   border-radius: 4px;
 }
 .p-toolbar .p-toolbar-separator {
@@ -3675,11 +3674,11 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 .p-confirm-popup .p-confirm-popup-content {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-confirm-popup .p-confirm-popup-footer {
   text-align: right;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-confirm-popup .p-confirm-popup-footer button {
   margin: 0 0.5rem 0 0;
@@ -3720,7 +3719,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom: 0 none;
   background: #ffffff;
   color: #000001;
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
@@ -3729,8 +3728,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 1.25rem;
 }
 .p-dialog .p-dialog-header .p-dialog-header-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -3754,13 +3753,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-dialog .p-dialog-content {
   background: #ffffff;
   color: #000001;
-  padding: 0 1.25rem 1.25rem 1.25rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 }
 .p-dialog .p-dialog-footer {
   border-top: 0 none;
   background: #ffffff;
   color: #000001;
-  padding: 0.75rem 1.25rem;
+  padding: 1rem 1.5rem;
   text-align: right;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -3788,21 +3787,21 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 .p-overlaypanel .p-overlaypanel-content {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-overlaypanel .p-overlaypanel-close {
-  background: #2f4050;
+  background: #f80639;
   color: #ffffff;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   border-radius: 50%;
   position: absolute;
-  top: -1rem;
-  right: -1rem;
+  top: -1.25rem;
+  right: -1.25rem;
 }
 .p-overlaypanel .p-overlaypanel-close:enabled:hover {
-  background: rgba(47, 64, 80, 0.92);
+  background: rgba(248, 6, 57, 0.92);
   color: #ffffff;
 }
 .p-overlaypanel:after {
@@ -3829,12 +3828,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 .p-sidebar .p-sidebar-header {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-sidebar .p-sidebar-header .p-sidebar-close,
 .p-sidebar .p-sidebar-header .p-sidebar-icon {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   color: rgba(0, 0, 0, 0.6);
   border: 0 none;
   background: transparent;
@@ -3857,7 +3856,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding-top: 0;
 }
 .p-sidebar .p-sidebar-content {
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .p-sidebar-mask.p-component-overlay {
@@ -3886,7 +3885,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 
 .p-fileupload .p-fileupload-buttonbar {
   background: #ffffff;
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid #e0e0e0;
   color: #000001;
   border-bottom: 0 none;
@@ -3913,19 +3912,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   height: 4px;
 }
 .p-fileupload .p-fileupload-row > div {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
 }
 .p-fileupload.p-fileupload-advanced .p-message {
   margin-top: 0;
 }
 
 .p-fileupload-choose:not(.p-disabled):hover {
-  background: rgba(47, 64, 80, 0.92);
+  background: rgba(248, 6, 57, 0.92);
   color: #ffffff;
   border-color: transparent;
 }
 .p-fileupload-choose:not(.p-disabled):active {
-  background: rgba(47, 64, 80, 0.68);
+  background: rgba(248, 6, 57, 0.68);
   color: #ffffff;
   border-color: transparent;
 }
@@ -3934,7 +3933,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ffffff;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-breadcrumb ul li .p-menuitem-link {
   transition: none;
@@ -3971,7 +3970,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   width: 12.5rem;
 }
 .p-contextmenu .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4074,14 +4073,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-megamenu {
-  padding: 0.75rem;
+  padding: 1rem;
   background: transparent;
   color: #000001;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
 }
 .p-megamenu .p-megamenu-root-list > .p-menuitem > .p-menuitem-link {
-  padding: 0.75rem;
+  padding: 1rem;
   color: #000001;
   border-radius: 4px;
   transition: none;
@@ -4132,7 +4131,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgba(0, 0, 0, 0.6);
 }
 .p-megamenu .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4173,7 +4172,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-megamenu .p-megamenu-submenu-header {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
@@ -4223,7 +4222,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   width: 12.5rem;
 }
 .p-menu .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4263,7 +4262,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-menu .p-submenu-header {
   margin: 0;
-  padding: 0.75rem;
+  padding: 1rem;
   color: rgba(0, 0, 0, 0.6);
   background: #ffffff;
   font-weight: 400;
@@ -4282,14 +4281,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-menubar {
-  padding: 0.75rem;
+  padding: 1rem;
   background: transparent;
   color: #000001;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
 }
 .p-menubar .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4323,7 +4322,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
-  padding: 0.75rem;
+  padding: 1rem;
   color: #000001;
   border-radius: 4px;
   transition: none;
@@ -4409,8 +4408,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   }
   .p-menubar .p-menubar-button {
     display: flex;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     color: rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
@@ -4445,7 +4444,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     position: static;
   }
   .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
-    padding: 0.75rem 0.75rem;
+    padding: 1rem 1rem;
     color: #000001;
     border-radius: 0;
     transition: none;
@@ -4503,19 +4502,19 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
     position: static;
   }
   .p-menubar .p-menubar-root-list ul li a {
-    padding-left: 2.25rem;
+    padding-left: 3rem;
   }
   .p-menubar .p-menubar-root-list ul li ul li a {
-    padding-left: 3.75rem;
+    padding-left: 5rem;
   }
   .p-menubar .p-menubar-root-list ul li ul li ul li a {
-    padding-left: 5.25rem;
+    padding-left: 7rem;
   }
   .p-menubar .p-menubar-root-list ul li ul li ul li ul li a {
-    padding-left: 6.75rem;
+    padding-left: 9rem;
   }
   .p-menubar .p-menubar-root-list ul li ul li ul li ul li ul li a {
-    padding-left: 8.25rem;
+    padding-left: 11rem;
   }
   .p-menubar.p-menubar-mobile-active .p-menubar-root-list {
     display: flex;
@@ -4526,7 +4525,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   }
 }
 .p-panelmenu .p-panelmenu-header > a {
-  padding: 1.25rem;
+  padding: 1.5rem;
   border: 0 none;
   color: #000001;
   background: #ffffff;
@@ -4578,7 +4577,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom-left-radius: 4px;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4654,7 +4653,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   width: 12.5rem;
 }
 .p-slidemenu .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4715,7 +4714,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   font-size: 0.875rem;
 }
 .p-slidemenu .p-slidemenu-backward {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
 }
 
@@ -4746,8 +4745,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-steps .p-steps-item.p-highlight .p-steps-title {
   font-weight: 500;
@@ -4778,7 +4777,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: transparent transparent transparent transparent;
   background: #ffffff;
   color: rgba(0, 0, 0, 0.6);
-  padding: 0.75rem 1.25rem;
+  padding: 1rem 1.5rem;
   font-weight: 500;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -4794,14 +4793,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link {
-  background: rgba(47, 64, 80, 0.04);
+  background: rgba(248, 6, 57, 0.04);
   border-color: transparent;
   color: rgba(0, 0, 0, 0.6);
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   background: #ffffff;
   border-color: transparent;
-  color: #2f4050;
+  color: #f80639;
 }
 
 .p-tieredmenu {
@@ -4813,7 +4812,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   width: 12.5rem;
 }
 .p-tieredmenu .p-menuitem-link {
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 1rem;
   color: #000001;
   border-radius: 0;
   transition: none;
@@ -4933,15 +4932,15 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-message {
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   border-radius: 4px;
 }
 .p-message .p-message-wrapper {
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.5rem;
 }
 .p-message .p-message-close {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: transparent;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
@@ -5026,7 +5025,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-radius: 4px;
 }
 .p-toast .p-toast-message .p-toast-message-content {
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-width: 0 0 0 0;
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
@@ -5149,8 +5148,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ececec;
 }
 .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-galleria.p-galleria-indicators-bottom .p-galleria-indicator, .p-galleria.p-galleria-indicators-top .p-galleria-indicator {
   margin-right: 0.5rem;
@@ -5168,8 +5167,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: rgba(255, 255, 255, 0.6);
 }
 .p-galleria.p-galleria-indicator-onitem .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: rgba(47, 64, 80, 0.12);
-  color: #2f4050;
+  background: rgba(248, 6, 57, 0.12);
+  color: #f80639;
 }
 .p-galleria .p-galleria-thumbnail-container {
   background: rgba(0, 0, 0, 0.9);
@@ -5226,7 +5225,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-badge {
-  background: #2f4050;
+  background: #f80639;
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -5235,8 +5234,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   line-height: 1.5rem;
 }
 .p-badge.p-badge-secondary {
-  background-color: #1ab394;
-  color: #ffffff;
+  background-color: #ffc107;
+  color: #000000;
 }
 .p-badge.p-badge-success {
   background-color: #689F38;
@@ -5275,12 +5274,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background-color: rgba(0, 0, 0, 0.12);
   color: #000001;
   border-radius: 16px;
-  padding: 0 0.75rem;
+  padding: 0 1rem;
 }
 .p-chip .p-chip-text {
   line-height: 1.5;
-  margin-top: 0.375rem;
-  margin-bottom: 0.375rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .p-chip .p-chip-icon {
   margin-right: 0.5rem;
@@ -5289,9 +5288,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-left: 0.5rem;
 }
 .p-chip img {
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-left: -0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: -1rem;
   margin-right: 0.5rem;
 }
 .p-chip .pi-chip-remove-icon {
@@ -5322,13 +5321,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-progressbar {
   border: 0 none;
   height: 4px;
-  background: rgba(47, 64, 80, 0.32);
+  background: rgba(248, 6, 57, 0.32);
   border-radius: 4px;
 }
 .p-progressbar .p-progressbar-value {
   border: 0 none;
   margin: 0;
-  background: #2f4050;
+  background: #f80639;
 }
 .p-progressbar .p-progressbar-label {
   color: #000001;
@@ -5343,14 +5342,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .p-scrolltop.p-link {
-  background: #1ab394;
+  background: #ffc107;
 }
 .p-scrolltop.p-link:hover {
-  background: rgba(26, 179, 148, 0.92);
+  background: rgba(255, 193, 7, 0.92);
 }
 .p-scrolltop .p-scrolltop-icon {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #000000;
 }
 
 .p-skeleton {
@@ -5362,7 +5361,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-tag {
-  background: #2f4050;
+  background: #f80639;
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -5394,7 +5393,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #ffffff;
   color: #000001;
   border: 1px solid #e0e0e0;
-  padding: 0.75rem;
+  padding: 1rem;
 }
 .p-terminal .p-terminal-input {
   font-size: 1rem;
@@ -5441,7 +5440,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled).p-focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-input-filled .p-autocomplete .p-autocomplete-multiple-container {
@@ -5449,7 +5448,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -5461,7 +5460,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-input-filled .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled).p-focus, .p-input-filled .p-autocomplete .p-autocomplete-multiple-container:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -5520,22 +5519,22 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
   min-width: auto;
 }
 .p-button:enabled:focus {
-  background: rgba(47, 64, 80, 0.76);
+  background: rgba(248, 6, 57, 0.76);
 }
 .p-button:enabled:active {
-  background: rgba(47, 64, 80, 0.68);
+  background: rgba(248, 6, 57, 0.68);
 }
 .p-button .p-ink {
   background-color: rgba(255, 255, 255, 0.32);
 }
 .p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
-  background: rgba(47, 64, 80, 0.12);
+  background: rgba(248, 6, 57, 0.12);
 }
 .p-button.p-button-text:enabled:active, .p-button.p-button-outlined:enabled:active {
-  background: rgba(47, 64, 80, 0.16);
+  background: rgba(248, 6, 57, 0.16);
 }
 .p-button.p-button-text .p-ink, .p-button.p-button-outlined .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 .p-button:disabled {
   background-color: rgba(0, 0, 0, 0.12) !important;
@@ -5556,19 +5555,19 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 }
 
 .p-button.p-button-secondary:enabled:focus, .p-buttonset.p-button-secondary > .p-button:enabled:focus, .p-splitbutton.p-button-secondary > .p-button:enabled:focus {
-  background: rgba(26, 179, 148, 0.76);
+  background: rgba(255, 193, 7, 0.76);
 }
 .p-button.p-button-secondary:enabled:active, .p-buttonset.p-button-secondary > .p-button:enabled:active, .p-splitbutton.p-button-secondary > .p-button:enabled:active {
-  background: rgba(26, 179, 148, 0.68);
+  background: rgba(255, 193, 7, 0.68);
 }
 .p-button.p-button-secondary.p-button-text:enabled:focus, .p-button.p-button-secondary.p-button-outlined:enabled:focus, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:focus, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:focus, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:focus, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:focus {
-  background: rgba(26, 179, 148, 0.12);
+  background: rgba(255, 193, 7, 0.12);
 }
 .p-button.p-button-secondary.p-button-text:enabled:active, .p-button.p-button-secondary.p-button-outlined:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-text:enabled:active, .p-buttonset.p-button-secondary > .p-button.p-button-outlined:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-text:enabled:active, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined:enabled:active {
-  background: rgba(26, 179, 148, 0.16);
+  background: rgba(255, 193, 7, 0.16);
 }
 .p-button.p-button-secondary.p-button-text .p-ink, .p-button.p-button-secondary.p-button-outlined .p-ink, .p-buttonset.p-button-secondary > .p-button.p-button-text .p-ink, .p-buttonset.p-button-secondary > .p-button.p-button-outlined .p-ink, .p-splitbutton.p-button-secondary > .p-button.p-button-text .p-ink, .p-splitbutton.p-button-secondary > .p-button.p-button-outlined .p-ink {
-  background-color: rgba(26, 179, 148, 0.16);
+  background-color: rgba(255, 193, 7, 0.16);
 }
 
 .p-button.p-button-info:enabled:focus, .p-buttonset.p-button-info > .p-button:enabled:focus, .p-splitbutton.p-button-info > .p-button:enabled:focus {
@@ -5682,8 +5681,8 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
   border-color: #000001;
 }
 .p-calendar-w-btn:not(.p-disabled).p-focus {
-  border-color: #2f4050;
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  border-color: #f80639;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-datepicker .p-datepicker-header {
@@ -5709,7 +5708,7 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.38);
 }
 .p-datepicker table td.p-datepicker-today.p-highlight {
-  box-shadow: 0 0 0 1px rgba(47, 64, 80, 0.12);
+  box-shadow: 0 0 0 1px rgba(248, 6, 57, 0.12);
 }
 
 p-calendar.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
@@ -5730,7 +5729,7 @@ p-calendar.ng-dirty.ng-invalid .p-calendar-w-btn:not(.p-disabled).p-focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -5742,7 +5741,7 @@ p-calendar.ng-dirty.ng-invalid .p-calendar-w-btn:not(.p-disabled).p-focus {
 .p-input-filled .p-calendar-w-btn:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-calendar-w-btn:not(.p-disabled).p-focus, .p-input-filled .p-calendar-w-btn:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -5786,11 +5785,11 @@ p-calendar.ng-dirty.ng-invalid .p-calendar-w-btn:not(.p-disabled).p-focus {
   border: 0 none;
 }
 .p-cascadeselect:not(.p-disabled).p-focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-cascadeselect-item .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 
 .p-input-filled .p-cascadeselect {
@@ -5798,7 +5797,7 @@ p-calendar.ng-dirty.ng-invalid .p-calendar-w-btn:not(.p-disabled).p-focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -5810,7 +5809,7 @@ p-calendar.ng-dirty.ng-invalid .p-calendar-w-btn:not(.p-disabled).p-focus {
 .p-input-filled .p-cascadeselect:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-cascadeselect:not(.p-disabled).p-focus, .p-input-filled .p-cascadeselect:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -5839,8 +5838,8 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
 }
 
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-  background: #1ab394;
-  color: #ffffff;
+  background: #ffc107;
+  color: #000000;
 }
 
 .p-checkbox {
@@ -5859,7 +5858,7 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
   border-color: #757575;
 }
 .p-checkbox .p-checkbox-box.p-highlight:not(.p-disabled).p-focus {
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon.pi-check:before {
   content: "";
@@ -5879,10 +5878,10 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
   box-shadow: 0 0 1px 10px rgba(0, 0, 0, 0.12);
 }
 .p-checkbox.p-checkbox-checked:not(.p-checkbox-disabled):hover {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.04);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.04);
 }
 .p-checkbox.p-checkbox-checked:not(.p-checkbox-disabled).p-checkbox-focused {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.12);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.12);
 }
 
 .p-input-filled .p-checkbox .p-checkbox-box {
@@ -5912,7 +5911,7 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
   }
 }
 .p-chips .p-chips-multiple-container:not(.p-disabled).p-focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-input-filled .p-chips-multiple-container {
@@ -5920,7 +5919,7 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -5932,7 +5931,7 @@ p-cascadeselect.ng-dirty.ng-invalid .p-cascadeselect:not(.p-disabled).p-focus {
 .p-input-filled .p-chips-multiple-container:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-chips-multiple-container:not(.p-disabled).p-focus, .p-input-filled .p-chips-multiple-container:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -5993,11 +5992,11 @@ p-chips.ng-dirty.ng-invalid .p-chips .p-chips-multiple-container:not(.p-disabled
   border: 0 none;
 }
 .p-dropdown:not(.p-disabled).p-focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-dropdown-item .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 
 .p-input-filled .p-dropdown {
@@ -6005,7 +6004,7 @@ p-chips.ng-dirty.ng-invalid .p-chips .p-chips-multiple-container:not(.p-disabled
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -6017,7 +6016,7 @@ p-chips.ng-dirty.ng-invalid .p-chips .p-chips-multiple-container:not(.p-disabled
 .p-input-filled .p-dropdown:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-dropdown:not(.p-disabled).p-focus, .p-input-filled .p-dropdown:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -6049,16 +6048,16 @@ p-dropdown.ng-dirty.ng-invalid .p-dropdown:not(.p-disabled).p-focus {
   padding: 1rem;
 }
 .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: #1ab394;
-  color: #ffffff;
+  background: #ffc107;
+  color: #000000;
 }
 .p-galleria.p-galleria-indicator-onitem .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: rgba(26, 179, 148, 0.68);
-  color: #ffffff;
+  background: rgba(255, 193, 7, 0.68);
+  color: #000000;
 }
 
 .p-inputtext:enabled:focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 .p-inputtext:enabled:focus.ng-invalid.ng-dirty {
   box-shadow: inset 0 0 0 1px #B00020, inset 0 0 0 1px #B00020, inset 0 0 0 1px #B00020, inset 0 0 0 1px #B00020;
@@ -6069,7 +6068,7 @@ p-dropdown.ng-dirty.ng-invalid .p-dropdown:not(.p-disabled).p-focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -6077,7 +6076,7 @@ p-dropdown.ng-dirty.ng-invalid .p-dropdown:not(.p-disabled).p-focus {
 .p-input-filled .p-inputtext:enabled:hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-inputtext:enabled:focus {
   box-shadow: none;
@@ -6099,7 +6098,7 @@ p-dropdown.ng-dirty.ng-invalid .p-dropdown:not(.p-disabled).p-focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -6161,10 +6160,10 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
   box-shadow: 0 0 1px 10px rgba(0, 0, 0, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider:before {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.04), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.04), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 .p-inputswitch.p-inputswitch-checked.p-inputswitch-focus .p-inputswitch-slider:before, .p-inputswitch.p-inputswitch-checked.p-inputswitch-focus:not(.p-disabled):hover .p-inputswitch-slider:before {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.12), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
 .p-fieldset .p-fieldset-legend {
@@ -6190,12 +6189,12 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
 
 .p-float-label input:focus ~ label,
 .p-float-label .p-inputwrapper-focus ~ label {
-  color: #2f4050;
+  color: #f80639;
 }
 
 .p-input-filled .p-float-label .p-inputtext {
-  padding-top: 1.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
 }
 .p-input-filled .p-float-label input:focus ~ label,
 .p-input-filled .p-float-label input.p-filled ~ label,
@@ -6209,7 +6208,7 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
 }
 
 .p-listbox-item .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 
 .p-multiselect .p-multiselect-label, .p-multiselect .p-multiselect-trigger {
@@ -6220,11 +6219,11 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
   border: 0 none;
 }
 .p-multiselect:not(.p-disabled).p-focus {
-  box-shadow: inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050, inset 0 0 0 1px #2f4050;
+  box-shadow: inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639, inset 0 0 0 1px #f80639;
 }
 
 .p-multiselect-item .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 
 .p-input-filled .p-multiselect {
@@ -6232,7 +6231,7 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
   border-bottom-right-radius: 0;
   border: 1px solid transparent;
   background: #f5f5f5 no-repeat;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38));
   background-size: 0 2px, 100% 1px;
   background-position: 50% 100%, 50% 100%;
   background-origin: border-box;
@@ -6244,7 +6243,7 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
 .p-input-filled .p-multiselect:not(.p-disabled):hover {
   background-color: #ececec;
   border-color: transparent;
-  background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #000001, #000001);
+  background-image: linear-gradient(to bottom, #f80639, #f80639), linear-gradient(to bottom, #000001, #000001);
 }
 .p-input-filled .p-multiselect:not(.p-disabled).p-focus, .p-input-filled .p-multiselect:not(.p-disabled).p-inputwrapper-focus {
   box-shadow: none;
@@ -6268,12 +6267,12 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
 }
 
 .p-input-filled .p-float-label .p-multiselect .p-multiselect-label {
-  padding-top: 1.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
 }
 .p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect .p-multiselect-label {
-  padding-top: 1.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
 }
 .p-input-filled .p-float-label .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding-top: 0;
@@ -6369,7 +6368,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border: 2px solid #757575;
 }
 .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled).p-focus {
-  border-color: #2f4050;
+  border-color: #f80639;
 }
 .p-radiobutton:not(.p-radiobutton-disabled):hover {
   box-shadow: 0 0 1px 10px rgba(0, 0, 0, 0.04);
@@ -6378,10 +6377,10 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   box-shadow: 0 0 1px 10px rgba(0, 0, 0, 0.12);
 }
 .p-radiobutton.p-radiobutton-checked:not(.p-radiobutton-disabled):hover {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.04);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.04);
 }
 .p-radiobutton.p-radiobutton-checked:not(.p-radiobutton-disabled).p-radiobutton-focused {
-  box-shadow: 0 0 1px 10px rgba(47, 64, 80, 0.12);
+  box-shadow: 0 0 1px 10px rgba(248, 6, 57, 0.12);
 }
 
 .p-input-filled .p-radiobutton .p-radiobutton-box {
@@ -6405,7 +6404,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   transform: scale(0.7);
 }
 .p-slider .p-slider-handle:focus {
-  box-shadow: 0 0 1px 10px rgba(26, 179, 148, 0.2);
+  box-shadow: 0 0 1px 10px rgba(255, 193, 7, 0.2);
 }
 .p-slider.p-slider-sliding .p-slider-handle {
   transform: scale(1);
@@ -6450,7 +6449,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   padding-left: 0.5rem;
 }
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-  background-color: #2f4050;
+  background-color: #f80639;
   color: #ffffff;
 }
 .p-steps .p-steps-item.p-highlight .p-steps-title {
@@ -6469,10 +6468,10 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border-radius: 0;
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link > .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link:focus {
-  background-color: rgba(47, 64, 80, 0.12);
+  background-color: rgba(248, 6, 57, 0.12);
 }
 .p-tabview .p-tabview-nav .p-tabview-ink-bar {
   z-index: 1;
@@ -6480,7 +6479,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #2f4050;
+  background-color: #f80639;
   transition: 500ms cubic-bezier(0.35, 0, 0.25, 1);
 }
 
@@ -6517,17 +6516,17 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border-radius: 0;
 }
 .p-tabmenu .p-tabmenu-nav li .p-menuitem-link > .p-ink {
-  background-color: rgba(47, 64, 80, 0.16);
+  background-color: rgba(248, 6, 57, 0.16);
 }
 .p-tabmenu .p-tabmenu-nav li .p-menuitem-link:focus {
-  background-color: rgba(47, 64, 80, 0.12);
+  background-color: rgba(248, 6, 57, 0.12);
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenu-ink-bar {
   display: block;
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #2f4050;
+  background-color: #f80639;
   transition: 500ms cubic-bezier(0.35, 0, 0.25, 1);
 }
 
@@ -6548,3 +6547,5 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
 }
 
 /* Add your customizations of theme here */
+
+/*# sourceMappingURL=theme-mkj-light.css.map */

@@ -18,11 +18,11 @@ export class ServiceWorkerService {
     ) {
         // Allow the app to stabilize first, before starting
         // polling for updates with `interval()`.
-        const appIsStable$ = appRef.isStable.pipe(
-            first((isStable) => isStable === true)
-        );
+        // const appIsStable$ = appRef.isStable.pipe(
+        //     first((isStable) => isStable === true)
+        // );
 
-        appIsStable$.subscribe(() => swUpdate.checkForUpdate());
+        // appIsStable$.subscribe(() => swUpdate.checkForUpdate());
 
         this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_DETECTED") {

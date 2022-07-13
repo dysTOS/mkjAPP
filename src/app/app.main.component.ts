@@ -7,10 +7,11 @@ import {
     OnInit,
     OnDestroy,
 } from "@angular/core";
-import { PrimeNGConfig, MessageService } from "primeng/api";
 import { AppComponent } from "./app.component";
 import { first } from "rxjs";
 import { ServiceWorkerService } from "./mkjServices/service-worker.service";
+import { ThemeService } from "./mkjServices/theme.service";
+import { PrimeNGConfig } from "primeng/api";
 
 @Component({
     selector: "app-main",
@@ -37,6 +38,7 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(
         public renderer: Renderer2,
+        public themeService: ThemeService,
         private primengConfig: PrimeNGConfig,
         public app: AppComponent,
         private route: ActivatedRoute,
@@ -140,7 +142,7 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     get overlay(): boolean {
-        return this.app.layoutMode === "overlay";
+        return this.themeService.layoutMode === "overlay";
     }
 
     isDesktop() {
