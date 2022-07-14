@@ -1,26 +1,26 @@
 {
-  "short_name": "mkjAPP",
-  "name": "mkjAPP: Vereinsverwaltung",
-  "icons": [
-    {
-      "src": "/assets/mkjICONS/Favicon_Square/android-icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/assets/mkjICONS/LOGO_APP_512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "/",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "scope": "/",
-  "theme_color": "#006600",
+    "short_name": "mkjAPP",
+    "name": "mkjAPP: Vereinsverwaltung",
+    "icons": [
+        {
+            "src": "/assets/mkjICONS/Favicon_Square/android-icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/assets/mkjICONS/LOGO_APP_512x512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable any"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#006600",
 
-  "description": "Vereinsverwaltung Musikkapelle Jainzen",
-  "screenshots": [
-
-  ]
+    "description": "Vereinsverwaltung Musikkapelle Jainzen",
+    "screenshots": []
 }

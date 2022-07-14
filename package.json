@@ -30,7 +30,7 @@
         "@mdi/font": "^6.6.96",
         "chart.js": "^3.3.2",
         "file-saver": "^2.0.5",
-        "ics": "^2.35.0",
+        "ics": "^2.37.0",
         "jspdf": "^2.4.0",
         "jspdf-autotable": "^3.5.23",
         "moment": "^2.29.1",

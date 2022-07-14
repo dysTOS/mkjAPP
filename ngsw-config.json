@@ -26,5 +26,27 @@
                 ]
             }
         }
+    ],
+    "dataGroups": [
+        {
+            "name": "api-perform",
+            "urls": ["/ausrueckungen"],
+            "cacheConfig": {
+                "strategy": "performance",
+                "maxSize": 100,
+                "maxAge": "3d",
+                "timeout": "10s"
+            }
+        },
+        {
+            "name": "api-fresh",
+            "urls": ["/noten/archiv"],
+            "cacheConfig": {
+                "strategy": "freshness",
+                "maxSize": 100,
+                "maxAge": "3d",
+                "timeout": "10s"
+            }
+        }
     ]
 }
