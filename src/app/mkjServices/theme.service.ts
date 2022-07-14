@@ -37,11 +37,6 @@ export class ThemeService {
                 "theme-" + this.themePrefix + "-light.css"
             );
         }
-
-        this.changeStyleSheetsColor(
-            "layout-css",
-            "layout-" + this.themePrefix + ".css"
-        );
     }
 
     private changeStyleSheetsColor(id: string, value: string) {
@@ -52,29 +47,5 @@ export class ThemeService {
         const newURL = urlTokens.join("/");
 
         element.setAttribute("href", newURL);
-    }
-
-    public changeThemeStyle(compactMode: boolean) {
-        if (compactMode && this.darkMode) {
-            this.changeStyleSheetsColor(
-                "theme-css",
-                "theme-" + this.themePrefix + "-dark-compact.css"
-            );
-        } else if (compactMode && !this.darkMode) {
-            this.changeStyleSheetsColor(
-                "theme-css",
-                "theme-" + this.themePrefix + "-light-compact.css"
-            );
-        } else if (!compactMode && this.darkMode) {
-            this.changeStyleSheetsColor(
-                "theme-css",
-                "theme-" + this.themePrefix + "-dark.css"
-            );
-        } else if (!compactMode && !this.darkMode) {
-            this.changeStyleSheetsColor(
-                "theme-css",
-                "theme-" + this.themePrefix + "-light.css"
-            );
-        }
     }
 }

@@ -9,7 +9,7 @@
         "server": "http-server -p 8080 -c-1 dist/mkjAPP --proxy http://localhost:8081/",
         "test": "ng test",
         "lint": "ng lint",
-        "build-css": "sass src/assets/theme/base/theme-mkj-dark-compact.scss:src/assets/theme/theme-mkj-dark-compact.css src/assets/theme/base/theme-mkj-light-compact.scss:src/assets/theme/theme-mkj-light-compact.css src/assets/theme/base/theme-mkj-dark.scss:src/assets/theme/theme-mkj-dark.css src/assets/theme/base/theme-mkj-light.scss:src/assets/theme/theme-mkj-light.css src/assets/layout/css/base/layout-mkj.scss:src/assets/layout/css/layout-mkj.css"
+        "build-css": "sass src/assets/theme/base/theme-mkj-dark-compact.scss:src/assets/theme/theme-mkj-dark-compact.css src/assets/theme/base/theme-mkj-light-compact.scss:src/assets/theme/theme-mkj-light-compact.css src/assets/theme/base/theme-mkj-dark.scss:src/assets/theme/theme-mkj-dark.css src/assets/theme/base/theme-mkj-light.scss:src/assets/theme/theme-mkj-light.css"
     },
     "private": true,
     "dependencies": {

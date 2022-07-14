@@ -6,7 +6,7 @@
                 name="darkMenu"
                 [value]="true"
                 [(ngModel)]="themeService.darkMode"
-                (onClick)="changeTheme()"
+                (onClick)="themeService.changeTheme()"
                 inputId="darkMenu1"
             ></p-radioButton>
             <label for="darkMenu1">Dark</label>
@@ -16,7 +16,7 @@
                 name="darkMenu"
                 [value]="false"
                 [(ngModel)]="themeService.darkMode"
-                (onClick)="changeTheme()"
+                (onClick)="themeService.changeTheme()"
                 inputId="darkMenu2"
             ></p-radioButton>
             <label for="darkMenu2">Light</label>
@@ -48,7 +48,7 @@
                 [value]="true"
                 [(ngModel)]="themeService.compactMode"
                 inputId="compactMode1"
-                (onClick)="changeThemeStyle(true)"
+                (onClick)="themeService.changeTheme()"
             ></p-radioButton>
             <label for="compactMode1">Kompakt</label>
         </div>
@@ -58,7 +58,7 @@
                 [value]="false"
                 [(ngModel)]="themeService.compactMode"
                 inputId="compactMode2"
-                (onClick)="changeThemeStyle(false)"
+                (onClick)="themeService.changeTheme()"
             ></p-radioButton>
             <label for="compactMode2">Standart</label>
         </div>

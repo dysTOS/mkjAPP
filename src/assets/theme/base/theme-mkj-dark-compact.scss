@@ -1,11 +1,20 @@
 $primaryColor: #006600;
-$primaryTextColor: #ffffff;
-$accentColor: #ffc107;
+$primaryLightColor: #66bb6a;
+$primaryTextColor: #e8f5e9;
+$primaryTextHoverColor: #ffffff;
+$accentColor: #fbc02d;
+$accentLightColor: #fff9c4;
 $accentTextColor: #000000;
+$activeMenuItemTextColor: #388e3c;
+$darkActiveMenuItemTextColor: #4caf50;
+$darkMenuItemTextColor: #dee0e3;
+$darkMenuItemInactiveTextColor: #757575;
+$darkMenuItemHoverBgColor: #545454;
+$darkSidemenuBgColor: #343434;
+$darkMenuBgColor: #424242;
 
 @import "../../sass/theme/_variables";
 @import "../../sass/theme/_variables_compact";
-@import "../../sass/overrides/theme_variables";
 @import "../../sass/theme/designer/_components";
 @import "../../sass/theme/extensions/_vendor_extensions";
-@import "../../sass/overrides/_theme_styles";
+@import "../../sass/layout/layout";

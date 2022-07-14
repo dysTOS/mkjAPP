@@ -11,12 +11,4 @@ export class LokaleEinstellungenComponent implements OnInit {
     constructor(public themeService: ThemeService) {}
 
     ngOnInit(): void {}
-
-    public changeTheme() {
-        this.themeService.changeTheme();
-    }
-
-    public changeThemeStyle(compactMode: boolean) {
-        this.themeService.changeThemeStyle(compactMode);
-    }
 }
