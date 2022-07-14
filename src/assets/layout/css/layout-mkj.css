@@ -1990,6 +1990,12 @@ body a {
   }
 }
 @media (max-width: 1024px) {
+  .layout-wrapper .layout-sidebar {
+    display: none;
+  }
+  .layout-wrapper .layout-main {
+    margin-left: 0;
+  }
   .layout-wrapper .topbar #topbar-menu-button {
     display: block;
   }
@@ -2326,7 +2332,7 @@ body a {
 }
 
 .splash-screen {
-  background: #1F796D;
+  background: #006600;
   width: 100%;
   height: 100%;
   position: fixed;

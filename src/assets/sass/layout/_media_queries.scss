@@ -41,6 +41,13 @@
 
 @media (max-width: 1024px) {
     .layout-wrapper {
+        .layout-sidebar {
+            display: none;
+        }
+        .layout-main {
+            margin-left: 0;
+        }
+
         .topbar {
             #topbar-menu-button {
                 display: block;

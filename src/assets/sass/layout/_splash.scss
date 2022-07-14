@@ -1,5 +1,5 @@
 .splash-screen {
-    background: #1F796D;
+    background: #006600;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -22,7 +22,7 @@
         }
 
         &:after {
-            content: '';
+            content: "";
             background: transparent;
             width: 140%;
             height: 140%;
@@ -38,10 +38,10 @@
 }
 
 @keyframes rotate {
- 0% {
-   transform: rotateZ(0deg);
- }
- 100% {
-   transform: rotateZ(360deg);
-  }
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
 }

@@ -213,6 +213,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                         {
                             path: "",
                             redirectTo: "dashboard",
+                            pathMatch: "full",
                         },
                     ],
                 },
