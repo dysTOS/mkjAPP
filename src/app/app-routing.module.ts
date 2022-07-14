@@ -62,7 +62,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                     component: AppMainComponent,
                     children: [
                         {
-                            path: "",
+                            path: "dashboard",
                             component: MkjDashboardComponent,
                             canActivate: [AuthGuardService],
                         },
@@ -210,6 +210,10 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                             path: "documentation",
                             component: DocumentationComponent,
                         },
+                        {
+                            path: "",
+                            redirectTo: "dashboard",
+                        },
                     ],
                 },
                 { path: "error", component: AppErrorComponent },
@@ -217,6 +221,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                 { path: "notfound", component: AppNotfoundComponent },
                 { path: "signup", component: SignupComponent },
                 { path: "login", component: LoginComponent },
+
                 { path: "**", redirectTo: "/notfound" },
             ],
             { scrollPositionRestoration: "enabled" }

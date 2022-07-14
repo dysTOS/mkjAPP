@@ -37,7 +37,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
                     }"
                 >
                     <a
-                        routerLink=""
+                        routerLink="/dashboard"
                         (click)="
                             appMain.onTopbarItemClick(
                                 $event,

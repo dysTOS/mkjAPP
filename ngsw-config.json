@@ -30,7 +30,7 @@
     "dataGroups": [
         {
             "name": "api-perform",
-            "urls": ["/ausrueckungen"],
+            "urls": ["/noten/archiv"],
             "cacheConfig": {
                 "strategy": "performance",
                 "maxSize": 100,
@@ -40,7 +40,7 @@
         },
         {
             "name": "api-fresh",
-            "urls": ["/noten/archiv"],
+            "urls": ["/ausrueckungen"],
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxSize": 100,
