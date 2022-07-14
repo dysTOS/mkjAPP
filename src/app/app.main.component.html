@@ -8,6 +8,14 @@
     }"
 >
     <div style="z-index: 10000"><p-toast></p-toast></div>
+    <p-confirmDialog
+        header="Bestätigen"
+        icon="pi pi-exclamation-triangle"
+        [style]="{ width: '425px' }"
+        acceptButtonStyleClass="p-button-text"
+        rejectButtonStyleClass="p-button-text"
+    ></p-confirmDialog>
+
     <app-topbar></app-topbar>
     <app-sidebar></app-sidebar>
 
@@ -16,7 +24,8 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-    <app-config></app-config>
+
+    <!-- <app-config></app-config> -->
 
     <!-- <app-footer></app-footer> -->
 </div>

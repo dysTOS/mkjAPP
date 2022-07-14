@@ -47,6 +47,16 @@
                 "maxAge": "3d",
                 "timeout": "10s"
             }
+        },
+        {
+            "name": "api-staleWhileRevalidate",
+            "urls": ["/noten/mappen"],
+            "cacheConfig": {
+                "strategy": "freshness",
+                "maxSize": 100,
+                "maxAge": "3d",
+                "timeout": "0u"
+            }
         }
     ]
 }

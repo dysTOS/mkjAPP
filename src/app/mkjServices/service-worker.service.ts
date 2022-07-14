@@ -4,6 +4,7 @@ import { InfoService } from "./info.service";
 import { PushNotificationsService } from "./push-notifications.service";
 import { first } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ConfirmationService } from "primeng/api";
 
 @Injectable({
     providedIn: "root",
@@ -14,6 +15,7 @@ export class ServiceWorkerService {
         private swUpdate: SwUpdate,
         private swPush: SwPush,
         private pushNotiService: PushNotificationsService,
+        private confirmationService: ConfirmationService,
         private infoService: InfoService
     ) {
         // Allow the app to stabilize first, before starting
@@ -26,16 +28,27 @@ export class ServiceWorkerService {
 
         this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_DETECTED") {
-                if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
-                    setTimeout(
-                        () => this.infoService.info("Update erfolgreich!"),
-                        2000
-                    );
-                    this.swUpdate
-                        .activateUpdate()
-                        .then((res) => window.location.reload())
-                        .catch((err) => console.log(err));
-                }
+                this.confirmationService.confirm({
+                    header: "UPDATE",
+                    message: "Kann die APP kurz neu geladen werden?",
+                    icon: "pi pi-exclamation-triangle",
+                    accept: () => {
+                        this.swUpdate
+                            .activateUpdate()
+                            .then((res) => window.location.reload())
+                            .catch((err) => console.log(err));
+                    },
+                });
+                // if (confirm("UPDATE! Die mkjAPP wird kurz neu geladen...")) {
+                //     setTimeout(
+                //         () => this.infoService.info("Update erfolgreich!"),
+                //         2000
+                //     );
+                //     this.swUpdate
+                //         .activateUpdate()
+                //         .then((res) => window.location.reload())
+                //         .catch((err) => console.log(err));
+                // }
             }
         });
 
