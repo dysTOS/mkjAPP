@@ -166,7 +166,7 @@
                     ><div class="p-col-12 p-d-flex p-jc-center">
                         <app-mkj-notensuche
                             [(selectedNoten)]="selectedNoten"
-                            (onSelect)="attachNoten($event)"
+                            (notenSelect)="attachNoten($event.noten)"
                         ></app-mkj-notensuche></div
                 ></ng-template>
                 <ng-template pTemplate="body" let-noten>

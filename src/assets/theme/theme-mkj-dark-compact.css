@@ -12,7 +12,6 @@
   --font-family:Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 
-/* Add your variable customizations of theme here */
 * {
   box-sizing: border-box;
 }
@@ -6546,10 +6545,8 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border-color: #d9d8d9;
 }
 
-/* Add your customizations of theme here */
 /* Layout */
 /* Topbar */
-/* Add your variable customizations of layout here */
 /* roboto-regular - latin-ext_latin */
 @font-face {
   font-family: "Roboto";
@@ -8717,10 +8714,10 @@ body a {
     width: 290px;
   }
   .layout-wrapper .layout-main {
-    margin-left: 40px;
+    margin-left: 0;
   }
   .layout-wrapper .footer {
-    margin-left: 40px;
+    margin-left: 0;
   }
 }
 .layout-tabmenu-content .inbox-tab {
@@ -9665,7 +9662,5 @@ p:last-child {
   display: inline-block;
   border-radius: 3px;
 }
-
-/* Add your customizations of layout here */
 
 /*# sourceMappingURL=theme-mkj-dark-compact.css.map */
