@@ -60,6 +60,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                 {
                     path: "",
                     component: AppMainComponent,
+                    canActivate: [AuthGuardService],
                     children: [
                         {
                             path: "dashboard",

@@ -41,7 +41,6 @@ export class ServiceWorkerService {
                 });
             }
         });
-
         this.swPush
             .requestSubscription({
                 serverPublicKey: environment.vapidPublicKey,

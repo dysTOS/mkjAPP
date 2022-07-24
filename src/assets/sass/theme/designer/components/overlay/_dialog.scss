@@ -19,10 +19,10 @@
         .p-dialog-header-icon {
             @include action-icon();
             margin-right: $inlineSpacing;
-            
+
             &:last-child {
                 margin-right: 0;
-            }            
+            }
         }
     }
 
@@ -33,8 +33,8 @@
     }
 
     .p-dialog-footer {
-        border-top:  $dialogFooterBorder;
-        background: $overlayContentBg;
+        border-top: $dialogFooterBorder;
+        background: $dialogHeaderBg;
         color: $panelFooterTextColor;
         padding: $dialogFooterPadding;
         text-align: right;

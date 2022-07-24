@@ -1,3 +1,5 @@
+import { MenuItem } from "primeng/api";
+
 export const MenuLabels = {
     //with sidemenu <= 4
     PRIMEMENU: 0,

@@ -9,7 +9,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
     template: `
         <div class="topbar clearfix">
             <div class="logo">
-                <a href="#">
+                <a href="">
                     <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
                 </a>
             </div>
@@ -20,7 +20,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
 
             <a
                 id="topbar-menu-button"
-                href="#"
+                href=""
                 (click)="appMain.onTopbarMenuButtonClick($event)"
             >
                 <i class="pi pi-bars"></i>
@@ -47,7 +47,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-home"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Dashboard</span>
                     </a>
                 </li>
@@ -68,7 +67,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-calendar"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Ausrückungen</span>
                     </a>
                 </li>
@@ -89,7 +87,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-users"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Mitglieder</span>
                     </a>
                 </li>
@@ -100,7 +97,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
                     }"
                 >
                     <a
-                        href="#"
+                        href=""
                         (click)="
                             appMain.onTopbarItemClick(
                                 $event,
@@ -110,7 +107,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon mdi mdi-music"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Noten</span>
                     </a>
                     <ul class="fadeInDown">
@@ -143,7 +139,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
                     }"
                 >
                     <a
-                        href="#"
+                        href=""
                         (click)="
                             appMain.onTopbarItemClick(
                                 $event,
@@ -153,7 +149,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon mdi mdi-tools"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Tools</span>
                     </a>
                     <ul class="fadeInDown">
@@ -175,7 +170,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
                     }"
                 >
                     <a
-                        href="#"
+                        href=""
                         (click)="
                             appMain.onTopbarItemClick(
                                 $event,
@@ -185,7 +180,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-fw pi-cog"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Einstellungen</span>
                     </a>
                     <ul class="fadeInDown">
@@ -205,8 +199,21 @@ import { AuthStateService } from "./authentication/auth-state.service";
                                 routerLink="/einstellungen/rollen"
                                 (click)="appMain.onTopbarSubItemClick($event)"
                             >
-                                <i class="pi pi-check"></i>
+                                <i
+                                    class="mdi mdi-account-lock-open-outline"
+                                ></i>
                                 <span>Rollen & Rechte</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="fadeInDown">
+                        <li role="menuitem">
+                            <a
+                                routerLink="/einstellungen/lokal"
+                                (click)="appMain.onTopbarSubItemClick($event)"
+                            >
+                                <i class="mdi mdi-cellphone-cog"></i>
+                                <span>Lokal</span>
                             </a>
                         </li>
                     </ul>
@@ -238,7 +245,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-sign-out"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Logout</span>
                     </a>
                 </li>
@@ -260,7 +266,6 @@ import { AuthStateService } from "./authentication/auth-state.service";
                         "
                     >
                         <i class="topbar-icon pi pi-pencil"></i>
-                        <!-- <span class="topbar-badge">4</span> -->
                         <span class="topbar-item-name">Test</span>
                     </a>
                 </li>

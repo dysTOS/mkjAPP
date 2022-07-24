@@ -124,4 +124,15 @@ export class UserService {
         this.currentMitglied.next(null);
         this.currentPermissions.next(null);
     }
+
+    public checkFetchInitialData() {
+        if (!this.isSet()) {
+            this.authService.getCurrentUser().subscribe((result) => {
+                this.setCurrentUser(result.user),
+                    this.setCurrentMitglied(result.mitglied),
+                    this.setCurrentUserRoles(result.roles),
+                    this.setCurrentUserPermissions(result.permissions);
+            });
+        }
+    }
 }
