@@ -124,7 +124,7 @@
             </li>
         </ul>
 
-        <ul *ngIf="isDevEnvironment" class="layout-tabmenu-nav">
+        <ul *visibleFor="['create role']" class="layout-tabmenu-nav">
             <li
                 [ngClass]="{
                     'active-item': appMain.activeTabIndex === MenuLabels.TEST
