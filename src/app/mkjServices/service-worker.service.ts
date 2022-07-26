@@ -1,8 +1,8 @@
 import { ApplicationRef, Injectable } from "@angular/core";
-import { SwUpdate, SwPush } from "@angular/service-worker";
+import { SwUpdate, SwPush, VersionEvent } from "@angular/service-worker";
 import { InfoService } from "./info.service";
 import { PushNotificationsService } from "./push-notifications.service";
-import { first } from "rxjs";
+import { BehaviorSubject, first, Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ConfirmationService } from "primeng/api";
 
@@ -10,6 +10,12 @@ import { ConfirmationService } from "primeng/api";
     providedIn: "root",
 })
 export class ServiceWorkerService {
+    private updateSub$: Subscription;
+    private pushSub$: Subscription;
+
+    private lastVersionEvent: VersionEvent;
+    private lastPushSub: PushSubscription;
+
     constructor(
         private appRef: ApplicationRef,
         private swUpdate: SwUpdate,
@@ -18,15 +24,7 @@ export class ServiceWorkerService {
         private confirmationService: ConfirmationService,
         private infoService: InfoService
     ) {
-        // Allow the app to stabilize first, before starting
-        // polling for updates with `interval()`.
-        // const appIsStable$ = appRef.isStable.pipe(
-        //     first((isStable) => isStable === true)
-        // );
-
-        // appIsStable$.subscribe(() => swUpdate.checkForUpdate());
-
-        this.swUpdate.versionUpdates.subscribe((update) => {
+        this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_DETECTED") {
                 this.confirmationService.confirm({
                     header: "UPDATE verfügbar!",
@@ -41,24 +39,43 @@ export class ServiceWorkerService {
                 });
             }
         });
+
+        this.pushSub$ = this.swPush.subscription.subscribe({
+            next: (pushSub) => {
+                if (pushSub === null) {
+                    this.requestPushSubscription();
+                } else {
+                    this.lastPushSub = pushSub;
+                }
+            },
+        });
+
+        this.swPush.messages.subscribe({
+            next: (res) => {
+                this.infoService.pushNotification(res);
+                console.log(res);
+            },
+            error: (err) => this.infoService.error(err),
+        });
+    }
+
+    private requestPushSubscription() {
         this.swPush
             .requestSubscription({
                 serverPublicKey: environment.vapidPublicKey,
             })
-            .then((sub) => {
-                console.log("Push subscription: ", sub);
-                this.pushNotiService.subscribeUser(sub).subscribe(
-                    (res) => console.log(res),
+            .then((pushSub) => {
+                console.log("Push subscription: ", pushSub);
+                this.pushNotiService.subscribeUser(pushSub).subscribe(
+                    (res) =>
+                        this.infoService.success(
+                            "Push Benachrichtigungen abonniert!"
+                        ),
                     (err) => console.log(err)
                 );
             })
             .catch((err) =>
                 console.error("Could not subscribe to notifications", err)
             );
-
-        this.swPush.messages.subscribe({
-            next: (res) => console.log(res),
-            error: (err) => console.log(err),
-        });
     }
 }

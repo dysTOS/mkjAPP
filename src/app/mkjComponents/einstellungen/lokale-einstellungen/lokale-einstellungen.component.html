@@ -27,6 +27,7 @@
                 name="menuMode"
                 value="static"
                 [(ngModel)]="themeService.layoutMode"
+                (onClick)="themeService.changeTheme()"
                 inputId="mode1"
             ></p-radioButton>
             <label for="mode1">Statisch</label>
@@ -36,6 +37,7 @@
                 name="menuMode"
                 value="overlay"
                 [(ngModel)]="themeService.layoutMode"
+                (onClick)="themeService.changeTheme()"
                 inputId="mode2"
             ></p-radioButton>
             <label for="mode2">Overlay</label>
@@ -70,6 +72,7 @@
                     name="inputStyle"
                     value="outlined"
                     [(ngModel)]="themeService.inputStyle"
+                    (onClick)="themeService.changeTheme()"
                     inputId="inputStyle1"
                 ></p-radioButton>
                 <label for="inputStyle1">Rand</label>
@@ -79,6 +82,7 @@
                     name="inputStyle"
                     value="filled"
                     [(ngModel)]="themeService.inputStyle"
+                    (onClick)="themeService.changeTheme()"
                     inputId="inputStyle2"
                 ></p-radioButton>
                 <label for="inputStyle2">Gefüllt</label>

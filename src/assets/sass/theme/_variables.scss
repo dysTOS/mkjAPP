@@ -601,7 +601,7 @@ $dialogFooterBorder: 0 none;
 $dialogFooterPadding: 1rem 1.5rem;
 
 //tooltip
-$tooltipBg: rgba(97, 97, 97, 0.9);
+$tooltipBg: var(--surface-700);
 $tooltipTextColor: $textSecondaryColor;
 $tooltipPadding: 0.5rem;
 

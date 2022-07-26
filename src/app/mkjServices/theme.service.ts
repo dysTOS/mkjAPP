@@ -1,7 +1,6 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
-import { AppComponent } from "../app.component";
 
 @Injectable({
     providedIn: "root",
@@ -33,9 +32,8 @@ export class ThemeService {
             if (this.checkIfUserPrefersDarkMode()) {
                 this.darkMode = true;
                 this.changeTheme();
-            } else {
-                this.writeLocalSettings();
             }
+            this.writeLocalSettings();
         }
         this.themeStable$.next(false);
     }
