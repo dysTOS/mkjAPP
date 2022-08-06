@@ -53,6 +53,11 @@
                 font-weight: bold;
             }
 
+            a {
+                user-select: none;
+                cursor: pointer;
+            }
+
             > li {
                 float: right;
                 position: relative;
@@ -62,8 +67,7 @@
                 > a {
                     position: relative;
                     display: block;
-                    user-select: none;
-                    cursor: pointer;
+
                     color: $primaryTextColor;
 
                     .topbar-icon {

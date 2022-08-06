@@ -5,9 +5,10 @@
     (click)="appMain.onSidebarClick($event)"
 >
     <div class="layout-tabmenu">
-        <ng-container *ngFor="let menuItem of menuService.MainMenu">
-            <ul *ngIf="menuItem.visible" class="layout-tabmenu-nav">
+        <ul class="layout-tabmenu-nav">
+            <ng-container *ngFor="let menuItem of menuService.MainMenu">
                 <li
+                    *ngIf="menuItem.visible"
                     [ngClass]="{
                         'active-item':
                             appMain.activeTabIndex === menuItem.enumLabel
@@ -26,8 +27,8 @@
                         ><i [class]="menuItem.icon"></i
                     ></a>
                 </li>
-            </ul>
-        </ng-container>
+            </ng-container>
+        </ul>
 
         <!-- TABMENU CONTENTS ------------------------------------------------------------------------------------------------------------------>
 
@@ -52,22 +53,26 @@
                     <app-sidebarTabContent>
                         <div class="menu-scroll-content">
                             <ul class="navigation-menu">
-                                <li *ngFor="let childItem of menuItem.children">
-                                    <a
-                                        [routerLink]="childItem.routerLink"
-                                        [routerLinkActive]="
-                                            'menu-active-child-menu-item'
-                                        "
-                                        (click)="
-                                            childItem.command
-                                                ? childItem.command()
-                                                : null
-                                        "
-                                    >
-                                        <i [class]="childItem.icon"></i>
-                                        <span>{{ childItem.label }}</span>
-                                    </a>
-                                </li>
+                                <ng-container
+                                    *ngFor="let childItem of menuItem.children"
+                                >
+                                    <li *ngIf="childItem.visible">
+                                        <a
+                                            [routerLink]="childItem.routerLink"
+                                            [routerLinkActive]="
+                                                'menu-active-child-menu-item'
+                                            "
+                                            (click)="
+                                                childItem.command
+                                                    ? childItem.command()
+                                                    : null
+                                            "
+                                        >
+                                            <i [class]="childItem.icon"></i>
+                                            <span>{{ childItem.label }}</span>
+                                        </a>
+                                    </li></ng-container
+                                >
                             </ul>
                         </div>
                     </app-sidebarTabContent>

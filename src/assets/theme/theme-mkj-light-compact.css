@@ -7883,6 +7883,10 @@ body a {
 .layout-wrapper .topbar .topbar-menu .topbar-active-child-menu-item {
   font-weight: bold;
 }
+.layout-wrapper .topbar .topbar-menu a {
+  user-select: none;
+  cursor: pointer;
+}
 .layout-wrapper .topbar .topbar-menu > li {
   float: right;
   position: relative;
@@ -7892,8 +7896,6 @@ body a {
 .layout-wrapper .topbar .topbar-menu > li > a {
   position: relative;
   display: block;
-  user-select: none;
-  cursor: pointer;
   color: #e8f5e9;
 }
 .layout-wrapper .topbar .topbar-menu > li > a .topbar-icon {
