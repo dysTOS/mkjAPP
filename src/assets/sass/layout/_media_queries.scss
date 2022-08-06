@@ -157,6 +157,10 @@
                     }
 
                     &.active-topmenuitem {
+                        .topbar-item-name,
+                        .topbar-icon {
+                            font-weight: bold;
+                        }
                         > ul {
                             display: block;
                         }

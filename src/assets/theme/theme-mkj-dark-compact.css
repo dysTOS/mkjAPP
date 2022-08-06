@@ -7880,6 +7880,9 @@ body a {
   padding: 0;
   list-style-type: none;
 }
+.layout-wrapper .topbar .topbar-menu .topbar-active-child-menu-item {
+  font-weight: bold;
+}
 .layout-wrapper .topbar .topbar-menu > li {
   float: right;
   position: relative;
@@ -7889,6 +7892,8 @@ body a {
 .layout-wrapper .topbar .topbar-menu > li > a {
   position: relative;
   display: block;
+  user-select: none;
+  cursor: pointer;
   color: #e8f5e9;
 }
 .layout-wrapper .topbar .topbar-menu > li > a .topbar-icon {
@@ -8061,6 +8066,8 @@ body a {
   width: 100%;
   box-sizing: border-box;
   color: #757575;
+  user-select: none;
+  cursor: pointer;
   -moz-transition: background-color 0.3s;
   -o-transition: background-color 0.3s;
   -webkit-transition: background-color 0.3s;
@@ -8075,7 +8082,7 @@ body a {
   font-size: 22px;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li a:hover {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li.active-item {
   border-left: 4px solid #388e3c;
@@ -8171,7 +8178,7 @@ body a {
   transition: transform 0.3s;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-pin-button:hover {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button {
   padding: 4px;
@@ -8187,7 +8194,7 @@ body a {
   transition: background-color 0.3s;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button:hover {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content {
   padding: 8px 0;
@@ -8199,6 +8206,9 @@ body a {
   padding: 0;
   padding-bottom: 150px;
   list-style-type: none;
+}
+.layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu .menu-active-child-menu-item {
+  font-weight: bold;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu li a {
   display: block;
@@ -8232,7 +8242,7 @@ body a {
   transition: transform 0.3s;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu li a:hover {
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu li a.active-menuitem-routerlink {
   color: #388e3c;
@@ -8241,7 +8251,7 @@ body a {
   color: #388e3c;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu li.red-badge > a .menuitem-badge {
-  background-color: #F44336;
+  background-color: #f44336;
   color: #ffffff;
 }
 .layout-wrapper .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .navigation-menu li ul {
@@ -8329,10 +8339,12 @@ body a {
   color: #dee0e3;
   border-bottom-color: #82878b;
 }
-.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button, .layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-pin-button {
+.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button,
+.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-pin-button {
   color: #dee0e3;
 }
-.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button:hover, .layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-pin-button:hover {
+.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-button:hover,
+.layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-title .menu-pin-button:hover {
   background-color: #545454;
 }
 .layout-wrapper .layout-sidebar.layout-sidebar-dark .layout-tabmenu .layout-tabmenu-contents .layout-submenu-content .navigation-menu li > a {
@@ -8657,6 +8669,10 @@ body a {
   .layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
 .layout-wrapper .topbar .topbar-menu > li > ul li a i {
     margin-right: 8px;
+  }
+  .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem .topbar-item-name,
+.layout-wrapper .topbar .topbar-menu > li.active-topmenuitem .topbar-icon {
+    font-weight: bold;
   }
   .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem > ul {
     display: block;

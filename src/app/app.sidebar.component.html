@@ -15,7 +15,7 @@
                 >
                     <a
                         pRipple
-                        [href]="menuItem.routerLink"
+                        [routerLink]="menuItem.routerLink"
                         class="tabmenuitem-link"
                         [pTooltip]="menuItem.label"
                         (click)="
@@ -54,7 +54,10 @@
                             <ul class="navigation-menu">
                                 <li *ngFor="let childItem of menuItem.children">
                                     <a
-                                        [href]="childItem.routerLink"
+                                        [routerLink]="childItem.routerLink"
+                                        [routerLinkActive]="
+                                            'menu-active-child-menu-item'
+                                        "
                                         (click)="
                                             childItem.command
                                                 ? childItem.command()

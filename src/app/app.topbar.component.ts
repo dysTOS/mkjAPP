@@ -62,6 +62,9 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                                 <li *ngIf="childItem.visible" role="menuitem">
                                     <a
                                         [routerLink]="childItem.routerLink"
+                                        [routerLinkActive]="
+                                            'topbar-active-child-menu-item'
+                                        "
                                         (click)="
                                             childItem.command
                                                 ? childItem.command()
@@ -78,37 +81,17 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                         </ul>
                     </li>
                 </ng-container>
-
-                <!-- <li #search class="search-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === search}"
-                    (click)="appMain.onTopbarItemClick($event,search)">
-                        <span class="p-input-icon-right">
-                            <input type="text" pInputText placeholder="Search">
-                            <i class="topbar-icon pi pi-search"></i>
-                        </span>
-                </li> -->
             </ul>
         </div>
     `,
 })
 export class AppTopbarComponent implements OnInit {
-    public sidebarVisible: boolean = false;
     public readonly MenuLabels = MenuLabels;
-
-    public isDevEnvironment = !environment.production;
 
     constructor(
         public appMain: AppMainComponent,
-        private authStateService: AuthStateService,
         public menuService: MenuService
     ) {}
 
-    ngOnInit(): void {}
-
-    public logout() {
-        this.authStateService.setAuthState(false);
-    }
-
-    public reloadApp() {
-        window.location.reload();
-    }
+    public ngOnInit(): void {}
 }

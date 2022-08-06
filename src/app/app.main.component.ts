@@ -18,7 +18,7 @@ import { MenuLabels } from "./app.menu.service";
     templateUrl: "./app.main.component.html",
 })
 export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
-    activeTabIndex: number;
+    activeTabIndex: number = MenuLabels.DASHBOARD;
 
     sidebarActive: boolean;
 
@@ -78,6 +78,7 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onTabClick(event: Event, index: number) {
+        event.preventDefault();
         // TEST für Menüeintrag
         if (index >= 5) {
             this.activeTabIndex = index;
@@ -92,8 +93,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
             this.activeTabIndex = index;
             this.sidebarActive = true;
         }
-
-        event.preventDefault();
     }
 
     closeSidebar(event: Event) {
