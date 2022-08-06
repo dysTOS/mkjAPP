@@ -5,297 +5,71 @@
     (click)="appMain.onSidebarClick($event)"
 >
     <div class="layout-tabmenu">
-        <ul class="layout-tabmenu-nav">
-            <li
-                [ngClass]="{
-                    'active-item':
-                        appMain.activeTabIndex === MenuLabels.DASHBOARD
-                }"
-            >
-                <a
-                    routerLink="/dashboard"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.DASHBOARD)"
-                    pTooltip="Home"
-                    ><i class="pi pi-fw pi-home"></i
-                ></a>
-            </li>
-            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li
-                [ngClass]="{
-                    'active-item':
-                        appMain.activeTabIndex === MenuLabels.AUSRUECKUNGEN
-                }"
-            >
-                <a
-                    routerLink="/ausrueckungen"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="
-                        appMain.onTabClick($event, MenuLabels.AUSRUECKUNGEN)
-                    "
-                    pTooltip="Ausrückungen"
-                    ><i class="pi pi-fw pi-calendar"></i
-                ></a>
-            </li>
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li
-                [ngClass]="{
-                    'active-item':
-                        appMain.activeTabIndex === MenuLabels.MITGLIEDER
-                }"
-            >
-                <a
-                    routerLink="/mitglieder"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.MITGLIEDER)"
-                    pTooltip="Mitglieder"
-                    ><i class="pi pi-fw pi-users"></i
-                ></a>
-            </li>
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li
-                [ngClass]="{
-                    'active-item': appMain.activeTabIndex === MenuLabels.NOTEN
-                }"
-            >
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.NOTEN)"
-                    pTooltip="Noten"
-                    ><i class="mdi mdi-music"></i
-                ></a>
-            </li>
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li
-                [ngClass]="{
-                    'active-item': appMain.activeTabIndex === MenuLabels.TOOLS
-                }"
-            >
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.TOOLS)"
-                    pTooltip="Tools"
-                    ><i class="mdi mdi-tools"></i
-                ></a>
-            </li>
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <li
-                [ngClass]="{
-                    'active-item':
-                        appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
-                }"
-            >
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="
-                        appMain.onTabClick($event, MenuLabels.EINSTELLUNGEN)
-                    "
-                    pTooltip="Einstellungen"
-                    ><i class="pi pi-fw pi-cog"></i
-                ></a>
-            </li>
-        </ul>
-
-        <ul class="layout-tabmenu-nav">
-            <li
-                [ngClass]="{
-                    'active-item': appMain.activeTabIndex === MenuLabels.LOGOUT
-                }"
-            >
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="
-                        appMain.onTabClick($event, MenuLabels.LOGOUT); logout()
-                    "
-                    pTooltip="Logout"
-                    ><i class="pi pi-sign-out"></i
-                ></a>
-            </li>
-        </ul>
-
-        <ul *visibleFor="['create role']" class="layout-tabmenu-nav">
-            <li
-                [ngClass]="{
-                    'active-item': appMain.activeTabIndex === MenuLabels.TEST
-                }"
-            >
-                <a
-                    routerLink="/test"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.TEST)"
-                    pTooltip="TEST"
-                    ><i class="pi pi-pencil"></i
-                ></a>
-            </li>
-        </ul>
-        <ul *ngIf="isDevEnvironment" class="layout-tabmenu-nav">
-            <li
-                [ngClass]="{
-                    'active-item':
-                        appMain.activeTabIndex === MenuLabels.PRIMEMENU
-                }"
-            >
-                <a
-                    href="#"
-                    pRipple
-                    class="tabmenuitem-link"
-                    (click)="appMain.onTabClick($event, MenuLabels.PRIMEMENU)"
-                    pTooltip="PRIMEMENU"
-                    ><i class="pi pi-list"></i
-                ></a>
-            </li>
-        </ul>
+        <ng-container *ngFor="let menuItem of menuService.MainMenu">
+            <ul *ngIf="menuItem.visible" class="layout-tabmenu-nav">
+                <li
+                    [ngClass]="{
+                        'active-item':
+                            appMain.activeTabIndex === menuItem.enumLabel
+                    }"
+                >
+                    <a
+                        pRipple
+                        [href]="menuItem.routerLink"
+                        class="tabmenuitem-link"
+                        [pTooltip]="menuItem.label"
+                        (click)="
+                            menuItem.command
+                                ? menuItem.command()
+                                : appMain.onTabClick($event, menuItem.enumLabel)
+                        "
+                        ><i [class]="menuItem.icon"></i
+                    ></a>
+                </li>
+            </ul>
+        </ng-container>
 
         <!-- TABMENU CONTENTS ------------------------------------------------------------------------------------------------------------------>
 
         <div class="layout-tabmenu-contents">
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === 0
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Features</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <app-menu></app-menu>
-                </app-sidebarTabContent>
-            </div>
-
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === MenuLabels.TOOLS
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Tools</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <div class="menu-scroll-content">
-                        <ul class="navigation-menu">
-                            <li>
-                                <a routerLink="/tools/rechnungsgenerator">
-                                    <i class="mdi mdi-currency-eur p-mr-2"></i>
-                                    <span>Rechnungs-Generator</span>
-                                </a>
-                            </li>
-                        </ul>
+            <ng-container *ngFor="let menuItem of menuService.MainMenu">
+                <div
+                    *ngIf="menuItem.children && menuItem.visible"
+                    class="layout-tabmenu-content"
+                    [ngClass]="{
+                        'layout-tabmenu-content-active':
+                            appMain.activeTabIndex === menuItem.enumLabel
+                    }"
+                >
+                    <div class="layout-submenu-title clearfix">
+                        <span>{{ menuItem.label }}</span>
+                        <a
+                            href="#"
+                            class="menu-button pi pi-bars"
+                            (click)="appMain.closeSidebar($event)"
+                        ></a>
                     </div>
-                </app-sidebarTabContent>
-            </div>
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Einstellungen</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
+                    <app-sidebarTabContent>
+                        <div class="menu-scroll-content">
+                            <ul class="navigation-menu">
+                                <li *ngFor="let childItem of menuItem.children">
+                                    <a
+                                        [href]="childItem.routerLink"
+                                        (click)="
+                                            childItem.command
+                                                ? childItem.command()
+                                                : null
+                                        "
+                                    >
+                                        <i [class]="childItem.icon"></i>
+                                        <span>{{ childItem.label }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </app-sidebarTabContent>
                 </div>
-                <app-sidebarTabContent>
-                    <div class="menu-scroll-content">
-                        <ul class="navigation-menu">
-                            <li>
-                                <a routerLink="/einstellungen/mitgliedsdaten">
-                                    <i class="pi pi-user p-mr-2"></i>
-                                    <span>Meine Daten</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a routerLink="/einstellungen/rollen">
-                                    <i
-                                        class="mdi mdi-account-lock-open-outline p-mr-2"
-                                    ></i>
-                                    <span>Rollen & Rechte</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/einstellungen/lokal">
-                                    <i class="mdi mdi-cellphone-cog p-mr-2"></i>
-                                    <span>Lokal</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a (click)="reloadApp()">
-                                    <i class="pi pi-refresh p-mr-2"></i>
-                                    <span>Reload App</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </app-sidebarTabContent>
-            </div>
-            <div
-                class="layout-tabmenu-content"
-                [ngClass]="{
-                    'layout-tabmenu-content-active':
-                        appMain.activeTabIndex === MenuLabels.NOTEN
-                }"
-            >
-                <div class="layout-submenu-title clearfix">
-                    <span>Noten</span>
-                    <a
-                        href="#"
-                        class="menu-button pi pi-bars"
-                        (click)="appMain.closeSidebar($event)"
-                    ></a>
-                </div>
-                <app-sidebarTabContent>
-                    <div class="menu-scroll-content">
-                        <ul class="navigation-menu">
-                            <li>
-                                <a routerLink="/noten/archiv">
-                                    <i
-                                        class="mdi mdi-archive-music-outline p-mr-2"
-                                    ></i>
-                                    <span>Archiv</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/noten/mappen">
-                                    <i
-                                        class="mdi mdi-book-music-outline p-mr-2"
-                                    ></i>
-                                    <span>Mappen</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </app-sidebarTabContent>
-            </div>
+            </ng-container>
         </div>
     </div>
 </div>

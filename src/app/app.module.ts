@@ -189,6 +189,7 @@ import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notens
 import { AuthInterceptor } from "./authentication/auth-interceptor.component";
 import { environment } from "src/environments/environment";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -384,6 +385,7 @@ FullCalendarModule.registerPlugins([
         AuthGuardService,
         MessageService,
         MkjDatePipe,
+        MkjAppInitializer,
     ],
     bootstrap: [AppComponent],
 })

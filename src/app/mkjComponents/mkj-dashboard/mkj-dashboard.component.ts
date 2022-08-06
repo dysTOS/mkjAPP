@@ -1,10 +1,10 @@
-import { MenuLabels } from "./../../mkjInterfaces/Menu";
 import { AppMainComponent } from "./../../app.main.component";
 import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
 import { AusrueckungenService } from "./../../mkjServices/ausrueckungen.service";
 import { Ausrueckung } from "src/app/mkjInterfaces/Ausrueckung";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/authentication/user.service";
+import { MenuLabels } from "src/app/app.menu.service";
 
 @Component({
     selector: "app-mkj-dashboard",

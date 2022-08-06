@@ -1,8 +1,8 @@
-import { MenuLabels } from "./mkjInterfaces/Menu";
 import { Component, OnInit } from "@angular/core";
 import { AppMainComponent } from "./app.main.component";
 import { environment } from "src/environments/environment";
 import { AuthStateService } from "./authentication/auth-state.service";
+import { MenuLabels, MenuService } from "./app.menu.service";
 
 @Component({
     selector: "app-topbar",
@@ -20,7 +20,7 @@ import { AuthStateService } from "./authentication/auth-state.service";
 
             <a
                 id="topbar-menu-button"
-                href=""
+                href="#"
                 (click)="appMain.onTopbarMenuButtonClick($event)"
             >
                 <i class="pi pi-bars"></i>
@@ -30,245 +30,55 @@ import { AuthStateService } from "./authentication/auth-state.service";
                 class="topbar-menu fadeInDown"
                 [ngClass]="{ 'topbar-menu-visible': appMain.topbarMenuActive }"
             >
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.DASHBOARD
-                    }"
-                >
-                    <a
-                        routerLink="/dashboard"
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.DASHBOARD,
-                                false
-                            )
-                        "
+                <ng-container *ngFor="let menuItem of menuService.MainMenu">
+                    <li
+                        *ngIf="menuItem.visible"
+                        [ngClass]="{
+                            'active-topmenuitem':
+                                appMain.activeTabIndex === menuItem.enumLabel
+                        }"
                     >
-                        <i class="topbar-icon pi pi-home"></i>
-                        <span class="topbar-item-name">Dashboard</span>
-                    </a>
-                </li>
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.AUSRUECKUNGEN
-                    }"
-                >
-                    <a
-                        routerLink="/ausrueckungen"
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.AUSRUECKUNGEN,
-                                false
-                            )
-                        "
-                    >
-                        <i class="topbar-icon pi pi-calendar"></i>
-                        <span class="topbar-item-name">Ausrückungen</span>
-                    </a>
-                </li>
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.MITGLIEDER
-                    }"
-                >
-                    <a
-                        routerLink="/mitglieder"
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.MITGLIEDER,
-                                false
-                            )
-                        "
-                    >
-                        <i class="topbar-icon pi pi-users"></i>
-                        <span class="topbar-item-name">Mitglieder</span>
-                    </a>
-                </li>
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.NOTEN
-                    }"
-                >
-                    <a
-                        href=""
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.NOTEN,
-                                true
-                            )
-                        "
-                    >
-                        <i class="topbar-icon mdi mdi-music"></i>
-                        <span class="topbar-item-name">Noten</span>
-                    </a>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/noten/archiv"
-                                (click)="appMain.onTopbarSubItemClick($event)"
+                        <a
+                            [routerLink]="menuItem.routerLink"
+                            (click)="
+                                menuItem.command
+                                    ? menuItem.command()
+                                    : appMain.onTopbarItemClick(
+                                          $event,
+                                          menuItem.enumLabel,
+                                          menuItem.children ? true : false
+                                      )
+                            "
+                        >
+                            <i [class]="'topbar-icon ' + menuItem.icon"></i>
+                            <span class="topbar-item-name">{{
+                                menuItem.label
+                            }}</span>
+                        </a>
+                        <ul *ngIf="menuItem.children" class="fadeInDown">
+                            <ng-container
+                                *ngFor="let childItem of menuItem.children"
                             >
-                                <i class="mdi mdi-archive-music-outline"></i>
-                                <span>Archiv</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/noten/mappen"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i class="mdi mdi-book-music-outline"></i>
-                                <span>Mappen</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.TOOLS
-                    }"
-                >
-                    <a
-                        href=""
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.TOOLS,
-                                true
-                            )
-                        "
-                    >
-                        <i class="topbar-icon mdi mdi-tools"></i>
-                        <span class="topbar-item-name">Tools</span>
-                    </a>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/tools/rechnungsgenerator"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i class="mdi mdi-currency-eur"></i>
-                                <span>Rechnungs-Generator</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.EINSTELLUNGEN
-                    }"
-                >
-                    <a
-                        href=""
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.EINSTELLUNGEN,
-                                true
-                            )
-                        "
-                    >
-                        <i class="topbar-icon pi pi-fw pi-cog"></i>
-                        <span class="topbar-item-name">Einstellungen</span>
-                    </a>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/einstellungen/mitgliedsdaten"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i class="pi pi-user"></i>
-                                <span>Meine Daten</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/einstellungen/rollen"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i
-                                    class="mdi mdi-account-lock-open-outline"
-                                ></i>
-                                <span>Rollen & Rechte</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a
-                                routerLink="/einstellungen/lokal"
-                                (click)="appMain.onTopbarSubItemClick($event)"
-                            >
-                                <i class="mdi mdi-cellphone-cog"></i>
-                                <span>Lokal</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="fadeInDown">
-                        <li role="menuitem">
-                            <a (click)="reloadApp()">
-                                <i class="pi pi-refresh"></i>
-                                <span>Reload App</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                                <li *ngIf="childItem.visible" role="menuitem">
+                                    <a
+                                        [routerLink]="childItem.routerLink"
+                                        (click)="
+                                            childItem.command
+                                                ? childItem.command()
+                                                : appMain.onTopbarSubItemClick(
+                                                      $event
+                                                  )
+                                        "
+                                    >
+                                        <i [class]="childItem.icon"></i>
+                                        <span>{{ childItem.label }}</span>
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </li>
+                </ng-container>
 
-                <li
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.LOGOUT
-                    }"
-                >
-                    <a
-                        routerLink="/login"
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.LOGOUT,
-                                false
-                            );
-                            logout()
-                        "
-                    >
-                        <i class="topbar-icon pi pi-sign-out"></i>
-                        <span class="topbar-item-name">Logout</span>
-                    </a>
-                </li>
-                <li
-                    *ngIf="isDevEnvironment"
-                    [ngClass]="{
-                        'active-topmenuitem':
-                            appMain.activeTabIndex === MenuLabels.TEST
-                    }"
-                >
-                    <a
-                        routerLink="/test"
-                        (click)="
-                            appMain.onTopbarItemClick(
-                                $event,
-                                MenuLabels.TEST,
-                                false
-                            )
-                        "
-                    >
-                        <i class="topbar-icon pi pi-pencil"></i>
-                        <span class="topbar-item-name">Test</span>
-                    </a>
-                </li>
                 <!-- <li #search class="search-item" [ngClass]="{'active-topmenuitem':appMain.activeTopbarItem === search}"
                     (click)="appMain.onTopbarItemClick($event,search)">
                         <span class="p-input-icon-right">
@@ -282,13 +92,14 @@ import { AuthStateService } from "./authentication/auth-state.service";
 })
 export class AppTopbarComponent implements OnInit {
     public sidebarVisible: boolean = false;
-    public MenuLabels = MenuLabels;
+    public readonly MenuLabels = MenuLabels;
 
     public isDevEnvironment = !environment.production;
 
     constructor(
         public appMain: AppMainComponent,
-        private authStateService: AuthStateService
+        private authStateService: AuthStateService,
+        public menuService: MenuService
     ) {}
 
     ngOnInit(): void {}

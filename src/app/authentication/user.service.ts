@@ -1,10 +1,11 @@
 import { AuthService } from "./auth.service";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Mitglied } from "../mkjInterfaces/Mitglied";
 import { User, Role, Permission } from "../mkjInterfaces/User";
 import { RoleService } from "../mkjServices/role.service";
+import { TokenService } from "./token.service";
 
 @Injectable({
     providedIn: "root",
@@ -23,7 +24,8 @@ export class UserService {
 
     constructor(
         private roleService: RoleService,
-        private authService: AuthService
+        private authService: AuthService,
+        private tokenService: TokenService
     ) {}
 
     public isSet(): boolean {
@@ -125,14 +127,23 @@ export class UserService {
         this.currentPermissions.next(null);
     }
 
-    public checkFetchInitialData() {
-        if (!this.isSet()) {
-            this.authService.getCurrentUser().subscribe((result) => {
-                this.setCurrentUser(result.user),
-                    this.setCurrentMitglied(result.mitglied),
-                    this.setCurrentUserRoles(result.roles),
-                    this.setCurrentUserPermissions(result.permissions);
+    public initializeUserData(): Observable<any> {
+        const subject = new Subject();
+        if (!this.isSet() && this.tokenService.isLoggedIn()) {
+            this.authService.getCurrentUser().subscribe({
+                next: (result) => {
+                    this.setCurrentUser(result.user),
+                        this.setCurrentMitglied(result.mitglied),
+                        this.setCurrentUserRoles(result.roles),
+                        this.setCurrentUserPermissions(result.permissions);
+                    subject.next(null);
+                    subject.complete();
+                },
             });
+        } else {
+            subject.next(null);
+            subject.complete();
         }
+        return subject;
     }
 }

@@ -11,7 +11,7 @@ import { UserService } from "./authentication/user.service";
     selector: "app-root",
     templateUrl: "./app.component.html",
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
     isSignedIn: boolean;
     ripple = true;
 
@@ -22,9 +22,7 @@ export class AppComponent implements OnInit {
         private userService: UserService,
         private authService: AuthService,
         private tokenService: TokenService
-    ) {}
-
-    public ngOnInit() {
+    ) {
         this.authStatService.userAuthState.subscribe((val) => {
             if (!val && this.tokenService.isLoggedIn()) {
                 this.userService.onLogout();
@@ -35,19 +33,5 @@ export class AppComponent implements OnInit {
 
         this.primengConfig.ripple = true;
         this.primengConfig.setTranslation(MkjPrimeTranslation);
-        this.checkFetchUser();
-    }
-
-    private checkFetchUser() {
-        if (!this.userService.isSet()) {
-            this.authService.getCurrentUser().subscribe((result) => {
-                this.userService.setCurrentUser(result.user),
-                    this.userService.setCurrentMitglied(result.mitglied),
-                    this.userService.setCurrentUserRoles(result.roles),
-                    this.userService.setCurrentUserPermissions(
-                        result.permissions
-                    );
-            });
-        }
     }
 }

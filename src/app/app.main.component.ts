@@ -1,4 +1,3 @@
-import { MenuLabels } from "./mkjInterfaces/Menu";
 import { ActivatedRoute } from "@angular/router";
 import {
     Component,
@@ -12,6 +11,7 @@ import { first } from "rxjs";
 import { ServiceWorkerService } from "./mkjServices/service-worker.service";
 import { ThemeService } from "./mkjServices/theme.service";
 import { PrimeNGConfig } from "primeng/api";
+import { MenuLabels } from "./app.menu.service";
 
 @Component({
     selector: "app-main",
