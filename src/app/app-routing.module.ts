@@ -52,6 +52,7 @@ import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarc
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
 
 @NgModule({
     imports: [
@@ -88,15 +89,23 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                             canActivate: [AuthGuardService],
                         },
                         {
-                            path: "noten/archiv",
-                            component: NotenarchivComponent,
+                            path: "noten",
+                            component: NotenWrapperComponent,
                             canActivate: [AuthGuardService],
+                            children: [
+                                {
+                                    path: "archiv",
+                                    component: NotenarchivComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                                {
+                                    path: "mappen",
+                                    component: NotenmappenComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                            ],
                         },
-                        {
-                            path: "noten/mappen",
-                            component: NotenmappenComponent,
-                            canActivate: [AuthGuardService],
-                        },
+
                         {
                             path: "tools/rechnungsgenerator",
                             component: RechnungsGeneratorComponent,
@@ -123,7 +132,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                             component: AatestComponent,
                             canActivate: [AuthGuardService],
                         },
-
+                        //-------------------------------------------------------------------------------------------------------------------------------
                         {
                             path: "dashboarddemo",
                             component: DashboardDemoComponent,
@@ -216,6 +225,7 @@ import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/loka
                             redirectTo: "dashboard",
                             pathMatch: "full",
                         },
+                        { path: "**", component: AppNotfoundComponent },
                     ],
                 },
                 { path: "error", component: AppErrorComponent },

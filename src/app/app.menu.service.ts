@@ -15,7 +15,6 @@ export class MenuService implements OnDestroy {
             routerLink: "dashboard",
             enumLabel: MenuLabels.DASHBOARD,
             visible: false,
-            permission: "read ausrueckungen",
         },
         {
             label: "Ausrückungen",
@@ -23,7 +22,6 @@ export class MenuService implements OnDestroy {
             routerLink: "ausrueckungen",
             enumLabel: MenuLabels.AUSRUECKUNGEN,
             visible: false,
-            permission: "read ausrueckungen",
         },
         {
             label: "Mitglieder",
@@ -31,15 +29,14 @@ export class MenuService implements OnDestroy {
             routerLink: "mitglieder",
             enumLabel: MenuLabels.MITGLIEDER,
             visible: false,
-            permission: "read mitglieder",
+            permission: "mitglieder_read",
         },
         {
             label: "Noten",
             icon: "mdi mdi-music",
-            routerLink: null,
             enumLabel: MenuLabels.NOTEN,
             visible: false,
-            permission: "read noten",
+            permission: "noten_read",
 
             children: [
                 {
@@ -47,38 +44,36 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-archive-music-outline",
                     routerLink: "noten/archiv",
                     visible: false,
-                    permission: "read noten",
+                    permission: "noten_read",
                 },
                 {
                     label: "Mappen",
                     icon: "mdi mdi-book-music-outline",
                     routerLink: "noten/mappen",
                     visible: false,
-                    permission: "read noten",
+                    permission: "noten_read",
                 },
             ],
         },
         {
             label: "Tools",
             icon: "mdi mdi-tools",
-            routerLink: null,
             enumLabel: MenuLabels.TOOLS,
             visible: false,
-            permission: "read role",
+            permission: "role_read",
             children: [
                 {
                     label: "Rechnungs-Generator",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "tools/rechnungsgenerator",
                     visible: false,
-                    permission: "read role",
+                    permission: "role_read",
                 },
             ],
         },
         {
             label: "Einstellungen",
             icon: "pi pi-fw pi-cog",
-            routerLink: null,
             enumLabel: MenuLabels.EINSTELLUNGEN,
             visible: false,
             children: [
@@ -93,19 +88,17 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-account-lock-open-outline",
                     routerLink: "einstellungen/rollen",
                     visible: false,
-                    permission: "read role",
+                    permission: "role_read",
                 },
                 {
                     label: "Lokal",
                     icon: "mdi mdi-cellphone-cog",
                     routerLink: "einstellungen/lokal",
                     visible: false,
-                    permission: "read ausrueckungen",
                 },
                 {
                     label: "Reload App",
                     icon: "pi pi-refresh",
-                    routerLink: null,
                     visible: false,
                     command: () => {
                         window.location.reload();
@@ -136,15 +129,14 @@ export class MenuService implements OnDestroy {
             routerLink: "test",
             enumLabel: MenuLabels.TEST,
             visible: false,
-            permission: "read role",
+            permission: "role_read",
         },
         {
             label: "PrimeMenu",
             icon: "pi pi-list",
-            routerLink: null,
             enumLabel: MenuLabels.PRIMEMENU,
             visible: false,
-            permission: "read role",
+            permission: "role_read",
         },
     ];
 
