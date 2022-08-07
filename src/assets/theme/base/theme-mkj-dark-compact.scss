@@ -19,10 +19,11 @@ $emphasis-lower: rgba(255, 255, 255, 0.12);
     --mkj-border: #757575;
 }
 
-$primaryColor: #008300;
+$primaryColor: #49df49;
 $primaryLightColor: #66bb6a;
 $primaryTextColor: #e8f5e9;
 $primaryTextHoverColor: #ffffff;
+$topBarColor: #006600;
 $accentColor: #fbc02d;
 $accentLightColor: #fff9c4;
 $accentTextColor: #000000;
@@ -36,6 +37,6 @@ $darkMenuBgColor: #424242;
 
 @import "../../sass/theme/_variables";
 @import "../../sass/theme/_variables_compact";
+@import "../../sass/layout/layout";
 @import "../../sass/theme/designer/_components";
 @import "../../sass/theme/extensions/_vendor_extensions";
-@import "../../sass/layout/layout";

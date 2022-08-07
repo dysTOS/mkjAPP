@@ -9,7 +9,7 @@ import { UserService } from "./authentication/user.service";
 
 @Component({
     selector: "app-root",
-    templateUrl: "./app.component.html",
+    template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
     isSignedIn: boolean;

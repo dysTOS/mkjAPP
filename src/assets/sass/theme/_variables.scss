@@ -215,7 +215,7 @@ $radiobuttonHeight: 20px;
 $radiobuttonBorder: 2px solid var(--mkj-border);
 $radiobuttonIconSize: 10px;
 $radiobuttonActiveBorderColor: $primaryColor;
-$radiobuttonActiveBg: $primaryTextColor;
+$radiobuttonActiveBg: var(--surface-0);
 $radiobuttonIconActiveColor: $primaryColor;
 $radiobuttonActiveHoverBg: $primaryTextColor;
 $radiobuttonIconActiveHoverColor: $primaryColor;
@@ -355,7 +355,7 @@ $accordionHeaderTextColor: $textColor;
 $accordionHeaderFontWeight: 400;
 $accordionHeaderPadding: 1.5rem;
 
-$accordionHeaderHoverBg: #f6f6f6;
+$accordionHeaderHoverBg: var(--surface-50);
 $accordionHeaderHoverBorderColor: transparent;
 $accordionHeaderTextHoverColor: $textColor;
 
@@ -601,8 +601,8 @@ $dialogFooterBorder: 0 none;
 $dialogFooterPadding: 1rem 1.5rem;
 
 //tooltip
-$tooltipBg: var(--surface-700);
-$tooltipTextColor: $textSecondaryColor;
+$tooltipBg: var(--surface-100);
+$tooltipTextColor: $textColor;
 $tooltipPadding: 0.5rem;
 
 //steps

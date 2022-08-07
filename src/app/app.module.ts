@@ -104,7 +104,6 @@ import { AppMainComponent } from "./app.main.component";
 import { AppMenuComponent } from "./app.menu.component";
 import { AppMenuitemComponent } from "./app.menuitem.component";
 import { AppSideBarComponent } from "./app.sidebar.component";
-import { AppSidebartabcontentComponent } from "./app.sidebartabcontent.component";
 import { AppTopbarComponent } from "./app.topbar.component";
 import { AppFooterComponent } from "./app.footer.component";
 import { AppCrudComponent } from "./pages/app.crud.component";
@@ -298,7 +297,6 @@ FullCalendarModule.registerPlugins([
         AppTopbarComponent,
         AppFooterComponent,
         AppSideBarComponent,
-        AppSidebartabcontentComponent,
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,

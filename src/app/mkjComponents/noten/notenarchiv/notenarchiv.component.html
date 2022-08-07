@@ -86,7 +86,7 @@
             <td class="not-on-small">
                 <div class="p-d-flex buttons-hide">
                     <button
-                        *visibleFor="['update noten']"
+                        *visibleFor="['noten_save']"
                         pButton
                         pRipple
                         icon="pi pi-pencil"
@@ -96,7 +96,7 @@
                         tooltipPosition="left"
                     ></button>
                     <button
-                        *visibleFor="['delete noten']"
+                        *visibleFor="['noten_delete']"
                         pButton
                         pRipple
                         icon="pi pi-trash"
@@ -177,7 +177,7 @@
                 <div class="just-on-small">
                     <div class="p-col-12 p-d-flex p-jc-center">
                         <button
-                            *visibleFor="['update noten']"
+                            *visibleFor="['noten_save']"
                             pButton
                             pRipple
                             label="Bearbeiten"
@@ -186,7 +186,7 @@
                             (click)="openEditDialog(noten)"
                         ></button>
                         <button
-                            *visibleFor="['delete noten']"
+                            *visibleFor="['noten_delete']"
                             pButton
                             pRipple
                             icon="pi pi-trash"

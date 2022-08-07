@@ -63,7 +63,7 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                                 (click)="appMain.closeSidebar($event)"
                             ></a>
                         </div>
-                        <app-sidebarTabContent>
+                        <div class="layout-submenu-content">
                             <div class="menu-scroll-content">
                                 <ul class="navigation-menu">
                                     <ng-container
@@ -94,7 +94,7 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                                     >
                                 </ul>
                             </div>
-                        </app-sidebarTabContent>
+                        </div>
                     </div>
                 </ng-container>
             </div>
