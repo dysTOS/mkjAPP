@@ -129,7 +129,7 @@ export class MenuService implements OnDestroy {
             visible: false,
             command: () => {
                 this.confirmationService.confirm({
-                    message: "Auf diesem Geräte abmelden?",
+                    message: "Auf diesem Gerät abmelden?",
                     icon: "pi pi-exclamation-triangle",
                     accept: () => {
                         this.authStateService.setAuthState(false);
