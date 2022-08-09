@@ -44,7 +44,6 @@ import { AppCalendarComponent } from "./pages/app.calendar.component";
 import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
-import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { AuthGuardService } from "./authentication/auth-guard.service";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
@@ -53,13 +52,16 @@ import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmap
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
+import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
+import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
+import { environment } from "src/environments/environment";
 
 @NgModule({
     imports: [
         RouterModule.forRoot(
             [
                 {
-                    path: "",
+                    path: environment.filePrefix,
                     component: AppMainComponent,
                     canActivate: [AuthGuardService],
                     children: [
@@ -70,8 +72,30 @@ import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.compo
                         },
                         {
                             path: "ausrueckungen",
-                            component: AusrueckungenComponent,
+                            component: AusrueckungenWrapperComponent,
                             canActivate: [AuthGuardService],
+                            children: [
+                                {
+                                    path: "aktuell",
+                                    component: AusrueckungenComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                                {
+                                    path: "archiv",
+                                    component: AusrueckungenComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                                {
+                                    path: "kalenderabo",
+                                    component: AusrueckungenComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                                {
+                                    path: "",
+                                    redirectTo: "aktuell",
+                                    pathMatch: "full",
+                                },
+                            ],
                         },
                         {
                             path: "ausrueckung/:id",
@@ -233,7 +257,11 @@ import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.compo
                 { path: "notfound", component: AppNotfoundComponent },
                 { path: "signup", component: SignupComponent },
                 { path: "login", component: LoginComponent },
-
+                {
+                    path: "",
+                    redirectTo: environment.filePrefix,
+                    pathMatch: "full",
+                },
                 { path: "**", redirectTo: "/notfound" },
             ],
             { scrollPositionRestoration: "enabled" }

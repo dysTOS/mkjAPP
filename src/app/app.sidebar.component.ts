@@ -34,6 +34,7 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                                     ? menuItem.command()
                                     : appMain.onTabClick(
                                           $event,
+                                          menuItem.children ? true : false,
                                           menuItem.enumLabel
                                       )
                             "

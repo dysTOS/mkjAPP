@@ -6,6 +6,7 @@ import { AuthStateService } from "../auth-state.service";
 import { AuthService } from "../auth.service";
 import { TokenService } from "../token.service";
 import { UserService } from "../user.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-login",
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
                     this.userService.setCurrentUserPermissions(
                         result.permissions
                     );
-                    this.router.navigate(["dashboard"]);
+                    this.router.navigate([environment.filePrefix, "dashboard"]);
                 },
                 (error) => {
                     this.infoService.error(error);

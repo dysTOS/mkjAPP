@@ -106,20 +106,22 @@ export class UserService {
     }
 
     public renewCurrentUserPermissions() {
-        const userId = this.getCurrentUserId();
-        if (userId) {
-            this.roleService.getUserPermissions(userId).subscribe({
-                next: (res) => this.setCurrentUserPermissions(res),
-            });
-            this.roleService.getUserRoles(userId).subscribe({
-                next: (res) => this.setCurrentUserRoles(res),
-            });
-        }
+        this.authService.getCurrentUser().subscribe({
+            next: (result) => {
+                this.setCurrentUser(result.user),
+                    this.setCurrentMitglied(result.mitglied),
+                    this.setCurrentUserRoles(result.roles),
+                    this.setCurrentUserPermissions(result.permissions);
+            },
+        });
     }
 
     public onLogout() {
         this.authService.logout().subscribe({
             next: (res) => {},
+            error: (err) => {
+                console.log(this.onLogout.name, err);
+            },
         });
         this.currentUser.next(null);
         this.currentUserRoles.next(null);

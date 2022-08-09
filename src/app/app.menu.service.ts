@@ -22,6 +22,23 @@ export class MenuService implements OnDestroy {
             routerLink: "ausrueckungen",
             enumLabel: MenuLabels.AUSRUECKUNGEN,
             visible: false,
+            children: [
+                {
+                    label: "Ausrückungen " + new Date().getFullYear(),
+                    icon: "pi pi-fw pi-calendar",
+                    routerLink: "ausrueckungen/aktuell",
+                },
+                {
+                    label: "Ausrückungsarchiv",
+                    icon: "pi pi-fw pi-calendar",
+                    routerLink: "ausrueckungen/archiv",
+                },
+                {
+                    label: "Kalenderabo",
+                    icon: "pi pi-fw pi-calendar",
+                    routerLink: "ausrueckungen/kalenderabo",
+                },
+            ],
         },
         {
             label: "Mitglieder",
@@ -37,7 +54,6 @@ export class MenuService implements OnDestroy {
             enumLabel: MenuLabels.NOTEN,
             visible: false,
             permission: "noten_read",
-
             children: [
                 {
                     label: "Archiv",
@@ -109,7 +125,6 @@ export class MenuService implements OnDestroy {
         {
             label: "Logout",
             icon: "pi pi-sign-out",
-            routerLink: "login",
             enumLabel: MenuLabels.LOGOUT,
             visible: false,
             command: () => {
@@ -117,7 +132,7 @@ export class MenuService implements OnDestroy {
                     message: "Auf diesem Geräte abmelden?",
                     icon: "pi pi-exclamation-triangle",
                     accept: () => {
-                        // this.authStateService.setAuthState(false);
+                        this.authStateService.setAuthState(false);
                     },
                 });
             },

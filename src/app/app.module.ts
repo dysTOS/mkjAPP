@@ -162,7 +162,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 // MKJ
-import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { MkjDatePipe } from "./mkjUtilities/mkj-date.pipe";
 import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
@@ -190,6 +189,8 @@ import { environment } from "src/environments/environment";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
+import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
+import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -302,6 +303,7 @@ FullCalendarModule.registerPlugins([
         AppAccessdeniedComponent,
         AppLoginComponent,
         DashboardDemoComponent,
+        AusrueckungenWrapperComponent,
         FormLayoutDemoComponent,
         FloatLabelDemoComponent,
         InvalidStateDemoComponent,

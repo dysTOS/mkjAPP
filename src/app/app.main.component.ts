@@ -77,20 +77,18 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
         );
     }
 
-    onTabClick(event: Event, index: number) {
+    onTabClick(event: Event, hasChildren: boolean, enumLabel: number) {
         event.preventDefault();
-        // TEST für Menüeintrag
-        if (index >= 5) {
-            this.activeTabIndex = index;
+        if (!hasChildren) {
+            this.activeTabIndex = enumLabel;
             this.sidebarActive = false;
             return;
         }
-        //TEST END
 
-        if (this.activeTabIndex === index) {
+        if (this.activeTabIndex === enumLabel) {
             this.sidebarActive = !this.sidebarActive;
         } else {
-            this.activeTabIndex = index;
+            this.activeTabIndex = enumLabel;
             this.sidebarActive = true;
         }
     }

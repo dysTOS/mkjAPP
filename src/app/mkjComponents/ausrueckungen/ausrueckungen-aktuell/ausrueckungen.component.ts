@@ -1,23 +1,21 @@
-import { InfoService } from "./../../mkjServices/info.service";
-import { MkjDatePipe } from "./../../mkjUtilities/mkj-date.pipe";
-import { ExportService } from "./../../mkjServices/export.service";
-import {
-    CsvColumns,
-    KategorienOptions,
-    StatusOptions,
-    ZeitraumOptions,
-} from "./../../mkjInterfaces/Ausrueckung";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ConfirmationService } from "primeng/api";
-import { AusrueckungenService } from "../../mkjServices/ausrueckungen.service";
-import {
-    Ausrueckung,
-    AusrueckungFilterInput,
-} from "../../mkjInterfaces/Ausrueckung";
 import { Table } from "primeng/table";
 import * as moment from "moment";
 import * as _ from "lodash";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ConfirmationService } from "primeng/api";
+import {
+    Ausrueckung,
+    AusrueckungFilterInput,
+    ZeitraumOptions,
+    CsvColumns,
+    KategorienOptions,
+    StatusOptions,
+} from "src/app/mkjInterfaces/Ausrueckung";
+import { AusrueckungenService } from "src/app/mkjServices/ausrueckungen.service";
+import { ExportService } from "src/app/mkjServices/export.service";
+import { InfoService } from "src/app/mkjServices/info.service";
+import { MkjDatePipe } from "src/app/mkjUtilities/mkj-date.pipe";
 
 @Component({
     templateUrl: "./ausrueckungen.component.html",
