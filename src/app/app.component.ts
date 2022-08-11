@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
 import { MkjPrimeTranslation } from "src/app/mkjUtilities/primeTranslation";
 import { AuthStateService } from "./authentication/auth-state.service";
-import { AuthService } from "./authentication/auth.service";
 import { TokenService } from "./authentication/token.service";
 import { UserService } from "./authentication/user.service";
 
@@ -12,7 +11,6 @@ import { UserService } from "./authentication/user.service";
     template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-    isSignedIn: boolean;
     ripple = true;
 
     constructor(
@@ -20,7 +18,6 @@ export class AppComponent {
         private authStatService: AuthStateService,
         private router: Router,
         private userService: UserService,
-        private authService: AuthService,
         private tokenService: TokenService
     ) {
         this.authStatService.userAuthState.subscribe((val) => {

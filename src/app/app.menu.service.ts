@@ -19,7 +19,6 @@ export class MenuService implements OnDestroy {
         {
             label: "Ausrückungen",
             icon: "pi pi-fw pi-calendar",
-            routerLink: "ausrueckungen",
             enumLabel: MenuLabels.AUSRUECKUNGEN,
             visible: false,
             children: [
@@ -170,8 +169,8 @@ export class MenuService implements OnDestroy {
     ) {
         this.subSink.add(
             this.userService.getCurrentUserPermissions().subscribe({
-                next: (perm) =>
-                    this.updateMenuItemsVisibility(perm, this.MainMenu),
+                next: (permissions) =>
+                    this.updateMenuItemsVisibility(permissions, this.MainMenu),
             })
         );
     }

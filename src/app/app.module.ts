@@ -191,6 +191,7 @@ import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
 import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
 import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
+import { KalenderaboComponent } from './mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component';
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -365,6 +366,7 @@ FullCalendarModule.registerPlugins([
         RechnungsGeneratorComponent,
         MkjNotensucheComponent,
         LokaleEinstellungenComponent,
+        KalenderaboComponent,
     ],
     providers: [
         // { provide: LocationStrategy, useClass: HashLocationStrategy },

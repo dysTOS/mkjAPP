@@ -55,6 +55,7 @@ import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.compo
 import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
 import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
+import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
 
 @NgModule({
     imports: [
@@ -87,7 +88,7 @@ import { environment } from "src/environments/environment";
                                 },
                                 {
                                     path: "kalenderabo",
-                                    component: AusrueckungenComponent,
+                                    component: KalenderaboComponent,
                                     canActivate: [AuthGuardService],
                                 },
                                 {

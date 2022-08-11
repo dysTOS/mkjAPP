@@ -105,7 +105,7 @@ export class UserService {
         return bool;
     }
 
-    public renewCurrentUserPermissions() {
+    public renewCurrentUserData() {
         this.authService.getCurrentUser().subscribe({
             next: (result) => {
                 this.setCurrentUser(result.user),

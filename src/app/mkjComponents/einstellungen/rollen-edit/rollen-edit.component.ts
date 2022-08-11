@@ -85,7 +85,7 @@ export class RollenEditComponent implements OnInit {
                 next: (res) => {
                     this.selectedRole = res;
                     this.isSaving = false;
-                    this.userService.renewCurrentUserPermissions();
+                    this.userService.renewCurrentUserData();
                     this.infoService.success("Rolle aktualisiert!");
                 },
                 error: (err) => {
@@ -122,7 +122,7 @@ export class RollenEditComponent implements OnInit {
                 this.roleService.deleteRole(role).subscribe({
                     next: (res) => {
                         this.init();
-                        this.userService.renewCurrentUserPermissions();
+                        this.userService.renewCurrentUserData();
                         this.infoService.success("Rolle gelöscht!");
                     },
                     error: (err) => {

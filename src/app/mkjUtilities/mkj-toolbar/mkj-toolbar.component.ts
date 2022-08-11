@@ -1,4 +1,3 @@
-import { Subscription } from "rxjs";
 import {
     Component,
     EventEmitter,
@@ -8,6 +7,7 @@ import {
     OnDestroy,
 } from "@angular/core";
 import { UserService } from "src/app/authentication/user.service";
+import { SubSink } from "subsink";
 
 @Component({
     selector: "app-mkj-toolbar",
@@ -72,23 +72,25 @@ export class MkjToolbarComponent implements OnInit, OnDestroy {
     @Output()
     clickDelete = new EventEmitter();
 
-    private userSub$: Subscription;
+    private subSink = new SubSink();
 
     constructor(private userService: UserService) {}
 
     public ngOnInit() {
-        this.userSub$ = this.userService.getCurrentUserPermissions().subscribe({
-            next: (res) => {
-                this.checkPermissions();
-            },
-        });
+        this.subSink.add(
+            this.userService.getCurrentUserPermissions().subscribe({
+                next: (res) => {
+                    this.updateVisibilities();
+                },
+            })
+        );
     }
 
     public ngOnDestroy(): void {
-        this.userSub$.unsubscribe();
+        this.subSink.unsubscribe();
     }
 
-    private checkPermissions() {
+    private updateVisibilities() {
         if (
             this.addButtonPermissions &&
             !this.userService.hasOneOfPermissions(this.addButtonPermissions)
