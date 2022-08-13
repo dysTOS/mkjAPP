@@ -52,10 +52,11 @@ import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmap
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
-import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
 import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
 import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
+import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
+import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 
 @NgModule({
     imports: [
@@ -78,12 +79,12 @@ import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/
                             children: [
                                 {
                                     path: "aktuell",
-                                    component: AusrueckungenComponent,
+                                    component: AusrueckungenAktuellComponent,
                                     canActivate: [AuthGuardService],
                                 },
                                 {
                                     path: "archiv",
-                                    component: AusrueckungenComponent,
+                                    component: AusrueckungenArchivComponent,
                                     canActivate: [AuthGuardService],
                                 },
                                 {
@@ -92,16 +93,16 @@ import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/
                                     canActivate: [AuthGuardService],
                                 },
                                 {
+                                    path: ":id",
+                                    component: AusrueckungSingleComponent,
+                                    canActivate: [AuthGuardService],
+                                },
+                                {
                                     path: "",
                                     redirectTo: "aktuell",
                                     pathMatch: "full",
                                 },
                             ],
-                        },
-                        {
-                            path: "ausrueckung/:id",
-                            component: AusrueckungSingleComponent,
-                            canActivate: [AuthGuardService],
                         },
                         {
                             path: "mitglieder",

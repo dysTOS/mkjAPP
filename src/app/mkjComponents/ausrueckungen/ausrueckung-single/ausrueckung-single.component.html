@@ -3,8 +3,8 @@
     (navigateBack)="navigateBack()"
 ></app-mkj-toolbar>
 
-<p-accordion>
-    <p-accordionTab [selected]="true">
+<p-tabView>
+    <p-tabPanel [selected]="true">
         <ng-template pTemplate="header"
             ><h5 class="p-m-0">{{ ausrueckung?.name }}</h5>
             <div class="p-ml-2" *ngIf="ausrueckung?.status">
@@ -27,6 +27,7 @@
         </div>
 
         <div *ngIf="!loading">
+            <app-ausrueckung-editor></app-ausrueckung-editor>
             <div class="p-col-12 ausrueckung-expanded-info">
                 <div class="p-md-3 p-sm-12 card">
                     <div>Termin:</div>
@@ -120,9 +121,9 @@
                 </div>
             </div>
         </div>
-    </p-accordionTab>
+    </p-tabPanel>
 
-    <p-accordionTab>
+    <p-tabPanel>
         <ng-template pTemplate="header"
             ><h5 class="p-m-0">Teilnehmende Musiker</h5></ng-template
         >
@@ -149,9 +150,9 @@
                 </ng-template>
             </p-listbox>
         </div>
-    </p-accordionTab>
+    </p-tabPanel>
 
-    <p-accordionTab>
+    <p-tabPanel>
         <ng-template pTemplate="header"
             ><h5 class="p-m-0">Gespielte Stücke</h5></ng-template
         >
@@ -186,5 +187,5 @@
                 </ng-template>
             </p-table>
         </div>
-    </p-accordionTab>
-</p-accordion>
+    </p-tabPanel>
+</p-tabView>

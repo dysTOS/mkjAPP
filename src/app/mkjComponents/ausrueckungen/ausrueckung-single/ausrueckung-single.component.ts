@@ -159,7 +159,7 @@ export class AusrueckungSingleComponent implements OnInit {
 
     navigateBack() {
         this.ausrueckungenService.setSelectedAusrueckung(null);
-        this.router.navigate(["/ausrueckungen"], { relativeTo: this.route });
+        this.router.navigate(["../"], { relativeTo: this.route });
     }
 
     exportToCalendar() {

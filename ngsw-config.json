@@ -39,18 +39,8 @@
             }
         },
         {
-            "name": "api-fresh",
-            "urls": ["/ausrueckungen"],
-            "cacheConfig": {
-                "strategy": "freshness",
-                "maxSize": 100,
-                "maxAge": "3d",
-                "timeout": "10s"
-            }
-        },
-        {
             "name": "api-staleWhileRevalidate",
-            "urls": ["/noten/mappen"],
+            "urls": ["https://api.mk-jainzen.at/api/**"],
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxSize": 100,

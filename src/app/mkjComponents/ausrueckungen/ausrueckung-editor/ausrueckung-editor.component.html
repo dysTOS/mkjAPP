@@ -1,4 +1,9 @@
-<div *ngIf="ausrueckung" class="p-fluid p-grid" style="margin-top: 5px">
+<div
+    *ngIf="ausrueckung"
+    [formGroup]="formGroup"
+    class="p-fluid p-grid"
+    style="margin-top: 5px"
+>
     <div class="p-field p-col-12 p-md-6">
         <div style="height: 100%" class="p-d-flex p-jc-center p-ai-center">
             <p-checkbox
@@ -6,6 +11,7 @@
                 (ngModelChange)="ausrueckung.oeffentlich = $event"
                 [binary]="true"
                 label="Öffentlich"
+                formControlName="oeffentlich"
                 [pTooltip]="
                     ausrueckung?.oeffentlich
                         ? 'Wird auf mk-jainzen angezeigt'
@@ -18,6 +24,7 @@
         <span class="p-float-label">
             <input
                 type="text"
+                formControlName="name"
                 pInputText
                 inputId="name"
                 [(ngModel)]="ausrueckung.name"
@@ -36,6 +43,7 @@
         <span class="p-float-label">
             <p-calendar
                 inputId="vonDatum"
+                formControlName="vonDatum"
                 [(ngModel)]="vonDate"
                 (ngModelChange)="setVonDate()"
                 [showTime]="false"
@@ -58,6 +66,7 @@
         <span class="p-float-label">
             <p-calendar
                 inputId="vonZeit"
+                formControlName="vonZeit"
                 [(ngModel)]="vonTime"
                 (ngModelChange)="setVonZeit()"
                 [timeOnly]="true"
@@ -73,6 +82,7 @@
         <span class="p-float-label">
             <p-calendar
                 inputId="bisDatum"
+                formControlName="bisDatum"
                 [(ngModel)]="bisDate"
                 (ngModelChange)="setBisDate()"
                 [showTime]="false"
@@ -95,6 +105,7 @@
         <span class="p-float-label">
             <p-calendar
                 inputId="bisZeit"
+                formControlName="bisZeit"
                 [(ngModel)]="bisTime"
                 (ngModelChange)="setBisTime()"
                 [timeOnly]="true"
@@ -110,6 +121,7 @@
         <span class="p-float-label">
             <p-calendar
                 inputId="treffzeit"
+                formControlName="treffzeit"
                 [(ngModel)]="treffTime"
                 (ngModelChange)="setTreffzeit()"
                 [timeOnly]="true"
@@ -126,6 +138,7 @@
         <span class="p-float-label">
             <input
                 type="text"
+                formControlName="ort"
                 pInputText
                 inputId="ort"
                 [(ngModel)]="ausrueckung.ort"
@@ -138,6 +151,7 @@
         <span class="p-float-label">
             <p-dropdown
                 inputId="kategorie"
+                formControlName="kategorie"
                 [options]="kategorien"
                 [(ngModel)]="ausrueckung.kategorie"
                 [class.ng-dirty]="submitted && !ausrueckung.kategorie"
@@ -154,6 +168,7 @@
         <span class="p-float-label">
             <p-dropdown
                 inputId="status"
+                formControlName="status"
                 [options]="status"
                 [(ngModel)]="ausrueckung.status"
                 [class.ng-dirty]="submitted && !ausrueckung.status"
@@ -189,6 +204,7 @@
         <span class="p-float-label">
             <textarea
                 id="beschreibung"
+                formControlName="beschreibung"
                 pInputTextarea
                 [(ngModel)]="ausrueckung.beschreibung"
                 rows="2"
@@ -201,6 +217,7 @@
         <span class="p-float-label">
             <textarea
                 type="text"
+                formControlName="infoMusiker"
                 pInputTextarea
                 id="infoMusiker"
                 [(ngModel)]="ausrueckung.infoMusiker"

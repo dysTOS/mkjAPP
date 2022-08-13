@@ -189,9 +189,10 @@ import { environment } from "src/environments/environment";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
-import { AusrueckungenComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen.component";
 import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
-import { KalenderaboComponent } from './mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component';
+import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
+import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
+import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -342,7 +343,6 @@ FullCalendarModule.registerPlugins([
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,
-        AusrueckungenComponent,
         AusrueckungSingleComponent,
         MkjDatePipe,
         MkjDashboardComponent,
@@ -367,6 +367,8 @@ FullCalendarModule.registerPlugins([
         MkjNotensucheComponent,
         LokaleEinstellungenComponent,
         KalenderaboComponent,
+        AusrueckungenAktuellComponent,
+        AusrueckungenArchivComponent,
     ],
     providers: [
         // { provide: LocationStrategy, useClass: HashLocationStrategy },

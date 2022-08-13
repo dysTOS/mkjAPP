@@ -18,8 +18,8 @@ import { InfoService } from "src/app/mkjServices/info.service";
 import { MkjDatePipe } from "src/app/mkjUtilities/mkj-date.pipe";
 
 @Component({
-    templateUrl: "./ausrueckungen.component.html",
-    styleUrls: ["./ausrueckungen.scss"],
+    templateUrl: "./ausrueckungen-aktuell.component.html",
+    styleUrls: ["./ausrueckungen-aktuell.component.scss"],
     styles: [
         `
             @media screen and (max-width: 960px) {
@@ -44,7 +44,7 @@ import { MkjDatePipe } from "src/app/mkjUtilities/mkj-date.pipe";
         `,
     ],
 })
-export class AusrueckungenComponent implements OnInit {
+export class AusrueckungenAktuellComponent implements OnInit {
     ausrueckungDialog: boolean;
     zeitraumDialog: boolean;
     exportDialogVisible: boolean = false;
@@ -332,7 +332,7 @@ export class AusrueckungenComponent implements OnInit {
 
     navigateSingleAusrueckung(ausrueckung: Ausrueckung) {
         this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
-        this.router.navigate(["../ausrueckung/" + ausrueckung.id], {
+        this.router.navigate(["../", ausrueckung.id], {
             relativeTo: this.route,
         });
     }

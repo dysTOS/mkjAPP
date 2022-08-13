@@ -1,0 +1,430 @@
+<app-mkj-toolbar
+    [showAddButton]="true"
+    [showExportButton]="true"
+    [headerLeft]="'Ausrückungen ' + zeitraumDisplayText"
+    (clickAdd)="openNew()"
+    (clickExport)="exportDialogVisible = true"
+    addButtonTooltip="Neue Ausrückung"
+    exportButtonTooltip="Ausrückungen exportieren"
+    [addButtonPermissions]="['ausrueckungen_save']"
+></app-mkj-toolbar>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <div>
+            <!-- Tabelle -->
+            <p-table
+                #dt
+                [columns]="cols"
+                [value]="ausrueckungenArray"
+                [globalFilterFields]="['name', 'vonDatum', 'kategorie']"
+                [rowHover]="true"
+                dataKey="id"
+                styleClass="p-datatable-ausrueckungen p-datatable-striped rowexpand-table"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                responsiveLayout="scroll"
+                [showCurrentPageReport]="true"
+                [loading]="loading"
+                sortField="vonDatum"
+                (onFilter)="setFilteredRows($event)"
+                selectionMode="single"
+                (onRowSelect)="onRowSelect($event)"
+                (onRowUnselect)="onRowUnselect($event)"
+                rowExpandMode="single"
+                [(selection)]="selectedRow"
+            >
+                <ng-template pTemplate="caption">
+                    <div
+                        class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
+                    >
+                        <div>
+                            Anzahl:
+                            {{
+                                selectedAusrueckungen
+                                    ? selectedAusrueckungen.length
+                                    : 0
+                            }}
+                        </div>
+
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    dt.filterGlobal(
+                                        $event.target.value,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Suchen..."
+                            />
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            Name <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="vonDatum">
+                            Datum <p-sortIcon field="vonDatum"></p-sortIcon>
+                        </th>
+                        <th>
+                            <span>Kategorie</span>
+                            <p-columnFilter
+                                field="kategorie"
+                                matchMode="equals"
+                                display="menu"
+                                [showOperator]="false"
+                                [showClearButton]="true"
+                                [showApplyButton]="true"
+                                [showMatchModes]="false"
+                                [showAddButton]="false"
+                                [hideOnClear]="true"
+                            >
+                                <ng-template
+                                    pTemplate="filter"
+                                    let-value
+                                    let-filter="filterCallback"
+                                >
+                                    <p-dropdown
+                                        [ngModel]="value"
+                                        [options]="kategorien"
+                                        (onChange)="filter($event.value)"
+                                        placeholder="Filter"
+                                    >
+                                        <ng-template
+                                            let-option
+                                            pTemplate="item"
+                                        >
+                                            <span>{{ option.label }}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                        <th>
+                            <span>Status </span>
+                            <p-columnFilter
+                                field="status"
+                                matchMode="equals"
+                                display="menu"
+                                [showOperator]="false"
+                                [showClearButton]="true"
+                                [showApplyButton]="true"
+                                [showMatchModes]="false"
+                                [showAddButton]="false"
+                                [hideOnClear]="true"
+                            >
+                                <ng-template
+                                    pTemplate="filter"
+                                    let-value
+                                    let-filter="filterCallback"
+                                >
+                                    <p-dropdown
+                                        [ngModel]="value"
+                                        [options]="status"
+                                        (onChange)="filter($event.value)"
+                                        placeholder="Filter"
+                                    >
+                                        <ng-template
+                                            let-option
+                                            pTemplate="item"
+                                        >
+                                            <span
+                                                [class]="
+                                                    'ausrueckungen-badge status-' +
+                                                    option.value
+                                                "
+                                                >{{ option.label }}</span
+                                            >
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template
+                    pTemplate="body"
+                    let-ausrueckung
+                    let-expanded="expanded"
+                    let-rowIndex="rowIndex"
+                >
+                    <tr
+                        class="p-selectable-row"
+                        [pSelectableRow]="ausrueckung"
+                        [pSelectableRowIndex]="rowIndex"
+                        [class.ausrueckung-expired]="
+                            ausrueckung.vonDatum < actualDate
+                        "
+                    >
+                        <td>
+                            <span class="p-text-bold">{{
+                                ausrueckung.name
+                            }}</span>
+                        </td>
+                        <td>
+                            {{
+                                ausrueckung.vonDatum | mkjDate: "E d. MMMM YYYY"
+                            }}
+                        </td>
+                        <td class="not-on-small">
+                            {{ ausrueckung.kategorie | uppercase }}
+                        </td>
+                        <td class="not-on-small">
+                            <span
+                                [class]="
+                                    'ausrueckungen-badge status-' +
+                                    (ausrueckung.status
+                                        ? ausrueckung.status.toLowerCase()
+                                        : '')
+                                "
+                            >
+                                {{ ausrueckung.status }}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="rowexpansion" let-ausrueckung>
+                    <tr>
+                        <td colspan="4">
+                            <div class="p-col-12 ausrueckung-expanded-info">
+                                <div class="p-md-3 p-sm-12 card">
+                                    <div>Termin:</div>
+                                    <h5 class="p-m-1">
+                                        {{
+                                            ausrueckung?.vonDatum
+                                                | mkjDate: "d. MMMM YYYY"
+                                        }}
+                                        {{ ausrueckung?.vonZeit }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-3 p-sm-12 card"
+                                    *ngIf="ausrueckung.treffzeit"
+                                >
+                                    <div>Zusammenkunft um:</div>
+                                    <h5 class="p-m-1">
+                                        {{ ausrueckung?.treffzeit }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-3 p-sm-12 card"
+                                    *ngIf="ausrueckung.bisZeit"
+                                >
+                                    <div>Ende:</div>
+                                    <h5 class="p-m-1">
+                                        <div
+                                            *ngIf="
+                                                ausrueckung?.bisDatum !==
+                                                ausrueckung?.vonDatum
+                                            "
+                                        >
+                                            {{
+                                                ausrueckung?.bisDatum
+                                                    | mkjDate: "d. MMMM YYYY"
+                                            }}
+                                        </div>
+                                        {{ ausrueckung?.bisZeit }}
+                                    </h5>
+                                </div>
+                                <div
+                                    class="p-md-3 p-sm-12 card"
+                                    *ngIf="ausrueckung.ort"
+                                >
+                                    <div>Ort:</div>
+                                    <h5 class="p-m-1">
+                                        {{ ausrueckung?.ort }}
+                                    </h5>
+                                </div>
+
+                                <div
+                                    *ngIf="ausrueckung.infoMusiker"
+                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                                >
+                                    <p-panel header="Musikerinfos">
+                                        {{ ausrueckung.infoMusiker }}
+                                    </p-panel>
+                                </div>
+                                <div
+                                    *ngIf="ausrueckung.beschreibung"
+                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                                >
+                                    <p-panel header="Öffentliche Beschreibung">
+                                        {{ ausrueckung.beschreibung }}
+                                    </p-panel>
+                                </div>
+                                <div class="p-col-12 p-d-flex p-jc-center">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-list"
+                                        label="Detailansicht"
+                                        class="p-button-raised p-button-info"
+                                        style="width: 18rem"
+                                        (click)="
+                                            navigateSingleAusrueckung(
+                                                ausrueckung
+                                            )
+                                        "
+                                    ></button>
+                                </div>
+                                <div class="p-col-12 p-d-flex p-jc-center">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="in Mobil-Kalender speichern"
+                                        class="p-button-raised p-button-info p-button-outlined"
+                                        icon="pi pi-calendar"
+                                        style="width: 18rem"
+                                        (click)="exportToCalendar(ausrueckung)"
+                                    ></button>
+                                </div>
+                                <div class="p-col-12">
+                                    <p-divider class="p-col-12"></p-divider>
+                                    <div class="p-col-12 p-d-flex p-jc-center">
+                                        <span class="p-buttonset">
+                                            <button
+                                                *visibleFor="[
+                                                    'ausrueckungen_save'
+                                                ]"
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-copy"
+                                                label="Duplizieren"
+                                                class="p-button-outlined p-button-secondary p-button-sm"
+                                                (click)="
+                                                    duplicateAusrueckung(
+                                                        ausrueckung
+                                                    )
+                                                "
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-pencil"
+                                                label="Bearbeiten"
+                                                class="p-button-outlined p-button-sm p-button-info"
+                                                (click)="
+                                                    editAusrueckung(ausrueckung)
+                                                "
+                                            ></button>
+                                            <button
+                                                pButton
+                                                pRipple
+                                                icon="pi pi-trash"
+                                                label="Löschen"
+                                                class="p-button-outlined p-button-sm p-button-danger"
+                                                (click)="
+                                                    deleteAusrueckung(
+                                                        ausrueckung
+                                                    )
+                                                "
+                                            ></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6">
+                            In diesem Zeitraum sind keine Termine vorhanden!
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Save/Update Ausrückung -->
+        <p-dialog
+            #ausrDialog
+            [(visible)]="ausrueckungDialog"
+            [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+            [style]="{ width: '75vw' }"
+            [header]="
+                !updateAusrueckung
+                    ? 'Ausrückung anlegen'
+                    : 'Ausrückung aktualisieren'
+            "
+            [modal]="true"
+            styleClass="p-fluid"
+            position="top"
+        >
+            <ng-template pTemplate="content"> </ng-template>
+            <app-ausrueckung-editor
+                [(ausrueckung)]="singleAusrueckung"
+                [submitted]="submitted"
+            ></app-ausrueckung-editor>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Abbrechen"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="hideAusrueckungDialog()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Speichern"
+                    [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+                    class="p-button-plain"
+                    [disabled]="isSaving"
+                    (click)="saveAusrueckung()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <!-- Export Dialog -->
+        <p-dialog
+            #exportDialog
+            [(visible)]="exportDialogVisible"
+            header="Ausrückungen exportieren"
+            [closable]="true"
+            [dismissableMask]="true"
+            [modal]="true"
+            styleClass="p-fluid"
+            position="top"
+        >
+            <ng-template pTemplate="content">
+                <button
+                    pButton
+                    pRipple
+                    label="PDF"
+                    icon="pi pi-file-pdf"
+                    (click)="exportPdf(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined p-mb-3"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Excel"
+                    icon="pi pi-file-excel"
+                    (click)="exportExcel(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined p-mb-3"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="CSV"
+                    icon="pi pi-file"
+                    (click)="exportCsv(); exportDialogVisible = false"
+                    class="p-button-lg p-button-outlined"
+                ></button>
+            </ng-template>
+            <ng-template pTemplate="footer"
+                ><div style="height: 10px"></div
+            ></ng-template>
+        </p-dialog>
+    </div>
+</div>

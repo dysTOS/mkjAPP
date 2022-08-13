@@ -5,6 +5,7 @@ import {
 } from "src/app/mkjInterfaces/Ausrueckung";
 import { Component, Input } from "@angular/core";
 import * as moment from "moment";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-ausrueckung-editor",
@@ -34,7 +35,24 @@ export class AusrueckungEditorComponent {
     bisTime: Date;
     treffTime: Date;
 
-    constructor() {}
+    public formGroup: FormGroup;
+
+    constructor(formBuilder: FormBuilder) {
+        this.formGroup = formBuilder.group({
+            oeffentlich: [false],
+            name: [null, Validators.required],
+            vonDatum: [null, Validators.required],
+            bisDatum: [null, Validators.required],
+            vonZeit: [null],
+            bisZeit: [null],
+            treffzeit: [null],
+            ort: [null],
+            kategorie: [null, Validators.required],
+            status: [null, Validators.required],
+            beschreibung: [null],
+            infoMusiker: [null],
+        });
+    }
 
     private initDates() {
         if (this.ausrueckung.vonDatum) {
