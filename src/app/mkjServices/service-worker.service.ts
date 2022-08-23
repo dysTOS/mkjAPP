@@ -54,6 +54,9 @@ export class ServiceWorkerService {
             next: (res) => {
                 this.infoService.pushNotification(res);
                 console.log("MESSAGE:", res);
+                navigator.serviceWorker.ready.then((registration) => {
+                    registration.showNotification("test", res);
+                });
             },
             error: (err) => this.infoService.error(err),
         });
@@ -64,15 +67,6 @@ export class ServiceWorkerService {
                 console.log("NOTIFICATION CLICK:", res);
             },
             error: (err) => this.infoService.error(err),
-        });
-
-        navigator.serviceWorker.ready.then((registration) => {
-            registration.showNotification("Vibration Sample", {
-                body: "Buzz! Buzz!",
-                icon: "../images/touch/chrome-touch-icon-192x192.png",
-                vibrate: [200, 100, 200, 100, 200, 100, 200],
-                tag: "vibration-sample",
-            });
         });
     }
 
