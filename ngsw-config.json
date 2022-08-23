@@ -30,7 +30,7 @@
     "dataGroups": [
         {
             "name": "api-perform",
-            "urls": ["/noten/archiv"],
+            "urls": ["https://api.mk-jainzen.at/api/noten"],
             "cacheConfig": {
                 "strategy": "performance",
                 "maxSize": 100,
@@ -39,13 +39,13 @@
             }
         },
         {
-            "name": "api-staleWhileRevalidate",
+            "name": "api-freshness",
             "urls": ["https://api.mk-jainzen.at/api/**"],
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxSize": 100,
                 "maxAge": "3d",
-                "timeout": "0u"
+                "timeout": "3s"
             }
         }
     ]
