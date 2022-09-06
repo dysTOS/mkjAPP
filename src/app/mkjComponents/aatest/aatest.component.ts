@@ -39,9 +39,12 @@ export class AatestComponent implements OnInit {
 
     public testOCS() {
         const url = "https://cloud.mk-jainzen.at/ocs/v1.php/cloud";
+        const creds = window.btoa("admin:gmrmkjrs&1928/3");
         const headers = {
             headers: new HttpHeaders({
-                "OCS-APIRequest": "true",
+                "ocs-apirequest": "true",
+                Authorization: creds,
+                "Content-Type": "application/x-www-form-urlencoded",
             }),
         };
         this.http.get(url, headers).subscribe({
