@@ -5,6 +5,7 @@ import { PushNotificationsService } from "./push-notifications.service";
 import { BehaviorSubject, first, Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ConfirmationService } from "primeng/api";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: "root",
@@ -22,7 +23,8 @@ export class ServiceWorkerService {
         private swPush: SwPush,
         private pushNotiService: PushNotificationsService,
         private confirmationService: ConfirmationService,
-        private infoService: InfoService
+        private infoService: InfoService,
+        private router: Router
     ) {
         this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_DETECTED") {
@@ -51,11 +53,10 @@ export class ServiceWorkerService {
         });
 
         this.swPush.messages.subscribe({
-            next: (res) => {
-                this.infoService.pushNotification(res);
+            next: (res: any) => {
                 console.log("MESSAGE:", res);
                 navigator.serviceWorker.ready.then((registration) => {
-                    registration.showNotification("test", res);
+                    registration.showNotification(res.title, res);
                 });
             },
             error: (err) => this.infoService.error(err),
@@ -63,7 +64,7 @@ export class ServiceWorkerService {
 
         this.swPush.notificationClicks.subscribe({
             next: (res) => {
-                this.infoService.pushNotification(res);
+                this.pushNotiService.handleNotificationAction(res);
                 console.log("NOTIFICATION CLICK:", res);
             },
             error: (err) => this.infoService.error(err),

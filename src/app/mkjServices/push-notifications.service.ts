@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 
@@ -15,7 +16,19 @@ const httpOptions = {
 export class PushNotificationsService {
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    public receivedNotifications: string[] = [];
+
+    constructor(private http: HttpClient, private router: Router) {}
+
+    public handleNotificationAction(action: {
+        action: string;
+        notification: NotificationOptions & {
+            title: string;
+        };
+    }) {
+        this.receivedNotifications.push(action.action);
+        this.router.navigate([environment.filePrefix, "test"]);
+    }
 
     public subscribeUser(sub: PushSubscription) {
         const url = this.apiURL + "pushsub";
