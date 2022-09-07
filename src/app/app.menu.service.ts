@@ -145,13 +145,6 @@ export class MenuService implements OnDestroy {
             visible: false,
             permission: "role_read",
         },
-        {
-            label: "PrimeMenu",
-            icon: "pi pi-list",
-            enumLabel: MenuLabels.PRIMEMENU,
-            visible: false,
-            permission: "role_read",
-        },
     ];
 
     private menuSource = new Subject<string>();
