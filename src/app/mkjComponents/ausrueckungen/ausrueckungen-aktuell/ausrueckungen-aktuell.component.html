@@ -9,8 +9,8 @@
     [addButtonPermissions]="['ausrueckungen_save']"
 ></app-mkj-toolbar>
 
-<div class="p-grid">
-    <div class="p-col-12">
+<div class="grid">
+    <div class="col-12">
         <div>
             <!-- Tabelle -->
             <p-table
@@ -35,7 +35,7 @@
             >
                 <ng-template pTemplate="caption">
                     <div
-                        class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
+                        class="flex flex-column flex-md-row justify-content-md-between align-items-center"
                     >
                         <div>
                             Anzahl:
@@ -163,7 +163,7 @@
                         "
                     >
                         <td>
-                            <span class="p-text-bold">{{
+                            <span class="font-bold">{{
                                 ausrueckung.name
                             }}</span>
                         </td>
@@ -193,10 +193,10 @@
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
                         <td colspan="4">
-                            <div class="p-col-12 ausrueckung-expanded-info">
-                                <div class="p-md-3 p-sm-12 card">
+                            <div class="col-12 ausrueckung-expanded-info">
+                                <div class="md:col-3 sm:col-12 card">
                                     <div>Termin:</div>
-                                    <h5 class="p-m-1">
+                                    <h5 class="m-1">
                                         {{
                                             ausrueckung?.vonDatum
                                                 | mkjDate: "d. MMMM YYYY"
@@ -205,20 +205,20 @@
                                     </h5>
                                 </div>
                                 <div
-                                    class="p-md-3 p-sm-12 card"
+                                    class="md:col-3 sm:col-12 card"
                                     *ngIf="ausrueckung.treffzeit"
                                 >
                                     <div>Zusammenkunft um:</div>
-                                    <h5 class="p-m-1">
+                                    <h5 class="m-1">
                                         {{ ausrueckung?.treffzeit }}
                                     </h5>
                                 </div>
                                 <div
-                                    class="p-md-3 p-sm-12 card"
+                                    class="md:col-3 sm:col-12 card"
                                     *ngIf="ausrueckung.bisZeit"
                                 >
                                     <div>Ende:</div>
-                                    <h5 class="p-m-1">
+                                    <h5 class="m-1">
                                         <div
                                             *ngIf="
                                                 ausrueckung?.bisDatum !==
@@ -234,18 +234,18 @@
                                     </h5>
                                 </div>
                                 <div
-                                    class="p-md-3 p-sm-12 card"
+                                    class="md:col-3 sm:col-12 card"
                                     *ngIf="ausrueckung.ort"
                                 >
                                     <div>Ort:</div>
-                                    <h5 class="p-m-1">
+                                    <h5 class="m-1">
                                         {{ ausrueckung?.ort }}
                                     </h5>
                                 </div>
 
                                 <div
                                     *ngIf="ausrueckung.infoMusiker"
-                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                                    class="md:col-6 sm:col-12 pl-0 pr-0"
                                 >
                                     <p-panel header="Musikerinfos">
                                         {{ ausrueckung.infoMusiker }}
@@ -253,13 +253,13 @@
                                 </div>
                                 <div
                                     *ngIf="ausrueckung.beschreibung"
-                                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                                    class="md:col-6 sm:col-12 pl-0 pr-0"
                                 >
                                     <p-panel header="Öffentliche Beschreibung">
                                         {{ ausrueckung.beschreibung }}
                                     </p-panel>
                                 </div>
-                                <div class="p-col-12 p-d-flex p-jc-center">
+                                <div class="col-12 flex justify-content-center">
                                     <button
                                         pButton
                                         pRipple
@@ -274,7 +274,7 @@
                                         "
                                     ></button>
                                 </div>
-                                <div class="p-col-12 p-d-flex p-jc-center">
+                                <div class="col-12 flex justify-content-center">
                                     <button
                                         pButton
                                         pRipple
@@ -285,9 +285,11 @@
                                         (click)="exportToCalendar(ausrueckung)"
                                     ></button>
                                 </div>
-                                <div class="p-col-12">
-                                    <p-divider class="p-col-12"></p-divider>
-                                    <div class="p-col-12 p-d-flex p-jc-center">
+                                <div class="col-12">
+                                    <p-divider class="col-12"></p-divider>
+                                    <div
+                                        class="col-12 flex justify-content-center"
+                                    >
                                         <span class="p-buttonset">
                                             <button
                                                 *visibleFor="[
@@ -403,7 +405,7 @@
                     label="PDF"
                     icon="pi pi-file-pdf"
                     (click)="exportPdf(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined p-mb-3"
+                    class="p-button-lg p-button-outlined mb-3"
                 ></button>
                 <button
                     pButton
@@ -411,7 +413,7 @@
                     label="Excel"
                     icon="pi pi-file-excel"
                     (click)="exportExcel(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined p-mb-3"
+                    class="p-button-lg p-button-outlined mb-3"
                 ></button>
                 <button
                     pButton

@@ -3,7 +3,8 @@
         box-shadow: none;
         border: 0 none;
 
-        &:before, &:after {
+        &:before,
+        &:after {
             display: none !important;
         }
 
@@ -18,16 +19,16 @@
             .token {
                 &.tag,
                 &.keyword {
-                    color: #2196F3 !important;
+                    color: #2196f3 !important;
                 }
 
                 &.attr-name,
                 &.attr-string {
-                    color: #2196F3 !important;
+                    color: #2196f3 !important;
                 }
 
                 &.attr-value {
-                    color: #4CAF50 !important;
+                    color: #4caf50 !important;
                 }
 
                 &.punctuation {
@@ -42,12 +43,13 @@
         }
     }
 
-    .p-d-flex > div,
+    .flex > div,
     .box {
         background-color: var(--surface-e);
         text-align: center;
         padding: 1rem;
         border-radius: 4px;
-        box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     }
 }

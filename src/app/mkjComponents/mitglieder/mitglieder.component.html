@@ -8,8 +8,8 @@
     headerLeft="Mitglieder"
 ></app-mkj-toolbar>
 
-<div class="p-grid">
-    <div class="p-col-12">
+<div class="grid">
+    <div class="col-12">
         <p-table
             #mitgliederTable
             [value]="mitglieder"
@@ -20,9 +20,9 @@
         >
             <ng-template pTemplate="caption">
                 <div
-                    class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center table-header"
+                    class="flex flex-column flex-md-row justify-content-md-between align-items-center table-header"
                 >
-                    <div class="p-mb-2">
+                    <div class="mb-2">
                         Anzahl:
                         {{ mitglieder?.length || "-" }}
                     </div>
@@ -80,7 +80,7 @@
                             pTooltip="Details"
                             tooltipPosition="left"
                             icon="pi pi-ellipsis-h"
-                            class="p-button-sm p-button-text buttons-hide p-button-info p-p-2"
+                            class="p-button-sm p-button-text buttons-hide p-button-info p-2"
                         ></button>
                     </td>
                 </tr>
@@ -134,11 +134,11 @@
     position="top"
 >
     <ng-template pTemplate="content">
-        <div class="p-d-flex p-flex-column">
+        <div class="flex flex-column">
             <button
                 pButton
                 type="button"
-                class="p-button-lg p-mb-4"
+                class="p-button-lg mb-4"
                 label="Aktive Mitglieder"
                 (click)="loadAktiveMitglieder(); filterDialogVisible = false"
             ></button>

@@ -4,7 +4,7 @@
     (clickAdd)="addNewMappe()"
 ></app-mkj-toolbar>
 
-<div class="p-col-12">
+<div class="col-12">
     <p-table
         [value]="notenmappen"
         [loading]="loading"
@@ -48,7 +48,7 @@
         ><ng-template pTemplate="rowexpansion" let-mappe>
             <tr>
                 <td colspan="12">
-                    <div class="p-d-flex p-jc-center">
+                    <div class="flex justify-content-center">
                         <app-mkj-notensuche
                             [selectedNoten]="selectedNoten"
                             [verzeichnisMode]="mappe.hatVerzeichnis"
@@ -104,7 +104,7 @@
     header="Mappe erstellen"
 >
     <ng-template pTemplate="content">
-        <div class="p-d-flex p-flex-column p-mt-3">
+        <div class="flex flex-column mt-3">
             <div class="p-fluid p-field">
                 <span class="p-float-label">
                     <input

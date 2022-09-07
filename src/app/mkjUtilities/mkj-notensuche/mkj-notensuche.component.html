@@ -1,4 +1,4 @@
-<div class="p-d-flex">
+<div class="flex">
     <input *ngIf="verzeichnisMode" pInputText [(ngModel)]="verzeichnisNr" />
     <p-autoComplete
         [(ngModel)]="selectedNoten"
@@ -15,7 +15,7 @@
         emptyMessage="Keine Noten gefunden..."
     >
         <ng-template pTemplate="item" let-item>
-            <div class="p-d-flex p-jc-between p-text-truncate">
+            <div class="flex justify-content-between text-truncate">
                 <div [style.width]="'20rem'">
                     {{ item.titel }}
                 </div>

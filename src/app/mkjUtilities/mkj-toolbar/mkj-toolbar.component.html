@@ -1,10 +1,12 @@
-<div class="mkj-toolbar p-col-12 p-d-flex p-jc-between p-ai-center p-mb-3">
+<div
+    class="mkj-toolbar col-12 flex justify-content-between align-items-center mb-3"
+>
     <div>
         <button
             *ngIf="showBackButton"
             pButton
             icon="pi pi-arrow-left"
-            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1"
             (click)="navigateBack.emit($event)"
             pTooltip="Zurück"
             tooltipPosition="bottom"
@@ -20,7 +22,7 @@
         <button
             *ngIf="showEditButton && editButtonPermission"
             pButton
-            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1"
             icon="pi pi-pencil"
             (click)="clickEdit.emit($event)"
             [pTooltip]="editButtonTooltip"
@@ -29,7 +31,7 @@
         <button
             *ngIf="showAddButton && addButtonPermission"
             pButton
-            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1"
             icon="pi pi-plus"
             (click)="clickAdd.emit($event)"
             [pTooltip]="addButtonTooltip"
@@ -38,7 +40,7 @@
         <button
             *ngIf="showDeleteButton && deleteButtonPermission"
             pButton
-            class="p-button p-button-text p-button-plain button-opacity p-p-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1"
             icon="pi pi-trash"
             (click)="clickDelete.emit($event)"
             [pTooltip]="deleteButtonTooltip"
@@ -47,7 +49,7 @@
         <button
             *ngIf="showFilterButton && filterButtonPermission"
             pButton
-            class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1 ml-1"
             icon="pi pi-filter"
             (click)="clickFilter.emit($event)"
             [pTooltip]="filterButtonTooltip"
@@ -56,7 +58,7 @@
         <button
             *ngIf="showExportButton && exportButtonPermission"
             pButton
-            class="p-button p-button-text p-button-plain button-opacity p-p-1 p-ml-1"
+            class="p-button p-button-text p-button-plain button-opacity p-1 ml-1"
             icon="pi pi-download"
             (click)="clickExport.emit($event)"
             [pTooltip]="exportButtonTooltip"

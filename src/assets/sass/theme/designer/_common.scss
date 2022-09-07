@@ -1,5 +1,5 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .p-component {
@@ -13,7 +13,8 @@
     transition-duration: $transitionDuration;
 }
 
-.p-disabled, .p-component:disabled {
+.p-disabled,
+.p-component:disabled {
     opacity: $disabledOpacity;
 }
 
@@ -21,7 +22,7 @@
     color: $errorColor;
 }
 
-.p-text-secondary {
+.text-secondary {
     color: $textSecondaryColor;
 }
 

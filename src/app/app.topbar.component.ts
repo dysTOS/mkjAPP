@@ -14,7 +14,7 @@ import { MenuLabels, MenuService } from "./app.menu.service";
                 </a>
             </div>
 
-            <div class="app-name p-text-bold" style="color: white">
+            <div class="app-name font-bold" style="color: white">
                 <h3>mkjAPP</h3>
             </div>
 

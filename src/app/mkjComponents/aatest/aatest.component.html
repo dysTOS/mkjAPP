@@ -1,5 +1,5 @@
 <p-card>
-    <div class="p-col-12 p-d-flex p-jc-around">
+    <div class="col-12 flex justify-content-around">
         <p-badge
             [value]="pushService.receivedNotifications.length"
             severity="success"
@@ -10,7 +10,7 @@
             (click)="push()"
         ></button>
     </div>
-    <div class="p-col-12 p-d-flex">
+    <div class="col-12 flex">
         <p-table [value]="pushService.receivedNotifications"
             ><ng-template pTemplate="body" let-action>
                 <tr>

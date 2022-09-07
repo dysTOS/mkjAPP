@@ -8,8 +8,8 @@
 ></app-mkj-toolbar>
 
 <div class="card">
-    <div class="p-grid p-col-12">
-        <div class="p-md-8 p-sm-12">
+    <div class="grid col-12">
+        <div class="md:col-8 sm:col-12">
             <div>
                 <b
                     >{{ mitglied?.titelVor }} {{ mitglied?.vorname }}
@@ -39,8 +39,8 @@
         </div>
     </div>
 </div>
-<div class="p-md-6 p-sm-12">
-    <div *ngIf="rolesLoading" class="p-d-flex p-jc-center">
+<div class="md:col-6 sm:col-12">
+    <div *ngIf="rolesLoading" class="flex justify-content-center">
         <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
     </div>
     <p-listbox
@@ -56,14 +56,16 @@
         dataKey="id"
     >
         <ng-template pTemplate="header">
-            <div class="p-col-12 p-d-flex p-jc-between p-ai-center p-p-0">
+            <div
+                class="col-12 flex justify-content-between align-items-center p-0"
+            >
                 <span> Rollen</span>
                 <p-button
                     label="Update"
                     [icon]="
                         rolesSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
                     "
-                    class="p-m-2"
+                    class="m-2"
                     [disabled]="rolesSaving"
                     (click)="updateRoles()"
                 ></p-button></div

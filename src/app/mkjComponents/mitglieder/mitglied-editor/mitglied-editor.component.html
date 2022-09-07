@@ -1,5 +1,5 @@
-<div class="p-grid p-mt-2">
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+<div class="grid mt-2">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -12,7 +12,7 @@
             <label for="name">Vorname</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -25,7 +25,7 @@
             <label for="name">Familienname</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -37,7 +37,7 @@
             <label for="name">Titel Vor</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -49,7 +49,7 @@
             <label for="name">Titel Nach</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <p-calendar
                 inputId="geburtsdatum"
@@ -67,7 +67,7 @@
             <label for="geburtsdatum">Geburtsdatum</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <p-dropdown
                 [options]="mitgliedGeschlecht"
@@ -81,7 +81,7 @@
         </span>
     </div>
 
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -95,10 +95,10 @@
     </div>
 </div>
 
-<div class="p-grid p-mt-2"></div>
+<div class="grid mt-2"></div>
 
-<div class="p-grid p-mt-2">
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+<div class="grid mt-2">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -111,7 +111,7 @@
             <label for="strasse">Straße</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -124,7 +124,7 @@
             <label for="name">Hausnummer</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -137,7 +137,7 @@
             <label for="name">Ort</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -150,7 +150,7 @@
             <label for="name">Postleitzahl</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="email"
@@ -164,7 +164,7 @@
             <label for="name">E-Mail</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -177,7 +177,7 @@
             <label for="name">Telefon Festnetz</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <input
                 type="text"
@@ -192,9 +192,15 @@
     </div>
 </div>
 
-<div *ngIf="!personalMode" class="p-grid p-mt-2">
-    <div *ngIf="!personalMode" class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
-        <div style="height: 100%" class="p-d-flex p-jc-center p-ai-center">
+<div *ngIf="!personalMode" class="grid mt-2">
+    <div
+        *ngIf="!personalMode"
+        class="p-field col-12 lg:col-3 md:col-6 sm:col-12"
+    >
+        <div
+            style="height: 100%"
+            class="flex justify-content-center align-items-center"
+        >
             <p-checkbox
                 [ngModel]="mitglied?.aktiv ? true : false"
                 (ngModelChange)="mitglied.aktiv = $event"
@@ -203,7 +209,7 @@
             ></p-checkbox>
         </div>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <p-calendar
                 inputId="eintrittDatum"
@@ -220,7 +226,7 @@
             <label for="eintrittDatum">Datum Eintritt</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-lg-3 p-md-6 p-sm-12">
+    <div class="p-field col-12 lg:col-3 md:col-6 sm:col-12">
         <span class="p-float-label">
             <p-calendar
                 inputId="austrittDatum"

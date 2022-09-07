@@ -44,7 +44,6 @@ export class AatestComponent implements OnInit {
             headers: new HttpHeaders({
                 "ocs-apirequest": "true",
                 Authorization: creds,
-                "Content-Type": "application/x-www-form-urlencoded",
             }),
         };
         this.http.get(url, headers).subscribe({

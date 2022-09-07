@@ -6,8 +6,8 @@
 <p-tabView>
     <p-tabPanel [selected]="true">
         <ng-template pTemplate="header"
-            ><h5 class="p-m-0">{{ ausrueckung?.name }}</h5>
-            <div class="p-ml-2" *ngIf="ausrueckung?.status">
+            ><h5 class="m-0">{{ ausrueckung?.name }}</h5>
+            <div class="ml-2" *ngIf="ausrueckung?.status">
                 <span
                     [class]="
                         'ausrueckungen-badge status-' +
@@ -20,7 +20,11 @@
                 </span>
             </div>
         </ng-template>
-        <div *ngIf="loading" class="p-d-flex p-jc-center" style="height: 7rem">
+        <div
+            *ngIf="loading"
+            class="flex justify-content-center"
+            style="height: 7rem"
+        >
             <div>
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
             </div>
@@ -28,23 +32,29 @@
 
         <div *ngIf="!loading">
             <app-ausrueckung-editor></app-ausrueckung-editor>
-            <div class="p-col-12 ausrueckung-expanded-info">
-                <div class="p-md-3 p-sm-12 card">
+            <div class="col-12 ausrueckung-expanded-info">
+                <div class="md:col-3 sm:col-12 card">
                     <div>Termin:</div>
-                    <h5 class="p-m-1">
+                    <h5 class="m-1">
                         {{ ausrueckung?.vonDatum | mkjDate: "d. MMMM YYYY" }}
                         {{ ausrueckung?.vonZeit }}
                     </h5>
                 </div>
-                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.treffzeit">
+                <div
+                    class="md:col-3 sm:col-12 card"
+                    *ngIf="ausrueckung.treffzeit"
+                >
                     <div>Zusammenkunft um:</div>
-                    <h5 class="p-m-1">
+                    <h5 class="m-1">
                         {{ ausrueckung?.treffzeit }}
                     </h5>
                 </div>
-                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.bisZeit">
+                <div
+                    class="md:col-3 sm:col-12 card"
+                    *ngIf="ausrueckung.bisZeit"
+                >
                     <div>Ende:</div>
-                    <h5 class="p-m-1">
+                    <h5 class="m-1">
                         <div
                             *ngIf="
                                 ausrueckung?.bisDatum !== ausrueckung?.vonDatum
@@ -57,16 +67,16 @@
                         {{ ausrueckung?.bisZeit }}
                     </h5>
                 </div>
-                <div class="p-md-3 p-sm-12 card" *ngIf="ausrueckung.ort">
+                <div class="md:col-3 sm:col-12 card" *ngIf="ausrueckung.ort">
                     <div>Ort:</div>
-                    <h5 class="p-m-1">
+                    <h5 class="m-1">
                         {{ ausrueckung?.ort }}
                     </h5>
                 </div>
 
                 <div
                     *ngIf="ausrueckung.infoMusiker"
-                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                    class="md:col-6 sm:col-12 pl-0 pr-0"
                 >
                     <p-panel header="Musikerinfos">
                         {{ ausrueckung.infoMusiker }}
@@ -74,7 +84,7 @@
                 </div>
                 <div
                     *ngIf="ausrueckung.beschreibung"
-                    class="p-md-6 p-sm-12 p-pl-0 p-pr-0"
+                    class="md:col-6 sm:col-12 pl-0 pr-0"
                 >
                     <p-panel header="Öffentliche Beschreibung">
                         {{ ausrueckung.beschreibung }}
@@ -83,7 +93,7 @@
             </div>
             <div
                 *ngIf="ausrueckung.vonZeit && ausrueckung.bisZeit"
-                class="p-col-12 p-d-flex p-jc-center"
+                class="col-12 flex justify-content-center"
             >
                 <button
                     pButton
@@ -94,9 +104,9 @@
                     (click)="exportToCalendar()"
                 ></button>
             </div>
-            <div style="color: grey; font-size: 0.9em" class="p-col-12">
+            <div style="color: grey; font-size: 0.9em" class="col-12">
                 <p-divider></p-divider>
-                <div class="p-d-flex p-flex-wrap p-jc-between p-sm-mt-1">
+                <div class="flex flex-wrap justify-content-between sm:col-mt-1">
                     <div>
                         {{
                             ausrueckung.oeffentlich
@@ -105,7 +115,7 @@
                         }}
                     </div>
                     <div>
-                        <div *ngIf="ausrueckung.created_at" class="p-mr-2">
+                        <div *ngIf="ausrueckung.created_at" class="mr-2">
                             Erstellt am:
                             {{
                                 ausrueckung?.created_at | mkjDate: "d. MMM YYYY"
@@ -125,10 +135,10 @@
 
     <p-tabPanel>
         <ng-template pTemplate="header"
-            ><h5 class="p-m-0">Teilnehmende Musiker</h5></ng-template
+            ><h5 class="m-0">Teilnehmende Musiker</h5></ng-template
         >
-        <div class="p-col-12">
-            <div *ngIf="!mitglieder" class="p-d-flex p-jc-center">
+        <div class="col-12">
+            <div *ngIf="!mitglieder" class="flex justify-content-center">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
             </div>
             <p-listbox
@@ -154,9 +164,9 @@
 
     <p-tabPanel>
         <ng-template pTemplate="header"
-            ><h5 class="p-m-0">Gespielte Stücke</h5></ng-template
+            ><h5 class="m-0">Gespielte Stücke</h5></ng-template
         >
-        <div class="p-col-12">
+        <div class="col-12">
             <p-table
                 [value]="gespielteNoten"
                 [loading]="notenLoading"
@@ -164,7 +174,7 @@
                 styleClass="p-datatable-sm p-datatable-striped"
             >
                 <ng-template pTemplate="caption"
-                    ><div class="p-col-12 p-d-flex p-jc-center">
+                    ><div class="col-12 flex justify-content-center">
                         <app-mkj-notensuche
                             [(selectedNoten)]="selectedNoten"
                             (notenSelect)="attachNoten($event.noten)"
@@ -177,7 +187,7 @@
                         <td>
                             <button
                                 pButton
-                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger p-m-0 p-p-0"
+                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger m-0 p-0"
                                 icon="pi pi-trash"
                                 pTooltip="Entfernen"
                                 (click)="detachNoten(noten)"

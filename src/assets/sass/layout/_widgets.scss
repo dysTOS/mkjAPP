@@ -4,9 +4,12 @@
     overflow: hidden;
     margin-bottom: 0px !important;
     position: relative;
-    -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    -moz-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16),
+        0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16),
+        0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16),
+        0 2px 5px 0 rgba(0, 0, 0, 0.26);
     min-height: 100px;
 
     .overview-box-name {
@@ -15,7 +18,7 @@
         width: 100%;
         margin: 8px 0 0 8px;
         color: #ffffff;
-        @include opacity(.8);
+        @include opacity(0.8);
     }
 
     .overview-box-count {
@@ -37,8 +40,8 @@
     }
 
     img {
-        position:absolute;
-        bottom:0px;
+        position: absolute;
+        bottom: 0px;
     }
 
     &.overview-box-1 {
@@ -71,7 +74,7 @@
         font-size: 13px;
     }
 
-    .p-col-12 {
+    .col-12 {
         padding: 20px;
 
         span {
@@ -93,22 +96,22 @@
 
         &.income {
             border: 10px solid #1976d2;
-            border-left-color: lighten(#2196F3,30%);
+            border-left-color: lighten(#2196f3, 30%);
         }
 
         &.tax {
             border: 10px solid #009688;
-            border-left-color: #80CBC4;
+            border-left-color: #80cbc4;
         }
 
         &.invoice {
             border: 10px solid #e91e63;
-            border-left-color: #F8BBD0;
+            border-left-color: #f8bbd0;
         }
 
         &.expense {
             border: 10px solid #673ab7;
-            border-left-color: #B39DDB;
+            border-left-color: #b39ddb;
         }
     }
 }
@@ -117,8 +120,8 @@
     height: 100%;
     box-sizing: border-box;
 
-    > .p-grid {
-        .p-col-3 {
+    > .grid {
+        .col-3 {
             font-size: 14px;
             position: relative;
             border-right: 1px solid #bdbdbd;
@@ -132,10 +135,9 @@
             }
         }
 
-        .p-col-9 {
+        .col-9 {
             padding-left: 1.5em;
             .event-owner {
-
             }
 
             .event-text {
@@ -259,7 +261,7 @@
             position: relative;
             display: block;
             @include border-radius(2px);
-            @include transition(background-color .2s);
+            @include transition(background-color 0.2s);
 
             img {
                 float: left;
@@ -285,7 +287,7 @@
 
             .contact-actions {
                 float: right;
-                padding-top:12px;
+                padding-top: 12px;
 
                 .connection-status {
                     color: #ffffff;
@@ -293,11 +295,11 @@
                     vertical-align: middle;
 
                     &.online {
-                        background-color: #AED581;
+                        background-color: #aed581;
                     }
 
                     &.offline {
-                        background-color: #E57373;
+                        background-color: #e57373;
                     }
                 }
 
@@ -331,11 +333,11 @@
             margin: 0;
         }
 
-        .p-col-6:first-child {
+        .col-6:first-child {
             text-align: left;
         }
 
-        .p-col-6:last-child {
+        .col-6:last-child {
             text-align: right;
         }
     }
@@ -350,7 +352,7 @@
         text-align: center;
 
         a {
-            @include transition(color .3s);
+            @include transition(color 0.3s);
         }
     }
 
@@ -375,7 +377,7 @@
             background-color: #757575;
             padding: 20px;
 
-            .p-col-12 {
+            .col-12 {
                 padding: 10px;
                 text-align: left;
             }
@@ -400,7 +402,6 @@
                 color: #ffffff;
             }
         }
-
 
         .pricing-footer {
             background-color: #ffffff;
@@ -441,7 +442,8 @@
             }
 
             &.message-from {
-                img, span {
+                img,
+                span {
                     float: left;
                 }
 
@@ -456,7 +458,8 @@
             }
 
             &.message-own {
-                img, span {
+                img,
+                span {
                     float: right;
                 }
 
@@ -523,7 +526,7 @@
             color: #ffffff;
             background-color: #007be5;
             font-weight: 700;
-            padding: .25em .5em;
+            padding: 0.25em 0.5em;
             display: inline-block;
             border-radius: $borderRadius;
         }

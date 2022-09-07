@@ -1,11 +1,14 @@
 <div
     *ngIf="ausrueckung"
     [formGroup]="formGroup"
-    class="p-fluid p-grid"
+    class="p-fluid grid"
     style="margin-top: 5px"
 >
-    <div class="p-field p-col-12 p-md-6">
-        <div style="height: 100%" class="p-d-flex p-jc-center p-ai-center">
+    <div class="p-field col-12 md:col-6">
+        <div
+            style="height: 100%"
+            class="flex justify-content-center align-items-center"
+        >
             <p-checkbox
                 [ngModel]="ausrueckung?.oeffentlich ? true : false"
                 (ngModelChange)="ausrueckung.oeffentlich = $event"
@@ -20,7 +23,7 @@
             ></p-checkbox>
         </div>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <input
                 type="text"
@@ -39,7 +42,7 @@
         </span>
     </div>
 
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-calendar
                 inputId="vonDatum"
@@ -62,7 +65,7 @@
             <label for="vonDatum">Datum</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-calendar
                 inputId="vonZeit"
@@ -78,7 +81,7 @@
             <label for="vonZeit">Spielbeginn</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-calendar
                 inputId="bisDatum"
@@ -101,7 +104,7 @@
             <label for="bisDatum">Enddatum</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-calendar
                 inputId="bisZeit"
@@ -117,7 +120,7 @@
             <label for="bisZeit">Endzeit</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-calendar
                 inputId="treffzeit"
@@ -134,7 +137,7 @@
         </span>
     </div>
 
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <input
                 type="text"
@@ -147,7 +150,7 @@
             <label for="ort">Ort</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-dropdown
                 inputId="kategorie"
@@ -164,7 +167,7 @@
             <label for="kategorie">Kategorie</label>
         </span>
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
             <p-dropdown
                 inputId="status"
@@ -200,7 +203,7 @@
             <label for="status">Status</label>
         </span>
     </div>
-    <div class="p-field p-col-12">
+    <div class="p-field col-12">
         <span class="p-float-label">
             <textarea
                 id="beschreibung"
@@ -213,7 +216,7 @@
             <label for="beschreibung">Beschreibung</label>
         </span>
     </div>
-    <div class="p-field p-col-12">
+    <div class="p-field col-12">
         <span class="p-float-label">
             <textarea
                 type="text"

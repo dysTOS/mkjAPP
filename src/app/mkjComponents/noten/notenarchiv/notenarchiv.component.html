@@ -25,9 +25,9 @@
 >
     <ng-template pTemplate="caption">
         <div
-            class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between p-ai-center"
+            class="flex flex-column flex-md-row justify-content-md-between align-items-center"
         >
-            <div class="p-m-2">
+            <div class="m-2">
                 Anzahl:
                 {{ selectedNoten ? selectedNoten?.length + "/" : ""
                 }}{{ notenArray?.length }}
@@ -84,13 +84,13 @@
             <td class="not-on-small">{{ noten.verlag }}</td>
             <td class="not-on-small">{{ noten.gattung }}</td>
             <td class="not-on-small">
-                <div class="p-d-flex buttons-hide">
+                <div class="flex buttons-hide">
                     <button
                         *visibleFor="['noten_save']"
                         pButton
                         pRipple
                         icon="pi pi-pencil"
-                        class="p-button-text p-button-sm p-button-info p-mr-1"
+                        class="p-button-text p-button-sm p-button-info mr-1"
                         (click)="openEditDialog(noten)"
                         pTooltip="Bearbeiten"
                         tooltipPosition="left"
@@ -112,26 +112,38 @@
     <ng-template pTemplate="rowexpansion" let-noten>
         <tr>
             <td colspan="12">
-                <div class="p-grid p-col-12 card">
-                    <div *ngIf="noten.komponist" class="p-lg-3 p-md-4 p-sm-12">
+                <div class="grid col-12 card">
+                    <div
+                        *ngIf="noten.komponist"
+                        class="lg:col-3 md:col-4 sm:col-12"
+                    >
                         <mkj-display-field
                             label="Komponist"
                             [displaystring]="noten.komponist"
                         ></mkj-display-field>
                     </div>
-                    <div *ngIf="noten.arrangeur" class="p-lg-3 p-md-4 p-sm-12">
+                    <div
+                        *ngIf="noten.arrangeur"
+                        class="lg:col-3 md:col-4 sm:col-12"
+                    >
                         <mkj-display-field
                             label="Arrangeur"
                             [displaystring]="noten.arrangeur"
                         ></mkj-display-field>
                     </div>
-                    <div *ngIf="noten.verlag" class="p-lg-3 p-md-4 p-sm-12">
+                    <div
+                        *ngIf="noten.verlag"
+                        class="lg:col-3 md:col-4 sm:col-12"
+                    >
                         <mkj-display-field
                             label="Verlag"
                             [displaystring]="noten.verlag"
                         ></mkj-display-field>
                     </div>
-                    <div *ngIf="noten.gattung" class="p-lg-3 p-md-4 p-sm-12">
+                    <div
+                        *ngIf="noten.gattung"
+                        class="lg:col-3 md:col-4 sm:col-12"
+                    >
                         <mkj-display-field
                             label="Gattung"
                             [displaystring]="noten.gattung"
@@ -139,7 +151,7 @@
                     </div>
                     <div
                         *ngIf="noten.ausgeliehenAb"
-                        class="p-lg-3 p-md-4 p-sm-12"
+                        class="lg:col-3 md:col-4 sm:col-12"
                     >
                         <mkj-display-field
                             label="Ausgeliehen seit"
@@ -148,7 +160,7 @@
                     </div>
                     <div
                         *ngIf="noten.ausgeliehenVon"
-                        class="p-lg-3 p-md-4 p-sm-12"
+                        class="lg:col-3 md:col-4 sm:col-12"
                     >
                         <mkj-display-field
                             label="Ausgeliehen von"
@@ -157,7 +169,7 @@
                     </div>
                     <div
                         *ngIf="noten.aufbewahrungsort"
-                        class="p-lg-3 p-md-4 p-sm-12"
+                        class="lg:col-3 md:col-4 sm:col-12"
                     >
                         <mkj-display-field
                             label="Aufbewahrungsort"
@@ -166,7 +178,7 @@
                     </div>
                     <div
                         *ngIf="noten.anmerkungen"
-                        class="p-lg-6 p-md-12 p-sm-12"
+                        class="lg:col-6 md:col-12 sm:col-12"
                     >
                         <mkj-display-field
                             label="Anmerkungen"
@@ -175,14 +187,14 @@
                     </div>
                 </div>
                 <div class="just-on-small">
-                    <div class="p-col-12 p-d-flex p-jc-center">
+                    <div class="col-12 flex justify-content-center">
                         <button
                             *visibleFor="['noten_save']"
                             pButton
                             pRipple
                             label="Bearbeiten"
                             icon="pi pi-pencil"
-                            class="p-button-outlined p-button-sm p-button-info p-mr-1"
+                            class="p-button-outlined p-button-sm p-button-info mr-1"
                             (click)="openEditDialog(noten)"
                         ></button>
                         <button
