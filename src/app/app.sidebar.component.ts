@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
 import { ThemeService } from "./services/theme.service";
-import { MenuLabels, MenuService } from "./app.menu.service";
+import { MenuLabels, MenuService } from "./services/menu.service";
 import { AuthStateService } from "./services/authentication/auth-state.service";
 import { UserService } from "./services/authentication/user.service";
 
@@ -109,7 +109,6 @@ export class AppSideBarComponent implements OnInit {
         public app: AppComponent,
         public appMain: AppMainComponent,
         public themeService: ThemeService,
-        private authStateService: AuthStateService,
         public userService: UserService,
         public menuService: MenuService
     ) {}

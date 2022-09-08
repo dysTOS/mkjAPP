@@ -95,11 +95,8 @@ import { TreeTableModule } from "primeng/treetable";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
 
 // Application Components
-import { AppCodeModule } from "./app.code.component";
 import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
-import { AppMenuComponent } from "./app.menu.component";
-import { AppMenuitemComponent } from "./app.menuitem.component";
 import { AppSideBarComponent } from "./app.sidebar.component";
 import { AppTopbarComponent } from "./app.topbar.component";
 import { AppFooterComponent } from "./app.footer.component";
@@ -117,39 +114,39 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 // MKJ
-import { MenuService } from "./app.menu.service";
-import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
+import { MenuService } from "./services/menu.service";
+import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { MkjDatePipe } from "./pipes/mkj-date.pipe";
-import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
+import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.component";
 import { SignupComponent } from "./pages/signup/signup.component";
 import { LoginComponent } from "./pages/login/login.component";
-import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
-import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
+import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
 import { VisibleForPermissionDirective } from "./utilities/visible-for-permission.directive";
-import { MitgliedEditorComponent } from "./mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component";
+import { MitgliedEditorComponent } from "./components/mitglieder/mitglied-editor/mitglied-editor.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
-import { AusrueckungEditorComponent } from "./mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
-import { RollenEditComponent } from "./mkjComponents/einstellungen/rollen-edit/rollen-edit.component";
+import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
 import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
-import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
-import { MitgliedPersonalEditComponent } from "./mkjComponents/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
+import { AatestComponent } from "./components/aatest/aatest.component";
+import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
-import { NotenEditorComponent } from "./mkjComponents/noten/noten-editor/noten-editor.component";
-import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
-import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
-import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
+import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
+import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
+import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
+import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
 import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
 import { environment } from "src/environments/environment";
-import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
-import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
-import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
-import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
-import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
+import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
+import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
+import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
+import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
+import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { AuthInterceptor } from "./services/authentication/auth-interceptor.component";
 import { UserService } from "./services/authentication/user.service";
 import { ThemeService } from "./services/theme.service";
+import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -245,7 +242,6 @@ registerLocaleData(localeDe);
         TreeModule,
         TreeTableModule,
         VirtualScrollerModule,
-        AppCodeModule,
         ReactiveFormsModule,
         ServiceWorkerModule.register("ngsw-worker.js", {
             enabled: environment.production,
@@ -254,8 +250,6 @@ registerLocaleData(localeDe);
     declarations: [
         AppComponent,
         AppMainComponent,
-        AppMenuComponent,
-        AppMenuitemComponent,
         AppTopbarComponent,
         AppFooterComponent,
         AppSideBarComponent,

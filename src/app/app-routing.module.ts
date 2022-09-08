@@ -1,10 +1,9 @@
-import { MitgliedPersonalEditComponent } from "./mkjComponents/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
-import { RollenEditComponent } from "./mkjComponents/einstellungen/rollen-edit/rollen-edit.component";
-import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
-import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
+import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
+import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
+import { AatestComponent } from "./components/aatest/aatest.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { SignupComponent } from "./pages/signup/signup.component";
-import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
+import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.component";
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { AppMainComponent } from "./app.main.component";
@@ -14,19 +13,20 @@ import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
 import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
-import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
+import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { AuthGuardService } from "./services/authentication/auth-guard.service";
-import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
-import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
-import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
-import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
-import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
-import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
-import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
+import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
+import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
+import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
+import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
+import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
+import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
-import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
-import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
+import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
+import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
+import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
+import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
 
 @NgModule({
     imports: [

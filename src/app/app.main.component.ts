@@ -11,7 +11,7 @@ import { first } from "rxjs";
 import { ServiceWorkerService } from "./services/service-worker.service";
 import { ThemeService } from "./services/theme.service";
 import { PrimeNGConfig } from "primeng/api";
-import { MenuLabels } from "./app.menu.service";
+import { MenuLabels } from "./services/menu.service";
 
 @Component({
     selector: "app-main",
