@@ -1,4 +1,4 @@
-import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { Mitglied } from "src/app/interfaces/Mitglied";
 
 export interface User {
     id?: string;

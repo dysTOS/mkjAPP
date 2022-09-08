@@ -7,7 +7,7 @@ import {
     LoginCredentials,
     LoginResponse,
     User,
-} from "../../mkjInterfaces/User";
+} from "../../interfaces/User";
 
 @Injectable({
     providedIn: "root",

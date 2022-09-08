@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
-import { Noten, Notenmappe } from "src/app/mkjInterfaces/Noten";
+import { Noten, Notenmappe } from "src/app/interfaces/Noten";
 import { InfoService } from "src/app/mkjServices/info.service";
 import { NotenService } from "src/app/mkjServices/noten.service";
 import { NotenSucheOutput } from "src/app/mkjUtilities/mkj-notensuche/mkj-notensuche.component";

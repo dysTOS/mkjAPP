@@ -2,7 +2,7 @@ import {
     Ausrueckung,
     KategorienOptions,
     StatusOptions,
-} from "src/app/mkjInterfaces/Ausrueckung";
+} from "src/app/interfaces/Ausrueckung";
 import { Component, Input } from "@angular/core";
 import * as moment from "moment";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";

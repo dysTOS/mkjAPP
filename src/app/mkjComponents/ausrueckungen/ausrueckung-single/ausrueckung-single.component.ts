@@ -1,13 +1,13 @@
 import { InfoService } from "./../../../mkjServices/info.service";
 import { ExportService } from "../../../mkjServices/export.service";
 import { MitgliederService } from "./../../../mkjServices/mitglieder.service";
-import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { Mitglied } from "src/app/interfaces/Mitglied";
 import { NotenService } from "./../../../mkjServices/noten.service";
 import { AusrueckungenService } from "../../../mkjServices/ausrueckungen.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { Ausrueckung } from "src/app/mkjInterfaces/Ausrueckung";
-import { Noten } from "src/app/mkjInterfaces/Noten";
+import { Ausrueckung } from "src/app/interfaces/Ausrueckung";
+import { Noten } from "src/app/interfaces/Noten";
 
 @Component({
     selector: "app-ausrueckung-single",

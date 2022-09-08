@@ -11,7 +11,7 @@ import {
     CsvColumns,
     KategorienOptions,
     StatusOptions,
-} from "src/app/mkjInterfaces/Ausrueckung";
+} from "src/app/interfaces/Ausrueckung";
 import { AusrueckungenService } from "src/app/mkjServices/ausrueckungen.service";
 import { ExportService } from "src/app/mkjServices/export.service";
 import { InfoService } from "src/app/mkjServices/info.service";

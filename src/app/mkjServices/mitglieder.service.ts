@@ -1,4 +1,4 @@
-import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { Mitglied } from "src/app/interfaces/Mitglied";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";

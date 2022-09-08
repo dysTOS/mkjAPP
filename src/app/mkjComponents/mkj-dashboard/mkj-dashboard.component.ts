@@ -1,7 +1,7 @@
 import { AppMainComponent } from "./../../app.main.component";
-import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { Mitglied } from "src/app/interfaces/Mitglied";
 import { AusrueckungenService } from "./../../mkjServices/ausrueckungen.service";
-import { Ausrueckung } from "src/app/mkjInterfaces/Ausrueckung";
+import { Ausrueckung } from "src/app/interfaces/Ausrueckung";
 import { Component, OnInit } from "@angular/core";
 import { MenuLabels } from "src/app/app.menu.service";
 import { UserService } from "src/app/mkjServices/authentication/user.service";

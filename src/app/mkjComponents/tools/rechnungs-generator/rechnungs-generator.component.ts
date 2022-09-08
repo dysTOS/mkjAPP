@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Rechnung } from "src/app/mkjInterfaces/Rechnung";
+import { Rechnung } from "src/app/interfaces/Rechnung";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({

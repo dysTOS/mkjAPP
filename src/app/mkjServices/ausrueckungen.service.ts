@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import {
     Ausrueckung,
     AusrueckungFilterInput,
-} from "../mkjInterfaces/Ausrueckung";
+} from "../interfaces/Ausrueckung";
 import { environment } from "../../environments/environment";
 
 const httpOptions = {

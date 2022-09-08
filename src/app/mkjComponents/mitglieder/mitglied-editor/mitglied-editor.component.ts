@@ -1,5 +1,5 @@
-import { Mitglied_Geschlecht } from './../../../mkjInterfaces/Mitglied';
-import { Mitglied } from 'src/app/mkjInterfaces/Mitglied';
+import { Mitglied_Geschlecht } from '../../../interfaces/Mitglied';
+import { Mitglied } from 'src/app/interfaces/Mitglied';
 import { Component, Input } from '@angular/core';
 import * as moment from 'moment'
 

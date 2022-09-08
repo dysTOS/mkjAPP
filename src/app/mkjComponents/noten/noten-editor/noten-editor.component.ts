@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Noten } from 'src/app/mkjInterfaces/Noten';
+import { Noten } from 'src/app/interfaces/Noten';
 
 @Component({
     selector: 'app-noten-editor',

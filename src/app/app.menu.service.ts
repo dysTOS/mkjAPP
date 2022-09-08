@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
-import { Permission } from "./mkjInterfaces/User";
+import { Permission } from "./interfaces/User";
 import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
 import { UserService } from "./mkjServices/authentication/user.service";
 

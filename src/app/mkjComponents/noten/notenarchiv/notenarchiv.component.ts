@@ -1,6 +1,6 @@
 import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Noten } from "src/app/mkjInterfaces/Noten";
+import { Noten } from "src/app/interfaces/Noten";
 import { Table } from "primeng/table";
 import { InfoService } from "src/app/mkjServices/info.service";
 import { NotenService } from "src/app/mkjServices/noten.service";

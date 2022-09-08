@@ -1,11 +1,11 @@
 import { InfoService } from "./../../../mkjServices/info.service";
 import { ConfirmationService } from "primeng/api";
 import { RoleService } from "../../../mkjServices/role.service";
-import { Role } from "./../../../mkjInterfaces/User";
+import { Role } from "../../../interfaces/User";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MitgliederService } from "./../../../mkjServices/mitglieder.service";
 import { Component, OnInit } from "@angular/core";
-import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { Mitglied } from "src/app/interfaces/Mitglied";
 import { UserService } from "src/app/mkjServices/authentication/user.service";
 
 @Component({

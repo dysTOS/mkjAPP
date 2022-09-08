@@ -2,8 +2,8 @@ import { AuthService } from "./auth.service";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { Mitglied } from "../../mkjInterfaces/Mitglied";
-import { User, Role, Permission } from "../../mkjInterfaces/User";
+import { Mitglied } from "../../interfaces/Mitglied";
+import { User, Role, Permission } from "../../interfaces/User";
 import { RoleService } from "../../mkjServices/role.service";
 import { TokenService } from "./token.service";
 

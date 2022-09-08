@@ -1,7 +1,7 @@
 import { InfoService } from "../../mkjServices/info.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { RegistrationCredentials } from "../../mkjInterfaces/User";
+import { RegistrationCredentials } from "../../interfaces/User";
 import { AuthService } from "src/app/mkjServices/authentication/auth.service";
 
 @Component({
