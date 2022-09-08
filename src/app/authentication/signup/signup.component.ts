@@ -2,12 +2,11 @@ import { InfoService } from "../../mkjServices/info.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { RegistrationCredentials } from "../../mkjInterfaces/User";
-import { AuthService } from "../auth.service";
+import { AuthService } from "src/app/mkjServices/authentication/auth.service";
 
 @Component({
     selector: "app-signup",
     templateUrl: "./signup.component.html",
-    styleUrls: ["./signup.component.scss"],
 })
 export class SignupComponent implements OnInit {
     submitted: boolean = false;

@@ -1,4 +1,4 @@
-import { AuthGuardService } from "./authentication/auth-guard.service";
+import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -184,7 +184,6 @@ import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarc
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
 import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notensuche.component";
-import { AuthInterceptor } from "./authentication/auth-interceptor.component";
 import { environment } from "src/environments/environment";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
@@ -193,6 +192,7 @@ import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/aus
 import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
+import { AuthInterceptor } from "./mkjServices/authentication/auth-interceptor.component";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,

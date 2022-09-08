@@ -6,7 +6,7 @@ import {
     TemplateRef,
     ViewContainerRef,
 } from "@angular/core";
-import { UserService } from "../authentication/user.service";
+import { UserService } from "../mkjServices/authentication/user.service";
 
 @Directive({
     selector: "[visibleFor]",

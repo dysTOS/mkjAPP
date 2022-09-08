@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MitgliederService } from "./../../../mkjServices/mitglieder.service";
 import { Component, OnInit } from "@angular/core";
 import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
-import { UserService } from "src/app/authentication/user.service";
+import { UserService } from "src/app/mkjServices/authentication/user.service";
 
 @Component({
     selector: "app-mitglieder-single",

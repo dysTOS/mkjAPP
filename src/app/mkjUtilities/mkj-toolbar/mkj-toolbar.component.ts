@@ -6,7 +6,7 @@ import {
     OnInit,
     OnDestroy,
 } from "@angular/core";
-import { UserService } from "src/app/authentication/user.service";
+import { UserService } from "src/app/mkjServices/authentication/user.service";
 import { SubSink } from "subsink";
 
 @Component({

@@ -45,7 +45,7 @@ import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { AuthGuardService } from "./authentication/auth-guard.service";
+import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";

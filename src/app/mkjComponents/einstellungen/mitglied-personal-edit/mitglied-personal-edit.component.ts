@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
-import { UserService } from "src/app/authentication/user.service";
 import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
+import { UserService } from "src/app/mkjServices/authentication/user.service";
 import { InfoService } from "src/app/mkjServices/info.service";
 import { MitgliederService } from "src/app/mkjServices/mitglieder.service";
 

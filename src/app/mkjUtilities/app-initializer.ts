@@ -1,5 +1,5 @@
 import { APP_INITIALIZER } from "@angular/core";
-import { UserService } from "../authentication/user.service";
+import { UserService } from "../mkjServices/authentication/user.service";
 import { ThemeService } from "../mkjServices/theme.service";
 
 export const initFactory = (

@@ -3,8 +3,8 @@ import { Mitglied } from "src/app/mkjInterfaces/Mitglied";
 import { AusrueckungenService } from "./../../mkjServices/ausrueckungen.service";
 import { Ausrueckung } from "src/app/mkjInterfaces/Ausrueckung";
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/app/authentication/user.service";
 import { MenuLabels } from "src/app/app.menu.service";
+import { UserService } from "src/app/mkjServices/authentication/user.service";
 
 @Component({
     selector: "app-mkj-dashboard",

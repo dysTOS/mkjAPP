@@ -2,16 +2,15 @@ import { InfoService } from "../../mkjServices/info.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginCredentials } from "../../mkjInterfaces/User";
-import { AuthStateService } from "../auth-state.service";
-import { AuthService } from "../auth.service";
-import { TokenService } from "../token.service";
-import { UserService } from "../user.service";
 import { environment } from "src/environments/environment";
+import { AuthStateService } from "src/app/mkjServices/authentication/auth-state.service";
+import { AuthService } from "src/app/mkjServices/authentication/auth.service";
+import { TokenService } from "src/app/mkjServices/authentication/token.service";
+import { UserService } from "src/app/mkjServices/authentication/user.service";
 
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
-    styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
     submitted: boolean = false;

@@ -11,7 +11,7 @@ import {
 import { TokenService } from "./token.service";
 import { catchError, map } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
-import { InfoService } from "../mkjServices/info.service";
+import { InfoService } from "../../mkjServices/info.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

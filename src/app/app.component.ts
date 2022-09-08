@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
 import { MkjPrimeTranslation } from "src/app/mkjUtilities/primeTranslation";
-import { AuthStateService } from "./authentication/auth-state.service";
-import { TokenService } from "./authentication/token.service";
-import { UserService } from "./authentication/user.service";
+import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
+import { TokenService } from "./mkjServices/authentication/token.service";
+import { UserService } from "./mkjServices/authentication/user.service";
 
 @Component({
     selector: "app-root",

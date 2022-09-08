@@ -2,9 +2,9 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
-import { AuthStateService } from "./authentication/auth-state.service";
-import { UserService } from "./authentication/user.service";
 import { Permission } from "./mkjInterfaces/User";
+import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
+import { UserService } from "./mkjServices/authentication/user.service";
 
 @Injectable()
 export class MenuService implements OnDestroy {
