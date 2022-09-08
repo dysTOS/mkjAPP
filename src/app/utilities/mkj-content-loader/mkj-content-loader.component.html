@@ -1,0 +1,9 @@
+<div
+    *ngIf="loading"
+    class="flex justify-content-center align-items-center"
+    [style.min-height]="minHeight"
+    [style.max-height]="maxHeight"
+>
+    <i class="pi pi-spin pi-spinner" [style.font-size]="size"></i>
+</div>
+<ng-content *ngIf="!loading"></ng-content>

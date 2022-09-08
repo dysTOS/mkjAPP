@@ -3,16 +3,17 @@ import {
     KategorienOptions,
     StatusOptions,
 } from "src/app/interfaces/Ausrueckung";
-import { Component, Input } from "@angular/core";
+import { Component, Input, TemplateRef } from "@angular/core";
 import * as moment from "moment";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
+import { AbstractEditComponent } from "../../../base/abstract-edit.component";
 
 @Component({
     selector: "app-ausrueckung-editor",
     templateUrl: "./ausrueckung-editor.component.html",
     styleUrls: ["./ausrueckung-editor.component.scss"],
 })
-export class AusrueckungEditorComponent {
+export class AusrueckungEditorComponent extends AbstractEditComponent<Ausrueckung> {
     private _ausrueckung: Ausrueckung;
     @Input()
     public get ausrueckung(): Ausrueckung {
@@ -35,9 +36,8 @@ export class AusrueckungEditorComponent {
     bisTime: Date;
     treffTime: Date;
 
-    public formGroup: FormGroup;
-
     constructor(formBuilder: FormBuilder) {
+        super();
         this.formGroup = formBuilder.group({
             oeffentlich: [false],
             name: [null, Validators.required],

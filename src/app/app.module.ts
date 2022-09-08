@@ -4,9 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {
-    DatePipe,
-} from "@angular/common";
+import { DatePipe } from "@angular/common";
 import { AppRoutingModule } from "./app-routing.module";
 import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
@@ -147,6 +145,9 @@ import { AuthInterceptor } from "./services/authentication/auth-interceptor.comp
 import { UserService } from "./services/authentication/user.service";
 import { ThemeService } from "./services/theme.service";
 import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
+import { AbstractEditComponent } from "./base/abstract-edit.component";
+import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
+import { MkjTemplateDirective } from "./utilities/mkj-template.directive";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
@@ -292,6 +293,9 @@ registerLocaleData(localeDe);
         KalenderaboComponent,
         AusrueckungenAktuellComponent,
         AusrueckungenArchivComponent,
+        AbstractEditComponent,
+        MkjContentLoaderComponent,
+        MkjTemplateDirective,
     ],
     providers: [
         MenuService,
