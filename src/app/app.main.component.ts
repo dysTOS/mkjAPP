@@ -8,8 +8,8 @@ import {
 } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { first } from "rxjs";
-import { ServiceWorkerService } from "./mkjServices/service-worker.service";
-import { ThemeService } from "./mkjServices/theme.service";
+import { ServiceWorkerService } from "./services/service-worker.service";
+import { ThemeService } from "./services/theme.service";
 import { PrimeNGConfig } from "primeng/api";
 import { MenuLabels } from "./app.menu.service";
 

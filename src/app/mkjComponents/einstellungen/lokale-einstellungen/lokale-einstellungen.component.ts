@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AppComponent } from "src/app/app.component";
-import { ThemeService } from "src/app/mkjServices/theme.service";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
     selector: "app-lokale-einstellungen",

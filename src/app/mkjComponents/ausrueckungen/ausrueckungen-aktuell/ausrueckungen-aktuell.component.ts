@@ -12,10 +12,10 @@ import {
     KategorienOptions,
     StatusOptions,
 } from "src/app/interfaces/Ausrueckung";
-import { AusrueckungenService } from "src/app/mkjServices/ausrueckungen.service";
-import { ExportService } from "src/app/mkjServices/export.service";
-import { InfoService } from "src/app/mkjServices/info.service";
-import { MkjDatePipe } from "src/app/mkjUtilities/mkj-date.pipe";
+import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
+import { ExportService } from "src/app/services/export.service";
+import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
+import { InfoService } from "src/app/services/info.service";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",

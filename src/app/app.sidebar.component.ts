@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
-import { ThemeService } from "./mkjServices/theme.service";
+import { ThemeService } from "./services/theme.service";
 import { MenuLabels, MenuService } from "./app.menu.service";
-import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
-import { UserService } from "./mkjServices/authentication/user.service";
+import { AuthStateService } from "./services/authentication/auth-state.service";
+import { UserService } from "./services/authentication/user.service";
 
 @Component({
     selector: "app-sidebar",

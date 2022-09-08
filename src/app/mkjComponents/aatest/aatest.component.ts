@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FileService } from "src/app/mkjServices/file.service";
+import { FileService } from "src/app/services/file.service";
 import * as FileSaver from "file-saver";
-import { NotenService } from "src/app/mkjServices/noten.service";
-import { PushNotificationsService } from "src/app/mkjServices/push-notifications.service";
+import { NotenService } from "src/app/services/noten.service";
+import { PushNotificationsService } from "src/app/services/push-notifications.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({

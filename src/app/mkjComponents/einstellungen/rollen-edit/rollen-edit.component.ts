@@ -1,9 +1,9 @@
 import { ConfirmationService } from "primeng/api";
-import { InfoService } from "../../../mkjServices/info.service";
 import { Permission, Role } from "../../../interfaces/User";
-import { RoleService } from "../../../mkjServices/role.service";
+import { RoleService } from "../../../services/role.service";
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/app/mkjServices/authentication/user.service";
+import { UserService } from "src/app/services/authentication/user.service";
+import { InfoService } from "src/app/services/info.service";
 
 @Component({
     selector: "app-rollen-edit",

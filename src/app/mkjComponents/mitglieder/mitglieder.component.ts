@@ -1,8 +1,8 @@
-import { InfoService } from "./../../mkjServices/info.service";
 import { Mitglied } from "../../interfaces/Mitglied";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MitgliederService } from "./../../mkjServices/mitglieder.service";
+import { MitgliederService } from "../../services/mitglieder.service";
 import { Component, OnInit } from "@angular/core";
+import { InfoService } from "src/app/services/info.service";
 
 @Component({
     selector: "app-mitglieder",

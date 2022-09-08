@@ -1,20 +1,17 @@
-import { AuthGuardService } from "./mkjServices/authentication/auth-guard.service";
-import { NgModule } from "@angular/core";
+import { AuthGuardService } from "./services/authentication/auth-guard.service";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
     DatePipe,
-    HashLocationStrategy,
-    LocationStrategy,
 } from "@angular/common";
 import { AppRoutingModule } from "./app-routing.module";
 import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localeDe from "@angular/common/locales/de-AT";
 import { ServiceWorkerModule } from "@angular/service-worker";
-registerLocaleData(localeDe);
 
 // PrimeNG Components for demos
 import { AccordionModule } from "primeng/accordion";
@@ -106,8 +103,6 @@ import { AppMenuitemComponent } from "./app.menuitem.component";
 import { AppSideBarComponent } from "./app.sidebar.component";
 import { AppTopbarComponent } from "./app.topbar.component";
 import { AppFooterComponent } from "./app.footer.component";
-import { AppCrudComponent } from "./pages/app.crud.component";
-import { AppCalendarComponent } from "./pages/app.calendar.component";
 import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
@@ -117,88 +112,52 @@ import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
 import { AppLoginComponent } from "./pages/app.login.component";
 import { ConfirmationService, MessageService } from "primeng/api";
 
-// Demo pages
-import { DashboardDemoComponent } from "./demo/view/dashboarddemo.component";
-import { FormLayoutDemoComponent } from "./demo/view/formlayoutdemo.component";
-import { FloatLabelDemoComponent } from "./demo/view/floatlabeldemo.component";
-import { InvalidStateDemoComponent } from "./demo/view/invalidstatedemo.component";
-import { InputDemoComponent } from "./demo/view/inputdemo.component";
-import { ButtonDemoComponent } from "./demo/view/buttondemo.component";
-import { TableDemoComponent } from "./demo/view/tabledemo.component";
-import { ListDemoComponent } from "./demo/view/listdemo.component";
-import { TreeDemoComponent } from "./demo/view/treedemo.component";
-import { PanelsDemoComponent } from "./demo/view/panelsdemo.component";
-import { OverlaysDemoComponent } from "./demo/view/overlaysdemo.component";
-import { MenusDemoComponent } from "./demo/view/menusdemo.component";
-import { MediaDemoComponent } from "./demo/view/mediademo.component";
-import { MessagesDemoComponent } from "./demo/view/messagesdemo.component";
-import { MiscDemoComponent } from "./demo/view/miscdemo.component";
-import { EmptyDemoComponent } from "./demo/view/emptydemo.component";
-import { ChartsDemoComponent } from "./demo/view/chartsdemo.component";
-import { FileDemoComponent } from "./demo/view/filedemo.component";
-import { DocumentationComponent } from "./demo/view/documentation.component";
-import { DisplayComponent } from "./utilities/display.component";
-import { ElevationComponent } from "./utilities/elevation.component";
-import { FlexboxComponent } from "./utilities/flexbox.component";
-import { GridComponent } from "./utilities/grid.component";
-import { IconsComponent } from "./utilities/icons.component";
-import { WidgetsComponent } from "./utilities/widgets.component";
-import { SpacingComponent } from "./utilities/spacing.component";
-import { TypographyComponent } from "./utilities/typography.component";
-import { TextComponent } from "./utilities/text.component";
-
-// Demo services
-import { CountryService } from "./demo/service/countryservice";
-import { CustomerService } from "./demo/service/customerservice";
-import { EventService } from "./demo/service/eventservice";
-import { IconService } from "./demo/service/iconservice";
-import { NodeService } from "./demo/service/nodeservice";
-import { PhotoService } from "./demo/service/photoservice";
-import { ProductService } from "./demo/service/productservice";
-import { MenuService } from "./app.menu.service";
-
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
 // MKJ
+import { MenuService } from "./app.menu.service";
 import { AusrueckungSingleComponent } from "./mkjComponents/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { MkjDatePipe } from "./mkjUtilities/mkj-date.pipe";
+import { MkjDatePipe } from "./pipes/mkj-date.pipe";
 import { MkjDashboardComponent } from "./mkjComponents/mkj-dashboard/mkj-dashboard.component";
-import { SignupComponent } from "./authentication/signup/signup.component";
-import { LoginComponent } from "./authentication/login/login.component";
+import { SignupComponent } from "./pages/signup/signup.component";
+import { LoginComponent } from "./pages/login/login.component";
 import { MitgliederComponent } from "./mkjComponents/mitglieder/mitglieder.component";
 import { MitgliederSingleComponent } from "./mkjComponents/mitglieder/mitglieder-single/mitglieder-single.component";
-import { VisibleForPermissionDirective } from "./mkjUtilities/visible-for-permission.directive";
+import { VisibleForPermissionDirective } from "./utilities/visible-for-permission.directive";
 import { MitgliedEditorComponent } from "./mkjComponents/mitglieder/mitglied-editor/mitglied-editor.component";
-import { MkjToolbarComponent } from "./mkjUtilities/mkj-toolbar/mkj-toolbar.component";
+import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
 import { AusrueckungEditorComponent } from "./mkjComponents/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { RollenEditComponent } from "./mkjComponents/einstellungen/rollen-edit/rollen-edit.component";
-import { MkjTextTransformPipe } from "./mkjUtilities/mkj-text-transform.pipe";
-import { MkjDisplayFieldComponent } from "./mkjUtilities/mkj-display-field/mkj-display-field.component";
+import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
+import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
 import { AatestComponent } from "./mkjComponents/aatest/aatest.component";
 import { MitgliedPersonalEditComponent } from "./mkjComponents/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
-import { MkjRechnungComponent } from "./mkjUtilities/mkj-rechnung/mkj-rechnung.component";
+import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 import { NotenEditorComponent } from "./mkjComponents/noten/noten-editor/noten-editor.component";
 import { NotenarchivComponent } from "./mkjComponents/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./mkjComponents/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./mkjComponents/tools/rechnungs-generator/rechnungs-generator.component";
-import { MkjNotensucheComponent } from "./mkjUtilities/mkj-notensuche/mkj-notensuche.component";
+import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
 import { environment } from "src/environments/environment";
 import { LokaleEinstellungenComponent } from "./mkjComponents/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
-import { MkjAppInitializer } from "./mkjUtilities/app-initializer";
 import { NotenWrapperComponent } from "./mkjComponents/noten/noten-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-wrapper.component";
 import { KalenderaboComponent } from "./mkjComponents/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./mkjComponents/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
-import { AuthInterceptor } from "./mkjServices/authentication/auth-interceptor.component";
+import { AuthInterceptor } from "./services/authentication/auth-interceptor.component";
+import { UserService } from "./services/authentication/user.service";
+import { ThemeService } from "./services/theme.service";
 
 FullCalendarModule.registerPlugins([
     dayGridPlugin,
     timeGridPlugin,
     interactionPlugin,
 ]);
+
+registerLocaleData(localeDe);
 
 @NgModule({
     imports: [
@@ -304,38 +263,8 @@ FullCalendarModule.registerPlugins([
         AppErrorComponent,
         AppAccessdeniedComponent,
         AppLoginComponent,
-        DashboardDemoComponent,
         AusrueckungenWrapperComponent,
-        FormLayoutDemoComponent,
-        FloatLabelDemoComponent,
-        InvalidStateDemoComponent,
-        InputDemoComponent,
-        ButtonDemoComponent,
-        TableDemoComponent,
-        ListDemoComponent,
-        TreeDemoComponent,
-        PanelsDemoComponent,
-        OverlaysDemoComponent,
-        MenusDemoComponent,
-        MediaDemoComponent,
-        MessagesDemoComponent,
-        MiscDemoComponent,
-        ChartsDemoComponent,
-        EmptyDemoComponent,
-        FileDemoComponent,
-        DocumentationComponent,
-        DisplayComponent,
-        ElevationComponent,
-        FlexboxComponent,
-        GridComponent,
-        IconsComponent,
-        WidgetsComponent,
-        SpacingComponent,
         NotenWrapperComponent,
-        TypographyComponent,
-        TextComponent,
-        AppCrudComponent,
-        AppCalendarComponent,
         AppTimelineDemoComponent,
         AppLoginComponent,
         AppInvoiceComponent,
@@ -371,27 +300,29 @@ FullCalendarModule.registerPlugins([
         AusrueckungenArchivComponent,
     ],
     providers: [
-        // { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: LOCALE_ID, useValue: "de-AT" },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true,
-        },
-        CountryService,
-        CustomerService,
-        EventService,
-        IconService,
-        NodeService,
-        PhotoService,
-        ProductService,
         MenuService,
         ConfirmationService,
         DatePipe,
         AuthGuardService,
         MessageService,
         MkjDatePipe,
-        MkjAppInitializer,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (
+                userService: UserService,
+                themeService: ThemeService
+            ) => {
+                return () => userService.initializeUserData();
+            },
+            deps: [UserService, ThemeService],
+            multi: true,
+        },
+        { provide: LOCALE_ID, useValue: "de-AT" },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent],
 })

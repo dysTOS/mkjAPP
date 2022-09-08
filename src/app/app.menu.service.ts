@@ -3,8 +3,8 @@ import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
 import { Permission } from "./interfaces/User";
-import { AuthStateService } from "./mkjServices/authentication/auth-state.service";
-import { UserService } from "./mkjServices/authentication/user.service";
+import { AuthStateService } from "./services/authentication/auth-state.service";
+import { UserService } from "./services/authentication/user.service";
 
 @Injectable()
 export class MenuService implements OnDestroy {
