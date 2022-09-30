@@ -3,7 +3,7 @@ $overlayColor: #000000;
 //global
 $fontFamily: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial,
     Lucida Grande, sans-serif;
-$fontSize: 1rem;
+$fontSize: 14px;
 $fontWeight: normal;
 $textColor: $emphasis-high;
 $textSecondaryColor: $emphasis-medium;
@@ -798,12 +798,6 @@ $dockPadding: 0.5rem 0.5rem !default;
 $dockBorderRadius: 0.5rem !default;
 
 :root {
-    --surface-a: var(--surface-0);
-    --surface-b: #fafafa;
-    --surface-c: rgba(0, 0, 0, 0.04);
-    --surface-d: rgba(0, 0, 0, 0.12);
-    --surface-e: var(--surface-0);
-    --surface-f: var(--surface-0);
     --text-color: #{$textColor};
     --text-color-secondary: #{textSecondaryColor};
     --primary-color: #{$primaryColor};

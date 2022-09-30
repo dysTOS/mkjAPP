@@ -141,6 +141,10 @@ export class UserService {
                     subject.next(null);
                     subject.complete();
                 },
+                error: (err) => {
+                    subject.next(null);
+                    subject.complete();
+                },
             });
         } else {
             subject.next(null);

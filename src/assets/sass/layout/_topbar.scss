@@ -49,10 +49,6 @@
             padding: 0;
             list-style-type: none;
 
-            .topbar-active-child-menu-item {
-                font-weight: bold;
-            }
-
             a {
                 user-select: none;
                 cursor: pointer;
@@ -63,6 +59,13 @@
                 position: relative;
                 margin-left: 1em;
                 margin-top: 2px;
+
+                &.active-topmenuitem {
+                    font-weight: bold;
+                    color: $primaryColor;
+                    .topbar-icon {
+                    }
+                }
 
                 > a {
                     position: relative;
@@ -165,6 +168,10 @@
                     padding: 8px 0;
                     @include overlay-content-shadow();
 
+                    &.topbar-active-child-menu-item {
+                        background: $emphasis-low;
+                    }
+
                     a {
                         padding: $listItemPadding;
                         display: block;
@@ -201,12 +208,6 @@
                             background-color: $topbarSubmenuItemHoverBgColor;
                             @include transition(background-color 0.3s);
                         }
-                    }
-                }
-
-                &.active-topmenuitem {
-                    > ul {
-                        display: block;
                     }
                 }
             }
