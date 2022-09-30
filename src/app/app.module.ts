@@ -38,7 +38,7 @@ import { DividerModule } from "primeng/divider";
 import { DropdownModule } from "primeng/dropdown";
 import { FieldsetModule } from "primeng/fieldset";
 import { FileUploadModule } from "primeng/fileupload";
-import { FullCalendarModule } from "@fullcalendar/angular";
+// import { FullCalendarModule } from "@fullcalendar/angular";
 import { GalleriaModule } from "primeng/galleria";
 import { InplaceModule } from "primeng/inplace";
 import { InputNumberModule } from "primeng/inputnumber";
