@@ -32,6 +32,16 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
     imports: [
         RouterModule.forRoot(
             [
+                { path: "signup", component: SignupComponent },
+                { path: "login", component: LoginComponent },
+                { path: "error", component: AppErrorComponent },
+                { path: "access", component: AppAccessdeniedComponent },
+                { path: "notfound", component: AppNotfoundComponent },
+                {
+                    path: "",
+                    redirectTo: environment.filePrefix,
+                    pathMatch: "full",
+                },
                 {
                     path: environment.filePrefix,
                     component: AppMainComponent,
@@ -147,16 +157,6 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
                         },
                         { path: "**", component: AppNotfoundComponent },
                     ],
-                },
-                { path: "error", component: AppErrorComponent },
-                { path: "access", component: AppAccessdeniedComponent },
-                { path: "notfound", component: AppNotfoundComponent },
-                { path: "signup", component: SignupComponent },
-                { path: "login", component: LoginComponent },
-                {
-                    path: "",
-                    redirectTo: environment.filePrefix,
-                    pathMatch: "full",
                 },
                 { path: "**", redirectTo: "/notfound" },
             ],

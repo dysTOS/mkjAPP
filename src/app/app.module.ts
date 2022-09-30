@@ -107,9 +107,9 @@ import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
 import { AppLoginComponent } from "./pages/app.login.component";
 import { ConfirmationService, MessageService } from "primeng/api";
 
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+// import dayGridPlugin from "@fullcalendar/daygrid";
+// import timeGridPlugin from "@fullcalendar/timegrid";
+// import interactionPlugin from "@fullcalendar/interaction";
 
 // MKJ
 import { MenuService } from "./services/menu.service";
@@ -149,11 +149,11 @@ import { AbstractEditComponent } from "./base/abstract-edit.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjTemplateDirective } from "./utilities/mkj-template.directive";
 
-FullCalendarModule.registerPlugins([
-    dayGridPlugin,
-    timeGridPlugin,
-    interactionPlugin,
-]);
+// FullCalendarModule.registerPlugins([
+//     dayGridPlugin,
+//     timeGridPlugin,
+//     interactionPlugin,
+// ]);
 
 registerLocaleData(localeDe);
 
@@ -190,7 +190,7 @@ registerLocaleData(localeDe);
         DropdownModule,
         FieldsetModule,
         FileUploadModule,
-        FullCalendarModule,
+        // FullCalendarModule,
         GalleriaModule,
         InplaceModule,
         InputNumberModule,

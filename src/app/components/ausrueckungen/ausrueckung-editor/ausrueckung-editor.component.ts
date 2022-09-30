@@ -5,7 +5,7 @@ import {
 } from "src/app/interfaces/Ausrueckung";
 import { Component, Input, TemplateRef } from "@angular/core";
 import * as moment from "moment";
-import { FormBuilder, Validators } from "@angular/forms";
+import { UntypedFormBuilder, Validators } from "@angular/forms";
 import { AbstractEditComponent } from "../../../base/abstract-edit.component";
 
 @Component({
@@ -36,7 +36,7 @@ export class AusrueckungEditorComponent extends AbstractEditComponent<Ausrueckun
     bisTime: Date;
     treffTime: Date;
 
-    constructor(formBuilder: FormBuilder) {
+    constructor(formBuilder: UntypedFormBuilder) {
         super();
         this.formGroup = formBuilder.group({
             oeffentlich: [false],
