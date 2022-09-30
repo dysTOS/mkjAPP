@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Rechnung } from "src/app/interfaces/Rechnung";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: "app-rechnungs-generator",
@@ -15,11 +15,11 @@ export class RechnungsGeneratorComponent implements OnInit {
         gesamtpreis: null,
     };
 
-    public rForm: FormGroup;
+    public rForm: UntypedFormGroup;
 
     public printDialogVisible: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: UntypedFormBuilder) {
         this.rForm = fb.group({
             datum: [null, Validators.required],
             gesamtpreis: [null, Validators.compose([Validators.required])],
