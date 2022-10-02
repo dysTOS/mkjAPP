@@ -14,7 +14,7 @@ import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { AuthGuardService } from "./services/authentication/auth-guard.service";
+import { RouteGuard } from "./guards/route.guard";
 import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
 import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
@@ -27,6 +27,9 @@ import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kal
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
+import { GlobalRouteGuard } from "./guards/global-route.guard";
+import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
 
 @NgModule({
     imports: [
@@ -39,43 +42,56 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
                 { path: "notfound", component: AppNotfoundComponent },
                 {
                     path: "",
-                    redirectTo: environment.filePrefix,
+                    redirectTo: environment.prefix,
                     pathMatch: "full",
                 },
                 {
-                    path: environment.filePrefix,
+                    path: environment.prefix,
                     component: AppMainComponent,
-                    canActivate: [AuthGuardService],
+                    canActivate: [GlobalRouteGuard],
                     children: [
                         {
                             path: "dashboard",
                             component: MkjDashboardComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "ausrueckungen",
                             component: AusrueckungenWrapperComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
+                            title: "Ausrückungen",
                             children: [
                                 {
                                     path: "aktuell",
                                     component: AusrueckungenAktuellComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "archiv",
                                     component: AusrueckungenArchivComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "kalenderabo",
                                     component: KalenderaboComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "neu",
+                                    component: AusrueckungEditorComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
                                     path: ":id",
+                                    component: AusrueckungEditorComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
+                                    path: "details/:id",
                                     component: AusrueckungSingleComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "",
@@ -87,27 +103,27 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
                         {
                             path: "mitglieder",
                             component: MitgliederComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "mitglieder/:id",
                             component: MitgliederSingleComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "noten",
                             component: NotenWrapperComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                             children: [
                                 {
                                     path: "archiv",
                                     component: NotenarchivComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "mappen",
                                     component: NotenmappenComponent,
-                                    canActivate: [AuthGuardService],
+                                    canActivate: [RouteGuard],
                                 },
                             ],
                         },
@@ -115,28 +131,28 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
                         {
                             path: "tools/rechnungsgenerator",
                             component: RechnungsGeneratorComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "einstellungen/mitgliedsdaten",
                             component: MitgliedPersonalEditComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "einstellungen/rollen",
                             component: RollenEditComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "einstellungen/lokal",
                             component: LokaleEinstellungenComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
 
                         {
                             path: "test",
                             component: AatestComponent,
-                            canActivate: [AuthGuardService],
+                            canActivate: [RouteGuard],
                         },
                         // BARCELONA THEME STUFF-------------------------------------------------------------------------------------------------------------------------------
 
@@ -154,6 +170,10 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
                             path: "",
                             redirectTo: "dashboard",
                             pathMatch: "full",
+                        },
+                        {
+                            path: "noaccess",
+                            component: AppAccessdeniedComponent,
                         },
                         { path: "**", component: AppNotfoundComponent },
                     ],

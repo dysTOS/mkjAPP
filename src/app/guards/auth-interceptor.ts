@@ -1,4 +1,4 @@
-import { AuthStateService } from "./auth-state.service";
+import { AuthStateService } from "../services/authentication/auth-state.service";
 import { Injectable } from "@angular/core";
 import {
     HttpInterceptor,
@@ -8,7 +8,7 @@ import {
     HttpErrorResponse,
     HttpStatusCode,
 } from "@angular/common/http";
-import { TokenService } from "./token.service";
+import { TokenService } from "../services/authentication/token.service";
 import { catchError, map } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 import { InfoService } from "src/app/services/info.service";

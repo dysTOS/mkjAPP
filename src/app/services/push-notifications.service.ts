@@ -27,7 +27,7 @@ export class PushNotificationsService {
         };
     }) {
         this.receivedNotifications.push(action.action);
-        this.router.navigate([environment.filePrefix, "test"]);
+        this.router.navigate([environment.prefix, "test"]);
     }
 
     public subscribeUser(sub: PushSubscription) {

@@ -16,6 +16,7 @@ import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { ExportService } from "src/app/services/export.service";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { InfoService } from "src/app/services/info.service";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -71,6 +72,8 @@ export class AusrueckungenAktuellComponent implements OnInit {
     status = StatusOptions;
 
     @ViewChild("dt") ausrueckungenTable: Table;
+
+    public formGroup: FormGroup;
 
     selectedRow: any;
 

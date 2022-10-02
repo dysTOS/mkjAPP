@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
-import { MkjPrimeTranslation } from "src/app/utilities/primeTranslation";
+import { MkjPrimeTranslation } from "src/app/configuration/primeTranslation";
 import { AuthStateService } from "./services/authentication/auth-state.service";
 import { TokenService } from "./services/authentication/token.service";
 import { UserService } from "./services/authentication/user.service";
@@ -20,8 +20,8 @@ export class AppComponent {
         private userService: UserService,
         private tokenService: TokenService
     ) {
-        this.authStatService.userAuthState.subscribe((val) => {
-            if (!val && this.tokenService.isLoggedIn()) {
+        this.authStatService.userAuthState.subscribe((isAuthenticated) => {
+            if (!isAuthenticated && this.tokenService.isLoggedIn()) {
                 this.userService.onLogout();
                 this.tokenService.removeToken();
                 this.router.navigate(["login"]);

@@ -23,7 +23,6 @@ export class UserService {
         new BehaviorSubject<Permission[]>(null);
 
     constructor(
-        private roleService: RoleService,
         private authService: AuthService,
         private tokenService: TokenService
     ) {}

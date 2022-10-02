@@ -199,6 +199,30 @@ export class MenuService implements OnDestroy {
             }
         });
     }
+
+    public getMenuItemByRouterLink(
+        routerLink: string,
+        menuArray: MkjMenuItem[] = this.MainMenu
+    ): MkjMenuItem | null {
+        let item = null;
+
+        for (let i = 0; i < menuArray.length - 1; i++) {
+            if (menuArray[i].routerLink?.includes(routerLink)) {
+                item = menuArray[i];
+            }
+            if (!item && menuArray[i].children) {
+                item = this.getMenuItemByRouterLink(
+                    routerLink,
+                    menuArray[i].children
+                );
+            }
+            if (item) {
+                break;
+            }
+        }
+
+        return item;
+    }
 }
 
 export interface MkjMenuItem extends MenuItem {

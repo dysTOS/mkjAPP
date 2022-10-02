@@ -8,5 +8,5 @@ export const environment = {
     apiUrl: "http://localhost:8000/api/",
     vapidPublicKey:
         "BIsIB28fImumACBAnl09t3HKyJLBJDGKj17Nc7HFKhiRSzFYQdRUBfL0Yfrab8QpEl1ItEajx72I1Wje-yq7j-s",
-    filePrefix: "mkj",
+    prefix: "mkj",
 };

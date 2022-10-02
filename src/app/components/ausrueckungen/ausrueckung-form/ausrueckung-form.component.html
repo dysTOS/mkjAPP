@@ -1,0 +1,195 @@
+<div [formGroup]="form" class="p-fluid grid" style="margin-top: 5px">
+    <div class="p-field col-12 md:col-6">
+        <div
+            style="height: 100%"
+            class="flex justify-content-center align-items-center"
+        >
+            <p-checkbox
+                [binary]="true"
+                label="Öffentlich"
+                formControlName="oeffentlich"
+                [pTooltip]="
+                    ausrueckung?.oeffentlich
+                        ? 'Wird auf mk-jainzen angezeigt'
+                        : 'Wird nicht auf mk-jainzen.at angezeigt'
+                "
+            ></p-checkbox>
+        </div>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                formControlName="name"
+                pInputText
+                inputId="name"
+                required
+            />
+            <small class="p-error" *ngIf="form?.controls.name.invalid"
+                >Name ist erforderlich!</small
+            >
+            <label for="name">Name</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="vonDatum"
+                formControlName="vonDatum"
+                [showTime]="false"
+                showIcon="true"
+                [showButtonBar]="true"
+                [touchUI]="true"
+                [readonlyInput]="true"
+                [appendTo]="'body'"
+                required
+            ></p-calendar>
+            <small class="p-error" *ngIf="form?.controls.vonDatum.invalid"
+                >Datum ist erforderlich!</small
+            >
+            <label for="vonDatum">Datum</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="vonZeit"
+                formControlName="vonZeit"
+                [timeOnly]="true"
+                showIcon="true"
+                [appendTo]="'body'"
+                [touchUI]="false"
+                icon="pi pi-clock"
+            ></p-calendar>
+            <label for="vonZeit">Spielbeginn</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="bisDatum"
+                formControlName="bisDatum"
+                [showTime]="false"
+                showIcon="true"
+                [showButtonBar]="true"
+                [touchUI]="true"
+                [readonlyInput]="true"
+                [appendTo]="'body'"
+                required
+            ></p-calendar>
+            <small class="p-error" *ngIf="form?.controls.bisDatum.invalid"
+                >Enddatum ist erforderlich!</small
+            >
+            <label for="bisDatum">Enddatum</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="bisZeit"
+                formControlName="bisZeit"
+                [timeOnly]="true"
+                showIcon="true"
+                [appendTo]="'body'"
+                [touchUI]="false"
+                icon="pi pi-clock"
+            ></p-calendar>
+            <label for="bisZeit">Endzeit</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-calendar
+                inputId="treffzeit"
+                formControlName="treffzeit"
+                [timeOnly]="true"
+                showIcon="true"
+                [stepMinute]="15"
+                [appendTo]="'body'"
+                icon="pi pi-clock"
+            ></p-calendar>
+            <label for="treffzeit">Zusammenkunft</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input type="text" formControlName="ort" pInputText inputId="ort" />
+
+            <label for="ort">Ort</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-dropdown
+                inputId="kategorie"
+                formControlName="kategorie"
+                [options]="kategorien"
+                required
+            ></p-dropdown>
+            <small class="p-error" *ngIf="form?.controls.kategorie.invalid"
+                >Kategorie ist erforderlich!</small
+            >
+            <label for="kategorie">Kategorie</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <p-dropdown
+                inputId="status"
+                formControlName="status"
+                [options]="status"
+                required
+                ><ng-template pTemplate="selectedItem">
+                    <div
+                        *ngIf="form?.controls.status.value"
+                        [class]="
+                            'ausrueckungen-badge status-' +
+                            (ausrueckung.status
+                                ? ausrueckung.status.toLowerCase()
+                                : '')
+                        "
+                    >
+                        {{ ausrueckung.status }}
+                    </div>
+                </ng-template>
+                <ng-template let-status pTemplate="item">
+                    <div [class]="'ausrueckungen-badge status-' + status.value">
+                        {{ status.label }}
+                    </div>
+                </ng-template></p-dropdown
+            >
+
+            <small class="p-error" *ngIf="form?.controls.status.invalid"
+                >Status ist erforderlich!</small
+            >
+            <label for="status">Status</label>
+        </span>
+    </div>
+    <div class="p-field col-12">
+        <span class="p-float-label">
+            <textarea
+                id="beschreibung"
+                formControlName="beschreibung"
+                pInputTextarea
+                rows="2"
+                cols="20"
+            ></textarea>
+            <label for="beschreibung">Beschreibung</label>
+        </span>
+    </div>
+    <div class="p-field col-12">
+        <span class="p-float-label">
+            <textarea
+                type="text"
+                formControlName="infoMusiker"
+                pInputTextarea
+                id="infoMusiker"
+                rows="2"
+                cols="20"
+            ></textarea>
+            <label for="infoMusiker">Infos für die Musiker</label>
+        </span>
+    </div>
+</div>

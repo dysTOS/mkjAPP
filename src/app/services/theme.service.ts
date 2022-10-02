@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment";
     providedIn: "root",
 })
 export class ThemeService {
-    private themePrefix = environment.filePrefix;
+    private themePrefix = environment.prefix;
 
     public compactMode: boolean = false;
     public darkMode: boolean = false;

@@ -1,12 +1,12 @@
 .login-body {
-    background-color: #f5f5f5;
+    background-color: var(--surface-200);
     padding-top: 200px;
     height: auto;
     background: url("../layout/images/login/login-image.png") no-repeat;
     background-position: 0 -100px;
 
     .login-panel {
-        background-color: #ffffff;
+        background-color: var(--surface-200);
         width: 400px;
         margin: 0 auto;
         padding-bottom: 20px;

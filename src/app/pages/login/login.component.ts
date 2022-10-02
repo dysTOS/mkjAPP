@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
                     this.userService.setCurrentUserPermissions(
                         result.permissions
                     );
-                    this.router.navigate([environment.filePrefix, "dashboard"]);
+                    this.router.navigate([environment.prefix, "dashboard"]);
                 },
                 (error) => {
                     this.infoService.error(error);

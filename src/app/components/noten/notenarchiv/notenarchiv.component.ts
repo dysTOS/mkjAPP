@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/interfaces/Noten";
 import { Table } from "primeng/table";
 import { NotenService } from "src/app/services/noten.service";
-import { UtilFunctions } from "src/app/utilities/util-functions";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 import { InfoService } from "src/app/services/info.service";
 
 @Component({

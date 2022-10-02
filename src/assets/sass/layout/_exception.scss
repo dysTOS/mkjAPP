@@ -9,17 +9,20 @@
     }
 
     .exception-panel {
-        background-color: #ffffff;
+        background-color: var(--surface-200);
         width: 400px;
         height: 323px;
         margin: 0 auto;
         padding-bottom: 20px;
-        -webkit-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        -moz-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        -webkit-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+            0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        -moz-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+            0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+            0 17px 50px 0 rgba(0, 0, 0, 0.19);
 
         .p-button {
-            background-color: #ffffff;
+            background-color: var(--surface-200);
             display: block;
             @include no-shadow();
 
@@ -62,14 +65,15 @@
     }
 
     &.error-body {
-        background: url("../../layout/images/exception/error-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/error-image.png")
+            no-repeat 0 -100px;
         .exception-panel {
             img {
                 width: 100%;
             }
 
             .p-button {
-                color: #f44336;
+                color: var(--text-color);
 
                 &:hover {
                     @include hover-element();
@@ -88,7 +92,8 @@
     }
 
     &.pagenotfound-body {
-        background: url("../../layout/images/exception/404-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/404-image.png") no-repeat
+            0 -100px;
 
         .exception-panel {
             img {
@@ -100,7 +105,7 @@
             }
 
             .p-button {
-                color: #00796b;
+                color: var(--text-color);
                 margin-top: 105px;
 
                 &:hover {
@@ -120,7 +125,8 @@
     }
 
     &.accessdenied-body {
-        background: url("../../layout/images/exception/access-image.png") no-repeat 0 -100px;
+        background: url("../../layout/images/exception/access-image.png")
+            no-repeat 0 -100px;
 
         .exception-panel {
             img {
@@ -132,7 +138,7 @@
             }
 
             .p-button {
-                color: #f57c00;
+                color: var(--text-color);
                 margin-top: 110px;
 
                 &:hover {
@@ -192,7 +198,6 @@
                     margin-top: 117px;
                 }
             }
-
         }
 
         &.accessdenied-body {
@@ -205,7 +210,6 @@
                     margin-top: 120px;
                 }
             }
-
         }
     }
 }

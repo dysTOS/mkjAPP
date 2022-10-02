@@ -365,7 +365,7 @@
 
             <app-ausrueckung-editor
                 [(ausrueckung)]="singleAusrueckung"
-                [submitted]="submitted"
+                (formGroupOutput)="formGroup = $event"
             ></app-ausrueckung-editor>
 
             <ng-template pTemplate="footer">
@@ -383,7 +383,7 @@
                     label="Speichern"
                     [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
                     class="p-button-plain"
-                    [disabled]="isSaving"
+                    [disabled]="isSaving || formGroup?.invalid"
                     (click)="saveAusrueckung()"
                 ></button>
             </ng-template>

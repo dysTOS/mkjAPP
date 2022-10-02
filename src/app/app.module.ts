@@ -1,4 +1,4 @@
-import { AuthGuardService } from "./services/authentication/auth-guard.service";
+import { RouteGuard } from "./guards/route.guard";
 import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -104,7 +104,6 @@ import { AppHelpComponent } from "./pages/app.help.component";
 import { AppNotfoundComponent } from "./pages/app.notfound.component";
 import { AppErrorComponent } from "./pages/app.error.component";
 import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
-import { AppLoginComponent } from "./pages/app.login.component";
 import { ConfirmationService, MessageService } from "primeng/api";
 
 // import dayGridPlugin from "@fullcalendar/daygrid";
@@ -119,7 +118,7 @@ import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.
 import { SignupComponent } from "./pages/signup/signup.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
-import { VisibleForPermissionDirective } from "./utilities/visible-for-permission.directive";
+import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
 import { MitgliedEditorComponent } from "./components/mitglieder/mitglied-editor/mitglied-editor.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
@@ -141,13 +140,16 @@ import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrue
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
-import { AuthInterceptor } from "./services/authentication/auth-interceptor.component";
+import { AuthInterceptor } from "./guards/auth-interceptor";
 import { UserService } from "./services/authentication/user.service";
 import { ThemeService } from "./services/theme.service";
 import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
-import { AbstractEditComponent } from "./base/abstract-edit.component";
+import { AbstractFormComponent } from "./components/abstract-form.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
-import { MkjTemplateDirective } from "./utilities/mkj-template.directive";
+import { MkjTemplateDirective } from "./directives/mkj-template.directive";
+import { GlobalRouteGuard } from "./guards/global-route.guard";
+import { AusrueckungFormComponent } from "./components/ausrueckungen/ausrueckung-form/ausrueckung-form.component";
+import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -257,11 +259,9 @@ registerLocaleData(localeDe);
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,
-        AppLoginComponent,
         AusrueckungenWrapperComponent,
         NotenWrapperComponent,
         AppTimelineDemoComponent,
-        AppLoginComponent,
         AppInvoiceComponent,
         AppHelpComponent,
         AppNotfoundComponent,
@@ -293,28 +293,20 @@ registerLocaleData(localeDe);
         KalenderaboComponent,
         AusrueckungenAktuellComponent,
         AusrueckungenArchivComponent,
-        AbstractEditComponent,
+        AbstractFormComponent,
         MkjContentLoaderComponent,
         MkjTemplateDirective,
+        AusrueckungFormComponent,
     ],
     providers: [
+        mkjAppInitializer(),
         MenuService,
         ConfirmationService,
         DatePipe,
-        AuthGuardService,
+        RouteGuard,
+        GlobalRouteGuard,
         MessageService,
         MkjDatePipe,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: (
-                userService: UserService,
-                themeService: ThemeService
-            ) => {
-                return () => userService.initializeUserData();
-            },
-            deps: [UserService, ThemeService],
-            multi: true,
-        },
         { provide: LOCALE_ID, useValue: "de-AT" },
         {
             provide: HTTP_INTERCEPTORS,
