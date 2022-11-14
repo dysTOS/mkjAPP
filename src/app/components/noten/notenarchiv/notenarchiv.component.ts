@@ -1,6 +1,6 @@
 import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Noten } from "src/app/interfaces/Noten";
+import { Noten } from "src/app/models/Noten";
 import { Table } from "primeng/table";
 import { NotenService } from "src/app/services/noten.service";
 import { UtilFunctions } from "src/app/helpers/util-functions";

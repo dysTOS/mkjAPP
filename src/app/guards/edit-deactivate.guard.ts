@@ -7,7 +7,7 @@ import {
 } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { Observable, Subject } from "rxjs";
-import { AbstractFormComponent } from "../components/abstract-form.component";
+import { AbstractFormComponent } from "../utilities/form-components/abstract-form.class";
 
 export interface EditComponentDeactivate {
     canDeactivate(): boolean;

@@ -2,29 +2,29 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
+import { User } from "../../models/User";
 import {
-    RegistrationCredentials,
-    LoginCredentials,
-    LoginResponse,
-    User,
-} from "../../interfaces/User";
+    UserRegistrationInput,
+    UserLoginInput,
+    UserLoginOutput,
+} from "src/app/interfaces/api-middleware";
 
 @Injectable({
     providedIn: "root",
 })
-export class AuthService {
+export class AuthAPIService {
     private apiURL = environment.apiUrl;
 
     constructor(private http: HttpClient) {}
 
     // User registration
-    register(user: RegistrationCredentials): Observable<any> {
+    register(user: UserRegistrationInput): Observable<any> {
         const url = this.apiURL + "register";
         return this.http.post(url, user);
     }
 
     // Login
-    login(user: LoginCredentials): Observable<LoginResponse> {
+    login(user: UserLoginInput): Observable<UserLoginOutput> {
         const url = this.apiURL + "login";
         return this.http.post<any>(url, user);
     }
@@ -34,7 +34,7 @@ export class AuthService {
         return this.http.post<any>(url, {});
     }
 
-    getCurrentUser(): Observable<LoginResponse> {
+    getCurrentUser(): Observable<UserLoginOutput> {
         const url = this.apiURL + "user";
         return this.http.post<any>(url, {});
     }

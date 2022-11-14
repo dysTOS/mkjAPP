@@ -4,7 +4,7 @@
             style="height: 100%"
             class="flex justify-content-center align-items-center"
         >
-            <p-checkbox
+            <!-- <p-checkbox
                 [binary]="true"
                 label="Öffentlich"
                 formControlName="oeffentlich"
@@ -13,7 +13,7 @@
                         ? 'Wird auf mk-jainzen angezeigt'
                         : 'Wird nicht auf mk-jainzen.at angezeigt'
                 "
-            ></p-checkbox>
+            ></p-checkbox> -->
         </div>
     </div>
     <div class="p-field col-12 md:col-6">
@@ -33,84 +33,39 @@
     </div>
 
     <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-calendar
-                inputId="vonDatum"
-                formControlName="vonDatum"
-                [showTime]="false"
-                showIcon="true"
-                [showButtonBar]="true"
-                [touchUI]="true"
-                [readonlyInput]="true"
-                [appendTo]="'body'"
-                required
-            ></p-calendar>
-            <small class="p-error" *ngIf="form?.controls.vonDatum.invalid"
-                >Datum ist erforderlich!</small
-            >
-            <label for="vonDatum">Datum</label>
-        </span>
+        <mkj-date-input
+            type="date"
+            formControlName="vonDatum"
+            label="Datum"
+        ></mkj-date-input>
     </div>
     <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-calendar
-                inputId="vonZeit"
-                formControlName="vonZeit"
-                [timeOnly]="true"
-                showIcon="true"
-                [appendTo]="'body'"
-                [touchUI]="false"
-                icon="pi pi-clock"
-            ></p-calendar>
-            <label for="vonZeit">Spielbeginn</label>
-        </span>
+        <mkj-date-input
+            type="time"
+            formControlName="vonZeit"
+            label="Beginnzeit"
+        ></mkj-date-input>
     </div>
     <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-calendar
-                inputId="bisDatum"
-                formControlName="bisDatum"
-                [showTime]="false"
-                showIcon="true"
-                [showButtonBar]="true"
-                [touchUI]="true"
-                [readonlyInput]="true"
-                [appendTo]="'body'"
-                required
-            ></p-calendar>
-            <small class="p-error" *ngIf="form?.controls.bisDatum.invalid"
-                >Enddatum ist erforderlich!</small
-            >
-            <label for="bisDatum">Enddatum</label>
-        </span>
+        <mkj-date-input
+            type="date"
+            formControlName="bisDatum"
+            label="Enddatum"
+        ></mkj-date-input>
     </div>
     <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-calendar
-                inputId="bisZeit"
-                formControlName="bisZeit"
-                [timeOnly]="true"
-                showIcon="true"
-                [appendTo]="'body'"
-                [touchUI]="false"
-                icon="pi pi-clock"
-            ></p-calendar>
-            <label for="bisZeit">Endzeit</label>
-        </span>
+        <mkj-date-input
+            type="time"
+            formControlName="bisZeit"
+            label="Endzeit"
+        ></mkj-date-input>
     </div>
     <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-calendar
-                inputId="treffzeit"
-                formControlName="treffzeit"
-                [timeOnly]="true"
-                showIcon="true"
-                [stepMinute]="15"
-                [appendTo]="'body'"
-                icon="pi pi-clock"
-            ></p-calendar>
-            <label for="treffzeit">Zusammenkunft</label>
-        </span>
+        <mkj-date-input
+            type="time"
+            formControlName="treffzeit"
+            label="Zusammenkunft"
+        ></mkj-date-input>
     </div>
 
     <div class="p-field col-12 md:col-6">
@@ -143,20 +98,20 @@
                 required
                 ><ng-template pTemplate="selectedItem">
                     <div
-                        *ngIf="form?.controls.status.value"
+                        *ngIf="form?.controls.status?.value"
                         [class]="
                             'ausrueckungen-badge status-' +
-                            (ausrueckung.status
-                                ? ausrueckung.status.toLowerCase()
+                            (form?.controls.status?.value?.value
+                                ? form?.controls.status?.value?.value.toLowerCase()
                                 : '')
                         "
                     >
-                        {{ ausrueckung.status }}
+                        {{ form?.controls.status?.value?.label }}
                     </div>
                 </ng-template>
                 <ng-template let-status pTemplate="item">
                     <div [class]="'ausrueckungen-badge status-' + status.value">
-                        {{ status.label }}
+                        {{ status?.label }}
                     </div>
                 </ng-template></p-dropdown
             >

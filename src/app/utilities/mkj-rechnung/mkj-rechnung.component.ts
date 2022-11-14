@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Rechnung } from "src/app/interfaces/Rechnung";
+import { Rechnung } from "src/app/models/Rechnung";
 
 @Component({
     selector: "app-mkj-rechnung",

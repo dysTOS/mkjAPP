@@ -1,12 +1,12 @@
 import { ExportService } from "../../../services/export.service";
 import { MitgliederService } from "../../../services/mitglieder.service";
-import { Mitglied } from "src/app/interfaces/Mitglied";
+import { Mitglied } from "src/app/models/Mitglied";
 import { NotenService } from "../../../services/noten.service";
 import { AusrueckungenService } from "../../../services/ausrueckungen.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { Ausrueckung } from "src/app/interfaces/Ausrueckung";
-import { Noten } from "src/app/interfaces/Noten";
+import { Ausrueckung } from "src/app/models/Ausrueckung";
+import { Noten } from "src/app/models/Noten";
 import { InfoService } from "src/app/services/info.service";
 
 @Component({

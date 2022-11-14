@@ -141,15 +141,14 @@ import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kal
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { AuthInterceptor } from "./guards/auth-interceptor";
-import { UserService } from "./services/authentication/user.service";
-import { ThemeService } from "./services/theme.service";
 import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
-import { AbstractFormComponent } from "./components/abstract-form.component";
+import { AbstractFormComponent } from "./utilities/form-components/abstract-form.class";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjTemplateDirective } from "./directives/mkj-template.directive";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
-import { AusrueckungFormComponent } from "./components/ausrueckungen/ausrueckung-form/ausrueckung-form.component";
+import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
+import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -261,6 +260,7 @@ registerLocaleData(localeDe);
         AppAccessdeniedComponent,
         AusrueckungenWrapperComponent,
         NotenWrapperComponent,
+        MkjDateInputComponent,
         AppTimelineDemoComponent,
         AppInvoiceComponent,
         AppHelpComponent,

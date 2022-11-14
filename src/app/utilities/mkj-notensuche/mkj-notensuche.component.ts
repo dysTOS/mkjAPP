@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Noten } from "src/app/interfaces/Noten";
+import { Noten } from "src/app/models/Noten";
 import { NotenService } from "src/app/services/noten.service";
 
 @Component({

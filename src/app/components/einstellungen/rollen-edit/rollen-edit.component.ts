@@ -1,5 +1,5 @@
 import { ConfirmationService } from "primeng/api";
-import { Permission, Role } from "../../../interfaces/User";
+import { Permission, Role } from "../../../models/User";
 import { RoleService } from "../../../services/role.service";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/authentication/user.service";

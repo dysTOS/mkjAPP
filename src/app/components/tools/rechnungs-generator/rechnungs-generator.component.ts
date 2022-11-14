@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Rechnung } from "src/app/interfaces/Rechnung";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { Rechnung } from "src/app/models/Rechnung";
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    Validators,
+} from "@angular/forms";
 
 @Component({
     selector: "app-rechnungs-generator",

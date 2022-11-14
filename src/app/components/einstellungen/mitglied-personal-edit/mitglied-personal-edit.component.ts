@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as _ from "lodash";
 import { Subscription } from "rxjs";
-        import { Mitglied } from "src/app/interfaces/Mitglied";
+import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliederService } from "src/app/services/mitglieder.service";

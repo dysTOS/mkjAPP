@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { LoginCredentials } from "../../interfaces/User";
 import { environment } from "src/environments/environment";
 import { AuthStateService } from "src/app/services/authentication/auth-state.service";
-import { AuthService } from "src/app/services/authentication/auth.service";
+import { AuthAPIService } from "src/app/services/authentication/auth-api.service";
 import { TokenService } from "src/app/services/authentication/token.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
+import { UserLoginInput } from "src/app/interfaces/api-middleware";
 
 @Component({
     selector: "app-login",
@@ -16,14 +16,14 @@ export class LoginComponent implements OnInit {
     submitted: boolean = false;
     isChecking: boolean = false;
 
-    user: LoginCredentials = {
+    user: UserLoginInput = {
         email: null,
         passwort: null,
     };
 
     constructor(
         private router: Router,
-        private authService: AuthService,
+        private authService: AuthAPIService,
         private tokenService: TokenService,
         private authState: AuthStateService,
         private userService: UserService,

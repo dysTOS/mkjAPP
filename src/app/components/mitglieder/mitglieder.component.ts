@@ -1,4 +1,4 @@
-import { Mitglied } from "../../interfaces/Mitglied";
+import { Mitglied } from "../../models/Mitglied";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MitgliederService } from "../../services/mitglieder.service";
 import { Component, OnInit } from "@angular/core";

@@ -1,4 +1,4 @@
-import { Ausrueckung } from "../interfaces/Ausrueckung";
+import { Ausrueckung } from "../models/Ausrueckung";
 import { Injectable } from "@angular/core";
 import * as ics from "ics";
 import * as FileSaver from "file-saver";

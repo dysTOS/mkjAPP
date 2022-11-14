@@ -1,0 +1,21 @@
+<span class="p-float-label">
+    <p-calendar
+        [inputId]="label"
+        [(ngModel)]="internModel"
+        (ngModelChange)="onModelChange($event)"
+        [showTime]="type === MkjDateType.DATE ? false : true"
+        [timeOnly]="type === MkjDateType.TIME ? true : false"
+        [dataType]="type === MkjDateType.TIME ? 'string' : 'date'"
+        showIcon="true"
+        [icon]="type === MkjDateType.TIME ? 'pi pi-clock' : 'pi pi-calendar'"
+        [showButtonBar]="type !== MkjDateType.TIME ? true : false"
+        [touchUI]="true"
+        [readonlyInput]="true"
+        [appendTo]="'body'"
+        [disabled]="isDisabled"
+        (onBlur)="_registerOnTouched()"
+        [class.ng-dirty]="ngControl?.control.invalid"
+        [class.ng-invalid]="ngControl?.control.invalid"
+    ></p-calendar>
+    <label [for]="label">{{ label }}</label>
+</span>

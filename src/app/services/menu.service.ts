@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
-import { Permission } from "../interfaces/User";
+import { Permission } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
 
@@ -186,8 +186,8 @@ export class MenuService implements OnDestroy {
     ) {
         menu.forEach((item) => {
             if (
-                permissions.find((e) => e.name === item.permission) ||
-                !item.permission
+                !item.permission ||
+                permissions.find((e) => e.name === item.permission)
             ) {
                 item.visible = true;
             } else {

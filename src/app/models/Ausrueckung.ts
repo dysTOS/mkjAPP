@@ -1,5 +1,3 @@
-import { AbstractControl, FormControl } from "@angular/forms";
-
 export interface Ausrueckung {
     id?: string;
     name?: string;
@@ -16,21 +14,6 @@ export interface Ausrueckung {
     bisZeit?: string;
     created_at?: string;
     updated_at?: string;
-}
-
-export interface AusrueckungFormValue {
-    name: string;
-    beschreibung: string;
-    infoMusiker: string;
-    oeffentlich: boolean;
-    kategorie: string;
-    status: string;
-    ort: string;
-    treffzeit: string;
-    vonDatum: string;
-    bisDatum: string;
-    vonZeit: string;
-    bisZeit: string;
 }
 
 export interface AusrueckungFilterInput {

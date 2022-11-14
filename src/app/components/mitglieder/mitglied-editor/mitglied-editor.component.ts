@@ -1,12 +1,12 @@
-import { Mitglied_Geschlecht } from '../../../interfaces/Mitglied';
-import { Mitglied } from 'src/app/interfaces/Mitglied';
-import { Component, Input } from '@angular/core';
-import * as moment from 'moment'
+import { Mitglied_Geschlecht } from "../../../models/Mitglied";
+import { Mitglied } from "src/app/models/Mitglied";
+import { Component, Input } from "@angular/core";
+import * as moment from "moment";
 
 @Component({
-    selector: 'app-mitglied-editor',
-    templateUrl: './mitglied-editor.component.html',
-    styleUrls: ['./mitglied-editor.component.scss']
+    selector: "app-mitglied-editor",
+    templateUrl: "./mitglied-editor.component.html",
+    styleUrls: ["./mitglied-editor.component.scss"],
 })
 export class MitgliedEditorComponent {
     private _mitglied: Mitglied;
@@ -38,27 +38,23 @@ export class MitgliedEditorComponent {
 
     public setGeburtsdatum(date: Date) {
         if (date) {
-            this.mitglied.geburtsdatum = moment(date).format('YYYY-MM-DD');
-        }
-        else {
+            this.mitglied.geburtsdatum = moment(date).format("YYYY-MM-DD");
+        } else {
             this.mitglied.geburtsdatum = null;
         }
     }
     public setEintrittDatum(date: Date) {
         if (date) {
-            this.mitglied.eintrittDatum = moment(date).format('YYYY-MM-DD');
-        }
-        else {
+            this.mitglied.eintrittDatum = moment(date).format("YYYY-MM-DD");
+        } else {
             this.mitglied.eintrittDatum = null;
         }
     }
     public setAustrittDatum(date: Date) {
         if (date) {
-            this.mitglied.austrittDatum = moment(date).format('YYYY-MM-DD');
-        }
-        else {
+            this.mitglied.austrittDatum = moment(date).format("YYYY-MM-DD");
+        } else {
             this.mitglied.austrittDatum = null;
         }
     }
 }
-

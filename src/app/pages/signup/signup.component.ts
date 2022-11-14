@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { RegistrationCredentials } from "../../interfaces/User";
-import { AuthService } from "src/app/services/authentication/auth.service";
+import { UserRegistrationInput } from "src/app/interfaces/api-middleware";
+import { AuthAPIService } from "src/app/services/authentication/auth-api.service";
 import { InfoService } from "src/app/services/info.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
     isChecking: boolean = false;
     pwdCheck: string = null;
 
-    user: RegistrationCredentials = {
+    user: UserRegistrationInput = {
         vorname: null,
         zuname: null,
         email: null,
@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private authService: AuthService,
+        private authService: AuthAPIService,
         private infoService: InfoService
     ) {}
 

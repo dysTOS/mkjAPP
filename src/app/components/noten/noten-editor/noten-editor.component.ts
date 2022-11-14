@@ -1,18 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Noten } from 'src/app/interfaces/Noten';
+import { Component, Input, OnInit } from "@angular/core";
+import { Noten } from "src/app/models/Noten";
 
 @Component({
-    selector: 'app-noten-editor',
-    templateUrl: './noten-editor.component.html',
-    styleUrls: ['./noten-editor.component.scss']
+    selector: "app-noten-editor",
+    templateUrl: "./noten-editor.component.html",
+    styleUrls: ["./noten-editor.component.scss"],
 })
 export class NotenEditorComponent implements OnInit {
     @Input()
     noten: Noten;
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void {
-    }
-
+    ngOnInit(): void {}
 }

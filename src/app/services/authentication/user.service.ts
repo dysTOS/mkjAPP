@@ -1,10 +1,9 @@
-import { AuthService } from "./auth.service";
+import { AuthAPIService } from "./auth-api.service";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { Mitglied } from "../../interfaces/Mitglied";
-import { User, Role, Permission } from "../../interfaces/User";
-import { RoleService } from "../role.service";
+import { Mitglied } from "../../models/Mitglied";
+import { User, Role, Permission } from "../../models/User";
 import { TokenService } from "./token.service";
 
 @Injectable({
@@ -23,7 +22,7 @@ export class UserService {
         new BehaviorSubject<Permission[]>(null);
 
     constructor(
-        private authService: AuthService,
+        private authApiService: AuthAPIService,
         private tokenService: TokenService
     ) {}
 
@@ -105,7 +104,7 @@ export class UserService {
     }
 
     public renewCurrentUserData() {
-        this.authService.getCurrentUser().subscribe({
+        this.authApiService.getCurrentUser().subscribe({
             next: (result) => {
                 this.setCurrentUser(result.user),
                     this.setCurrentMitglied(result.mitglied),
@@ -116,7 +115,7 @@ export class UserService {
     }
 
     public onLogout() {
-        this.authService.logout().subscribe({
+        this.authApiService.logout().subscribe({
             next: (res) => {},
             error: (err) => {
                 console.log(this.onLogout.name, err);
@@ -131,7 +130,7 @@ export class UserService {
     public initializeUserData(): Observable<any> {
         const subject = new Subject();
         if (!this.isSet() && this.tokenService.isLoggedIn()) {
-            this.authService.getCurrentUser().subscribe({
+            this.authApiService.getCurrentUser().subscribe({
                 next: (result) => {
                     this.setCurrentUser(result.user),
                         this.setCurrentMitglied(result.mitglied),

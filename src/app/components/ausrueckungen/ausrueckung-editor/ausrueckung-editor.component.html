@@ -1,5 +1,14 @@
 <app-mkj-toolbar [headerLeft]="'Ausrückung Editor'"></app-mkj-toolbar>
-
-<ng-container [formGroup]="formGroup">
-    <mkj-ausrueckung-form formControlName="ausrueckung"></mkj-ausrueckung-form>
-</ng-container>
+<button
+    pButton
+    type="button"
+    label="Speichern"
+    [disabled]="this.formGroup.invalid"
+></button>
+<mkj-content-loader [loading]="loading">
+    <ng-container [formGroup]="formGroup">
+        <mkj-ausrueckung-form
+            formControlName="ausrueckung"
+        ></mkj-ausrueckung-form>
+    </ng-container>
+</mkj-content-loader>

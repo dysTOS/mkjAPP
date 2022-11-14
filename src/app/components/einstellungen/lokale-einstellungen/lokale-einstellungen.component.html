@@ -1,26 +1,13 @@
 <p-card>
     <div class="layout-config-content">
-        <h5>Theme</h5>
-        <div class="p-field-radiobutton">
-            <p-radioButton
-                name="darkMenu"
-                [value]="true"
+        <h5>Dark Theme</h5>
+        <div class="p-field">
+            <p-inputSwitch
                 [(ngModel)]="themeService.darkMode"
-                (onClick)="themeService.changeTheme()"
-                inputId="darkMenu1"
-            ></p-radioButton>
-            <label for="darkMenu1">Dark</label>
+                (onChange)="themeService.changeTheme()"
+            ></p-inputSwitch>
         </div>
-        <div class="p-field-radiobutton">
-            <p-radioButton
-                name="darkMenu"
-                [value]="false"
-                [(ngModel)]="themeService.darkMode"
-                (onClick)="themeService.changeTheme()"
-                inputId="darkMenu2"
-            ></p-radioButton>
-            <label for="darkMenu2">Light</label>
-        </div>
+
         <h5>Desktop Menü</h5>
         <div class="p-field-radiobutton">
             <p-radioButton
@@ -43,50 +30,34 @@
             <label for="mode2">Overlay</label>
         </div>
 
-        <h5>Input Size</h5>
-        <div class="p-field-radiobutton">
-            <p-radioButton
-                name="compactMode"
-                [value]="true"
+        <h5>Kompakte Eingabefelder</h5>
+        <div class="p-field">
+            <p-inputSwitch
                 [(ngModel)]="themeService.compactMode"
-                inputId="compactMode1"
-                (onClick)="themeService.changeTheme()"
-            ></p-radioButton>
-            <label for="compactMode1">Kompakt</label>
-        </div>
-        <div class="p-field-radiobutton">
-            <p-radioButton
-                name="compactMode"
-                [value]="false"
-                [(ngModel)]="themeService.compactMode"
-                inputId="compactMode2"
-                (onClick)="themeService.changeTheme()"
-            ></p-radioButton>
-            <label for="compactMode2">Standart</label>
+                (onChange)="themeService.changeTheme()"
+            ></p-inputSwitch>
         </div>
 
-        <h5 style="margin-top: 0">Input Style</h5>
-        <div class="p-formgroup-inline">
-            <div class="p-field-radiobutton">
-                <p-radioButton
-                    name="inputStyle"
-                    value="outlined"
-                    [(ngModel)]="themeService.inputStyle"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="inputStyle1"
-                ></p-radioButton>
-                <label for="inputStyle1">Rand</label>
-            </div>
-            <div class="p-field-radiobutton">
-                <p-radioButton
-                    name="inputStyle"
-                    value="filled"
-                    [(ngModel)]="themeService.inputStyle"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="inputStyle2"
-                ></p-radioButton>
-                <label for="inputStyle2">Gefüllt</label>
-            </div>
+        <h5>Style der Eingabefelder</h5>
+        <div class="p-field-radiobutton">
+            <p-radioButton
+                name="inputStyle"
+                value="outlined"
+                [(ngModel)]="themeService.inputStyle"
+                (onClick)="themeService.changeTheme()"
+                inputId="inputStyle1"
+            ></p-radioButton>
+            <label for="inputStyle1">Umrandet</label>
+        </div>
+        <div class="p-field-radiobutton">
+            <p-radioButton
+                name="inputStyle"
+                value="filled"
+                [(ngModel)]="themeService.inputStyle"
+                (onClick)="themeService.changeTheme()"
+                inputId="inputStyle2"
+            ></p-radioButton>
+            <label for="inputStyle2">Gefüllt</label>
         </div>
     </div>
 </p-card>

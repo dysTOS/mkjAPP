@@ -1,10 +1,10 @@
 import { ConfirmationService } from "primeng/api";
 import { RoleService } from "../../../services/role.service";
-import { Role } from "../../../interfaces/User";
+import { Role } from "../../../models/User";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MitgliederService } from "../../../services/mitglieder.service";
 import { Component, OnInit } from "@angular/core";
-import { Mitglied } from "src/app/interfaces/Mitglied";
+import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 

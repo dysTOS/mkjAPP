@@ -1,5 +1,3 @@
-import { Mitglied } from "src/app/interfaces/Mitglied";
-
 export interface User {
     id?: string;
     name?: string;
@@ -31,24 +29,4 @@ export interface Permission {
     guard_name?: string;
     created_at?: string;
     updated_at?: string;
-}
-
-export interface RegistrationCredentials {
-    vorname?: string;
-    zuname?: string;
-    email?: string;
-    passwort?: string;
-}
-
-export interface LoginCredentials {
-    email?: string;
-    passwort?: string;
-}
-
-export interface LoginResponse {
-    token?: string;
-    user?: User;
-    roles?: Array<Role>;
-    permissions?: Array<Permission>;
-    mitglied?: Mitglied;
 }

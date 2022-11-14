@@ -1,10 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import {
-    Ausrueckung,
-    AusrueckungFilterInput,
-} from "../interfaces/Ausrueckung";
+import { Ausrueckung, AusrueckungFilterInput } from "../models/Ausrueckung";
 import { environment } from "../../environments/environment";
 
 const httpOptions = {

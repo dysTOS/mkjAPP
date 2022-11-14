@@ -41,6 +41,5 @@ export class VisibleForPermissionDirective implements OnDestroy {
 
     public ngOnDestroy(): void {
         this.subscription.unsubscribe();
-        this.subscription = null;
     }
 }

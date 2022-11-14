@@ -51,4 +51,17 @@ export class AatestComponent implements OnInit {
             error: (err) => console.log(err),
         });
     }
+
+    public saveWordpressPost() {
+        const url = "http://localhost:8000/api/savepost";
+        const headers = {
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            }),
+        };
+        this.http.get(url, headers).subscribe({
+            next: (res) => console.log(res),
+            error: (err) => console.log(err),
+        });
+    }
 }

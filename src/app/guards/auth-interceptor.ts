@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
         private infoService: InfoService
     ) {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
+    public intercept(req: HttpRequest<any>, next: HttpHandler) {
         const accessToken = this.tokenService.getToken();
         if (!req.headers.has("Authorization")) {
             req = req.clone({

@@ -18,7 +18,17 @@ export class AbstractFormComponent
         OnInit,
         OnDestroy
 {
-    protected form: FormGroup;
+    public form: FormGroup;
+
+    get value(): any {
+        return this.form.value;
+    }
+
+    set value(value: any) {
+        this.form.setValue(value);
+        this._onChange(value);
+        this._onTouched();
+    }
 
     protected loading: boolean = true;
 
@@ -26,10 +36,12 @@ export class AbstractFormComponent
 
     @HostListener("window:unload", ["$event"])
     onPageUnload(event: Event) {
+        console.log("unload");
         alert(event); //TODO: implement
     }
 
-    public onTouched: Function = () => {};
+    public _onTouched: Function = () => {};
+    public _onChange: Function = (value): void => undefined;
 
     public onChangeSubs: Subscription[] = [];
 
@@ -47,50 +59,32 @@ export class AbstractFormComponent
 
     public writeValue(value: any) {
         if (value) {
-            this.form.setValue(value, { emitEvent: false });
+            this.form?.patchValue(value, { emitEvent: false });
         }
     }
 
     public registerOnChange(onChange: any): void {
-        this.subSink.add(this.form.valueChanges.subscribe(onChange));
+        const sub = this.form.valueChanges.subscribe(onChange);
+        this.onChangeSubs.push(sub);
     }
 
     public registerOnTouched(onTouched: Function) {
-        this.onTouched = onTouched;
+        this._onTouched = onTouched;
     }
 
     public setDisabledState?(isDisabled: boolean): void {
         if (isDisabled) {
-            this.form.disable();
+            this.form?.disable();
         } else {
-            this.form.enable();
+            this.form?.enable();
         }
     }
 
-    validate(control: AbstractControl) {
-        if (this.form.valid) {
+    public validate(control: AbstractControl) {
+        if (this.form?.valid) {
             return null;
+        } else {
+            return { ausrueckung: { valid: false } };
         }
-
-        let errors: any = {};
-
-        // errors = this.addControlErrors(errors, "addressLine1");
-        // errors = this.addControlErrors(errors, "addressLine2");
-        // errors = this.addControlErrors(errors, "zipCode");
-        // errors = this.addControlErrors(errors, "city");
-
-        return errors;
-    }
-
-    addControlErrors(allErrors: any, controlName: string) {
-        const errors = { ...allErrors };
-
-        const controlErrors = this.form.controls[controlName].errors;
-
-        if (controlErrors) {
-            errors[controlName] = controlErrors;
-        }
-
-        return errors;
     }
 }
