@@ -1,9 +1,9 @@
 import {
     Ausrueckung,
-    KategorienOptions,
-    StatusOptions,
+    AusrueckungKategorieMap,
+    AusrueckungStatusMap,
 } from "src/app/models/Ausrueckung";
-import { Component, Input, TemplateRef } from "@angular/core";
+import { Component, Input, OnInit, TemplateRef } from "@angular/core";
 import * as moment from "moment";
 import {
     FormBuilder,
@@ -25,9 +25,14 @@ import { controlValueAccessor } from "src/app/providers/control-value-accessor";
         controlValidator(AusrueckungFormComponent),
     ],
 })
-export class AusrueckungFormComponent extends AbstractFormComponent {
-    kategorien = KategorienOptions;
-    status = StatusOptions;
+export class AusrueckungFormComponent
+    extends AbstractFormComponent
+    implements OnInit
+{
+    public readonly KategorieMap = AusrueckungKategorieMap;
+    public readonly StatusMap = AusrueckungStatusMap;
+
+    public severalDays: boolean = false;
 
     constructor() {
         super();
@@ -35,7 +40,7 @@ export class AusrueckungFormComponent extends AbstractFormComponent {
             name: new FormControl(null, [Validators.required]),
             beschreibung: new FormControl(),
             infoMusiker: new FormControl(),
-            oeffentlich: new FormControl(),
+            oeffentlich: new FormControl(null),
             ort: new FormControl(),
             kategorie: new FormControl(null, [Validators.required]),
             status: new FormControl(null, [Validators.required]),
@@ -46,56 +51,55 @@ export class AusrueckungFormComponent extends AbstractFormComponent {
             treffzeit: new FormControl(),
         });
 
-        this.subSink
-            .add
-            // this.form.valueChanges.subscribe((value) => {
-            //     console.log(value);
-            //     this.form.controls.bisDatum.patchValue(
-            //         moment(new Date(value)).format("YYYY-MM-DD")
-            //     );
-            // })
-            ();
+        this.subSink.add(
+            this.form.get("vonDatum").valueChanges.subscribe((value) => {
+                if (this.severalDays === false) {
+                    this.form
+                        .get("bisDatum")
+                        .setValue(value, { emitEvent: false });
+                }
+                this.updateSeveralDays();
+            }),
+            this.form.get("bisDatum").valueChanges.subscribe((value) => {
+                this.updateSeveralDays();
+            }),
+            this.form.get("vonZeit").valueChanges.subscribe((value) => {
+                this.onVonZeitChange(value);
+            })
+        );
     }
 
-    // setVonDate() {
-    //     this.ausrueckung.vonDatum = moment(this.vonDate).format("YYYY-MM-DD");
-    //     this.bisDate = new Date(this.vonDate);
-    //     this.ausrueckung.bisDatum = moment(this.bisDate).format("YYYY-MM-DD");
-    // }
+    public ngOnInit(): void {
+        this.updateSeveralDays();
+    }
 
-    // setVonZeit() {
-    //     if (this.vonTime) {
-    //         this.ausrueckung.vonZeit = moment(this.vonTime).format("HH:mm");
-    //         this.bisTime = new Date(
-    //             moment(this.vonTime).add(2, "hours").toISOString()
-    //         );
-    //         this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm");
-    //         this.treffTime = new Date(
-    //             moment(this.vonTime).subtract(30, "minutes").toISOString()
-    //         );
-    //         this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm");
-    //     } else {
-    //         this.ausrueckung.vonZeit = null;
-    //     }
-    // }
+    private updateSeveralDays() {
+        if (
+            this.form.get("vonDatum").value === this.form.get("bisDatum").value
+        ) {
+            this.severalDays = false;
+        } else {
+            this.severalDays = true;
+        }
+    }
 
-    // setBisDate() {
-    //     this.ausrueckung.bisDatum = moment(this.bisDate).format("YYYY-MM-DD");
-    // }
+    private onVonZeitChange(value: any) {
+        if (!value) {
+            this.form.get("bisZeit").setValue(null, { emitEvent: false });
+            this.form.get("treffzeit").setValue(null, { emitEvent: false });
+            return;
+        }
 
-    // setBisTime() {
-    //     if (this.bisTime) {
-    //         this.ausrueckung.bisZeit = moment(this.bisTime).format("HH:mm");
-    //     } else {
-    //         this.ausrueckung.bisZeit = null;
-    //     }
-    // }
-
-    // setTreffzeit() {
-    //     if (this.treffTime) {
-    //         this.ausrueckung.treffzeit = moment(this.treffTime).format("HH:mm");
-    //     } else {
-    //         this.ausrueckung.treffzeit = null;
-    //     }
-    // }
+        const object = moment(new Date("2022-01-01T" + value));
+        this.form
+            .get("bisZeit")
+            .setValue(object.add(2, "hours").format("HH:mm"), {
+                emitEvent: false,
+            });
+        this.form
+            .get("treffzeit")
+            .setValue(object.subtract(30, "minutes").format("HH:mm"), {
+                emitEvent: false,
+            });
+    }
 }

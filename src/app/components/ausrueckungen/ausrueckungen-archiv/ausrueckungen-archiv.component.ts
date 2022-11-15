@@ -8,9 +8,9 @@ import {
     Ausrueckung,
     AusrueckungFilterInput,
     ZeitraumOptions,
-    CsvColumns,
-    KategorienOptions,
-    StatusOptions,
+    AusrueckungCsvColumnMap,
+    AusrueckungKategorieMap,
+    AusrueckungStatusMap,
 } from "src/app/models/Ausrueckung";
 import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { ExportService } from "src/app/services/export.service";
@@ -66,9 +66,9 @@ export class AusrueckungenArchivComponent implements OnInit {
     loading: boolean;
     isSaving: boolean;
 
-    cols = CsvColumns; //columns for csv export
-    kategorien = KategorienOptions;
-    status = StatusOptions;
+    cols = AusrueckungCsvColumnMap; //columns for csv export
+    kategorien = AusrueckungKategorieMap;
+    status = AusrueckungStatusMap;
 
     @ViewChild("dt") ausrueckungenTable: Table;
 

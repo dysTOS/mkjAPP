@@ -149,6 +149,7 @@ import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
+import { MkjBooleanInputComponent } from './utilities/form-components/mkj-boolean-input/mkj-boolean-input.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -297,6 +298,7 @@ registerLocaleData(localeDe);
         MkjContentLoaderComponent,
         MkjTemplateDirective,
         AusrueckungFormComponent,
+        MkjBooleanInputComponent,
     ],
     providers: [
         mkjAppInitializer(),

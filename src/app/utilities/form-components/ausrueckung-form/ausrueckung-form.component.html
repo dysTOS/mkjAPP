@@ -1,22 +1,5 @@
 <div [formGroup]="form" class="p-fluid grid" style="margin-top: 5px">
-    <div class="p-field col-12 md:col-6">
-        <div
-            style="height: 100%"
-            class="flex justify-content-center align-items-center"
-        >
-            <!-- <p-checkbox
-                [binary]="true"
-                label="Öffentlich"
-                formControlName="oeffentlich"
-                [pTooltip]="
-                    ausrueckung?.oeffentlich
-                        ? 'Wird auf mk-jainzen angezeigt'
-                        : 'Wird nicht auf mk-jainzen.at angezeigt'
-                "
-            ></p-checkbox> -->
-        </div>
-    </div>
-    <div class="p-field col-12 md:col-6">
+    <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
             <input
                 type="text"
@@ -31,82 +14,21 @@
             <label for="name">Name</label>
         </span>
     </div>
-
-    <div class="p-field col-12 md:col-6">
-        <mkj-date-input
-            type="date"
-            formControlName="vonDatum"
-            label="Datum"
-        ></mkj-date-input>
-    </div>
-    <div class="p-field col-12 md:col-6">
-        <mkj-date-input
-            type="time"
-            formControlName="vonZeit"
-            label="Beginnzeit"
-        ></mkj-date-input>
-    </div>
-    <div class="p-field col-12 md:col-6">
-        <mkj-date-input
-            type="date"
-            formControlName="bisDatum"
-            label="Enddatum"
-        ></mkj-date-input>
-    </div>
-    <div class="p-field col-12 md:col-6">
-        <mkj-date-input
-            type="time"
-            formControlName="bisZeit"
-            label="Endzeit"
-        ></mkj-date-input>
-    </div>
-    <div class="p-field col-12 md:col-6">
-        <mkj-date-input
-            type="time"
-            formControlName="treffzeit"
-            label="Zusammenkunft"
-        ></mkj-date-input>
-    </div>
-
-    <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <input type="text" formControlName="ort" pInputText inputId="ort" />
-
-            <label for="ort">Ort</label>
-        </span>
-    </div>
-    <div class="p-field col-12 md:col-6">
-        <span class="p-float-label">
-            <p-dropdown
-                inputId="kategorie"
-                formControlName="kategorie"
-                [options]="kategorien"
-                required
-            ></p-dropdown>
-            <small class="p-error" *ngIf="form?.controls.kategorie.invalid"
-                >Kategorie ist erforderlich!</small
-            >
-            <label for="kategorie">Kategorie</label>
-        </span>
-    </div>
-    <div class="p-field col-12 md:col-6">
+    <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
             <p-dropdown
                 inputId="status"
                 formControlName="status"
-                [options]="status"
+                [options]="StatusMap"
                 required
-                ><ng-template pTemplate="selectedItem">
+                ><ng-template pTemplate="selectedItem" let-status>
                     <div
-                        *ngIf="form?.controls.status?.value"
                         [class]="
                             'ausrueckungen-badge status-' +
-                            (form?.controls.status?.value?.value
-                                ? form?.controls.status?.value?.value.toLowerCase()
-                                : '')
+                            (status.value ? status.value.toLowerCase() : '')
                         "
                     >
-                        {{ form?.controls.status?.value?.label }}
+                        {{ status.label }}
                     </div>
                 </ng-template>
                 <ng-template let-status pTemplate="item">
@@ -122,19 +44,28 @@
             <label for="status">Status</label>
         </span>
     </div>
-    <div class="p-field col-12">
+    <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
-            <textarea
-                id="beschreibung"
-                formControlName="beschreibung"
-                pInputTextarea
-                rows="2"
-                cols="20"
-            ></textarea>
-            <label for="beschreibung">Beschreibung</label>
+            <p-dropdown
+                inputId="kategorie"
+                formControlName="kategorie"
+                [options]="KategorieMap"
+                required
+            ></p-dropdown>
+            <small class="p-error" *ngIf="form?.controls.kategorie.invalid"
+                >Kategorie ist erforderlich!</small
+            >
+            <label for="kategorie">Kategorie</label>
         </span>
     </div>
-    <div class="p-field col-12">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input type="text" formControlName="ort" pInputText inputId="ort" />
+
+            <label for="ort">Ort</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-6 md:col-12">
         <span class="p-float-label">
             <textarea
                 type="text"
@@ -145,6 +76,76 @@
                 cols="20"
             ></textarea>
             <label for="infoMusiker">Infos für die Musiker</label>
+        </span>
+    </div>
+
+    <p-divider class="col-12" align="left">Datum & Uhrzeit</p-divider>
+
+    <div class="p-field col-12 md:col-6">
+        <div class="p-inputgroup">
+            <mkj-date-input
+                type="date"
+                formControlName="vonDatum"
+                label="Datum"
+                class="p-inputgroup von-datum-input"
+            ></mkj-date-input>
+            <p-checkbox
+                class="p-inputgroup-addon"
+                [binary]="true"
+                label="Mehrtägig"
+                [(ngModel)]="severalDays"
+                [ngModelOptions]="{ standalone: true }"
+            >
+            </p-checkbox>
+        </div>
+    </div>
+    <div *ngIf="severalDays" class="p-field col-12 md:col-6">
+        <mkj-date-input
+            type="date"
+            formControlName="bisDatum"
+            label="Enddatum"
+        ></mkj-date-input>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <mkj-date-input
+            type="time"
+            formControlName="vonZeit"
+            label="Offizieller Beginn"
+        ></mkj-date-input>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <mkj-date-input
+            type="time"
+            formControlName="bisZeit"
+            label="Voraussichtliches Ende"
+        ></mkj-date-input>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <mkj-date-input
+            type="time"
+            formControlName="treffzeit"
+            label="Zusammenkunft um"
+        ></mkj-date-input>
+    </div>
+
+    <p-divider class="col-12" align="left"></p-divider>
+
+    <div class="p-field col-12 md:col-6">
+        <mkj-boolean-input
+            label="Auf Homepage www.mk-jainzen.at anzeigen"
+            formControlName="oeffentlich"
+        ></mkj-boolean-input>
+    </div>
+    <div *ngIf="form.controls.oeffentlich.value" class="p-field col-12">
+        <span class="p-float-label">
+            <textarea
+                id="beschreibung"
+                formControlName="beschreibung"
+                pInputTextarea
+                rows="2"
+                cols="20"
+            ></textarea>
+            <label for="beschreibung">Beschreibung </label>
         </span>
     </div>
 </div>

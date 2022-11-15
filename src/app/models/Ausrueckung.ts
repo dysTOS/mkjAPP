@@ -28,21 +28,21 @@ export enum ZeitraumOptions {
     All = 2,
 }
 
-export const KategorienOptions = [
+export const AusrueckungKategorieMap = [
     { label: "Kurkonzert", value: "kurkonzert" },
     { label: "Weckruf", value: "weckruf" },
     { label: "Kirchlich", value: "kirchlich" },
     { label: "Sonstige", value: "sonstige" },
 ];
 
-export const StatusOptions = [
+export const AusrueckungStatusMap = [
     { label: "Fixiert", value: "fixiert" },
     { label: "Geplant", value: "geplant" },
     { label: "Ersatztermin", value: "ersatztermin" },
     { label: "Abgesagt", value: "abgesagt" },
 ];
 
-export const CsvColumns = [
+export const AusrueckungCsvColumnMap = [
     { field: "id", header: "id" },
     { field: "oeffentlich", header: "oeffentlich" },
     { field: "name", header: "name" },
