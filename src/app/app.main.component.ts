@@ -142,10 +142,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
         return this.themeService.layoutMode === "overlay";
     }
 
-    isDesktop() {
-        return window.innerWidth > 1024;
-    }
-
     private initActiveTabIndex() {
         this.route.firstChild.url.pipe(first()).subscribe((urlSeg) => {
             const first = urlSeg[0]?.path;

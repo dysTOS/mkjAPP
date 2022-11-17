@@ -1,7 +1,9 @@
+import { Location } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Ausrueckung } from "src/app/models/Ausrueckung";
 import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { InfoService } from "src/app/services/info.service";
@@ -27,12 +29,14 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
     public formGroup: FormGroup;
 
     public loading: boolean = false;
+    public saving: boolean = false;
 
     constructor(
         fb: FormBuilder,
         route: ActivatedRoute,
         private ausrueckungService: AusrueckungenService,
-        private infoService: InfoService
+        private infoService: InfoService,
+        public location: Location
     ) {
         this.formGroup = fb.group({
             ausrueckung: [],
@@ -41,6 +45,11 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         const id = route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadAusrueckung(id);
+        } else {
+            this.formGroup = fb.group({
+                ausrueckung: UtilFunctions.getAusrueckungFormGroup(fb),
+            });
+            this.formGroup.updateValueAndValidity();
         }
     }
 
@@ -60,5 +69,41 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
                 this.infoService.error(err);
             },
         });
+    }
+
+    public saveAusrueckung() {
+        const saveAusrueckung = this.formGroup
+            .get("ausrueckung")
+            ?.getRawValue();
+        this.saving = true;
+        if (saveAusrueckung.id) {
+            this.ausrueckungService
+                .updateAusrueckung(saveAusrueckung)
+                .subscribe({
+                    next: (res) => {
+                        this.infoService.success("Ausrückung aktualisiert!");
+                        this.formGroup.markAsPristine();
+                        this.location.back();
+                    },
+                    error: (err) => {
+                        this.infoService.error(err);
+                        this.saving = false;
+                    },
+                });
+        } else {
+            this.ausrueckungService
+                .createAusrueckung(saveAusrueckung)
+                .subscribe({
+                    next: (res) => {
+                        this.infoService.success("Ausrückung erstellt!");
+                        this.formGroup.markAsPristine();
+                        this.location.back();
+                    },
+                    error: (err) => {
+                        this.infoService.error(err);
+                        this.saving = false;
+                    },
+                });
+        }
     }
 }

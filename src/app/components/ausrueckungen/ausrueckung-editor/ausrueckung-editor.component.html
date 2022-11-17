@@ -1,10 +1,19 @@
-<app-mkj-toolbar [headerLeft]="'Ausrückung Editor'"></app-mkj-toolbar>
-<button
-    pButton
-    type="button"
-    label="Speichern"
-    [disabled]="this.formGroup.invalid"
-></button>
+<app-mkj-toolbar
+    [header]="'Ausrückung Editor'"
+    [showBackButton]="true"
+    (navigateBack)="location.back()"
+></app-mkj-toolbar>
+<div class="col-12 flex justify-content-end">
+    <button
+        pRipple
+        pButton
+        label="Speichern"
+        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+        class="p-button-plain"
+        [disabled]="saving || formGroup?.invalid"
+        (click)="saveAusrueckung()"
+    ></button>
+</div>
 <mkj-content-loader [loading]="loading">
     <ng-container [formGroup]="formGroup">
         <mkj-ausrueckung-form

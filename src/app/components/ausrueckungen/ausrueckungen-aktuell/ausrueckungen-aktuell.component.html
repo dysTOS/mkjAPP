@@ -259,77 +259,51 @@
                                         {{ ausrueckung.beschreibung }}
                                     </p-panel>
                                 </div>
-                                <div class="col-12 flex justify-content-center">
+                                <div
+                                    class="col-12 flex flex-wrap gap-4 justify-content-around"
+                                >
                                     <button
                                         pButton
                                         pRipple
                                         icon="pi pi-list"
                                         label="Detailansicht"
                                         class="p-button-raised p-button-info"
-                                        style="width: 18rem"
-                                        (click)="
-                                            navigateSingleAusrueckung(
-                                                ausrueckung
-                                            )
+                                        style="width: 10rem"
+                                        [routerLink]="
+                                            '../details/' + ausrueckung.id
                                         "
                                     ></button>
-                                </div>
-                                <div class="col-12 flex justify-content-center">
+
+                                    <button
+                                        *visibleFor="['ausrueckungen_save']"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-copy"
+                                        label="Duplizieren"
+                                        class="p-button-outlined p-button-secondary p-button-sm"
+                                        style="width: 10rem"
+                                        (click)="
+                                            duplicateAusrueckung(ausrueckung)
+                                        "
+                                    ></button>
                                     <button
                                         pButton
                                         pRipple
-                                        label="in Mobil-Kalender speichern"
-                                        class="p-button-raised p-button-info p-button-outlined"
-                                        icon="pi pi-calendar"
-                                        style="width: 18rem"
-                                        (click)="exportToCalendar(ausrueckung)"
+                                        icon="pi pi-pencil"
+                                        label="Bearbeiten"
+                                        class="p-button-outlined p-button-sm p-button-info"
+                                        style="width: 10rem"
+                                        (click)="editAusrueckung(ausrueckung)"
                                     ></button>
-                                </div>
-                                <div class="col-12">
-                                    <p-divider class="col-12"></p-divider>
-                                    <div
-                                        class="col-12 flex justify-content-center"
-                                    >
-                                        <span class="p-buttonset">
-                                            <button
-                                                *visibleFor="[
-                                                    'ausrueckungen_save'
-                                                ]"
-                                                pButton
-                                                pRipple
-                                                icon="pi pi-copy"
-                                                label="Duplizieren"
-                                                class="p-button-outlined p-button-secondary p-button-sm"
-                                                (click)="
-                                                    duplicateAusrueckung(
-                                                        ausrueckung
-                                                    )
-                                                "
-                                            ></button>
-                                            <button
-                                                pButton
-                                                pRipple
-                                                icon="pi pi-pencil"
-                                                label="Bearbeiten"
-                                                class="p-button-outlined p-button-sm p-button-info"
-                                                (click)="
-                                                    editAusrueckung(ausrueckung)
-                                                "
-                                            ></button>
-                                            <button
-                                                pButton
-                                                pRipple
-                                                icon="pi pi-trash"
-                                                label="Löschen"
-                                                class="p-button-outlined p-button-sm p-button-danger"
-                                                (click)="
-                                                    deleteAusrueckung(
-                                                        ausrueckung
-                                                    )
-                                                "
-                                            ></button>
-                                        </span>
-                                    </div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-trash"
+                                        label="Löschen"
+                                        class="p-button-outlined p-button-sm p-button-danger"
+                                        style="width: 10rem"
+                                        (click)="deleteAusrueckung(ausrueckung)"
+                                    ></button>
                                 </div>
                             </div>
                         </td>
@@ -361,12 +335,11 @@
             styleClass="p-fluid"
             position="top"
         >
-            <ng-template pTemplate="content"> </ng-template>
-
-            <app-ausrueckung-editor
-                [(ausrueckung)]="singleAusrueckung"
-                (formGroupOutput)="formGroup = $event"
-            ></app-ausrueckung-editor>
+            <civ [formGroup]="formGroup">
+                <mkj-ausrueckung-form
+                    formControlName="ausrueckung"
+                ></mkj-ausrueckung-form>
+            </civ>
 
             <ng-template pTemplate="footer">
                 <button

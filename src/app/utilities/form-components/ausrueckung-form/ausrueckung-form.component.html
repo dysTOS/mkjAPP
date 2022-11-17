@@ -6,7 +6,6 @@
                 formControlName="name"
                 pInputText
                 inputId="name"
-                required
             />
             <small class="p-error" *ngIf="form?.controls.name.invalid"
                 >Name ist erforderlich!</small
@@ -20,7 +19,7 @@
                 inputId="status"
                 formControlName="status"
                 [options]="StatusMap"
-                required
+                [autoDisplayFirst]="false"
                 ><ng-template pTemplate="selectedItem" let-status>
                     <div
                         [class]="
@@ -50,7 +49,7 @@
                 inputId="kategorie"
                 formControlName="kategorie"
                 [options]="KategorieMap"
-                required
+                [autoDisplayFirst]="false"
             ></p-dropdown>
             <small class="p-error" *ngIf="form?.controls.kategorie.invalid"
                 >Kategorie ist erforderlich!</small

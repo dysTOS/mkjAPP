@@ -15,6 +15,7 @@ import {
 import { AbstractFormComponent } from "../abstract-form.class";
 import { controlValidator } from "src/app/providers/control-validator";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 
 @Component({
     selector: "mkj-ausrueckung-form",
@@ -34,22 +35,9 @@ export class AusrueckungFormComponent
 
     public severalDays: boolean = false;
 
-    constructor() {
+    constructor(private fb: FormBuilder) {
         super();
-        this.form = new FormGroup({
-            name: new FormControl(null, [Validators.required]),
-            beschreibung: new FormControl(),
-            infoMusiker: new FormControl(),
-            oeffentlich: new FormControl(null),
-            ort: new FormControl(),
-            kategorie: new FormControl(null, [Validators.required]),
-            status: new FormControl(null, [Validators.required]),
-            vonDatum: new FormControl(null, [Validators.required]),
-            vonZeit: new FormControl(),
-            bisDatum: new FormControl(null, [Validators.required]),
-            bisZeit: new FormControl(),
-            treffzeit: new FormControl(),
-        });
+        this.form = UtilFunctions.getAusrueckungFormGroup(this.fb);
 
         this.subSink.add(
             this.form.get("vonDatum").valueChanges.subscribe((value) => {

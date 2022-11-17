@@ -16,7 +16,10 @@ import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { ExportService } from "src/app/services/export.service";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { InfoService } from "src/app/services/info.service";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { UtilFunctions } from "src/app/helpers/util-functions";
+import { AppComponent } from "src/app/app.component";
+import { AppMainComponent } from "src/app/app.main.component";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -52,9 +55,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
 
     ausrueckungenArray: Ausrueckung[];
     ausrueckungFilterInput: AusrueckungFilterInput;
-    selectedAusrueckungen: Ausrueckung[];
-
-    singleAusrueckung: Ausrueckung;
+    filteredRows: Ausrueckung[];
 
     vonBisZeitraum: Date[] = [];
     zeitraumDisplayText: string;
@@ -84,8 +85,13 @@ export class AusrueckungenAktuellComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private exportService: ExportService,
-        private mkjDatePipe: MkjDatePipe
-    ) {}
+        private mkjDatePipe: MkjDatePipe,
+        private fb: FormBuilder
+    ) {
+        this.formGroup = this.fb.group({
+            ausrueckung: [],
+        });
+    }
 
     ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
@@ -98,7 +104,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
             this.zeitraumDisplayText = this.actualYear;
             this.ausrueckungFilterInput = {
                 vonFilter: this.actualYear + "-01-01 00:00:00",
-                bisFilter: this.actualYear + "-12-31 23:59:59",
+                bisFilter: Number(this.actualYear) + 1 + "-12-31 23:59:59",
                 alle: false,
             };
         }
@@ -111,7 +117,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
                 .subscribe(
                     (ausrueckungen) => (
                         (this.ausrueckungenArray = ausrueckungen),
-                        (this.selectedAusrueckungen = ausrueckungen)
+                        (this.filteredRows = ausrueckungen)
                     ),
                     (error) => this.infoService.error(error),
                     () => (this.loading = false)
@@ -119,16 +125,24 @@ export class AusrueckungenAktuellComponent implements OnInit {
         }
     }
 
-    openNew(): void {
-        this.singleAusrueckung = {};
-        this.singleAusrueckung.oeffentlich = true;
-        this.submitted = false;
+    public openNew(): void {
+        if (!UtilFunctions.isDesktop()) {
+            this.navigateEditor();
+            return;
+        }
+        this.formGroup.reset();
+        this.formGroup.updateValueAndValidity();
         this.updateAusrueckung = false;
         this.ausrueckungDialog = true;
     }
 
-    editAusrueckung(ausrueckung: Ausrueckung) {
-        this.singleAusrueckung = { ...ausrueckung };
+    public editAusrueckung(ausrueckung: Ausrueckung) {
+        if (!UtilFunctions.isDesktop()) {
+            this.navigateEditor(ausrueckung);
+            return;
+        }
+        this.formGroup.controls.ausrueckung.patchValue(ausrueckung);
+        this.formGroup.updateValueAndValidity();
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
     }
@@ -162,27 +176,22 @@ export class AusrueckungenAktuellComponent implements OnInit {
     hideAusrueckungDialog() {
         this.ausrueckungDialog = false;
         this.submitted = false;
-        this.singleAusrueckung = {};
+        this.formGroup.reset();
     }
 
     saveAusrueckung() {
         this.submitted = true;
 
-        if (
-            !this.singleAusrueckung.name.trim() ||
-            !this.singleAusrueckung.kategorie ||
-            !this.singleAusrueckung.status ||
-            !this.singleAusrueckung.vonDatum ||
-            !this.singleAusrueckung.bisDatum
-        )
-            return;
+        const saveAusrueckung = this.formGroup
+            .get("ausrueckung")
+            ?.getRawValue();
 
         this.isSaving = true;
-        if (this.singleAusrueckung.id) {
+        if (saveAusrueckung.id) {
             //update
-            let index = this.findIndexById(this.singleAusrueckung.id);
+            let index = this.findIndexById(saveAusrueckung.id);
             this.ausrueckungService
-                .updateAusrueckung(this.singleAusrueckung)
+                .updateAusrueckung(saveAusrueckung)
                 .subscribe(
                     (ausrueckungFromAPI) => (
                         (this.ausrueckungenArray[index] = ausrueckungFromAPI),
@@ -191,19 +200,18 @@ export class AusrueckungenAktuellComponent implements OnInit {
                     (error) => {
                         this.infoService.error(error);
                         this.isSaving = false;
-                        this.singleAusrueckung = {};
+                        this.formGroup.reset();
                     },
                     () => {
                         this.infoService.success("Ausrückung aktualisert!");
                         this.isSaving = false;
-                        this.submitted = true;
                         this.ausrueckungDialog = false;
                     }
                 );
         } else {
             //neue
             this.ausrueckungService
-                .createAusrueckung(this.singleAusrueckung)
+                .createAusrueckung(saveAusrueckung)
                 .subscribe(
                     (ausrueckungAPI) => {
                         this.ausrueckungenArray = [
@@ -218,12 +226,11 @@ export class AusrueckungenAktuellComponent implements OnInit {
                     (error) => {
                         this.infoService.error(error);
                         this.isSaving = false;
-                        this.singleAusrueckung = {};
+                        this.formGroup.reset();
                     },
                     () => {
                         this.infoService.success("Ausrückung angelegt!");
                         this.isSaving = false;
-                        this.submitted = true;
                         this.ausrueckungDialog = false;
                     }
                 );
@@ -264,7 +271,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
         this.ausrueckungService.getAusrueckungen().subscribe(
             (ausrueckungen) => {
                 this.ausrueckungenArray = ausrueckungen;
-                this.selectedAusrueckungen = ausrueckungen;
+                this.filteredRows = ausrueckungen;
                 this.loading = false;
             },
             (error) => {
@@ -313,7 +320,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
             .subscribe(
                 (ausrueckungen) => {
                     this.ausrueckungenArray = ausrueckungen;
-                    this.selectedAusrueckungen = [...ausrueckungen];
+                    this.filteredRows = [...ausrueckungen];
                     this.loading = false;
                 },
                 (error) => {
@@ -340,8 +347,21 @@ export class AusrueckungenAktuellComponent implements OnInit {
         });
     }
 
+    private navigateEditor(ausrueckung?: Ausrueckung) {
+        this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
+        if (ausrueckung) {
+            this.router.navigate(["../", ausrueckung.id], {
+                relativeTo: this.route,
+            });
+        } else {
+            this.router.navigate(["../neu"], {
+                relativeTo: this.route,
+            });
+        }
+    }
+
     setFilteredRows(e) {
-        this.selectedAusrueckungen = e.filteredValue;
+        this.filteredRows = e.filteredValue;
     }
 
     findIndexById(id: string): number {
@@ -376,7 +396,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
             { title: "Status", dataKey: "status" },
             { title: "Infos", dataKey: "infosMusiker" },
         ];
-        const rows = this.selectedAusrueckungen.map((e) => {
+        const rows = this.filteredRows.map((e) => {
             const ausr = { ...e };
             ausr.vonDatum = this.mkjDatePipe.transform(
                 ausr.vonDatum,
@@ -394,7 +414,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
 
     exportExcel() {
         this.exportService.exportExcel(
-            this.selectedAusrueckungen,
+            this.filteredRows,
             "Ausrückungen " + this.zeitraumDisplayText
         );
     }
