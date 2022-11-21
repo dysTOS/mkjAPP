@@ -30,6 +30,8 @@ import { MitgliederComponent } from "./components/mitglieder/mitglieder.componen
 import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
+import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
+import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
 
 @NgModule({
     imports: [
@@ -102,13 +104,30 @@ import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
                         },
                         {
                             path: "mitglieder",
-                            component: MitgliederComponent,
+                            component: MitgliederWrapperComponent,
                             canActivate: [RouteGuard],
-                        },
-                        {
-                            path: "mitglieder/:id",
-                            component: MitgliederSingleComponent,
-                            canActivate: [RouteGuard],
+                            children: [
+                                {
+                                    path: "liste",
+                                    component: MitgliederComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "gruppen",
+                                    component: GruppenOverviewComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: ":id",
+                                    component: MitgliederSingleComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "",
+                                    redirectTo: "liste",
+                                    pathMatch: "full",
+                                },
+                            ],
                         },
                         {
                             path: "noten",

@@ -1,0 +1,18 @@
+<p-table [value]="gruppen">
+    <ng-template pTemplate="header"
+        ><tr>
+            <td>Name</td>
+            <td>Leiter</td>
+        </tr></ng-template
+    >
+    <ng-template pTemplate="body" let-gruppe
+        ><tr>
+            <td>{{ gruppe.name }}</td>
+            <td>
+                {{
+                    gruppe.gruppenleiter?.vorname + gruppe.gruppenleiter?.zuname
+                }}
+            </td>
+        </tr></ng-template
+    >
+</p-table>

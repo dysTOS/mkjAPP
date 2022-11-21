@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
-import { Permission } from "../models/User";
+import { Permission, PermissionMap } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
 
@@ -42,10 +42,22 @@ export class MenuService implements OnDestroy {
         {
             label: "Mitglieder",
             icon: "pi pi-fw pi-users",
-            routerLink: "mitglieder",
             enumLabel: MenuLabels.MITGLIEDER,
-            visible: false,
-            permission: "mitglieder_read",
+            permission: PermissionMap.MITGLIEDER_READ,
+            children: [
+                {
+                    label: "Mitglieder",
+                    icon: "pi pi-users",
+                    routerLink: "mitglieder/liste",
+                    permission: PermissionMap.MITGLIEDER_READ,
+                },
+                {
+                    label: "Register & Gruppen",
+                    icon: "pi pi-folder-open",
+                    routerLink: "mitglieder/gruppen",
+                    permission: PermissionMap.GRUPPEN_READ,
+                },
+            ],
         },
         {
             label: "Noten",

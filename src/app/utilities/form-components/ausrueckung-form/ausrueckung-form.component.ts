@@ -1,17 +1,10 @@
 import {
-    Ausrueckung,
     AusrueckungKategorieMap,
     AusrueckungStatusMap,
 } from "src/app/models/Ausrueckung";
-import { Component, Input, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import * as moment from "moment";
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    UntypedFormBuilder,
-    Validators,
-} from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { AbstractFormComponent } from "../abstract-form.class";
 import { controlValidator } from "src/app/providers/control-validator";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";

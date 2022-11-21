@@ -149,7 +149,10 @@ import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
-import { MkjBooleanInputComponent } from './utilities/form-components/mkj-boolean-input/mkj-boolean-input.component';
+import { MkjBooleanInputComponent } from "./utilities/form-components/mkj-boolean-input/mkj-boolean-input.component";
+import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
+import { GruppenOverviewComponent } from './components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component';
+import { MitgliedFormComponent } from './utilities/form-components/mitglied-form/mitglied-form.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -261,6 +264,7 @@ registerLocaleData(localeDe);
         AppAccessdeniedComponent,
         AusrueckungenWrapperComponent,
         NotenWrapperComponent,
+        MitgliederWrapperComponent,
         MkjDateInputComponent,
         AppTimelineDemoComponent,
         AppInvoiceComponent,
@@ -299,6 +303,8 @@ registerLocaleData(localeDe);
         MkjTemplateDirective,
         AusrueckungFormComponent,
         MkjBooleanInputComponent,
+        GruppenOverviewComponent,
+        MitgliedFormComponent,
     ],
     providers: [
         mkjAppInitializer(),

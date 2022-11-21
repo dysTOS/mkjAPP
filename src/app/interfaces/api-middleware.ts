@@ -20,6 +20,16 @@ export interface GetCollectionApiCallOutput<T> {
     values?: Array<T>;
 }
 
+export interface StandardAllocationInput {
+    subjectId?: string;
+    collectionId?: string;
+}
+
+export interface StandardMessageOutput {
+    success?: boolean;
+    message?: string;
+}
+
 export interface UserRegistrationInput {
     vorname?: string;
     zuname?: string;

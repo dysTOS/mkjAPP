@@ -14,7 +14,7 @@
         (click)="saveAusrueckung()"
     ></button>
 </div>
-<mkj-content-loader [loading]="loading">
+<mkj-content-loader [loading]="loading" class="h-full">
     <ng-container [formGroup]="formGroup">
         <mkj-ausrueckung-form
             formControlName="ausrueckung"

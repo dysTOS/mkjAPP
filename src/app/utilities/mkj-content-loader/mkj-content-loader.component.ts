@@ -17,4 +17,7 @@ export class MkjContentLoaderComponent {
 
     @Input()
     public size: string = "2rem";
+
+    @Input()
+    public type: "spinner" | "skeleton" = "spinner";
 }
