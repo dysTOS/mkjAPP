@@ -58,19 +58,19 @@
             }
 
             .topbar-menu {
-                position: absolute;
-                top: 60px;
-                right: 15px;
-                width: 250px;
+                //position: absolute;
+                // top: 60px;
+                // right: 15px;
+                width: 100%;
                 -webkit-animation-duration: 0.5s;
                 -moz-animation-duration: 0.5s;
                 animation-duration: 0.5s;
                 display: none;
-                background-color: $topbarSubmenuBgColor;
+                //background-color: $topbarSubmenuBgColor;
                 list-style-type: none;
                 margin: 0;
-                padding: 8px 0;
-                @include overlay-content-shadow();
+                // padding: 8px 0;
+                //@include overlay-content-shadow();
 
                 > li {
                     box-sizing: border-box;

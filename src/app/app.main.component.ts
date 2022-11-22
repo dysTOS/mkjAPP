@@ -36,6 +36,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
+    public mkjVersion = "v0.1";
+
     constructor(
         public renderer: Renderer2,
         public themeService: ThemeService,

@@ -1336,7 +1336,7 @@ body a {
 }
 .layout-wrapper .topbar .topbar-menu {
   float: right;
-  margin: 16px 10px 0 0;
+  margin: 0px 10px 0 0;
   padding: 0;
   list-style-type: none;
 }
@@ -1350,7 +1350,7 @@ body a {
   margin-left: 1em;
   margin-top: 2px;
 }
-.layout-wrapper .topbar .topbar-menu > li.active-topmenuitem {
+.layout-wrapper .topbar .topbar-menu > li.active-topmenuitem > span {
   font-weight: bold;
   color: #006600;
 }
@@ -1449,15 +1449,16 @@ body a {
   -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
-.layout-wrapper .topbar .topbar-menu > li > ul.topbar-active-child-menu-item {
-  background: rgba(0, 0, 0, 0.38);
-}
 .layout-wrapper .topbar .topbar-menu > li > ul a {
   padding: 0.571em 0.857em;
   display: block;
   width: 100%;
   box-sizing: border-box;
   color: rgba(0, 0, 0, 0.6);
+}
+.layout-wrapper .topbar .topbar-menu > li > ul a.topbar-active-child-menu-item {
+  background: rgba(0, 0, 0, 0.38);
+  font-weight: bold;
 }
 .layout-wrapper .topbar .topbar-menu > li > ul a i {
   margin-right: 8px;
@@ -2040,21 +2041,13 @@ body a {
     font-size: 18px;
   }
   .layout-wrapper .topbar .topbar-menu {
-    position: absolute;
-    top: 60px;
-    right: 15px;
-    width: 250px;
+    width: 100%;
     -webkit-animation-duration: 0.5s;
     -moz-animation-duration: 0.5s;
     animation-duration: 0.5s;
     display: none;
-    background-color: var(--surface-50);
     list-style-type: none;
     margin: 0;
-    padding: 8px 0;
-    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
   .layout-wrapper .topbar .topbar-menu > li {
     box-sizing: border-box;

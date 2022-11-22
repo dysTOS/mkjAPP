@@ -24,64 +24,98 @@ import { MenuLabels, MenuService } from "./services/menu.service";
                 <i class="pi pi-bars"></i>
             </a>
 
-            <ul
-                class="topbar-menu fadeInDown"
-                [ngClass]="{ 'topbar-menu-visible': appMain.topbarMenuActive }"
+            <p-sidebar
+                [(visible)]="appMain.topbarMenuActive"
+                position="right"
+                [autoZIndex]="false"
+                [modal]="false"
             >
-                <ng-container *ngFor="let menuItem of menuService.MainMenu">
-                    <li
-                        *ngIf="menuItem.visible"
-                        [ngClass]="{
-                            'active-topmenuitem':
-                                appMain.activeTabIndex === menuItem.enumLabel
-                        }"
-                    >
-                        <a
-                            [routerLink]="menuItem.routerLink"
-                            (click)="
-                                menuItem.command
-                                    ? menuItem.command()
-                                    : appMain.onTopbarItemClick(
-                                          $event,
-                                          menuItem.enumLabel,
-                                          menuItem.children ? true : false
-                                      )
-                            "
+                <ul
+                    class="topbar-menu fadeInDown"
+                    [ngClass]="{
+                        'topbar-menu-visible': appMain.topbarMenuActive
+                    }"
+                >
+                    <ng-container *ngFor="let menuItem of menuService.MainMenu">
+                        <li
+                            *ngIf="menuItem.visible"
+                            [ngClass]="{
+                                'active-topmenuitem':
+                                    appMain.activeTabIndex ===
+                                    menuItem.enumLabel
+                            }"
                         >
-                            <i [class]="'topbar-icon ' + menuItem.icon"></i>
-                            <span class="topbar-item-name">{{
-                                menuItem.label
-                            }}</span>
-                        </a>
-                        <ul *ngIf="menuItem.children" class="fadeInDown">
-                            <ng-container
-                                *ngFor="let childItem of menuItem.children"
+                            <a
+                                [routerLink]="menuItem.routerLink"
+                                (click)="
+                                    menuItem.command
+                                        ? menuItem.command()
+                                        : appMain.onTopbarItemClick(
+                                              $event,
+                                              menuItem.enumLabel,
+                                              menuItem.children ? true : false
+                                          )
+                                "
                             >
-                                <li *ngIf="childItem.visible" role="menuitem">
-                                    <a
-                                        [routerLink]="childItem.routerLink"
-                                        [routerLinkActive]="
-                                            'topbar-active-child-menu-item'
-                                        "
-                                        (click)="
-                                            childItem.command
-                                                ? childItem.command()
-                                                : appMain.onTopbarSubItemClick(
-                                                      $event
-                                                  )
-                                        "
+                                <i [class]="'topbar-icon ' + menuItem.icon"></i>
+                                <span class="topbar-item-name">{{
+                                    menuItem.label
+                                }}</span>
+                            </a>
+                            <ul *ngIf="menuItem.children" class="fadeInDown">
+                                <ng-container
+                                    *ngFor="let childItem of menuItem.children"
+                                >
+                                    <li
+                                        *ngIf="childItem.visible"
+                                        role="menuitem"
                                     >
-                                        <i [class]="childItem.icon"></i>
-                                        <span>{{ childItem.label }}</span>
-                                    </a>
-                                </li>
-                            </ng-container>
-                        </ul>
-                    </li>
-                </ng-container>
-            </ul>
+                                        <a
+                                            [routerLink]="childItem.routerLink"
+                                            [routerLinkActive]="
+                                                'topbar-active-child-menu-item'
+                                            "
+                                            (click)="
+                                                childItem.command
+                                                    ? childItem.command()
+                                                    : appMain.onTopbarSubItemClick(
+                                                          $event
+                                                      )
+                                            "
+                                        >
+                                            <i [class]="childItem.icon"></i>
+                                            <span>{{ childItem.label }}</span>
+                                        </a>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ng-container>
+                </ul>
+                <div class="topbar-sidebar-version">
+                    {{ appMain.mkjVersion }}
+                </div>
+            </p-sidebar>
         </div>
     `,
+    styles: [
+        `
+            p-sidebar ::ng-deep .p-sidebar-content {
+                padding: 0;
+                height: 100%;
+            }
+
+            .topbar-sidebar-version {
+                position: absolute;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                padding: 5px;
+                color: var(--surface-400);
+            }
+        `,
+    ],
 })
 export class AppTopbarComponent implements OnInit {
     public readonly MenuLabels = MenuLabels;

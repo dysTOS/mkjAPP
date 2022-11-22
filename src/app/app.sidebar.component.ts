@@ -3,7 +3,6 @@ import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
 import { ThemeService } from "./services/theme.service";
 import { MenuLabels, MenuService } from "./services/menu.service";
-import { AuthStateService } from "./services/authentication/auth-state.service";
 import { UserService } from "./services/authentication/user.service";
 
 @Component({
