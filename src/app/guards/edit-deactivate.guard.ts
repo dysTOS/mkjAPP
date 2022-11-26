@@ -7,7 +7,6 @@ import {
 } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { Observable, Subject } from "rxjs";
-import { AbstractFormComponent } from "../utilities/form-components/abstract-form.class";
 
 export interface EditComponentDeactivate {
     canDeactivate(): boolean;
@@ -17,12 +16,12 @@ export interface EditComponentDeactivate {
     providedIn: "root",
 })
 export class EditDeactivateGuard
-    implements CanDeactivate<AbstractFormComponent | EditComponentDeactivate>
+    implements CanDeactivate<EditComponentDeactivate>
 {
     constructor(private confirmationService: ConfirmationService) {}
 
     canDeactivate(
-        component: AbstractFormComponent | EditComponentDeactivate,
+        component: EditComponentDeactivate,
         currentRoute: ActivatedRouteSnapshot,
         currentState: RouterStateSnapshot,
         nextState?: RouterStateSnapshot

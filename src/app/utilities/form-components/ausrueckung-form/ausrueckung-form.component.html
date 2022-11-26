@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="p-fluid grid">
+<div [formGroup]="formGroup" class="p-fluid grid">
     <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
             <input
@@ -6,10 +6,11 @@
                 formControlName="name"
                 pInputText
                 inputId="name"
+                class="ng-dirty"
             />
-            <small class="p-error" *ngIf="form?.controls.name.invalid"
+            <!-- <small class="p-error" *ngIf="formGroup?.controls.name.invalid"
                 >Name ist erforderlich!</small
-            >
+            > -->
             <label for="name">Name</label>
         </span>
     </div>
@@ -20,6 +21,7 @@
                 formControlName="status"
                 [options]="StatusMap"
                 [autoDisplayFirst]="false"
+                class="ng-dirty"
                 ><ng-template pTemplate="selectedItem" let-status>
                     <div
                         [class]="
@@ -37,9 +39,6 @@
                 </ng-template></p-dropdown
             >
 
-            <small class="p-error" *ngIf="form?.controls.status.invalid"
-                >Status ist erforderlich!</small
-            >
             <label for="status">Status</label>
         </span>
     </div>
@@ -50,17 +49,27 @@
                 formControlName="kategorie"
                 [options]="KategorieMap"
                 [autoDisplayFirst]="false"
+                class="ng-dirty"
             ></p-dropdown>
-            <small class="p-error" *ngIf="form?.controls.kategorie.invalid"
-                >Kategorie ist erforderlich!</small
-            >
+
             <label for="kategorie">Kategorie</label>
         </span>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
+            <p-dropdown
+                inputId="gruppe"
+                formControlName="gruppe_id"
+                [options]="GruppenMap"
+                [autoDisplayFirst]="false"
+                [showClear]="true"
+            ></p-dropdown>
+            <label for="kategorie">Register/Gruppe</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
             <input type="text" formControlName="ort" pInputText inputId="ort" />
-
             <label for="ort">Ort</label>
         </span>
     </div>
@@ -93,6 +102,7 @@
                 [binary]="true"
                 label="Mehrtägig"
                 [(ngModel)]="severalDays"
+                (ngModelChange)="onSeveralDaysUserChange($event)"
                 [ngModelOptions]="{ standalone: true }"
             >
             </p-checkbox>
@@ -135,7 +145,7 @@
             formControlName="oeffentlich"
         ></mkj-boolean-input>
     </div>
-    <div *ngIf="form.controls.oeffentlich.value" class="p-field col-12">
+    <div *ngIf="formGroup.controls.oeffentlich.value" class="p-field col-12">
         <span class="p-float-label">
             <textarea
                 id="beschreibung"

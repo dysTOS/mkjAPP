@@ -40,18 +40,6 @@ export class MitgliederService {
         return this.http.get<Mitglied>(url, httpOptions);
     }
 
-    attachMitgliedToAusrueckung(
-        ausrueckungId: string,
-        mitgliedId: string
-    ): Observable<any> {
-        const url = this.apiURL + "addmitglied";
-        return this.http.post<any>(
-            url,
-            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
-            httpOptions
-        );
-    }
-
     updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitgliedselbst";
         return this.http.post<any>(url, mitglied, httpOptions);
@@ -72,6 +60,18 @@ export class MitgliederService {
         return this.http.delete<Mitglied>(url, httpOptions);
     }
 
+    attachMitgliedToAusrueckung(
+        ausrueckungId: string,
+        mitgliedId: string
+    ): Observable<any> {
+        const url = this.apiURL + "addmitglied";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
+    }
+
     detachMitgliedFromAusrueckung(
         ausrueckungId: string,
         mitgliedId: string
@@ -80,6 +80,30 @@ export class MitgliederService {
         return this.http.post<any>(
             url,
             { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
+            httpOptions
+        );
+    }
+
+    attachMitgliedToGruppe(
+        gruppenId: string,
+        mitgliedId: string
+    ): Observable<any> {
+        const url = this.apiURL + "addmitgliedgruppe";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, gruppe_id: gruppenId },
+            httpOptions
+        );
+    }
+
+    detachMitgliedFromGruppe(
+        gruppenId: string,
+        mitgliedId: string
+    ): Observable<any> {
+        const url = this.apiURL + "removemitgliedgruppe";
+        return this.http.post<any>(
+            url,
+            { mitglied_id: mitgliedId, gruppe_id: gruppenId },
             httpOptions
         );
     }

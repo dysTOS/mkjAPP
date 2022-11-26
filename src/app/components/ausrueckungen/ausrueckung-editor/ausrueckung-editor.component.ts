@@ -1,13 +1,12 @@
 import { Location } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { Ausrueckung } from "src/app/models/Ausrueckung";
 import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { InfoService } from "src/app/services/info.service";
-import { AusrueckungFormComponent } from "../../../utilities/form-components/ausrueckung-form/ausrueckung-form.component";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 
 @Component({
     selector: "app-ausrueckung-editor",
@@ -15,41 +14,29 @@ import { AusrueckungFormComponent } from "../../../utilities/form-components/aus
     styleUrls: ["./ausrueckung-editor.component.scss"],
 })
 export class AusrueckungEditorComponent implements EditComponentDeactivate {
-    private _ausrueckung: Ausrueckung;
-    @Input()
-    public get ausrueckung(): Ausrueckung {
-        return this._ausrueckung;
-    }
-    public set ausrueckung(value: Ausrueckung) {
-        this.formGroup.controls.ausrueckung.patchValue(value);
-        this.formGroup.updateValueAndValidity();
-        this._ausrueckung = value;
-    }
-
     public formGroup: FormGroup;
 
     public loading: boolean = false;
     public saving: boolean = false;
 
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
-        fb: FormBuilder,
-        route: ActivatedRoute,
+        private fb: FormBuilder,
+        private route: ActivatedRoute,
         private ausrueckungService: AusrueckungenService,
         private infoService: InfoService,
         public location: Location
     ) {
-        this.formGroup = fb.group({
-            ausrueckung: [],
-        });
+        this.toolbarDatasource.header = "Editor";
+        this.toolbarDatasource.backButton = true;
 
-        const id = route.snapshot.params.id;
+        const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadAusrueckung(id);
         } else {
-            this.formGroup = fb.group({
-                ausrueckung: UtilFunctions.getAusrueckungFormGroup(fb),
-            });
-            this.formGroup.updateValueAndValidity();
+            (this.formGroup = UtilFunctions.getAusrueckungFormGroup(fb)),
+                this.formGroup.updateValueAndValidity();
         }
     }
 
@@ -61,7 +48,11 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         this.loading = true;
         this.ausrueckungService.getSingleAusrueckung(id).subscribe({
             next: (res) => {
-                this.ausrueckung = res;
+                this.formGroup = UtilFunctions.getAusrueckungFormGroup(
+                    this.fb,
+                    res
+                );
+                this.formGroup.updateValueAndValidity();
                 this.loading = false;
             },
             error: (err) => {
@@ -72,9 +63,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
     }
 
     public saveAusrueckung() {
-        const saveAusrueckung = this.formGroup
-            .get("ausrueckung")
-            ?.getRawValue();
+        const saveAusrueckung = this.formGroup?.getRawValue();
         this.saving = true;
         if (saveAusrueckung.id) {
             this.ausrueckungService

@@ -141,8 +141,7 @@ import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kal
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { AuthInterceptor } from "./guards/auth-interceptor";
-import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
-import { AbstractFormComponent } from "./utilities/form-components/abstract-form.class";
+import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjTemplateDirective } from "./directives/mkj-template.directive";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
@@ -151,8 +150,9 @@ import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
 import { MkjBooleanInputComponent } from "./utilities/form-components/mkj-boolean-input/mkj-boolean-input.component";
 import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
-import { GruppenOverviewComponent } from './components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component';
-import { MitgliedFormComponent } from './utilities/form-components/mitglied-form/mitglied-form.component';
+import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
+import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
+import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -277,7 +277,7 @@ registerLocaleData(localeDe);
         MkjDashboardComponent,
         SignupComponent,
         LoginComponent,
-        MitgliederComponent,
+        MitgliederListComponent,
         MitgliederSingleComponent,
         NotenarchivComponent,
         VisibleForPermissionDirective,
@@ -298,13 +298,13 @@ registerLocaleData(localeDe);
         KalenderaboComponent,
         AusrueckungenAktuellComponent,
         AusrueckungenArchivComponent,
-        AbstractFormComponent,
         MkjContentLoaderComponent,
         MkjTemplateDirective,
         AusrueckungFormComponent,
         MkjBooleanInputComponent,
         GruppenOverviewComponent,
         MitgliedFormComponent,
+        MkjNotenFormComponent,
     ],
     providers: [
         mkjAppInitializer(),

@@ -92,9 +92,6 @@ import { MenuLabels, MenuService } from "./services/menu.service";
                         </li>
                     </ng-container>
                 </ul>
-                <div class="topbar-sidebar-version">
-                    {{ appMain.mkjVersion }}
-                </div>
             </p-sidebar>
         </div>
     `,
@@ -103,16 +100,6 @@ import { MenuLabels, MenuService } from "./services/menu.service";
             p-sidebar ::ng-deep .p-sidebar-content {
                 padding: 0;
                 height: 100%;
-            }
-
-            .topbar-sidebar-version {
-                position: absolute;
-                bottom: 0;
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                padding: 5px;
-                color: var(--surface-400);
             }
         `,
     ],

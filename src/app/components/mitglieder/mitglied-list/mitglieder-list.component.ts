@@ -1,15 +1,19 @@
-import { Mitglied } from "../../models/Mitglied";
 import { Router, ActivatedRoute } from "@angular/router";
-import { MitgliederService } from "../../services/mitglieder.service";
 import { Component, OnInit } from "@angular/core";
 import { InfoService } from "src/app/services/info.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { UtilFunctions } from "src/app/helpers/util-functions";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { PermissionMap } from "src/app/models/User";
+import { Mitglied } from "src/app/models/Mitglied";
+import { MitgliederService } from "src/app/services/mitglieder.service";
 
 @Component({
     selector: "app-mitglieder",
-    templateUrl: "./mitglieder.component.html",
-    styleUrls: ["./mitglieder.component.scss"],
+    templateUrl: "./mitglieder-list.component.html",
+    styleUrls: ["./mitglieder-list.component.scss"],
 })
-export class MitgliederComponent implements OnInit {
+export class MitgliederListComponent implements OnInit {
     mitglieder: Array<Mitglied>;
     addMitglied: Mitglied;
 
@@ -18,12 +22,32 @@ export class MitgliederComponent implements OnInit {
     editDialogVisible: boolean = false;
     filterDialogVisible: boolean = false;
 
+    public formGroup: FormGroup;
+
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
         private mitgliederService: MitgliederService,
         private router: Router,
         private route: ActivatedRoute,
-        private infoService: InfoService
-    ) {}
+        private infoService: InfoService,
+        private fb: FormBuilder
+    ) {
+        this.toolbarDatasource.header = "Mitglieder";
+        this.toolbarDatasource.buttons = [
+            {
+                icon: "pi pi-plus",
+                click: () => this.openEditDialog(),
+                label: "Neu",
+                permissions: [PermissionMap.MITGLIEDER_SAVE],
+            },
+            {
+                icon: "pi pi-filter",
+                click: () => (this.filterDialogVisible = true),
+                label: "Filter",
+            },
+        ];
+    }
 
     ngOnInit(): void {
         this.loadAktiveMitglieder();
@@ -58,7 +82,7 @@ export class MitgliederComponent implements OnInit {
 
     public navigateSingleMitglied(mitglied: Mitglied) {
         this.mitgliederService.setSelectedMitglied(mitglied);
-        this.router.navigate(["../mitglieder/" + mitglied.id], {
+        this.router.navigate(["../" + mitglied.id], {
             relativeTo: this.route,
         });
     }
@@ -87,12 +111,12 @@ export class MitgliederComponent implements OnInit {
     }
 
     public openEditDialog() {
-        this.addMitglied = {};
+        this.formGroup = UtilFunctions.getMitgliedFormGroup(this.fb);
         this.editDialogVisible = true;
     }
 
     public cancelAdd() {
+        this.formGroup.reset();
         this.editDialogVisible = false;
-        this.addMitglied = null;
     }
 }

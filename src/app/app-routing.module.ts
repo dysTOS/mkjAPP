@@ -26,12 +26,12 @@ import { environment } from "src/environments/environment";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
-import { MitgliederComponent } from "./components/mitglieder/mitglieder.component";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
 import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
 import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
+import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
 
 @NgModule({
     imports: [
@@ -109,7 +109,7 @@ import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppe
                             children: [
                                 {
                                     path: "liste",
-                                    component: MitgliederComponent,
+                                    component: MitgliederListComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
@@ -156,6 +156,7 @@ import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppe
                             path: "einstellungen/mitgliedsdaten",
                             component: MitgliedPersonalEditComponent,
                             canActivate: [RouteGuard],
+                            canDeactivate: [EditDeactivateGuard],
                         },
                         {
                             path: "einstellungen/rollen",

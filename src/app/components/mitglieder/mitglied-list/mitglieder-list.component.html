@@ -1,12 +1,4 @@
-<app-mkj-toolbar
-    [showAddButton]="true"
-    [showFilterButton]="true"
-    addButtonTooltip="Mitglied erstellen"
-    filterButtonTooltip="Liste filtern"
-    (clickFilter)="filterDialogVisible = true"
-    (clickAdd)="openEditDialog()"
-    headerLeft="Mitglieder"
-></app-mkj-toolbar>
+<app-mkj-toolbar [datasource]="toolbarDatasource"></app-mkj-toolbar>
 
 <div class="grid">
     <div class="col-12">
@@ -100,7 +92,7 @@
     position="top"
 >
     <ng-template pTemplate="content">
-        <app-mitglied-editor [(mitglied)]="addMitglied"></app-mitglied-editor>
+        <mkj-mitglied-form [formGroup]="formGroup"></mkj-mitglied-form>
     </ng-template>
     <ng-template pTemplate="footer">
         <button
@@ -117,7 +109,7 @@
             label="Speichern"
             [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
             class="p-button-plain"
-            [disabled]="isAdding"
+            [disabled]="isAdding || formGroup?.invalid"
             (click)="saveMitglied()"
         ></button
     ></ng-template>

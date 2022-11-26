@@ -1,11 +1,4 @@
-<app-mkj-toolbar
-    [showEditButton]="mitglied"
-    [showBackButton]="true"
-    [showDeleteButton]="mitglied"
-    (clickEdit)="openEditDialog()"
-    (clickDelete)="deleteMitglied()"
-    (navigateBack)="navigateBack()"
-></app-mkj-toolbar>
+<app-mkj-toolbar [datasource]="toolbarDatasource"></app-mkj-toolbar>
 
 <div class="card">
     <div class="grid col-12">

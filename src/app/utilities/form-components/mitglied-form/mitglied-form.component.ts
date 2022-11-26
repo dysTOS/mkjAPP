@@ -1,27 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
-import { UtilFunctions } from "src/app/helpers/util-functions";
-import { controlValidator } from "src/app/providers/control-validator";
-import { controlValueAccessor } from "src/app/providers/control-value-accessor";
-import { AbstractFormComponent } from "../abstract-form.class";
+import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MitgliedGeschlechtMap } from "src/app/models/Mitglied";
 
 @Component({
     selector: "mkj-mitglied-form",
     templateUrl: "./mitglied-form.component.html",
     styleUrls: ["./mitglied-form.component.scss"],
-    providers: [
-        controlValueAccessor(MitgliedFormComponent),
-        controlValidator(MitgliedFormComponent),
-    ],
+    providers: [],
 })
-export class MitgliedFormComponent
-    extends AbstractFormComponent
-    implements OnInit
-{
-    constructor(private fb: FormBuilder) {
-        super();
-        this.form = UtilFunctions.getAusrueckungFormGroup(this.fb);
-    }
+export class MitgliedFormComponent implements OnInit {
+    @Input()
+    public personalMode: boolean = false;
 
-    ngOnInit(): void {}
+    @Input()
+    public formGroup: FormGroup;
+
+    public readonly MitgliedGeschlechtMap = MitgliedGeschlechtMap;
+
+    constructor() {}
+
+    public ngOnInit(): void {
+        if (this.personalMode) {
+            this.formGroup?.get("email").disable();
+        }
+    }
 }

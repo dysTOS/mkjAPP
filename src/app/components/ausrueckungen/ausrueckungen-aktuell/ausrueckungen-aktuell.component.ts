@@ -1,7 +1,7 @@
 import { Table } from "primeng/table";
 import * as moment from "moment";
 import * as _ from "lodash";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import {
@@ -18,8 +18,8 @@ import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { AppComponent } from "src/app/app.component";
-import { AppMainComponent } from "src/app/app.main.component";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { PermissionMap } from "src/app/models/User";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -48,7 +48,7 @@ import { AppMainComponent } from "src/app/app.main.component";
         `,
     ],
 })
-export class AusrueckungenAktuellComponent implements OnInit {
+export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ausrueckungDialog: boolean;
     zeitraumDialog: boolean;
     exportDialogVisible: boolean = false;
@@ -78,6 +78,8 @@ export class AusrueckungenAktuellComponent implements OnInit {
 
     selectedRow: any;
 
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
         private ausrueckungService: AusrueckungenService,
         private infoService: InfoService,
@@ -88,12 +90,31 @@ export class AusrueckungenAktuellComponent implements OnInit {
         private mkjDatePipe: MkjDatePipe,
         private fb: FormBuilder
     ) {
-        this.formGroup = this.fb.group({
-            ausrueckung: [],
-        });
+        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
+        this.toolbarDatasource.header = "Termine";
+        this.toolbarDatasource.buttons = [
+            {
+                icon: "pi pi-search",
+                click: () =>
+                    (this.toolbarDatasource.contentSectionExpanded =
+                        !this.toolbarDatasource.contentSectionExpanded),
+                label: "Suchen",
+            },
+            {
+                icon: "pi pi-plus",
+                click: () => this.openNew(),
+                label: "Neu",
+                permissions: [PermissionMap.AUSRUECKUNG_SAVE],
+            },
+            {
+                icon: "pi pi-download",
+                click: () => (this.exportDialogVisible = true),
+                label: "Export",
+            },
+        ];
     }
 
-    ngOnInit() {
+    public ngOnInit() {
         if (sessionStorage.getItem("ausrueckungenFilter") != null) {
             let filter = sessionStorage.getItem("ausrueckungenFilter");
             this.zeitraumDisplayText = this.generateZeitraumDisplayText(
@@ -125,12 +146,18 @@ export class AusrueckungenAktuellComponent implements OnInit {
         }
     }
 
+    public ngAfterViewInit(): void {
+        if (this.ausrueckungenTable?.filters?.global) {
+            this.toolbarDatasource.contentSectionExpanded = true;
+        }
+    }
+
     public openNew(): void {
         if (!UtilFunctions.isDesktop()) {
             this.navigateEditor();
             return;
         }
-        this.formGroup.reset();
+        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
         this.formGroup.updateValueAndValidity();
         this.updateAusrueckung = false;
         this.ausrueckungDialog = true;
@@ -141,7 +168,10 @@ export class AusrueckungenAktuellComponent implements OnInit {
             this.navigateEditor(ausrueckung);
             return;
         }
-        this.formGroup.controls.ausrueckung.patchValue(ausrueckung);
+        this.formGroup = UtilFunctions.getAusrueckungFormGroup(
+            this.fb,
+            ausrueckung
+        );
         this.formGroup.updateValueAndValidity();
         this.updateAusrueckung = true;
         this.ausrueckungDialog = true;
@@ -182,9 +212,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
     saveAusrueckung() {
         this.submitted = true;
 
-        const saveAusrueckung = this.formGroup
-            .get("ausrueckung")
-            ?.getRawValue();
+        const saveAusrueckung = this.formGroup?.getRawValue();
 
         this.isSaving = true;
         if (saveAusrueckung.id) {
@@ -200,7 +228,6 @@ export class AusrueckungenAktuellComponent implements OnInit {
                     (error) => {
                         this.infoService.error(error);
                         this.isSaving = false;
-                        this.formGroup.reset();
                     },
                     () => {
                         this.infoService.success("Ausrückung aktualisert!");
@@ -226,7 +253,6 @@ export class AusrueckungenAktuellComponent implements OnInit {
                     (error) => {
                         this.infoService.error(error);
                         this.isSaving = false;
-                        this.formGroup.reset();
                     },
                     () => {
                         this.infoService.success("Ausrückung angelegt!");
@@ -244,6 +270,7 @@ export class AusrueckungenAktuellComponent implements OnInit {
         duplicateAusrueckung.created_at = null;
         duplicateAusrueckung.updated_at = null;
         duplicateAusrueckung.name = duplicateAusrueckung.name + " - Kopie";
+
         this.ausrueckungService
             .createAusrueckung(duplicateAusrueckung)
             .subscribe({

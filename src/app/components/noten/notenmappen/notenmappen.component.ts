@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Noten, Notenmappe } from "src/app/models/Noten";
+import { PermissionMap } from "src/app/models/User";
 import { InfoService } from "src/app/services/info.service";
 import { NotenService } from "src/app/services/noten.service";
 import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 
 @Component({
     selector: "app-notenmappen",
@@ -35,11 +37,23 @@ export class NotenmappenComponent implements OnInit {
         },
     ];
 
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
         private notenService: NotenService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService
-    ) {}
+    ) {
+        this.toolbarDatasource.header = "Notenmappen";
+        this.toolbarDatasource.buttons = [
+            {
+                icon: "pi pi-plus",
+                click: () => this.addNewMappe(),
+                label: "Neue Mappe",
+                permissions: [PermissionMap.NOTENMAPPE_SAVE],
+            },
+        ];
+    }
 
     public ngOnInit(): void {
         this.getNotenmappen();

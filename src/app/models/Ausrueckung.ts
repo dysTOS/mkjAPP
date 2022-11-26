@@ -1,3 +1,5 @@
+import { Gruppe } from "./Gruppe";
+
 export interface Ausrueckung {
     id?: string;
     name?: string;
@@ -12,6 +14,8 @@ export interface Ausrueckung {
     bisDatum?: string;
     vonZeit?: string;
     bisZeit?: string;
+    gruppe_id?: string;
+    gruppe?: Gruppe;
     created_at?: string;
     updated_at?: string;
 }

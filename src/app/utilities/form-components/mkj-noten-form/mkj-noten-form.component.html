@@ -1,0 +1,106 @@
+<div [formGroup]="formGroup" class="grid mt-3">
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="inventarId"
+            />
+
+            <label for="name">Inventarnummer</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="titel"
+            />
+
+            <label for="name">Titel</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="email"
+                pInputText
+                inputId="name"
+                formControlName="komponist"
+            />
+
+            <label for="name">Komponist</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="arrangeur"
+                formControlName="arrangeur"
+            />
+
+            <label for="arrangeur">Arrangeur</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="verlag"
+                formControlName="verlag"
+            />
+
+            <label for="verlag">Verlag</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="ort"
+                formControlName="aufbewahrungsort"
+            />
+
+            <label for="ort">Aufbewahrungsort</label>
+        </span>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <mkj-date-input
+            label="Ausgeliehen ab"
+            type="date"
+            formControlName="ausgeliehenAb"
+        ></mkj-date-input>
+    </div>
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="ausgeliehenVon"
+                formControlName="ausgeliehenVon"
+            />
+
+            <label for="ausgeliehenVon">Ausgeliehen Von</label>
+        </span>
+    </div>
+    <div class="p-field col-12">
+        <span class="p-float-label">
+            <textarea
+                type="text"
+                pInputTextarea
+                inputId="anmerkungen"
+                formControlName="anmerkungen"
+            ></textarea>
+
+            <label for="anmerkungen">Anmerkungen</label>
+        </span>
+    </div>
+</div>

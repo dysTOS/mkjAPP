@@ -1,49 +1,69 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import * as _ from "lodash";
-import { Subscription } from "rxjs";
+import { first, Subscription } from "rxjs";
+import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 
 @Component({
     selector: "app-mitglied-personal-edit",
     templateUrl: "./mitglied-personal-edit.component.html",
     styleUrls: ["./mitglied-personal-edit.component.scss"],
 })
-export class MitgliedPersonalEditComponent implements OnInit {
-    public mitglied: Mitglied;
-    private mitgliedSub$: Subscription;
-    public mitgliedSaving: boolean = false;
+export class MitgliedPersonalEditComponent
+    implements OnInit, EditComponentDeactivate
+{
+    public isSaving: boolean = false;
+
+    public formGroup: FormGroup;
+    public toolbarDatasource = new MkjToolbarDatasource();
 
     constructor(
         private userservice: UserService,
         private mitgliederService: MitgliederService,
-        private infoService: InfoService
-    ) {}
-
-    public ngOnInit(): void {
-        this.mitgliedSub$ = this.userservice.getCurrentMitglied().subscribe({
-            next: (res) => (this.mitglied = _.cloneDeep(res)),
-        });
+        private infoService: InfoService,
+        private fb: FormBuilder
+    ) {
+        this.toolbarDatasource.header = "Meine Daten";
     }
 
-    public ngOnDestroy(): void {
-        this.mitgliedSub$.unsubscribe();
+    public ngOnInit(): void {
+        this.userservice
+            .getCurrentMitglied()
+            .pipe()
+            .subscribe({
+                next: (res) => {
+                    this.formGroup = UtilFunctions.getMitgliedFormGroup(
+                        this.fb,
+                        res
+                    );
+                    this.formGroup.updateValueAndValidity();
+                },
+            });
     }
 
     public updateOwnMitgliedData() {
-        this.mitgliedSaving = true;
-        this.mitgliederService.updateOwnMitgliedData(this.mitglied).subscribe({
+        this.isSaving = true;
+        const saveMitglied = this.formGroup.get("mitglied").getRawValue();
+        this.mitgliederService.updateOwnMitgliedData(saveMitglied).subscribe({
             next: (res) => {
                 this.infoService.success("Daten aktualisiert!");
                 this.userservice.setCurrentMitglied(res);
-                this.mitgliedSaving = false;
+                this.isSaving = false;
             },
             error: (err) => {
-                this.mitgliedSaving = false;
+                this.isSaving = false;
                 this.infoService.error(err);
             },
         });
+    }
+
+    public canDeactivate(): boolean {
+        return this.formGroup?.pristine;
     }
 }

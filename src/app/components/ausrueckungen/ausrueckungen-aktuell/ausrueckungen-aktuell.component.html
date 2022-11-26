@@ -1,13 +1,22 @@
-<app-mkj-toolbar
-    [showAddButton]="true"
-    [showExportButton]="true"
-    [headerLeft]="'Ausrückungen ' + zeitraumDisplayText"
-    (clickAdd)="openNew()"
-    (clickExport)="exportDialogVisible = true"
-    addButtonTooltip="Neue Ausrückung"
-    exportButtonTooltip="Ausrückungen exportieren"
-    [addButtonPermissions]="['ausrueckungen_save']"
-></app-mkj-toolbar>
+<app-mkj-toolbar [datasource]="toolbarDatasource">
+    <div class="flex flex-wrap justify-content-between align-items-center">
+        <div>
+            Anzahl:
+            {{ filteredRows ? filteredRows.length : 0 }}
+        </div>
+
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+                pInputText
+                type="text"
+                [value]="dt.filters?.global?.value"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Suchen..."
+            />
+        </span>
+    </div>
+</app-mkj-toolbar>
 
 <div class="grid">
     <div class="col-12">
@@ -32,37 +41,9 @@
                 (onRowUnselect)="onRowUnselect($event)"
                 rowExpandMode="single"
                 [(selection)]="selectedRow"
+                stateStorage="session"
+                stateKey="termine-liste"
             >
-                <ng-template pTemplate="caption">
-                    <div
-                        class="flex flex-column flex-md-row justify-content-md-between align-items-center"
-                    >
-                        <div>
-                            Anzahl:
-                            {{
-                                selectedAusrueckungen
-                                    ? selectedAusrueckungen.length
-                                    : 0
-                            }}
-                        </div>
-
-                        <span class="p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input
-                                pInputText
-                                type="text"
-                                (input)="
-                                    dt.filterGlobal(
-                                        $event.target.value,
-                                        'contains'
-                                    )
-                                "
-                                placeholder="Suchen..."
-                            />
-                        </span>
-                    </div>
-                </ng-template>
-
                 <ng-template pTemplate="header">
                     <tr>
                         <th pSortableColumn="name">
@@ -335,11 +316,10 @@
             styleClass="p-fluid"
             position="top"
         >
-            <civ [formGroup]="formGroup">
-                <mkj-ausrueckung-form
-                    formControlName="ausrueckung"
-                ></mkj-ausrueckung-form>
-            </civ>
+            <mkj-ausrueckung-form
+                *ngIf="formGroup"
+                [formGroup]="formGroup"
+            ></mkj-ausrueckung-form>
 
             <ng-template pTemplate="footer">
                 <button

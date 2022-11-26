@@ -8,6 +8,7 @@ import { Component, OnInit } from "@angular/core";
 import { Ausrueckung } from "src/app/models/Ausrueckung";
 import { Noten } from "src/app/models/Noten";
 import { InfoService } from "src/app/services/info.service";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 
 @Component({
     selector: "app-ausrueckung-single",
@@ -27,6 +28,8 @@ export class AusrueckungSingleComponent implements OnInit {
     mitglieder: Mitglied[];
     presentMitglieder: Mitglied[] = [];
 
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -35,7 +38,10 @@ export class AusrueckungSingleComponent implements OnInit {
         private mitgliedService: MitgliederService,
         private notenService: NotenService,
         private calExport: ExportService
-    ) {}
+    ) {
+        this.toolbarDatasource.header = "Details";
+        this.toolbarDatasource.backButton = true;
+    }
 
     ngOnInit(): void {
         if (this.ausrueckungenService.hasSelectedAusrueckung()) {
@@ -155,11 +161,6 @@ export class AusrueckungSingleComponent implements OnInit {
                     this.selectedNoten = null;
                 },
             });
-    }
-
-    navigateBack() {
-        this.ausrueckungenService.setSelectedAusrueckung(null);
-        this.router.navigate(["../../aktuell"], { relativeTo: this.route });
     }
 
     exportToCalendar() {

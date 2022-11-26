@@ -1,8 +1,5 @@
-<app-mkj-toolbar
-    [header]="'Ausrückung Editor'"
-    [showBackButton]="true"
-    (navigateBack)="location.back()"
-></app-mkj-toolbar>
+<app-mkj-toolbar [datasource]="toolbarDatasource"></app-mkj-toolbar>
+
 <div class="col-12 flex justify-content-end">
     <button
         pRipple
@@ -14,10 +11,10 @@
         (click)="saveAusrueckung()"
     ></button>
 </div>
+
 <mkj-content-loader [loading]="loading" class="h-full">
-    <ng-container [formGroup]="formGroup">
-        <mkj-ausrueckung-form
-            formControlName="ausrueckung"
-        ></mkj-ausrueckung-form>
-    </ng-container>
+    <mkj-ausrueckung-form
+        *ngIf="formGroup"
+        [formGroup]="formGroup"
+    ></mkj-ausrueckung-form>
 </mkj-content-loader>

@@ -1,6 +1,7 @@
 import { FormBuilder, Validators } from "@angular/forms";
 import { Ausrueckung } from "../models/Ausrueckung";
 import { Mitglied } from "../models/Mitglied";
+import { Noten } from "../models/Noten";
 
 export class UtilFunctions {
     public static findIndexById(id: string, array: Array<any>) {
@@ -27,7 +28,7 @@ export class UtilFunctions {
             name: [ausrueckung?.name ?? null, Validators.required],
             beschreibung: [ausrueckung?.beschreibung ?? null],
             infoMusiker: [ausrueckung?.infoMusiker ?? null],
-            oeffentlich: [ausrueckung?.oeffentlich ?? false],
+            oeffentlich: [ausrueckung?.oeffentlich ?? true],
             ort: [ausrueckung?.ort ?? null],
             kategorie: [ausrueckung?.kategorie ?? null, Validators.required],
             status: [ausrueckung?.status ?? null, Validators.required],
@@ -36,6 +37,7 @@ export class UtilFunctions {
             bisDatum: [ausrueckung?.bisDatum ?? null, Validators.required],
             bisZeit: [ausrueckung?.bisZeit ?? null],
             treffzeit: [ausrueckung?.treffzeit ?? null],
+            gruppe_id: [ausrueckung?.gruppe_id ?? null],
             created_at: [ausrueckung?.created_at ?? null],
             updated_at: [ausrueckung?.updated_at ?? null],
         });
@@ -47,7 +49,10 @@ export class UtilFunctions {
             user_id: [mitglied?.user_id ?? null],
             vorname: [mitglied?.vorname ?? null, Validators.required],
             zuname: [mitglied?.zuname ?? null, Validators.required],
-            email: [mitglied?.email ?? null, Validators.required],
+            email: [
+                mitglied?.email ?? null,
+                [Validators.required, Validators.email],
+            ],
             titelVor: [mitglied?.titelVor ?? null],
             titelNach: [mitglied?.titelNach ?? null],
             geburtsdatum: [mitglied?.geburtsdatum ?? null],
@@ -59,11 +64,29 @@ export class UtilFunctions {
             telefonHaupt: [mitglied?.telefonHaupt ?? null],
             telefonMobil: [mitglied?.telefonMobil ?? null],
             beruf: [mitglied?.beruf ?? null],
-            aktiv: [mitglied?.aktiv ?? null],
+            aktiv: [mitglied?.aktiv ?? false],
             eintrittDatum: [mitglied?.eintrittDatum ?? null],
             austrittDatum: [mitglied?.austrittDatum ?? null],
             created_at: [mitglied?.created_at ?? null],
             updated_at: [mitglied?.updated_at ?? null],
+        });
+    }
+
+    public static getNotenFormGroup(fb: FormBuilder, noten?: Noten) {
+        return fb.group({
+            id: [noten?.id ?? null],
+            titel: [noten?.titel ?? null, Validators.required],
+            inventarId: [noten?.inventarId ?? null],
+            komponist: [noten?.komponist ?? null],
+            arrangeur: [noten?.arrangeur ?? null],
+            verlag: [noten?.verlag ?? null],
+            gattung: [noten?.gattung ?? null],
+            ausgeliehenAb: [noten?.ausgeliehenAb ?? null],
+            ausgeliehenVon: [noten?.ausgeliehenVon ?? null],
+            anmerkungen: [noten?.anmerkungen ?? null],
+            aufbewahrungsort: [noten?.aufbewahrungsort ?? null],
+            created_at: [noten?.created_at ?? null],
+            updated_at: [noten?.updated_at ?? null],
         });
     }
 }

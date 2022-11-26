@@ -1,21 +1,15 @@
-<app-mkj-toolbar
-    [showAddButton]="true"
-    [addButtonPermissions]="['noten_save']"
-    (clickAdd)="openEditDialog()"
-    addButtonTooltip="Noten anlegen"
-    [headerLeft]="'Notenarchiv'"
-></app-mkj-toolbar>
+<app-mkj-toolbar [datasource]="toolbarDatasource"></app-mkj-toolbar>
 
 <p-table
     #notenTable
     [value]="notenArray"
     [loading]="loading"
     [globalFilterFields]="['titel', 'komponist', 'gattung', 'inventarId']"
-    styleClass="p-datatable-striped p-datatable-sm p-datatable-noten rowexpand-table"
+    styleClass="p-datatable-striped p-datatable-noten rowexpand-table"
     dataKey="id"
     responsiveLayout="scroll"
     stateStorage="session"
-    stateKey="notenTable-session"
+    stateKey="notenarchivtable"
     rowExpandMode="single"
     [(selection)]="selectedRow"
     [rowHover]="true"
@@ -38,7 +32,7 @@
                 <input
                     pInputText
                     type="text"
-                    [value]="globalFilterText"
+                    [value]="notenTable.filters?.global?.value"
                     (input)="
                         notenTable.filterGlobal($event.target.value, 'contains')
                     "
@@ -218,13 +212,15 @@
     [(visible)]="editDialogVisible"
     [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
     [style]="{ width: '75vw' }"
-    [header]="editNoten?.id ? 'Noten aktualisieren' : 'Noten erstellen'"
+    [header]="
+        formGroup?.controls.id.value ? 'Noten aktualisieren' : 'Noten erstellen'
+    "
     [modal]="true"
     styleClass="p-fluid"
     position="top"
 >
     <ng-template pTemplate="content">
-        <app-noten-editor [(noten)]="editNoten"></app-noten-editor>
+        <mkj-noten-form [formGroup]="formGroup"></mkj-noten-form>
     </ng-template>
     <ng-template pTemplate="footer">
         <button
@@ -240,7 +236,7 @@
             pRipple
             label="Speichern"
             [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-            [disabled]="isAdding"
+            [disabled]="isAdding || formGroup?.invalid"
             class="p-button-plain"
             (click)="saveNoten()"
         ></button

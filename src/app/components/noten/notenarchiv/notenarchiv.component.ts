@@ -5,6 +5,9 @@ import { Table } from "primeng/table";
 import { NotenService } from "src/app/services/noten.service";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { InfoService } from "src/app/services/info.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { PermissionMap } from "src/app/models/User";
 
 @Component({
     selector: "app-notenarchiv",
@@ -19,24 +22,36 @@ export class NotenarchivComponent implements OnInit {
     isAdding: boolean = false;
 
     editDialogVisible: boolean = false;
-    editNoten: Noten;
-
-    globalFilterText: string = "";
 
     selectedRow: any;
+
+    public formGroup: FormGroup;
 
     @ViewChild("notenTable")
     notenTable: Table;
 
+    public toolbarDatasource = new MkjToolbarDatasource();
+
     constructor(
         private notenService: NotenService,
         private confirmationService: ConfirmationService,
-        private infoService: InfoService
-    ) {}
+        private infoService: InfoService,
+        private fb: FormBuilder
+    ) {
+        this.notenTable;
+        this.toolbarDatasource.header = "Notenarchiv";
+        this.toolbarDatasource.buttons = [
+            {
+                icon: "pi pi-plus",
+                label: "Neu",
+                permissions: [PermissionMap.NOTEN_SAVE],
+                click: () => this.openEditDialog(),
+            },
+        ];
+    }
 
     ngOnInit(): void {
         this.getAllNoten();
-        this.checkGlobalFilter();
     }
 
     getAllNoten() {
@@ -57,34 +72,34 @@ export class NotenarchivComponent implements OnInit {
 
     openEditDialog(noten?: Noten) {
         if (noten) {
-            this.editNoten = { ...noten };
+            this.formGroup = UtilFunctions.getNotenFormGroup(this.fb, noten);
         } else {
-            this.editNoten = {};
+            this.formGroup = UtilFunctions.getNotenFormGroup(this.fb);
         }
+        this.formGroup.updateValueAndValidity();
         this.editDialogVisible = true;
     }
 
     cancelEdit() {
         this.editDialogVisible = false;
-        this.editNoten = null;
     }
 
     saveNoten() {
         this.isAdding = true;
-        if (this.editNoten.id) {
-            this.notenService.updateNoten(this.editNoten).subscribe({
+        const editNoten = this.formGroup.getRawValue();
+        if (editNoten.id) {
+            this.notenService.updateNoten(editNoten).subscribe({
                 next: (res) => {
                     let index = UtilFunctions.findIndexById(
-                        this.editNoten.id,
+                        editNoten.id,
                         this.notenArray
                     );
                     this.notenArray[index] = res;
                     this.notenArray = [...this.notenArray];
                     this.infoService.success(
-                        this.editNoten.titel + " aktualisiert!"
+                        editNoten.titel + " aktualisiert!"
                     );
                     this.editDialogVisible = false;
-                    this.editNoten = null;
                     this.isAdding = false;
                 },
                 error: (error) => {
@@ -93,13 +108,12 @@ export class NotenarchivComponent implements OnInit {
                 },
             });
         } else {
-            this.notenService.createNoten(this.editNoten).subscribe({
+            this.notenService.createNoten(editNoten).subscribe({
                 next: (res) => {
                     this.notenArray.push(res);
                     this.notenArray = [...this.notenArray];
                     this.infoService.success("Noten hinzugefügt!");
                     this.editDialogVisible = false;
-                    this.editNoten = null;
                     this.isAdding = false;
                 },
                 error: (error) => {
@@ -126,14 +140,5 @@ export class NotenarchivComponent implements OnInit {
                 });
             },
         });
-    }
-
-    private checkGlobalFilter() {
-        const globalFilter = JSON.parse(
-            sessionStorage.getItem("notenTable-session")
-        );
-        if (globalFilter?.filters?.global?.value) {
-            this.globalFilterText = globalFilter.filters.global.value;
-        }
     }
 }

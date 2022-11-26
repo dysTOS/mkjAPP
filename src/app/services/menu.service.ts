@@ -123,14 +123,6 @@ export class MenuService implements OnDestroy {
                     routerLink: "einstellungen/lokal",
                     visible: false,
                 },
-                {
-                    label: "Reload App",
-                    icon: "pi pi-refresh",
-                    visible: false,
-                    command: () => {
-                        window.location.reload();
-                    },
-                },
             ],
         },
         {

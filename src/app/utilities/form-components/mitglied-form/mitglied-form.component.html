@@ -1,1 +1,190 @@
-<div [formGroup]="form" class="p-fluid grid"></div>
+<div [formGroup]="formGroup" class="p-fluid grid">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="vorname"
+            />
+
+            <label for="name">Vorname</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="zuname"
+            />
+
+            <label for="name">Familienname</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="titelVor"
+            />
+
+            <label for="name">Titel Vor</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="titelNach"
+            />
+
+            <label for="name">Titel Nach</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-date-input
+            type="date"
+            formControlName="geburtsdatum"
+            label="Geburtsdatum"
+        ></mkj-date-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <p-dropdown
+                [options]="MitgliedGeschlechtMap"
+                inputId="geschlecht"
+                formControlName="geschlecht"
+                optionLabel="name"
+                optionValue="value"
+            ></p-dropdown>
+            <label for="geschlecht">Geschlecht</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="beruf"
+            />
+
+            <label for="name">Beruf</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="strasse"
+                formControlName="strasse"
+            />
+
+            <label for="strasse">Straße</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="hausnummer"
+            />
+
+            <label for="name">Hausnummer</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="ort"
+            />
+
+            <label for="name">Ort</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="plz"
+            />
+
+            <label for="name">Postleitzahl</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="email"
+                pInputText
+                inputId="name"
+                formControlName="email"
+            />
+
+            <label for="name">E-Mail</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="telefonHaupt"
+            />
+
+            <label for="name">Telefon Festnetz</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                pInputText
+                inputId="name"
+                formControlName="telefonMobil"
+            />
+
+            <label for="name">Telefon Mobil</label>
+        </span>
+    </div>
+
+    <ng-container *ngIf="!personalMode">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-boolean-input
+                label="Aktives Mitglied"
+                formControlName="aktiv"
+            ></mkj-boolean-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                type="date"
+                formControlName="eintrittDatum"
+                label="Datum Eintritt"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                type="date"
+                formControlName="austrittDatum"
+                label="Datum Austritt"
+            ></mkj-date-input>
+        </div>
+    </ng-container>
+</div>

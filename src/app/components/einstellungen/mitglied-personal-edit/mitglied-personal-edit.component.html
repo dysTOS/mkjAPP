@@ -1,15 +1,18 @@
-<ng-container *ngIf="mitglied">
-    <div class="p-fluid">
-        <app-mitglied-editor
-            [(mitglied)]="mitglied"
-            [personalMode]="true"
-        ></app-mitglied-editor>
-    </div>
+<app-mkj-toolbar [datasource]="toolbarDatasource"></app-mkj-toolbar>
+
+<div class="col-12 flex justify-content-end mb-3">
     <button
         pButton
-        [icon]="mitgliedSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="mitgliedSaving"
+        pRipple
+        [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+        [disabled]="isSaving || formGroup?.invalid"
         label="Speichern"
         (click)="updateOwnMitgliedData()"
     ></button>
-</ng-container>
+</div>
+
+<mkj-mitglied-form
+    *ngIf="formGroup"
+    [formGroup]="formGroup"
+    [personalMode]="true"
+></mkj-mitglied-form>

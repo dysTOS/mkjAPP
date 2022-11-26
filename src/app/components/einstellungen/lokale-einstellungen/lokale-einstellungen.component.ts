@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
@@ -6,8 +6,10 @@ import { ThemeService } from "src/app/services/theme.service";
     templateUrl: "./lokale-einstellungen.component.html",
     styleUrls: ["./lokale-einstellungen.component.scss"],
 })
-export class LokaleEinstellungenComponent implements OnInit {
+export class LokaleEinstellungenComponent {
     constructor(public themeService: ThemeService) {}
 
-    ngOnInit(): void {}
+    public reloadApp() {
+        window.location.reload();
+    }
 }
