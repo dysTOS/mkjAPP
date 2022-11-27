@@ -1,7 +1,13 @@
 import { Table } from "primeng/table";
 import * as moment from "moment";
 import * as _ from "lodash";
-import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
+import {
+    AfterViewInit,
+    Component,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+} from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import {
@@ -18,35 +24,12 @@ import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 import { PermissionMap } from "src/app/models/User";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
     styleUrls: ["./ausrueckungen-aktuell.component.scss"],
-    styles: [
-        `
-            @media screen and (max-width: 960px) {
-                :host
-                    ::ng-deep
-                    .p-datatable.p-datatable-ausrueckungen
-                    .p-datatable-tbody
-                    > tr
-                    > td:last-child {
-                    text-align: center;
-                }
-
-                :host
-                    ::ng-deep
-                    .p-datatable.p-datatable-ausrueckungen
-                    .p-datatable-tbody
-                    > tr
-                    > td:nth-child(2) {
-                    text-align: right;
-                }
-            }
-        `,
-    ],
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ausrueckungDialog: boolean;
@@ -73,12 +56,11 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     status = AusrueckungStatusMap;
 
     @ViewChild("dt") ausrueckungenTable: Table;
+    @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
 
     public formGroup: FormGroup;
 
     selectedRow: any;
-
-    public toolbarDatasource = new MkjToolbarDatasource();
 
     constructor(
         private ausrueckungService: AusrueckungenService,
@@ -88,16 +70,17 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toolbarService: MkjToolbarService
     ) {
         this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
-        this.toolbarDatasource.header = "Termine";
-        this.toolbarDatasource.buttons = [
+        this.toolbarService.header = "Termine";
+        this.toolbarService.buttons = [
             {
                 icon: "pi pi-search",
                 click: () =>
-                    (this.toolbarDatasource.contentSectionExpanded =
-                        !this.toolbarDatasource.contentSectionExpanded),
+                    (this.toolbarService.contentSectionExpanded =
+                        !this.toolbarService.contentSectionExpanded),
                 label: "Suchen",
             },
             {
@@ -147,8 +130,9 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
+        this.toolbarService.contentSectionTemplate = this.toolbarContentSection;
         if (this.ausrueckungenTable?.filters?.global) {
-            this.toolbarDatasource.contentSectionExpanded = true;
+            this.toolbarService.contentSectionExpanded = true;
         }
     }
 

@@ -153,6 +153,7 @@ import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-w
 import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
 import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
+import { MkjTileComponent } from './utilities/mkj-tile/mkj-tile.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -305,6 +306,7 @@ registerLocaleData(localeDe);
         GruppenOverviewComponent,
         MitgliedFormComponent,
         MkjNotenFormComponent,
+        MkjTileComponent,
     ],
     providers: [
         mkjAppInitializer(),

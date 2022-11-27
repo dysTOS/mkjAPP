@@ -5,6 +5,7 @@ import { Observable, Subject } from "rxjs";
 import { Mitglied } from "../../models/Mitglied";
 import { User, Role, Permission } from "../../models/User";
 import { TokenService } from "./token.service";
+import { Gruppe } from "src/app/models/Gruppe";
 
 @Injectable({
     providedIn: "root",
@@ -20,6 +21,8 @@ export class UserService {
 
     private currentPermissions: BehaviorSubject<Permission[]> =
         new BehaviorSubject<Permission[]>(null);
+    private currentMitgliedGruppen: BehaviorSubject<Gruppe[]> =
+        new BehaviorSubject<Gruppe[]>(null);
 
     constructor(
         private authApiService: AuthAPIService,
@@ -69,6 +72,14 @@ export class UserService {
 
     public setCurrentUserPermissions(permissions: Array<Permission>) {
         this.currentPermissions.next(permissions);
+    }
+
+    public getCurrentMitgliedGruppen(): Observable<Gruppe[]> {
+        return this.currentMitgliedGruppen.asObservable();
+    }
+
+    public setCurrentMitgliedGruppen(gruppen: Array<Gruppe>) {
+        this.currentMitgliedGruppen.next(gruppen);
     }
 
     public hasPermission(permission: string): boolean {
@@ -136,6 +147,7 @@ export class UserService {
                         this.setCurrentMitglied(result.mitglied),
                         this.setCurrentUserRoles(result.roles),
                         this.setCurrentUserPermissions(result.permissions);
+                    this.setCurrentMitgliedGruppen(result.gruppen);
                     subject.next(null);
                     subject.complete();
                 },

@@ -8,7 +8,7 @@ import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliederService } from "src/app/services/mitglieder.service";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-mitglied-personal-edit",
@@ -21,15 +21,15 @@ export class MitgliedPersonalEditComponent
     public isSaving: boolean = false;
 
     public formGroup: FormGroup;
-    public toolbarDatasource = new MkjToolbarDatasource();
 
     constructor(
         private userservice: UserService,
         private mitgliederService: MitgliederService,
         private infoService: InfoService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Meine Daten";
+        this.toolbarService.header = "Meine Daten";
     }
 
     public ngOnInit(): void {

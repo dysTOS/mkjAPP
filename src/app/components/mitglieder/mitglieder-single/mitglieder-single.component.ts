@@ -7,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
 import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-mitglieder-single",
@@ -26,8 +26,6 @@ export class MitgliederSingleComponent implements OnInit {
     editDialogVisible: boolean = false;
     mitgliedSaving: boolean = false;
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private mitgliederService: MitgliederService,
         private roleService: RoleService,
@@ -35,11 +33,12 @@ export class MitgliederSingleComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
-        private userService: UserService
+        private userService: UserService,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Mitglied";
-        this.toolbarDatasource.backButton = true;
-        this.toolbarDatasource.buttons = [
+        this.toolbarService.header = "Mitglied";
+        this.toolbarService.backButton = true;
+        this.toolbarService.buttons = [
             {
                 icon: "pi pi-pencil",
                 click: () => this.openEditDialog(),

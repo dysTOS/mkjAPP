@@ -6,8 +6,8 @@ import { NotenService } from "src/app/services/noten.service";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 import { PermissionMap } from "src/app/models/User";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-notenarchiv",
@@ -30,17 +30,15 @@ export class NotenarchivComponent implements OnInit {
     @ViewChild("notenTable")
     notenTable: Table;
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private notenService: NotenService,
         private confirmationService: ConfirmationService,
         private infoService: InfoService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toolbarService: MkjToolbarService
     ) {
-        this.notenTable;
-        this.toolbarDatasource.header = "Notenarchiv";
-        this.toolbarDatasource.buttons = [
+        this.toolbarService.header = "Notenarchiv";
+        this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 label: "Neu",

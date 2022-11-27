@@ -1,18 +1,37 @@
-<p-table [value]="gruppen">
-    <ng-template pTemplate="header"
-        ><tr>
-            <td>Name</td>
-            <td>Leiter</td>
-        </tr></ng-template
-    >
-    <ng-template pTemplate="body" let-gruppe
-        ><tr>
-            <td>{{ gruppe.name }}</td>
-            <td>
-                {{
-                    gruppe.gruppenleiter?.vorname +' '+ gruppe.gruppenleiter?.zuname
-                }}
-            </td>
-        </tr></ng-template
-    >
-</p-table>
+<mkj-content-loader [loading]="gruppenLoading">
+    <div class="flex gap-4">
+        <mkj-tile
+            *ngFor="let gruppe of gruppen"
+            [label]="gruppe.name"
+        ></mkj-tile>
+    </div>
+    <!-- <p-accordion (activeIndexChange)="onTabChange($event)">
+        <p-accordionTab *ngFor="let gruppe of gruppen" [header]="gruppe.name">
+            <ng-template pTemplate="content">
+                <div class="flex col-12">
+                    <p *ngIf="gruppe.gruppenleiter">
+                        Gruppenleiter:
+                        {{
+                            gruppe.gruppenleiter?.vorname +
+                                " " +
+                                gruppe.gruppenleiter?.zuname
+                        }}
+                    </p>
+                </div>
+                <mkj-content-loader [loading]="mitgliederLoading">
+                    <p-table [value]="mitglieder"
+                        ><ng-template pTemplate="body" let-mitglied
+                            ><tr>
+                                <td>
+                                    {{
+                                        mitglied.vorname + " " + mitglied.zuname
+                                    }}
+                                </td>
+                            </tr></ng-template
+                        ></p-table
+                    >
+                </mkj-content-loader>
+            </ng-template></p-accordionTab
+        >
+    </p-accordion> -->
+</mkj-content-loader>

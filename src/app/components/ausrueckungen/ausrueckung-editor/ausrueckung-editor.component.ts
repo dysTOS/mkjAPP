@@ -6,7 +6,7 @@ import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
 import { InfoService } from "src/app/services/info.service";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-ausrueckung-editor",
@@ -19,17 +19,16 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
     public loading: boolean = false;
     public saving: boolean = false;
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private ausrueckungService: AusrueckungenService,
         private infoService: InfoService,
-        public location: Location
+        public location: Location,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Editor";
-        this.toolbarDatasource.backButton = true;
+        this.toolbarService.header = "Editor";
+        this.toolbarService.backButton = true;
 
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {

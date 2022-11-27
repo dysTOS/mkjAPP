@@ -3,10 +3,10 @@ import { Component, OnInit } from "@angular/core";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
 import { PermissionMap } from "src/app/models/User";
 import { Mitglied } from "src/app/models/Mitglied";
 import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-mitglieder",
@@ -24,17 +24,16 @@ export class MitgliederListComponent implements OnInit {
 
     public formGroup: FormGroup;
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private mitgliederService: MitgliederService,
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Mitglieder";
-        this.toolbarDatasource.buttons = [
+        this.toolbarService.header = "Mitglieder";
+        this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 click: () => this.openEditDialog(),

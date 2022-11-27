@@ -27,7 +27,7 @@ export class ServiceWorkerService {
         private router: Router
     ) {
         this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
-            if (update.type === "VERSION_DETECTED") {
+            if (update.type === "VERSION_READY") {
                 this.confirmationService.confirm({
                     header: "UPDATE verfügbar!",
                     message: "Kann die mkjAPP kurz neu geladen werden?",
@@ -35,7 +35,9 @@ export class ServiceWorkerService {
                     accept: () => {
                         this.swUpdate
                             .activateUpdate()
-                            .then((res) => window.location.reload())
+                            .then((res) => {
+                                //window.location.reload();
+                            })
                             .catch((err) => console.log(err));
                     },
                 });

@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 import { Ausrueckung } from "src/app/models/Ausrueckung";
 import { Noten } from "src/app/models/Noten";
 import { InfoService } from "src/app/services/info.service";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-ausrueckung-single",
@@ -28,8 +28,6 @@ export class AusrueckungSingleComponent implements OnInit {
     mitglieder: Mitglied[];
     presentMitglieder: Mitglied[] = [];
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -37,10 +35,11 @@ export class AusrueckungSingleComponent implements OnInit {
         private infoService: InfoService,
         private mitgliedService: MitgliederService,
         private notenService: NotenService,
-        private calExport: ExportService
+        private calExport: ExportService,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Details";
-        this.toolbarDatasource.backButton = true;
+        this.toolbarService.header = "Details";
+        this.toolbarService.backButton = true;
     }
 
     ngOnInit(): void {

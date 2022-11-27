@@ -1,5 +1,6 @@
 import { Permission, Role, User } from "../models/User";
 import { Mitglied } from "../models/Mitglied";
+import { Gruppe } from "../models/Gruppe";
 
 export interface GetCollectionApiCallInput {
     skip?: number;
@@ -48,4 +49,5 @@ export interface UserLoginOutput {
     roles?: Array<Role>;
     permissions?: Array<Permission>;
     mitglied?: Mitglied;
+    gruppen?: Array<Gruppe>;
 }

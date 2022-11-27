@@ -5,7 +5,7 @@ import { PermissionMap } from "src/app/models/User";
 import { InfoService } from "src/app/services/info.service";
 import { NotenService } from "src/app/services/noten.service";
 import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
-import { MkjToolbarDatasource } from "src/app/utilities/mkj-toolbar/mkj-toolbar-datasource";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-notenmappen",
@@ -37,15 +37,14 @@ export class NotenmappenComponent implements OnInit {
         },
     ];
 
-    public toolbarDatasource = new MkjToolbarDatasource();
-
     constructor(
         private notenService: NotenService,
         private infoService: InfoService,
-        private confirmationService: ConfirmationService
+        private confirmationService: ConfirmationService,
+        private toolbarService: MkjToolbarService
     ) {
-        this.toolbarDatasource.header = "Notenmappen";
-        this.toolbarDatasource.buttons = [
+        this.toolbarService.header = "Notenmappen";
+        this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 click: () => this.addNewMappe(),
