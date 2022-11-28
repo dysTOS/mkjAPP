@@ -10,25 +10,42 @@
 
 @import "~@mdi/font/css/materialdesignicons.css";
 
-/* width */
+/** Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-}
+    width: 0.929rem; /* Total width including `border-width` of the vertical scrollbar thumb */
+    height: 0.929rem; /* Total width including `border-width` of the horizontal scrollbar thumb */
+  }
 
-/* Track */
-::-webkit-scrollbar-track {
-    background: #d8d8d800;
-}
+  ::-webkit-scrollbar-thumb {
+    border: 0.286rem solid rgba(0, 0, 0, 0); /* Transparent border together with `background-clip: padding-box` does the 'margin'-trick */
+    background-clip: padding-box;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--scrollbar-color); /*actual thumb-color*/
+  }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #949494;
-}
+  ::-webkit-scrollbar-thumb:hover {
+    border: 0.286rem solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--scrollbar-color-hover); /*actual hover-color*/
+  }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-}
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent; //hides the corner in the case of both vertical/horizontal scrollbars are visible
+  }
+
+
 
 body {
     user-select: none;
