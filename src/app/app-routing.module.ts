@@ -32,6 +32,7 @@ import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
 import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
 import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
+import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
 
 @NgModule({
     imports: [
@@ -115,6 +116,11 @@ import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/m
                                 {
                                     path: "gruppen",
                                     component: GruppenOverviewComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "gruppen/:id",
+                                    component: GruppeDetailsComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {

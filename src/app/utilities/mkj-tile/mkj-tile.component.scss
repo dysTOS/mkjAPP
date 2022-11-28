@@ -2,9 +2,21 @@
     width: 10rem;
     height: 10rem;
     border-radius: 0.2rem;
-    border: 1px solid blue;
-    background-color: cornflowerblue;
+    border: 3px solid var(--color);
+    background-color: var(--color-light);
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0.85;
+
+    &:hover {
+        opacity: 1;
+        transition: opacity 0.3s;
+        cursor: pointer;
+    }
+
+    &-label {
+        color: --color;
+        opacity: 1;
+    }
 }

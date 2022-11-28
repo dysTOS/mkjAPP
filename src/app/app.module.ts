@@ -1,5 +1,5 @@
 import { RouteGuard } from "./guards/route.guard";
-import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
@@ -153,7 +153,10 @@ import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-w
 import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
 import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
-import { MkjTileComponent } from './utilities/mkj-tile/mkj-tile.component';
+import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
+import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
+import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
+import { FullNamePipe } from "./pipes/full-name.pipe";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -307,6 +310,9 @@ registerLocaleData(localeDe);
         MitgliedFormComponent,
         MkjNotenFormComponent,
         MkjTileComponent,
+        GruppeDetailsComponent,
+        MkjGruppeFormComponent,
+        FullNamePipe,
     ],
     providers: [
         mkjAppInitializer(),

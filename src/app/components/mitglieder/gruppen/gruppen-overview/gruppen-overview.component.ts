@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "src/app/models/Mitglied";
+import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -20,9 +22,19 @@ export class GruppenOverviewComponent implements OnInit {
     constructor(
         private gruppenService: GruppenApiService,
         private infoService: InfoService,
-        private toolbarService: MkjToolbarService
+        private toolbarService: MkjToolbarService,
+        private router: Router,
+        private route: ActivatedRoute
     ) {
         this.toolbarService.header = "Register & Gruppen";
+        this.toolbarService.buttons = [
+            {
+                label: "Neue Gruppe",
+                icon: "pi pi-plus",
+                permissions: [PermissionMap.GRUPPEN_SAVE],
+                click: () => this.newGruppe(),
+            },
+        ];
     }
 
     public ngOnInit(): void {
@@ -33,6 +45,12 @@ export class GruppenOverviewComponent implements OnInit {
         this.mitglieder = null;
         this.loadMitglieder(this.gruppen[index].id);
     }
+
+    public navigateDetails(gruppe: Gruppe) {
+        this.router.navigate([gruppe.id], { relativeTo: this.route });
+    }
+
+    public newGruppe() {}
 
     private loadGruppen() {
         this.gruppenLoading = true;

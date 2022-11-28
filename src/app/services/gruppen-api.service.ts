@@ -53,6 +53,11 @@ export class GruppenApiService {
         return this.http.post<Gruppe[]>(url, input, httpOptions);
     }
 
+    public getGruppe(id: string): Observable<Gruppe> {
+        const url = this.apiURL + "gruppe";
+        return this.http.post<Gruppe>(url, { id: id }, httpOptions);
+    }
+
     public saveGruppe(input: Gruppe): Observable<Gruppe> {
         const url = this.apiURL + "save";
         return this.http.post<Gruppe>(url, input, httpOptions);

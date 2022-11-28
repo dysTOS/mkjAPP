@@ -1,5 +1,6 @@
 import { FormBuilder, Validators } from "@angular/forms";
 import { Ausrueckung } from "../models/Ausrueckung";
+import { Gruppe } from "../models/Gruppe";
 import { Mitglied } from "../models/Mitglied";
 import { Noten } from "../models/Noten";
 
@@ -87,6 +88,17 @@ export class UtilFunctions {
             aufbewahrungsort: [noten?.aufbewahrungsort ?? null],
             created_at: [noten?.created_at ?? null],
             updated_at: [noten?.updated_at ?? null],
+        });
+    }
+
+    public static getGruppeFormGroup(fb: FormBuilder, gruppe?: Gruppe) {
+        return fb.group({
+            id: [gruppe?.id ?? null],
+            name: [gruppe?.name ?? null],
+            gruppenleiter_mitglied_id: [
+                gruppe?.gruppenleiter_mitglied_id ?? null,
+            ],
+            color: [gruppe?.color ?? null],
         });
     }
 }

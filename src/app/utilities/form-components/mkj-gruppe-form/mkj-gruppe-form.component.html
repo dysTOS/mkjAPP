@@ -1,0 +1,23 @@
+<div [formGroup]="formGroup" class="p-fluid grid align-items-center">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                formControlName="name"
+                pInputText
+                inputId="name"
+                class="ng-dirty"
+            />
+            <label for="name">Name</label>
+        </span>
+    </div>
+
+    <!-- TODO GRUPPENLEITER -->
+
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <div class="flex align-items-center">
+            <div>Farbe:</div>
+            <p-colorPicker formControlName="color" class="ml-3"></p-colorPicker>
+        </div>
+    </div>
+</div>

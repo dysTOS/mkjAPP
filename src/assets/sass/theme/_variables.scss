@@ -22,7 +22,7 @@ $inlineSpacing: 0.5rem;
 $disabledOpacity: 0.38;
 $maskBg: rgba(0, 0, 0, 0.32);
 $loadingIconFontSize: 2rem;
-$errorColor: #b00020;
+$errorColor: $mkjErrorColor;
 
 //selected state
 $highlightBg: rgba($primaryColor, 0.12);
