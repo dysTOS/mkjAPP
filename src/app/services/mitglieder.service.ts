@@ -40,6 +40,11 @@ export class MitgliederService {
         return this.http.get<Mitglied>(url, httpOptions);
     }
 
+    searchMitglieder(searchkey: string): Observable<Mitglied[]> {
+        const url = this.apiURL + "mitglieder/search/" + searchkey;
+        return this.http.get<Mitglied[]>(url, httpOptions);
+    }
+
     updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitgliedselbst";
         return this.http.post<any>(url, mitglied, httpOptions);

@@ -1,31 +1,66 @@
-<div class="col-12 flex justify-content-end">
-    <button
-        pButton
-        pRipple
-        label="Speichern"
-        [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-        class="p-button-plain"
-        [disabled]="isSaving || formGroup?.invalid || isLoading"
-        (click)="saveGruppe()"
-    ></button>
-</div>
-
 <mkj-content-loader [loading]="isLoading">
-    <mkj-gruppe-form
-        *ngIf="formGroup"
-        [formGroup]="formGroup"
-    ></mkj-gruppe-form>
+    <div class="card">
+        <div class="col-12 flex justify-content-end">
+            <button
+                pButton
+                pRipple
+                label="Speichern"
+                [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+                class="p-button-plain"
+                [disabled]="
+                    isSaving ||
+                    formGroup?.invalid ||
+                    isLoading ||
+                    formGroup?.pristine
+                "
+                (click)="saveGruppe()"
+            ></button>
+        </div>
+        <mkj-gruppe-form
+            *ngIf="formGroup"
+            [formGroup]="formGroup"
+        ></mkj-gruppe-form>
+    </div>
 
-    <p-table [value]="mitglieder">
+    <p-table
+        *ngIf="formGroup?.controls.id.value"
+        [value]="mitglieder"
+        [loading]="tableLocked"
+        responsiveLayout="scroll"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <td>
+                    <p-autoComplete
+                        #autoComplete
+                        [suggestions]="mitgliederSearchResult"
+                        (completeMethod)="searchMitglieder($event)"
+                        (onSelect)="addMitglied($event)"
+                        [forceSelection]="true"
+                        [autoHighlight]="true"
+                        dataKey="id"
+                        placeholder="Mitglied hinzufügen..."
+                    >
+                        <ng-template let-mitglied pTemplate="item">
+                            <div>
+                                {{ mitglied | fullName }}
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
+                </td>
+                <td></td>
+            </tr>
+        </ng-template>
         <ng-template pTemplate="body" let-mitglied>
             <tr>
                 <td>{{ mitglied | fullName }}</td>
-                <td style="max-width: 5rem">
+                <td style="width: 5rem">
                     <button
                         pButton
                         pRipple
-                        class="p-button-error p-button-outlined p-button-rounded"
+                        class="p-button-small p-button-text p-button-danger"
                         icon="pi pi-times"
+                        pTooltip="Mitglied entfernen"
                         (click)="removeMitglied(mitglied.id)"
                     ></button>
                 </td>

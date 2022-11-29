@@ -122,6 +122,7 @@ import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-d
                                     path: "gruppen/:id",
                                     component: GruppeDetailsComponent,
                                     canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
                                     path: ":id",

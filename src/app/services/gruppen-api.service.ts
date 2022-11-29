@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import {
+    GetCollectionApiCallOutput,
     StandardAllocationInput,
     StandardMessageOutput,
 } from "../interfaces/api-middleware";
@@ -46,11 +47,16 @@ export class GruppenApiService {
     }
 
     public getAllGruppen(input?: {
-        includeMitglieder: boolean;
-        includeGruppenleiter: boolean;
-    }): Observable<Gruppe[]> {
+        includeMitglieder?: boolean;
+        includeGruppenleiter?: boolean;
+        includeTermine?: boolean;
+    }): Observable<GetCollectionApiCallOutput<Gruppe>> {
         const url = this.apiURL + "all";
-        return this.http.post<Gruppe[]>(url, input, httpOptions);
+        return this.http.post<GetCollectionApiCallOutput<Gruppe>>(
+            url,
+            input,
+            httpOptions
+        );
     }
 
     public getGruppe(id: string): Observable<Gruppe> {
@@ -64,7 +70,7 @@ export class GruppenApiService {
     }
 
     public deleteGruppe(id: string): Observable<any> {
-        const url = this.apiURL + "delete/" + id;
+        const url = this.apiURL + id;
         return this.http.delete<any>(url, httpOptions);
     }
 

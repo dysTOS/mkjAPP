@@ -41,16 +41,13 @@ export class GruppenOverviewComponent implements OnInit {
         this.loadGruppen();
     }
 
-    public onTabChange(index: number) {
-        this.mitglieder = null;
-        this.loadMitglieder(this.gruppen[index].id);
-    }
-
     public navigateDetails(gruppe: Gruppe) {
         this.router.navigate([gruppe.id], { relativeTo: this.route });
     }
 
-    public newGruppe() {}
+    public newGruppe() {
+        this.router.navigate(["neu"], { relativeTo: this.route });
+    }
 
     private loadGruppen() {
         this.gruppenLoading = true;
@@ -61,7 +58,7 @@ export class GruppenOverviewComponent implements OnInit {
             })
             .subscribe({
                 next: (res) => {
-                    this.gruppen = res;
+                    this.gruppen = res.values;
                     this.gruppenLoading = false;
                 },
                 error: (err) => {
@@ -69,19 +66,5 @@ export class GruppenOverviewComponent implements OnInit {
                     this.infoService.error(err);
                 },
             });
-    }
-
-    private loadMitglieder(id: string) {
-        this.mitgliederLoading = true;
-        this.gruppenService.getMitgliederOfGruppe(id).subscribe({
-            next: (res) => {
-                this.mitglieder = res;
-                this.mitgliederLoading = false;
-            },
-            error: (err) => {
-                this.mitgliederLoading = false;
-                this.infoService.error(err);
-            },
-        });
     }
 }

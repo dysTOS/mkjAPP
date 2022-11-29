@@ -235,14 +235,17 @@ export interface MkjMenuItem extends MenuItem {
     enumLabel?: number;
 }
 
+/**
+ * @deprecated check if we can delete this
+ */
 export const MenuLabels = {
-    //with sidemenu <= 4
+    //without sidemenu <= 4
     PRIMEMENU: 0,
     TOOLS: 2,
     NOTEN: 3,
     EINSTELLUNGEN: 4,
 
-    //without sidemenu > 4
+    //with sidemenu > 4
     DASHBOARD: 5,
     AUSRUECKUNGEN: 7,
     MITGLIEDER: 8,

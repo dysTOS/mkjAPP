@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { Observable, Subject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class InfoService {
-    constructor(private messageService: MessageService) {}
+    constructor(
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
+    ) {}
 
     public error(error: any) {
         if (typeof error === "string") {
@@ -73,5 +77,28 @@ export class InfoService {
             sticky: true,
             detail: notification,
         });
+    }
+
+    public confirmDelete(message: string, asyncCall: () => Observable<any>) {
+        const subject = new Subject();
+        this.confirmationService.confirm({
+            header: "Löschen?",
+            message:
+                message ??
+                "Bist du sicher das dieser Datensatz gelöscht werden soll?",
+            accept: () => {
+                asyncCall().subscribe({
+                    next: (res) => {
+                        subject.next(res);
+                        subject.complete();
+                    },
+                    error: (err) => {
+                        subject.error(err);
+                        subject.complete();
+                    },
+                });
+            },
+        });
+        return subject;
     }
 }

@@ -94,11 +94,12 @@ export class UtilFunctions {
     public static getGruppeFormGroup(fb: FormBuilder, gruppe?: Gruppe) {
         return fb.group({
             id: [gruppe?.id ?? null],
-            name: [gruppe?.name ?? null],
+            name: [gruppe?.name ?? null, Validators.required],
             gruppenleiter_mitglied_id: [
                 gruppe?.gruppenleiter_mitglied_id ?? null,
             ],
             color: [gruppe?.color ?? null],
+            gruppenleiter: [gruppe?.gruppenleiter ?? null],
         });
     }
 }

@@ -7,7 +7,10 @@ import { Mitglied } from "../models/Mitglied";
 export class FullNamePipe implements PipeTransform {
     transform(value: Mitglied, options?: {}): string {
         const name = value.vorname + " " + value.zuname;
-        const fullName = value.titelVor + " " + name + " " + value.titelNach;
-        return fullName;
+        let fullName = value.titelVor ? value.titelVor + " " + name : name;
+        fullName = value.titelNach
+            ? fullName + ", " + value.titelNach
+            : fullName;
+        return name;
     }
 }

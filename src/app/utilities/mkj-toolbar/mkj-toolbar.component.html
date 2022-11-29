@@ -32,7 +32,7 @@
     <div>
         <ng-container *ngFor="let button of toolbarService.buttons">
             <button
-                *ngIf="button.visible"
+                *ngIf="button.visible && !button.hidden"
                 pButton
                 pRipple
                 class="p-button p-button-text p-button-plain button-opacity p-1"

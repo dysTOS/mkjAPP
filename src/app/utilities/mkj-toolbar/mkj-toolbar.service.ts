@@ -9,6 +9,7 @@ export interface MkjToolbarButton {
     permissions?: string[];
     click?: (event: MouseEvent) => void;
     visible?: boolean;
+    hidden?: boolean;
 }
 
 @Injectable({

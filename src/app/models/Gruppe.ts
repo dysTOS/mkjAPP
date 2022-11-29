@@ -14,4 +14,5 @@ export interface Gruppe {
         updated_at?: string;
     };
     mitglieder?: Mitglied[];
+    gruppenleiter?: Mitglied;
 }

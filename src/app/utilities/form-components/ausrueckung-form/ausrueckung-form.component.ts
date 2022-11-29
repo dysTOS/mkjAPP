@@ -113,7 +113,7 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
 
     private getGruppen() {
         this.gruppenService.getAllGruppen().subscribe((res) => {
-            this.GruppenMap = res.map((e) => {
+            this.GruppenMap = res.values.map((e) => {
                 return {
                     label: e.name,
                     value: e.id,
