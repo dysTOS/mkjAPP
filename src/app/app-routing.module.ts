@@ -62,7 +62,9 @@ import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-d
                             path: "ausrueckungen",
                             component: AusrueckungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "Ausrückungen",
+                            data: {                            title: "Ausrückungen",
+                        },
+
                             children: [
                                 {
                                     path: "aktuell",

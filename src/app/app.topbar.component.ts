@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppMainComponent } from "./app.main.component";
-import { MenuLabels, MenuService } from "./services/menu.service";
+import { MenuService } from "./services/menu.service";
 
 @Component({
     selector: "app-topbar",
@@ -105,8 +105,6 @@ import { MenuLabels, MenuService } from "./services/menu.service";
     ],
 })
 export class AppTopbarComponent implements OnInit {
-    public readonly MenuLabels = MenuLabels;
-
     constructor(
         public appMain: AppMainComponent,
         public menuService: MenuService

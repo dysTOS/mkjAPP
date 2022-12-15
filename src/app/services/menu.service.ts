@@ -64,21 +64,21 @@ export class MenuService implements OnDestroy {
             icon: "mdi mdi-music",
             enumLabel: MenuLabels.NOTEN,
             visible: false,
-            permission: "noten_read",
+            permission: PermissionMap.NOTENMAPPE_READ,
             children: [
                 {
                     label: "Archiv",
                     icon: "mdi mdi-archive-music-outline",
                     routerLink: "noten/archiv",
                     visible: false,
-                    permission: "noten_read",
+                    permission: PermissionMap.NOTENMAPPE_READ,
                 },
                 {
                     label: "Mappen",
                     icon: "mdi mdi-book-music-outline",
                     routerLink: "noten/mappen",
                     visible: false,
-                    permission: "noten_read",
+                    permission: PermissionMap.NOTENMAPPE_READ,
                 },
             ],
         },
@@ -87,14 +87,14 @@ export class MenuService implements OnDestroy {
             icon: "mdi mdi-tools",
             enumLabel: MenuLabels.TOOLS,
             visible: false,
-            permission: "role_read",
+            permission: PermissionMap.ROLE_READ,
             children: [
                 {
                     label: "Rechnungs-Generator",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "tools/rechnungsgenerator",
                     visible: false,
-                    permission: "role_read",
+                    permission: PermissionMap.ROLE_READ,
                 },
             ],
         },
@@ -115,7 +115,7 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-account-lock-open-outline",
                     routerLink: "einstellungen/rollen",
                     visible: false,
-                    permission: "role_read",
+                    permission: PermissionMap.ROLE_READ,
                 },
                 {
                     label: "Lokal",
@@ -147,7 +147,7 @@ export class MenuService implements OnDestroy {
             routerLink: "test",
             enumLabel: MenuLabels.TEST,
             visible: false,
-            permission: "role_read",
+            permission: PermissionMap.ROLE_READ,
         },
     ];
 

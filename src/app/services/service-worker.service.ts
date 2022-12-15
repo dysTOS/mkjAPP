@@ -1,11 +1,10 @@
-import { ApplicationRef, Injectable } from "@angular/core";
-import { SwUpdate, SwPush, VersionEvent } from "@angular/service-worker";
-import { PushNotificationsService } from "./push-notifications.service";
-import { BehaviorSubject, first, Subscription } from "rxjs";
-import { environment } from "src/environments/environment";
+import { Injectable } from "@angular/core";
+import { SwPush, SwUpdate, VersionEvent } from "@angular/service-worker";
 import { ConfirmationService } from "primeng/api";
-import { Router } from "@angular/router";
+import { interval, Subscription } from "rxjs";
+import { environment } from "src/environments/environment";
 import { InfoService } from "./info.service";
+import { PushNotificationsService } from "./push-notifications.service";
 
 @Injectable({
     providedIn: "root",
@@ -17,17 +16,31 @@ export class ServiceWorkerService {
     private lastVersionEvent: VersionEvent;
     private lastPushSub: PushSubscription;
 
+
     constructor(
-        private appRef: ApplicationRef,
         private swUpdate: SwUpdate,
         private swPush: SwPush,
         private pushNotiService: PushNotificationsService,
         private confirmationService: ConfirmationService,
         private infoService: InfoService,
-        private router: Router
     ) {
+        if (swUpdate.isEnabled) {
+            // Check every minute for update
+            interval(60000).subscribe(() =>
+              (async () => {
+                await swUpdate
+                    .checkForUpdate()
+                    .then((status) =>
+                      console.debug(
+                        "ServiceWorkerService::CTor",
+                        "checking for updates",
+                        { status }
+                      )
+                  );
+              })
+            );
+          }
         this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
-            if (update.type === "VERSION_READY") {
                 this.confirmationService.confirm({
                     header: "UPDATE verfügbar!",
                     message: "Kann die mkjAPP kurz neu geladen werden?",
@@ -36,12 +49,11 @@ export class ServiceWorkerService {
                         this.swUpdate
                             .activateUpdate()
                             .then((res) => {
-                                //window.location.reload();
+                                document.location.reload();
                             })
                             .catch((err) => console.log(err));
                     },
                 });
-            }
         });
 
         this.pushSub$ = this.swPush.subscription.subscribe({

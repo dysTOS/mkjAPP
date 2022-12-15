@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { AppMainComponent } from "./app.main.component";
-import { ThemeService } from "./services/theme.service";
-import { MenuLabels, MenuService } from "./services/menu.service";
 import { UserService } from "./services/authentication/user.service";
+import { MenuService } from "./services/menu.service";
+import { ThemeService } from "./services/theme.service";
 
 @Component({
     selector: "app-sidebar",
@@ -101,9 +101,7 @@ import { UserService } from "./services/authentication/user.service";
         </div>
     </div> `,
 })
-export class AppSideBarComponent implements OnInit {
-    public readonly MenuLabels = MenuLabels;
-
+export class AppSideBarComponent {
     constructor(
         public app: AppComponent,
         public appMain: AppMainComponent,
@@ -111,6 +109,4 @@ export class AppSideBarComponent implements OnInit {
         public userService: UserService,
         public menuService: MenuService
     ) {}
-
-    ngOnInit(): void {}
 }
