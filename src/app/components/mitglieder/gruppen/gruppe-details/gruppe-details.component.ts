@@ -6,7 +6,7 @@ import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
-import { GruppenApiService } from "src/app/services/gruppen-api.service";
+import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliederService } from "src/app/services/mitglieder.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";

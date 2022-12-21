@@ -6,9 +6,9 @@ import {
     GetCollectionApiCallOutput,
     StandardAllocationInput,
     StandardMessageOutput,
-} from "../interfaces/api-middleware";
-import { Gruppe } from "../models/Gruppe";
-import { Mitglied } from "../models/Mitglied";
+} from "../../interfaces/api-middleware";
+import { Gruppe } from "../../models/Gruppe";
+import { Mitglied } from "../../models/Mitglied";
 
 const httpOptions = {
     headers: new HttpHeaders({

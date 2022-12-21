@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
-import { GruppenApiService } from "src/app/services/gruppen-api.service";
+import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 

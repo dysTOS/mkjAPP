@@ -6,7 +6,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import * as moment from "moment";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { GruppenApiService } from "src/app/services/gruppen-api.service";
+import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { SubSink } from "subsink";
 
 @Component({

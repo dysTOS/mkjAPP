@@ -1,5 +1,8 @@
 <div class="grid">
     <div class="col-12">
+        <div class="card" *ngIf="appMain.publicTestEnvironment">
+            <h3>TESTUMGEBUNG</h3>
+        </div>
         <div
             class="card flex justify-content-center"
             *ngIf="nextAusrueckungLoading || nextAusrueckung"
@@ -11,7 +14,7 @@
                 <h4>Nächste Spielerei:</h4>
                 <h2>{{ nextAusrueckung?.name }}</h2>
                 <p>
-                    {{ nextAusrueckung?.vonDatum | mkjDate: "E d. MMMM" }}
+                    {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
                     <b>{{ nextAusrueckung?.treffzeit }}</b>
                 </p>
                 <p>{{ nextAusrueckung?.ort }}</p>
@@ -34,6 +37,13 @@
                     Das ist die erste Demo-Version unserer App für die mobile
                     Vereinsverwaltung.
                 </p>
+                <p *ngIf="appMain.publicTestEnvironment">
+                    Du kannst hier rumklicksen wie du willst - nichts kann
+                    kaputt werden! Aber bitte sei so gut und schreib mir einen
+                    kurzen Bug-Report wenn du einen Fehler/Fehlermeldung etc.
+                    entdeckst oder du einen Verbesserungsvorschlag hast:
+                </p>
+                <button></button>
             </div>
         </div>
     </div>
