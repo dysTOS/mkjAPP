@@ -1,18 +1,17 @@
-import { ActivatedRoute } from "@angular/router";
 import {
-    Component,
     AfterViewInit,
-    Renderer2,
-    OnInit,
+    Component,
     OnDestroy,
+    OnInit,
+    Renderer2,
 } from "@angular/core";
-import { AppComponent } from "./app.component";
-import { first } from "rxjs";
-import { ServiceWorkerService } from "./services/service-worker.service";
-import { ThemeService } from "./services/theme.service";
+import { ActivatedRoute } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
-import { MenuLabels } from "./services/menu.service";
+import { first } from "rxjs";
 import { environment } from "src/environments/environment";
+import { AppComponent } from "./app.component";
+import { MenuLabels } from "./services/menu.service";
+import { ThemeService } from "./services/theme.service";
 
 @Component({
     selector: "app-main",
@@ -39,15 +38,14 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public version = "v0.1";
 
-    public publicTestEnvironment = environment.prefix === "publictest";
+    public publicTestEnvironment = environment.publictest;
 
     constructor(
         public renderer: Renderer2,
         public themeService: ThemeService,
         private primengConfig: PrimeNGConfig,
         public app: AppComponent,
-        private route: ActivatedRoute,
-        private serviceWorker: ServiceWorkerService
+        private route: ActivatedRoute
     ) {}
 
     public ngOnInit(): void {
