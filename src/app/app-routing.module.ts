@@ -1,5 +1,3 @@
-import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
-import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { AatestComponent } from "./components/aatest/aatest.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { SignupComponent } from "./pages/signup/signup.component";
@@ -19,7 +17,6 @@ import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-si
 import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
 import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
-import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
@@ -33,6 +30,11 @@ import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-w
 import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
 import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
+import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
+import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
+import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
+import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 
 @NgModule({
     imports: [
@@ -62,8 +64,7 @@ import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-d
                             path: "ausrueckungen",
                             component: AusrueckungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            data: {                            title: "Ausrückungen",
-                        },
+                            data: { title: "Ausrückungen" },
 
                             children: [
                                 {
@@ -155,29 +156,39 @@ import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-d
                                 },
                             ],
                         },
-
                         {
                             path: "tools/rechnungsgenerator",
                             component: RechnungsGeneratorComponent,
                             canActivate: [RouteGuard],
                         },
                         {
-                            path: "einstellungen/mitgliedsdaten",
-                            component: MitgliedPersonalEditComponent,
+                            path: "einstellungen",
+                            component: EinstellungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            canDeactivate: [EditDeactivateGuard],
+                            children: [
+                                {
+                                    path: "mitgliedsdaten",
+                                    component: MitgliedPersonalEditComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
+                                    path: "rollen",
+                                    component: RollenEditComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "lokal",
+                                    component: LokaleEinstellungenComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "bugreport",
+                                    component: BugReportComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                            ],
                         },
-                        {
-                            path: "einstellungen/rollen",
-                            component: RollenEditComponent,
-                            canActivate: [RouteGuard],
-                        },
-                        {
-                            path: "einstellungen/lokal",
-                            component: LokaleEinstellungenComponent,
-                            canActivate: [RouteGuard],
-                        },
-
                         {
                             path: "test",
                             component: AatestComponent,

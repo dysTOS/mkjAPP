@@ -14,9 +14,7 @@ import { MenuService } from "./services/menu.service";
 
             <div class="app-name font-bold" style="color: white">
                 <h3 *ngIf="!appMain.publicTestEnvironment">mkjAPP</h3>
-                <h3 *ngIf="appMain.publicTestEnvironment">
-                    mkjAPP - Testumgebung
-                </h3>
+                <h3 *ngIf="appMain.publicTestEnvironment">mkjAPP (TEST)</h3>
             </div>
 
             <a

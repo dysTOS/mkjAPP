@@ -64,14 +64,14 @@ export class MenuService implements OnDestroy {
             icon: "mdi mdi-music",
             enumLabel: MenuLabels.NOTEN,
             visible: false,
-            permission: PermissionMap.NOTENMAPPE_READ,
+            permission: PermissionMap.NOTEN_READ,
             children: [
                 {
                     label: "Archiv",
                     icon: "mdi mdi-archive-music-outline",
                     routerLink: "noten/archiv",
                     visible: false,
-                    permission: PermissionMap.NOTENMAPPE_READ,
+                    permission: PermissionMap.NOTEN_READ,
                 },
                 {
                     label: "Mappen",
@@ -118,9 +118,16 @@ export class MenuService implements OnDestroy {
                     permission: PermissionMap.ROLE_READ,
                 },
                 {
-                    label: "Lokal",
+                    label: "Lokale Einstellungen",
                     icon: "mdi mdi-cellphone-cog",
                     routerLink: "einstellungen/lokal",
+                    visible: false,
+                },
+                {
+                    label: "Bug Report",
+                    icon: "mdi mdi-bug-outline",
+                    routerLink: "einstellungen/bugreport",
+                    permission: PermissionMap.ROLE_ASSIGN,
                     visible: false,
                 },
             ],

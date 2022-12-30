@@ -157,6 +157,8 @@ import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
 import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
 import { FullNamePipe } from "./pipes/full-name.pipe";
+import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
+import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -277,6 +279,7 @@ registerLocaleData(localeDe);
         AppErrorComponent,
         AppAccessdeniedComponent,
         AusrueckungSingleComponent,
+        EinstellungenWrapperComponent,
         MkjDatePipe,
         MkjDashboardComponent,
         SignupComponent,
@@ -313,6 +316,7 @@ registerLocaleData(localeDe);
         GruppeDetailsComponent,
         MkjGruppeFormComponent,
         FullNamePipe,
+        BugReportComponent,
     ],
     providers: [
         mkjAppInitializer(),

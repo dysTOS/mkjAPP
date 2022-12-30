@@ -10,10 +10,8 @@ import { AppMainComponent } from "./app.main.component";
                     ><a href="https://www.mk-jainzen.at" target="_blank"></a
                 ></span>
                 <span class="footer-text-center"
-                    >{{
-                        appMain.publicTestEnvironment ? "TESTUMGEBUNG" : ""
-                    }}
-                    v{{ appMain.version }}</span
+                    >{{ appMain.publicTestEnvironment ? "TESTUMGEBUNG" : "" }}
+                    {{ appMain.version }}</span
                 >
                 <span class="footer-text-right">
                     <!-- <span><a href="https://www.gulaschmusi.at" target="_blank"></a></span> -->
