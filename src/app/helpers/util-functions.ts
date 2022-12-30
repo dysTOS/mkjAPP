@@ -20,6 +20,22 @@ export class UtilFunctions {
         return window.innerWidth > 1024;
     }
 
+    public static isDarkBackground(backgroundColor: string): boolean {
+        const color = backgroundColor.substring(1); // remove the leading '#'
+        const r = parseInt(color.substring(0, 2), 16);
+        const g = parseInt(color.substring(2, 4), 16);
+        const b = parseInt(color.substring(4, 6), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        if (luminance > 0.5) {
+            // use a dark font color for light backgrounds
+            return false;
+        } else {
+            // use a light font color for dark backgrounds
+            return true;
+        }
+    }
+
     public static getAusrueckungFormGroup(
         fb: FormBuilder,
         ausrueckung?: Ausrueckung

@@ -38,15 +38,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
         private infoService: InfoService,
         private mitgliederService: MitgliederService
     ) {
-        this.toolbarService.backButton = true;
-        this.toolbarService.buttons = [
-            {
-                label: "Löschen",
-                icon: "pi pi-trash",
-                click: () => this.deleteGruppe(),
-                permissions: [PermissionMap.GRUPPEN_DELETE],
-            },
-        ];
+        this.initToolbar();
 
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
@@ -58,7 +50,24 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
         }
     }
 
+    private initToolbar(): void {
+        this.toolbarService.backButton = true;
+        this.toolbarService.buttons = [
+            {
+                label: "Löschen",
+                icon: "pi pi-trash",
+                click: () => this.deleteGruppe(),
+                permissions: [PermissionMap.GRUPPEN_DELETE],
+            },
+        ];
+    }
+
     public canDeactivate(): boolean {
+        this.initToolbar();
+        const id = this.route.snapshot.params.id;
+        if (id === "neu") {
+            this.toolbarService.buttons[0].hidden = true;
+        }
         return this.formGroup?.pristine;
     }
 
@@ -88,6 +97,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
                 if (!this.formGroup.get("id").value) {
                     this.loadGruppe(res.id);
                 }
+                this.formGroup.markAsPristine();
             },
             error: (err) => {
                 this.infoService.error(err);

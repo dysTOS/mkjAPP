@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 
 @Component({
     selector: "mkj-tile",
@@ -24,11 +25,15 @@ export class MkjTileComponent {
 
     public colorStrong: string;
     public colorLight: string;
+    public textColor: string;
 
     constructor() {}
 
     public setColors(c: any) {
         this.colorStrong = c;
         this.colorLight = c + "b3";
+        this.textColor = UtilFunctions.isDarkBackground(c)
+            ? "#ffffff"
+            : "#000000";
     }
 }

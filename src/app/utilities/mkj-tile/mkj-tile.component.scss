@@ -16,7 +16,7 @@
     }
 
     &-label {
-        color: --color;
+        color: var(--text-color);
         opacity: 1;
     }
 }

@@ -71,7 +71,7 @@ export class MkjToolbarService implements OnInit, OnDestroy {
         });
     }
 
-    private resetToolbar() {
+    public resetToolbar() {
         this.backButton = false;
         this.header = null;
         this.contentSectionTemplate = null;
