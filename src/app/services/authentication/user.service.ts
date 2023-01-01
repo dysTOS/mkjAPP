@@ -6,6 +6,7 @@ import { Mitglied } from "../../models/Mitglied";
 import { User, Role, Permission } from "../../models/User";
 import { TokenService } from "./token.service";
 import { Gruppe } from "src/app/models/Gruppe";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",

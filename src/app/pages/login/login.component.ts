@@ -7,6 +7,7 @@ import { TokenService } from "src/app/services/authentication/token.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { UserLoginInput } from "src/app/interfaces/api-middleware";
+import { TestScheduler } from "rxjs/testing";
 
 @Component({
     selector: "app-login",
@@ -30,9 +31,16 @@ export class LoginComponent implements OnInit {
         private infoService: InfoService
     ) {}
 
-    ngOnInit(): void {}
+    public ngOnInit(): void {
+        if (environment.publictest) {
+            this.user = {
+                email: "testuser@test.at",
+                passwort: "test",
+            };
+        }
+    }
 
-    onSubmit() {
+    public onSubmit() {
         this.submitted = true;
         if (this.checkInput()) {
             this.isChecking = true;
