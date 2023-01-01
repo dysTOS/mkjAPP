@@ -10,6 +10,7 @@ export interface MkjToolbarButton {
     click?: (event: MouseEvent) => void;
     visible?: boolean;
     hidden?: boolean;
+    highlighted?: boolean;
 }
 
 @Injectable({

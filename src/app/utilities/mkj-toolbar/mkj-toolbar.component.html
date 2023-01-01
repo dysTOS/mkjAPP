@@ -36,6 +36,7 @@
                 pButton
                 pRipple
                 class="p-button p-button-text p-button-plain button-opacity p-1"
+                [class.button-highlighted]="button.highlighted"
                 [icon]="button.icon"
                 (click)="button.click($event)"
                 [pTooltip]="button.label"

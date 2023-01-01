@@ -71,16 +71,21 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
         private fb: FormBuilder,
-        private toolbarService: MkjToolbarService
+        public toolbarService: MkjToolbarService
     ) {
         this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
         this.toolbarService.header = "Termine";
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-search",
-                click: () =>
-                    (this.toolbarService.contentSectionExpanded =
-                        !this.toolbarService.contentSectionExpanded),
+                click: () => {
+                    this.toolbarService.contentSectionExpanded =
+                        !this.toolbarService.contentSectionExpanded;
+                    this.toolbarService.buttons[0].highlighted =
+                        this.toolbarService.contentSectionExpanded;
+                },
+                highlighted:
+                    this.toolbarService.contentSectionExpanded === true,
                 label: "Suchen",
             },
             {

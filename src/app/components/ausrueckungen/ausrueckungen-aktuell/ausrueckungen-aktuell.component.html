@@ -1,4 +1,15 @@
 <ng-template #toolbarContentSection>
+    <div class="flex justify-content-end mb-3">
+        <button
+            pButton
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="
+                toolbarService.contentSectionExpanded = false;
+                toolbarService.buttons[0].highlighted = false
+            "
+        ></button>
+    </div>
     <div class="flex flex-wrap justify-content-between align-items-center">
         <div>
             Anzahl:
@@ -30,9 +41,7 @@
                 [rowHover]="true"
                 dataKey="id"
                 styleClass="p-datatable-ausrueckungen p-datatable-striped rowexpand-table"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 responsiveLayout="scroll"
-                [showCurrentPageReport]="true"
                 [loading]="loading"
                 sortField="vonDatum"
                 (onFilter)="setFilteredRows($event)"
@@ -150,7 +159,8 @@
                         </td>
                         <td>
                             {{
-                                ausrueckung.vonDatum | mkjDate: "E d. MMMM YYYY"
+                                ausrueckung.vonDatum
+                                    | mkjDate : "E d. MMMM YYYY"
                             }}
                         </td>
                         <td class="not-on-small">
@@ -180,7 +190,7 @@
                                     <h5 class="m-1">
                                         {{
                                             ausrueckung?.vonDatum
-                                                | mkjDate: "d. MMMM YYYY"
+                                                | mkjDate : "d. MMMM YYYY"
                                         }}
                                         {{ ausrueckung?.vonZeit }}
                                     </h5>
@@ -208,7 +218,7 @@
                                         >
                                             {{
                                                 ausrueckung?.bisDatum
-                                                    | mkjDate: "d. MMMM YYYY"
+                                                    | mkjDate : "d. MMMM YYYY"
                                             }}
                                         </div>
                                         {{ ausrueckung?.bisZeit }}
