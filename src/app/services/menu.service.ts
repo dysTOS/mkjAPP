@@ -17,13 +17,13 @@ export class MenuService implements OnDestroy {
             visible: false,
         },
         {
-            label: "Ausrückungen",
+            label: "Termine",
             icon: "pi pi-fw pi-calendar",
             enumLabel: MenuLabels.AUSRUECKUNGEN,
             visible: false,
             children: [
                 {
-                    label: "Ausrückungen " + new Date().getFullYear(),
+                    label: "Terminübersicht",
                     icon: "pi pi-fw pi-calendar",
                     routerLink: "ausrueckungen/aktuell",
                 },

@@ -1,7 +1,4 @@
-import {
-    AusrueckungKategorieMap,
-    AusrueckungStatusMap,
-} from "src/app/models/Ausrueckung";
+import { TerminKategorieMap, TerminStatusMap } from "src/app/models/Termin";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import * as moment from "moment";
 import { FormBuilder, FormGroup } from "@angular/forms";
@@ -42,8 +39,8 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
         );
     }
 
-    public readonly KategorieMap = AusrueckungKategorieMap;
-    public readonly StatusMap = AusrueckungStatusMap;
+    public readonly KategorieMap = TerminKategorieMap;
+    public readonly StatusMap = TerminStatusMap;
     public GruppenMap: { label: string; value: string }[];
 
     public severalDays: boolean = false;

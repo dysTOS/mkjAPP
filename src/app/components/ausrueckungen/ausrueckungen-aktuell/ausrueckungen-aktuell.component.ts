@@ -11,14 +11,12 @@ import {
 import { Router, ActivatedRoute } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import {
-    Ausrueckung,
-    AusrueckungFilterInput,
-    ZeitraumOptions,
-    AusrueckungCsvColumnMap,
-    AusrueckungKategorieMap,
-    AusrueckungStatusMap,
-} from "src/app/models/Ausrueckung";
-import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
+    Termin as Termin,
+    TerminCsvColumnMap,
+    TerminKategorieMap,
+    TerminStatusMap,
+} from "src/app/models/Termin";
+import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { ExportService } from "src/app/services/export.service";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { InfoService } from "src/app/services/info.service";
@@ -26,6 +24,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -36,24 +35,20 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     zeitraumDialog: boolean;
     exportDialogVisible: boolean = false;
 
-    ausrueckungenArray: Ausrueckung[];
-    ausrueckungFilterInput: AusrueckungFilterInput;
-    filteredRows: Ausrueckung[];
+    ausrueckungenArray: Termin[];
+    ausrueckungFilterInput: GetCollectionApiCallInput;
+    filteredRows: Termin[];
 
-    vonBisZeitraum: Date[] = [];
-    zeitraumDisplayText: string;
-    actualYear = new Date().getFullYear().toString();
-    actualDate = moment(new Date()).format("YYYY-MM-DD").toString();
-    ZeitraumOptions = ZeitraumOptions;
+    actualDate = moment(new Date()).format("YYYY-MM-DD");
 
     submitted: boolean;
     updateAusrueckung: boolean;
     loading: boolean;
     isSaving: boolean;
 
-    cols = AusrueckungCsvColumnMap; //columns for csv export
-    kategorien = AusrueckungKategorieMap;
-    status = AusrueckungStatusMap;
+    cols = TerminCsvColumnMap; //columns for csv export
+    kategorien = TerminKategorieMap;
+    status = TerminStatusMap;
 
     @ViewChild("dt") ausrueckungenTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
@@ -63,7 +58,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     selectedRow: any;
 
     constructor(
-        private ausrueckungService: AusrueckungenService,
+        private termineApiService: TermineApiService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService,
         private router: Router,
@@ -77,7 +72,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.toolbarService.header = "Termine";
         this.toolbarService.buttons = [
             {
-                icon: "pi pi-search",
+                icon: "pi pi-filter",
                 click: () => {
                     this.toolbarService.contentSectionExpanded =
                         !this.toolbarService.contentSectionExpanded;
@@ -86,7 +81,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
                 },
                 highlighted:
                     this.toolbarService.contentSectionExpanded === true,
-                label: "Suchen",
+                label: "Filtern/Suchen",
             },
             {
                 icon: "pi pi-plus",
@@ -103,35 +98,38 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     }
 
     public ngOnInit() {
-        if (sessionStorage.getItem("ausrueckungenFilter") != null) {
-            let filter = sessionStorage.getItem("ausrueckungenFilter");
-            this.zeitraumDisplayText = this.generateZeitraumDisplayText(
-                JSON.parse(filter)
-            );
-            this.ausrueckungFilterInput = JSON.parse(filter);
-        } else {
-            this.zeitraumDisplayText = this.actualYear;
-            this.ausrueckungFilterInput = {
-                vonFilter: this.actualYear + "-01-01 00:00:00",
-                bisFilter: Number(this.actualYear) + 1 + "-12-31 23:59:59",
-                alle: false,
-            };
-        }
+        this.ausrueckungFilterInput = {
+            filter: [
+                {
+                    filterField: "vonDatum",
+                    value: new Date().getFullYear() + "-01-01",
+                    operator: ">=",
+                },
+                {
+                    filterField: "bisDatum",
+                    value: new Date().getFullYear() + "-12-31",
+                    operator: "<=",
+                },
+            ],
+        };
+        this.loadTermine();
+    }
 
+    public loadTermine(): void {
         this.loading = true;
-        if (this.ausrueckungFilterInput.alle) this.getAllAusrueckungen();
-        else {
-            this.ausrueckungService
-                .getAusrueckungenFiltered(this.ausrueckungFilterInput)
-                .subscribe(
-                    (ausrueckungen) => (
-                        (this.ausrueckungenArray = ausrueckungen),
-                        (this.filteredRows = ausrueckungen)
-                    ),
-                    (error) => this.infoService.error(error),
-                    () => (this.loading = false)
-                );
-        }
+        this.termineApiService
+            .getTermineFiltered(this.ausrueckungFilterInput)
+            .subscribe({
+                next: (res) => {
+                    this.ausrueckungenArray = res.values;
+                    this.filteredRows = res.values;
+                    this.loading = false;
+                },
+                error: (error) => {
+                    this.infoService.error(error);
+                    this.loading = false;
+                },
+            });
     }
 
     public ngAfterViewInit(): void {
@@ -152,7 +150,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.ausrueckungDialog = true;
     }
 
-    public editAusrueckung(ausrueckung: Ausrueckung) {
+    public editAusrueckung(ausrueckung: Termin) {
         if (!UtilFunctions.isDesktop()) {
             this.navigateEditor(ausrueckung);
             return;
@@ -166,28 +164,26 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.ausrueckungDialog = true;
     }
 
-    deleteAusrueckung(ausrueckung: Ausrueckung) {
+    deleteAusrueckung(ausrueckung: Termin) {
         this.confirmationService.confirm({
             header: "Ausrückung löschen?",
             icon: "pi pi-exclamation-triangle",
             accept: () => {
                 this.loading = true;
-                this.ausrueckungService
-                    .deleteAusrueckung(ausrueckung)
-                    .subscribe(
-                        () => {
-                            this.ausrueckungenArray =
-                                this.ausrueckungenArray.filter(
-                                    (val) => val.id !== ausrueckung.id
-                                );
-                            this.loading = false;
-                            this.infoService.success("Ausrückung gelöscht!");
-                        },
-                        (error) => {
-                            this.infoService.error(error);
-                            this.loading = false;
-                        }
-                    );
+                this.termineApiService.deleteTermin(ausrueckung).subscribe(
+                    () => {
+                        this.ausrueckungenArray =
+                            this.ausrueckungenArray.filter(
+                                (val) => val.id !== ausrueckung.id
+                            );
+                        this.loading = false;
+                        this.infoService.success("Ausrückung gelöscht!");
+                    },
+                    (error) => {
+                        this.infoService.error(error);
+                        this.loading = false;
+                    }
+                );
             },
         });
     }
@@ -207,52 +203,48 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         if (saveAusrueckung.id) {
             //update
             let index = this.findIndexById(saveAusrueckung.id);
-            this.ausrueckungService
-                .updateAusrueckung(saveAusrueckung)
-                .subscribe(
-                    (ausrueckungFromAPI) => (
-                        (this.ausrueckungenArray[index] = ausrueckungFromAPI),
-                        (this.ausrueckungenArray = [...this.ausrueckungenArray])
-                    ),
-                    (error) => {
-                        this.infoService.error(error);
-                        this.isSaving = false;
-                    },
-                    () => {
-                        this.infoService.success("Ausrückung aktualisert!");
-                        this.isSaving = false;
-                        this.ausrueckungDialog = false;
-                    }
-                );
+            this.termineApiService.updateTermin(saveAusrueckung).subscribe(
+                (ausrueckungFromAPI) => (
+                    (this.ausrueckungenArray[index] = ausrueckungFromAPI),
+                    (this.ausrueckungenArray = [...this.ausrueckungenArray])
+                ),
+                (error) => {
+                    this.infoService.error(error);
+                    this.isSaving = false;
+                },
+                () => {
+                    this.infoService.success("Ausrückung aktualisert!");
+                    this.isSaving = false;
+                    this.ausrueckungDialog = false;
+                }
+            );
         } else {
             //neue
-            this.ausrueckungService
-                .createAusrueckung(saveAusrueckung)
-                .subscribe(
-                    (ausrueckungAPI) => {
-                        this.ausrueckungenArray = [
-                            ausrueckungAPI,
-                            ...this.ausrueckungenArray,
-                        ];
-                        this.ausrueckungenTable.sort({
-                            field: "vonDatum",
-                            order: "1",
-                        });
-                    },
-                    (error) => {
-                        this.infoService.error(error);
-                        this.isSaving = false;
-                    },
-                    () => {
-                        this.infoService.success("Ausrückung angelegt!");
-                        this.isSaving = false;
-                        this.ausrueckungDialog = false;
-                    }
-                );
+            this.termineApiService.createTermin(saveAusrueckung).subscribe(
+                (ausrueckungAPI) => {
+                    this.ausrueckungenArray = [
+                        ausrueckungAPI,
+                        ...this.ausrueckungenArray,
+                    ];
+                    this.ausrueckungenTable.sort({
+                        field: "vonDatum",
+                        order: "1",
+                    });
+                },
+                (error) => {
+                    this.infoService.error(error);
+                    this.isSaving = false;
+                },
+                () => {
+                    this.infoService.success("Ausrückung angelegt!");
+                    this.isSaving = false;
+                    this.ausrueckungDialog = false;
+                }
+            );
         }
     }
 
-    duplicateAusrueckung(ausrueckung: Ausrueckung) {
+    duplicateAusrueckung(ausrueckung: Termin) {
         this.loading = true;
         const duplicateAusrueckung = _.cloneDeep(ausrueckung);
         duplicateAusrueckung.id = null;
@@ -260,111 +252,27 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         duplicateAusrueckung.updated_at = null;
         duplicateAusrueckung.name = duplicateAusrueckung.name + " - Kopie";
 
-        this.ausrueckungService
-            .createAusrueckung(duplicateAusrueckung)
-            .subscribe({
-                next: (res) => {
-                    this.ausrueckungenArray = [res, ...this.ausrueckungenArray];
-                    this.editAusrueckung(res);
-                    this.infoService.success("Ausrückung dupliziert!");
-                    this.loading = false;
-                },
-                error: (err) => {
-                    this.infoService.error(err);
-                    this.loading = false;
-                },
-            });
-    }
-
-    getAllAusrueckungen() {
-        this.zeitraumDisplayText = "(alle)";
-        this.ausrueckungFilterInput.alle = true;
-        sessionStorage.setItem(
-            "ausrueckungenFilter",
-            JSON.stringify(this.ausrueckungFilterInput)
-        );
-        this.loading = true;
-        this.ausrueckungService.getAusrueckungen().subscribe(
-            (ausrueckungen) => {
-                this.ausrueckungenArray = ausrueckungen;
-                this.filteredRows = ausrueckungen;
+        this.termineApiService.createTermin(duplicateAusrueckung).subscribe({
+            next: (res) => {
+                this.ausrueckungenArray = [res, ...this.ausrueckungenArray];
+                this.editAusrueckung(res);
+                this.infoService.success("Ausrückung dupliziert!");
                 this.loading = false;
             },
-            (error) => {
-                this.infoService.error(error);
+            error: (err) => {
+                this.infoService.error(err);
                 this.loading = false;
-            }
-        );
+            },
+        });
     }
 
-    saveZeitraum(zeitraum: ZeitraumOptions) {
-        if (
-            zeitraum == ZeitraumOptions.SpecificRange &&
-            this.vonBisZeitraum[0] &&
-            this.vonBisZeitraum[1]
-        ) {
-            this.ausrueckungFilterInput = {
-                vonFilter: moment(new Date(this.vonBisZeitraum[0]))
-                    .format("YYYY-MM-DD HH:mm:ss")
-                    .toString(),
-                bisFilter: moment(new Date(this.vonBisZeitraum[1]))
-                    .format("YYYY-MM-DD HH:mm:ss")
-                    .toString(),
-                alle: false,
-            };
-            this.zeitraumDisplayText = this.generateZeitraumDisplayText(
-                this.ausrueckungFilterInput
-            );
-            sessionStorage.setItem(
-                "ausrueckungenFilter",
-                JSON.stringify(this.ausrueckungFilterInput)
-            );
-        } else if (zeitraum == ZeitraumOptions.ActualYear) {
-            this.zeitraumDisplayText = new Date().getFullYear().toString();
-            let year = new Date().getFullYear();
-            this.ausrueckungFilterInput = {
-                vonFilter: year + "-01-01 00:00:00",
-                bisFilter: year + "-12-31 23:59:59",
-                alle: false,
-            };
-            sessionStorage.removeItem("ausrueckungenFilter");
-        }
-
-        this.loading = true;
-        this.ausrueckungService
-            .getAusrueckungenFiltered(this.ausrueckungFilterInput)
-            .subscribe(
-                (ausrueckungen) => {
-                    this.ausrueckungenArray = ausrueckungen;
-                    this.filteredRows = [...ausrueckungen];
-                    this.loading = false;
-                },
-                (error) => {
-                    this.infoService.error(error);
-                    this.loading = false;
-                }
-            );
-
-        this.zeitraumDialog = false;
-    }
-
-    generateZeitraumDisplayText(filter: AusrueckungFilterInput): string {
-        return (
-            moment(filter.vonFilter).format("D.MM.YYYY") +
-            " bis " +
-            moment(filter.bisFilter).format("D.MM.YYYY")
-        );
-    }
-
-    navigateSingleAusrueckung(ausrueckung: Ausrueckung) {
-        this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
+    navigateSingleAusrueckung(ausrueckung: Termin) {
         this.router.navigate(["../", ausrueckung.id], {
             relativeTo: this.route,
         });
     }
 
-    private navigateEditor(ausrueckung?: Ausrueckung) {
-        this.ausrueckungService.setSelectedAusrueckung(ausrueckung);
+    private navigateEditor(ausrueckung?: Termin) {
         if (ausrueckung) {
             this.router.navigate(["../", ausrueckung.id], {
                 relativeTo: this.route,
@@ -403,7 +311,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.ausrueckungenTable.exportCSV({ filteredValues: true });
     }
 
-    exportPdf() {
+    public exportPdf() {
         const columns = [
             { title: "Name", dataKey: "name" },
             { title: "Datum", dataKey: "vonDatum" },
@@ -421,21 +329,27 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             return ausr;
         });
 
-        this.exportService.savePDF(
-            columns,
-            rows,
-            "Ausrückungen " + this.zeitraumDisplayText
-        );
+        this.exportService.savePDF(columns, rows, "Ausrückungen");
     }
 
-    exportExcel() {
-        this.exportService.exportExcel(
-            this.filteredRows,
-            "Ausrückungen " + this.zeitraumDisplayText
-        );
+    public exportExcel() {
+        this.exportService.exportExcel(this.filteredRows, "Ausrückungen");
     }
 
-    exportToCalendar(ausrueckung: Ausrueckung) {
+    public exportToCalendar(ausrueckung: Termin) {
         this.exportService.exportAusrueckungIcs(ausrueckung);
+    }
+
+    public setFilterInputDates(filterIndex: number, value: string) {
+        if (!value) {
+            this.ausrueckungFilterInput.filter[filterIndex] = null;
+        } else {
+            this.ausrueckungFilterInput.filter[filterIndex] = {
+                value: value,
+                operator: filterIndex === 0 ? ">=" : "<=",
+                filterField: filterIndex === 0 ? "vonDatum" : "bisDatum",
+            };
+        }
+        this.loadTermine();
     }
 }

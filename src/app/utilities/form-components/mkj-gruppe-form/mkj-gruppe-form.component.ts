@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Mitglied } from "src/app/models/Mitglied";
 import { FullNamePipe } from "src/app/pipes/full-name.pipe";
-import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 
 @Component({
     selector: "mkj-gruppe-form",
@@ -27,7 +27,7 @@ export class MkjGruppeFormComponent {
     public mitgliederSearchResult: { name: string; mitglied: Mitglied }[];
 
     constructor(
-        private mitgliederService: MitgliederService,
+        private mitgliederService: MitgliederApiService,
         private fullNamePipe: FullNamePipe
     ) {}
 

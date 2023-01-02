@@ -37,6 +37,10 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
         .p-datepicker-title {
             line-height: $actionIconHeight;
 
+            > .p-link {
+                color: $primaryColor !important;
+            }
+
             select {
                 transition: $formElementTransition;
 
@@ -78,7 +82,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
                     color: $highlightTextColor;
                     background: $highlightBg;
                 }
-                
+
                 &:focus {
                     @include focused();
                 }
@@ -114,9 +118,9 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 
         button {
             @include action-icon();
-            
+
             &:last-child {
-                margin-top: .2em;
+                margin-top: 0.2em;
             }
         }
 
@@ -198,13 +202,13 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
             }
         }
     }
-
 }
 
 @media screen and (max-width: $calendarBreakpoint) {
     .p-datepicker {
         table {
-            th, td {
+            th,
+            td {
                 padding: $calendarCellDatePaddingSM;
             }
         }

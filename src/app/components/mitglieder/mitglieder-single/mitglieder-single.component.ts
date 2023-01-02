@@ -2,7 +2,7 @@ import { ConfirmationService } from "primeng/api";
 import { RoleService } from "../../../services/role.service";
 import { PermissionMap, Role } from "../../../models/User";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MitgliederService } from "../../../services/mitglieder.service";
+import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 import { Component, OnInit } from "@angular/core";
 import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
@@ -27,7 +27,7 @@ export class MitgliederSingleComponent implements OnInit {
     mitgliedSaving: boolean = false;
 
     constructor(
-        private mitgliederService: MitgliederService,
+        private mitgliederService: MitgliederApiService,
         private roleService: RoleService,
         private confirmationService: ConfirmationService,
         private router: Router,

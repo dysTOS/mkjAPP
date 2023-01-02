@@ -1326,7 +1326,7 @@ body a {
   height: 25px;
 }
 .layout-wrapper .topbar #topbar-menu-button {
-  font-size: 28px;
+  font-size: 32px;
   margin: 12px 20px 0 0;
   display: none;
   float: right;
@@ -3336,6 +3336,9 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-title {
   line-height: 2.5rem;
 }
+.p-datepicker .p-datepicker-header .p-datepicker-title > .p-link {
+  color: #006600 !important;
+}
 .p-datepicker .p-datepicker-header .p-datepicker-title select {
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
@@ -3473,7 +3476,8 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 
 @media screen and (max-width: 769px) {
-  .p-datepicker table th, .p-datepicker table td {
+  .p-datepicker table th,
+.p-datepicker table td {
     padding: 0;
   }
 }

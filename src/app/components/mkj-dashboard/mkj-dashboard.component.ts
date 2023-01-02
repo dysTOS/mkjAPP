@@ -1,7 +1,7 @@
 import { AppMainComponent } from "../../app.main.component";
 import { Mitglied } from "src/app/models/Mitglied";
-import { AusrueckungenService } from "../../services/ausrueckungen.service";
-import { Ausrueckung } from "src/app/models/Ausrueckung";
+import { TermineApiService } from "../../services/api/termine-api.service";
+import { Termin } from "src/app/models/Termin";
 import { Component, OnInit } from "@angular/core";
 import { MenuLabels } from "src/app/services/menu.service";
 import { UserService } from "src/app/services/authentication/user.service";
@@ -12,21 +12,21 @@ import { UserService } from "src/app/services/authentication/user.service";
     styleUrls: ["./mkj-dashboard.component.scss"],
 })
 export class MkjDashboardComponent implements OnInit {
-    nextAusrueckung: Ausrueckung;
+    nextAusrueckung: Termin;
     nextAusrueckungLoading: boolean = false;
 
     currentMitglied: Mitglied;
     MenuLabels = MenuLabels;
 
     constructor(
-        private ausrueckungService: AusrueckungenService,
+        private ausrueckungService: TermineApiService,
         public userService: UserService,
         public appMain: AppMainComponent
     ) {}
 
     ngOnInit(): void {
         this.nextAusrueckungLoading = true;
-        this.ausrueckungService.getNextAusrueckung().subscribe(
+        this.ausrueckungService.getNextTermin().subscribe(
             (ausrueckung) => {
                 (this.nextAusrueckung = ausrueckung),
                     (this.nextAusrueckungLoading = false);

@@ -22,7 +22,7 @@ import { MenuService } from "./services/menu.service";
                 href="#"
                 (click)="appMain.onTopbarMenuButtonClick($event)"
             >
-                <i class="pi pi-bars"></i>
+                <i class="pi pi-bars" style="font-size: 25px"></i>
             </a>
 
             <p-sidebar

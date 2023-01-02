@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Injector, Input } from "@angular/core";
+import {
+    AfterViewInit,
+    Component,
+    EventEmitter,
+    Injector,
+    Input,
+    Output,
+} from "@angular/core";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
 import * as moment from "moment";
 import { ControlValueAccessor, NgControl } from "@angular/forms";
@@ -24,13 +31,33 @@ export class MkjDateInputComponent
     @Input()
     public label: string;
 
+    @Input()
     public internModel: Date | string;
+
+    @Output()
+    public valueChanged = new EventEmitter<string | Date>();
 
     public MkjDateType = MkjDateType;
 
     public _registerOnChange: (_: any) => void;
     public _registerOnTouched: () => void;
     public isDisabled: boolean = false;
+
+    private _value: string | Date;
+    @Input()
+    public get value(): string | Date {
+        return this._value;
+    }
+    public set value(value: string | Date) {
+        this._value = value;
+        if (!value) {
+            this.internModel = null;
+        } else if (this.type === MkjDateType.TIME) {
+            this.internModel = value;
+        } else {
+            this.internModel = new Date(value);
+        }
+    }
 
     ngControl: NgControl;
 
@@ -45,12 +72,15 @@ export class MkjDateInputComponent
             switch (this.type) {
                 case MkjDateType.DATE:
                     this.internModel = new Date(obj);
+
                     break;
                 case MkjDateType.TIME:
                     this.internModel = obj;
+
                     break;
                 case MkjDateType.COMBINED:
                     this.internModel = new Date(obj);
+
                     break;
             }
         } else {
@@ -72,21 +102,25 @@ export class MkjDateInputComponent
 
     public onModelChange(newDate: Date | string) {
         if (!newDate) {
-            this._registerOnChange(null);
+            this.valueChanged.emit(null);
+            this._registerOnChange?.(null);
             return;
         }
 
         switch (this.type) {
             case MkjDateType.DATE:
-                this._registerOnChange(moment(newDate).format("YYYY-MM-DD"));
+                const date = moment(newDate).format("YYYY-MM-DD");
+                this.valueChanged.emit(date);
+                this._registerOnChange?.(date);
                 break;
             case MkjDateType.TIME:
-                this._registerOnChange(newDate);
+                this.valueChanged.emit(newDate);
+                this._registerOnChange?.(newDate);
                 break;
             case MkjDateType.COMBINED:
-                this._registerOnChange(
-                    moment(newDate).format("YYYY-MM-DD hh:mm:ss")
-                );
+                const combined = moment(newDate).format("YYYY-MM-DD hh:mm:ss");
+                this.valueChanged.emit(date);
+                this._registerOnChange?.(combined);
                 break;
         }
     }

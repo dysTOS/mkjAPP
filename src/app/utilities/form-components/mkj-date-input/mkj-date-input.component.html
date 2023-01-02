@@ -13,7 +13,7 @@
         [readonlyInput]="true"
         [appendTo]="'body'"
         [disabled]="isDisabled"
-        (onBlur)="_registerOnTouched()"
+        (onBlur)="_registerOnTouched?.()"
         [class.ng-dirty]="ngControl?.control.invalid"
         [class.ng-invalid]="ngControl?.control.invalid"
     ></p-calendar>

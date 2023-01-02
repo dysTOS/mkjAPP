@@ -1,4 +1,4 @@
-import { Ausrueckung } from "../models/Ausrueckung";
+import { Termin } from "../models/Termin";
 import { Injectable } from "@angular/core";
 import * as ics from "ics";
 import * as FileSaver from "file-saver";
@@ -13,7 +13,7 @@ import { InfoService } from "./info.service";
 export class ExportService {
     constructor(private infoService: InfoService) {}
 
-    public exportAusrueckungIcs(ausrueckung: Ausrueckung) {
+    public exportAusrueckungIcs(ausrueckung: Termin) {
         const event: ics.EventAttributes = {
             start: [
                 moment(ausrueckung.vonDatum).year(),

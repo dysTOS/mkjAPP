@@ -8,7 +8,7 @@ import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
-import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
@@ -36,7 +36,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
         private router: Router,
         private gruppenService: GruppenApiService,
         private infoService: InfoService,
-        private mitgliederService: MitgliederService
+        private mitgliederService: MitgliederApiService
     ) {
         this.initToolbar();
 

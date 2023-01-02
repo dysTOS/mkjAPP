@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
-import { AusrueckungenService } from "src/app/services/ausrueckungen.service";
+import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -22,7 +22,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
-        private ausrueckungService: AusrueckungenService,
+        private ausrueckungService: TermineApiService,
         private infoService: InfoService,
         public location: Location,
         private toolbarService: MkjToolbarService
@@ -45,7 +45,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
 
     private loadAusrueckung(id: string) {
         this.loading = true;
-        this.ausrueckungService.getSingleAusrueckung(id).subscribe({
+        this.ausrueckungService.getSingleTermin(id).subscribe({
             next: (res) => {
                 this.formGroup = UtilFunctions.getAusrueckungFormGroup(
                     this.fb,
@@ -65,33 +65,29 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         const saveAusrueckung = this.formGroup?.getRawValue();
         this.saving = true;
         if (saveAusrueckung.id) {
-            this.ausrueckungService
-                .updateAusrueckung(saveAusrueckung)
-                .subscribe({
-                    next: (res) => {
-                        this.infoService.success("Ausrückung aktualisiert!");
-                        this.formGroup.markAsPristine();
-                        this.location.back();
-                    },
-                    error: (err) => {
-                        this.infoService.error(err);
-                        this.saving = false;
-                    },
-                });
+            this.ausrueckungService.updateTermin(saveAusrueckung).subscribe({
+                next: (res) => {
+                    this.infoService.success("Ausrückung aktualisiert!");
+                    this.formGroup.markAsPristine();
+                    this.location.back();
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.saving = false;
+                },
+            });
         } else {
-            this.ausrueckungService
-                .createAusrueckung(saveAusrueckung)
-                .subscribe({
-                    next: (res) => {
-                        this.infoService.success("Ausrückung erstellt!");
-                        this.formGroup.markAsPristine();
-                        this.location.back();
-                    },
-                    error: (err) => {
-                        this.infoService.error(err);
-                        this.saving = false;
-                    },
-                });
+            this.ausrueckungService.createTermin(saveAusrueckung).subscribe({
+                next: (res) => {
+                    this.infoService.success("Ausrückung erstellt!");
+                    this.formGroup.markAsPristine();
+                    this.location.back();
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.saving = false;
+                },
+            });
         }
     }
 }

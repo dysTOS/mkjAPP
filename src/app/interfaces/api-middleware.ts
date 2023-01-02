@@ -11,8 +11,8 @@ export interface GetCollectionApiCallInput {
     };
     filter?: Array<{
         filterField?: string;
-        value?: string;
-        operator?: "=" | "like" | ">" | "<";
+        value?: any;
+        operator?: "=" | "like" | ">" | "<" | ">=" | "<=";
     }>;
 }
 

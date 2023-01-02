@@ -139,7 +139,6 @@ import { NotenWrapperComponent } from "./components/noten/noten-wrapper.componen
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { AuthInterceptor } from "./guards/auth-interceptor";
 import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
@@ -159,6 +158,7 @@ import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-f
 import { FullNamePipe } from "./pipes/full-name.pipe";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
+import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -219,6 +219,7 @@ registerLocaleData(localeDe);
         MessagesModule,
         MultiSelectModule,
         OrderListModule,
+        TriStateCheckboxModule,
         OrganizationChartModule,
         OverlayPanelModule,
         PaginatorModule,
@@ -304,7 +305,6 @@ registerLocaleData(localeDe);
         LokaleEinstellungenComponent,
         KalenderaboComponent,
         AusrueckungenAktuellComponent,
-        AusrueckungenArchivComponent,
         MkjContentLoaderComponent,
         MkjTemplateDirective,
         AusrueckungFormComponent,

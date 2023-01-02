@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { ActivatedRoute } from "@angular/router";
-import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 
 @Component({
     selector: "app-mitglied-editor",
@@ -16,7 +16,7 @@ export class MitgliedEditorComponent {
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
-        private mitgliedService: MitgliederService
+        private mitgliedService: MitgliederApiService
     ) {
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {

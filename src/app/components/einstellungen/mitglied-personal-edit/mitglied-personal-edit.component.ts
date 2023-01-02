@@ -7,7 +7,7 @@ import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class MitgliedPersonalEditComponent
 
     constructor(
         private userservice: UserService,
-        private mitgliederService: MitgliederService,
+        private mitgliederService: MitgliederApiService,
         private infoService: InfoService,
         private fb: FormBuilder,
         private toolbarService: MkjToolbarService

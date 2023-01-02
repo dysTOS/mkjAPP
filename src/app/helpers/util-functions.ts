@@ -1,5 +1,5 @@
 import { FormBuilder, Validators } from "@angular/forms";
-import { Ausrueckung } from "../models/Ausrueckung";
+import { Termin } from "../models/Termin";
 import { Gruppe } from "../models/Gruppe";
 import { Mitglied } from "../models/Mitglied";
 import { Noten } from "../models/Noten";
@@ -38,7 +38,7 @@ export class UtilFunctions {
 
     public static getAusrueckungFormGroup(
         fb: FormBuilder,
-        ausrueckung?: Ausrueckung
+        ausrueckung?: Termin
     ) {
         return fb.group({
             id: [ausrueckung?.id ?? null],

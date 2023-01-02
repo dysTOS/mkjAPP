@@ -22,7 +22,6 @@ import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrue
 import { environment } from "src/environments/environment";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
 import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AusrueckungenArchivComponent } from "./components/ausrueckungen/ausrueckungen-archiv/ausrueckungen-archiv.component";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
@@ -54,27 +53,23 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                     path: environment.prefix,
                     component: AppMainComponent,
                     canActivate: [GlobalRouteGuard],
+                    title: environment.publictest ? "mkjAPP (TEST)" : "mkjAPP",
                     children: [
                         {
                             path: "dashboard",
                             component: MkjDashboardComponent,
+                            title: "mkjAPP - DASHBOARD",
                             canActivate: [RouteGuard],
                         },
                         {
                             path: "ausrueckungen",
                             component: AusrueckungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            data: { title: "Ausrückungen" },
-
+                            title: "mkjAPP - TERMINE",
                             children: [
                                 {
                                     path: "aktuell",
                                     component: AusrueckungenAktuellComponent,
-                                    canActivate: [RouteGuard],
-                                },
-                                {
-                                    path: "archiv",
-                                    component: AusrueckungenArchivComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
@@ -110,6 +105,7 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                             path: "mitglieder",
                             component: MitgliederWrapperComponent,
                             canActivate: [RouteGuard],
+                            title: "mkjAPP - MITGLIEDER",
                             children: [
                                 {
                                     path: "liste",
@@ -143,6 +139,7 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                             path: "noten",
                             component: NotenWrapperComponent,
                             canActivate: [RouteGuard],
+                            title: "mkjAPP - NOTEN",
                             children: [
                                 {
                                     path: "archiv",
@@ -165,6 +162,8 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                             path: "einstellungen",
                             component: EinstellungenWrapperComponent,
                             canActivate: [RouteGuard],
+                            title: "mkjAPP - EINSTELLUNGEN",
+
                             children: [
                                 {
                                     path: "mitgliedsdaten",

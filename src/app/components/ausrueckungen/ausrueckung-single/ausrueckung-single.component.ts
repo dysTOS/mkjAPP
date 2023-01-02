@@ -1,11 +1,11 @@
 import { ExportService } from "../../../services/export.service";
-import { MitgliederService } from "../../../services/mitglieder.service";
+import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 import { Mitglied } from "src/app/models/Mitglied";
 import { NotenService } from "../../../services/noten.service";
-import { AusrueckungenService } from "../../../services/ausrueckungen.service";
+import { TermineApiService } from "../../../services/api/termine-api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { Ausrueckung } from "src/app/models/Ausrueckung";
+import { Termin } from "src/app/models/Termin";
 import { Noten } from "src/app/models/Noten";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -16,7 +16,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     styleUrls: ["./ausrueckung-single.component.scss"],
 })
 export class AusrueckungSingleComponent implements OnInit {
-    ausrueckung: Ausrueckung;
+    ausrueckung: Termin;
 
     loading: boolean = true;
     notenLoading: boolean = true;
@@ -31,9 +31,9 @@ export class AusrueckungSingleComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private ausrueckungenService: AusrueckungenService,
+        private ausrueckungenService: TermineApiService,
         private infoService: InfoService,
-        private mitgliedService: MitgliederService,
+        private mitgliedService: MitgliederApiService,
         private notenService: NotenService,
         private calExport: ExportService,
         private toolbarService: MkjToolbarService
@@ -43,25 +43,16 @@ export class AusrueckungSingleComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.ausrueckungenService.hasSelectedAusrueckung()) {
-            this.ausrueckung =
-                this.ausrueckungenService.getSelectedAusrueckung();
-            this.loading = false;
-            this.getGespielteNoten();
-            this.getAktiveMitglieder(this.ausrueckung.id);
-        } else {
-            this.route.params.subscribe((e) => {
-                this.getAktiveMitglieder(e.id);
-                this.ausrueckungenService.getSingleAusrueckung(e.id).subscribe(
-                    (ausrueckung) => {
-                        (this.ausrueckung = ausrueckung),
-                            this.getGespielteNoten();
-                    },
-                    (error) => this.infoService.error(error),
-                    () => (this.loading = false)
-                );
-            });
-        }
+        this.route.params.subscribe((e) => {
+            this.getAktiveMitglieder(e.id);
+            this.ausrueckungenService.getSingleTermin(e.id).subscribe(
+                (ausrueckung) => {
+                    (this.ausrueckung = ausrueckung), this.getGespielteNoten();
+                },
+                (error) => this.infoService.error(error),
+                () => (this.loading = false)
+            );
+        });
     }
 
     getAktiveMitglieder(id: string) {

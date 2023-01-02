@@ -1,11 +1,11 @@
 import { Router, ActivatedRoute } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
 import { Mitglied } from "src/app/models/Mitglied";
-import { MitgliederService } from "src/app/services/mitglieder.service";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
@@ -24,8 +24,10 @@ export class MitgliederListComponent implements OnInit {
 
     public formGroup: FormGroup;
 
+    @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
+
     constructor(
-        private mitgliederService: MitgliederService,
+        private mitgliederService: MitgliederApiService,
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
@@ -42,8 +44,15 @@ export class MitgliederListComponent implements OnInit {
             },
             {
                 icon: "pi pi-filter",
-                click: () => (this.filterDialogVisible = true),
-                label: "Filter",
+                click: () => {
+                    this.toolbarService.contentSectionExpanded =
+                        !this.toolbarService.contentSectionExpanded;
+                    this.toolbarService.buttons[0].highlighted =
+                        this.toolbarService.contentSectionExpanded;
+                },
+                highlighted:
+                    this.toolbarService.contentSectionExpanded === true,
+                label: "Filtern/Suchen",
             },
         ];
     }

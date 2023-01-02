@@ -1,6 +1,9 @@
 <div class="grid">
     <div class="col-12">
-        <div class="card" *ngIf="appMain.publicTestEnvironment">
+        <div
+            class="card flex justify-content-center"
+            *ngIf="appMain.publicTestEnvironment"
+        >
             <h3>TESTUMGEBUNG</h3>
         </div>
         <div
@@ -43,7 +46,6 @@
                     kurzen Bug-Report wenn du einen Fehler/Fehlermeldung etc.
                     entdeckst oder du einen Verbesserungsvorschlag hast:
                 </p>
-                <button pButton></button>
             </div>
         </div>
     </div>

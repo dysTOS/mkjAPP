@@ -1,6 +1,6 @@
 import { Gruppe } from "./Gruppe";
 
-export interface Ausrueckung {
+export interface Termin {
     id?: string;
     name?: string;
     beschreibung?: string;
@@ -20,33 +20,21 @@ export interface Ausrueckung {
     updated_at?: string;
 }
 
-export interface AusrueckungFilterInput {
-    vonFilter?: string;
-    bisFilter?: string;
-    alle?: boolean;
-}
-
-export enum ZeitraumOptions {
-    ActualYear = 0,
-    SpecificRange = 1,
-    All = 2,
-}
-
-export const AusrueckungKategorieMap = [
+export const TerminKategorieMap = [
     { label: "Kurkonzert", value: "kurkonzert" },
     { label: "Weckruf", value: "weckruf" },
     { label: "Kirchlich", value: "kirchlich" },
     { label: "Sonstige", value: "sonstige" },
 ];
 
-export const AusrueckungStatusMap = [
+export const TerminStatusMap = [
     { label: "Fixiert", value: "fixiert" },
     { label: "Geplant", value: "geplant" },
     { label: "Ersatztermin", value: "ersatztermin" },
     { label: "Abgesagt", value: "abgesagt" },
 ];
 
-export const AusrueckungCsvColumnMap = [
+export const TerminCsvColumnMap = [
     { field: "id", header: "id" },
     { field: "oeffentlich", header: "oeffentlich" },
     { field: "name", header: "name" },

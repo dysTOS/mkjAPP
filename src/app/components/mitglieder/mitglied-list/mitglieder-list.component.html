@@ -1,3 +1,51 @@
+<ng-template #toolbarContentSection>
+    <div class="flex justify-content-end mb-3">
+        <button
+            pButton
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="
+                toolbarService.contentSectionExpanded = false;
+                toolbarService.buttons[0].highlighted = false
+            "
+        ></button>
+    </div>
+    <div class="flex gap-2 align-items-center">
+        <mkj-date-input
+            type="date"
+            [value]="ausrueckungFilterInput.filter[0]?.value"
+            (valueChanged)="setFilterInputDates(0, $event)"
+            label="Filter Von"
+            placeholder="Alle"
+        ></mkj-date-input>
+        <mkj-date-input
+            type="date"
+            [value]="ausrueckungFilterInput.filter[1]?.value"
+            (valueChanged)="setFilterInputDates(1, $event)"
+            label="Filter Bis"
+            placeholder="Alle"
+        ></mkj-date-input>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-wrap justify-content-between align-items-center">
+        <div>
+            Anzahl:
+            {{ filteredRows ? filteredRows.length : 0 }}
+        </div>
+
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+                pInputText
+                type="text"
+                [value]="dt.filters?.global?.value"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Suchen..."
+            />
+        </span>
+    </div>
+</ng-template>
+
 <div class="grid">
     <div class="col-12">
         <p-table
