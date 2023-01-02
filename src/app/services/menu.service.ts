@@ -87,14 +87,13 @@ export class MenuService implements OnDestroy {
             icon: "mdi mdi-tools",
             enumLabel: MenuLabels.TOOLS,
             visible: false,
-            permission: PermissionMap.ROLE_READ,
+            permission: PermissionMap.ROLE_ASSIGN,
             children: [
                 {
                     label: "Rechnungs-Generator",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "tools/rechnungsgenerator",
                     visible: false,
-                    permission: PermissionMap.ROLE_READ,
                 },
             ],
         },
@@ -154,7 +153,7 @@ export class MenuService implements OnDestroy {
             routerLink: "test",
             enumLabel: MenuLabels.TEST,
             visible: false,
-            permission: PermissionMap.ROLE_READ,
+            permission: PermissionMap.ROLE_ASSIGN,
         },
     ];
 

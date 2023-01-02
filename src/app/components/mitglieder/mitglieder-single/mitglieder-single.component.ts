@@ -108,23 +108,11 @@ export class MitgliederSingleComponent implements OnInit {
                 next: (res) => {
                     this.selectedRoles = res;
                     this.rolesSaving = false;
-                    this.userService.setCurrentUserRoles(res);
-                    console.log(
-                        this.mitglied.user_id,
-                        this.userService.getCurrentUserId()
-                    );
                     if (
                         this.mitglied.user_id ===
                         this.userService.getCurrentUserId()
                     ) {
-                        this.roleService
-                            .getUserPermissions(this.mitglied.user_id)
-                            .subscribe({
-                                next: (res) =>
-                                    this.userService.setCurrentUserPermissions(
-                                        res
-                                    ),
-                            });
+                        this.userService.renewCurrentUserData();
                     }
                     this.infoService.success("Rollen aktualisiert!");
                 },

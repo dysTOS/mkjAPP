@@ -58,7 +58,8 @@ export class MitgliederListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadAktiveMitglieder();
+        this.loadAllMitglieder();
+        // this.loadAktiveMitglieder();
     }
 
     public loadAktiveMitglieder() {

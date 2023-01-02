@@ -1,9 +1,10 @@
 import { ConfirmationService } from "primeng/api";
-import { Permission, Role } from "../../../models/User";
+import { Permission, PermissionMap, Role } from "../../../models/User";
 import { RoleService } from "../../../services/role.service";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-rollen-edit",
@@ -29,8 +30,21 @@ export class RollenEditComponent implements OnInit {
         private roleService: RoleService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService,
-        private userService: UserService
-    ) {}
+        private userService: UserService,
+        private toolbarService: MkjToolbarService
+    ) {
+        this.toolbarService.header = "Rollen & Rechte";
+        this.toolbarService.buttons = [
+            {
+                label: "Neue Rolle",
+                click: () => {
+                    this.addDialogVisible = true;
+                },
+                icon: "pi pi-plus",
+                permissions: [PermissionMap.ROLE_SAVE],
+            },
+        ];
+    }
 
     public ngOnInit(): void {
         this.init();

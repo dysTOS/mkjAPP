@@ -122,6 +122,7 @@ export class UserService {
                     this.setCurrentMitglied(result.mitglied),
                     this.setCurrentUserRoles(result.roles),
                     this.setCurrentUserPermissions(result.permissions);
+                this.setCurrentMitgliedGruppen(result.gruppen);
             },
         });
     }
