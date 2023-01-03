@@ -2036,6 +2036,9 @@ body a {
   .layout-wrapper .layout-main {
     margin-left: 0;
   }
+  .layout-wrapper .footer {
+    margin-left: 0;
+  }
   .layout-wrapper .topbar #topbar-menu-button {
     display: block;
   }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { SwPush, SwUpdate, VersionEvent } from "@angular/service-worker";
 import { ConfirmationService } from "primeng/api";
-import { interval, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { InfoService } from "./info.service";
 import { PushNotificationsService } from "./push-notifications.service";
@@ -23,20 +23,6 @@ export class ServiceWorkerService {
         private confirmationService: ConfirmationService,
         private infoService: InfoService
     ) {
-        if (swUpdate.isEnabled) {
-            // Check every minute for update
-            interval(60000).subscribe(() => async () => {
-                await swUpdate
-                    .checkForUpdate()
-                    .then((status) =>
-                        console.debug(
-                            "ServiceWorkerService::CTor",
-                            "checking for updates",
-                            { status }
-                        )
-                    );
-            });
-        }
         this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
             if (update.type === "VERSION_READY") {
                 this.confirmationService.confirm({

@@ -13,14 +13,14 @@
     <div class="flex gap-2 align-items-center">
         <mkj-date-input
             type="date"
-            [value]="ausrueckungFilterInput.filter[0]?.value"
+            [value]="ausrueckungFilterInput.filterAnd[0]?.value"
             (valueChanged)="setFilterInputDates(0, $event)"
             label="Filter Von"
             placeholder="Alle"
         ></mkj-date-input>
         <mkj-date-input
             type="date"
-            [value]="ausrueckungFilterInput.filter[1]?.value"
+            [value]="ausrueckungFilterInput.filterAnd[1]?.value"
             (valueChanged)="setFilterInputDates(1, $event)"
             label="Filter Bis"
             placeholder="Alle"

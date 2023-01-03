@@ -99,7 +99,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
 
     public ngOnInit() {
         this.ausrueckungFilterInput = {
-            filter: [
+            filterAnd: [
                 {
                     filterField: "vonDatum",
                     value: new Date().getFullYear() + "-01-01",
@@ -342,9 +342,9 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
 
     public setFilterInputDates(filterIndex: number, value: string) {
         if (!value) {
-            this.ausrueckungFilterInput.filter[filterIndex] = null;
+            this.ausrueckungFilterInput.filterAnd[filterIndex] = null;
         } else {
-            this.ausrueckungFilterInput.filter[filterIndex] = {
+            this.ausrueckungFilterInput.filterAnd[filterIndex] = {
                 value: value,
                 operator: filterIndex === 0 ? ">=" : "<=",
                 filterField: filterIndex === 0 ? "vonDatum" : "bisDatum",

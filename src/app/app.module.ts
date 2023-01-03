@@ -159,6 +159,7 @@ import { FullNamePipe } from "./pipes/full-name.pipe";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
+import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -272,6 +273,7 @@ registerLocaleData(localeDe);
         AusrueckungenWrapperComponent,
         NotenWrapperComponent,
         MitgliederWrapperComponent,
+        TestApiComponent,
         MkjDateInputComponent,
         AppTimelineDemoComponent,
         AppInvoiceComponent,

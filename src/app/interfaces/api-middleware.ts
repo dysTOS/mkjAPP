@@ -1,6 +1,7 @@
 import { Permission, Role, User } from "../models/User";
 import { Mitglied } from "../models/Mitglied";
 import { Gruppe } from "../models/Gruppe";
+import { HttpHeaders } from "@angular/common/http";
 
 export interface GetCollectionApiCallInput {
     skip?: number;
@@ -9,7 +10,12 @@ export interface GetCollectionApiCallInput {
         sortField?: string;
         sortOrder?: 1 | -1;
     };
-    filter?: Array<{
+    filterAnd?: Array<{
+        filterField?: string;
+        value?: any;
+        operator?: "=" | "like" | ">" | "<" | ">=" | "<=";
+    }>;
+    filterOr?: Array<{
         filterField?: string;
         value?: any;
         operator?: "=" | "like" | ">" | "<" | ">=" | "<=";
@@ -51,3 +57,9 @@ export interface UserLoginOutput {
     mitglied?: Mitglied;
     gruppen?: Array<Gruppe>;
 }
+
+export const StandardHttpOptions = {
+    headers: new HttpHeaders({
+        "Content-Type": "application/json",
+    }),
+};
