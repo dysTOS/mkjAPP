@@ -173,6 +173,15 @@
                             <span class="font-bold">{{
                                 ausrueckung.name
                             }}</span>
+                            <span
+                                *ngIf="ausrueckung.gruppe"
+                                class="gruppentermin ml-2"
+                                [style.--gruppe-color]="
+                                    ausrueckung.gruppe?.color
+                                "
+                            >
+                                <i class="pi pi-users"></i
+                            ></span>
                         </td>
                         <td>
                             {{

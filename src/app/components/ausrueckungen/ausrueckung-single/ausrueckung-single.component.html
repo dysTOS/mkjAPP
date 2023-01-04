@@ -1,20 +1,5 @@
 <p-tabView>
-    <p-tabPanel [selected]="true">
-        <ng-template pTemplate="header"
-            ><h5 class="m-0">{{ ausrueckung?.name }}</h5>
-            <div class="ml-2" *ngIf="ausrueckung?.status">
-                <span
-                    [class]="
-                        'ausrueckungen-badge status-' +
-                        (ausrueckung.status
-                            ? ausrueckung.status.toLowerCase()
-                            : '')
-                    "
-                >
-                    {{ ausrueckung.status }}
-                </span>
-            </div>
-        </ng-template>
+    <p-tabPanel [selected]="true" [header]="ausrueckung?.name">
         <div
             *ngIf="loading"
             class="flex justify-content-center"
@@ -30,7 +15,7 @@
                 <div class="md:col-3 sm:col-12 card">
                     <div>Termin:</div>
                     <h5 class="m-1">
-                        {{ ausrueckung?.vonDatum | mkjDate: "d. MMMM YYYY" }}
+                        {{ ausrueckung?.vonDatum | mkjDate : "d. MMMM YYYY" }}
                         {{ ausrueckung?.vonZeit }}
                     </h5>
                 </div>
@@ -55,7 +40,7 @@
                             "
                         >
                             {{
-                                ausrueckung?.bisDatum | mkjDate: "d. MMMM YYYY"
+                                ausrueckung?.bisDatum | mkjDate : "d. MMMM YYYY"
                             }}
                         </div>
                         {{ ausrueckung?.bisZeit }}
@@ -112,13 +97,15 @@
                         <div *ngIf="ausrueckung.created_at" class="mr-2">
                             Erstellt am:
                             {{
-                                ausrueckung?.created_at | mkjDate: "d. MMM YYYY"
+                                ausrueckung?.created_at
+                                    | mkjDate : "d. MMM YYYY"
                             }}
                         </div>
                         <div *ngIf="ausrueckung.updated">
                             Aktualisiert am:
                             {{
-                                ausrueckung?.updated_at | mkjDate: "d. MMM YYYY"
+                                ausrueckung?.updated_at
+                                    | mkjDate : "d. MMM YYYY"
                             }}
                         </div>
                     </div>
@@ -127,10 +114,7 @@
         </div>
     </p-tabPanel>
 
-    <p-tabPanel>
-        <ng-template pTemplate="header"
-            ><h5 class="m-0">Teilnehmende Musiker</h5></ng-template
-        >
+    <p-tabPanel header="Teilnehmende Musiker">
         <div class="col-12">
             <div *ngIf="!mitglieder" class="flex justify-content-center">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
@@ -156,10 +140,7 @@
         </div>
     </p-tabPanel>
 
-    <p-tabPanel>
-        <ng-template pTemplate="header"
-            ><h5 class="m-0">Gespielte Stücke</h5></ng-template
-        >
+    <p-tabPanel header="Musikstücke">
         <div class="col-12">
             <p-table
                 [value]="gespielteNoten"
