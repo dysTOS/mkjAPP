@@ -95,15 +95,16 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
             return;
         }
 
-        const object = moment(new Date("2022-01-01T" + value));
+        const objectBisZeit = moment(new Date("2022-01-01T" + value));
+        const objectTreffzeit = moment(new Date("2022-01-01T" + value));
         this.formGroup
             .get("bisZeit")
-            .setValue(object.add(2, "hours").format("HH:mm"), {
+            .setValue(objectBisZeit.add(2, "hours").format("HH:mm"), {
                 emitEvent: false,
             });
         this.formGroup
             .get("treffzeit")
-            .setValue(object.subtract(30, "minutes").format("HH:mm"), {
+            .setValue(objectTreffzeit.subtract(30, "minutes").format("HH:mm"), {
                 emitEvent: false,
             });
     }
