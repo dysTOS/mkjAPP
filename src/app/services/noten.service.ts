@@ -73,6 +73,11 @@ export class NotenService {
         );
     }
 
+    public getNotenMappe(id: string): Observable<Notenmappe> {
+        const url = this.apiURL + "notenmappe";
+        return this.http.post<Notenmappe>(url, { id: id }, httpOptions);
+    }
+
     public getNotenmappen(): Observable<Notenmappe[]> {
         const url = this.apiURL + "notenmappen";
         return this.http.get<Notenmappe[]>(url, httpOptions);
@@ -88,9 +93,9 @@ export class NotenService {
         return this.http.put<Notenmappe>(url, mappe, httpOptions);
     }
 
-    public deleteNotenmappe(mappe: Notenmappe): Observable<Notenmappe> {
-        const url = this.apiURL + "notenmappen/" + mappe.id;
-        return this.http.delete<Notenmappe>(url, httpOptions);
+    public deleteNotenmappe(id: string): Observable<any> {
+        const url = this.apiURL + "notenmappen/" + id;
+        return this.http.delete<any>(url, httpOptions);
     }
 
     public attachNotenToMappe(

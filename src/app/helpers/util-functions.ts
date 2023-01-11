@@ -2,7 +2,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { Termin } from "../models/Termin";
 import { Gruppe } from "../models/Gruppe";
 import { Mitglied } from "../models/Mitglied";
-import { Noten } from "../models/Noten";
+import { Noten, Notenmappe } from "../models/Noten";
 
 export class UtilFunctions {
     public static findIndexById(id: string, array: Array<any>) {
@@ -21,6 +21,7 @@ export class UtilFunctions {
     }
 
     public static isDarkBackground(backgroundColor: string): boolean {
+        if (!backgroundColor) return false;
         const color = backgroundColor.substring(1); // remove the leading '#'
         const r = parseInt(color.substring(0, 2), 16);
         const g = parseInt(color.substring(2, 4), 16);
@@ -116,6 +117,23 @@ export class UtilFunctions {
             ],
             color: [gruppe?.color ?? null],
             gruppenleiter: [gruppe?.gruppenleiter ?? null],
+        });
+    }
+
+    public static getNotenMappeFormGroup(fb: FormBuilder, mappe?: Notenmappe) {
+        return fb.group({
+            id: [mappe?.id ?? null],
+            name: [mappe?.name ?? null, Validators.required],
+            hatVerzeichnis: [mappe?.hatVerzeichnis ?? null],
+            color: [mappe?.color ?? null],
+            noten: fb.array(
+                mappe?.noten?.map((noten) => {
+                    return fb.group({
+                        inventarId: [noten.inventarId ?? null],
+                        titel: [noten.titel ?? null],
+                    });
+                }) ?? []
+            ),
         });
     }
 }

@@ -1,0 +1,27 @@
+<div [formGroup]="formGroup" class="p-fluid grid align-items-center">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="text"
+                formControlName="name"
+                pInputText
+                inputId="name"
+                class="ng-dirty"
+            />
+            <label for="name">Mappentitel</label>
+        </span>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-boolean-input
+            label="Verzeichnis"
+            formControlName="hatVerzeichnis"
+        ></mkj-boolean-input>
+    </div>
+
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-color-picker
+            label="Farbe"
+            formControlName="color"
+        ></mkj-color-picker>
+    </div>
+</div>

@@ -23,4 +23,5 @@ export interface Notenmappe {
     name?: string;
     hatVerzeichnis?: boolean;
     noten?: Noten[];
+    color?: string;
 }

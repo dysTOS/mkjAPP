@@ -1,0 +1,20 @@
+<div class="flex align-items-center">
+    <span class="p-float-label">
+        <input
+            type="text"
+            [(ngModel)]="internString"
+            (ngModelChange)="_onChange($event)"
+            pInputText
+            inputId="color"
+            [disabled]="disabled"
+            pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        />
+        <label for="color">{{ label }}</label>
+    </span>
+    <p-colorPicker
+        [(ngModel)]="internString"
+        (ngModelChange)="_onChange($event)"
+        [disabled]="disabled"
+        class="ml-3 ml-1"
+    ></p-colorPicker>
+</div>

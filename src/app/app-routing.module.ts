@@ -16,6 +16,7 @@ import { RouteGuard } from "./guards/route.guard";
 import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
 import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
+import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
 import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
@@ -150,6 +151,12 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                                     path: "mappen",
                                     component: NotenmappenComponent,
                                     canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "mappen/:id",
+                                    component: NotenmappeDetailsComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                             ],
                         },

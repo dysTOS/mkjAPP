@@ -160,6 +160,9 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
+import { MkjColorPickerComponent } from './utilities/form-components/mkj-color-picker/mkj-color-picker.component';
+import { NotenmappeDetailsComponent } from './components/noten/notenmappen/notenmappe-details/notenmappe-details.component';
+import { MkjNotenmappeFormComponent } from './utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -319,6 +322,9 @@ registerLocaleData(localeDe);
         MkjGruppeFormComponent,
         FullNamePipe,
         BugReportComponent,
+        MkjColorPickerComponent,
+        NotenmappeDetailsComponent,
+        MkjNotenmappeFormComponent,
     ],
     providers: [
         mkjAppInitializer(),

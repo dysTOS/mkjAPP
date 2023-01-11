@@ -59,7 +59,9 @@ export class GruppenOverviewComponent implements OnInit {
             })
             .subscribe({
                 next: (res) => {
-                    this.gruppen = res.values;
+                    this.gruppen = res.values?.sort((a, b) =>
+                        b.color.localeCompare(a.color)
+                    );
                     this.gruppenLoading = false;
                 },
                 error: (err) => {

@@ -34,8 +34,8 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private gruppenService: GruppenApiService,
         private infoService: InfoService,
+        private gruppenService: GruppenApiService,
         private mitgliederService: MitgliederApiService
     ) {
         this.initToolbar();
