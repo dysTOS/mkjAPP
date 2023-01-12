@@ -7,9 +7,29 @@ import { NotenService } from "src/app/services/noten.service";
     templateUrl: "./mkj-notensuche.component.html",
     styleUrls: ["./mkj-notensuche.component.scss"],
 })
-export class MkjNotensucheComponent implements OnInit {
+export class MkjNotensucheComponent {
+    private _selectedNoten: Noten;
     @Input()
-    public selectedNoten: Noten;
+    public get selectedNoten(): Noten {
+        return this._selectedNoten;
+    }
+    public set selectedNoten(value: Noten) {
+        this._selectedNoten = value;
+        if (!value) {
+            this.verzeichnisNr = null;
+        }
+    }
+
+    private _verzeichnisNr: string;
+    public get verzeichnisNr(): string {
+        return this._verzeichnisNr;
+    }
+    public set verzeichnisNr(value: string) {
+        this._verzeichnisNr = value;
+        if (!value && this.verzeichnisMode) {
+            this._selectedNoten = null;
+        }
+    }
 
     @Input()
     public verzeichnisMode: boolean = false;
@@ -24,14 +44,11 @@ export class MkjNotensucheComponent implements OnInit {
     public autoHighlight: boolean = true;
 
     public searchNotenResult: Noten[];
-    public verzeichnisNr: string;
 
     @Output()
     public notenSelect = new EventEmitter<NotenSucheOutput>();
 
     constructor(private notenService: NotenService) {}
-
-    ngOnInit(): void {}
 
     public searchNoten(event) {
         this.notenService.searchNoten(event.query).subscribe({
@@ -49,5 +66,5 @@ export class MkjNotensucheComponent implements OnInit {
 
 export interface NotenSucheOutput {
     noten: Noten;
-    verzeichnisNr: string;
+    verzeichnisNr?: string;
 }

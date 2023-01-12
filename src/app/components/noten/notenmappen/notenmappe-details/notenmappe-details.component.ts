@@ -7,6 +7,7 @@ import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { InfoService } from "src/app/services/info.service";
 import { NotenService } from "src/app/services/noten.service";
+import { NotenmappenFormHelper } from "src/app/utilities/form-components/mkj-notenmappe-form/notenmappen-form-helper.class";
 import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -17,6 +18,8 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     public formGroup: FormGroup;
+    public notenMappe: Notenmappe;
+    public selectedNoten: Noten;
 
     public isSaving: boolean;
     public loading: boolean;
@@ -31,18 +34,22 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         private notenService: NotenService
     ) {
         this.initToolbar();
+        this.formGroup = NotenmappenFormHelper.getNotennappeFormGroup(fb);
 
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadMappe(id);
         } else {
             this.toolbarService.buttons[0].hidden = true;
-            this.formGroup = UtilFunctions.getNotenMappeFormGroup(fb);
-            this.formGroup.updateValueAndValidity();
         }
     }
 
     public canDeactivate(): boolean {
+        this.initToolbar();
+        const id = this.route.snapshot.params.id;
+        if (id === "neu") {
+            this.toolbarService.buttons[0].hidden = true;
+        }
         return this.formGroup.pristine;
     }
 
@@ -62,13 +69,14 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         this.loading = true;
         this.notenService.getNotenMappe(id).subscribe({
             next: (res) => {
-                this.formGroup = UtilFunctions.getNotenMappeFormGroup(
-                    this.fb,
+                NotenmappenFormHelper.patchNotenmappeFormGroup(
+                    this.formGroup,
                     res
                 );
-                this.formGroup.updateValueAndValidity();
-                this.sortNoten(res);
+                this.notenMappe = res;
+                this.sortNoten();
                 this.loading = false;
+                this.formGroup.updateValueAndValidity();
             },
             error: (err) => {
                 this.infoService.error(err);
@@ -79,8 +87,8 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
 
     public saveMappe() {
         this.isSaving = true;
-        const newMappe = this.formGroup.controls.id.value;
-        if (!newMappe) {
+        const update = this.formGroup.controls.id.value;
+        if (update) {
             this.notenService
                 .updateNotenmappe(this.formGroup.getRawValue())
                 .subscribe({
@@ -88,6 +96,9 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                         this.infoService.success("Mappe gespeichert!");
                         this.isSaving = false;
                         this.formGroup.markAsPristine();
+                        this.router.navigate(["../"], {
+                            relativeTo: this.route,
+                        });
                     },
                     error: (err) => {
                         this.infoService.error(err);
@@ -110,83 +121,45 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                     },
                 });
         }
-        //     this.newMappeSubmitted = true;
-        //     if (!this.selectedMappe.name) return;
-        //     this.loading = true;
-        //     if (this.selectedMappe.id) {
-        //         this.notenService.updateNotenmappe(this.selectedMappe).subscribe({
-        //             next: (res) => {
-        //                 const index = this.notenmappen.findIndex(
-        //                     (e) => e.id === res.id
-        //                 );
-        //                 this.notenmappen[index] = res;
-        //                 this.infoService.success(res.name + " aktualisiert!");
-        //                 this.selectedMappe = null;
-        //                 this.loading = false;
-        //                 this.newMappeSubmitted = false;
-        //                 this.addDialogVisible = false;
-        //             },
-        //             error: (err) => {
-        //                 this.infoService.error(err);
-        //                 this.selectedMappe = null;
-        //                 this.loading = false;
-        //                 this.addDialogVisible = false;
-        //             },
-        //         });
-        //     } else {
-        //         this.notenService.createNotenmappe(this.selectedMappe).subscribe({
-        //             next: (res) => {
-        //                 this.notenmappen.push(res);
-        //                 this.infoService.success(res.name + " erstellt!");
-        //                 this.selectedMappe = null;
-        //                 this.loading = false;
-        //                 this.newMappeSubmitted = false;
-        //                 this.addDialogVisible = false;
-        //             },
-        //             error: (err) => {
-        //                 this.infoService.error(err);
-        //                 this.selectedMappe = null;
-        //                 this.loading = false;
-        //                 this.addDialogVisible = false;
-        //             },
-        //         });
-        //     }
     }
 
-    // public addNotenToMappe(event: NotenSucheOutput) {
-    //     this.loading = true;
-    //     const noten = event.noten;
-    //     const mappenId = this.selectedMappe.id;
-    //     this.notenService
-    //         .attachNotenToMappe(noten.id, mappenId, event.verzeichnisNr)
-    //         .subscribe({
-    //             next: (res) => {
-    //                 noten.pivot = { verzeichnisNr: event.verzeichnisNr };
-    //                 this.selectedMappe.noten.push(noten);
-    //                 this.sortNoten(this.selectedMappe);
-    //                 this.loading = false;
-    //                 this.selectedNoten = null;
-    //             },
-    //             error: (err) => {
-    //                 this.loading = false;
-    //                 this.infoService.error(err);
-    //             },
-    //         });
-    // }
+    public addNotenToMappe(event: NotenSucheOutput) {
+        this.tableLocked = true;
+        const noten = event.noten;
+        const mappenId = this.formGroup.controls.id.value;
+        this.notenService
+            .attachNotenToMappe(noten.id, mappenId, event.verzeichnisNr)
+            .subscribe({
+                next: (res) => {
+                    noten.pivot = { verzeichnisNr: event.verzeichnisNr };
+                    this.notenMappe.noten.push(noten);
+                    this.sortNoten();
+                    this.tableLocked = false;
+                    this.selectedNoten = null;
+                },
+                error: (err) => {
+                    this.tableLocked = false;
+                    this.infoService.error(err);
+                },
+            });
+    }
 
-    // public detachNotenFromMappe(noten: Noten) {
-    //     this.loading = true;
-    //     const mappenId = this.selectedMappe.id;
-    //     this.notenService.detachNotenFromMappe(noten.id, mappenId).subscribe({
-    //         next: (res) => {
-    //             this.selectedMappe.noten = this.selectedMappe.noten.filter(
-    //                 (e) => e.id !== noten.id
-    //             );
-    //             this.loading = false;
-    //         },
-    //         error: (err) => this.infoService.error(err),
-    //     });
-    // }
+    public detachNotenFromMappe(noten: Noten) {
+        this.tableLocked = true;
+        const mappenId = this.formGroup.controls.id.value;
+        this.notenService.detachNotenFromMappe(noten.id, mappenId).subscribe({
+            next: (res) => {
+                this.notenMappe.noten = this.notenMappe.noten.filter(
+                    (e) => e.id !== noten.id
+                );
+                this.tableLocked = false;
+            },
+            error: (err) => {
+                this.tableLocked = false;
+                this.infoService.error(err);
+            },
+        });
+    }
 
     public deleteNotenmappe() {
         this.infoService
@@ -211,13 +184,15 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
             });
     }
 
-    private sortNoten(mappe: Notenmappe) {
-        if (mappe.hatVerzeichnis) {
-            mappe.noten?.sort((a, b) =>
-                a.pivot.verzeichnisNr.localeCompare(b.pivot.verzeichnisNr)
+    private sortNoten(): void {
+        if (this.notenMappe.hatVerzeichnis) {
+            this.notenMappe.noten?.sort((a, b) =>
+                a.pivot?.verzeichnisNr?.localeCompare(b.pivot?.verzeichnisNr)
             );
         } else {
-            mappe.noten?.sort((a, b) => a.titel.localeCompare(b.titel));
+            this.notenMappe.noten?.sort((a, b) =>
+                a.titel.localeCompare(b.titel)
+            );
         }
     }
 }

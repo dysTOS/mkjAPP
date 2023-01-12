@@ -119,21 +119,4 @@ export class UtilFunctions {
             gruppenleiter: [gruppe?.gruppenleiter ?? null],
         });
     }
-
-    public static getNotenMappeFormGroup(fb: FormBuilder, mappe?: Notenmappe) {
-        return fb.group({
-            id: [mappe?.id ?? null],
-            name: [mappe?.name ?? null, Validators.required],
-            hatVerzeichnis: [mappe?.hatVerzeichnis ?? null],
-            color: [mappe?.color ?? null],
-            noten: fb.array(
-                mappe?.noten?.map((noten) => {
-                    return fb.group({
-                        inventarId: [noten.inventarId ?? null],
-                        titel: [noten.titel ?? null],
-                    });
-                }) ?? []
-            ),
-        });
-    }
 }

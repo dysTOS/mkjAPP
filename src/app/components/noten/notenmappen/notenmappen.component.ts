@@ -36,6 +36,7 @@ export class NotenmappenComponent implements OnInit {
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Notenmappen";
+        this.toolbarService.backButton = false;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",

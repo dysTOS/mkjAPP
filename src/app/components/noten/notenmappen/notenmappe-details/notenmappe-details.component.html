@@ -22,189 +22,51 @@
         ></mkj-notenmappe-form>
     </div>
 
-    <!-- <div class="card">
+    <div class="card">
         <p-table
-            *ngIf="formGroup?.controls.id.value"
-            [value]="mitglieder"
+            *ngIf="notenMappe?.noten?.length"
+            [value]="notenMappe.noten"
             [loading]="tableLocked"
+            dataKey="id"
             responsiveLayout="scroll"
+            styleClass="p-datatable p-datatable-striped"
         >
             <ng-template pTemplate="caption">
-                <p-autoComplete
-                    #autoComplete
-                    [suggestions]="mitgliederSearchResult"
-                    (completeMethod)="searchMitglieder($event)"
-                    (onSelect)="addMitglied($event)"
-                    [forceSelection]="true"
-                    [autoHighlight]="true"
-                    [appendTo]="'body'"
-                    dataKey="id"
-                    placeholder="Mitglied hinzufügen..."
-                >
-                    <ng-template let-mitglied pTemplate="item">
-                        <div>
-                            {{ mitglied | fullName }}
-                        </div>
-                    </ng-template>
-                </p-autoComplete>
+                <div class="flex justify-content-center">
+                    <app-mkj-notensuche
+                        [selectedNoten]="selectedNoten"
+                        [verzeichnisMode]="
+                            formGroup.controls.hatVerzeichnis.value
+                        "
+                        placeholder="Noten hinzufügen"
+                        (notenSelect)="addNotenToMappe($event)"
+                    ></app-mkj-notensuche>
+                </div>
             </ng-template>
-            <ng-template pTemplate="body" let-mitglied>
+            <ng-template pTemplate="header"
+                ><tr>
+                    <th></th>
+                    <th *ngIf="notenMappe.hatVerzeichnis">Verzeichnis</th>
+                    <th>Name</th>
+                    <th></th></tr
+            ></ng-template>
+            <ng-template pTemplate="body" let-noten>
                 <tr>
-                    <td>{{ mitglied | fullName }}</td>
-                    <td style="width: 5rem">
+                    <td></td>
+                    <td *ngIf="notenMappe.hatVerzeichnis">
+                        {{ noten.pivot.verzeichnisNr }}
+                    </td>
+                    <td>{{ noten.titel }}</td>
+                    <td>
                         <button
                             pButton
-                            pRipple
-                            class="p-button-small p-button-text p-button-danger"
-                            icon="pi pi-times"
-                            pTooltip="Mitglied entfernen"
-                            (click)="removeMitglied(mitglied.id)"
+                            icon="pi pi-trash"
+                            class="p-button-text p-button-danger"
+                            (click)="detachNotenFromMappe(noten)"
                         ></button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
-    </div> -->
+    </div>
 </mkj-content-loader>
-
-<!-- <div class="col-12">
-    <p-table
-        [value]="notenmappen"
-        [loading]="loading"
-        dataKey="id"
-        responsiveLayout="scroll"
-        rowExpandMode="single"
-        styleClass="p-datatable p-datatable-striped"
-        style="overflow: visible"
-        (onRowExpand)="selectedMappe = $event.data"
-    >
-        <ng-template pTemplate="body" let-mappe let-expanded="expanded"
-            ><tr>
-                <td style="width: 3rem">
-                    <button
-                        type="button"
-                        pButton
-                        pRipple
-                        [pRowToggler]="mappe"
-                        class="p-button-text p-button-rounded p-button-plain"
-                        [icon]="
-                            expanded
-                                ? 'pi pi-chevron-down'
-                                : 'pi pi-chevron-right'
-                        "
-                    ></button>
-                </td>
-                <td>
-                    <b>{{ mappe.name }}</b>
-                </td>
-                <td style="width: 5rem">
-                    <button
-                        pButton
-                        pRipple
-                        icon="pi pi-bars"
-                        class="p-button-rounded p-button-outlined"
-                        (click)="
-                            selectedMappe = mappe; mappenMenu.toggle($event)
-                        "
-                    ></button>
-                </td></tr></ng-template
-        ><ng-template pTemplate="rowexpansion" let-mappe>
-            <tr>
-                <td colspan="12">
-                    <div class="flex justify-content-center">
-                        <app-mkj-notensuche
-                            [selectedNoten]="selectedNoten"
-                            [verzeichnisMode]="mappe.hatVerzeichnis"
-                            placeholder="Noten hinzufügen"
-                            (notenSelect)="addNotenToMappe($event)"
-                        ></app-mkj-notensuche>
-                    </div>
-                    <p-table
-                        *ngIf="mappe.noten?.length"
-                        [value]="mappe.noten"
-                        dataKey="id"
-                        responsiveLayout="scroll"
-                        styleClass="p-datatable p-datatable-striped"
-                    >
-                        <ng-template pTemplate="header"
-                            ><tr>
-                                <th></th>
-                                <th *ngIf="mappe.hatVerzeichnis">
-                                    Verzeichnis
-                                </th>
-                                <th>Name</th>
-                                <th></th></tr
-                        ></ng-template>
-                        <ng-template pTemplate="body" let-noten>
-                            <tr>
-                                <td></td>
-                                <td *ngIf="mappe.hatVerzeichnis">
-                                    {{ noten.pivot.verzeichnisNr }}
-                                </td>
-                                <td>{{ noten.titel }}</td>
-                                <td>
-                                    <button
-                                        pButton
-                                        icon="pi pi-trash"
-                                        class="p-button-text p-button-danger"
-                                        (click)="detachNotenFromMappe(noten)"
-                                    ></button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </td></tr></ng-template
-    ></p-table>
-</div> -->
-
-<!-- <div class="flex flex-column mt-3">
-            <div class="p-fluid p-field">
-                <span class="p-float-label">
-                    <input
-                        pInputText
-                        type="text"
-                        [(ngModel)]="selectedMappe.name"
-                        [class.ng-dirty]="
-                            !selectedMappe.name && newMappeSubmitted
-                        "
-                        [class.ng-invalid]="
-                            !selectedMappe.name && newMappeSubmitted
-                        "
-                        required
-                    />
-
-                    <small
-                        class="p-error"
-                        *ngIf="!selectedMappe.name && newMappeSubmitted"
-                        >Name ist erforderlich!</small
-                    >
-                    <label for="name">Name</label>
-                </span>
-            </div>
-            <div class="p-fluid p-field">
-                <p-checkbox
-                    [(ngModel)]="selectedMappe.hatVerzeichnis"
-                    label="Mit Verzeichnis"
-                    [binary]="true"
-                ></p-checkbox>
-            </div></div
-    >
-
-
-        <button
-            pButton
-            pRipple
-            label="Abbrechen"
-            icon="pi pi-times"
-            class="p-button-outlined"
-            (click)="addDialogVisible = false"
-        ></button>
-        <button
-            pButton
-            pRipple
-            label="Speichern"
-            [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-            [disabled]="loading"
-            class="p-button-plain"
-            (click)="saveMappe()"
-        ></button> -->

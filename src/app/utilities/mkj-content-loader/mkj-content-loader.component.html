@@ -9,6 +9,9 @@
         class="pi pi-spin pi-spinner"
         [style.font-size]="size"
     ></i>
-    <p-skeleton *ngIf="type === 'skeleton'"></p-skeleton>
+    <p-skeleton
+        *ngIf="type === 'skeleton'"
+        style="height: 100%; width: 100%"
+    ></p-skeleton>
 </div>
 <ng-content *ngIf="!loading"></ng-content>

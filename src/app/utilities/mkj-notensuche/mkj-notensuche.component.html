@@ -1,5 +1,16 @@
 <div class="flex">
-    <input *ngIf="verzeichnisMode" pInputText [(ngModel)]="verzeichnisNr" />
+    <span class="p-float-label verzeichnis-input">
+        <input
+            type="text"
+            *ngIf="verzeichnisMode"
+            inputId="verzeichnis"
+            pInputText
+            [(ngModel)]="verzeichnisNr"
+            [class.ng-invalid]="!verzeichnisNr"
+            class="ng-dirty"
+        />
+        <label for="verzeichnis">Verzeichnis</label>
+    </span>
     <p-autoComplete
         [(ngModel)]="selectedNoten"
         [suggestions]="searchNotenResult"
@@ -9,8 +20,10 @@
         [placeholder]="placeholder"
         (completeMethod)="searchNoten($event)"
         (onSelect)="onSelect($event)"
+        [appendTo]="'body'"
         field="titel"
         dataKey="id"
+        class="notensuche-input"
         [showEmptyMessage]="true"
         emptyMessage="Keine Noten gefunden..."
     >

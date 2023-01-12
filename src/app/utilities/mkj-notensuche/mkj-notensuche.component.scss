@@ -1,0 +1,14 @@
+.verzeichnis-input {
+    width: 9rem;
+
+    ::ng-deep .p-inputtext {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-right: none !important;
+    }
+}
+
+.notensuche-input ::ng-deep .p-inputtext {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
