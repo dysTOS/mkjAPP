@@ -22,9 +22,8 @@
         ></mkj-gruppe-form>
     </div>
 
-    <div class="card">
+    <div *ngIf="formGroup?.controls.id.value" class="card">
         <p-table
-            *ngIf="formGroup?.controls.id.value"
             [value]="mitglieder"
             [loading]="tableLocked"
             responsiveLayout="scroll"

@@ -41,33 +41,33 @@ export class ServiceWorkerService {
             }
         });
 
-        this.pushSub$ = this.swPush.subscription.subscribe({
-            next: (pushSub) => {
-                if (pushSub === null) {
-                    this.requestPushSubscription();
-                } else {
-                    this.lastPushSub = pushSub;
-                }
-            },
-        });
+        // this.pushSub$ = this.swPush.subscription.subscribe({
+        //     next: (pushSub) => {
+        //         if (pushSub === null) {
+        //             this.requestPushSubscription();
+        //         } else {
+        //             this.lastPushSub = pushSub;
+        //         }
+        //     },
+        // });
 
-        this.swPush.messages.subscribe({
-            next: (res: any) => {
-                console.log("MESSAGE:", res);
-                navigator.serviceWorker.ready.then((registration) => {
-                    registration.showNotification(res.title, res);
-                });
-            },
-            error: (err) => this.infoService.error(err),
-        });
+        // this.swPush.messages.subscribe({
+        //     next: (res: any) => {
+        //         console.log("MESSAGE:", res);
+        //         navigator.serviceWorker.ready.then((registration) => {
+        //             registration.showNotification(res.title, res);
+        //         });
+        //     },
+        //     error: (err) => this.infoService.error(err),
+        // });
 
-        this.swPush.notificationClicks.subscribe({
-            next: (res) => {
-                this.pushNotiService.handleNotificationAction(res);
-                console.log("NOTIFICATION CLICK:", res);
-            },
-            error: (err) => this.infoService.error(err),
-        });
+        // this.swPush.notificationClicks.subscribe({
+        //     next: (res) => {
+        //         this.pushNotiService.handleNotificationAction(res);
+        //         console.log("NOTIFICATION CLICK:", res);
+        //     },
+        //     error: (err) => this.infoService.error(err),
+        // });
     }
 
     private requestPushSubscription() {
