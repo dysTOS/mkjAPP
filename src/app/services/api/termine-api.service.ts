@@ -32,9 +32,9 @@ export class TermineApiService {
         return this.http.get<Termin>(url, httpOptions);
     }
 
-    public getNextTermin(): Observable<Termin> {
+    public getNextTermin(skip?: number): Observable<Termin> {
         const url = this.apiURL + "nextausrueckung";
-        return this.http.get<Termin>(url, httpOptions);
+        return this.http.post<Termin>(url, { skip: skip }, httpOptions);
     }
 
     public getTermineFiltered(

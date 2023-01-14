@@ -27,7 +27,7 @@ export class GruppenOverviewComponent implements OnInit {
         private route: ActivatedRoute
     ) {
         this.toolbarService.header = "Register & Gruppen";
-        this.toolbarService.backButton = false;
+        this.toolbarService.backButtonLink = null;
         this.toolbarService.buttons = [
             {
                 label: "Neue Gruppe",

@@ -1,5 +1,5 @@
 <mkj-content-loader [loading]="loading">
-    <div class="card">
+    <div *ngIf="editMode" class="card">
         <div class="col-12 flex justify-content-end">
             <button
                 pButton
@@ -30,8 +30,11 @@
             responsiveLayout="scroll"
             styleClass="p-datatable p-datatable-striped"
         >
-            <ng-template pTemplate="caption">
-                <div class="flex justify-content-center">
+            <ng-template
+                *visibleFor="[Permission.NOTENMAPPE_ASSIGN]"
+                pTemplate="caption"
+            >
+                <div *ngIf="editMode" class="flex justify-content-center">
                     <app-mkj-notensuche
                         [selectedNoten]="selectedNoten"
                         [verzeichnisMode]="
@@ -44,22 +47,30 @@
             </ng-template>
             <ng-template pTemplate="header"
                 ><tr>
-                    <th></th>
                     <th *ngIf="notenMappe.hatVerzeichnis">Verzeichnis</th>
                     <th>Name</th>
+                    <th>Komponist</th>
                     <th></th></tr
             ></ng-template>
             <ng-template pTemplate="body" let-noten>
                 <tr>
-                    <td></td>
                     <td *ngIf="notenMappe.hatVerzeichnis">
                         {{ noten.pivot.verzeichnisNr }}
                     </td>
-                    <td>{{ noten.titel }}</td>
+                    <td></td>
+                    <td>{{ noten.komponist }}</td>
                     <td>
                         <button
                             pButton
+                            icon="pi pi-link"
+                            class="p-button-text ml-2"
+                            (click)="navigateToNoten(noten)"
+                        ></button>
+                        <button
+                            *ngIf="canDetachNoten && editMode"
+                            pButton
                             icon="pi pi-trash"
+                            pTooltip="Aus Mappe entfernen"
                             class="p-button-text p-button-danger"
                             (click)="detachNotenFromMappe(noten)"
                         ></button>

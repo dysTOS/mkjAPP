@@ -51,7 +51,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
     }
 
     private initToolbar(): void {
-        this.toolbarService.backButton = true;
+        this.toolbarService.backButtonLink = "../";
         this.toolbarService.buttons = [
             {
                 label: "Löschen",

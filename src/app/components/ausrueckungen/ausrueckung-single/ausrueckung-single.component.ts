@@ -39,7 +39,7 @@ export class AusrueckungSingleComponent implements OnInit {
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Details";
-        this.toolbarService.backButton = true;
+        this.toolbarService.backButtonLink = "../";
     }
 
     ngOnInit(): void {

@@ -37,7 +37,7 @@ export class MitgliederSingleComponent implements OnInit {
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Mitglied";
-        this.toolbarService.backButton = true;
+        this.toolbarService.backButtonLink = "../";
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-pencil",

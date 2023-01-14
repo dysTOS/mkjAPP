@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { filter, first } from "rxjs";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
+import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { NotenService } from "src/app/services/noten.service";
 import { NotenmappenFormHelper } from "src/app/utilities/form-components/mkj-notenmappe-form/notenmappen-form-helper.class";
@@ -25,21 +27,31 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     public loading: boolean;
     public tableLocked: boolean;
 
+    public readonly Permission = PermissionMap;
+    public editMode: boolean = false;
+    public canDetachNoten: boolean = false;
+
     constructor(
         private toolbarService: MkjToolbarService,
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private infoService: InfoService,
-        private notenService: NotenService
+        private notenService: NotenService,
+        private userService: UserService
     ) {
         this.initToolbar();
+        this.canDetachNoten = this.userService.hasPermission(
+            PermissionMap.NOTENMAPPE_ASSIGN
+        );
+
         this.formGroup = NotenmappenFormHelper.getNotennappeFormGroup(fb);
 
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadMappe(id);
         } else {
+            this.editMode = true;
             this.toolbarService.buttons[0].hidden = true;
         }
     }
@@ -54,10 +66,22 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     }
 
     private initToolbar(): void {
-        this.toolbarService.backButton = true;
+        this.toolbarService.backButtonLink = "../";
         this.toolbarService.buttons = [
             {
-                label: "Löschen",
+                label: "Mappe bearbeiten",
+                icon: "pi pi-pencil",
+                click: () => {
+                    this.editMode = !this.editMode;
+                    this.toolbarService.buttons[0].highlighted = this.editMode;
+                },
+                permissions: [
+                    PermissionMap.NOTENMAPPE_SAVE,
+                    PermissionMap.NOTENMAPPE_ASSIGN,
+                ],
+            },
+            {
+                label: "Mappe Löschen",
                 icon: "pi pi-trash",
                 click: () => this.deleteNotenmappe(),
                 permissions: [PermissionMap.NOTENMAPPE_DELETE],
@@ -74,6 +98,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                     res
                 );
                 this.notenMappe = res;
+                this.toolbarService.header = res.name;
                 this.sortNoten();
                 this.loading = false;
                 this.formGroup.updateValueAndValidity();
@@ -112,8 +137,10 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                     next: (res) => {
                         this.infoService.success("Mappe erstellt!");
                         this.isSaving = false;
-                        this.loadMappe(res.id);
                         this.formGroup.markAsPristine();
+                        this.router.navigate(["../", res.id], {
+                            relativeTo: this.route,
+                        });
                     },
                     error: (err) => {
                         this.infoService.error(err);
@@ -163,7 +190,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
 
     public deleteNotenmappe() {
         this.infoService
-            .confirmDelete(null, () =>
+            .confirmDelete("Mappe wirklich löschen?", () =>
                 this.notenService.deleteNotenmappe(
                     this.formGroup?.controls.id.value
                 )
@@ -194,5 +221,13 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                 a.titel.localeCompare(b.titel)
             );
         }
+    }
+
+    public navigateToNoten(noten: Noten): void {
+        //TODO route to noten
+        this.toolbarService.resetToolbar();
+        this.router.navigate(["../../archiv"], {
+            relativeTo: this.route,
+        });
     }
 }

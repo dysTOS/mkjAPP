@@ -12,6 +12,16 @@ import { UserService } from "src/app/services/authentication/user.service";
     styleUrls: ["./mkj-dashboard.component.scss"],
 })
 export class MkjDashboardComponent implements OnInit {
+    private _skip: number = 0;
+    public get skip(): number {
+        return this._skip;
+    }
+    public set skip(value: number) {
+        this._skip = value;
+        this.nextAusrueckung = null;
+        this.getNextTermin();
+    }
+
     nextAusrueckung: Termin;
     nextAusrueckungLoading: boolean = false;
 
@@ -24,18 +34,24 @@ export class MkjDashboardComponent implements OnInit {
         public appMain: AppMainComponent
     ) {}
 
-    ngOnInit(): void {
-        this.nextAusrueckungLoading = true;
-        this.ausrueckungService.getNextTermin().subscribe(
-            (ausrueckung) => {
-                (this.nextAusrueckung = ausrueckung),
-                    (this.nextAusrueckungLoading = false);
-            },
-            (error) => (this.nextAusrueckungLoading = false)
-        );
-
+    public ngOnInit(): void {
         this.userService
             .getCurrentMitglied()
             .subscribe((m) => (this.currentMitglied = m));
+
+        this.getNextTermin();
+    }
+
+    public getNextTermin(): void {
+        this.nextAusrueckungLoading = true;
+        this.ausrueckungService.getNextTermin(this.skip).subscribe({
+            next: (ausrueckung) => {
+                this.nextAusrueckung = ausrueckung;
+                this.nextAusrueckungLoading = false;
+            },
+            error: (error) => {
+                this.nextAusrueckungLoading = false;
+            },
+        });
     }
 }

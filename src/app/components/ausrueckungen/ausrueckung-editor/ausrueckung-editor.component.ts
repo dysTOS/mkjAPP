@@ -28,7 +28,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Editor";
-        this.toolbarService.backButton = true;
+        this.toolbarService.backButtonLink = "/aktuell";
 
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {

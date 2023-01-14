@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, OnInit, TemplateRef } from "@angular/core";
-import { NavigationStart, Router } from "@angular/router";
+import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
 import { UserService } from "src/app/services/authentication/user.service";
 import { SubSink } from "subsink";
 
@@ -17,7 +17,7 @@ export interface MkjToolbarButton {
     providedIn: "root",
 })
 export class MkjToolbarService implements OnInit, OnDestroy {
-    public backButton: boolean;
+    public backButtonLink: string;
     public header: string;
     public contentSectionExpanded: boolean;
     public contentSectionTemplate: TemplateRef<any>;
@@ -33,7 +33,11 @@ export class MkjToolbarService implements OnInit, OnDestroy {
 
     private subSink = new SubSink();
 
-    constructor(private userService: UserService, private router: Router) {
+    constructor(
+        private userService: UserService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {
         this.subSink.add(
             this.router.events.subscribe({
                 next: (event) => {
@@ -73,7 +77,7 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     }
 
     public resetToolbar() {
-        this.backButton = false;
+        this.backButtonLink = null;
         this.header = null;
         this.contentSectionTemplate = null;
         this.contentSectionExpanded = false;

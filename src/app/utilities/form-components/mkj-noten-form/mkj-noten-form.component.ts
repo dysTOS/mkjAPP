@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 @Component({
@@ -6,11 +6,9 @@ import { FormGroup } from "@angular/forms";
     templateUrl: "./mkj-noten-form.component.html",
     styleUrls: ["./mkj-noten-form.component.scss"],
 })
-export class MkjNotenFormComponent implements OnInit {
+export class MkjNotenFormComponent {
     @Input()
     public formGroup: FormGroup;
 
     constructor() {}
-
-    ngOnInit(): void {}
 }

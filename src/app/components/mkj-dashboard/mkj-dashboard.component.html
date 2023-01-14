@@ -14,8 +14,23 @@
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
             </div>
             <div style="text-align: center" *ngIf="nextAusrueckung">
-                <h4>Nächste Spielerei:</h4>
-                <h2>{{ nextAusrueckung?.name }}</h2>
+                <h4>Nächster Termin:</h4>
+                <h2>
+                    <button
+                        *ngIf="skip > 0"
+                        pButton
+                        icon="pi pi-arrow-left"
+                        class="p-button-text"
+                        (click)="skip = skip - 1"
+                    ></button>
+                    {{ nextAusrueckung?.name }}
+                    <button
+                        pButton
+                        icon="pi pi-arrow-right"
+                        class="p-button-text"
+                        (click)="skip = skip + 1"
+                    ></button>
+                </h2>
                 <p>
                     {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
                     <b>{{ nextAusrueckung?.treffzeit }}</b>

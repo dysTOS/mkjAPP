@@ -38,6 +38,7 @@ export class NotenarchivComponent implements OnInit {
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Notenarchiv";
+        this.toolbarService.backButtonLink = null;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",

@@ -24,6 +24,7 @@ export const TerminKategorieMap = [
     { label: "Kurkonzert", value: "kurkonzert" },
     { label: "Weckruf", value: "weckruf" },
     { label: "Kirchlich", value: "kirchlich" },
+    { label: "Probe", value: "probe" },
     { label: "Sonstige", value: "sonstige" },
 ];
 
