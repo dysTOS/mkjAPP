@@ -1,67 +1,29 @@
 <div class="grid">
-    <div class="col-12">
-        <div
-            class="card flex justify-content-center"
-            *ngIf="appMain.publicTestEnvironment"
-        >
+    <div class="col-12" *ngIf="appMain.publicTestEnvironment">
+        <div class="card flex justify-content-center">
             <h3>TESTUMGEBUNG</h3>
         </div>
-        <div
-            class="card flex justify-content-center"
-            *ngIf="nextAusrueckungLoading || nextAusrueckung"
-        >
-            <div style="text-align: center" *ngIf="nextAusrueckungLoading">
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div>
-            <div style="text-align: center" *ngIf="nextAusrueckung">
-                <h4>Nächster Termin:</h4>
-                <h2>
-                    <button
-                        *ngIf="skip > 0"
-                        pButton
-                        icon="pi pi-arrow-left"
-                        class="p-button-text"
-                        (click)="skip = skip - 1"
-                    ></button>
-                    {{ nextAusrueckung?.name }}
-                    <button
-                        pButton
-                        icon="pi pi-arrow-right"
-                        class="p-button-text"
-                        (click)="skip = skip + 1"
-                    ></button>
-                </h2>
-                <p>
-                    {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
-                    <b>{{ nextAusrueckung?.treffzeit }}</b>
-                </p>
-                <p>{{ nextAusrueckung?.ort }}</p>
-                <p>{{ nextAusrueckung?.infoMusiker }}</p>
-                <p>{{ nextAusrueckung?.beschreibung }}</p>
-                <button
-                    pButton
-                    label="Alle Ausrückungen"
-                    routerLink="../ausrueckungen"
-                    class="p-button-outlined"
-                    (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
-                ></button>
-            </div>
-        </div>
+    </div>
 
-        <div class="card flex justify-content-center">
-            <div style="text-align: center">
-                <h4>Hallo {{ currentMitglied?.vorname }}!</h4>
-                <p>
-                    Das ist die erste Demo-Version unserer App für die mobile
-                    Vereinsverwaltung.
-                </p>
-                <p *ngIf="appMain.publicTestEnvironment">
-                    Du kannst hier rumklicksen wie du willst - nichts kann
-                    kaputt werden! Aber bitte sei so gut und schreib mir einen
-                    kurzen Bug-Report wenn du einen Fehler/Fehlermeldung etc.
-                    entdeckst oder du einen Verbesserungsvorschlag hast:
-                </p>
-            </div>
+    <div class="md:col-6 col-12">
+        <div class="card">
+            <next-termin></next-termin>
+        </div>
+    </div>
+
+    <div class="md:col-6 col-12">
+        <div class="card text-center">
+            <h4>Hallo {{ currentMitglied?.vorname }}!</h4>
+            <p>
+                Das ist die erste Demo-Version unserer App für die mobile
+                Vereinsverwaltung.
+            </p>
+            <p *ngIf="appMain.publicTestEnvironment">
+                Du kannst hier rumklicksen wie du willst - nichts kann kaputt
+                werden! Aber bitte sei so gut und schreib mir einen kurzen
+                Bug-Report wenn du einen Fehler/Fehlermeldung etc. entdeckst
+                oder du einen Verbesserungsvorschlag hast:
+            </p>
         </div>
     </div>
 </div>

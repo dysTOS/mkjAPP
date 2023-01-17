@@ -1,0 +1,47 @@
+<div class="flex justify-content-between align-items-center">
+    <button
+        pButton
+        icon="pi pi-arrow-left"
+        class="p-button-text"
+        (click)="skip = skip - 1"
+        [disabled]="loading || skip === 0"
+    ></button>
+    <div class="text-center">
+        <h4>
+            <span>Nächster Termin:</span>
+        </h4>
+        <div *ngIf="nextAusrueckung">
+            <h2>
+                {{ nextAusrueckung?.name }}
+            </h2>
+            <p>
+                {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
+                <b>{{ nextAusrueckung?.treffzeit }}</b>
+            </p>
+            <p *ngIf="nextAusrueckung?.bisDatum > nextAusrueckung?.vonDatum">
+                bis {{ nextAusrueckung?.bisDatum | mkjDate : "E d. MMMM" }}
+                <b>{{ nextAusrueckung?.bisZeit }}</b>
+            </p>
+            <p>{{ nextAusrueckung?.ort }}</p>
+            <p>{{ nextAusrueckung?.infoMusiker }}</p>
+            <p>{{ nextAusrueckung?.beschreibung }}</p>
+            <button
+                pButton
+                label="Alle Ausrückungen"
+                routerLink="../ausrueckungen"
+                class="p-button-outlined"
+                (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
+            ></button>
+        </div>
+        <div *ngIf="loading" class="text-center">
+            <p-skeleton width="15rem" height="8rem"></p-skeleton>
+        </div>
+    </div>
+    <button
+        pButton
+        icon="pi pi-arrow-right"
+        class="p-button-text"
+        (click)="skip = skip + 1"
+        [disabled]="loading"
+    ></button>
+</div>

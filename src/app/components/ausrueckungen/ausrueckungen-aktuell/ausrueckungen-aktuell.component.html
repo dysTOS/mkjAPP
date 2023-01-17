@@ -214,118 +214,50 @@
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
                         <td colspan="4">
-                            <div class="col-12 ausrueckung-expanded-info">
-                                <div class="md:col-3 sm:col-12 card">
-                                    <div>Termin:</div>
-                                    <h5 class="m-1">
-                                        {{
-                                            ausrueckung?.vonDatum
-                                                | mkjDate : "d. MMMM YYYY"
-                                        }}
-                                        {{ ausrueckung?.vonZeit }}
-                                    </h5>
-                                </div>
-                                <div
-                                    class="md:col-3 sm:col-12 card"
-                                    *ngIf="ausrueckung.treffzeit"
-                                >
-                                    <div>Zusammenkunft um:</div>
-                                    <h5 class="m-1">
-                                        {{ ausrueckung?.treffzeit }}
-                                    </h5>
-                                </div>
-                                <div
-                                    class="md:col-3 sm:col-12 card"
-                                    *ngIf="ausrueckung.bisZeit"
-                                >
-                                    <div>Ende:</div>
-                                    <h5 class="m-1">
-                                        <div
-                                            *ngIf="
-                                                ausrueckung?.bisDatum !==
-                                                ausrueckung?.vonDatum
-                                            "
-                                        >
-                                            {{
-                                                ausrueckung?.bisDatum
-                                                    | mkjDate : "d. MMMM YYYY"
-                                            }}
-                                        </div>
-                                        {{ ausrueckung?.bisZeit }}
-                                    </h5>
-                                </div>
-                                <div
-                                    class="md:col-3 sm:col-12 card"
-                                    *ngIf="ausrueckung.ort"
-                                >
-                                    <div>Ort:</div>
-                                    <h5 class="m-1">
-                                        {{ ausrueckung?.ort }}
-                                    </h5>
-                                </div>
+                            <termin-card [termin]="ausrueckung"></termin-card>
+                            <div
+                                class="col-12 flex flex-wrap gap-4 justify-content-around"
+                            >
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-list"
+                                    label="Detailansicht"
+                                    class="p-button-raised p-button-info"
+                                    style="width: 10rem"
+                                    [routerLink]="
+                                        '../details/' + ausrueckung.id
+                                    "
+                                ></button>
 
-                                <div
-                                    *ngIf="ausrueckung.infoMusiker"
-                                    class="md:col-6 sm:col-12 pl-0 pr-0"
-                                >
-                                    <p-panel header="Musikerinfos">
-                                        {{ ausrueckung.infoMusiker }}
-                                    </p-panel>
-                                </div>
-                                <div
-                                    *ngIf="ausrueckung.beschreibung"
-                                    class="md:col-6 sm:col-12 pl-0 pr-0"
-                                >
-                                    <p-panel header="Öffentliche Beschreibung">
-                                        {{ ausrueckung.beschreibung }}
-                                    </p-panel>
-                                </div>
-                                <div
-                                    class="col-12 flex flex-wrap gap-4 justify-content-around"
-                                >
-                                    <button
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-list"
-                                        label="Detailansicht"
-                                        class="p-button-raised p-button-info"
-                                        style="width: 10rem"
-                                        [routerLink]="
-                                            '../details/' + ausrueckung.id
-                                        "
-                                    ></button>
-
-                                    <button
-                                        *visibleFor="['ausrueckungen_save']"
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-copy"
-                                        label="Duplizieren"
-                                        class="p-button-outlined p-button-secondary p-button-sm"
-                                        style="width: 10rem"
-                                        (click)="
-                                            duplicateAusrueckung(ausrueckung)
-                                        "
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-pencil"
-                                        label="Bearbeiten"
-                                        class="p-button-outlined p-button-sm p-button-info"
-                                        style="width: 10rem"
-                                        (click)="editAusrueckung(ausrueckung)"
-                                    ></button>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-trash"
-                                        label="Löschen"
-                                        class="p-button-outlined p-button-sm p-button-danger"
-                                        style="width: 10rem"
-                                        (click)="deleteAusrueckung(ausrueckung)"
-                                    ></button>
-                                </div>
+                                <button
+                                    *visibleFor="['ausrueckungen_save']"
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-copy"
+                                    label="Duplizieren"
+                                    class="p-button-outlined p-button-secondary p-button-sm"
+                                    style="width: 10rem"
+                                    (click)="duplicateAusrueckung(ausrueckung)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    label="Bearbeiten"
+                                    class="p-button-outlined p-button-sm p-button-info"
+                                    style="width: 10rem"
+                                    (click)="editAusrueckung(ausrueckung)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    label="Löschen"
+                                    class="p-button-outlined p-button-sm p-button-danger"
+                                    style="width: 10rem"
+                                    (click)="deleteAusrueckung(ausrueckung)"
+                                ></button>
                             </div>
                         </td>
                     </tr>

@@ -1,0 +1,41 @@
+<div class="grid card">
+    <div class="md:col-3 sm:col-12 card">
+        <div>Termin:</div>
+        <h5 class="m-1">
+            {{ termin?.vonDatum | mkjDate : "d. MMMM YYYY" }}
+            {{ termin?.vonZeit }}
+        </h5>
+    </div>
+    <div class="md:col-3 sm:col-12 card" *ngIf="termin.treffzeit">
+        <div>Zusammenkunft um:</div>
+        <h5 class="m-1">
+            {{ termin?.treffzeit }}
+        </h5>
+    </div>
+    <div class="md:col-3 sm:col-12 card" *ngIf="termin.bisZeit">
+        <div>Ende:</div>
+        <h5 class="m-1">
+            <div *ngIf="termin?.bisDatum !== termin?.vonDatum">
+                {{ termin?.bisDatum | mkjDate : "d. MMMM YYYY" }}
+            </div>
+            {{ termin?.bisZeit }}
+        </h5>
+    </div>
+    <div class="md:col-3 sm:col-12 card" *ngIf="termin.ort">
+        <div>Ort:</div>
+        <h5 class="m-1">
+            {{ termin?.ort }}
+        </h5>
+    </div>
+
+    <div *ngIf="termin.infoMusiker" class="md:col-6 sm:col-12 pl-0 pr-0">
+        <p-panel header="Musikerinfos">
+            {{ termin.infoMusiker }}
+        </p-panel>
+    </div>
+    <div *ngIf="termin.beschreibung" class="md:col-6 sm:col-12 pl-0 pr-0">
+        <p-panel header="Öffentliche Beschreibung">
+            {{ termin.beschreibung }}
+        </p-panel>
+    </div>
+</div>
