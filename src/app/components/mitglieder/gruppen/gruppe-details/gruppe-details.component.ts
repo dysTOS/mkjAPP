@@ -51,7 +51,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
     }
 
     private initToolbar(): void {
-        this.toolbarService.backButtonLink = "../";
+        this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
             {
                 label: "Löschen",
@@ -63,11 +63,6 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
     }
 
     public canDeactivate(): boolean {
-        this.initToolbar();
-        const id = this.route.snapshot.params.id;
-        if (id === "neu") {
-            this.toolbarService.buttons[0].hidden = true;
-        }
         return this.formGroup?.pristine;
     }
 

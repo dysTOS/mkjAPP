@@ -1,5 +1,12 @@
+import { Location } from "@angular/common";
 import { Injectable, OnDestroy, OnInit, TemplateRef } from "@angular/core";
-import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
+import {
+    ActivatedRoute,
+    ActivationStart,
+    NavigationEnd,
+    NavigationStart,
+    Router,
+} from "@angular/router";
 import { UserService } from "src/app/services/authentication/user.service";
 import { SubSink } from "subsink";
 
@@ -17,7 +24,7 @@ export interface MkjToolbarButton {
     providedIn: "root",
 })
 export class MkjToolbarService implements OnInit, OnDestroy {
-    public backButtonLink: string;
+    public backButton: boolean;
     public header: string;
     public contentSectionExpanded: boolean;
     public contentSectionTemplate: TemplateRef<any>;
@@ -32,17 +39,21 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     }
 
     private subSink = new SubSink();
+    private firstNavigationHappened = false;
 
     constructor(
         private userService: UserService,
         private router: Router,
-        private route: ActivatedRoute
+        private location: Location
     ) {
         this.subSink.add(
             this.router.events.subscribe({
                 next: (event) => {
-                    if (event instanceof NavigationStart) {
+                    if (event instanceof ActivationStart) {
                         this.resetToolbar();
+                    }
+                    if (event instanceof NavigationEnd) {
+                        this.firstNavigationHappened = true;
                     }
                 },
             })
@@ -76,11 +87,19 @@ export class MkjToolbarService implements OnInit, OnDestroy {
         });
     }
 
-    public resetToolbar() {
-        this.backButtonLink = null;
+    public resetToolbar(): void {
+        this.backButton = null;
         this.header = null;
         this.contentSectionTemplate = null;
         this.contentSectionExpanded = false;
         this.buttons = null;
+    }
+
+    public navigateBack(): void {
+        if (this.firstNavigationHappened) {
+            this.location.back();
+        } else {
+            this.router.navigateByUrl("/");
+        }
     }
 }

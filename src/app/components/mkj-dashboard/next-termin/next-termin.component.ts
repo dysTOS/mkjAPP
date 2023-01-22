@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { AppMainComponent } from "src/app/app.main.component";
 import { Termin } from "src/app/models/Termin";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
+import { MenuLabels } from "src/app/services/menu.service";
 
 @Component({
     selector: "next-termin",
@@ -21,7 +23,12 @@ export class NextTerminComponent {
     public nextAusrueckung: Termin;
     public loading: boolean = false;
 
-    constructor(private terminService: TermineApiService) {
+    public readonly MenuLabels = MenuLabels;
+
+    constructor(
+        public appMain: AppMainComponent,
+        private terminService: TermineApiService
+    ) {
         this.getNextTermin();
     }
 

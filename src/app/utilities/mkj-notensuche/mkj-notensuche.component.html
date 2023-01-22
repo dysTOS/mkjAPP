@@ -1,8 +1,7 @@
 <div class="flex">
-    <span class="p-float-label verzeichnis-input">
+    <span *ngIf="verzeichnisMode" class="p-float-label verzeichnis-input">
         <input
             type="text"
-            *ngIf="verzeichnisMode"
             inputId="verzeichnis"
             pInputText
             [(ngModel)]="verzeichnisNr"
@@ -23,7 +22,7 @@
         [appendTo]="'body'"
         field="titel"
         dataKey="id"
-        class="notensuche-input"
+        [class.notensuche-input]="verzeichnisMode"
         [showEmptyMessage]="true"
         emptyMessage="Keine Noten gefunden..."
     >

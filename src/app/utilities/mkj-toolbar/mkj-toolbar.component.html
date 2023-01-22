@@ -1,6 +1,6 @@
 <div
     *ngIf="
-        toolbarService.backButtonLink ||
+        toolbarService.backButton ||
         toolbarService.header ||
         toolbarService.buttons
     "
@@ -8,23 +8,23 @@
 >
     <div>
         <button
-            *ngIf="toolbarService.backButtonLink"
+            *ngIf="toolbarService.backButton"
             pButton
             icon="pi pi-arrow-left"
             class="p-button p-button-text p-button-plain button-opacity p-1"
-            (click)="navigateBack()"
+            (click)="toolbarService.navigateBack()"
             pTooltip="Zurück"
             tooltipPosition="bottom"
         ></button>
         <div
-            *ngIf="toolbarService.header && !toolbarService.backButtonLink"
+            *ngIf="toolbarService.header && !toolbarService.backButton"
             class="toolbar-header"
         >
             {{ toolbarService.header }}
         </div>
     </div>
     <div
-        *ngIf="toolbarService.header && toolbarService.backButtonLink"
+        *ngIf="toolbarService.header && toolbarService.backButton"
         class="toolbar-header"
     >
         {{ toolbarService.header }}

@@ -1,4 +1,6 @@
 <div class="display-container">
     <div class="display-label">{{ label }}</div>
-    <div class="display-string">{{ displaystring }}</div>
+    <div class="display-string">
+        {{ displaystring }}<ng-content></ng-content>
+    </div>
 </div>

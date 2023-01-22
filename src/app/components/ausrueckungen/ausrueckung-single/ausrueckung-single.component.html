@@ -1,176 +1,120 @@
-<p-tabView>
-    <p-tabPanel [selected]="true" [header]="ausrueckung?.name">
-        <div
-            *ngIf="loading"
-            class="flex justify-content-center"
-            style="height: 7rem"
-        >
-            <div>
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div>
-        </div>
-
-        <div *ngIf="!loading">
-            <div class="col-12 ausrueckung-expanded-info">
-                <div class="md:col-3 sm:col-12 card">
-                    <div>Termin:</div>
-                    <h5 class="m-1">
-                        {{ ausrueckung?.vonDatum | mkjDate : "d. MMMM YYYY" }}
-                        {{ ausrueckung?.vonZeit }}
-                    </h5>
-                </div>
+<mkj-content-loader [loading]="loading">
+    <p-tabView>
+        <p-tabPanel [selected]="true" header="Infos">
+            <termin-card
+                *ngIf="ausrueckung"
+                [termin]="ausrueckung"
+            ></termin-card>
+            <div *ngIf="ausrueckung">
                 <div
-                    class="md:col-3 sm:col-12 card"
-                    *ngIf="ausrueckung.treffzeit"
+                    *ngIf="ausrueckung.vonZeit && ausrueckung.bisZeit"
+                    class="col-12 flex justify-content-center"
                 >
-                    <div>Zusammenkunft um:</div>
-                    <h5 class="m-1">
-                        {{ ausrueckung?.treffzeit }}
-                    </h5>
+                    <button
+                        pButton
+                        pRipple
+                        label="in Mobil-Kalender exportieren"
+                        class="p-button-sm p-button-info"
+                        icon="pi pi-calendar"
+                        (click)="exportToCalendar()"
+                    ></button>
                 </div>
-                <div
-                    class="md:col-3 sm:col-12 card"
-                    *ngIf="ausrueckung.bisZeit"
-                >
-                    <div>Ende:</div>
-                    <h5 class="m-1">
-                        <div
-                            *ngIf="
-                                ausrueckung?.bisDatum !== ausrueckung?.vonDatum
-                            "
-                        >
+                <div style="color: grey; font-size: 0.9em" class="col-12">
+                    <p-divider></p-divider>
+                    <div
+                        class="flex flex-wrap justify-content-between sm:col-mt-1"
+                    >
+                        <div>
                             {{
-                                ausrueckung?.bisDatum | mkjDate : "d. MMMM YYYY"
+                                ausrueckung.oeffentlich
+                                    ? "Öffentlich auf mk-jainzen.at"
+                                    : "Nicht sichtbar auf mk.jainzen.at"
                             }}
                         </div>
-                        {{ ausrueckung?.bisZeit }}
-                    </h5>
-                </div>
-                <div class="md:col-3 sm:col-12 card" *ngIf="ausrueckung.ort">
-                    <div>Ort:</div>
-                    <h5 class="m-1">
-                        {{ ausrueckung?.ort }}
-                    </h5>
-                </div>
-
-                <div
-                    *ngIf="ausrueckung.infoMusiker"
-                    class="md:col-6 sm:col-12 pl-0 pr-0"
-                >
-                    <p-panel header="Musikerinfos">
-                        {{ ausrueckung.infoMusiker }}
-                    </p-panel>
-                </div>
-                <div
-                    *ngIf="ausrueckung.beschreibung"
-                    class="md:col-6 sm:col-12 pl-0 pr-0"
-                >
-                    <p-panel header="Öffentliche Beschreibung">
-                        {{ ausrueckung.beschreibung }}
-                    </p-panel>
-                </div>
-            </div>
-            <div
-                *ngIf="ausrueckung.vonZeit && ausrueckung.bisZeit"
-                class="col-12 flex justify-content-center"
-            >
-                <button
-                    pButton
-                    pRipple
-                    label="in Mobil-Kalender exportieren"
-                    class="p-button-sm p-button-info"
-                    icon="pi pi-calendar"
-                    (click)="exportToCalendar()"
-                ></button>
-            </div>
-            <div style="color: grey; font-size: 0.9em" class="col-12">
-                <p-divider></p-divider>
-                <div class="flex flex-wrap justify-content-between sm:col-mt-1">
-                    <div>
-                        {{
-                            ausrueckung.oeffentlich
-                                ? "Öffentlich auf mk-jainzen.at"
-                                : "Nicht sichtbar auf mk.jainzen.at"
-                        }}
-                    </div>
-                    <div>
-                        <div *ngIf="ausrueckung.created_at" class="mr-2">
-                            Erstellt am:
-                            {{
-                                ausrueckung?.created_at
-                                    | mkjDate : "d. MMM YYYY"
-                            }}
-                        </div>
-                        <div *ngIf="ausrueckung.updated">
-                            Aktualisiert am:
-                            {{
-                                ausrueckung?.updated_at
-                                    | mkjDate : "d. MMM YYYY"
-                            }}
+                        <div>
+                            <div *ngIf="ausrueckung.created_at" class="mr-2">
+                                Erstellt am:
+                                {{
+                                    ausrueckung?.created_at
+                                        | mkjDate : "d. MMM YYYY"
+                                }}
+                            </div>
+                            <div *ngIf="ausrueckung.updated_at">
+                                Aktualisiert am:
+                                {{
+                                    ausrueckung?.updated_at
+                                        | mkjDate : "d. MMM YYYY"
+                                }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </p-tabPanel>
+        </p-tabPanel>
 
-    <p-tabPanel header="Teilnehmende Musiker">
-        <div class="col-12">
-            <div *ngIf="!mitglieder" class="flex justify-content-center">
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        <p-tabPanel header="Anwesenheitsliste">
+            <div class="col-12">
+                <div *ngIf="!mitglieder" class="flex justify-content-center">
+                    <i
+                        class="pi pi-spin pi-spinner"
+                        style="font-size: 2rem"
+                    ></i>
+                </div>
+                <p-listbox
+                    *ngIf="mitglieder && presentMitglieder"
+                    [options]="mitglieder"
+                    [ngModel]="presentMitglieder"
+                    [multiple]="true"
+                    [checkbox]="true"
+                    [filter]="false"
+                    optionLabel="vorname"
+                    [showToggleAll]="false"
+                    dataKey="id"
+                    (onChange)="onMitgliederChange($event)"
+                >
+                    <ng-template let-mitglied pTemplate="item">
+                        <div>
+                            <div>
+                                {{ mitglied.vorname }} {{ mitglied.zuname }}
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-listbox>
             </div>
-            <p-listbox
-                *ngIf="mitglieder && presentMitglieder"
-                [options]="mitglieder"
-                [ngModel]="presentMitglieder"
-                [multiple]="true"
-                [checkbox]="true"
-                [filter]="false"
-                optionLabel="vorname"
-                [showToggleAll]="false"
-                dataKey="id"
-                (onChange)="onMitgliederChange($event)"
-            >
-                <ng-template let-mitglied pTemplate="item">
-                    <div>
-                        <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>
-                    </div>
-                </ng-template>
-            </p-listbox>
-        </div>
-    </p-tabPanel>
+        </p-tabPanel>
 
-    <p-tabPanel header="Musikstücke">
-        <div class="col-12">
-            <p-table
-                [value]="gespielteNoten"
-                [loading]="notenLoading"
-                responsiveLayout="scroll"
-                styleClass="p-datatable-sm p-datatable-striped"
-            >
-                <ng-template pTemplate="caption"
-                    ><div class="col-12 flex justify-content-center">
-                        <app-mkj-notensuche
-                            [(selectedNoten)]="selectedNoten"
-                            (notenSelect)="attachNoten($event.noten)"
-                        ></app-mkj-notensuche></div
-                ></ng-template>
-                <ng-template pTemplate="body" let-noten>
-                    <tr>
-                        <td>{{ noten.titel }}</td>
-                        <td style="color: grey">{{ noten.gattung }}</td>
-                        <td>
-                            <button
-                                pButton
-                                class="p-button-rounded p-button-outlined p-button-sm p-button-danger m-0 p-0"
-                                icon="pi pi-trash"
-                                pTooltip="Entfernen"
-                                (click)="detachNoten(noten)"
-                            ></button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </p-tabPanel>
-</p-tabView>
+        <p-tabPanel header="Musikstücke">
+            <div class="col-12">
+                <p-table
+                    [value]="gespielteNoten"
+                    [loading]="notenLoading"
+                    responsiveLayout="scroll"
+                    styleClass="p-datatable-sm p-datatable-striped"
+                >
+                    <ng-template pTemplate="caption"
+                        ><div class="col-12 flex justify-content-center">
+                            <app-mkj-notensuche
+                                [selectedNoten]="selectedNoten"
+                                (notenSelect)="attachNoten($event.noten)"
+                            ></app-mkj-notensuche></div
+                    ></ng-template>
+                    <ng-template pTemplate="body" let-noten>
+                        <tr>
+                            <td>{{ noten.titel }}</td>
+                            <td style="color: grey">{{ noten.gattung }}</td>
+                            <td>
+                                <button
+                                    pButton
+                                    class="p-button-rounded p-button-outlined p-button-sm p-button-danger m-0 p-0"
+                                    icon="pi pi-trash"
+                                    pTooltip="Entfernen"
+                                    (click)="detachNoten(noten)"
+                                ></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</mkj-content-loader>

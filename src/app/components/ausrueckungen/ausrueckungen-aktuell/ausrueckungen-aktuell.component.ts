@@ -102,7 +102,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             filterAnd: [
                 {
                     filterField: "vonDatum",
-                    value: new Date().getFullYear() + "-01-01",
+                    value: this.actualDate,
                     operator: ">=",
                 },
                 {

@@ -172,15 +172,6 @@
             .p-datatable.p-datatable-ausrueckungen
             .p-datatable-tbody
             > tr
-            > td:last-child {
-            text-align: center;
-        }
-
-        :host
-            ::ng-deep
-            .p-datatable.p-datatable-ausrueckungen
-            .p-datatable-tbody
-            > tr
             > td:nth-child(2) {
             text-align: right;
         }

@@ -7,13 +7,13 @@
         [disabled]="loading || skip === 0"
     ></button>
     <div class="text-center">
-        <h4>
+        <p>
             <span>Nächster Termin:</span>
-        </h4>
-        <div *ngIf="nextAusrueckung">
-            <h2>
+        </p>
+        <div *ngIf="nextAusrueckung" style="min-height: 10rem">
+            <h4>
                 {{ nextAusrueckung?.name }}
-            </h2>
+            </h4>
             <p>
                 {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
                 <b>{{ nextAusrueckung?.treffzeit }}</b>
@@ -25,17 +25,17 @@
             <p>{{ nextAusrueckung?.ort }}</p>
             <p>{{ nextAusrueckung?.infoMusiker }}</p>
             <p>{{ nextAusrueckung?.beschreibung }}</p>
-            <button
-                pButton
-                label="Alle Ausrückungen"
-                routerLink="../ausrueckungen"
-                class="p-button-outlined"
-                (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
-            ></button>
         </div>
         <div *ngIf="loading" class="text-center">
-            <p-skeleton width="15rem" height="8rem"></p-skeleton>
+            <p-skeleton width="15rem" height="10rem"></p-skeleton>
         </div>
+        <button
+            pButton
+            label="Alle Ausrückungen"
+            routerLink="../ausrueckungen"
+            class="p-button-outlined mt-2"
+            (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
+        ></button>
     </div>
     <button
         pButton

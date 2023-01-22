@@ -66,7 +66,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     }
 
     private initToolbar(): void {
-        this.toolbarService.backButtonLink = "../";
+        this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
             {
                 label: "Mappe bearbeiten",
