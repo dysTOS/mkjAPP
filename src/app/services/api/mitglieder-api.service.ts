@@ -1,14 +1,9 @@
-import { Mitglied } from "src/app/models/Mitglied";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
-
-const httpOptions = {
-    headers: new HttpHeaders({
-        "Content-Type": "application/json",
-    }),
-};
+import { StandardHttpOptions } from "src/app/interfaces/api-middleware";
+import { Mitglied } from "src/app/models/Mitglied";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
@@ -21,48 +16,48 @@ export class MitgliederApiService {
 
     getAllMitglieder(): Observable<Mitglied[]> {
         const url = this.apiURL + "mitglieder";
-        return this.http.get<Mitglied[]>(url, httpOptions);
+        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     getAktiveMitglieder(): Observable<Mitglied[]> {
         const url = this.apiURL + "mitgliederaktiv";
-        return this.http.get<Mitglied[]>(url, httpOptions);
+        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     getMitgliederForAusrueckung(ausrueckungId: string): Observable<Mitglied[]> {
         const url =
             this.apiURL + "mitgliederausrueckung/" + ausrueckungId.toString();
-        return this.http.get<Mitglied[]>(url, httpOptions);
+        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     getSingleMitglied(id: string): Observable<Mitglied> {
         const url = this.apiURL + "mitglieder/" + id;
-        return this.http.get<Mitglied>(url, httpOptions);
+        return this.http.get<Mitglied>(url, StandardHttpOptions);
     }
 
     searchMitglieder(searchkey: string): Observable<Mitglied[]> {
         const url = this.apiURL + "mitglieder/search/" + searchkey;
-        return this.http.get<Mitglied[]>(url, httpOptions);
+        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitgliedselbst";
-        return this.http.post<any>(url, mitglied, httpOptions);
+        return this.http.post<any>(url, mitglied, StandardHttpOptions);
     }
 
     createMitglied(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitglieder";
-        return this.http.post<Mitglied>(url, mitglied, httpOptions);
+        return this.http.post<Mitglied>(url, mitglied, StandardHttpOptions);
     }
 
     updateMitglied(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitglieder/" + mitglied.id.toString();
-        return this.http.put<Mitglied>(url, mitglied, httpOptions);
+        return this.http.put<Mitglied>(url, mitglied, StandardHttpOptions);
     }
 
     deleteMitglied(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitglieder/" + mitglied.id.toString();
-        return this.http.delete<Mitglied>(url, httpOptions);
+        return this.http.delete<Mitglied>(url, StandardHttpOptions);
     }
 
     attachMitgliedToAusrueckung(
@@ -73,7 +68,7 @@ export class MitgliederApiService {
         return this.http.post<any>(
             url,
             { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
@@ -85,7 +80,7 @@ export class MitgliederApiService {
         return this.http.post<any>(
             url,
             { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
@@ -97,7 +92,7 @@ export class MitgliederApiService {
         return this.http.post<any>(
             url,
             { mitglied_id: mitgliedId, gruppe_id: gruppenId },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
@@ -109,7 +104,7 @@ export class MitgliederApiService {
         return this.http.post<any>(
             url,
             { mitglied_id: mitgliedId, gruppe_id: gruppenId },
-            httpOptions
+            StandardHttpOptions
         );
     }
 

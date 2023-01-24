@@ -165,6 +165,7 @@ import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/noten
 import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
 import { NextTerminComponent } from "./components/mkj-dashboard/next-termin/next-termin.component";
 import { TerminCardComponent } from './components/ausrueckungen/termin-card/termin-card.component';
+import { StatistikTermineComponent } from './components/mkj-dashboard/statistik-termine/statistik-termine.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -329,6 +330,7 @@ registerLocaleData(localeDe);
         MkjNotenmappeFormComponent,
         NextTerminComponent,
         TerminCardComponent,
+        StatistikTermineComponent,
     ],
     providers: [
         mkjAppInitializer(),

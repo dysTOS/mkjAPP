@@ -19,17 +19,17 @@
                 {{ termin?.vonZeit }}
             </p>
             <p>
-                <span *ngIf="termin?.bisDatum !== termin?.vonDatum">
+                <ng-container *ngIf="termin?.bisDatum !== termin?.vonDatum">
                     bis {{ termin?.bisDatum | mkjDate : "d. MMMM YYYY" }}
                     {{ termin?.bisZeit }}
-                </span>
-                <span
+                </ng-container>
+                <ng-container
                     *ngIf="
                         termin?.bisDatum === termin?.vonDatum && termin.bisZeit
                     "
                 >
                     bis {{ termin?.bisZeit }}
-                </span>
+                </ng-container>
             </p>
         </mkj-display-field>
     </div>
