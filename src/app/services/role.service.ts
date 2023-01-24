@@ -1,14 +1,9 @@
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { environment } from "src/environments/environment";
+import { StandardHttpOptions } from "../interfaces/api-middleware";
 import { Permission, Role } from "../models/User";
-
-const httpOptions = {
-    headers: new HttpHeaders({
-        "Content-Type": "application/json",
-    }),
-};
 
 @Injectable({
     providedIn: "root",
@@ -20,27 +15,27 @@ export class RoleService {
 
     getAllRoles(): Observable<Role[]> {
         const url = this.apiURL + "roles";
-        return this.http.get<Role[]>(url, httpOptions);
+        return this.http.get<Role[]>(url, StandardHttpOptions);
     }
 
     getAllPermissions(): Observable<Role[]> {
         const url = this.apiURL + "permissions";
-        return this.http.get<Role[]>(url, httpOptions);
+        return this.http.get<Role[]>(url, StandardHttpOptions);
     }
 
     getPermissionsForRole(id: string): Observable<Permission[]> {
         const url = this.apiURL + "permissions/" + id;
-        return this.http.get<Permission[]>(url, httpOptions);
+        return this.http.get<Permission[]>(url, StandardHttpOptions);
     }
 
     getUserRoles(id: string): Observable<Role[]> {
         const url = this.apiURL + "roles/" + id;
-        return this.http.get<Role[]>(url, httpOptions);
+        return this.http.get<Role[]>(url, StandardHttpOptions);
     }
 
     getUserPermissions(id: string): Observable<Permission[]> {
         const url = this.apiURL + "permissions/" + id;
-        return this.http.get<Role[]>(url, httpOptions);
+        return this.http.get<Role[]>(url, StandardHttpOptions);
     }
 
     createRole(roleName: string, permissions: Permission[]): Observable<Role> {
@@ -51,7 +46,7 @@ export class RoleService {
         return this.http.post<Role>(
             url,
             { name: roleName, permission: syncPermissions },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
@@ -63,13 +58,13 @@ export class RoleService {
         return this.http.put<Role>(
             url,
             { name: role.name, permission: syncPermissions },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
     deleteRole(role: Role): Observable<any> {
         const url = this.apiURL + "role/" + role.id;
-        return this.http.delete<any>(url, httpOptions);
+        return this.http.delete<any>(url, StandardHttpOptions);
     }
 
     assignRolesToUser(roles: Role[], userId: string): Observable<Role[]> {
@@ -77,6 +72,10 @@ export class RoleService {
         const syncRoles = roles.map((r) => {
             return r.name;
         });
-        return this.http.post<Role[]>(url, { roles: syncRoles }, httpOptions);
+        return this.http.post<Role[]>(
+            url,
+            { roles: syncRoles },
+            StandardHttpOptions
+        );
     }
 }

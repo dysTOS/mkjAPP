@@ -8,7 +8,7 @@ import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { NotenService } from "src/app/services/noten.service";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { NotenmappenFormHelper } from "src/app/utilities/form-components/mkj-notenmappe-form/notenmappen-form-helper.class";
 import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -37,7 +37,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         private route: ActivatedRoute,
         private router: Router,
         private infoService: InfoService,
-        private notenService: NotenService,
+        private notenService: NotenApiService,
         private userService: UserService
     ) {
         this.initToolbar();

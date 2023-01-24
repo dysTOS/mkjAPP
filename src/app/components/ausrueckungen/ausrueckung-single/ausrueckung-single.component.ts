@@ -1,7 +1,7 @@
 import { ExportService } from "../../../services/export.service";
 import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 import { Mitglied } from "src/app/models/Mitglied";
-import { NotenService } from "../../../services/noten.service";
+import { NotenApiService } from "../../../services/api/noten-api.service";
 import { TermineApiService } from "../../../services/api/termine-api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
@@ -34,7 +34,7 @@ export class AusrueckungSingleComponent implements OnInit {
         private ausrueckungenService: TermineApiService,
         private infoService: InfoService,
         private mitgliedService: MitgliederApiService,
-        private notenService: NotenService,
+        private notenService: NotenApiService,
         private calExport: ExportService,
         private toolbarService: MkjToolbarService
     ) {

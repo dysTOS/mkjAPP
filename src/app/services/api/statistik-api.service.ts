@@ -16,4 +16,9 @@ export class StatistikApiService {
         const url = this.apiURL + "statistik/termine";
         return this.http.get<any>(url, StandardHttpOptions);
     }
+
+    public getNoten(): Observable<any> {
+        const url = this.apiURL + "statistik/noten";
+        return this.http.get<any>(url, StandardHttpOptions);
+    }
 }

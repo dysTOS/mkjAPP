@@ -2,7 +2,7 @@ import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Noten } from "src/app/models/Noten";
 import { Table } from "primeng/table";
-import { NotenService } from "src/app/services/noten.service";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { InfoService } from "src/app/services/info.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
@@ -31,7 +31,7 @@ export class NotenarchivComponent implements OnInit {
     notenTable: Table;
 
     constructor(
-        private notenService: NotenService,
+        private notenService: NotenApiService,
         private confirmationService: ConfirmationService,
         private infoService: InfoService,
         private fb: FormBuilder,

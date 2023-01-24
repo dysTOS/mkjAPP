@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Noten } from "src/app/models/Noten";
-import { NotenService } from "src/app/services/noten.service";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 
 @Component({
     selector: "app-mkj-notensuche",
@@ -48,7 +48,7 @@ export class MkjNotensucheComponent {
     @Output()
     public notenSelect = new EventEmitter<NotenSucheOutput>();
 
-    constructor(private notenService: NotenService) {}
+    constructor(private notenService: NotenApiService) {}
 
     public searchNoten(event) {
         this.notenService.searchNoten(event.query).subscribe({

@@ -20,9 +20,9 @@
             </p>
             <p *ngIf="appMain.publicTestEnvironment">
                 Du kannst hier rumklicksen wie du willst - nichts kann kaputt
-                werden! Aber bitte sei so gut und schreib mir einen kurzen
+                werden! Aber bitte sei so gut und gib mir einen kurzen
                 Bug-Report wenn du einen Fehler/Fehlermeldung etc. entdeckst
-                oder du einen Verbesserungsvorschlag hast:
+                oder du einen Verbesserungsvorschlag hast.
             </p>
         </div>
     </div>
@@ -30,6 +30,11 @@
     <div class="md:col-6 col-12">
         <div class="card flex justify-content-center">
             <statistik-termine></statistik-termine>
+        </div>
+    </div>
+    <div class="md:col-6 col-12">
+        <div class="card">
+            <statistik-noten></statistik-noten>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FileService } from "src/app/services/file.service";
 import * as FileSaver from "file-saver";
-import { NotenService } from "src/app/services/noten.service";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { PushNotificationsService } from "src/app/services/push-notifications.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
@@ -13,7 +13,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class AatestComponent implements OnInit {
     constructor(
         private fileService: FileService,
-        private notenService: NotenService,
+        private notenService: NotenApiService,
         public pushService: PushNotificationsService,
         private http: HttpClient
     ) {}

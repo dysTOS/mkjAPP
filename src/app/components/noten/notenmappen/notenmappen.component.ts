@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
-import { NotenService } from "src/app/services/noten.service";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
@@ -30,7 +30,7 @@ export class NotenmappenComponent implements OnInit {
     ];
 
     constructor(
-        private notenService: NotenService,
+        private notenService: NotenApiService,
         private route: ActivatedRoute,
         private router: Router,
         private toolbarService: MkjToolbarService
