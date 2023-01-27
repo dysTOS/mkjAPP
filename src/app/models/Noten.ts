@@ -25,3 +25,21 @@ export interface Notenmappe {
     noten?: Noten[];
     color?: string;
 }
+
+export const NotenGattungMap = [
+    { label: "Charakterstück", value: "Charakterstück" },
+    { label: "Diverse", value: "Diverse" },
+    { label: "Eröffnungsmusik", value: "Eröffnungsmusik" },
+    { label: "Filmmusik", value: "Filmmusik" },
+    { label: "Intermezzo", value: "Intermezzo" },
+    {label: "Kirchenmusik", value: "Kirchenmusik"},
+    { label: "Trauermusik", value: "Trauermusik" },
+    { label: "Lied", value: "Lied" },
+    { label: "Ouvertüre", value: "Ouvertüre" },
+    { label: "Polka", value: "Polka" },
+    { label: "Potpourrie/Medley", value: "Potpourrie/Medley" },
+    { label: "Quartett", value: "Quartett" },
+    { label: "Sololiteratur", value: "Sololiteratur" },
+    { label: "Walzer", value: "Walzer" },
+    { label: "Wiener Tanzmusik", value: "Wiener Tanzmusik" },
+];

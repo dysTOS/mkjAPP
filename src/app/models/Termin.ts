@@ -22,9 +22,11 @@ export interface Termin {
 
 export const TerminKategorieMap = [
     { label: "Kurkonzert", value: "kurkonzert" },
+    { label: "Konzert", value: "Konzert" },
     { label: "Weckruf", value: "weckruf" },
     { label: "Kirchlich", value: "kirchlich" },
     { label: "Probe", value: "probe" },
+    {label: "Sitzung", value: "sitzung"},
     { label: "Sonstige", value: "sonstige" },
 ];
 

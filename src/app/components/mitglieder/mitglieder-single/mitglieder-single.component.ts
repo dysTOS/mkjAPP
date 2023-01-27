@@ -48,6 +48,7 @@ export class MitgliederSingleComponent implements OnInit {
             {
                 icon: "pi pi-trash",
                 click: () => this.deleteMitglied(),
+                permissions: [PermissionMap.MITGLIEDER_DELETE],
                 label: "Löschen",
             },
         ];

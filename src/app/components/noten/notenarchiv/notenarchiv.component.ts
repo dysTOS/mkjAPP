@@ -1,6 +1,6 @@
 import { ConfirmationService } from "primeng/api";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Noten } from "src/app/models/Noten";
+import { Noten, NotenGattungMap } from "src/app/models/Noten";
 import { Table } from "primeng/table";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { UtilFunctions } from "src/app/helpers/util-functions";
@@ -26,6 +26,8 @@ export class NotenarchivComponent implements OnInit {
     selectedRow: any;
 
     public formGroup: FormGroup;
+
+    public readonly GattungOptionen = NotenGattungMap;
 
     @ViewChild("notenTable")
     notenTable: Table;

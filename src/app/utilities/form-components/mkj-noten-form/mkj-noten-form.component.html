@@ -62,6 +62,15 @@
 
     <div class="p-field col-12 md:col-6">
         <span class="p-float-label">
+
+            <p-dropdown [options]="GattungOptions" formControlName="gattung" inputId="gattung"></p-dropdown>
+
+            <label for="gattung">Gattung</label>
+        </span>
+    </div>
+
+    <div class="p-field col-12 md:col-6">
+        <span class="p-float-label">
             <input
                 type="text"
                 pInputText

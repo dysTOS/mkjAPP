@@ -7,6 +7,7 @@ import { PermissionMap } from "src/app/models/User";
 import { Mitglied } from "src/app/models/Mitglied";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { Table } from "primeng/table";
 
 @Component({
     selector: "app-mitglieder",
@@ -20,11 +21,21 @@ export class MitgliederListComponent implements OnInit {
     loading: boolean = false;
     isAdding: boolean = false;
     editDialogVisible: boolean = false;
-    filterDialogVisible: boolean = false;
+
+    public selectedFilter: any;
+    public mitgliederFilter=[{
+        name: "Alle ",
+        value: "alle"
+    },
+{name: "Nur Aktive ",value: "aktive"}]
+
 
     public formGroup: FormGroup;
 
+    @ViewChild("mitgliederTable") mitgliederTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
+
+    public readonly PermissionMap = PermissionMap;
 
     constructor(
         private mitgliederService: MitgliederApiService,
@@ -37,29 +48,36 @@ export class MitgliederListComponent implements OnInit {
         this.toolbarService.header = "Mitglieder";
         this.toolbarService.buttons = [
             {
+                icon: "pi pi-filter",
+                click: () => {
+                    this.toolbarService.contentSectionExpanded =
+                    !this.toolbarService.contentSectionExpanded;
+                    this.toolbarService.buttons[0].highlighted =
+                        this.toolbarService.contentSectionExpanded;
+                },
+                highlighted:
+                this.toolbarService.contentSectionExpanded === true,
+                label: "Filtern/Suchen",
+            },
+            {
                 icon: "pi pi-plus",
                 click: () => this.openEditDialog(),
                 label: "Neu",
                 permissions: [PermissionMap.MITGLIEDER_SAVE],
             },
-            {
-                icon: "pi pi-filter",
-                click: () => {
-                    this.toolbarService.contentSectionExpanded =
-                        !this.toolbarService.contentSectionExpanded;
-                    this.toolbarService.buttons[0].highlighted =
-                        this.toolbarService.contentSectionExpanded;
-                },
-                highlighted:
-                    this.toolbarService.contentSectionExpanded === true,
-                label: "Filtern/Suchen",
-            },
         ];
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.loadAllMitglieder();
-        // this.loadAktiveMitglieder();
+        this.selectedFilter = this.mitgliederFilter[0]
+    }
+
+    public ngAfterViewInit(): void {
+        this.toolbarService.contentSectionTemplate = this.toolbarContentSection;
+        if (this.mitgliederTable?.filters?.global) {
+            this.toolbarService.contentSectionExpanded = true;
+        }
     }
 
     public loadAktiveMitglieder() {

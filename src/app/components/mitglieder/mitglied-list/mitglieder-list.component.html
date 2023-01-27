@@ -10,27 +10,15 @@
             "
         ></button>
     </div>
-    <div class="flex gap-2 align-items-center">
-        <mkj-date-input
-            type="date"
-            [value]="ausrueckungFilterInput.filter[0]?.value"
-            (valueChanged)="setFilterInputDates(0, $event)"
-            label="Filter Von"
-            placeholder="Alle"
-        ></mkj-date-input>
-        <mkj-date-input
-            type="date"
-            [value]="ausrueckungFilterInput.filter[1]?.value"
-            (valueChanged)="setFilterInputDates(1, $event)"
-            label="Filter Bis"
-            placeholder="Alle"
-        ></mkj-date-input>
+    <div class="flex gap-2 justify-content-center align-items-center">
+        <p-selectButton [options]="mitgliederFilter" [(ngModel)]="selectedFilter" (ngModelChange)="$event.value === 'alle'?loadAllMitglieder():loadAktiveMitglieder()" optionLabel="name"></p-selectButton>
+
     </div>
     <p-divider></p-divider>
     <div class="flex flex-wrap justify-content-between align-items-center">
         <div>
             Anzahl:
-            {{ filteredRows ? filteredRows.length : 0 }}
+            {{ mitglieder?.length ?? 0 }}
         </div>
 
         <span class="p-input-icon-left">
@@ -38,8 +26,8 @@
             <input
                 pInputText
                 type="text"
-                [value]="dt.filters?.global?.value"
-                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                [value]="mitgliederTable.filters?.global?.value"
+                (input)="mitgliederTable.filterGlobal($event.target.value, 'contains')"
                 placeholder="Suchen..."
             />
         </span>
@@ -56,30 +44,7 @@
             responsiveLayout="stack"
             styleClass="p-datatable-sm p-datatable-mitglieder p-datatable-striped"
         >
-            <ng-template pTemplate="caption">
-                <div
-                    class="flex flex-column flex-md-row justify-content-md-between align-items-center table-header"
-                >
-                    <div class="mb-2">
-                        Anzahl:
-                        {{ mitglieder?.length || "-" }}
-                    </div>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input
-                            pInputText
-                            type="text"
-                            (input)="
-                                mitgliederTable.filterGlobal(
-                                    $event.target.value,
-                                    'contains'
-                                )
-                            "
-                            placeholder="Suchen..."
-                        />
-                    </span>
-                </div>
-            </ng-template>
+
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th pSortableColumn="zuname">
@@ -97,12 +62,13 @@
                         <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
 
                         <button
+                        *visibleFor="[PermissionMap. MITGLIEDER_SAVE]"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
                             tooltipPosition="left"
                             icon="pi pi-ellipsis-h"
-                            class="just-on-small p-button-sm p-button-text buttons-hide p-button-info"
+                            class="just-on-small p-button-sm p-button-outlined p-button-rounded buttons-hide p-button-info"
                         ></button>
                     </td>
                     <td>
@@ -113,12 +79,13 @@
                     <td>{{ mitglied.telefonMobil }}</td>
                     <td class="not-on-small">
                         <button
+                        *visibleFor="[PermissionMap. MITGLIEDER_SAVE]"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
                             tooltipPosition="left"
                             icon="pi pi-ellipsis-h"
-                            class="p-button-sm p-button-text buttons-hide p-button-info p-2"
+                            class="p-button-sm p-button-outlined p-button-rounded buttons-hide p-button-info p-2"
                         ></button>
                     </td>
                 </tr>
@@ -161,35 +128,4 @@
     ></ng-template>
 </p-dialog>
 
-<!-- Filter Dialog -->
-<p-dialog
-    #filterDialog
-    [(visible)]="filterDialogVisible"
-    [closable]="false"
-    [dismissableMask]="true"
-    [modal]="true"
-    styleClass="p-fluid"
-    position="top"
->
-    <ng-template pTemplate="content">
-        <div class="flex flex-column">
-            <button
-                pButton
-                type="button"
-                class="p-button-lg mb-4"
-                label="Aktive Mitglieder"
-                (click)="loadAktiveMitglieder(); filterDialogVisible = false"
-            ></button>
-            <button
-                pButton
-                type="button"
-                class="p-button-lg"
-                label="Alle Mitglieder"
-                (click)="loadAllMitglieder(); filterDialogVisible = false"
-            ></button>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <div style="height: 10px"></div>
-    </ng-template>
-</p-dialog>
+

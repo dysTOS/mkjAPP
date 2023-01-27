@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Termin } from "src/app/models/Termin";
 
 @Component({
@@ -6,11 +6,10 @@ import { Termin } from "src/app/models/Termin";
     templateUrl: "./termin-card.component.html",
     styleUrls: ["./termin-card.component.scss"],
 })
-export class TerminCardComponent implements OnInit {
+export class TerminCardComponent {
     @Input()
     public termin: Termin;
 
     constructor() {}
 
-    ngOnInit(): void {}
 }
