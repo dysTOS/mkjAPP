@@ -12,13 +12,18 @@ export class StatistikApiService {
 
     constructor(private http: HttpClient) {}
 
-    public getTermine(): Observable<any> {
+    public getTermine(jahr: string): Observable<any> {
         const url = this.apiURL + "statistik/termine";
-        return this.http.get<any>(url, StandardHttpOptions);
+        return this.http.post<any>(url, { year: jahr }, StandardHttpOptions);
     }
 
     public getNoten(): Observable<any> {
         const url = this.apiURL + "statistik/noten";
+        return this.http.get<any>(url, StandardHttpOptions);
+    }
+
+    public getMitglieder(): Observable<any> {
+        const url = this.apiURL + "statistik/mitglieder";
         return this.http.get<any>(url, StandardHttpOptions);
     }
 }

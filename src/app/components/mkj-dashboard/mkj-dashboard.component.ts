@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Mitglied } from "src/app/models/Mitglied";
 import { UserService } from "src/app/services/authentication/user.service";
-import { MenuLabels } from "src/app/services/menu.service";
 import { AppMainComponent } from "../../app.main.component";
 
 @Component({
@@ -10,8 +9,7 @@ import { AppMainComponent } from "../../app.main.component";
     styleUrls: ["./mkj-dashboard.component.scss"],
 })
 export class MkjDashboardComponent implements OnInit {
-    currentMitglied: Mitglied;
-    MenuLabels = MenuLabels;
+    public currentMitglied: Mitglied;
 
     constructor(
         public userService: UserService,

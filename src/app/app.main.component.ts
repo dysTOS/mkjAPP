@@ -5,10 +5,11 @@ import {
     OnInit,
     Renderer2,
 } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
 import { first } from "rxjs";
 import { environment } from "src/environments/environment";
+import { SubSink } from "subsink";
 import { AppComponent } from "./app.component";
 import { MenuLabels } from "./services/menu.service";
 import { ThemeService } from "./services/theme.service";
@@ -36,20 +37,32 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
-    public version = "0.5";
+    public version = "0.6";
 
     public publicTestEnvironment = environment.publictest;
+    private subSink = new SubSink();
 
     constructor(
         public renderer: Renderer2,
         public themeService: ThemeService,
         private primengConfig: PrimeNGConfig,
         public app: AppComponent,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {}
 
     public ngOnInit(): void {
         this.initActiveTabIndex();
+
+        this.subSink.add(
+            this.router.events.subscribe({
+                next: (event) => {
+                    if (event instanceof NavigationEnd) {
+                        this.initActiveTabIndex();
+                    }
+                },
+            })
+        );
     }
 
     ngAfterViewInit() {
@@ -162,6 +175,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.activeTabIndex = MenuLabels.EINSTELLUNGEN;
             } else if (first === "tools") {
                 this.activeTabIndex = MenuLabels.TOOLS;
+            } else if (first === "statistik") {
+                this.activeTabIndex = MenuLabels.STATISTIK;
             }
         });
     }
@@ -170,5 +185,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.documentClickListener) {
             this.documentClickListener();
         }
+        this.subSink.unsubscribe();
     }
 }

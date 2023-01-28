@@ -164,10 +164,12 @@ import { MkjColorPickerComponent } from "./utilities/form-components/mkj-color-p
 import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
 import { NextTerminComponent } from "./components/mkj-dashboard/next-termin/next-termin.component";
-import { TerminCardComponent } from './components/ausrueckungen/termin-card/termin-card.component';
-import { StatistikTermineComponent } from './components/mkj-dashboard/statistik-termine/statistik-termine.component';
-import { StatistikNotenComponent } from './components/mkj-dashboard/statistik-noten/statistik-noten.component';
-import { NotenCardComponent } from './components/noten/noten-card/noten-card.component';
+import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
+import { StatistikTermineComponent } from "./components/statistik/statistik-termine/statistik-termine.component";
+import { StatistikNotenComponent } from "./components/statistik/statistik-noten/statistik-noten.component";
+import { NotenCardComponent } from "./components/noten/noten-card/noten-card.component";
+import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
+import { StatistikMitgliederComponent } from "./components/statistik/statistik-mitglieder/statistik-mitglieder.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -281,6 +283,7 @@ registerLocaleData(localeDe);
         AusrueckungenWrapperComponent,
         NotenWrapperComponent,
         MitgliederWrapperComponent,
+        StatistikMitgliederComponent,
         TestApiComponent,
         MkjDateInputComponent,
         AppTimelineDemoComponent,
@@ -335,6 +338,7 @@ registerLocaleData(localeDe);
         StatistikTermineComponent,
         StatistikNotenComponent,
         NotenCardComponent,
+        StatistikOverviewComponent,
     ],
     providers: [
         mkjAppInitializer(),

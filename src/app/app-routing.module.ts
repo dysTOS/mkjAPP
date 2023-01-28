@@ -35,6 +35,7 @@ import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitgli
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
+import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
 
 @NgModule({
     imports: [
@@ -159,6 +160,11 @@ import { BugReportComponent } from "./components/einstellungen/bug-report/bug-re
                                     canDeactivate: [EditDeactivateGuard],
                                 },
                             ],
+                        },
+                        {
+                            path: "statistik",
+                            component: StatistikOverviewComponent,
+                            canActivate: [RouteGuard],
                         },
                         {
                             path: "tools/rechnungsgenerator",

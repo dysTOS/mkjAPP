@@ -1,0 +1,22 @@
+<div class="flex flex-column text-center">
+    <h5>
+        Anzahl Termine nach Kategorie
+        <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
+    </h5>
+    <p *ngIf="!data?.labels?.length">Keine Daten verfügbar...</p>
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+    <div class="grid mt-3">
+        <div class="p-field col-12 flex justify-content-center">
+            <span class="p-float-label">
+                <p-calendar
+                    [(ngModel)]="year"
+                    view="year"
+                    dateFormat="yy"
+                    inputId="yearpicker"
+                    dataType="string"
+                ></p-calendar>
+                <label for="yearpicker">Jahr</label>
+            </span>
+        </div>
+    </div>
+</div>

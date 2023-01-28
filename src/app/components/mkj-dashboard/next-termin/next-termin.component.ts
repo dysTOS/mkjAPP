@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AppMainComponent } from "src/app/app.main.component";
 import { Termin } from "src/app/models/Termin";
 import { TermineApiService } from "src/app/services/api/termine-api.service";

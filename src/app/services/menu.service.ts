@@ -83,6 +83,13 @@ export class MenuService implements OnDestroy {
             ],
         },
         {
+            label: "Statistiken",
+            icon: "pi pi-chart-line",
+            enumLabel: MenuLabels.STATISTIK,
+            visible: false,
+            routerLink: "statistik",
+        },
+        {
             label: "Tools",
             icon: "mdi mdi-tools",
             enumLabel: MenuLabels.TOOLS,
@@ -241,12 +248,10 @@ export interface MkjMenuItem extends MenuItem {
     enumLabel?: number;
 }
 
-/**
- * @deprecated check if we can delete this
- */
 export const MenuLabels = {
     //without sidemenu <= 4
     PRIMEMENU: 0,
+    STATISTIK: 1,
     TOOLS: 2,
     NOTEN: 3,
     EINSTELLUNGEN: 4,

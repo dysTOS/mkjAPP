@@ -1,0 +1,8 @@
+<div class="flex flex-column text-center">
+    <h5>
+        Anzahl Noten nach Gattung
+        <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
+    </h5>
+    <p *ngIf="!data?.labels?.length">Keine Daten verfügbar...</p>
+</div>
+<p-chart type="bar" [data]="data" [options]="options"></p-chart>

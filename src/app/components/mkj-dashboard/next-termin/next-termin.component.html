@@ -10,7 +10,7 @@
         <p>
             <span>Nächster Termin:</span>
         </p>
-        <div *ngIf="nextAusrueckung" style="min-height: 10rem">
+        <div *ngIf="nextAusrueckung" style="height: 15rem">
             <h4>
                 {{ nextAusrueckung?.name }}
             </h4>
@@ -26,15 +26,30 @@
             <p>{{ nextAusrueckung?.infoMusiker }}</p>
             <p>{{ nextAusrueckung?.beschreibung }}</p>
         </div>
-        <div *ngIf="loading" class="text-center">
-            <p-skeleton width="15rem" height="10rem"></p-skeleton>
+        <div
+            *ngIf="loading"
+            class="flex flex-column align-items-start text-center"
+            style="height: 15rem"
+        >
+            <p-skeleton width="20rem" height="2.5rem"></p-skeleton>
+            <p-skeleton
+                width="15rem"
+                height="1.5rem"
+                class="pt-2 align-self-center"
+            ></p-skeleton>
+        </div>
+        <div
+            *ngIf="!nextAusrueckung && !loading"
+            class="flex flex-column align-items-start text-center"
+            style="height: 15rem"
+        >
+            Keine Termine vorhanden...
         </div>
         <button
             pButton
             label="Alle Ausrückungen"
             routerLink="../ausrueckungen"
             class="p-button-outlined mt-2"
-            (click)="appMain.activeTabIndex = MenuLabels.AUSRUECKUNGEN"
         ></button>
     </div>
     <button
@@ -42,6 +57,6 @@
         icon="pi pi-arrow-right"
         class="p-button-text"
         (click)="skip = skip + 1"
-        [disabled]="loading"
+        [disabled]="loading || !nextAusrueckung"
     ></button>
 </div>

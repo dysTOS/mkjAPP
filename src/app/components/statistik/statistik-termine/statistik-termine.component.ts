@@ -1,26 +1,57 @@
 import { Component, OnInit } from "@angular/core";
 import { ChartData } from "chart.js";
-import * as _ from "lodash";
 import { StatistikApiService } from "src/app/services/api/statistik-api.service";
+import * as _ from "lodash";
 import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
-    selector: "statistik-noten",
-    templateUrl: "./statistik-noten.component.html",
-    styleUrls: ["./statistik-noten.component.scss"],
+    selector: "statistik-termine",
+    templateUrl: "./statistik-termine.component.html",
+    styleUrls: ["./statistik-termine.component.scss"],
 })
-export class StatistikNotenComponent implements OnInit {
+export class StatistikTermineComponent implements OnInit {
     public data: ChartData;
     public options: any;
+
+    private _year: string = new Date().getFullYear().toString();
+    public get year(): string {
+        return this._year;
+    }
+    public set year(value: string) {
+        this._year = value;
+        this.loadTermine();
+    }
+
+    public loading = false;
 
     constructor(
         private statistikService: StatistikApiService,
         private themeService: ThemeService
-    ) {
-        this.statistikService.getNoten().subscribe({
+    ) {}
+
+    public ngOnInit(): void {
+        this.loadTermine();
+
+        this.options = {
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        color: this.themeService.darkMode ? "#eee" : "#111",
+                    },
+                },
+            },
+        };
+    }
+
+    private loadTermine(): void {
+        this.loading = true;
+        this.statistikService.getTermine(this.year).subscribe({
             next: (res) => {
                 this.data = {
-                    labels: res.map((e) => _.startCase(e.label)),
+                    labels: res.map(
+                        (e) => _.startCase(e.label) + " (" + e.count + ")"
+                    ),
                     datasets: [
                         {
                             data: res.map((e) => e.count),
@@ -39,17 +70,8 @@ export class StatistikNotenComponent implements OnInit {
                         },
                     ],
                 };
+                this.loading = false;
             },
         });
-    }
-
-    public ngOnInit(): void {
-        this.options = {
-            plugins: {
-                legend: {
-                    display: false,
-                },
-            },
-        };
     }
 }

@@ -1,28 +1,23 @@
 import { Component, OnInit } from "@angular/core";
 import { ChartData } from "chart.js";
-import { StatistikApiService } from "src/app/services/api/statistik-api.service";
 import * as _ from "lodash";
-import { ThemeService } from "src/app/services/theme.service";
+import { StatistikApiService } from "src/app/services/api/statistik-api.service";
 
 @Component({
-    selector: "statistik-termine",
-    templateUrl: "./statistik-termine.component.html",
-    styleUrls: ["./statistik-termine.component.scss"],
+    selector: "statistik-mitglieder",
+    templateUrl: "./statistik-mitglieder.component.html",
 })
-export class StatistikTermineComponent implements OnInit {
+export class StatistikMitgliederComponent implements OnInit {
     public data: ChartData;
     public options: any;
+    public loading = false;
 
-    constructor(
-        private statistikService: StatistikApiService,
-        private themeService: ThemeService
-    ) {
-        this.statistikService.getTermine().subscribe({
+    constructor(private statistikService: StatistikApiService) {
+        this.loading = true;
+        this.statistikService.getMitglieder().subscribe({
             next: (res) => {
                 this.data = {
-                    labels: res.map(
-                        (e) => _.startCase(e.label) + " (" + e.count + ")"
-                    ),
+                    labels: res.map((e) => _.startCase(e.label + "0er")),
                     datasets: [
                         {
                             data: res.map((e) => e.count),
@@ -41,6 +36,7 @@ export class StatistikTermineComponent implements OnInit {
                         },
                     ],
                 };
+                this.loading = false;
             },
         });
     }
@@ -49,10 +45,7 @@ export class StatistikTermineComponent implements OnInit {
         this.options = {
             plugins: {
                 legend: {
-                    position: "bottom",
-                    labels: {
-                        color: this.themeService.darkMode ? "#eee" : "#111",
-                    },
+                    display: false,
                 },
             },
         };
