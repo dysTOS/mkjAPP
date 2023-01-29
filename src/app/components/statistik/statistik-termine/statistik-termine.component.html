@@ -8,13 +8,17 @@
     <div class="grid mt-3">
         <div class="p-field col-12 flex justify-content-center">
             <span class="p-float-label">
-                <p-calendar
+                <p-inputNumber
                     [(ngModel)]="year"
-                    view="year"
-                    dateFormat="yy"
+                    [showButtons]="true"
+                    [useGrouping]="false"
+                    mode="decimal"
                     inputId="yearpicker"
-                    dataType="string"
-                ></p-calendar>
+                    spinnerMode="horizontal"
+                    incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus"
+                    [disabled]="loading"
+                ></p-inputNumber>
                 <label for="yearpicker">Jahr</label>
             </span>
         </div>

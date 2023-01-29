@@ -18,6 +18,13 @@ export class NotenApiService {
         return this.http.get<Noten[]>(url, StandardHttpOptions);
     }
 
+    getNotenById(id: string): Observable<Noten> {
+        return this.http.get<Noten>(
+            this.apiURL + "noten/" + id,
+            StandardHttpOptions
+        );
+    }
+
     getNotenForAusrueckung(ausrueckungId: string): Observable<Noten[]> {
         const url =
             this.apiURL + "notenausrueckung/" + ausrueckungId.toString();
@@ -39,8 +46,8 @@ export class NotenApiService {
         return this.http.put<Noten>(url, noten, StandardHttpOptions);
     }
 
-    deleteNoten(noten: Noten): Observable<Noten> {
-        const url = this.apiURL + "noten/" + noten.id.toString();
+    deleteNoten(id: string): Observable<Noten> {
+        const url = this.apiURL + "noten/" + id;
         return this.http.delete<Noten>(url, StandardHttpOptions);
     }
 

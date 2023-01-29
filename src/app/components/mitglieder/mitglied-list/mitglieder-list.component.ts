@@ -22,13 +22,14 @@ export class MitgliederListComponent implements OnInit {
     isAdding: boolean = false;
     editDialogVisible: boolean = false;
 
-    public selectedFilter: any;
-    public mitgliederFilter=[{
-        name: "Alle ",
-        value: "alle"
-    },
-{name: "Nur Aktive ",value: "aktive"}]
-
+    public mitgliederFilter = [
+        {
+            name: "Alle ",
+            value: "alle",
+        },
+        { name: "Nur Aktive ", value: "aktive" },
+    ];
+    public selectedFilter = this.mitgliederFilter[1];
 
     public formGroup: FormGroup;
 
@@ -51,12 +52,12 @@ export class MitgliederListComponent implements OnInit {
                 icon: "pi pi-filter",
                 click: () => {
                     this.toolbarService.contentSectionExpanded =
-                    !this.toolbarService.contentSectionExpanded;
+                        !this.toolbarService.contentSectionExpanded;
                     this.toolbarService.buttons[0].highlighted =
                         this.toolbarService.contentSectionExpanded;
                 },
                 highlighted:
-                this.toolbarService.contentSectionExpanded === true,
+                    this.toolbarService.contentSectionExpanded === true,
                 label: "Filtern/Suchen",
             },
             {
@@ -70,7 +71,6 @@ export class MitgliederListComponent implements OnInit {
 
     public ngOnInit(): void {
         this.loadAllMitglieder();
-        this.selectedFilter = this.mitgliederFilter[0]
     }
 
     public ngAfterViewInit(): void {

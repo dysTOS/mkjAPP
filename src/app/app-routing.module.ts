@@ -36,6 +36,7 @@ import { RollenEditComponent } from "./components/einstellungen/rollen-edit/roll
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
+import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
 
 @NgModule({
     imports: [
@@ -147,6 +148,12 @@ import { StatistikOverviewComponent } from "./components/statistik/statistik-ove
                                     path: "archiv",
                                     component: NotenarchivComponent,
                                     canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "archiv/:id",
+                                    component: NotenEditorComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
                                     path: "mappen",

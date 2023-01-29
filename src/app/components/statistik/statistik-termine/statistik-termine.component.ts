@@ -13,11 +13,11 @@ export class StatistikTermineComponent implements OnInit {
     public data: ChartData;
     public options: any;
 
-    private _year: string = new Date().getFullYear().toString();
-    public get year(): string {
+    private _year: number = new Date().getFullYear();
+    public get year(): number {
         return this._year;
     }
-    public set year(value: string) {
+    public set year(value: number) {
         this._year = value;
         this.loadTermine();
     }
@@ -46,7 +46,7 @@ export class StatistikTermineComponent implements OnInit {
 
     private loadTermine(): void {
         this.loading = true;
-        this.statistikService.getTermine(this.year).subscribe({
+        this.statistikService.getTermine(this.year.toString()).subscribe({
             next: (res) => {
                 this.data = {
                     labels: res.map(

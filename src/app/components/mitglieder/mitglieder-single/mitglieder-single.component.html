@@ -31,43 +31,7 @@
     </div>
 </div>
 <div class="md:col-6 sm:col-12">
-    <div *ngIf="rolesLoading" class="flex justify-content-center">
-        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-    </div>
-    <p-listbox
-        *ngIf="allRoles && selectedRoles"
-        [options]="allRoles"
-        [(ngModel)]="selectedRoles"
-        [multiple]="true"
-        [checkbox]="true"
-        [filter]="false"
-        [showToggleAll]="false"
-        [listStyle]="{ 'max-height': '500px' }"
-        optionLabel="name"
-        dataKey="id"
-    >
-        <ng-template pTemplate="header">
-            <div
-                class="col-12 flex justify-content-between align-items-center p-0"
-            >
-                <span> Rollen</span>
-                <p-button
-                    label="Update"
-                    [icon]="
-                        rolesSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
-                    "
-                    class="m-2"
-                    [disabled]="rolesSaving"
-                    (click)="updateRoles()"
-                ></p-button></div
-        ></ng-template>
-        <ng-template let-role pTemplate="item">
-            <div>
-                <div>{{ role.name }}</div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="footer"></ng-template>
-    </p-listbox>
+    <mitglied-roles-picker [mitglied]="mitglied"></mitglied-roles-picker>
 </div>
 
 <!-- Save/Update Mitglied -->

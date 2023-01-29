@@ -1,14 +1,12 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { filter, first } from "rxjs";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
-import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
+import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { NotenmappenFormHelper } from "src/app/utilities/form-components/mkj-notenmappe-form/notenmappen-form-helper.class";
 import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -30,6 +28,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     public readonly Permission = PermissionMap;
     public editMode: boolean = false;
     public canDetachNoten: boolean = false;
+    public canNavigateToNoten: boolean = false;
 
     constructor(
         private toolbarService: MkjToolbarService,
@@ -43,6 +42,9 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         this.initToolbar();
         this.canDetachNoten = this.userService.hasPermission(
             PermissionMap.NOTENMAPPE_ASSIGN
+        );
+        this.canNavigateToNoten = this.userService.hasPermission(
+            PermissionMap.NOTEN_SAVE
         );
 
         this.formGroup = NotenmappenFormHelper.getNotennappeFormGroup(fb);
@@ -224,9 +226,8 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     }
 
     public navigateToNoten(noten: Noten): void {
-        //TODO route to noten
         this.toolbarService.resetToolbar();
-        this.router.navigate(["../../archiv"], {
+        this.router.navigate(["../../archiv/", noten.id], {
             relativeTo: this.route,
         });
     }

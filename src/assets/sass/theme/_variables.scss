@@ -233,17 +233,17 @@ $toggleButtonBg: var(--surface-0);
 $toggleButtonBorder: 1px solid rgba(0, 0, 0, 0.12);
 $toggleButtonTextColor: $textColor;
 $toggleButtonIconColor: $textSecondaryColor;
-$toggleButtonHoverBg: #f6f6f6;
+$toggleButtonHoverBg: var(--surface-100);
 $toggleButtonHoverBorderColor: rgba(0, 0, 0, 0.12);
 $toggleButtonTextHoverColor: $textColor;
 $toggleButtonIconHoverColor: $textSecondaryColor;
-$toggleButtonActiveBg: #e0e0e1;
+$toggleButtonActiveBg: $primaryColor;
 $toggleButtonActiveBorderColor: #e0e0e1;
-$toggleButtonTextActiveColor: $textColor;
+$toggleButtonTextActiveColor: $primaryTextColor;
 $toggleButtonIconActiveColor: $textSecondaryColor;
-$toggleButtonActiveHoverBg: #d9d8d9;
+$toggleButtonActiveHoverBg: $primaryLightColor;
 $toggleButtonActiveHoverBorderColor: #d9d8d9;
-$toggleButtonTextActiveHoverColor: $textColor;
+$toggleButtonTextActiveHoverColor: $primaryTextHoverColor;
 $toggleButtonIconActiveHoverColor: $textSecondaryColor;
 
 //inplace

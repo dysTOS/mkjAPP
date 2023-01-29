@@ -170,6 +170,7 @@ import { StatistikNotenComponent } from "./components/statistik/statistik-noten/
 import { NotenCardComponent } from "./components/noten/noten-card/noten-card.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
 import { StatistikMitgliederComponent } from "./components/statistik/statistik-mitglieder/statistik-mitglieder.component";
+import { MitgliedRolesPickerComponent } from './components/mitglieder/mitglieder-single/mitglied-roles-picker/mitglied-roles-picker.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -339,6 +340,7 @@ registerLocaleData(localeDe);
         StatistikNotenComponent,
         NotenCardComponent,
         StatistikOverviewComponent,
+        MitgliedRolesPickerComponent,
     ],
     providers: [
         mkjAppInitializer(),

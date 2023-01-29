@@ -224,39 +224,17 @@
                                     icon="pi pi-list"
                                     label="Detailansicht"
                                     class="p-button-raised p-button-info"
-                                    style="width: 10rem"
                                     [routerLink]="
                                         '../details/' + ausrueckung.id
                                     "
                                 ></button>
-
-                                <button
-                                    *visibleFor="['ausrueckungen_save']"
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-copy"
-                                    label="Duplizieren"
-                                    class="p-button-outlined p-button-secondary p-button-sm"
-                                    style="width: 10rem"
-                                    (click)="duplicateAusrueckung(ausrueckung)"
-                                ></button>
                                 <button
                                     pButton
                                     pRipple
-                                    icon="pi pi-pencil"
-                                    label="Bearbeiten"
-                                    class="p-button-outlined p-button-sm p-button-info"
-                                    style="width: 10rem"
-                                    (click)="editAusrueckung(ausrueckung)"
-                                ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    label="Löschen"
-                                    class="p-button-outlined p-button-sm p-button-danger"
-                                    style="width: 10rem"
-                                    (click)="deleteAusrueckung(ausrueckung)"
+                                    icon="pi pi-list"
+                                    label="Aktionen"
+                                    class="p-button-info p-button-outlined"
+                                    (click)="rowMenu.toggle($event)"
                                 ></button>
                             </div>
                         </td>
@@ -357,3 +335,5 @@
         </p-dialog>
     </div>
 </div>
+
+<p-menu #rowMenu [popup]="true" [model]="rowMenuItems"></p-menu>

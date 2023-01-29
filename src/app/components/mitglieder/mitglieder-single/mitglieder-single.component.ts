@@ -1,13 +1,11 @@
-import { ConfirmationService } from "primeng/api";
-import { RoleService } from "../../../services/role.service";
-import { PermissionMap, Role } from "../../../models/User";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ConfirmationService } from "primeng/api";
 import { Mitglied } from "src/app/models/Mitglied";
-import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { PermissionMap, Role } from "../../../models/User";
+import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 
 @Component({
     selector: "app-mitglieder-single",
@@ -16,11 +14,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class MitgliederSingleComponent implements OnInit {
     mitglied: Mitglied;
-    selectedRoles: Role[];
-    allRoles: Role[];
     mitgliedLoading: boolean = false;
-    rolesLoading: boolean = false;
-    rolesSaving: boolean = false;
 
     editMitglied: Mitglied;
     editDialogVisible: boolean = false;
@@ -28,12 +22,10 @@ export class MitgliederSingleComponent implements OnInit {
 
     constructor(
         private mitgliederService: MitgliederApiService,
-        private roleService: RoleService,
         private confirmationService: ConfirmationService,
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
-        private userService: UserService,
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Mitglied";
@@ -57,14 +49,12 @@ export class MitgliederSingleComponent implements OnInit {
     ngOnInit(): void {
         if (this.mitgliederService.hasSelectedMitglied()) {
             this.mitglied = this.mitgliederService.getSelectedMitglied();
-            this.initRolesAndPermissions(this.mitglied.user_id);
         } else {
             this.mitgliedLoading = true;
             this.route.params.subscribe((e) => {
                 this.mitgliederService.getSingleMitglied(e.id).subscribe({
                     next: (m) => {
                         this.mitglied = m;
-                        this.initRolesAndPermissions(this.mitglied.user_id);
                         this.mitgliedLoading = false;
                     },
                     error: (error) => {
@@ -74,55 +64,6 @@ export class MitgliederSingleComponent implements OnInit {
                 });
             });
         }
-    }
-
-    initRolesAndPermissions(id: any) {
-        if (!id) return;
-        this.rolesLoading = true;
-        this.roleService.getAllRoles().subscribe({
-            next: (roles) => {
-                this.allRoles = roles;
-            },
-            error: (err) => {
-                this.infoService.error(err);
-                this.allRoles = null;
-            },
-        });
-        this.roleService.getUserRoles(id).subscribe({
-            next: (roles) => {
-                this.selectedRoles = roles;
-                this.rolesLoading = false;
-            },
-            error: (error) => {
-                this.rolesLoading = false;
-                this.allRoles = null;
-                this.infoService.error(error);
-            },
-        });
-    }
-
-    updateRoles() {
-        this.rolesSaving = true;
-        this.roleService
-            .assignRolesToUser(this.selectedRoles, this.mitglied.user_id)
-            .subscribe({
-                next: (res) => {
-                    this.selectedRoles = res;
-                    this.rolesSaving = false;
-                    if (
-                        this.mitglied.user_id ===
-                        this.userService.getCurrentUserId()
-                    ) {
-                        this.userService.renewCurrentUserData();
-                    }
-                    this.infoService.success("Rollen aktualisiert!");
-                },
-                error: (err) => {
-                    this.infoService.error(err);
-                    this.selectedRoles = null;
-                    this.rolesSaving = false;
-                },
-            });
     }
 
     openEditDialog() {

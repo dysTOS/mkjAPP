@@ -1,11 +1,21 @@
-<p-card>
-    <div class="col-12 flex flex-column justify-content-center">
-        {{ calendarSubUrl }}
-        <button
-            pButton
-            label="In Zwischenablage kopieren"
-            class="p-button-outlined mt-5"
-            (click)="copyToClipboard()"
-        ></button>
+<div class="grid">
+    <div class="md:col-6 col-12">
+        <div class="card">
+            Mit diesem Link kannst du alle Termine mit deinem Mobil-Kalender
+            synchronisieren. Diese Funktion ist noch in der Testphase, sollte
+            aber zumindest auf iPhones bereits tadellos funktionieren. Wenn du
+            Hilfe beim Einrichten brauchst, frag einfach Roli.
+        </div>
     </div>
-</p-card>
+    <div class="md:col-6 col-12">
+        <div class="card flex flex-column justify-content-center">
+            {{ calendarSubUrl }}
+            <button
+                pButton
+                label="In Zwischenablage kopieren"
+                class="p-button-outlined mt-5"
+                (click)="copyToClipboard()"
+            ></button>
+        </div>
+    </div>
+</div>

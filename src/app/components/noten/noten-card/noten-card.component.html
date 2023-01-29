@@ -1,76 +1,47 @@
 <div class="grid col-12 card">
-    <div class="lg:col-3 md:col-4 sm:col-12">
-        <mkj-display-field label="Inventar Nr.">{{noten.inventarId}}</mkj-display-field>
+    <div class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Inventar Nr.">{{
+            noten.inventarId
+        }}</mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.komponist"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Komponist"
-        >            {{noten.komponist}}
-    </mkj-display-field>
+    <div *ngIf="noten.komponist" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Komponist">
+            {{ noten.komponist }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.arrangeur"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Arrangeur"
-        >            {{noten.arrangeur}}
-    </mkj-display-field>
+    <div *ngIf="noten.arrangeur" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Arrangeur">
+            {{ noten.arrangeur }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.verlag"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Verlag"
-        >            {{noten.verlag}}
-    </mkj-display-field>
+    <div *ngIf="noten.verlag" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Verlag">
+            {{ noten.verlag }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.gattung"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Gattung"
-        >            {{noten.gattung}}
-    </mkj-display-field>
+    <div *ngIf="noten.gattung" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Gattung">
+            {{ noten.gattung }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.ausgeliehenAb"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Ausgeliehen seit"
-        >           {{ noten.ausgeliehenAb | mkjDate}}
-    </mkj-display-field>
+    <div *ngIf="noten.ausgeliehenAb" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Ausgeliehen seit">
+            {{ noten.ausgeliehenAb | mkjDate }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.ausgeliehenVon"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Ausgeliehen von"
-        >            {{noten.ausgeliehenVon}}
-    </mkj-display-field>
+    <div *ngIf="noten.ausgeliehenVon" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Ausgeliehen von">
+            {{ noten.ausgeliehenVon }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.aufbewahrungsort"
-        class="lg:col-3 md:col-4 sm:col-12"
-    >
-        <mkj-display-field
-            label="Aufbewahrungsort"
-        >            {{noten.aufbewahrungsort}}
-    </mkj-display-field>
+    <div *ngIf="noten.aufbewahrungsort" class="lg:col-3 md:col-4 col-12">
+        <mkj-display-field label="Aufbewahrungsort">
+            {{ noten.aufbewahrungsort }}
+        </mkj-display-field>
     </div>
-    <div
-        *ngIf="noten.anmerkungen"
-        class="lg:col-6 md:col-12 sm:col-12"
-    >
-        <mkj-display-field
-            label="Anmerkungen"
-        >            {{noten.anmerkungen}}
-    </mkj-display-field>
+    <div *ngIf="noten.anmerkungen" class="lg:col-6 md:col-12 col-12">
+        <mkj-display-field label="Anmerkungen">
+            {{ noten.anmerkungen }}
+        </mkj-display-field>
     </div>
+</div>

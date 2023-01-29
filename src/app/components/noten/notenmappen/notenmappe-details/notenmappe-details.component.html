@@ -61,6 +61,7 @@
                     <td>{{ noten.komponist }}</td>
                     <td>
                         <button
+                            *ngIf="canNavigateToNoten"
                             pButton
                             icon="pi pi-link"
                             class="p-button-text ml-2"

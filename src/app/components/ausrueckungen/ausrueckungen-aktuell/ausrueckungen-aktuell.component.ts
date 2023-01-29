@@ -9,7 +9,7 @@ import {
     ViewChild,
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, MenuItem } from "primeng/api";
 import {
     Termin as Termin,
     TerminCsvColumnMap,
@@ -56,6 +56,24 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     public formGroup: FormGroup;
 
     selectedRow: any;
+
+    public rowMenuItems: MenuItem[] = [
+        {
+            label: "Duplizieren",
+            icon: "pi pi-copy",
+            command: () => this.duplicateAusrueckung(this.selectedRow),
+        },
+        {
+            label: "Editieren",
+            icon: "pi pi-pencil",
+            command: () => this.editAusrueckung(this.selectedRow),
+        },
+        {
+            label: "Löschen",
+            icon: "pi pi-trash",
+            command: () => this.deleteAusrueckung(this.selectedRow),
+        },
+    ];
 
     constructor(
         private termineApiService: TermineApiService,
@@ -202,7 +220,10 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.isSaving = true;
         if (saveAusrueckung.id) {
             //update
-            let index = this.findIndexById(saveAusrueckung.id);
+            let index = UtilFunctions.findIndexById(
+                saveAusrueckung.id,
+                this.ausrueckungenArray
+            );
             this.termineApiService.updateTermin(saveAusrueckung).subscribe(
                 (ausrueckungFromAPI) => (
                     (this.ausrueckungenArray[index] = ausrueckungFromAPI),
@@ -288,17 +309,6 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.filteredRows = e.filteredValue;
     }
 
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.ausrueckungenArray.length; i++) {
-            if (this.ausrueckungenArray[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
     onRowSelect(event) {
         this.ausrueckungenTable.toggleRow(event.data);
     }
@@ -314,30 +324,30 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     public exportPdf() {
         const columns = [
             { title: "Name", dataKey: "name" },
+            { title: "Status", dataKey: "status" },
             { title: "Datum", dataKey: "vonDatum" },
             { title: "Zusammenkunft", dataKey: "treffzeit" },
             { title: "Spielbeginn", dataKey: "vonZeit" },
-            { title: "Status", dataKey: "status" },
             { title: "Infos", dataKey: "infosMusiker" },
         ];
         const rows = this.filteredRows.map((e) => {
             const ausr = { ...e };
+            ausr.status = _.startCase(ausr.status);
             ausr.vonDatum = this.mkjDatePipe.transform(
                 ausr.vonDatum,
                 "E d. MMM YYYY"
             );
+            if (e.gruppe?.name) {
+                ausr.name = ausr.name + " (" + e.gruppe.name + ")";
+            }
             return ausr;
         });
 
-        this.exportService.savePDF(columns, rows, "Ausrückungen");
+        this.exportService.savePDF(columns, rows, "Termine");
     }
 
     public exportExcel() {
         this.exportService.exportExcel(this.filteredRows, "Ausrückungen");
-    }
-
-    public exportToCalendar(ausrueckung: Termin) {
-        this.exportService.exportAusrueckungIcs(ausrueckung);
     }
 
     public setFilterInputDates(filterIndex: number, value: string) {

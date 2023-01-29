@@ -20,6 +20,19 @@ export class UtilFunctions {
         return window.innerWidth > 1024;
     }
 
+    public static generateRandomHexColor(): string {
+        let color = "#";
+        const possible = "0123456789ABCDEF";
+
+        for (let i = 0; i < 6; i++) {
+            color += possible.charAt(
+                Math.floor(Math.random() * possible.length)
+            );
+        }
+
+        return color;
+    }
+
     public static isDarkBackground(backgroundColor: string): boolean {
         if (!backgroundColor) return false;
         const color = backgroundColor.substring(1); // remove the leading '#'
@@ -46,7 +59,7 @@ export class UtilFunctions {
             name: [ausrueckung?.name ?? null, Validators.required],
             beschreibung: [ausrueckung?.beschreibung ?? null],
             infoMusiker: [ausrueckung?.infoMusiker ?? null],
-            oeffentlich: [ausrueckung?.oeffentlich ?? true],
+            oeffentlich: [ausrueckung?.oeffentlich ?? false],
             ort: [ausrueckung?.ort ?? null],
             kategorie: [ausrueckung?.kategorie ?? null, Validators.required],
             status: [ausrueckung?.status ?? null, Validators.required],

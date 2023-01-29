@@ -98,6 +98,10 @@ export class InfoService {
                     },
                 });
             },
+            reject: () => {
+                subject.error(null);
+                subject.complete();
+            },
         });
         return subject;
     }

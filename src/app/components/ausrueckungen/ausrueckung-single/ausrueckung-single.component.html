@@ -1,5 +1,5 @@
 <mkj-content-loader [loading]="loading">
-    <p-tabView>
+    <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel [selected]="true" header="Infos">
             <termin-card
                 *ngIf="ausrueckung"

@@ -1,14 +1,14 @@
-import { ExportService } from "../../../services/export.service";
-import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
-import { Mitglied } from "src/app/models/Mitglied";
-import { NotenApiService } from "../../../services/api/noten-api.service";
-import { TermineApiService } from "../../../services/api/termine-api.service";
-import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { Termin } from "src/app/models/Termin";
+import { ActivatedRoute } from "@angular/router";
+import { Mitglied } from "src/app/models/Mitglied";
 import { Noten } from "src/app/models/Noten";
+import { Termin } from "src/app/models/Termin";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
+import { NotenApiService } from "../../../services/api/noten-api.service";
+import { TermineApiService } from "../../../services/api/termine-api.service";
+import { ExportService } from "../../../services/export.service";
 
 @Component({
     selector: "app-ausrueckung-single",
@@ -28,8 +28,9 @@ export class AusrueckungSingleComponent implements OnInit {
     mitglieder: Mitglied[];
     presentMitglieder: Mitglied[] = [];
 
+    public activeTabIndex = 0;
+
     constructor(
-        private router: Router,
         private route: ActivatedRoute,
         private ausrueckungenService: TermineApiService,
         private infoService: InfoService,

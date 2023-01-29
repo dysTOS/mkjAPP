@@ -11,8 +11,10 @@
 </div>
 
 <mkj-content-loader [loading]="loading" class="h-full">
-    <mkj-ausrueckung-form
-        *ngIf="formGroup"
-        [formGroup]="formGroup"
-    ></mkj-ausrueckung-form>
+    <div class="card">
+        <mkj-ausrueckung-form
+            *ngIf="formGroup"
+            [formGroup]="formGroup"
+        ></mkj-ausrueckung-form>
+    </div>
 </mkj-content-loader>
