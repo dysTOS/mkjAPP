@@ -11,8 +11,16 @@
         ></button>
     </div>
     <div class="flex gap-2 justify-content-center align-items-center">
-        <p-selectButton [options]="mitgliederFilter" [(ngModel)]="selectedFilter" (ngModelChange)="$event.value === 'alle'?loadAllMitglieder():loadAktiveMitglieder()" optionLabel="name"></p-selectButton>
-
+        <p-selectButton
+            [options]="mitgliederFilter"
+            [(ngModel)]="selectedFilter"
+            (ngModelChange)="
+                $event.value === 'alle'
+                    ? loadAllMitglieder()
+                    : loadAktiveMitglieder()
+            "
+            optionLabel="name"
+        ></p-selectButton>
     </div>
     <p-divider></p-divider>
     <div class="flex flex-wrap justify-content-between align-items-center">
@@ -27,7 +35,12 @@
                 pInputText
                 type="text"
                 [value]="mitgliederTable.filters?.global?.value"
-                (input)="mitgliederTable.filterGlobal($event.target.value, 'contains')"
+                (input)="
+                    mitgliederTable.filterGlobal(
+                        $event.target.value,
+                        'contains'
+                    )
+                "
                 placeholder="Suchen..."
             />
         </span>
@@ -44,7 +57,6 @@
             responsiveLayout="stack"
             styleClass="p-datatable-sm p-datatable-mitglieder p-datatable-striped"
         >
-
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th pSortableColumn="zuname">
@@ -62,7 +74,7 @@
                         <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
 
                         <button
-                        *visibleFor="[PermissionMap. MITGLIEDER_SAVE]"
+                            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
@@ -79,7 +91,7 @@
                     <td>{{ mitglied.telefonMobil }}</td>
                     <td class="not-on-small">
                         <button
-                        *visibleFor="[PermissionMap. MITGLIEDER_SAVE]"
+                            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
@@ -93,39 +105,3 @@
         </p-table>
     </div>
 </div>
-
-<!-- Create Mitglied -->
-<p-dialog
-    [(visible)]="editDialogVisible"
-    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-    [style]="{ width: '75vw' }"
-    [header]="'Mitglied erstellen'"
-    [modal]="true"
-    styleClass="p-fluid"
-    position="top"
->
-    <ng-template pTemplate="content">
-        <mkj-mitglied-form [formGroup]="formGroup"></mkj-mitglied-form>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <button
-            pButton
-            pRipple
-            label="Abbrechen"
-            icon="pi pi-times"
-            class="p-button-text"
-            (click)="cancelAdd()"
-        ></button>
-        <button
-            pButton
-            pRipple
-            label="Speichern"
-            [icon]="isAdding ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-            class="p-button-plain"
-            [disabled]="isAdding || formGroup?.invalid"
-            (click)="saveMitglied()"
-        ></button
-    ></ng-template>
-</p-dialog>
-
-

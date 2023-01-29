@@ -31,18 +31,18 @@ export class MitgliederSingleComponent implements OnInit {
         this.toolbarService.header = "Mitglied";
         this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
-            {
-                icon: "pi pi-pencil",
-                click: () => this.openEditDialog(),
-                label: "Bearbeiten",
-                permissions: [PermissionMap.MITGLIEDER_SAVE],
-            },
-            {
-                icon: "pi pi-trash",
-                click: () => this.deleteMitglied(),
-                permissions: [PermissionMap.MITGLIEDER_DELETE],
-                label: "Löschen",
-            },
+            // {
+            //     icon: "pi pi-pencil",
+            //     click: () => this.openEditDialog(),
+            //     label: "Bearbeiten",
+            //     permissions: [PermissionMap.MITGLIEDER_SAVE],
+            // },
+            // {
+            //     icon: "pi pi-trash",
+            //     click: () => this.deleteMitglied(),
+            //     permissions: [PermissionMap.MITGLIEDER_DELETE],
+            //     label: "Löschen",
+            // },
         ];
     }
 

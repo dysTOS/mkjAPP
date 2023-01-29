@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { Mitglied } from "src/app/models/Mitglied";
 
 @Component({
     selector: "app-mitglied-editor",
@@ -12,7 +13,16 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     styleUrls: ["./mitglied-editor.component.scss"],
 })
 export class MitgliedEditorComponent implements EditComponentDeactivate {
+    private _mitglied: Mitglied;
     @Input()
+    public get mitglied(): Mitglied {
+        return this._mitglied;
+    }
+    public set mitglied(value: Mitglied) {
+        this._mitglied = value;
+        this.formGroup.patchValue(value);
+    }
+
     public formGroup: FormGroup;
 
     constructor(
@@ -23,10 +33,10 @@ export class MitgliedEditorComponent implements EditComponentDeactivate {
     ) {
         this.formGroup = UtilFunctions.getMitgliedFormGroup(fb);
 
-        const id = this.route.snapshot.params.id;
-        if (id && id !== "neu") {
-            this.loadMitglied(id);
-        }
+        // const id = this.route.snapshot.params.id;
+        // if (id && id !== "neu") {
+        //     this.loadMitglied(id);
+        // }
     }
 
     public canDeactivate(): boolean {

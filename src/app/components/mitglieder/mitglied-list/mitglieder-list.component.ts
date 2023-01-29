@@ -16,11 +16,8 @@ import { Table } from "primeng/table";
 })
 export class MitgliederListComponent implements OnInit {
     mitglieder: Array<Mitglied>;
-    addMitglied: Mitglied;
 
     loading: boolean = false;
-    isAdding: boolean = false;
-    editDialogVisible: boolean = false;
 
     public mitgliederFilter = [
         {
@@ -30,8 +27,6 @@ export class MitgliederListComponent implements OnInit {
         { name: "Nur Aktive ", value: "aktive" },
     ];
     public selectedFilter = this.mitgliederFilter[1];
-
-    public formGroup: FormGroup;
 
     @ViewChild("mitgliederTable") mitgliederTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
@@ -43,7 +38,6 @@ export class MitgliederListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
-        private fb: FormBuilder,
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Mitglieder";
@@ -60,12 +54,12 @@ export class MitgliederListComponent implements OnInit {
                     this.toolbarService.contentSectionExpanded === true,
                 label: "Filtern/Suchen",
             },
-            {
-                icon: "pi pi-plus",
-                click: () => this.openEditDialog(),
-                label: "Neu",
-                permissions: [PermissionMap.MITGLIEDER_SAVE],
-            },
+            // {
+            //     icon: "pi pi-plus",
+            //     // click: () => this.openEditDialog(),
+            //     label: "Neu",
+            //     permissions: [PermissionMap.MITGLIEDER_SAVE],
+            // },
         ];
     }
 
@@ -112,38 +106,5 @@ export class MitgliederListComponent implements OnInit {
         this.router.navigate(["../" + mitglied.id], {
             relativeTo: this.route,
         });
-    }
-
-    public saveMitglied() {
-        this.isAdding = true;
-        this.mitgliederService.createMitglied(this.addMitglied).subscribe({
-            next: (res) => {
-                if (res.aktiv) {
-                    this.mitglieder.push(res);
-                    this.mitglieder.sort((a: Mitglied, b: Mitglied) =>
-                        a.zuname.localeCompare(b.zuname)
-                    );
-                }
-                this.isAdding = false;
-                this.editDialogVisible = false;
-                this.infoService.success(
-                    "Miglied " + res.vorname + " " + res.zuname + " angelegt!"
-                );
-            },
-            error: (err) => {
-                this.isAdding = false;
-                this.infoService.error(err);
-            },
-        });
-    }
-
-    public openEditDialog() {
-        this.formGroup = UtilFunctions.getMitgliedFormGroup(this.fb);
-        this.editDialogVisible = true;
-    }
-
-    public cancelAdd() {
-        this.formGroup.reset();
-        this.editDialogVisible = false;
     }
 }
