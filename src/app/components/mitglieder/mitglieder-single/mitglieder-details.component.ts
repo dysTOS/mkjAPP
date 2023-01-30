@@ -44,11 +44,10 @@ export class MitgliederDetailsComponent
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadMitglied(id);
+            this.toolbarService.header = "Mitglied bearbeiten";
+        } else {
+            this.toolbarService.header = "Neues Mitglied";
         }
-    }
-
-    public ngOnInit(): void {
-        this.toolbarService.header = "Neues Mitglied";
         this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
             {
@@ -59,6 +58,8 @@ export class MitgliederDetailsComponent
             },
         ];
     }
+
+    public ngOnInit(): void {}
 
     public canDeactivate(): boolean {
         return this.formGroup.pristine && !this.rolesTouched;
