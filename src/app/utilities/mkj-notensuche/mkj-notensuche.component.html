@@ -10,6 +10,7 @@
         />
         <label for="verzeichnis">Verzeichnis</label>
     </span>
+
     <p-autoComplete
         [(ngModel)]="selectedNoten"
         [suggestions]="searchNotenResult"
@@ -18,11 +19,16 @@
         [minLength]="minLength"
         [placeholder]="placeholder"
         (completeMethod)="searchNoten($event)"
-        (onSelect)="onSelect($event)"
+        (onSelect)="
+            (verzeichnisMode && verzeichnisNr) || !verzeichnisMode
+                ? onSelect($event)
+                : null
+        "
         [appendTo]="'body'"
         field="titel"
         dataKey="id"
         [class.notensuche-input]="verzeichnisMode"
+        class="no-border-right"
         [showEmptyMessage]="true"
         emptyMessage="Keine Noten gefunden..."
     >
@@ -37,4 +43,14 @@
             </div>
         </ng-template>
     </p-autoComplete>
+    <button
+        type="button"
+        pButton
+        pRipple
+        icon="pi pi-plus"
+        class="plus-button"
+        styleClass="p-button-warn"
+        (click)="onAddButtonClick()"
+        [disabled]="verzeichnisMode && !verzeichnisNr"
+    ></button>
 </div>

@@ -16,14 +16,13 @@ import { ExportService } from "../../../services/export.service";
     styleUrls: ["./ausrueckung-single.component.scss"],
 })
 export class AusrueckungSingleComponent implements OnInit {
-    ausrueckung: Termin;
+    termin: Termin;
 
     loading: boolean = true;
     notenLoading: boolean = true;
 
     gespielteNoten: Noten[] = [];
     searchNotenResult: Noten[];
-    selectedNoten: Noten;
 
     mitglieder: Mitglied[];
     presentMitglieder: Mitglied[] = [];
@@ -45,10 +44,9 @@ export class AusrueckungSingleComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((e) => {
-            this.getAktiveMitglieder(e.id);
             this.ausrueckungenService.getSingleTermin(e.id).subscribe(
                 (ausrueckung) => {
-                    (this.ausrueckung = ausrueckung), this.getGespielteNoten();
+                    (this.termin = ausrueckung), this.getGespielteNoten();
                 },
                 (error) => this.infoService.error(error),
                 () => (this.loading = false)
@@ -56,105 +54,51 @@ export class AusrueckungSingleComponent implements OnInit {
         });
     }
 
-    getAktiveMitglieder(id: string) {
-        this.mitgliedService.getAllMitglieder().subscribe({
-            next: (res) => {
-                this.mitglieder = res;
-            },
-            error: (err) => this.infoService.error(err),
-        });
-        this.mitgliedService.getMitgliederForAusrueckung(id).subscribe({
-            next: (res) => (this.presentMitglieder = res),
-            error: (err) => this.infoService.error(err),
-        });
-    }
-
-    onMitgliederChange(event) {
-        console.log(event);
-        let newSelection = event.value;
-        let attachMitglied = newSelection.filter(
-            (e) => !this.presentMitglieder.includes(e)
-        );
-        let detachMitglied = this.presentMitglieder.filter(
-            (e) => !newSelection.includes(e)
-        );
-        // console.log("ATTACH", attachRole, "DETACH", detachMitglied)
-        this.presentMitglieder = newSelection;
-        if (attachMitglied[0]) {
-            this.mitgliedService
-                .attachMitgliedToAusrueckung(
-                    this.ausrueckung.id,
-                    attachMitglied[0].id
-                )
-                .subscribe({
-                    next: (res) => this.infoService.success(res.message),
-                    error: (error) => this.infoService.error(error),
-                });
-        }
-        if (detachMitglied[0]) {
-            this.mitgliedService
-                .detachMitgliedFromAusrueckung(
-                    this.ausrueckung.id,
-                    detachMitglied[0].id
-                )
-                .subscribe({
-                    next: (res) => this.infoService.success(res.message),
-                    error: (error) => this.infoService.error(error),
-                });
-        }
-    }
-
     getGespielteNoten() {
         this.notenLoading = true;
-        this.notenService
-            .getNotenForAusrueckung(this.ausrueckung.id)
-            .subscribe({
-                next: (res) => {
-                    this.gespielteNoten = res;
-                },
-                complete: () => (this.notenLoading = false),
-            });
+        this.notenService.getNotenForAusrueckung(this.termin.id).subscribe({
+            next: (res) => {
+                this.gespielteNoten = res;
+            },
+            complete: () => (this.notenLoading = false),
+        });
     }
 
-    attachNoten(event) {
+    attachNoten(noten: Noten) {
         this.notenLoading = true;
         this.notenService
-            .attachNotenToAusrueckung(event.id, this.ausrueckung.id)
+            .attachNotenToAusrueckung(noten.id, this.termin.id)
             .subscribe({
                 next: (res) => {
-                    this.gespielteNoten = [event, ...this.gespielteNoten];
+                    this.gespielteNoten = [noten, ...this.gespielteNoten];
                     this.notenLoading = false;
-                    this.selectedNoten = null;
                 },
                 error: (error) => {
                     this.infoService.error(error);
                     this.notenLoading = false;
-                    this.selectedNoten = null;
                 },
             });
     }
 
-    detachNoten(event) {
+    detachNoten(noten: Noten) {
         this.notenLoading = true;
         this.notenService
-            .detachNotenFromAusrueckung(event.id, this.ausrueckung.id)
+            .detachNotenFromAusrueckung(noten.id, this.termin.id)
             .subscribe({
                 next: (res) => {
                     this.gespielteNoten = this.gespielteNoten.filter(
-                        (e) => e.id !== event.id
+                        (e) => e.id !== noten.id
                     );
                     this.notenLoading = false;
-                    this.selectedNoten = null;
                 },
                 error: (error) => {
                     this.infoService.error(error);
                     this.notenLoading = false;
-                    this.selectedNoten = null;
                 },
             });
     }
 
     exportToCalendar() {
-        this.calExport.exportAusrueckungIcs(this.ausrueckung);
+        this.calExport.exportAusrueckungIcs(this.termin);
     }
 }

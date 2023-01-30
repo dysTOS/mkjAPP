@@ -13,7 +13,7 @@ import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { RouteGuard } from "./guards/route.guard";
-import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
+import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
 import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
 import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
@@ -35,7 +35,7 @@ import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitgli
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
-import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
+import { StatistikOverviewComponent } from "./components/statistik/components/statistik-overview/statistik-overview.component";
 import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
 
 @NgModule({
@@ -128,8 +128,9 @@ import { NotenEditorComponent } from "./components/noten/noten-editor/noten-edit
                                 },
                                 {
                                     path: ":id",
-                                    component: MitgliederSingleComponent,
+                                    component: MitgliederDetailsComponent,
                                     canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
                                     path: "",
@@ -172,6 +173,7 @@ import { NotenEditorComponent } from "./components/noten/noten-editor/noten-edit
                             path: "statistik",
                             component: StatistikOverviewComponent,
                             canActivate: [RouteGuard],
+                            title: "mkjAPP - STATISTIKEN",
                         },
                         {
                             path: "tools/rechnungsgenerator",

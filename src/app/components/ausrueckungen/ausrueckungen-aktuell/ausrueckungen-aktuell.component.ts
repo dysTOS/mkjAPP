@@ -25,6 +25,7 @@ import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
+import { UserService } from "src/app/services/authentication/user.service";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -56,27 +57,38 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     public formGroup: FormGroup;
 
     selectedRow: any;
+    public hasAktionenPermissions: boolean = false;
 
     public rowMenuItems: MenuItem[] = [
         {
             label: "Duplizieren",
             icon: "pi pi-copy",
+            visible: this.userService.hasPermission(
+                PermissionMap.AUSRUECKUNG_SAVE
+            ),
             command: () => this.duplicateAusrueckung(this.selectedRow),
         },
         {
             label: "Editieren",
             icon: "pi pi-pencil",
+            visible: this.userService.hasPermission(
+                PermissionMap.AUSRUECKUNG_SAVE
+            ),
             command: () => this.editAusrueckung(this.selectedRow),
         },
         {
             label: "Löschen",
             icon: "pi pi-trash",
+            visible: this.userService.hasPermission(
+                PermissionMap.AUSRUECKUNG_DELETE
+            ),
             command: () => this.deleteAusrueckung(this.selectedRow),
         },
     ];
 
     constructor(
         private termineApiService: TermineApiService,
+        private userService: UserService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService,
         private router: Router,
@@ -87,6 +99,10 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         public toolbarService: MkjToolbarService
     ) {
         this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
+        this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
+            PermissionMap.AUSRUECKUNG_SAVE,
+            PermissionMap.AUSRUECKUNG_DELETE,
+        ]);
         this.toolbarService.header = "Termine";
         this.toolbarService.buttons = [
             {

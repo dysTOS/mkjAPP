@@ -1,5 +1,4 @@
-import { Component, Input } from "@angular/core";
-import { Mitglied } from "src/app/models/Mitglied";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Role } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
@@ -11,14 +10,14 @@ import { RoleService } from "src/app/services/role.service";
     styleUrls: ["./mitglied-roles-picker.component.sass"],
 })
 export class MitgliedRolesPickerComponent {
-    private _mitglied: Mitglied;
+    private _userId: string;
     @Input()
-    public get mitglied(): Mitglied {
-        return this._mitglied;
+    public get userId(): string {
+        return this._userId;
     }
-    public set mitglied(value: Mitglied) {
-        this._mitglied = value;
-        this.initRolesAndPermissions(value.user_id);
+    public set userId(value: string) {
+        this._userId = value;
+        this.initRolesAndPermissions(value);
     }
 
     public rolesLoading: boolean = false;
@@ -26,6 +25,11 @@ export class MitgliedRolesPickerComponent {
 
     public selectedRoles: Role[];
     public allRoles: Role[];
+
+    public rolesTouched: boolean = false;
+
+    @Output()
+    public touched = new EventEmitter<boolean>();
 
     constructor(
         private roleService: RoleService,
@@ -61,18 +65,17 @@ export class MitgliedRolesPickerComponent {
     public updateRoles() {
         this.rolesSaving = true;
         this.roleService
-            .assignRolesToUser(this.selectedRoles, this.mitglied.user_id)
+            .assignRolesToUser(this.selectedRoles, this.userId)
             .subscribe({
                 next: (res) => {
                     this.selectedRoles = res;
                     this.rolesSaving = false;
-                    if (
-                        this.mitglied.user_id ===
-                        this.userService.getCurrentUserId()
-                    ) {
+                    if (this.userId === this.userService.getCurrentUserId()) {
                         this.userService.renewCurrentUserData();
                     }
                     this.infoService.success("Rollen aktualisiert!");
+                    this.rolesTouched = false;
+                    this.touched.emit(false);
                 },
                 error: (err) => {
                     this.infoService.error(err);

@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="grid col-12 flex justify-content-center">
+        <mkj-content-loader [loading]="loading">
+            <mkj-mitglied-form [formGroup]="formGroup"></mkj-mitglied-form>
+            <div class="col-12 flex justify-content-end">
+                <button
+                    pButton
+                    [icon]="
+                        mitgliedSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
+                    "
+                    label="Daten speichern"
+                    [disabled]="
+                        formGroup.pristine ||
+                        formGroup.invalid ||
+                        mitgliedSaving
+                    "
+                    (click)="saveMitglied()"
+                ></button>
+            </div>
+        </mkj-content-loader>
+    </div>
+</div>
+<div *ngIf="canAssignRoles" class="md:col-6 sm:col-12">
+    <mitglied-roles-picker
+        [userId]="formGroup.controls.user_id.value"
+        (touched)="rolesTouched = $event"
+    ></mitglied-roles-picker>
+</div>

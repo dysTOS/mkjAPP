@@ -1,0 +1,23 @@
+<div class="flex flex-column text-center">
+    <h5>
+        Anzahl Termine nach Kategorie
+        <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
+    </h5>
+    <div class="flex justify-content-center align-items-center">
+        <button
+            pButton
+            icon="pi pi-minus"
+            class="p-button-text"
+            (click)="year = year - 1"
+        ></button>
+        <h5 class="p-1 align-self-center">{{ year }}</h5>
+        <button
+            pButton
+            icon="pi pi-plus"
+            class="p-button-text"
+            (click)="year = year + 1"
+        ></button>
+    </div>
+    <p *ngIf="!data?.labels?.length">Keine Daten verfügbar...</p>
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+</div>

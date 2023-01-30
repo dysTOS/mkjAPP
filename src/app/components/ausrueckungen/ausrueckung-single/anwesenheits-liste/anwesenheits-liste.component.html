@@ -1,0 +1,28 @@
+<div
+    *ngIf="!mitglieder || !presentMitglieder"
+    class="flex justify-content-center"
+>
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+</div>
+<p-listbox
+    #listbox
+    *ngIf="mitglieder && presentMitglieder"
+    [options]="mitglieder"
+    [ngModel]="presentMitglieder"
+    [multiple]="true"
+    [checkbox]="true"
+    [filter]="true"
+    filterBy="vorname,zuname"
+    optionLabel="vorname"
+    placeholder="Filtern"
+    [showToggleAll]="false"
+    dataKey="id"
+    (onChange)="onMitgliederChange($event)"
+    [disabled]="saving"
+>
+    <ng-template let-mitglied pTemplate="item">
+        <div>
+            <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>
+        </div>
+    </ng-template>
+</p-listbox>

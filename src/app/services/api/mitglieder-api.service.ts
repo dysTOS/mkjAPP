@@ -55,9 +55,9 @@ export class MitgliederApiService {
         return this.http.put<Mitglied>(url, mitglied, StandardHttpOptions);
     }
 
-    deleteMitglied(mitglied: Mitglied): Observable<Mitglied> {
-        const url = this.apiURL + "mitglieder/" + mitglied.id.toString();
-        return this.http.delete<Mitglied>(url, StandardHttpOptions);
+    deleteMitglied(id: string): Observable<any> {
+        const url = this.apiURL + "mitglieder/" + id;
+        return this.http.delete<any>(url, StandardHttpOptions);
     }
 
     attachMitgliedToAusrueckung(

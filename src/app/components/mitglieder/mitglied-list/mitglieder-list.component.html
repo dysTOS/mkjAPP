@@ -74,7 +74,7 @@
                         <b>{{ mitglied?.vorname }} {{ mitglied?.zuname }}</b>
 
                         <button
-                            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
+                            *ngIf="canEdit"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"
@@ -91,7 +91,7 @@
                     <td>{{ mitglied.telefonMobil }}</td>
                     <td class="not-on-small">
                         <button
-                            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
+                            *ngIf="canEdit"
                             pButton
                             (click)="navigateSingleMitglied(mitglied)"
                             pTooltip="Details"

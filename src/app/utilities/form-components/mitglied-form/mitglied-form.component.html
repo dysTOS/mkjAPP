@@ -66,7 +66,18 @@
             <label for="geschlecht">Geschlecht</label>
         </span>
     </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <span class="p-float-label">
+            <input
+                type="email"
+                pInputText
+                inputId="name"
+                formControlName="email"
+            />
 
+            <label for="name">E-Mail</label>
+        </span>
+    </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
             <input
@@ -128,18 +139,7 @@
             <label for="name">Postleitzahl</label>
         </span>
     </div>
-    <div class="p-field col-12 lg:col-3 md:col-6">
-        <span class="p-float-label">
-            <input
-                type="email"
-                pInputText
-                inputId="name"
-                formControlName="email"
-            />
 
-            <label for="name">E-Mail</label>
-        </span>
-    </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
         <span class="p-float-label">
             <input
@@ -164,14 +164,8 @@
             <label for="name">Telefon Mobil</label>
         </span>
     </div>
-
+    <p-divider class="col-12"></p-divider>
     <ng-container *ngIf="!personalMode">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-boolean-input
-                label="Aktives Mitglied"
-                formControlName="aktiv"
-            ></mkj-boolean-input>
-        </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-date-input
                 type="date"
@@ -185,6 +179,12 @@
                 formControlName="austrittDatum"
                 label="Datum Austritt"
             ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6 flex align-items-center">
+            <mkj-boolean-input
+                label="Aktives Mitglied"
+                formControlName="aktiv"
+            ></mkj-boolean-input>
         </div>
     </ng-container>
 </div>

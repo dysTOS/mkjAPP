@@ -26,4 +26,9 @@ export class StatistikApiService {
         const url = this.apiURL + "statistik/mitglieder";
         return this.http.get<any>(url, StandardHttpOptions);
     }
+
+    public getMitgliederNachGeschlecht(): Observable<any> {
+        const url = this.apiURL + "statistik/mitgliedergeschlecht";
+        return this.http.get<any>(url, StandardHttpOptions);
+    }
 }

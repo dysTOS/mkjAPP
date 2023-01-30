@@ -9,6 +9,7 @@ import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { MitgliedFormHelper } from "src/app/utilities/form-components/mitglied-form/mitglied-form-helper";
 
 @Component({
     selector: "app-mitglied-personal-edit",
@@ -38,7 +39,7 @@ export class MitgliedPersonalEditComponent
             .pipe()
             .subscribe({
                 next: (res) => {
-                    this.formGroup = UtilFunctions.getMitgliedFormGroup(
+                    this.formGroup = MitgliedFormHelper.getMitgliedFormGroup(
                         this.fb,
                         res
                     );

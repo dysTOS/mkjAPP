@@ -102,6 +102,7 @@ export class InfoService {
                 subject.error(null);
                 subject.complete();
             },
+            acceptLabel: "Löschen",
         });
         return subject;
     }
