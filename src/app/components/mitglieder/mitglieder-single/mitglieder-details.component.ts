@@ -41,22 +41,22 @@ export class MitgliederDetailsComponent
         this.canAssignRoles = this.userService.hasPermission(
             PermissionMap.ROLE_ASSIGN
         );
+        this.toolbarService.backButton = true;
         const id = this.route.snapshot.params.id;
         if (id && id !== "neu") {
             this.loadMitglied(id);
             this.toolbarService.header = "Mitglied bearbeiten";
+            this.toolbarService.buttons = [
+                {
+                    icon: "pi pi-trash",
+                    click: () => this.deleteMitglied(),
+                    permissions: [PermissionMap.MITGLIEDER_DELETE],
+                    label: "Löschen",
+                },
+            ];
         } else {
             this.toolbarService.header = "Neues Mitglied";
         }
-        this.toolbarService.backButton = true;
-        this.toolbarService.buttons = [
-            {
-                icon: "pi pi-trash",
-                click: () => this.deleteMitglied(),
-                permissions: [PermissionMap.MITGLIEDER_DELETE],
-                label: "Löschen",
-            },
-        ];
     }
 
     public ngOnInit(): void {}

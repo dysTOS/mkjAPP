@@ -122,9 +122,6 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                         this.infoService.success("Mappe gespeichert!");
                         this.isSaving = false;
                         this.formGroup.markAsPristine();
-                        this.router.navigate(["../"], {
-                            relativeTo: this.route,
-                        });
                     },
                     error: (err) => {
                         this.infoService.error(err);
@@ -139,7 +136,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                         this.infoService.success("Mappe erstellt!");
                         this.isSaving = false;
                         this.formGroup.markAsPristine();
-                        this.router.navigate(["../", res.id], {
+                        this.router.navigate(["../"], {
                             relativeTo: this.route,
                         });
                     },
@@ -189,6 +186,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     }
 
     public deleteNotenmappe() {
+        this.loading = true;
         this.infoService
             .confirmDelete("Mappe wirklich löschen?", () =>
                 this.notenService.deleteNotenmappe(

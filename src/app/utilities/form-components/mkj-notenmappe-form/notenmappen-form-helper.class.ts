@@ -9,7 +9,7 @@ export abstract class NotenmappenFormHelper {
         return fb.group({
             id: [mappe?.id ?? null],
             name: [mappe?.name ?? null, Validators.required],
-            hatVerzeichnis: [mappe?.hatVerzeichnis ?? null],
+            hatVerzeichnis: [mappe?.hatVerzeichnis ?? false],
             color: [mappe?.color ?? null],
             noten: fb.array(
                 mappe?.noten?.map((noten) => {

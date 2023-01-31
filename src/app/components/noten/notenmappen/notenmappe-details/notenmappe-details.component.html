@@ -41,6 +41,7 @@
                         "
                         placeholder="Noten hinzufügen"
                         (notenSelect)="addNotenToMappe($event)"
+                        [class.p-disabled]="!formGroup.pristine"
                     ></app-mkj-notensuche>
                 </div>
             </ng-template>

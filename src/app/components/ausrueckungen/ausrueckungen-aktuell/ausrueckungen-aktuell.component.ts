@@ -26,6 +26,7 @@ import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
 import { UserService } from "src/app/services/authentication/user.service";
+import { Menu } from "primeng/menu";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -33,8 +34,6 @@ import { UserService } from "src/app/services/authentication/user.service";
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ausrueckungDialog: boolean;
-    zeitraumDialog: boolean;
-    exportDialogVisible: boolean = false;
 
     ausrueckungenArray: Termin[];
     ausrueckungFilterInput: GetCollectionApiCallInput;
@@ -53,6 +52,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
 
     @ViewChild("dt") ausrueckungenTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
+    @ViewChild("exportMenu") exportMenu: Menu;
 
     public formGroup: FormGroup;
 
@@ -83,6 +83,24 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
                 PermissionMap.AUSRUECKUNG_DELETE
             ),
             command: () => this.deleteAusrueckung(this.selectedRow),
+        },
+    ];
+
+    public exportMenuItems: MenuItem[] = [
+        {
+            label: "PDF",
+            icon: "pi pi-file-pdf",
+            command: () => this.exportPdf(),
+        },
+        {
+            label: "Excel",
+            icon: "pi pi-file-excel",
+            command: () => this.exportExcel(),
+        },
+        {
+            label: "CSV",
+            icon: "pi pi-file",
+            command: () => this.exportCsv(),
         },
     ];
 
@@ -125,7 +143,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             },
             {
                 icon: "pi pi-download",
-                click: () => (this.exportDialogVisible = true),
+                click: ($event) => this.exportMenu.show($event),
                 label: "Export",
             },
         ];

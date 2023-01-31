@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import {
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild,
+} from "@angular/core";
+import { AutoComplete } from "primeng/autocomplete";
 import { Noten } from "src/app/models/Noten";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
 
@@ -47,6 +54,9 @@ export class MkjNotensucheComponent {
     @Output()
     public notenSelect = new EventEmitter<NotenSucheOutput>();
 
+    @ViewChild("autocomplete")
+    private autocomplete: AutoComplete;
+
     constructor(private notenService: NotenApiService) {}
 
     public searchNoten(event) {
@@ -61,6 +71,7 @@ export class MkjNotensucheComponent {
             verzeichnisNr: this.verzeichnisNr,
         });
         this.selectedNoten = null;
+        this.autocomplete.clear();
     }
 
     public onAddButtonClick(): void {

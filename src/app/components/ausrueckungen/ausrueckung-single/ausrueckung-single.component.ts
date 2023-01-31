@@ -5,7 +5,6 @@ import { Noten } from "src/app/models/Noten";
 import { Termin } from "src/app/models/Termin";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { MitgliederApiService } from "../../../services/api/mitglieder-api.service";
 import { NotenApiService } from "../../../services/api/noten-api.service";
 import { TermineApiService } from "../../../services/api/termine-api.service";
 import { ExportService } from "../../../services/export.service";
@@ -33,7 +32,6 @@ export class AusrueckungSingleComponent implements OnInit {
         private route: ActivatedRoute,
         private ausrueckungenService: TermineApiService,
         private infoService: InfoService,
-        private mitgliedService: MitgliederApiService,
         private notenService: NotenApiService,
         private calExport: ExportService,
         private toolbarService: MkjToolbarService

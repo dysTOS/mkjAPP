@@ -12,6 +12,7 @@
     </span>
 
     <p-autoComplete
+        #autocomplete
         [(ngModel)]="selectedNoten"
         [suggestions]="searchNotenResult"
         [autoHighlight]="autoHighlight"
@@ -51,6 +52,8 @@
         class="plus-button"
         styleClass="p-button-warn"
         (click)="onAddButtonClick()"
-        [disabled]="verzeichnisMode && !verzeichnisNr"
+        [disabled]="
+            verzeichnisMode ? !verzeichnisNr || !selectedNoten : !selectedNoten
+        "
     ></button>
 </div>

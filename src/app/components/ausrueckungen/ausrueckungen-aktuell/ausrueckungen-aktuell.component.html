@@ -292,49 +292,8 @@
                 ></button>
             </ng-template>
         </p-dialog>
-
-        <!-- Export Dialog -->
-        <p-dialog
-            #exportDialog
-            [(visible)]="exportDialogVisible"
-            header="Ausrückungen exportieren"
-            [closable]="true"
-            [dismissableMask]="true"
-            [modal]="true"
-            styleClass="p-fluid"
-            position="top"
-        >
-            <ng-template pTemplate="content">
-                <button
-                    pButton
-                    pRipple
-                    label="PDF"
-                    icon="pi pi-file-pdf"
-                    (click)="exportPdf(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined mb-3"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Excel"
-                    icon="pi pi-file-excel"
-                    (click)="exportExcel(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined mb-3"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="CSV"
-                    icon="pi pi-file"
-                    (click)="exportCsv(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined"
-                ></button>
-            </ng-template>
-            <ng-template pTemplate="footer"
-                ><div style="height: 10px"></div
-            ></ng-template>
-        </p-dialog>
     </div>
 </div>
 
 <p-menu #rowMenu [popup]="true" [model]="rowMenuItems"></p-menu>
+<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>
