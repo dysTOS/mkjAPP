@@ -27,7 +27,10 @@
             </div>
         </div>
     </p-tabPanel>
-    <p-tabPanel *ngIf="canAssignRoles" header="Rollen">
+    <p-tabPanel
+        *ngIf="canAssignRoles && formGroup.controls.user_id.value"
+        header="Rollen"
+    >
         <mitglied-roles-picker
             [userId]="formGroup.controls.user_id.value"
             (touched)="rolesTouched = $event"
