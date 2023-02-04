@@ -40,6 +40,9 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     filteredRows: Termin[];
 
     actualDate = moment(new Date()).format("YYYY-MM-DD");
+    filterFromDate = moment(new Date())
+        .subtract(1, "week")
+        .format("YYYY-MM-DD");
 
     submitted: boolean;
     updateAusrueckung: boolean;
@@ -154,7 +157,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             filterAnd: [
                 {
                     filterField: "vonDatum",
-                    value: this.actualDate,
+                    value: this.filterFromDate,
                     operator: ">=",
                 },
                 {
