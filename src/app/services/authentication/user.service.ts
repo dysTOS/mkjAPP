@@ -145,10 +145,10 @@ export class UserService {
         if (!this.isSet() && this.tokenService.isLoggedIn()) {
             this.authApiService.getCurrentUser().subscribe({
                 next: (result) => {
-                    this.setCurrentUser(result.user),
-                        this.setCurrentMitglied(result.mitglied),
-                        this.setCurrentUserRoles(result.roles),
-                        this.setCurrentUserPermissions(result.permissions);
+                    this.setCurrentUser(result.user);
+                    this.setCurrentMitglied(result.mitglied);
+                    this.setCurrentUserRoles(result.roles);
+                    this.setCurrentUserPermissions(result.permissions);
                     this.setCurrentMitgliedGruppen(result.gruppen);
                     subject.next(null);
                     subject.complete();

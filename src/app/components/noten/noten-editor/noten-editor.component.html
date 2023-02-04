@@ -1,4 +1,3 @@
-
 <mkj-content-loader [loading]="loading" class="h-full">
     <div class="card">
         <mkj-noten-form [formGroup]="formGroup"></mkj-noten-form>
@@ -9,7 +8,7 @@
                 label="Speichern"
                 [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
                 class="p-button-plain"
-                [disabled]="saving || formGroup?.invalid"
+                [disabled]="saving || formGroup?.invalid || formGroup?.pristine"
                 (click)="saveNoten()"
             ></button>
         </div>

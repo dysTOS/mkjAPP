@@ -20,6 +20,11 @@
     (onChange)="onMitgliederChange($event)"
     [disabled]="saving"
 >
+    <ng-template pTemplate="header">
+        Anwesend: {{ presentMitglieder?.length }}/{{
+            mitglieder?.length
+        }}</ng-template
+    >
     <ng-template let-mitglied pTemplate="item">
         <div>
             <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>

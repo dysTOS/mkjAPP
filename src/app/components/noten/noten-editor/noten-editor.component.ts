@@ -74,6 +74,7 @@ export class NotenEditorComponent implements EditComponentDeactivate {
                         editNoten.titel + " aktualisiert!"
                     );
                     this.saving = false;
+                    this.formGroup.markAsPristine();
                     this.router.navigate(["../"], { relativeTo: this.route });
                 },
                 error: (error) => {
@@ -85,6 +86,7 @@ export class NotenEditorComponent implements EditComponentDeactivate {
             this.notenService.createNoten(editNoten).subscribe({
                 next: (res) => {
                     this.infoService.success("Noten hinzugefügt!");
+                    this.formGroup.markAsPristine();
                     this.saving = false;
                     this.router.navigate(["../"], { relativeTo: this.route });
                 },
@@ -106,6 +108,7 @@ export class NotenEditorComponent implements EditComponentDeactivate {
                 next: () => {
                     this.infoService.info("Noten gelöscht!");
                     this.loading = this.saving = false;
+                    this.formGroup.markAsPristine();
                     this.router.navigate(["../"], { relativeTo: this.route });
                 },
                 error: (err) => {

@@ -86,6 +86,8 @@ export class InfoService {
             message:
                 message ??
                 "Bist du sicher das dieser Datensatz gelöscht werden soll?",
+            acceptButtonStyleClass: "p-button-danger",
+            rejectButtonStyleClass: "p-button-text",
             accept: () => {
                 asyncCall().subscribe({
                     next: (res) => {

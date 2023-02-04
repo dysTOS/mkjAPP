@@ -1,15 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import * as _ from "lodash";
-import { first, Subscription } from "rxjs";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
-import { UtilFunctions } from "src/app/helpers/util-functions";
-import { Mitglied } from "src/app/models/Mitglied";
+import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
-import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { MitgliedFormHelper } from "src/app/utilities/form-components/mitglied-form/mitglied-form-helper";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-mitglied-personal-edit",
@@ -34,27 +30,25 @@ export class MitgliedPersonalEditComponent
     }
 
     public ngOnInit(): void {
-        this.userservice
-            .getCurrentMitglied()
-            .pipe()
-            .subscribe({
-                next: (res) => {
-                    this.formGroup = MitgliedFormHelper.getMitgliedFormGroup(
-                        this.fb,
-                        res
-                    );
-                    this.formGroup.updateValueAndValidity();
-                },
-            });
+        this.userservice.getCurrentMitglied().subscribe({
+            next: (res) => {
+                this.formGroup = MitgliedFormHelper.getMitgliedFormGroup(
+                    this.fb,
+                    res
+                );
+                this.formGroup.updateValueAndValidity();
+            },
+        });
     }
 
     public updateOwnMitgliedData() {
         this.isSaving = true;
-        const saveMitglied = this.formGroup.get("mitglied").getRawValue();
+        const saveMitglied = this.formGroup.getRawValue();
         this.mitgliederService.updateOwnMitgliedData(saveMitglied).subscribe({
             next: (res) => {
                 this.infoService.success("Daten aktualisiert!");
                 this.userservice.setCurrentMitglied(res);
+                this.formGroup.markAsPristine();
                 this.isSaving = false;
             },
             error: (err) => {

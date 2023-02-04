@@ -20,7 +20,8 @@ export class KalenderaboComponent implements OnInit {
     }
 
     public copyToClipboard() {
-        navigator.clipboard.writeText(this.calendarSubUrl);
-        alert("Link wurde kopiert!");
+        navigator.clipboard.writeText(this.calendarSubUrl).then(() => {
+            alert("Link wurde kopiert!");
+        });
     }
 }
