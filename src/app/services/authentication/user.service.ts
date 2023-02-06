@@ -1,12 +1,11 @@
-import { AuthAPIService } from "./auth-api.service";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { Mitglied } from "../../models/Mitglied";
-import { User, Role, Permission } from "../../models/User";
-import { TokenService } from "./token.service";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Gruppe } from "src/app/models/Gruppe";
-import { environment } from "src/environments/environment";
+import { Mitglied } from "../../models/Mitglied";
+import { Permission, Role, User } from "../../models/User";
+import { AuthAPIService } from "./auth-api.service";
+import { TokenService } from "./token.service";
 
 @Injectable({
     providedIn: "root",
@@ -17,12 +16,12 @@ export class UserService {
     );
     private currentUserRoles: BehaviorSubject<Array<Role>> =
         new BehaviorSubject<Array<Role>>(null);
-    private currentMitglied: BehaviorSubject<Mitglied> =
+    public currentMitglied: BehaviorSubject<Mitglied> =
         new BehaviorSubject<Mitglied>(null);
 
     private currentPermissions: BehaviorSubject<Permission[]> =
         new BehaviorSubject<Permission[]>(null);
-    private currentMitgliedGruppen: BehaviorSubject<Gruppe[]> =
+    public currentMitgliedGruppen: BehaviorSubject<Gruppe[]> =
         new BehaviorSubject<Gruppe[]>(null);
 
     constructor(
@@ -91,6 +90,12 @@ export class UserService {
             if (e.name === permission) bool = true;
         });
         return bool;
+    }
+
+    public hasPermissionNot(permission: any): boolean {
+        return !this.currentPermissions
+            .getValue()
+            .find((e) => e.name === permission);
     }
 
     public hasOneOfPermissions(permissions: string[]): boolean {

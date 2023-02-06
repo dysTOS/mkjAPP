@@ -66,24 +66,25 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         {
             label: "Duplizieren",
             icon: "pi pi-copy",
-            visible: this.userService.hasPermission(
-                PermissionMap.AUSRUECKUNG_SAVE
-            ),
+            visible: this.userService.hasOneOfPermissions([
+                PermissionMap.TERMIN_SAVE,
+            ]),
             command: () => this.duplicateAusrueckung(this.selectedRow),
         },
         {
             label: "Editieren",
             icon: "pi pi-pencil",
-            visible: this.userService.hasPermission(
-                PermissionMap.AUSRUECKUNG_SAVE
-            ),
+            visible: this.userService.hasOneOfPermissions([
+                PermissionMap.TERMIN_SAVE,
+                PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+            ]),
             command: () => this.editAusrueckung(this.selectedRow),
         },
         {
             label: "Löschen",
             icon: "pi pi-trash",
             visible: this.userService.hasPermission(
-                PermissionMap.AUSRUECKUNG_DELETE
+                PermissionMap.TERMIN_DELETE
             ),
             command: () => this.deleteAusrueckung(this.selectedRow),
         },
@@ -121,8 +122,9 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ) {
         this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
-            PermissionMap.AUSRUECKUNG_SAVE,
-            PermissionMap.AUSRUECKUNG_DELETE,
+            PermissionMap.TERMIN_SAVE,
+            PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+            PermissionMap.TERMIN_DELETE,
         ]);
         this.toolbarService.header = "Termine";
         this.toolbarService.buttons = [
@@ -142,7 +144,10 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
                 icon: "pi pi-plus",
                 click: () => this.openNew(),
                 label: "Neu",
-                permissions: [PermissionMap.AUSRUECKUNG_SAVE],
+                permissions: [
+                    PermissionMap.TERMIN_SAVE,
+                    PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+                ],
             },
             {
                 icon: "pi pi-download",
@@ -253,8 +258,32 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.submitted = true;
 
         const saveAusrueckung = this.formGroup?.getRawValue();
-
         this.isSaving = true;
+        console.log(saveAusrueckung);
+
+        if (
+            this.userService.hasPermission(
+                PermissionMap.TERMIN_GRUPPENLEITER_SAVE
+            ) &&
+            this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
+        ) {
+            this.termineApiService
+                .saveTerminbyLeiter(saveAusrueckung)
+                .subscribe(
+                    (ausrueckungFromAPI) => this.loadTermine(),
+                    (error) => {
+                        this.infoService.error(error);
+                        this.isSaving = false;
+                    },
+                    () => {
+                        this.infoService.success("Ausrückung gespeichert!");
+                        this.isSaving = false;
+                        this.ausrueckungDialog = false;
+                    }
+                );
+            return;
+        }
+
         if (saveAusrueckung.id) {
             //update
             let index = UtilFunctions.findIndexById(

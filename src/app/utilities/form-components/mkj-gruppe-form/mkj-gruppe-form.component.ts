@@ -43,7 +43,7 @@ export class MkjGruppeFormComponent {
 
     public setGruppenleiter(leiter: Mitglied) {
         this.formGroup.controls.gruppenleiter_mitglied_id.setValue(leiter?.id);
-        this.formGroup.controls.gruppenleiter_mitglied_id.markAllAsTouched();
+        this.formGroup.controls.gruppenleiter_mitglied_id.markAsDirty();
     }
 
     private getWrapperFromMitglied(mitglied: Mitglied) {

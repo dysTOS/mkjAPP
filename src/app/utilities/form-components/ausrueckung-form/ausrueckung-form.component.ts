@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { SubSink } from "subsink";
+import { UserService } from "src/app/services/authentication/user.service";
+import { PermissionMap } from "src/app/models/User";
 
 @Component({
     selector: "mkj-ausrueckung-form",
@@ -47,7 +49,10 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
 
     public subSink = new SubSink();
 
-    constructor(private gruppenService: GruppenApiService) {}
+    constructor(
+        private gruppenService: GruppenApiService,
+        private userService: UserService
+    ) {}
 
     public ngOnInit(): void {
         this.updateSeveralDays();
@@ -59,6 +64,7 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
     }
 
     public onSeveralDaysUserChange(value: boolean) {
+        this.formGroup.markAsDirty();
         const vonDatum = this.formGroup.get("vonDatum")?.value;
         if (!vonDatum) {
             this.formGroup.get("bisDatum").setValue(null, { emitEvent: false });
@@ -110,8 +116,26 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
     }
 
     private getGruppen() {
+        let gruppenleiterMitgliedId = null;
+        if (
+            this.userService.hasPermission(
+                PermissionMap.TERMIN_GRUPPENLEITER_SAVE
+            ) &&
+            this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
+        ) {
+            gruppenleiterMitgliedId =
+                this.userService.currentMitglied.getValue().id;
+        }
         this.gruppenService.getAllGruppen().subscribe((res) => {
-            this.GruppenMap = res.values.map((e) => {
+            let gruppen = res.values;
+            if (gruppenleiterMitgliedId) {
+                gruppen = gruppen.filter(
+                    (g) =>
+                        g.gruppenleiter_mitglied_id === gruppenleiterMitgliedId
+                );
+            }
+
+            this.GruppenMap = gruppen.map((e) => {
                 return {
                     label: e.name,
                     value: e.id,
