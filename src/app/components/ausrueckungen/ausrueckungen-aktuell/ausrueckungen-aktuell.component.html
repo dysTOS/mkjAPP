@@ -168,6 +168,12 @@
                         [class.ausrueckung-expired]="
                             ausrueckung.vonDatum < actualDate
                         "
+                        [class]="
+                            'termin-color status-' +
+                            (ausrueckung.status
+                                ? ausrueckung.status.toLowerCase()
+                                : '')
+                        "
                     >
                         <td>
                             <span class="font-bold">{{

@@ -26,14 +26,14 @@ export const TerminKategorieMap = [
     { label: "Weckruf", value: "weckruf" },
     { label: "Kirchlich", value: "kirchlich" },
     { label: "Probe", value: "probe" },
-    {label: "Sitzung", value: "sitzung"},
+    { label: "Sitzung", value: "sitzung" },
     { label: "Sonstige", value: "sonstige" },
 ];
 
 export const TerminStatusMap = [
     { label: "Fixiert", value: "fixiert" },
     { label: "Geplant", value: "geplant" },
-    { label: "Ersatztermin", value: "ersatztermin" },
+    { label: "Ersatztermin", value: "ersatztermin", color: "#b2ebfd" },
     { label: "Abgesagt", value: "abgesagt" },
 ];
 

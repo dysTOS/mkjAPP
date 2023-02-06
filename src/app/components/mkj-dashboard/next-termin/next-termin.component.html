@@ -10,7 +10,7 @@
         <p>
             <span>Nächster Termin:</span>
         </p>
-        <div *ngIf="nextAusrueckung" style="height: 15rem">
+        <div *ngIf="nextAusrueckung" class="next-ausrueckung">
             <h4>
                 {{ nextAusrueckung?.name }}
             </h4>
@@ -28,8 +28,7 @@
         </div>
         <div
             *ngIf="loading"
-            class="flex flex-column align-items-start text-center"
-            style="height: 15rem"
+            class="next-ausrueckung flex flex-column align-items-start text-center"
         >
             <p-skeleton width="20rem" height="2.5rem"></p-skeleton>
             <p-skeleton
@@ -40,8 +39,7 @@
         </div>
         <div
             *ngIf="!nextAusrueckung && !loading"
-            class="flex flex-column align-items-start text-center"
-            style="height: 15rem"
+            class="next-ausrueckung flex flex-column align-items-start text-center"
         >
             Keine Termine vorhanden...
         </div>

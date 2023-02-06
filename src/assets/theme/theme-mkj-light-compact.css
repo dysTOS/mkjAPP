@@ -1274,12 +1274,12 @@
 }
 html {
   height: 100%;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   color: rgb(0, 0, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1415,10 +1415,10 @@ body a {
   margin-right: 6px;
 }
 .layout-wrapper .topbar .topbar-menu > li.profile-item .profile-info .topbar-item-name.profile-name {
-  font-size: 14px;
+  font-size: 15px;
 }
 .layout-wrapper .topbar .topbar-menu > li.profile-item .profile-info .topbar-item-name.profile-role {
-  font-size: 12px;
+  font-size: 13px;
   color: #e6e6e6;
 }
 .layout-wrapper .topbar .topbar-menu > li.profile-item > ul {
@@ -1765,7 +1765,7 @@ body a {
   text-align: center;
   background-color: #fbc02d;
   color: #000000;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 16px;
   -moz-border-radius: 50%;
@@ -2061,7 +2061,7 @@ body a {
     float: none;
   }
   .layout-wrapper .topbar .topbar-menu > li > a {
-    font-size: 14px;
+    font-size: 15px;
     width: 100%;
     display: block;
     box-sizing: border-box;
@@ -2147,7 +2147,7 @@ body a {
   }
   .layout-wrapper .topbar .topbar-menu > li.profile-item .profile-info .topbar-item-name.profile-name {
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 15px;
   }
   .layout-wrapper .topbar .topbar-menu > li.profile-item .profile-info .topbar-item-name.profile-role {
     display: none;
@@ -3162,7 +3162,7 @@ p:last-child {
 
 .p-component {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: normal;
 }
 
@@ -3189,7 +3189,7 @@ p:last-child {
 }
 
 .p-link {
-  font-size: 14px;
+  font-size: 15px;
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   border-radius: 4px;
 }
@@ -3222,7 +3222,7 @@ p:last-child {
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   color: rgb(0, 0, 1);
   padding: 0;
   margin: 0;
@@ -3355,7 +3355,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   margin-right: 0.5rem;
 }
 .p-datepicker table {
-  font-size: 14px;
+  font-size: 15px;
   margin: 0.5rem 0;
 }
 .p-datepicker table th {
@@ -3656,7 +3656,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   color: rgb(0, 0, 1);
   padding: 0;
   margin: 0;
@@ -4651,7 +4651,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   background: #006600;
   border: 0 none;
   padding: 0.571rem 0.75rem;
-  font-size: 14px;
+  font-size: 15px;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
 }
@@ -4737,9 +4737,9 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-button .p-badge {
   margin-left: 0.5rem;
-  min-width: 14px;
-  height: 14px;
-  line-height: 14px;
+  min-width: 15px;
+  height: 15px;
+  line-height: 15px;
   color: #006600;
   background-color: #e8f5e9;
 }
@@ -4762,14 +4762,14 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   height: 2.25rem;
 }
 .p-button.p-button-sm {
-  font-size: 12.25px;
+  font-size: 13.125px;
   padding: 0.499625rem 0.65625rem;
 }
 .p-button.p-button-sm .p-button-icon {
   font-size: 0.875rem;
 }
 .p-button.p-button-lg {
-  font-size: 17.5px;
+  font-size: 18.75px;
   padding: 0.71375rem 0.9375rem;
 }
 .p-button.p-button-lg .p-button-icon {
@@ -5631,7 +5631,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #e8f5e9;
   background: #006600;
   border: 0 none;
-  font-size: 14px;
+  font-size: 15px;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
   display: flex;
@@ -5795,7 +5795,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #e8f5e9;
   background: #006600;
   border: 0 none;
-  font-size: 14px;
+  font-size: 15px;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
 }
@@ -8544,7 +8544,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 0.75rem;
 }
 .p-terminal .p-terminal-input {
-  font-size: 14px;
+  font-size: 15px;
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
 
@@ -9692,6 +9692,10 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
 .p-togglebutton.p-button:focus.p-highlight {
   background: #66bb6a;
   border-color: #d9d8d9;
+}
+
+.card {
+  height: 100%;
 }
 
 /*# sourceMappingURL=theme-mkj-light-compact.css.map */
