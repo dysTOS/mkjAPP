@@ -8,10 +8,7 @@ export abstract class MitgliedFormHelper {
             user_id: [mitglied?.user_id ?? null],
             vorname: [mitglied?.vorname ?? null, Validators.required],
             zuname: [mitglied?.zuname ?? null, Validators.required],
-            email: [
-                mitglied?.email ?? null,
-                [Validators.required, Validators.email],
-            ],
+            email: [mitglied?.email ?? null, Validators.email],
             titelVor: [mitglied?.titelVor ?? null],
             titelNach: [mitglied?.titelNach ?? null],
             geburtsdatum: [mitglied?.geburtsdatum ?? null],

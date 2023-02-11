@@ -64,7 +64,7 @@ export class MkjDateInputComponent
     constructor(private inj: Injector) {}
 
     ngAfterViewInit() {
-        // this.ngControl = this.inj.get(NgControl);
+        this.ngControl = this.inj.get(NgControl);
     }
 
     writeValue(obj: any): void {
