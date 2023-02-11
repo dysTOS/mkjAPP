@@ -139,9 +139,9 @@ import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv
 import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
 import { StatistikMitgliederComponent } from "./components/statistik/components/statistik-mitglieder/statistik-mitglieder.component";
-import { StatistikOverviewComponent } from "./components/statistik/components/statistik-overview/statistik-overview.component";
+import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
 import { StatistikTermineComponent } from "./components/statistik/components/statistik-termine/statistik-termine.component";
-import { StatistikNotenComponent } from "./components/statistik/statistik-noten/statistik-noten.component";
+import { StatistikNotenComponent } from "./components/statistik/components/statistik-noten/statistik-noten.component";
 import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
 import { MkjTemplateDirective } from "./directives/mkj-template.directive";
 import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
@@ -168,8 +168,9 @@ import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuch
 import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
-import { AnwesenheitsListeComponent } from './components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component';
-import { StatistikMitgliederGeschlechtComponent } from './components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component';
+import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
+import { StatistikMitgliederGeschlechtComponent } from "./components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component";
+import { StatistikGruppenTermineComponent } from './components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -341,6 +342,7 @@ registerLocaleData(localeDe);
         MitgliedRolesPickerComponent,
         AnwesenheitsListeComponent,
         StatistikMitgliederGeschlechtComponent,
+        StatistikGruppenTermineComponent,
     ],
     providers: [
         mkjAppInitializer(),

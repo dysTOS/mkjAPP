@@ -35,7 +35,7 @@ import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitgli
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
-import { StatistikOverviewComponent } from "./components/statistik/components/statistik-overview/statistik-overview.component";
+import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
 import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
 
 @NgModule({
