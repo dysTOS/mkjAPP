@@ -12,7 +12,12 @@ export class StatistikMitgliederGeschlechtComponent implements OnInit {
     public options: any;
     public loading = false;
 
+    public colorMap = new Map<string, string>();
+
     constructor(private statistikService: StatistikApiService) {
+        this.colorMap.set("M", "#4287f5");
+        this.colorMap.set("W", "#f47aff");
+        this.colorMap.set("D", "#614700");
         this.loading = true;
         this.statistikService.getMitgliederNachGeschlecht().subscribe({
             next: (res) => {
@@ -21,18 +26,12 @@ export class StatistikMitgliederGeschlechtComponent implements OnInit {
                     datasets: [
                         {
                             data: res.map((e) => e.count),
-                            backgroundColor: [
-                                "#42A5F5",
-                                "#66BB6A",
-                                "#FFA726",
-                                "#006155",
-                            ],
-                            hoverBackgroundColor: [
-                                "#42A5F5BB",
-                                "#66BB6ABB",
-                                "#FFA726BB",
-                                "#006155BB",
-                            ],
+                            backgroundColor: res.map((e) =>
+                                this.colorMap.get(e.label)
+                            ),
+                            hoverBackgroundColor: res.map(
+                                (e) => this.colorMap.get(e.label) + "BB"
+                            ),
                         },
                     ],
                 };

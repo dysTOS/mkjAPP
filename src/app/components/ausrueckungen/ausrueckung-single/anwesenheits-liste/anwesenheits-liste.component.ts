@@ -33,7 +33,7 @@ export class AnwesenheitsListeComponent {
     ) {}
 
     public initMitglieder(id: string) {
-        this.mitgliedService.getAllMitglieder().subscribe({
+        this.mitgliedService.getAktiveMitglieder().subscribe({
             next: (res) => {
                 this.mitglieder = res;
             },
@@ -47,11 +47,11 @@ export class AnwesenheitsListeComponent {
 
     public onMitgliederChange(event) {
         this.saving = true;
-        let newSelection = event.value;
-        let attachMitglied = newSelection.filter(
+        const newSelection = event.value;
+        const attachMitglied = newSelection.filter(
             (e) => !this.presentMitglieder.includes(e)
         );
-        let detachMitglied = this.presentMitglieder.filter(
+        const detachMitglied = this.presentMitglieder.filter(
             (e) => !newSelection.includes(e)
         );
         this.presentMitglieder = newSelection;
