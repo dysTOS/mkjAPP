@@ -171,6 +171,7 @@ import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.compone
 import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
 import { StatistikMitgliederGeschlechtComponent } from "./components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component";
 import { StatistikGruppenTermineComponent } from './components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component';
+import { NextGeburtstagComponent } from './components/mkj-dashboard/next-geburtstag/next-geburtstag.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -343,6 +344,7 @@ registerLocaleData(localeDe);
         AnwesenheitsListeComponent,
         StatistikMitgliederGeschlechtComponent,
         StatistikGruppenTermineComponent,
+        NextGeburtstagComponent,
     ],
     providers: [
         mkjAppInitializer(),

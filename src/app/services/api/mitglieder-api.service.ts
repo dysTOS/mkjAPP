@@ -40,6 +40,11 @@ export class MitgliederApiService {
         return this.http.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
+    public getNextGeburtstag(): Observable<Mitglied[]> {
+        const url = this.apiURL + "mitgliedernextgeb";
+        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
+    }
+
     updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitgliedselbst";
         return this.http.post<any>(url, mitglied, StandardHttpOptions);
