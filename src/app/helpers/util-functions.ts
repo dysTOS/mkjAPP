@@ -1,8 +1,7 @@
 import { FormBuilder, Validators } from "@angular/forms";
-import { Termin } from "../models/Termin";
 import { Gruppe } from "../models/Gruppe";
-import { Mitglied } from "../models/Mitglied";
-import { Noten, Notenmappe } from "../models/Noten";
+import { Noten } from "../models/Noten";
+import { Termin } from "../models/Termin";
 
 export class UtilFunctions {
     public static findIndexById(id: string, array: Array<any>) {
@@ -99,6 +98,7 @@ export class UtilFunctions {
             gruppenleiter_mitglied_id: [
                 gruppe?.gruppenleiter_mitglied_id ?? null,
             ],
+            register: [gruppe?.register ?? null],
             color: [gruppe?.color ?? null],
             gruppenleiter: [gruppe?.gruppenleiter ?? null],
         });

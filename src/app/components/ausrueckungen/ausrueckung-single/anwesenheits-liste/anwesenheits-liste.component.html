@@ -1,19 +1,18 @@
 <div
-    *ngIf="!mitglieder || !presentMitglieder"
+    *ngIf="!gruppenMitglieder || !presentMitglieder"
     class="flex justify-content-center"
 >
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
 </div>
 <p-listbox
     #listbox
-    *ngIf="mitglieder && presentMitglieder"
-    [options]="mitglieder"
+    *ngIf="gruppenMitglieder && presentMitglieder"
+    [options]="gruppenMitglieder"
     [ngModel]="presentMitglieder"
     [multiple]="true"
+    [group]="true"
     [checkbox]="true"
     [filter]="true"
-    filterBy="vorname,zuname"
-    optionLabel="vorname"
     placeholder="Filtern"
     [showToggleAll]="false"
     dataKey="id"
@@ -21,13 +20,6 @@
     [disabled]="saving"
 >
     <ng-template pTemplate="header">
-        Anwesend: {{ presentMitglieder?.length }}/{{
-            mitglieder?.length
-        }}</ng-template
+        Anwesend: {{ presentMitglieder?.length }}</ng-template
     >
-    <ng-template let-mitglied pTemplate="item">
-        <div>
-            <div>{{ mitglied.vorname }} {{ mitglied.zuname }}</div>
-        </div>
-    </ng-template>
 </p-listbox>

@@ -19,4 +19,13 @@
         color: var(--text-color);
         opacity: 1;
     }
+
+    &-label-bottom {
+        color: var(--text-color);
+        bottom: 0;
+        position: absolute;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
 }

@@ -87,7 +87,7 @@
                                 [showOperator]="false"
                                 [showClearButton]="true"
                                 [showApplyButton]="true"
-                                [showMatchModes]="false"
+                                [showMatchModes]="true"
                                 [showAddButton]="false"
                                 [hideOnClear]="true"
                             >
@@ -257,47 +257,6 @@
                 </ng-template>
             </p-table>
         </div>
-
-        <!-- Save/Update Ausrückung -->
-        <p-dialog
-            #ausrDialog
-            [(visible)]="ausrueckungDialog"
-            [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-            [style]="{ width: '75vw' }"
-            [header]="
-                !updateAusrueckung
-                    ? 'Ausrückung anlegen'
-                    : 'Ausrückung aktualisieren'
-            "
-            [modal]="true"
-            styleClass="p-fluid"
-            position="top"
-        >
-            <mkj-ausrueckung-form
-                *ngIf="formGroup"
-                [formGroup]="formGroup"
-            ></mkj-ausrueckung-form>
-
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    label="Abbrechen"
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    (click)="hideAusrueckungDialog()"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Speichern"
-                    [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-                    class="p-button-plain"
-                    [disabled]="isSaving || formGroup?.invalid"
-                    (click)="saveAusrueckung()"
-                ></button>
-            </ng-template>
-        </p-dialog>
     </div>
 </div>
 

@@ -4,6 +4,7 @@ export interface Gruppe {
     id?: string;
     name?: string;
     gruppenleiter_mitglied_id?: string;
+    register?: boolean;
     color?: string;
     created_at?: string;
     updated_at?: string;

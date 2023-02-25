@@ -10,6 +10,12 @@ export class MkjTileComponent {
     @Input()
     public label: string;
 
+    @Input()
+    public labelBottomLeft: string;
+
+    @Input()
+    public labelBottomRight: string;
+
     private _color: any;
     @Input()
     public get color(): any {

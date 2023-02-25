@@ -9,7 +9,7 @@ import {
     ViewChild,
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ConfirmationService, MenuItem } from "primeng/api";
+import { ConfirmationService, FilterMetadata, MenuItem } from "primeng/api";
 import {
     Termin as Termin,
     TerminCsvColumnMap,
@@ -33,8 +33,6 @@ import { Menu } from "primeng/menu";
     styleUrls: ["./ausrueckungen-aktuell.component.scss"],
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
-    ausrueckungDialog: boolean;
-
     ausrueckungenArray: Termin[];
     ausrueckungFilterInput: GetCollectionApiCallInput;
     filteredRows: Termin[];
@@ -44,10 +42,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         .subtract(1, "week")
         .format("YYYY-MM-DD");
 
-    submitted: boolean;
-    updateAusrueckung: boolean;
     loading: boolean;
-    isSaving: boolean;
 
     cols = TerminCsvColumnMap; //columns for csv export
     kategorien = TerminKategorieMap;
@@ -56,8 +51,6 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     @ViewChild("dt") ausrueckungenTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
     @ViewChild("exportMenu") exportMenu: Menu;
-
-    public formGroup: FormGroup;
 
     selectedRow: any;
     public hasAktionenPermissions: boolean = false;
@@ -78,7 +71,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
                 PermissionMap.TERMIN_SAVE,
                 PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
             ]),
-            command: () => this.editAusrueckung(this.selectedRow),
+            command: () => this.navigateEditor(this.selectedRow),
         },
         {
             label: "Löschen",
@@ -117,10 +110,8 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
-        private fb: FormBuilder,
         public toolbarService: MkjToolbarService
     ) {
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
             PermissionMap.TERMIN_SAVE,
             PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
@@ -142,7 +133,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             },
             {
                 icon: "pi pi-plus",
-                click: () => this.openNew(),
+                click: () => this.navigateEditor(),
                 label: "Neu",
                 permissions: [
                     PermissionMap.TERMIN_SAVE,
@@ -199,32 +190,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public openNew(): void {
-        if (!UtilFunctions.isDesktop()) {
-            this.navigateEditor();
-            return;
-        }
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
-        this.formGroup.updateValueAndValidity();
-        this.updateAusrueckung = false;
-        this.ausrueckungDialog = true;
-    }
-
-    public editAusrueckung(ausrueckung: Termin) {
-        if (!UtilFunctions.isDesktop()) {
-            this.navigateEditor(ausrueckung);
-            return;
-        }
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(
-            this.fb,
-            ausrueckung
-        );
-        this.formGroup.updateValueAndValidity();
-        this.updateAusrueckung = true;
-        this.ausrueckungDialog = true;
-    }
-
-    deleteAusrueckung(ausrueckung: Termin) {
+    public deleteAusrueckung(ausrueckung: Termin) {
         this.confirmationService.confirm({
             header: "Ausrückung löschen?",
             icon: "pi pi-exclamation-triangle",
@@ -248,90 +214,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         });
     }
 
-    hideAusrueckungDialog() {
-        this.ausrueckungDialog = false;
-        this.submitted = false;
-        this.formGroup.reset();
-    }
-
-    saveAusrueckung() {
-        this.submitted = true;
-
-        const saveAusrueckung = this.formGroup?.getRawValue();
-        this.isSaving = true;
-        console.log(saveAusrueckung);
-
-        if (
-            this.userService.hasPermission(
-                PermissionMap.TERMIN_GRUPPENLEITER_SAVE
-            ) &&
-            this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
-        ) {
-            this.termineApiService
-                .saveTerminbyLeiter(saveAusrueckung)
-                .subscribe(
-                    (ausrueckungFromAPI) => this.loadTermine(),
-                    (error) => {
-                        this.infoService.error(error);
-                        this.isSaving = false;
-                    },
-                    () => {
-                        this.infoService.success("Ausrückung gespeichert!");
-                        this.isSaving = false;
-                        this.ausrueckungDialog = false;
-                    }
-                );
-            return;
-        }
-
-        if (saveAusrueckung.id) {
-            //update
-            let index = UtilFunctions.findIndexById(
-                saveAusrueckung.id,
-                this.ausrueckungenArray
-            );
-            this.termineApiService.updateTermin(saveAusrueckung).subscribe(
-                (ausrueckungFromAPI) => (
-                    (this.ausrueckungenArray[index] = ausrueckungFromAPI),
-                    (this.ausrueckungenArray = [...this.ausrueckungenArray])
-                ),
-                (error) => {
-                    this.infoService.error(error);
-                    this.isSaving = false;
-                },
-                () => {
-                    this.infoService.success("Ausrückung aktualisert!");
-                    this.isSaving = false;
-                    this.ausrueckungDialog = false;
-                }
-            );
-        } else {
-            //neue
-            this.termineApiService.createTermin(saveAusrueckung).subscribe(
-                (ausrueckungAPI) => {
-                    this.ausrueckungenArray = [
-                        ausrueckungAPI,
-                        ...this.ausrueckungenArray,
-                    ];
-                    this.ausrueckungenTable.sort({
-                        field: "vonDatum",
-                        order: "1",
-                    });
-                },
-                (error) => {
-                    this.infoService.error(error);
-                    this.isSaving = false;
-                },
-                () => {
-                    this.infoService.success("Ausrückung angelegt!");
-                    this.isSaving = false;
-                    this.ausrueckungDialog = false;
-                }
-            );
-        }
-    }
-
-    duplicateAusrueckung(ausrueckung: Termin) {
+    public duplicateAusrueckung(ausrueckung: Termin) {
         this.loading = true;
         const duplicateAusrueckung = _.cloneDeep(ausrueckung);
         duplicateAusrueckung.id = null;
@@ -342,7 +225,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.termineApiService.createTermin(duplicateAusrueckung).subscribe({
             next: (res) => {
                 this.ausrueckungenArray = [res, ...this.ausrueckungenArray];
-                this.editAusrueckung(res);
+                this.navigateEditor(res);
                 this.infoService.success("Ausrückung dupliziert!");
                 this.loading = false;
             },
@@ -353,14 +236,14 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         });
     }
 
-    navigateSingleAusrueckung(ausrueckung: Termin) {
+    public navigateSingleAusrueckung(ausrueckung: Termin) {
         this.router.navigate(["../", ausrueckung.id], {
             relativeTo: this.route,
         });
     }
 
     private navigateEditor(ausrueckung?: Termin) {
-        if (ausrueckung) {
+        if (ausrueckung?.id) {
             this.router.navigate(["../", ausrueckung.id], {
                 relativeTo: this.route,
             });

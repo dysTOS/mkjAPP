@@ -20,6 +20,12 @@ export interface Termin {
     updated_at?: string;
 }
 
+export const TerminTeilnahmeMap = [
+    { label: "Nein", value: "abwesend" },
+    { label: "Ja", value: "anwesend" },
+    { label: "Bestätigt", value: "bestaetigt" },
+];
+
 export const TerminKategorieMap = [
     { label: "Kurkonzert", value: "kurkonzert" },
     { label: "Konzert", value: "Konzert" },
