@@ -170,9 +170,10 @@ import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
 import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
 import { StatistikMitgliederGeschlechtComponent } from "./components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component";
-import { StatistikGruppenTermineComponent } from './components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component';
-import { NextGeburtstagComponent } from './components/mkj-dashboard/next-geburtstag/next-geburtstag.component';
-import { TerminTeilnahmeComponent } from './components/ausrueckungen/termin-teilnahme/termin-teilnahme.component';
+import { StatistikGruppenTermineComponent } from "./components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component";
+import { NextGeburtstagComponent } from "./components/mkj-dashboard/next-geburtstag/next-geburtstag.component";
+import { TerminTeilnahmeDropdownComponent } from "./utilities/mkj-termin-teilnahme-dropdown/termin-teilnahme-dropdown.component";
+import { TeilnahmenOverviewComponent } from './components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -346,7 +347,8 @@ registerLocaleData(localeDe);
         StatistikMitgliederGeschlechtComponent,
         StatistikGruppenTermineComponent,
         NextGeburtstagComponent,
-        TerminTeilnahmeComponent,
+        TerminTeilnahmeDropdownComponent,
+        TeilnahmenOverviewComponent,
     ],
     providers: [
         mkjAppInitializer(),

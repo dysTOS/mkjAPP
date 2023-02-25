@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import * as moment from "moment";
 import { Termin, TerminTeilnahmeMap } from "src/app/models/Termin";
 import { TeilnahmenApiService } from "src/app/services/api/teilnahmen-api.service";
 import { InfoService } from "src/app/services/info.service";
 
 @Component({
-    selector: "mkj-termin-teilnahme",
-    templateUrl: "./termin-teilnahme.component.html",
-    styleUrls: ["./termin-teilnahme.component.scss"],
+    selector: "mkj-termin-teilnahme-dropdown",
+    templateUrl: "./termin-teilnahme-dropdown.component.html",
 })
-export class TerminTeilnahmeComponent {
+export class TerminTeilnahmeDropdownComponent {
     private _termin: Termin;
     @Input()
     public get termin(): Termin {
@@ -19,11 +19,19 @@ export class TerminTeilnahmeComponent {
         if (value.id) {
             this.getStatus();
         }
+        if (
+            moment(value.vonDatum).isBefore(
+                moment(new Date()).subtract(1, "day")
+            )
+        ) {
+            this.disabled = true;
+        }
     }
 
     public status: "abwesend" | "anwesend";
     public options = TerminTeilnahmeMap;
     public loading: boolean;
+    public disabled: boolean;
 
     constructor(
         private teilnahmeService: TeilnahmenApiService,

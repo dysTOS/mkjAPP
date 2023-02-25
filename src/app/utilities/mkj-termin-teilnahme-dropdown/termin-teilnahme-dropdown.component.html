@@ -3,7 +3,7 @@
     (ngModelChange)="updateStatus()"
     [options]="options"
     [autoDisplayFirst]="false"
-    [disabled]="!termin || loading"
+    [disabled]="!termin || loading || disabled"
     placeholder="Teilnahmestatus"
 >
     <ng-template let-option pTemplate="selectedItem">

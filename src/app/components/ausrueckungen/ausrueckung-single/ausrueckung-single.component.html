@@ -3,6 +3,11 @@
         <p-tabPanel [selected]="true" header="Infos">
             <termin-card *ngIf="termin" [termin]="termin"></termin-card>
             <div *ngIf="termin">
+                <div class="col-12 flex justify-content-center">
+                    <mkj-termin-teilnahme-dropdown
+                        [termin]="termin"
+                    ></mkj-termin-teilnahme-dropdown>
+                </div>
                 <div
                     *ngIf="termin.vonZeit && termin.bisZeit"
                     class="col-12 flex justify-content-center"
@@ -16,6 +21,14 @@
                         (click)="exportToCalendar()"
                     ></button>
                 </div>
+                <p-accordion>
+                    <p-accordionTab header="Eingemeldete Teilnahmen">
+                        <ng-template pTemplate="content">
+                            <teilnahmen-overview
+                                [termin]="termin"
+                            ></teilnahmen-overview> </ng-template
+                    ></p-accordionTab>
+                </p-accordion>
                 <div style="color: grey; font-size: 0.9em" class="col-12">
                     <p-divider></p-divider>
                     <div

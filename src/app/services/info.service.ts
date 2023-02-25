@@ -63,7 +63,7 @@ export class InfoService {
 
     public danger(details: string) {
         this.messageService.add({
-            severity: "danger",
+            severity: "warning",
             summary: "Warnung",
             detail: details,
             life: 6000,

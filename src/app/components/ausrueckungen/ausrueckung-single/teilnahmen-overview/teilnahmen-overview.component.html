@@ -1,0 +1,20 @@
+<mkj-content-loader [loading]="loading">
+    <div *ngFor="let gruppe of gruppen">
+        <h6>{{ gruppe.name }}</h6>
+        <ul>
+            <li
+                *ngFor="let mitglied of gruppe.mitglieder"
+                [class]="'teilnahme-li-' + mitglied.teilnahmen?.[0]?.pivot?.status ?? 'null'"
+            >
+                {{ mitglied | fullName }}
+                <i
+                    class="pi"
+                    [ngClass]="{
+                        'pi-check': mitglied.teilnahmen?.[0]?.pivot?.status === 'anwesend',
+                        'pi-times': mitglied.teilnahmen?.[0]?.pivot?.status === 'abwesend'
+                    }"
+                ></i>
+            </li>
+        </ul>
+    </div>
+</mkj-content-loader>

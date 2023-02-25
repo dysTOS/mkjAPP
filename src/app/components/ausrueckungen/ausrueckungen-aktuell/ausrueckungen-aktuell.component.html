@@ -221,28 +221,41 @@
                     <tr>
                         <td colspan="4">
                             <termin-card [termin]="ausrueckung"></termin-card>
-                            <div
-                                class="col-12 flex flex-wrap gap-4 justify-content-around"
-                            >
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-list"
-                                    label="Details"
-                                    class="p-button-raised p-button-primary p-button-outlined"
-                                    [routerLink]="
-                                        '../details/' + ausrueckung.id
-                                    "
-                                ></button>
-                                <button
-                                    *ngIf="hasAktionenPermissions"
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-pencil"
-                                    label="Aktionen"
-                                    class="p-button-outlined p-button-info"
-                                    (click)="rowMenu.toggle($event)"
-                                ></button>
+                            <div class="grid">
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <mkj-termin-teilnahme-dropdown
+                                        [termin]="ausrueckung"
+                                    ></mkj-termin-teilnahme-dropdown>
+                                </div>
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-list"
+                                        label="Details"
+                                        class="p-button-raised p-button-primary"
+                                        [routerLink]="
+                                            '../details/' + ausrueckung.id
+                                        "
+                                    ></button>
+                                </div>
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <button
+                                        *ngIf="hasAktionenPermissions"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-ellipsis-h"
+                                        label="Aktionen"
+                                        class="p-button-outlined p-button-info"
+                                        (click)="rowMenu.toggle($event)"
+                                    ></button>
+                                </div>
                             </div>
                         </td>
                     </tr>

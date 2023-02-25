@@ -18,6 +18,7 @@ export interface Mitglied {
     aktiv?: boolean;
     eintrittDatum?: string;
     austrittDatum?: string;
+    teilnahmen?: { status?: string }[];
     created_at?: string;
     updated_at?: string;
 }
