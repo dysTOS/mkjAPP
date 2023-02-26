@@ -4,7 +4,7 @@
     [options]="options"
     [autoDisplayFirst]="false"
     [disabled]="!termin || loading || disabled"
-    placeholder="Teilnahmestatus"
+    [placeholder]="placeholder"
 >
     <ng-template let-option pTemplate="selectedItem">
         <div class="flex justify-content-between">

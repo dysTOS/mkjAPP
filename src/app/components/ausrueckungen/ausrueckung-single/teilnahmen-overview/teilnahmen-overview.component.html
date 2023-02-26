@@ -8,12 +8,21 @@
             >
                 {{ mitglied | fullName }}
                 <i
-                    class="pi"
+                    class="ml-2 mr-2 pi"
                     [ngClass]="{
-                        'pi-check': mitglied.teilnahmen?.[0]?.pivot?.status === 'anwesend',
-                        'pi-times': mitglied.teilnahmen?.[0]?.pivot?.status === 'abwesend'
-                    }"
+                    'pi-check': mitglied.teilnahmen?.[0]?.pivot?.status === 'anwesend',
+                    'pi-times': mitglied.teilnahmen?.[0]?.pivot?.status === 'abwesend'
+                }"
                 ></i>
+                <span *ngIf="mitglied.teilnahmen?.[0]?.pivot?.updated_at"
+                    >(letzte Aktualisierung:
+                    {{mitglied.teilnahmen?.[0]?.pivot?.updated_at | mkjDate: "d. MMM H:mm"
+
+
+
+
+                    }})</span
+                >
             </li>
         </ul>
     </div>

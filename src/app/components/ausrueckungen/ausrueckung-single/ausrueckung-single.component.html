@@ -1,3 +1,5 @@
+<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>
+
 <mkj-content-loader [loading]="loading">
     <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel [selected]="true" header="Infos">
@@ -8,19 +10,7 @@
                         [termin]="termin"
                     ></mkj-termin-teilnahme-dropdown>
                 </div>
-                <div
-                    *ngIf="termin.vonZeit && termin.bisZeit"
-                    class="col-12 flex justify-content-center"
-                >
-                    <button
-                        pButton
-                        pRipple
-                        label="in Mobil-Kalender exportieren"
-                        class="p-button-sm p-button-info"
-                        icon="pi pi-calendar"
-                        (click)="exportToCalendar()"
-                    ></button>
-                </div>
+
                 <p-accordion>
                     <p-accordionTab header="Eingemeldete Teilnahmen">
                         <ng-template pTemplate="content">
@@ -41,8 +31,8 @@
                                     : "Nicht sichtbar auf mk.jainzen.at"
                             }}
                         </div>
-                        <div>
-                            <div *ngIf="termin.created_at" class="mr-2">
+                        <div class="text-right">
+                            <div *ngIf="termin.created_at">
                                 Erstellt am:
                                 {{
                                     termin?.created_at | mkjDate : "d. MMM YYYY"

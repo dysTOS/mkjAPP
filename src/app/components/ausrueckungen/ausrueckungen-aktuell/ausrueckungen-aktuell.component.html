@@ -237,7 +237,7 @@
                                         pRipple
                                         icon="pi pi-list"
                                         label="Details"
-                                        class="p-button-raised p-button-primary"
+                                        class="p-button-raised p-button-outlined p-button-primary"
                                         [routerLink]="
                                             '../details/' + ausrueckung.id
                                         "
@@ -250,7 +250,7 @@
                                         *ngIf="hasAktionenPermissions"
                                         pButton
                                         pRipple
-                                        icon="pi pi-ellipsis-h"
+                                        icon="pi pi-pencil"
                                         label="Aktionen"
                                         class="p-button-outlined p-button-info"
                                         (click)="rowMenu.toggle($event)"

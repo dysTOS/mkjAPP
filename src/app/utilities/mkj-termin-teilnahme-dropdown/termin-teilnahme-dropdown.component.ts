@@ -16,7 +16,8 @@ export class TerminTeilnahmeDropdownComponent {
     }
     public set termin(value: Termin) {
         this._termin = value;
-        if (value.id) {
+        this.status = null;
+        if (value?.id) {
             this.getStatus();
         }
         if (
@@ -32,6 +33,7 @@ export class TerminTeilnahmeDropdownComponent {
     public options = TerminTeilnahmeMap;
     public loading: boolean;
     public disabled: boolean;
+    public placeholder: string = "Teilnahmestatus";
 
     constructor(
         private teilnahmeService: TeilnahmenApiService,

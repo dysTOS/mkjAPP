@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { MenuItem } from "primeng/api";
+import { Menu } from "primeng/menu";
 import { Mitglied } from "src/app/models/Mitglied";
 import { Noten } from "src/app/models/Noten";
 import { Termin } from "src/app/models/Termin";
@@ -28,6 +30,16 @@ export class AusrueckungSingleComponent implements OnInit {
 
     public activeTabIndex = 0;
 
+    public exportMenuItems: MenuItem[] = [
+        {
+            label: "In Kalender exportieren (wird nicht aktualisiert)",
+            icon: "pi pi-calendar",
+            command: () => this.exportToCalendar(),
+        },
+    ];
+
+    @ViewChild("exportMenu") exportMenu: Menu;
+
     constructor(
         private route: ActivatedRoute,
         private ausrueckungenService: TermineApiService,
@@ -44,12 +56,27 @@ export class AusrueckungSingleComponent implements OnInit {
         this.route.params.subscribe((e) => {
             this.ausrueckungenService.getSingleTermin(e.id).subscribe(
                 (ausrueckung) => {
-                    (this.termin = ausrueckung), this.getGespielteNoten();
+                    this.termin = ausrueckung;
+                    this.updateToolbarButtons();
+                    this.getGespielteNoten();
                 },
                 (error) => this.infoService.error(error),
                 () => (this.loading = false)
             );
         });
+    }
+
+    public updateToolbarButtons() {
+        this.toolbarService.buttons = [
+            {
+                icon: "pi pi-download",
+                label: "Exportieren",
+                click: ($event) => this.exportMenu.show($event),
+                visible:
+                    this.termin.vonZeit !== null &&
+                    this.termin.bisZeit !== null,
+            },
+        ];
     }
 
     getGespielteNoten() {
