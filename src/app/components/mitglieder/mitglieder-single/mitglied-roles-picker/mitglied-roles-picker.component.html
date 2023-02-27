@@ -3,6 +3,7 @@
         *ngIf="allRoles && selectedRoles"
         [options]="allRoles"
         [(ngModel)]="selectedRoles"
+        (onChange)="rolesTouched = true; touched.emit(rolesTouched)"
         [multiple]="true"
         [checkbox]="true"
         [filter]="false"
@@ -22,7 +23,7 @@
                         rolesSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
                     "
                     class="m-2"
-                    [disabled]="rolesSaving"
+                    [disabled]="!rolesTouched || rolesSaving"
                     (click)="updateRoles()"
                 ></p-button></div
         ></ng-template>

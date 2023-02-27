@@ -1,15 +1,13 @@
-import { RouteGuard } from "./guards/route.guard";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DatePipe, registerLocaleData } from "@angular/common";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import localeDe from "@angular/common/locales/de-AT";
+import { LOCALE_ID, NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { DatePipe } from "@angular/common";
-import { AppRoutingModule } from "./app-routing.module";
-import { LOCALE_ID } from "@angular/core";
-import { registerLocaleData } from "@angular/common";
-import localeDe from "@angular/common/locales/de-AT";
 import { ServiceWorkerModule } from "@angular/service-worker";
+import { AppRoutingModule } from "./app-routing.module";
+import { RouteGuard } from "./guards/route.guard";
 
 // PrimeNG Components for demos
 import { AccordionModule } from "primeng/accordion";
@@ -28,9 +26,9 @@ import { CheckboxModule } from "primeng/checkbox";
 import { ChipModule } from "primeng/chip";
 import { ChipsModule } from "primeng/chips";
 import { CodeHighlighterModule } from "primeng/codehighlighter";
+import { ColorPickerModule } from "primeng/colorpicker";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ConfirmPopupModule } from "primeng/confirmpopup";
-import { ColorPickerModule } from "primeng/colorpicker";
 import { ContextMenuModule } from "primeng/contextmenu";
 import { DataViewModule } from "primeng/dataview";
 import { DialogModule } from "primeng/dialog";
@@ -41,8 +39,8 @@ import { FileUploadModule } from "primeng/fileupload";
 // import { FullCalendarModule } from "@fullcalendar/angular";
 import { GalleriaModule } from "primeng/galleria";
 import { InplaceModule } from "primeng/inplace";
-import { InputNumberModule } from "primeng/inputnumber";
 import { InputMaskModule } from "primeng/inputmask";
+import { InputNumberModule } from "primeng/inputnumber";
 import { InputSwitchModule } from "primeng/inputswitch";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
@@ -52,8 +50,8 @@ import { ListboxModule } from "primeng/listbox";
 import { MegaMenuModule } from "primeng/megamenu";
 import { MenuModule } from "primeng/menu";
 import { MenubarModule } from "primeng/menubar";
-import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
+import { MessagesModule } from "primeng/messages";
 import { MultiSelectModule } from "primeng/multiselect";
 import { OrderListModule } from "primeng/orderlist";
 import { OrganizationChartModule } from "primeng/organizationchart";
@@ -77,8 +75,8 @@ import { SliderModule } from "primeng/slider";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { SplitterModule } from "primeng/splitter";
 import { StepsModule } from "primeng/steps";
-import { TabMenuModule } from "primeng/tabmenu";
 import { TableModule } from "primeng/table";
+import { TabMenuModule } from "primeng/tabmenu";
 import { TabViewModule } from "primeng/tabview";
 import { TagModule } from "primeng/tag";
 import { TerminalModule } from "primeng/terminal";
@@ -93,87 +91,92 @@ import { TreeTableModule } from "primeng/treetable";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
 
 // Application Components
+import { ConfirmationService, MessageService } from "primeng/api";
 import { AppComponent } from "./app.component";
+import { AppFooterComponent } from "./app.footer.component";
 import { AppMainComponent } from "./app.main.component";
 import { AppSideBarComponent } from "./app.sidebar.component";
 import { AppTopbarComponent } from "./app.topbar.component";
-import { AppFooterComponent } from "./app.footer.component";
-import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
-import { AppInvoiceComponent } from "./pages/app.invoice.component";
-import { AppHelpComponent } from "./pages/app.help.component";
-import { AppNotfoundComponent } from "./pages/app.notfound.component";
-import { AppErrorComponent } from "./pages/app.error.component";
 import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
-import { ConfirmationService, MessageService } from "primeng/api";
+import { AppErrorComponent } from "./pages/app.error.component";
+import { AppHelpComponent } from "./pages/app.help.component";
+import { AppInvoiceComponent } from "./pages/app.invoice.component";
+import { AppNotfoundComponent } from "./pages/app.notfound.component";
+import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 
 // import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGridPlugin from "@fullcalendar/timegrid";
 // import interactionPlugin from "@fullcalendar/interaction";
 
 // MKJ
-import { MenuService } from "./services/menu.service";
-import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { MkjDatePipe } from "./pipes/mkj-date.pipe";
-import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.component";
-import { SignupComponent } from "./pages/signup/signup.component";
-import { LoginComponent } from "./pages/login/login.component";
-import { MitgliederSingleComponent } from "./components/mitglieder/mitglieder-single/mitglieder-single.component";
-import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
-import { MitgliedEditorComponent } from "./components/mitglieder/mitglied-editor/mitglied-editor.component";
-import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
-import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
-import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
-import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
-import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
-import { AatestComponent } from "./components/aatest/aatest.component";
-import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
-import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
-import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
-import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
-import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
-import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
-import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
+import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 import { environment } from "src/environments/environment";
-import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
-import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
+import { AatestComponent } from "./components/aatest/aatest.component";
+import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
+import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
+import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
-import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AuthInterceptor } from "./guards/auth-interceptor";
-import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
-import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
-import { MkjTemplateDirective } from "./directives/mkj-template.directive";
-import { GlobalRouteGuard } from "./guards/global-route.guard";
-import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
-import { mkjAppInitializer } from "./providers/mkj-app-initializer";
-import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
-import { MkjBooleanInputComponent } from "./utilities/form-components/mkj-boolean-input/mkj-boolean-input.component";
-import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
-import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
-import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
-import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
-import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
-import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
-import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
-import { FullNamePipe } from "./pipes/full-name.pipe";
+import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
-import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
-import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
-import { MkjColorPickerComponent } from "./utilities/form-components/mkj-color-picker/mkj-color-picker.component";
-import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
-import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
+import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
+import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
+import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
+import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
+import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
+import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
+import { MitgliedRolesPickerComponent } from "./components/mitglieder/mitglieder-single/mitglied-roles-picker/mitglied-roles-picker.component";
+import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
+import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
+import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.component";
 import { NextTerminComponent } from "./components/mkj-dashboard/next-termin/next-termin.component";
-import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
-import { StatistikTermineComponent } from "./components/statistik/statistik-termine/statistik-termine.component";
-import { StatistikNotenComponent } from "./components/statistik/statistik-noten/statistik-noten.component";
 import { NotenCardComponent } from "./components/noten/noten-card/noten-card.component";
+import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
+import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
+import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
+import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
+import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
+import { StatistikMitgliederComponent } from "./components/statistik/components/statistik-mitglieder/statistik-mitglieder.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
-import { StatistikMitgliederComponent } from "./components/statistik/statistik-mitglieder/statistik-mitglieder.component";
-import { MitgliedRolesPickerComponent } from './components/mitglieder/mitglieder-single/mitglied-roles-picker/mitglied-roles-picker.component';
+import { StatistikTermineComponent } from "./components/statistik/components/statistik-termine/statistik-termine.component";
+import { StatistikNotenComponent } from "./components/statistik/components/statistik-noten/statistik-noten.component";
+import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
+import { MkjTemplateDirective } from "./directives/mkj-template.directive";
+import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
+import { AuthInterceptor } from "./guards/auth-interceptor";
+import { GlobalRouteGuard } from "./guards/global-route.guard";
+import { LoginComponent } from "./pages/login/login.component";
+import { SignupComponent } from "./pages/signup/signup.component";
+import { FullNamePipe } from "./pipes/full-name.pipe";
+import { MkjDatePipe } from "./pipes/mkj-date.pipe";
+import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
+import { mkjAppInitializer } from "./providers/mkj-app-initializer";
+import { MenuService } from "./services/menu.service";
+import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
+import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
+import { MkjBooleanInputComponent } from "./utilities/form-components/mkj-boolean-input/mkj-boolean-input.component";
+import { MkjColorPickerComponent } from "./utilities/form-components/mkj-color-picker/mkj-color-picker.component";
+import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-input/mkj-date-input.component";
+import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
+import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
+import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
 import { InstrumenteOverviewComponent } from './components/instrumente/instrumente-overview/instrumente-overview.component';
 import { InstrumenteEditorComponent } from './components/instrumente/instrumente-editor/instrumente-editor.component';
 import { InstrumentFormComponent } from './utilities/form-components/instrument-form/instrument-form.component';
+import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
+import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
+import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
+import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
+import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
+import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
+import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
+import { StatistikMitgliederGeschlechtComponent } from "./components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component";
+import { StatistikGruppenTermineComponent } from "./components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component";
+import { NextGeburtstagComponent } from "./components/mkj-dashboard/next-geburtstag/next-geburtstag.component";
+import { TerminTeilnahmeDropdownComponent } from "./utilities/mkj-termin-teilnahme-dropdown/termin-teilnahme-dropdown.component";
+import { TeilnahmenOverviewComponent } from './components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -303,10 +306,9 @@ registerLocaleData(localeDe);
         SignupComponent,
         LoginComponent,
         MitgliederListComponent,
-        MitgliederSingleComponent,
+        MitgliederDetailsComponent,
         NotenarchivComponent,
         VisibleForPermissionDirective,
-        MitgliedEditorComponent,
         NotenEditorComponent,
         MkjToolbarComponent,
         AusrueckungEditorComponent,
@@ -347,6 +349,12 @@ registerLocaleData(localeDe);
         InstrumenteOverviewComponent,
         InstrumenteEditorComponent,
         InstrumentFormComponent,
+        AnwesenheitsListeComponent,
+        StatistikMitgliederGeschlechtComponent,
+        StatistikGruppenTermineComponent,
+        NextGeburtstagComponent,
+        TerminTeilnahmeDropdownComponent,
+        TeilnahmenOverviewComponent,
     ],
     providers: [
         mkjAppInitializer(),

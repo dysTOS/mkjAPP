@@ -63,7 +63,7 @@ export class InfoService {
 
     public danger(details: string) {
         this.messageService.add({
-            severity: "danger",
+            severity: "warning",
             summary: "Warnung",
             detail: details,
             life: 6000,
@@ -86,6 +86,8 @@ export class InfoService {
             message:
                 message ??
                 "Bist du sicher das dieser Datensatz gelöscht werden soll?",
+            acceptButtonStyleClass: "p-button-danger",
+            rejectButtonStyleClass: "p-button-text",
             accept: () => {
                 asyncCall().subscribe({
                     next: (res) => {
@@ -102,6 +104,7 @@ export class InfoService {
                 subject.error(null);
                 subject.complete();
             },
+            acceptLabel: "Löschen",
         });
         return subject;
     }

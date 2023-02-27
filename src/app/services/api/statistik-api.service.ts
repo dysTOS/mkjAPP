@@ -17,6 +17,11 @@ export class StatistikApiService {
         return this.http.post<any>(url, { year: jahr }, StandardHttpOptions);
     }
 
+    public getTermineNachGruppen(jahr: string): Observable<any> {
+        const url = this.apiURL + "statistik/terminegruppen";
+        return this.http.post<any>(url, { year: jahr }, StandardHttpOptions);
+    }
+
     public getNoten(): Observable<any> {
         const url = this.apiURL + "statistik/noten";
         return this.http.get<any>(url, StandardHttpOptions);
@@ -24,6 +29,11 @@ export class StatistikApiService {
 
     public getMitglieder(): Observable<any> {
         const url = this.apiURL + "statistik/mitglieder";
+        return this.http.get<any>(url, StandardHttpOptions);
+    }
+
+    public getMitgliederNachGeschlecht(): Observable<any> {
+        const url = this.apiURL + "statistik/mitgliedergeschlecht";
         return this.http.get<any>(url, StandardHttpOptions);
     }
 }

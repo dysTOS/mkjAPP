@@ -22,7 +22,7 @@
         ></mkj-notenmappe-form>
     </div>
 
-    <div *ngIf="formGroup?.controls.id.value" class="card">
+    <div *ngIf="formGroup?.controls.id.value">
         <p-table
             [value]="notenMappe.noten"
             [loading]="tableLocked"
@@ -36,19 +36,19 @@
             >
                 <div *ngIf="editMode" class="flex justify-content-center">
                     <app-mkj-notensuche
-                        [selectedNoten]="selectedNoten"
                         [verzeichnisMode]="
                             formGroup.controls.hatVerzeichnis.value
                         "
                         placeholder="Noten hinzufügen"
                         (notenSelect)="addNotenToMappe($event)"
+                        [class.p-disabled]="!formGroup.pristine"
                     ></app-mkj-notensuche>
                 </div>
             </ng-template>
             <ng-template pTemplate="header"
                 ><tr>
                     <th *ngIf="notenMappe.hatVerzeichnis">Verzeichnis</th>
-                    <th>Name</th>
+                    <th>Titel</th>
                     <th>Komponist</th>
                     <th></th></tr
             ></ng-template>
@@ -57,7 +57,7 @@
                     <td *ngIf="notenMappe.hatVerzeichnis">
                         {{ noten.pivot.verzeichnisNr }}
                     </td>
-                    <td></td>
+                    <td>{{ noten.titel }}</td>
                     <td>{{ noten.komponist }}</td>
                     <td>
                         <button

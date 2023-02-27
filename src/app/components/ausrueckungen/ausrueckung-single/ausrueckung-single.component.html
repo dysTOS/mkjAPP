@@ -1,24 +1,24 @@
+<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>
+
 <mkj-content-loader [loading]="loading">
     <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel [selected]="true" header="Infos">
-            <termin-card
-                *ngIf="ausrueckung"
-                [termin]="ausrueckung"
-            ></termin-card>
-            <div *ngIf="ausrueckung">
-                <div
-                    *ngIf="ausrueckung.vonZeit && ausrueckung.bisZeit"
-                    class="col-12 flex justify-content-center"
-                >
-                    <button
-                        pButton
-                        pRipple
-                        label="in Mobil-Kalender exportieren"
-                        class="p-button-sm p-button-info"
-                        icon="pi pi-calendar"
-                        (click)="exportToCalendar()"
-                    ></button>
+            <termin-card *ngIf="termin" [termin]="termin"></termin-card>
+            <div *ngIf="termin">
+                <div class="col-12 flex justify-content-center">
+                    <mkj-termin-teilnahme-dropdown
+                        [termin]="termin"
+                    ></mkj-termin-teilnahme-dropdown>
                 </div>
+
+                <p-accordion>
+                    <p-accordionTab header="Eingemeldete Teilnahmen">
+                        <ng-template pTemplate="content">
+                            <teilnahmen-overview
+                                [termin]="termin"
+                            ></teilnahmen-overview> </ng-template
+                    ></p-accordionTab>
+                </p-accordion>
                 <div style="color: grey; font-size: 0.9em" class="col-12">
                     <p-divider></p-divider>
                     <div
@@ -26,24 +26,22 @@
                     >
                         <div>
                             {{
-                                ausrueckung.oeffentlich
+                                termin.oeffentlich
                                     ? "Öffentlich auf mk-jainzen.at"
                                     : "Nicht sichtbar auf mk.jainzen.at"
                             }}
                         </div>
-                        <div>
-                            <div *ngIf="ausrueckung.created_at" class="mr-2">
+                        <div class="text-right">
+                            <div *ngIf="termin.created_at">
                                 Erstellt am:
                                 {{
-                                    ausrueckung?.created_at
-                                        | mkjDate : "d. MMM YYYY"
+                                    termin?.created_at | mkjDate : "d. MMM YYYY"
                                 }}
                             </div>
-                            <div *ngIf="ausrueckung.updated_at">
+                            <div *ngIf="termin.updated_at">
                                 Aktualisiert am:
                                 {{
-                                    ausrueckung?.updated_at
-                                        | mkjDate : "d. MMM YYYY"
+                                    termin?.updated_at | mkjDate : "d. MMM YYYY"
                                 }}
                             </div>
                         </div>
@@ -54,32 +52,7 @@
 
         <p-tabPanel header="Anwesenheitsliste">
             <div class="col-12">
-                <div *ngIf="!mitglieder" class="flex justify-content-center">
-                    <i
-                        class="pi pi-spin pi-spinner"
-                        style="font-size: 2rem"
-                    ></i>
-                </div>
-                <p-listbox
-                    *ngIf="mitglieder && presentMitglieder"
-                    [options]="mitglieder"
-                    [ngModel]="presentMitglieder"
-                    [multiple]="true"
-                    [checkbox]="true"
-                    [filter]="false"
-                    optionLabel="vorname"
-                    [showToggleAll]="false"
-                    dataKey="id"
-                    (onChange)="onMitgliederChange($event)"
-                >
-                    <ng-template let-mitglied pTemplate="item">
-                        <div>
-                            <div>
-                                {{ mitglied.vorname }} {{ mitglied.zuname }}
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-listbox>
+                <anwesenheits-liste [termin]="termin"></anwesenheits-liste>
             </div>
         </p-tabPanel>
 
@@ -94,7 +67,6 @@
                     <ng-template pTemplate="caption"
                         ><div class="col-12 flex justify-content-center">
                             <app-mkj-notensuche
-                                [selectedNoten]="selectedNoten"
                                 (notenSelect)="attachNoten($event.noten)"
                             ></app-mkj-notensuche></div
                     ></ng-template>

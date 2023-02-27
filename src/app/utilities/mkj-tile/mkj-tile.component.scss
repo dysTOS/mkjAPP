@@ -1,6 +1,6 @@
 .mkj-tile {
-    width: 10rem;
-    height: 10rem;
+    width: 11rem;
+    height: 11rem;
     border-radius: 0.2rem;
     border: 3px solid var(--color);
     background-color: var(--color-light);
@@ -18,5 +18,14 @@
     &-label {
         color: var(--text-color);
         opacity: 1;
+    }
+
+    &-label-bottom {
+        color: var(--text-color);
+        bottom: 0;
+        position: absolute;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
     }
 }

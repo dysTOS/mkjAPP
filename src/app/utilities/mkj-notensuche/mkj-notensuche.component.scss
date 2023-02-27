@@ -12,3 +12,13 @@
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
 }
+
+.no-border-right ::ng-deep .p-inputtext {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.plus-button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}

@@ -34,6 +34,7 @@ export class NextTerminComponent {
 
     public getNextTermin(): void {
         this.loading = true;
+        this.nextAusrueckung = null;
         this.terminService.getNextTermin(this.skip).subscribe({
             next: (ausrueckung) => {
                 this.nextAusrueckung = ausrueckung;

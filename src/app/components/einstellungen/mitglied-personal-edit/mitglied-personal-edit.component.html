@@ -1,16 +1,17 @@
-<div class="col-12 flex justify-content-end mb-3">
-    <button
-        pButton
-        pRipple
-        [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-        [disabled]="isSaving || formGroup?.invalid"
-        label="Speichern"
-        (click)="updateOwnMitgliedData()"
-    ></button>
+<div class="card">
+    <mkj-mitglied-form
+        *ngIf="formGroup"
+        [formGroup]="formGroup"
+        [personalMode]="true"
+    ></mkj-mitglied-form>
+    <div class="col-12 flex justify-content-end mb-3">
+        <button
+            pButton
+            pRipple
+            [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+            [disabled]="isSaving || formGroup?.invalid || formGroup?.pristine"
+            label="Speichern"
+            (click)="updateOwnMitgliedData()"
+        ></button>
+    </div>
 </div>
-
-<mkj-mitglied-form
-    *ngIf="formGroup"
-    [formGroup]="formGroup"
-    [personalMode]="true"
-></mkj-mitglied-form>

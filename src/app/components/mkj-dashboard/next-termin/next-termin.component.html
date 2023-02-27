@@ -10,7 +10,7 @@
         <p>
             <span>Nächster Termin:</span>
         </p>
-        <div *ngIf="nextAusrueckung" style="height: 15rem">
+        <div *ngIf="nextAusrueckung" class="next-ausrueckung">
             <h4>
                 {{ nextAusrueckung?.name }}
             </h4>
@@ -28,29 +28,34 @@
         </div>
         <div
             *ngIf="loading"
-            class="flex flex-column align-items-start text-center"
-            style="height: 15rem"
+            class="next-ausrueckung flex flex-column align-items-start text-center"
         >
-            <p-skeleton width="20rem" height="2.5rem"></p-skeleton>
+            <p-skeleton width="16rem" height="2.5rem"></p-skeleton>
             <p-skeleton
-                width="15rem"
+                width="13rem"
                 height="1.5rem"
                 class="pt-2 align-self-center"
             ></p-skeleton>
         </div>
         <div
             *ngIf="!nextAusrueckung && !loading"
-            class="flex flex-column align-items-start text-center"
-            style="height: 15rem"
+            class="next-ausrueckung flex flex-column align-items-start text-center"
         >
             Keine Termine vorhanden...
         </div>
-        <button
-            pButton
-            label="Alle Ausrückungen"
-            routerLink="../ausrueckungen"
-            class="p-button-outlined mt-2"
-        ></button>
+        <div class="col-12">
+            <mkj-termin-teilnahme-dropdown [termin]="nextAusrueckung">
+            </mkj-termin-teilnahme-dropdown>
+        </div>
+        <div class="col-12">
+            <button
+                pButton
+                label="Alle Ausrückungen"
+                icon="pi pi-arrow-right"
+                routerLink="../ausrueckungen"
+                class="p-button-outlined p-button-raised mt-2"
+            ></button>
+        </div>
     </div>
     <button
         pButton

@@ -87,7 +87,7 @@
                                 [showOperator]="false"
                                 [showClearButton]="true"
                                 [showApplyButton]="true"
-                                [showMatchModes]="false"
+                                [showMatchModes]="true"
                                 [showAddButton]="false"
                                 [hideOnClear]="true"
                             >
@@ -168,6 +168,12 @@
                         [class.ausrueckung-expired]="
                             ausrueckung.vonDatum < actualDate
                         "
+                        [class]="
+                            'termin-color status-' +
+                            (ausrueckung.status
+                                ? ausrueckung.status.toLowerCase()
+                                : '')
+                        "
                     >
                         <td>
                             <span class="font-bold">{{
@@ -215,27 +221,41 @@
                     <tr>
                         <td colspan="4">
                             <termin-card [termin]="ausrueckung"></termin-card>
-                            <div
-                                class="col-12 flex flex-wrap gap-4 justify-content-around"
-                            >
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-list"
-                                    label="Detailansicht"
-                                    class="p-button-raised p-button-info"
-                                    [routerLink]="
-                                        '../details/' + ausrueckung.id
-                                    "
-                                ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-list"
-                                    label="Aktionen"
-                                    class="p-button-info p-button-outlined"
-                                    (click)="rowMenu.toggle($event)"
-                                ></button>
+                            <div class="grid">
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <mkj-termin-teilnahme-dropdown
+                                        [termin]="ausrueckung"
+                                    ></mkj-termin-teilnahme-dropdown>
+                                </div>
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <button
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-list"
+                                        label="Details"
+                                        class="p-button-raised p-button-outlined p-button-primary"
+                                        [routerLink]="
+                                            '../details/' + ausrueckung.id
+                                        "
+                                    ></button>
+                                </div>
+                                <div
+                                    class="md:col-4 col-12 flex justify-content-center"
+                                >
+                                    <button
+                                        *ngIf="hasAktionenPermissions"
+                                        pButton
+                                        pRipple
+                                        icon="pi pi-pencil"
+                                        label="Aktionen"
+                                        class="p-button-outlined p-button-info"
+                                        (click)="rowMenu.toggle($event)"
+                                    ></button>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -250,90 +270,8 @@
                 </ng-template>
             </p-table>
         </div>
-
-        <!-- Save/Update Ausrückung -->
-        <p-dialog
-            #ausrDialog
-            [(visible)]="ausrueckungDialog"
-            [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-            [style]="{ width: '75vw' }"
-            [header]="
-                !updateAusrueckung
-                    ? 'Ausrückung anlegen'
-                    : 'Ausrückung aktualisieren'
-            "
-            [modal]="true"
-            styleClass="p-fluid"
-            position="top"
-        >
-            <mkj-ausrueckung-form
-                *ngIf="formGroup"
-                [formGroup]="formGroup"
-            ></mkj-ausrueckung-form>
-
-            <ng-template pTemplate="footer">
-                <button
-                    pButton
-                    pRipple
-                    label="Abbrechen"
-                    icon="pi pi-times"
-                    class="p-button-text"
-                    (click)="hideAusrueckungDialog()"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Speichern"
-                    [icon]="isSaving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-                    class="p-button-plain"
-                    [disabled]="isSaving || formGroup?.invalid"
-                    (click)="saveAusrueckung()"
-                ></button>
-            </ng-template>
-        </p-dialog>
-
-        <!-- Export Dialog -->
-        <p-dialog
-            #exportDialog
-            [(visible)]="exportDialogVisible"
-            header="Ausrückungen exportieren"
-            [closable]="true"
-            [dismissableMask]="true"
-            [modal]="true"
-            styleClass="p-fluid"
-            position="top"
-        >
-            <ng-template pTemplate="content">
-                <button
-                    pButton
-                    pRipple
-                    label="PDF"
-                    icon="pi pi-file-pdf"
-                    (click)="exportPdf(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined mb-3"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="Excel"
-                    icon="pi pi-file-excel"
-                    (click)="exportExcel(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined mb-3"
-                ></button>
-                <button
-                    pButton
-                    pRipple
-                    label="CSV"
-                    icon="pi pi-file"
-                    (click)="exportCsv(); exportDialogVisible = false"
-                    class="p-button-lg p-button-outlined"
-                ></button>
-            </ng-template>
-            <ng-template pTemplate="footer"
-                ><div style="height: 10px"></div
-            ></ng-template>
-        </p-dialog>
     </div>
 </div>
 
 <p-menu #rowMenu [popup]="true" [model]="rowMenuItems"></p-menu>
+<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>

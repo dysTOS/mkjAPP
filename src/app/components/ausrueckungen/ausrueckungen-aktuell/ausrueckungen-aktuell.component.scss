@@ -7,7 +7,7 @@
 }
 
 .ausrueckung-expired {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 :host ::ng-deep {
@@ -52,10 +52,6 @@
 
         .p-datatable-thead > tr > th {
             text-align: left;
-        }
-
-        .p-dropdown-label:not(.p-placeholder) {
-            text-transform: uppercase;
         }
     }
 
@@ -107,6 +103,26 @@
     &.status-ersatztermin {
         background: #b2ebfd;
         color: #016a8a;
+    }
+}
+
+.termin-color {
+    // &.status-fixiert {
+    //     background: #c8e6c9;
+    //     color: #256029;
+    // }
+
+    &.status-abgesagt {
+        background: #bb001318 !important;
+    }
+
+    // &.status-geplant {
+    //     background: #feedaf;
+    //     color: #8a5340;
+    // }
+
+    &.status-ersatztermin {
+        background: #b2ebfd2a !important;
     }
 }
 

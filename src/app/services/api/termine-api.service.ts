@@ -48,18 +48,23 @@ export class TermineApiService {
         );
     }
 
-    public createTermin(ausrueckung: Termin): Observable<Termin> {
+    public createTermin(termin: Termin): Observable<Termin> {
         const url = this.apiURL + "ausrueckungen";
-        return this.http.post<Termin>(url, ausrueckung, httpOptions);
+        return this.http.post<Termin>(url, termin, httpOptions);
     }
 
-    public updateTermin(ausrueckung: Termin): Observable<Termin> {
-        const url = this.apiURL + "ausrueckungen/" + ausrueckung.id.toString();
-        return this.http.put<Termin>(url, ausrueckung, httpOptions);
+    public updateTermin(termin: Termin): Observable<Termin> {
+        const url = this.apiURL + "ausrueckungen/" + termin.id.toString();
+        return this.http.put<Termin>(url, termin, httpOptions);
     }
 
-    public deleteTermin(ausrueckung: Termin): Observable<Termin> {
-        const url = this.apiURL + "ausrueckungen/" + ausrueckung.id.toString();
+    public saveTerminbyLeiter(termin: Termin): Observable<Termin> {
+        const url = this.apiURL + "saveterminbyleiter";
+        return this.http.post<Termin>(url, termin, httpOptions);
+    }
+
+    public deleteTermin(termin: Termin): Observable<Termin> {
+        const url = this.apiURL + "ausrueckungen/" + termin.id.toString();
         return this.http.delete<Termin>(url, httpOptions);
     }
 }

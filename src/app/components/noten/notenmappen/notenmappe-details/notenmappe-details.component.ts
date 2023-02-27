@@ -19,7 +19,6 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     public formGroup: FormGroup;
     public notenMappe: Notenmappe;
-    public selectedNoten: Noten;
 
     public isSaving: boolean;
     public loading: boolean;
@@ -32,7 +31,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
 
     constructor(
         private toolbarService: MkjToolbarService,
-        private fb: FormBuilder,
+        fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private infoService: InfoService,
@@ -123,9 +122,6 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                         this.infoService.success("Mappe gespeichert!");
                         this.isSaving = false;
                         this.formGroup.markAsPristine();
-                        this.router.navigate(["../"], {
-                            relativeTo: this.route,
-                        });
                     },
                     error: (err) => {
                         this.infoService.error(err);
@@ -140,7 +136,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                         this.infoService.success("Mappe erstellt!");
                         this.isSaving = false;
                         this.formGroup.markAsPristine();
-                        this.router.navigate(["../", res.id], {
+                        this.router.navigate(["../"], {
                             relativeTo: this.route,
                         });
                     },
@@ -164,7 +160,6 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
                     this.notenMappe.noten.push(noten);
                     this.sortNoten();
                     this.tableLocked = false;
-                    this.selectedNoten = null;
                 },
                 error: (err) => {
                     this.tableLocked = false;
@@ -191,6 +186,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     }
 
     public deleteNotenmappe() {
+        this.loading = true;
         this.infoService
             .confirmDelete("Mappe wirklich löschen?", () =>
                 this.notenService.deleteNotenmappe(

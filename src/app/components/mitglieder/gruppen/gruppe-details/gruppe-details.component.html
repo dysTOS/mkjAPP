@@ -1,5 +1,9 @@
 <mkj-content-loader [loading]="isLoading">
     <div class="card">
+        <mkj-gruppe-form
+            *ngIf="formGroup"
+            [formGroup]="formGroup"
+        ></mkj-gruppe-form>
         <div class="col-12 flex justify-content-end">
             <button
                 pButton
@@ -16,10 +20,6 @@
                 (click)="saveGruppe()"
             ></button>
         </div>
-        <mkj-gruppe-form
-            *ngIf="formGroup"
-            [formGroup]="formGroup"
-        ></mkj-gruppe-form>
     </div>
 
     <div *ngIf="formGroup?.controls.id.value" class="card">

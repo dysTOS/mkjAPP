@@ -1,20 +1,19 @@
-<div class="col-12 flex justify-content-end">
-    <button
-        pRipple
-        pButton
-        label="Speichern"
-        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-        class="p-button-plain"
-        [disabled]="saving || formGroup?.invalid"
-        (click)="saveAusrueckung()"
-    ></button>
-</div>
-
 <mkj-content-loader [loading]="loading" class="h-full">
     <div class="card">
         <mkj-ausrueckung-form
             *ngIf="formGroup"
             [formGroup]="formGroup"
         ></mkj-ausrueckung-form>
+        <div class="col-12 flex justify-content-end">
+            <button
+                pRipple
+                pButton
+                label="Speichern"
+                [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+                class="p-button-plain"
+                [disabled]="saving || formGroup?.invalid || formGroup?.pristine"
+                (click)="saveAusrueckung()"
+            ></button>
+        </div>
     </div>
 </mkj-content-loader>

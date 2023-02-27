@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { UtilFunctions } from "src/app/helpers/util-functions";
+import { PermissionMap } from "src/app/models/User";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
+import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -25,7 +27,8 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         private ausrueckungService: TermineApiService,
         private infoService: InfoService,
         public location: Location,
-        private toolbarService: MkjToolbarService
+        private toolbarService: MkjToolbarService,
+        private userService: UserService
     ) {
         this.toolbarService.header = "Editor";
         this.toolbarService.backButton = true;
@@ -64,6 +67,31 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
     public saveAusrueckung() {
         const saveAusrueckung = this.formGroup?.getRawValue();
         this.saving = true;
+        if (
+            this.userService.hasPermission(
+                PermissionMap.TERMIN_GRUPPENLEITER_SAVE
+            ) &&
+            this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
+        ) {
+            this.ausrueckungService
+                .saveTerminbyLeiter(saveAusrueckung)
+                .subscribe(
+                    (ausrueckungFromAPI) => {
+                        this.formGroup.markAsPristine();
+                        this.location.back();
+                    },
+                    (error) => {
+                        this.infoService.error(error);
+                        this.saving = false;
+                    },
+                    () => {
+                        this.infoService.success("Ausrückung gespeichert!");
+                        this.saving = false;
+                    }
+                );
+            return;
+        }
+
         if (saveAusrueckung.id) {
             this.ausrueckungService.updateTermin(saveAusrueckung).subscribe({
                 next: (res) => {

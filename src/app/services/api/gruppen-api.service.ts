@@ -50,6 +50,7 @@ export class GruppenApiService {
         includeMitglieder?: boolean;
         includeGruppenleiter?: boolean;
         includeTermine?: boolean;
+        nurRegister?: boolean;
     }): Observable<GetCollectionApiCallOutput<Gruppe>> {
         const url = this.apiURL + "all";
         return this.http.post<GetCollectionApiCallOutput<Gruppe>>(

@@ -32,9 +32,10 @@ export interface Permission {
 }
 
 export enum PermissionMap {
-    AUSRUECKUNG_READ = "ausrueckungen_read",
-    AUSRUECKUNG_SAVE = "ausrueckungen_save",
-    AUSRUECKUNG_DELETE = "ausrueckungen_delete",
+    TERMIN_READ = "ausrueckungen_read",
+    TERMIN_SAVE = "ausrueckungen_save",
+    TERMIN_DELETE = "ausrueckungen_delete",
+    TERMIN_GRUPPENLEITER_SAVE = "termin_gruppenleiter_save",
     MITGLIEDER_READ = "mitglieder_read",
     MITGLIEDER_SAVE = "mitglieder_save",
     MITGLIEDER_DELETE = "mitglieder_delete",

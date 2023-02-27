@@ -1,13 +1,12 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { InfoService } from "src/app/services/info.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
 import { Mitglied } from "src/app/models/Mitglied";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { Table } from "primeng/table";
+import { UserService } from "src/app/services/authentication/user.service";
 
 @Component({
     selector: "app-mitglieder",
@@ -15,9 +14,10 @@ import { Table } from "primeng/table";
     styleUrls: ["./mitglieder-list.component.scss"],
 })
 export class MitgliederListComponent implements OnInit {
-    mitglieder: Array<Mitglied>;
+    public mitglieder: Array<Mitglied>;
 
-    loading: boolean = false;
+    public loading: boolean = false;
+    public canEdit: boolean = false;
 
     public mitgliederFilter = [
         {
@@ -35,6 +35,7 @@ export class MitgliederListComponent implements OnInit {
 
     constructor(
         private mitgliederService: MitgliederApiService,
+        private userService: UserService,
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
@@ -54,17 +55,24 @@ export class MitgliederListComponent implements OnInit {
                     this.toolbarService.contentSectionExpanded === true,
                 label: "Filtern/Suchen",
             },
-            // {
-            //     icon: "pi pi-plus",
-            //     // click: () => this.openEditDialog(),
-            //     label: "Neu",
-            //     permissions: [PermissionMap.MITGLIEDER_SAVE],
-            // },
+            {
+                icon: "pi pi-plus",
+                click: () =>
+                    this.router.navigate(["../", "neu"], {
+                        relativeTo: this.route,
+                    }),
+                label: "Neu",
+                permissions: [PermissionMap.MITGLIEDER_SAVE],
+            },
         ];
+
+        this.canEdit = this.userService.hasPermission(
+            PermissionMap.MITGLIEDER_SAVE
+        );
     }
 
     public ngOnInit(): void {
-        this.loadAllMitglieder();
+        this.loadAktiveMitglieder();
     }
 
     public ngAfterViewInit(): void {

@@ -9,7 +9,7 @@ import {
     ViewChild,
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ConfirmationService, MenuItem } from "primeng/api";
+import { ConfirmationService, FilterMetadata, MenuItem } from "primeng/api";
 import {
     Termin as Termin,
     TerminCsvColumnMap,
@@ -25,26 +25,24 @@ import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
+import { UserService } from "src/app/services/authentication/user.service";
+import { Menu } from "primeng/menu";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
     styleUrls: ["./ausrueckungen-aktuell.component.scss"],
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
-    ausrueckungDialog: boolean;
-    zeitraumDialog: boolean;
-    exportDialogVisible: boolean = false;
-
     ausrueckungenArray: Termin[];
     ausrueckungFilterInput: GetCollectionApiCallInput;
     filteredRows: Termin[];
 
     actualDate = moment(new Date()).format("YYYY-MM-DD");
+    filterFromDate = moment(new Date())
+        .subtract(1, "week")
+        .format("YYYY-MM-DD");
 
-    submitted: boolean;
-    updateAusrueckung: boolean;
     loading: boolean;
-    isSaving: boolean;
 
     cols = TerminCsvColumnMap; //columns for csv export
     kategorien = TerminKategorieMap;
@@ -52,41 +50,73 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
 
     @ViewChild("dt") ausrueckungenTable: Table;
     @ViewChild("toolbarContentSection") toolbarContentSection: TemplateRef<any>;
-
-    public formGroup: FormGroup;
+    @ViewChild("exportMenu") exportMenu: Menu;
 
     selectedRow: any;
+    public hasAktionenPermissions: boolean = false;
 
     public rowMenuItems: MenuItem[] = [
         {
             label: "Duplizieren",
             icon: "pi pi-copy",
+            visible: this.userService.hasOneOfPermissions([
+                PermissionMap.TERMIN_SAVE,
+            ]),
             command: () => this.duplicateAusrueckung(this.selectedRow),
         },
         {
             label: "Editieren",
             icon: "pi pi-pencil",
-            command: () => this.editAusrueckung(this.selectedRow),
+            visible: this.userService.hasOneOfPermissions([
+                PermissionMap.TERMIN_SAVE,
+                PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+            ]),
+            command: () => this.navigateEditor(this.selectedRow),
         },
         {
             label: "Löschen",
             icon: "pi pi-trash",
+            visible: this.userService.hasPermission(
+                PermissionMap.TERMIN_DELETE
+            ),
             command: () => this.deleteAusrueckung(this.selectedRow),
+        },
+    ];
+
+    public exportMenuItems: MenuItem[] = [
+        {
+            label: "PDF",
+            icon: "pi pi-file-pdf",
+            command: () => this.exportPdf(),
+        },
+        {
+            label: "Excel",
+            icon: "pi pi-file-excel",
+            command: () => this.exportExcel(),
+        },
+        {
+            label: "CSV",
+            icon: "pi pi-file",
+            command: () => this.exportCsv(),
         },
     ];
 
     constructor(
         private termineApiService: TermineApiService,
+        private userService: UserService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService,
         private router: Router,
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
-        private fb: FormBuilder,
         public toolbarService: MkjToolbarService
     ) {
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
+        this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
+            PermissionMap.TERMIN_SAVE,
+            PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+            PermissionMap.TERMIN_DELETE,
+        ]);
         this.toolbarService.header = "Termine";
         this.toolbarService.buttons = [
             {
@@ -103,13 +133,16 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             },
             {
                 icon: "pi pi-plus",
-                click: () => this.openNew(),
+                click: () => this.navigateEditor(),
                 label: "Neu",
-                permissions: [PermissionMap.AUSRUECKUNG_SAVE],
+                permissions: [
+                    PermissionMap.TERMIN_SAVE,
+                    PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+                ],
             },
             {
                 icon: "pi pi-download",
-                click: () => (this.exportDialogVisible = true),
+                click: ($event) => this.exportMenu.show($event),
                 label: "Export",
             },
         ];
@@ -120,7 +153,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             filterAnd: [
                 {
                     filterField: "vonDatum",
-                    value: this.actualDate,
+                    value: this.filterFromDate,
                     operator: ">=",
                 },
                 {
@@ -157,32 +190,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public openNew(): void {
-        if (!UtilFunctions.isDesktop()) {
-            this.navigateEditor();
-            return;
-        }
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(this.fb);
-        this.formGroup.updateValueAndValidity();
-        this.updateAusrueckung = false;
-        this.ausrueckungDialog = true;
-    }
-
-    public editAusrueckung(ausrueckung: Termin) {
-        if (!UtilFunctions.isDesktop()) {
-            this.navigateEditor(ausrueckung);
-            return;
-        }
-        this.formGroup = UtilFunctions.getAusrueckungFormGroup(
-            this.fb,
-            ausrueckung
-        );
-        this.formGroup.updateValueAndValidity();
-        this.updateAusrueckung = true;
-        this.ausrueckungDialog = true;
-    }
-
-    deleteAusrueckung(ausrueckung: Termin) {
+    public deleteAusrueckung(ausrueckung: Termin) {
         this.confirmationService.confirm({
             header: "Ausrückung löschen?",
             icon: "pi pi-exclamation-triangle",
@@ -206,66 +214,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         });
     }
 
-    hideAusrueckungDialog() {
-        this.ausrueckungDialog = false;
-        this.submitted = false;
-        this.formGroup.reset();
-    }
-
-    saveAusrueckung() {
-        this.submitted = true;
-
-        const saveAusrueckung = this.formGroup?.getRawValue();
-
-        this.isSaving = true;
-        if (saveAusrueckung.id) {
-            //update
-            let index = UtilFunctions.findIndexById(
-                saveAusrueckung.id,
-                this.ausrueckungenArray
-            );
-            this.termineApiService.updateTermin(saveAusrueckung).subscribe(
-                (ausrueckungFromAPI) => (
-                    (this.ausrueckungenArray[index] = ausrueckungFromAPI),
-                    (this.ausrueckungenArray = [...this.ausrueckungenArray])
-                ),
-                (error) => {
-                    this.infoService.error(error);
-                    this.isSaving = false;
-                },
-                () => {
-                    this.infoService.success("Ausrückung aktualisert!");
-                    this.isSaving = false;
-                    this.ausrueckungDialog = false;
-                }
-            );
-        } else {
-            //neue
-            this.termineApiService.createTermin(saveAusrueckung).subscribe(
-                (ausrueckungAPI) => {
-                    this.ausrueckungenArray = [
-                        ausrueckungAPI,
-                        ...this.ausrueckungenArray,
-                    ];
-                    this.ausrueckungenTable.sort({
-                        field: "vonDatum",
-                        order: "1",
-                    });
-                },
-                (error) => {
-                    this.infoService.error(error);
-                    this.isSaving = false;
-                },
-                () => {
-                    this.infoService.success("Ausrückung angelegt!");
-                    this.isSaving = false;
-                    this.ausrueckungDialog = false;
-                }
-            );
-        }
-    }
-
-    duplicateAusrueckung(ausrueckung: Termin) {
+    public duplicateAusrueckung(ausrueckung: Termin) {
         this.loading = true;
         const duplicateAusrueckung = _.cloneDeep(ausrueckung);
         duplicateAusrueckung.id = null;
@@ -276,7 +225,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.termineApiService.createTermin(duplicateAusrueckung).subscribe({
             next: (res) => {
                 this.ausrueckungenArray = [res, ...this.ausrueckungenArray];
-                this.editAusrueckung(res);
+                this.navigateEditor(res);
                 this.infoService.success("Ausrückung dupliziert!");
                 this.loading = false;
             },
@@ -287,14 +236,14 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         });
     }
 
-    navigateSingleAusrueckung(ausrueckung: Termin) {
+    public navigateSingleAusrueckung(ausrueckung: Termin) {
         this.router.navigate(["../", ausrueckung.id], {
             relativeTo: this.route,
         });
     }
 
     private navigateEditor(ausrueckung?: Termin) {
-        if (ausrueckung) {
+        if (ausrueckung?.id) {
             this.router.navigate(["../", ausrueckung.id], {
                 relativeTo: this.route,
             });

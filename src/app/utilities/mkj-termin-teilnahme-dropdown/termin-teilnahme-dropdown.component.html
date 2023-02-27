@@ -1,0 +1,21 @@
+<p-dropdown
+    [(ngModel)]="status"
+    (ngModelChange)="updateStatus()"
+    [options]="options"
+    [autoDisplayFirst]="false"
+    [disabled]="!termin || loading || disabled"
+    [placeholder]="placeholder"
+>
+    <ng-template let-option pTemplate="selectedItem">
+        <div class="flex justify-content-between">
+            <i [class]="option.icon" class="mr-1"></i
+            ><span class="ui-dropdown-item-text">{{ option.label }}</span>
+        </div>
+    </ng-template>
+    <ng-template let-option pTemplate="item">
+        <div class="flex justify-content-between">
+            <i [class]="option.icon" class="mr-1"></i
+            ><span class="ui-dropdown-item-text">{{ option.label }}</span>
+        </div>
+    </ng-template>
+</p-dropdown>

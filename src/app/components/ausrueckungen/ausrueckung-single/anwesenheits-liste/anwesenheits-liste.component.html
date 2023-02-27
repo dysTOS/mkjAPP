@@ -1,0 +1,25 @@
+<div
+    *ngIf="!gruppenMitglieder || !presentMitglieder"
+    class="flex justify-content-center"
+>
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+</div>
+<p-listbox
+    #listbox
+    *ngIf="gruppenMitglieder && presentMitglieder"
+    [options]="gruppenMitglieder"
+    [ngModel]="presentMitglieder"
+    [multiple]="true"
+    [group]="true"
+    [checkbox]="true"
+    [filter]="true"
+    placeholder="Filtern"
+    [showToggleAll]="false"
+    dataKey="id"
+    (onChange)="onMitgliederChange($event)"
+    [disabled]="saving"
+>
+    <ng-template pTemplate="header">
+        Anwesend: {{ presentMitglieder?.length }}</ng-template
+    >
+</p-listbox>
