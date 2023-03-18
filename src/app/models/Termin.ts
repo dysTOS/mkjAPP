@@ -21,8 +21,8 @@ export interface Termin {
 }
 
 export const TerminTeilnahmeMap = [
-    { label: "Bin dabei", value: "anwesend", icon: "pi pi-check" },
-    { label: "Nicht dabei", value: "abwesend", icon: "pi pi-times" },
+    { label: "Bin da", value: "anwesend", icon: "pi pi-check" },
+    { label: "Nicht da", value: "abwesend", icon: "pi pi-times" },
 ];
 
 export const TerminKategorieMap = [
