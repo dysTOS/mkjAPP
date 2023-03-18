@@ -172,8 +172,8 @@ import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausruecku
 import { StatistikMitgliederGeschlechtComponent } from "./components/statistik/components/statistik-mitglieder-geschlecht/statistik-mitglieder-geschlecht.component";
 import { StatistikGruppenTermineComponent } from "./components/statistik/components/statistik-gruppen-termine/statistik-gruppen-termine.component";
 import { NextGeburtstagComponent } from "./components/mkj-dashboard/next-geburtstag/next-geburtstag.component";
-import { TerminTeilnahmeDropdownComponent } from "./utilities/mkj-termin-teilnahme-dropdown/termin-teilnahme-dropdown.component";
-import { TeilnahmenOverviewComponent } from './components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component';
+import { TeilnahmenOverviewComponent } from "./components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component";
+import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -347,7 +347,7 @@ registerLocaleData(localeDe);
         StatistikMitgliederGeschlechtComponent,
         StatistikGruppenTermineComponent,
         NextGeburtstagComponent,
-        TerminTeilnahmeDropdownComponent,
+        TerminTeilnahmeSelectorComponent,
         TeilnahmenOverviewComponent,
     ],
     providers: [

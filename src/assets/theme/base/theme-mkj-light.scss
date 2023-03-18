@@ -3,24 +3,6 @@ $emphasis-medium: rgba(0, 0, 0, 0.6);
 $emphasis-low: rgba(0, 0, 0, 0.38);
 $emphasis-lower: rgba(0, 0, 0, 0.12);
 
-:root {
-    --surface-0: #eaeaea;
-    --surface-50: #dcdbdb;
-    --surface-100: #dcdcdc;
-    --surface-200: #d3d2d2;
-    --surface-300: #c1c1c1;
-    --surface-400: #9b9999;
-    --surface-500: #7e7d7d;
-    --surface-600: #555555;
-    --surface-700: #474747;
-    --surface-800: #363636;
-    --surface-900: #1f1f1f;
-
-    --mkj-border: #757575;
-    --scrollbar-color: #757575;
-    --scrollbar-color-hover: var(--surface-800);
-}
-
 $primaryColor: #006600;
 $primaryLightColor: #66bb6a;
 $primaryTextColor: #e8f5e9;
@@ -37,6 +19,25 @@ $darkMenuItemHoverBgColor: #545454;
 $darkSidemenuBgColor: #343434;
 $darkMenuBgColor: #424242;
 $mkjErrorColor: #c51400fc;
+
+:root {
+    --surface-0: #eaeaea;
+    --surface-50: #dcdbdb;
+    --surface-100: #dcdcdc;
+    --surface-200: #d3d2d2;
+    --surface-300: #c1c1c1;
+    --surface-400: #9b9999;
+    --surface-500: #7e7d7d;
+    --surface-600: #555555;
+    --surface-700: #474747;
+    --surface-800: #363636;
+    --surface-900: #1f1f1f;
+
+    --mkj-border: #757575;
+    --scrollbar-color: #757575;
+    --scrollbar-color-hover: var(--surface-800);
+    --mkj-error-color: #{$mkjErrorColor};
+}
 
 @import "../../sass/theme/_variables";
 @import "../../sass/layout/layout";

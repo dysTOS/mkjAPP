@@ -1,0 +1,7 @@
+.abwesend ::ng-deep .p-highlight {
+    background-color: var(--mkj-error-color) !important;
+}
+
+.abwesend ::ng-deep .p-highlight:hover {
+    opacity: 0.6 !important;
+}

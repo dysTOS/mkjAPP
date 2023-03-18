@@ -86,6 +86,7 @@ export class InfoService {
             message:
                 message ??
                 "Bist du sicher das dieser Datensatz gelöscht werden soll?",
+            acceptLabel: "Löschen",
             acceptButtonStyleClass: "p-button-danger",
             rejectButtonStyleClass: "p-button-text",
             accept: () => {
@@ -104,7 +105,6 @@ export class InfoService {
                 subject.error(null);
                 subject.complete();
             },
-            acceptLabel: "Löschen",
         });
         return subject;
     }

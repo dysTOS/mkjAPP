@@ -191,27 +191,27 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     }
 
     public deleteAusrueckung(ausrueckung: Termin) {
-        this.confirmationService.confirm({
-            header: "Ausrückung löschen?",
-            icon: "pi pi-exclamation-triangle",
-            accept: () => {
-                this.loading = true;
-                this.termineApiService.deleteTermin(ausrueckung).subscribe(
-                    () => {
-                        this.ausrueckungenArray =
-                            this.ausrueckungenArray.filter(
-                                (val) => val.id !== ausrueckung.id
-                            );
-                        this.loading = false;
-                        this.infoService.success("Ausrückung gelöscht!");
-                    },
-                    (error) => {
+        this.loading = true;
+        this.infoService
+            .confirmDelete(
+                `Soll der Termin "${ausrueckung.name}" wirklich gelöscht werden?`,
+                () => this.termineApiService.deleteTermin(ausrueckung)
+            )
+            .subscribe({
+                next: () => {
+                    this.ausrueckungenArray = this.ausrueckungenArray.filter(
+                        (val) => val.id !== ausrueckung.id
+                    );
+                    this.loading = false;
+                    this.infoService.success("Ausrückung gelöscht!");
+                },
+                error: (error) => {
+                    if (error) {
                         this.infoService.error(error);
-                        this.loading = false;
                     }
-                );
-            },
-        });
+                    this.loading = false;
+                },
+            });
     }
 
     public duplicateAusrueckung(ausrueckung: Termin) {
@@ -220,7 +220,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         duplicateAusrueckung.id = null;
         duplicateAusrueckung.created_at = null;
         duplicateAusrueckung.updated_at = null;
-        duplicateAusrueckung.name = duplicateAusrueckung.name + " - Kopie";
+        duplicateAusrueckung.name = duplicateAusrueckung.name + " - KOPIE";
 
         this.termineApiService.createTermin(duplicateAusrueckung).subscribe({
             next: (res) => {

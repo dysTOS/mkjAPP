@@ -1,0 +1,17 @@
+<p-selectButton
+    [(ngModel)]="status"
+    (ngModelChange)="updateStatus()"
+    [options]="options"
+    optionLabel="label"
+    optionValue="value"
+    [disabled]="!termin || loading || disabled"
+    [class]="status"
+>
+    <ng-template pTemplate="item" let-option>
+        <i
+            [class]="loading ? 'pi pi-spin pi-spinner' : option.icon"
+            class="mr-2"
+        ></i
+        ><span>{{ option.label }}</span>
+    </ng-template>
+</p-selectButton>

@@ -5,10 +5,11 @@ import { TeilnahmenApiService } from "src/app/services/api/teilnahmen-api.servic
 import { InfoService } from "src/app/services/info.service";
 
 @Component({
-    selector: "mkj-termin-teilnahme-dropdown",
-    templateUrl: "./termin-teilnahme-dropdown.component.html",
+    selector: "mkj-termin-teilnahme-selector",
+    styleUrls: ["./termin-teilnahme-selector.component.scss"],
+    templateUrl: "./termin-teilnahme-selector.component.html",
 })
-export class TerminTeilnahmeDropdownComponent {
+export class TerminTeilnahmeSelectorComponent {
     private _termin: Termin;
     @Input()
     public get termin(): Termin {
@@ -33,7 +34,6 @@ export class TerminTeilnahmeDropdownComponent {
     public options = TerminTeilnahmeMap;
     public loading: boolean;
     public disabled: boolean;
-    public placeholder: string = "Teilnahmestatus";
 
     constructor(
         private teilnahmeService: TeilnahmenApiService,

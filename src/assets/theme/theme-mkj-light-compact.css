@@ -13,6 +13,7 @@
   --mkj-border: #757575;
   --scrollbar-color: #757575;
   --scrollbar-color-hover: var(--surface-800);
+  --mkj-error-color: rgba(197, 20, 0, 0.9882352941);
 }
 
 :root {
