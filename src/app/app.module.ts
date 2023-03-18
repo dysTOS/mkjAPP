@@ -162,6 +162,9 @@ import { MkjDateInputComponent } from "./utilities/form-components/mkj-date-inpu
 import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
 import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
 import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
+import { InstrumenteOverviewComponent } from './components/instrumente/instrumente-overview/instrumente-overview.component';
+import { InstrumenteEditorComponent } from './components/instrumente/instrumente-editor/instrumente-editor.component';
+import { InstrumentFormComponent } from './utilities/form-components/instrument-form/instrument-form.component';
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
 import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
@@ -343,6 +346,9 @@ registerLocaleData(localeDe);
         NotenCardComponent,
         StatistikOverviewComponent,
         MitgliedRolesPickerComponent,
+        InstrumenteOverviewComponent,
+        InstrumenteEditorComponent,
+        InstrumentFormComponent,
         AnwesenheitsListeComponent,
         StatistikMitgliederGeschlechtComponent,
         StatistikGruppenTermineComponent,
