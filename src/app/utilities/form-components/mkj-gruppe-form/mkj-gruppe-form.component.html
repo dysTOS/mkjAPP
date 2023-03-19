@@ -12,27 +12,11 @@
         </span>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
-        <span class="p-float-label">
-            <p-autoComplete
-                [(ngModel)]="gruppenleiter"
-                (ngModelChange)="setGruppenleiter($event?.mitglied)"
-                [ngModelOptions]="{ standalone: true }"
-                [suggestions]="mitgliederSearchResult"
-                (completeMethod)="searchMitglieder($event)"
-                [forceSelection]="true"
-                [autoHighlight]="true"
-                dataKey="id"
-                inputId="gruppenleiter"
-                field="name"
-            >
-                <ng-template let-mitglied pTemplate="item">
-                    <div>
-                        {{ mitglied.mitglied | fullName }}
-                    </div>
-                </ng-template>
-            </p-autoComplete>
-            <label for="gruppenleiter">Gruppenleiter</label>
-        </span>
+        <mkj-mitglied-autocomplete
+            label="Gruppenleiter"
+            [(mitglied)]="gruppenleiter"
+            (mitgliedChange)="setGruppenleiter($event)"
+        ></mkj-mitglied-autocomplete>
     </div>
 
     <div class="p-field col-12 lg:col-3 md:col-6">

@@ -10,42 +10,45 @@
 
 @import "~@mdi/font/css/materialdesignicons.css";
 
+.mdi:before,
+.mdi-set {
+    font-size: larger !important;
+}
+
 /** Scrollbar */
 ::-webkit-scrollbar {
     width: 0.929rem; /* Total width including `border-width` of the vertical scrollbar thumb */
     height: 0.929rem; /* Total width including `border-width` of the horizontal scrollbar thumb */
-  }
+}
 
-  ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     border: 0.286rem solid rgba(0, 0, 0, 0); /* Transparent border together with `background-clip: padding-box` does the 'margin'-trick */
     background-clip: padding-box;
     -webkit-border-radius: 0.5rem;
     border-radius: 0.5rem;
     background-color: var(--scrollbar-color); /*actual thumb-color*/
-  }
+}
 
-  ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     border: 0.286rem solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
     -webkit-border-radius: 0.5rem;
     border-radius: 0.5rem;
     background-color: var(--scrollbar-color-hover); /*actual hover-color*/
-  }
+}
 
-  ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: transparent !important;
-  }
+}
 
-  ::-webkit-scrollbar-button {
+::-webkit-scrollbar-button {
     width: 0;
     height: 0;
     display: none;
-  }
-  ::-webkit-scrollbar-corner {
+}
+::-webkit-scrollbar-corner {
     background-color: transparent; //hides the corner in the case of both vertical/horizontal scrollbars are visible
-  }
-
-
+}
 
 body {
     user-select: none;

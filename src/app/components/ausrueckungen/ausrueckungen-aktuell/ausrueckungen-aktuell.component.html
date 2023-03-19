@@ -220,42 +220,33 @@
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
                         <td colspan="4">
+                            <div class="flex justify-content-center mb-5">
+                                <mkj-termin-teilnahme-selector
+                                    [termin]="ausrueckung"
+                                ></mkj-termin-teilnahme-selector>
+                            </div>
                             <termin-card [termin]="ausrueckung"></termin-card>
-                            <div class="grid">
-                                <div
-                                    class="md:col-4 col-12 flex justify-content-center"
-                                >
-                                    <mkj-termin-teilnahme-selector
-                                        [termin]="ausrueckung"
-                                    ></mkj-termin-teilnahme-selector>
-                                </div>
-                                <div
-                                    class="md:col-4 col-12 flex justify-content-center"
-                                >
-                                    <button
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-list"
-                                        label="Details"
-                                        class="p-button-raised p-button-outlined p-button-primary"
-                                        [routerLink]="
-                                            '../details/' + ausrueckung.id
-                                        "
-                                    ></button>
-                                </div>
-                                <div
-                                    class="md:col-4 col-12 flex justify-content-center"
-                                >
-                                    <button
-                                        *ngIf="hasAktionenPermissions"
-                                        pButton
-                                        pRipple
-                                        icon="pi pi-pencil"
-                                        label="Aktionen"
-                                        class="p-button-outlined p-button-info"
-                                        (click)="rowMenu.toggle($event)"
-                                    ></button>
-                                </div>
+                            <div class="flex justify-content-around">
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-list"
+                                    label="Details"
+                                    class="p-button-raised p-button-rounded p-button-secondary"
+                                    [routerLink]="
+                                        '../details/' + ausrueckung.id
+                                    "
+                                ></button>
+
+                                <button
+                                    *ngIf="hasAktionenPermissions"
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    label="Aktionen"
+                                    class="p-button-outlined p-button-rounded p-button-info"
+                                    (click)="rowMenu.toggle($event)"
+                                ></button>
                             </div>
                         </td>
                     </tr>

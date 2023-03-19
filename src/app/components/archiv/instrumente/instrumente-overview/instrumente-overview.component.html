@@ -1,0 +1,23 @@
+<p-table [value]="values" [loading]="uiService.loading | async">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Bezeichnung</th>
+            <th>Marke</th>
+            <th>Anmerkungen</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{ item.bezeichnung }}</td>
+            <td>{{ item.marke }}</td>
+            <td>{{ item.anmerkungen }}</td>
+            <td>
+                <button
+                    pButton
+                    icon="pi pi-pencil"
+                    (click)="navigateEditor(item)"
+                ></button>
+            </td>
+        </tr> </ng-template
+></p-table>

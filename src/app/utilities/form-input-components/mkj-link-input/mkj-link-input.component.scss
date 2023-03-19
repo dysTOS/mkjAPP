@@ -1,0 +1,14 @@
+.link-list {
+    .link {
+        display: flex;
+        flex-direction: column;
+
+        .url {
+            font-size: 0.8rem;
+            max-width: 11rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

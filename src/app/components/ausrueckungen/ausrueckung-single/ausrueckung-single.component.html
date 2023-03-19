@@ -3,9 +3,10 @@
 <mkj-content-loader [loading]="loading">
     <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel [selected]="true" header="Infos">
-            <termin-card *ngIf="termin" [termin]="termin"></termin-card>
             <div *ngIf="termin">
-                <div class="col-12 flex justify-content-center">
+                <termin-card [termin]="termin"></termin-card>
+
+                <div class="col-12 flex justify-content-center mb-5">
                     <mkj-termin-teilnahme-selector
                         [termin]="termin"
                     ></mkj-termin-teilnahme-selector>

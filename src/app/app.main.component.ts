@@ -37,8 +37,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     configClick: boolean;
 
-    public version = "0.8.1";
-
     public publicTestEnvironment = environment.publictest;
     private subSink = new SubSink();
 

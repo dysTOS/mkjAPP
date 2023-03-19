@@ -7,7 +7,10 @@
         'p-input-filled': themeService.inputStyle === 'filled'
     }"
 >
-    <div style="z-index: 10000"><p-toast></p-toast></div>
+    <div style="z-index: 10000">
+        <p-toast></p-toast>
+        <p-toast key="bottom-center" position="bottom-center"></p-toast>
+    </div>
     <p-confirmDialog
         header="Bestätigen"
         icon="pi pi-exclamation-triangle"

@@ -1,0 +1,22 @@
+<div class="p-float-label">
+    <p-autoComplete
+        [(ngModel)]="internalMitglied"
+        (ngModelChange)="mitgliedChange.emit($event?.mitglied)"
+        [ngModelOptions]="{ standalone: true }"
+        [suggestions]="mitgliederSearchResult"
+        (completeMethod)="searchMitglieder($event)"
+        [forceSelection]="true"
+        [autoHighlight]="true"
+        dataKey="id"
+        [inputId]="label"
+        [showEmptyMessage]="true"
+        field="name"
+    >
+        <ng-template let-mitglied pTemplate="item">
+            <div>
+                {{ mitglied.mitglied | fullName }}
+            </div>
+        </ng-template>
+    </p-autoComplete>
+    <label [for]="label">{{ label }}</label>
+</div>

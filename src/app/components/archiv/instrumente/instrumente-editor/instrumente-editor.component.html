@@ -1,0 +1,24 @@
+<mkj-content-loader [loading]="uiService.loading | async" class="h-full">
+    <div class="card">
+        <mkj-instrument-form [formGroup]="formGroup"></mkj-instrument-form>
+        <div class="col-12 flex justify-content-end">
+            <button
+                pRipple
+                pButton
+                label="Speichern"
+                [icon]="
+                    (uiService.saving | async)
+                        ? 'pi pi-spin pi-spinner'
+                        : 'pi pi-check'
+                "
+                class="p-button-plain"
+                [disabled]="
+                    (uiService.saving | async) ||
+                    formGroup?.invalid ||
+                    formGroup?.pristine
+                "
+                (click)="saveInstrument()"
+            ></button>
+        </div>
+    </div>
+</mkj-content-loader>

@@ -1,0 +1,22 @@
+<div class="flex justify-content-end">
+    <p>
+        Aktuelle Version -
+        <span class="font-bold">
+            {{ version }}
+        </span>
+    </p>
+</div>
+
+<ul>
+    <li *ngFor="let log of logs" class="mt-5">
+        <h6>{{ log.date }} | {{ log.version }}</h6>
+        <ul>
+            <li *ngFor="let change of log.changes | keyvalue">
+                <p>
+                    <span class="font-bold">{{ change.key }}:</span>
+                    {{ change.value }}
+                </p>
+            </li>
+        </ul>
+    </li>
+</ul>

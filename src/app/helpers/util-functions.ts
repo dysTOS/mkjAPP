@@ -1,5 +1,6 @@
 import { FormBuilder, Validators } from "@angular/forms";
 import { Gruppe } from "../models/Gruppe";
+import { Instrument } from "../models/Instrument";
 import { Noten } from "../models/Noten";
 import { Termin } from "../models/Termin";
 
@@ -86,8 +87,29 @@ export class UtilFunctions {
             ausgeliehenVon: [noten?.ausgeliehenVon ?? null],
             anmerkungen: [noten?.anmerkungen ?? null],
             aufbewahrungsort: [noten?.aufbewahrungsort ?? null],
+            links: [noten?.links ?? null],
             created_at: [noten?.created_at ?? null],
             updated_at: [noten?.updated_at ?? null],
+        });
+    }
+
+    public static getInstrumentFormGroup(
+        fb: FormBuilder,
+        instrument?: Instrument
+    ) {
+        return fb.group({
+            id: [instrument?.id ?? null],
+            marke: [instrument?.marke ?? null],
+            bezeichnung: [instrument?.bezeichnung ?? null, Validators.required],
+            anschaffungsdatum: [instrument?.anschaffungsdatum ?? null],
+            verkaeufer: [instrument?.verkaeufer ?? null],
+            schaeden: [instrument?.schaeden ?? null],
+            anmerkungen: [instrument?.anmerkungen ?? null],
+            aufbewahrungsort: [instrument?.aufbewahrungsort ?? null],
+            mitglied_id: [instrument?.mitglied_id ?? null],
+            mitglied: [instrument?.mitglied ?? null],
+            created_at: [instrument?.created_at ?? null],
+            updated_at: [instrument?.updated_at ?? null],
         });
     }
 

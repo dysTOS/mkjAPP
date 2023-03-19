@@ -14,11 +14,11 @@ import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { RouteGuard } from "./guards/route.guard";
 import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
-import { NotenarchivComponent } from "./components/noten/notenarchiv/notenarchiv.component";
-import { NotenmappenComponent } from "./components/noten/notenmappen/notenmappen.component";
-import { NotenmappeDetailsComponent } from "./components/noten/notenmappen/notenmappe-details/notenmappe-details.component";
+import { NotenarchivComponent } from "./components/archiv/noten/notenarchiv/notenarchiv.component";
+import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
+import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
-import { NotenWrapperComponent } from "./components/noten/noten-wrapper.component";
+import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
@@ -36,7 +36,10 @@ import { RollenEditComponent } from "./components/einstellungen/rollen-edit/roll
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
-import { NotenEditorComponent } from "./components/noten/noten-editor/noten-editor.component";
+import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/noten-editor.component";
+import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
+import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
+import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 
 @NgModule({
     imports: [
@@ -140,18 +143,18 @@ import { NotenEditorComponent } from "./components/noten/noten-editor/noten-edit
                             ],
                         },
                         {
-                            path: "noten",
-                            component: NotenWrapperComponent,
+                            path: "archiv",
+                            component: ArchivWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - NOTEN",
+                            title: "mkjAPP - ARCHIV",
                             children: [
                                 {
-                                    path: "archiv",
+                                    path: "noten",
                                     component: NotenarchivComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
-                                    path: "archiv/:id",
+                                    path: "noten/:id",
                                     component: NotenEditorComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
@@ -167,8 +170,20 @@ import { NotenEditorComponent } from "./components/noten/noten-editor/noten-edit
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
+                                {
+                                    path: "instrumente",
+                                    component: InstrumenteOverviewComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "instrumente/:id",
+                                    component: InstrumenteEditorComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
                             ],
                         },
+
                         {
                             path: "statistik",
                             component: StatistikOverviewComponent,
@@ -206,6 +221,11 @@ import { NotenEditorComponent } from "./components/noten/noten-editor/noten-edit
                                 {
                                     path: "bugreport",
                                     component: BugReportComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "changelog",
+                                    component: MkjChangeLogsComponent,
                                     canActivate: [RouteGuard],
                                 },
                             ],

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Observable, Subject } from "rxjs";
+import { UtilFunctions } from "../helpers/util-functions";
 
 @Injectable({
     providedIn: "root",
@@ -14,6 +15,7 @@ export class InfoService {
     public error(error: any) {
         if (typeof error === "string") {
             this.messageService.add({
+                key: this.checkDisplayWidth(),
                 severity: "error",
                 summary: "Fehler",
                 detail: error,
@@ -24,6 +26,7 @@ export class InfoService {
 
         if (error?.error?.message) {
             this.messageService.add({
+                key: this.checkDisplayWidth(),
                 severity: "error",
                 summary: "Fehler",
                 detail: error.error?.message,
@@ -34,6 +37,7 @@ export class InfoService {
         if (error?.error?.errors) {
             Object.values(error.error.errors).forEach((e) =>
                 this.messageService.add({
+                    key: this.checkDisplayWidth(),
                     severity: "error",
                     summary: "Fehler",
                     detail: e[0],
@@ -45,6 +49,7 @@ export class InfoService {
 
     public success(details: string) {
         this.messageService.add({
+            key: this.checkDisplayWidth(),
             severity: "success",
             summary: "Erfolg",
             detail: details,
@@ -54,6 +59,7 @@ export class InfoService {
 
     public info(details: string) {
         this.messageService.add({
+            key: this.checkDisplayWidth(),
             severity: "info",
             summary: "Info",
             detail: details,
@@ -63,6 +69,7 @@ export class InfoService {
 
     public danger(details: string) {
         this.messageService.add({
+            key: this.checkDisplayWidth(),
             severity: "warning",
             summary: "Warnung",
             detail: details,
@@ -72,6 +79,7 @@ export class InfoService {
 
     public pushNotification(notification: any) {
         this.messageService.add({
+            key: this.checkDisplayWidth(),
             severity: "info",
             summary: "Push Notification",
             sticky: true,
@@ -107,5 +115,13 @@ export class InfoService {
             },
         });
         return subject;
+    }
+
+    private checkDisplayWidth(): string | null {
+        if (!UtilFunctions.isDesktop()) {
+            return "bottom-center";
+        }
+
+        return undefined;
     }
 }

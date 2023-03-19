@@ -22,7 +22,7 @@ export class TerminTeilnahmeSelectorComponent {
             this.getStatus();
         }
         if (
-            moment(value.vonDatum).isBefore(
+            moment(value?.vonDatum).isBefore(
                 moment(new Date()).subtract(1, "day")
             )
         ) {
