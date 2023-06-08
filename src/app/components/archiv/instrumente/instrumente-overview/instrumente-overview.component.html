@@ -1,9 +1,14 @@
-<p-table [value]="values" [loading]="uiService.loading | async">
+<p-table
+    [value]="values"
+    [loading]="uiService.loading | async"
+    responsiveLayout="scroll"
+>
     <ng-template pTemplate="header">
         <tr>
             <th>Bezeichnung</th>
             <th>Marke</th>
             <th>Anmerkungen</th>
+            <th>Zugeordnet</th>
             <th></th>
         </tr>
     </ng-template>
@@ -12,6 +17,7 @@
             <td>{{ item.bezeichnung }}</td>
             <td>{{ item.marke }}</td>
             <td>{{ item.anmerkungen }}</td>
+            <td>{{ item.mitglied?.vorname + " " + item.mitglied?.zuname }}</td>
             <td>
                 <button
                     pButton

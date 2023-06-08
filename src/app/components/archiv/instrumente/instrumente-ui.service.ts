@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map, Observable, of, tap } from "rxjs";
 import { Instrument } from "src/app/models/Instrument";
-import { Mitglied } from "src/app/models/Mitglied";
 import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
 import { InfoService } from "src/app/services/info.service";
 
@@ -76,46 +75,6 @@ export class InstrumenteUiService {
                     this._loading.next(false);
                     this.infoService.info("Instrument entfernt.");
                     return of(true);
-                }),
-                catchError((err) => {
-                    this._loading.next(false);
-                    this.infoService.error(err);
-                    return of(null);
-                })
-            );
-    }
-
-    public attachInstrumentToMitglied(
-        instrument: Instrument,
-        mitglied: Mitglied
-    ) {
-        this._loading.next(true);
-        return this.apiService
-            .attachInstrumentToMitglied(instrument.id, mitglied.id)
-            .pipe(
-                tap((e) => {
-                    this._loading.next(false);
-                    this.infoService.success("Instrument zugewiesen");
-                }),
-                catchError((err) => {
-                    this._loading.next(false);
-                    this.infoService.error(err);
-                    return of(null);
-                })
-            );
-    }
-
-    public detachInstrumentFromMitglied(
-        instrument: Instrument,
-        mitglied: Mitglied
-    ) {
-        this._loading.next(true);
-        return this.apiService
-            .detachInstrumentFromMitglied(instrument.id, mitglied.id)
-            .pipe(
-                tap((e) => {
-                    this._loading.next(false);
-                    this.infoService.success("Instrument entfernt");
                 }),
                 catchError((err) => {
                     this._loading.next(false);

@@ -114,7 +114,7 @@ $buttonTextHoverColor: $primaryTextColor;
 $buttonHoverBorderColor: transparent;
 $buttonActiveBg: rgba($primaryColor, 0.68);
 $buttonTextActiveColor: $primaryTextColor;
-$buttonActiveBorderColor: transparent;
+$buttonActiveBorderColor: $textSecondaryColor;
 $raisedButtonShadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
     0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 $roundedButtonBorderRadius: 2rem;
@@ -230,11 +230,11 @@ $colorPickerHandleColor: var(--surface-0);
 
 //togglebutton
 $toggleButtonBg: var(--surface-0);
-$toggleButtonBorder: 1px solid rgba(0, 0, 0, 0.12);
+$toggleButtonBorder: 1px solid $textSecondaryColor;
 $toggleButtonTextColor: $textColor;
 $toggleButtonIconColor: $textSecondaryColor;
 $toggleButtonHoverBg: var(--surface-100);
-$toggleButtonHoverBorderColor: rgba(0, 0, 0, 0.12);
+$toggleButtonHoverBorderColor: $textSecondaryColor;
 $toggleButtonTextHoverColor: $textColor;
 $toggleButtonIconHoverColor: $textSecondaryColor;
 $toggleButtonActiveBg: $primaryColor;
@@ -326,7 +326,7 @@ $inputSwitchHandleOnBg: $primaryColor;
 //panel
 $panelHeaderBorderColor: #e0e0e0 !default;
 $panelHeaderBorder: 1px solid #e0e0e0;
-$panelHeaderBg: var(--surface-0);
+$panelHeaderBg: var(--surface-50);
 $panelHeaderTextColor: $textColor;
 $panelHeaderFontWeight: 500;
 $panelHeaderPadding: 1rem;
@@ -350,12 +350,12 @@ $panelFooterPadding: 1rem 1rem;
 //accordion
 $accordionSpacing: 0;
 $accordionHeaderBorder: 0 none;
-$accordionHeaderBg: var(--surface-0);
+$accordionHeaderBg: var(--surface-50);
 $accordionHeaderTextColor: $textColor;
 $accordionHeaderFontWeight: 400;
 $accordionHeaderPadding: 1.5rem;
 
-$accordionHeaderHoverBg: var(--surface-50);
+$accordionHeaderHoverBg: var(--surface-100);
 $accordionHeaderHoverBorderColor: transparent;
 $accordionHeaderTextHoverColor: $textColor;
 

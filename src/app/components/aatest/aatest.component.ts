@@ -1,9 +1,9 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FileService } from "src/app/services/file.service";
 import * as FileSaver from "file-saver";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
+import { FileService } from "src/app/services/file.service";
 import { PushNotificationsService } from "src/app/services/push-notifications.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Component({
     selector: "app-aatest",

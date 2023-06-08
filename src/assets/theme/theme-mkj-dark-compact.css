@@ -1,15 +1,15 @@
 :root {
   --surface-900: #eaeaea;
-  --surface-800: #dcdbdb;
-  --surface-700: #dcdcdc;
-  --surface-600: #d3d2d2;
-  --surface-500: #c1c1c1;
-  --surface-400: #9b9999;
-  --surface-300: #7e7d7d;
-  --surface-200: #555555;
-  --surface-100: #474747;
-  --surface-50: #363636;
-  --surface-0: #1f1f1f;
+  --surface-800: #c5c5c5;
+  --surface-700: #c4c4c4;
+  --surface-600: #adadad;
+  --surface-500: #919191;
+  --surface-400: #757575;
+  --surface-300: #696969;
+  --surface-200: #4d4d4d;
+  --surface-100: #3f3f3f;
+  --surface-50: #1f1f1f;
+  --surface-0: #161616;
   --mkj-border: #757575;
   --scrollbar-color: #757575;
   --scrollbar-color-hover: var(--surface-800);
@@ -3801,7 +3801,7 @@ p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
 }
 
 .p-editor-container .p-editor-toolbar {
-  background: var(--surface-0);
+  background: var(--surface-50);
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
@@ -4443,7 +4443,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 
 .p-selectbutton .p-button {
   background: var(--surface-0);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
@@ -4453,7 +4453,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 }
 .p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover {
   background: var(--surface-100);
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
 }
 .p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-left,
@@ -4537,7 +4537,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
 
 .p-togglebutton.p-button {
   background: var(--surface-0);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
@@ -4547,7 +4547,7 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
 }
 .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
   background: var(--surface-100);
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
 }
 .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover .p-button-icon-left,
@@ -4664,7 +4664,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-button:enabled:active {
   background: rgba(73, 223, 73, 0.68);
   color: #e8f5e9;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
 }
 .p-button.p-button-outlined {
   background-color: transparent;
@@ -5366,7 +5366,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-datatable .p-datatable-scrollable-header,
 .p-datatable .p-datatable-scrollable-footer {
-  background: var(--surface-0);
+  background: var(--surface-50);
 }
 .p-datatable .p-datatable-loading-icon {
   font-size: 2rem;
@@ -5604,7 +5604,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   /* FullCalendar 5 */
 }
 .fc.fc-unthemed .fc-view-container th {
-  background: var(--surface-0);
+  background: var(--surface-50);
   border: 1px solid #e0e0e0;
   color: rgb(241, 241, 241);
 }
@@ -5625,7 +5625,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: #49df49;
 }
 .fc.fc-unthemed .fc-view-container .fc-divider {
-  background: var(--surface-0);
+  background: var(--surface-50);
   border: 1px solid #e0e0e0;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button {
@@ -5646,7 +5646,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .fc.fc-unthemed .fc-toolbar .fc-button:enabled:active {
   background: rgba(73, 223, 73, 0.68);
   color: #e8f5e9;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
 }
 .fc.fc-unthemed .fc-toolbar .fc-button:enabled:active:focus {
   outline: 0 none;
@@ -5676,13 +5676,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-unthemed .fc-toolbar .fc-button.fc-dayGridMonth-button, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridWeek-button, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridDay-button {
   background: var(--surface-0);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
 .fc.fc-unthemed .fc-toolbar .fc-button.fc-dayGridMonth-button:hover, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridWeek-button:hover, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridDay-button:hover {
   background: var(--surface-100);
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
 }
 .fc.fc-unthemed .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active, .fc.fc-unthemed .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active {
@@ -5716,7 +5716,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: #e0e0e0;
 }
 .fc.fc-theme-standard .fc-view-harness th {
-  background: var(--surface-0);
+  background: var(--surface-50);
   border-color: #e0e0e0;
   color: rgb(241, 241, 241);
 }
@@ -5734,7 +5734,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-header {
   border: 1px solid #e0e0e0;
   padding: 0.75rem;
-  background: var(--surface-0);
+  background: var(--surface-50);
   color: rgb(241, 241, 241);
 }
 .fc.fc-theme-standard .fc-view-harness .fc-popover .fc-popover-header .fc-popover-close {
@@ -5790,7 +5790,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   color: rgb(241, 241, 241);
 }
 .fc.fc-theme-standard .fc-view-harness .fc-cell-shaded {
-  background: var(--surface-0);
+  background: var(--surface-50);
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button {
   color: #e8f5e9;
@@ -5808,7 +5808,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:active {
   background: rgba(73, 223, 73, 0.68);
   color: #e8f5e9;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:enabled:active:focus {
   outline: 0 none;
@@ -5844,13 +5844,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button {
   background: var(--surface-0);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button:hover, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button:hover, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button:hover {
   background: var(--surface-100);
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
   color: rgb(241, 241, 241);
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active {
@@ -5891,7 +5891,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-bottom: 0.5rem;
 }
 .p-orderlist .p-orderlist-header {
-  background: var(--surface-0);
+  background: var(--surface-50);
   color: rgb(241, 241, 241);
   border: 1px solid #e0e0e0;
   padding: 0.75rem;
@@ -6079,7 +6079,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-bottom: 0.5rem;
 }
 .p-picklist .p-picklist-header {
-  background: var(--surface-0);
+  background: var(--surface-50);
   color: rgb(241, 241, 241);
   border: 1px solid #e0e0e0;
   padding: 0.75rem;
@@ -6433,7 +6433,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 .p-treetable .p-treetable-scrollable-header,
 .p-treetable .p-treetable-scrollable-footer {
-  background: var(--surface-0);
+  background: var(--surface-50);
 }
 .p-treetable .p-treetable-loading-icon {
   font-size: 2rem;
@@ -6519,7 +6519,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1.25rem;
   border: 0 none;
   color: rgb(241, 241, 241);
-  background: var(--surface-0);
+  background: var(--surface-50);
   font-weight: 400;
   border-radius: 4px;
   transition: none;
@@ -6533,7 +6533,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
-  background: var(--surface-50);
+  background: var(--surface-100);
   border-color: transparent;
   color: rgb(241, 241, 241);
 }
@@ -6648,7 +6648,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 0.75rem;
   border: 1px solid #e0e0e0;
   color: rgb(241, 241, 241);
-  background: var(--surface-0);
+  background: var(--surface-50);
   font-weight: 500;
   border-radius: 4px;
 }
@@ -6682,7 +6682,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-panel .p-panel-header {
   border: 1px solid #e0e0e0;
   padding: 0.75rem;
-  background: var(--surface-0);
+  background: var(--surface-50);
   color: rgb(241, 241, 241);
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -6806,7 +6806,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-toolbar {
-  background: var(--surface-0);
+  background: var(--surface-50);
   border: 1px solid #e0e0e0;
   padding: 0.75rem;
   border-radius: 4px;
@@ -7033,7 +7033,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 }
 
 .p-fileupload .p-fileupload-buttonbar {
-  background: var(--surface-0);
+  background: var(--surface-50);
   padding: 0.75rem;
   border: 1px solid #e0e0e0;
   color: rgb(241, 241, 241);
@@ -7075,7 +7075,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
 .p-fileupload-choose:not(.p-disabled):active {
   background: rgba(73, 223, 73, 0.68);
   color: #e8f5e9;
-  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .p-breadcrumb {
@@ -7677,7 +7677,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1.25rem;
   border: 0 none;
   color: rgb(241, 241, 241);
-  background: var(--surface-0);
+  background: var(--surface-50);
   font-weight: 400;
   border-radius: 4px;
   transition: none;
@@ -7694,7 +7694,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
-  background: var(--surface-50);
+  background: var(--surface-100);
   border-color: transparent;
   color: rgb(241, 241, 241);
 }
@@ -8570,7 +8570,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   transition: transform 0.3s;
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-header-link:focus {
-  background: var(--surface-50);
+  background: var(--surface-100);
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-toggle-icon {
   transform: rotate(-270deg);
@@ -9496,7 +9496,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   opacity: 0.38;
 }
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) .p-panelmenu-header-link:focus {
-  background: var(--surface-50);
+  background: var(--surface-100);
 }
 
 .p-progressbar {

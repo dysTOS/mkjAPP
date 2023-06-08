@@ -8,6 +8,9 @@ import { SubSink } from "subsink";
     templateUrl: "./instrument-form.component.html",
 })
 export class InstrumentFormComponent implements OnDestroy {
+    public besitzer: Mitglied;
+    private subSink = new SubSink();
+
     private _formGroup: FormGroup;
     @Input()
     public get formGroup(): FormGroup {
@@ -15,16 +18,15 @@ export class InstrumentFormComponent implements OnDestroy {
     }
     public set formGroup(value: FormGroup) {
         this._formGroup = value;
-        this.subSink.add(
-            this.formGroup?.controls.mitglied.valueChanges.subscribe(
-                (m) => (this.besitzer = m)
-            )
-        );
+        if (value) {
+            this.besitzer = value.controls.mitglied.value;
+            this.subSink.add(
+                value.controls.mitglied.valueChanges.subscribe((m) => {
+                    this.besitzer = m;
+                })
+            );
+        }
     }
-
-    public besitzer: Mitglied;
-
-    private subSink = new SubSink();
 
     constructor() {}
 

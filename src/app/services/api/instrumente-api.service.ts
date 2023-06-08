@@ -38,25 +38,4 @@ export class InstrumenteApiService {
             StandardHttpOptions
         );
     }
-
-    public attachInstrumentToMitglied(
-        instrumentId: string,
-        mitgliedId: string
-    ): Observable<Instrument> {
-        return this.http.post<Instrument>(
-            this.apiURL + "/" + instrumentId + "/mitglied/" + mitgliedId,
-            {},
-            StandardHttpOptions
-        );
-    }
-
-    public detachInstrumentFromMitglied(
-        instrumentId: string,
-        mitgliedId: string
-    ): Observable<Instrument> {
-        return this.http.delete<Instrument>(
-            this.apiURL + "/" + instrumentId + "/mitglied/" + mitgliedId,
-            StandardHttpOptions
-        );
-    }
 }

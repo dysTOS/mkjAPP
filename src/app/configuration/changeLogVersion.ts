@@ -17,11 +17,19 @@ export const MkjAppChangeLog: MkjAppChangeLog[] = [
     // },
     {
         date: "19. März 2021",
-        version: "0.8.2",
+        version: "0.8.2 - ALPHA",
         changes: {
             Links: "Für jedes Stück im Notenarchiv können beliebig viele Links (u.a. zu Hörbeispielen z.B. auf Youtube) angelegt werden.",
             Changelogs: "Es gibt nun ChangeLogs für neue Versionen der APP.",
             UI: "Verbesserungen der Benutzeroberfläche.",
+        },
+    },
+    {
+        date: "November 2021 bis März 2023",
+        version: "Keine Versionsnummer",
+        changes: {
+            Entwicklungsphase:
+                "Die App befindet sich in der Entwicklungsphase.",
         },
     },
 ];
