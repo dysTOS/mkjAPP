@@ -11,9 +11,14 @@
             <span>Nächster Termin:</span>
         </p>
         <div *ngIf="nextAusrueckung" class="next-ausrueckung">
-            <h4>
-                {{ nextAusrueckung?.name }}
-            </h4>
+            <a
+                pRipple
+                routerLink="../ausrueckungen/details/{{ nextAusrueckung?.id }}"
+            >
+                <h4>
+                    {{ nextAusrueckung?.name }}
+                </h4>
+            </a>
             <p>
                 {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
                 <b>{{ nextAusrueckung?.treffzeit }}</b>

@@ -1,5 +1,5 @@
 import { DatePipe, registerLocaleData } from "@angular/common";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import localeDe from "@angular/common/locales/de-AT";
 import { LOCALE_ID, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -154,6 +154,7 @@ import { MkjTemplateDirective } from "./directives/mkj-template.directive";
 import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
 import { AuthInterceptor } from "./guards/auth-interceptor";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
+import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { SignupComponent } from "./pages/signup/signup.component";
 import { FullNamePipe } from "./pipes/full-name.pipe";
@@ -164,12 +165,13 @@ import { MenuService } from "./services/menu.service";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { InstrumentFormComponent } from "./utilities/form-components/instrument-form/instrument-form.component";
 import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
-import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
-import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
-import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
 import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
 import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
 import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
+import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
+import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
+import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
+import { MkjLinkInputComponent } from "./utilities/form-input-components/mkj-link-input/mkj-link-input.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
 import { MkjMitgliedAutocompleteComponent } from "./utilities/mkj-mitglied-autocomplete/mkj-mitglied-autocomplete.component";
@@ -178,8 +180,6 @@ import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.comp
 import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
-import { MkjLinkInputComponent } from "./utilities/form-input-components/mkj-link-input/mkj-link-input.component";
-import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,

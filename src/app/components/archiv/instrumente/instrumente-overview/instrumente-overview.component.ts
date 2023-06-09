@@ -12,6 +12,7 @@ import { InstrumenteUiService } from "../instrumente-ui.service";
 })
 export class InstrumenteOverviewComponent implements OnInit {
     public values: Instrument[];
+    public readonly PermissionMap = PermissionMap;
 
     constructor(
         public uiService: InstrumenteUiService,

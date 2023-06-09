@@ -108,6 +108,8 @@ export class UtilFunctions {
             aufbewahrungsort: [instrument?.aufbewahrungsort ?? null],
             mitglied_id: [instrument?.mitglied_id ?? null],
             mitglied: [instrument?.mitglied ?? null],
+            gruppe_id: [instrument?.gruppe_id ?? null],
+            gruppe: [instrument?.gruppe ?? null],
             created_at: [instrument?.created_at ?? null],
             updated_at: [instrument?.updated_at ?? null],
         });

@@ -220,7 +220,10 @@
                 <ng-template pTemplate="rowexpansion" let-ausrueckung>
                     <tr>
                         <td colspan="4">
-                            <div class="flex justify-content-center mb-5">
+                            <div
+                                *ngIf="actualDate < ausrueckung.vonDatum"
+                                class="flex justify-content-center mb-5"
+                            >
                                 <mkj-termin-teilnahme-selector
                                     [termin]="ausrueckung"
                                 ></mkj-termin-teilnahme-selector>

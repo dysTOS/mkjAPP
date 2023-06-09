@@ -7,21 +7,23 @@
         <tr>
             <th>Bezeichnung</th>
             <th>Marke</th>
-            <th>Anmerkungen</th>
-            <th>Zugeordnet</th>
-            <th></th>
+            <th>Besitzer</th>
+            <th
+                *visibleFor="[PermissionMap.INSTRUMENTE_SAVE]"
+                style="width: 5rem"
+            ></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
         <tr>
             <td>{{ item.bezeichnung }}</td>
             <td>{{ item.marke }}</td>
-            <td>{{ item.anmerkungen }}</td>
             <td>{{ item.mitglied?.vorname + " " + item.mitglied?.zuname }}</td>
-            <td>
+            <td *visibleFor="[PermissionMap.INSTRUMENTE_SAVE]">
                 <button
                     pButton
                     icon="pi pi-pencil"
+                    class="p-button-rounded p-button-outlined p-button-info"
                     (click)="navigateEditor(item)"
                 ></button>
             </td>
