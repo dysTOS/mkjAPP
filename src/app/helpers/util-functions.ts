@@ -99,7 +99,7 @@ export class UtilFunctions {
     ) {
         return fb.group({
             id: [instrument?.id ?? null],
-            marke: [instrument?.marke ?? null],
+            marke: [instrument?.marke ?? null, Validators.required],
             bezeichnung: [instrument?.bezeichnung ?? null, Validators.required],
             anschaffungsdatum: [instrument?.anschaffungsdatum ?? null],
             verkaeufer: [instrument?.verkaeufer ?? null],

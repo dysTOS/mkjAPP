@@ -1,13 +1,15 @@
 <p-table
     [value]="values"
     [loading]="uiService.loading | async"
-    responsiveLayout="scroll"
+    responsiveLayout="stack"
 >
     <ng-template pTemplate="header">
         <tr>
             <th>Bezeichnung</th>
             <th>Marke</th>
-            <th>Besitzer</th>
+            <th pSortableColumn="gruppe.name">
+                Register <p-sortIcon field="vonDatum"></p-sortIcon>
+            </th>
             <th
                 *visibleFor="[PermissionMap.INSTRUMENTE_SAVE]"
                 style="width: 5rem"
@@ -18,7 +20,7 @@
         <tr>
             <td>{{ item.bezeichnung }}</td>
             <td>{{ item.marke }}</td>
-            <td>{{ item.mitglied?.vorname + " " + item.mitglied?.zuname }}</td>
+            <td>{{ item.gruppe?.name }}</td>
             <td *visibleFor="[PermissionMap.INSTRUMENTE_SAVE]">
                 <button
                     pButton

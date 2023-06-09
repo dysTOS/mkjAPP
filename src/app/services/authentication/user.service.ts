@@ -21,7 +21,7 @@ export class UserService {
 
     private currentPermissions: BehaviorSubject<Permission[]> =
         new BehaviorSubject<Permission[]>(null);
-    public currentMitgliedGruppen: BehaviorSubject<Gruppe[]> =
+    private currentMitgliedGruppen: BehaviorSubject<Gruppe[]> =
         new BehaviorSubject<Gruppe[]>(null);
 
     constructor(
