@@ -7,16 +7,16 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
-    // {
-    //     date: "",
-    //     version: "0.8.3",
-    //     changes: {
-    //         Instrumente:
-    //             "Es können nun Instrumente im Archiv verwaltet, sowie einzelnen Musiker/innen und Registern zugeordnet werden.",
-    //         UI: "Verbesserungen der Benutzeroberfläche.",
-    //         Backend: "Optimierungen der Datenbankabfragen.",
-    //     },
-    // },
+    {
+        date: "",
+        version: "0.8.3",
+        changes: {
+            Instrumente:
+                "Es können nun Instrumente im Archiv verwaltet, sowie einzelnen Musiker/innen und Registern zugeordnet werden.",
+            UI: "Verbesserungen der Benutzeroberfläche.",
+            Backend: "Optimierungen der Datenbankabfragen.",
+        },
+    },
     {
         date: "19. März 2023",
         version: "0.8.2 - ALPHA",
