@@ -6,8 +6,6 @@ name: Build and Deploy CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -48,6 +46,7 @@ jobs:
           protocol: ftps
           local-dir: ./
           server-dir: ./
+          port: 21
 
   build-publictest:
     name: Build-Publictest
