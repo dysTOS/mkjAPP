@@ -1,6 +1,3 @@
-import { Table } from "primeng/table";
-import * as moment from "moment";
-import * as _ from "lodash";
 import {
     AfterViewInit,
     Component,
@@ -8,25 +5,26 @@ import {
     TemplateRef,
     ViewChild,
 } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ConfirmationService, FilterMetadata, MenuItem } from "primeng/api";
+import { ActivatedRoute, Router } from "@angular/router";
+import * as _ from "lodash";
+import * as moment from "moment";
+import { ConfirmationService, MenuItem } from "primeng/api";
+import { Menu } from "primeng/menu";
+import { Table } from "primeng/table";
+import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
 import {
-    Termin as Termin,
+    Termin,
     TerminCsvColumnMap,
     TerminKategorieMap,
     TerminStatusMap,
 } from "src/app/models/Termin";
-import { TermineApiService } from "src/app/services/api/termine-api.service";
-import { ExportService } from "src/app/services/export.service";
-import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
-import { InfoService } from "src/app/services/info.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { UtilFunctions } from "src/app/helpers/util-functions";
 import { PermissionMap } from "src/app/models/User";
-import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
+import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
+import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
-import { Menu } from "primeng/menu";
+import { ExportService } from "src/app/services/export.service";
+import { InfoService } from "src/app/services/info.service";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",

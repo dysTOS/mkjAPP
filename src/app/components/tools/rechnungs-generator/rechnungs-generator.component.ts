@@ -34,5 +34,6 @@ export class RechnungsGeneratorComponent implements OnInit {
 
     public onSubmit(any) {
         console.log(any);
+        this.printDialogVisible = true;
     }
 }

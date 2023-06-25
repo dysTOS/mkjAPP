@@ -21,7 +21,7 @@ export interface MkjToolbarButton {
 }
 
 @Injectable({
-    providedIn: "root",
+    providedIn: 'root',
 })
 export class MkjToolbarService implements OnInit, OnDestroy {
     public backButton: boolean;

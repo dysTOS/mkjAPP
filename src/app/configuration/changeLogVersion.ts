@@ -8,8 +8,8 @@ export interface MkjAppChangeLog {
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
     {
-        date: "",
-        version: "0.8.3",
+        date: "24. Juni 2023",
+        version: "0.8.3 - ALPHA",
         changes: {
             Instrumente:
                 "Es können nun Instrumente im Archiv verwaltet, sowie einzelnen Musiker/innen und Registern zugeordnet werden.",

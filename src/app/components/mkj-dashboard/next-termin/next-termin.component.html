@@ -11,11 +11,8 @@
             <span>Nächster Termin:</span>
         </p>
         <div *ngIf="nextAusrueckung" class="next-ausrueckung">
-            <a
-                pRipple
-                routerLink="../ausrueckungen/details/{{ nextAusrueckung?.id }}"
-            >
-                <h4>
+            <a routerLink="../ausrueckungen/details/{{ nextAusrueckung?.id }}">
+                <h4 pRipple>
                     {{ nextAusrueckung?.name }}
                 </h4>
             </a>

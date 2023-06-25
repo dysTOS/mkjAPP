@@ -41,8 +41,8 @@
     </ng-template>
     <ng-template pTemplate="header"
         ><tr>
-            <th pSortableColumn="inventarId">
-                Inv. Nr <p-sortIcon field="inventarId"></p-sortIcon>
+            <th pSortableColumn="inventarId" style="max-width: 5rem">
+                ID <p-sortIcon field="inventarId"></p-sortIcon>
             </th>
             <th pSortableColumn="titel">
                 Titel <p-sortIcon field="titel"></p-sortIcon>
@@ -94,7 +94,7 @@
             [pSelectableRowIndex]="rowIndex"
             [pRowToggler]="noten"
         >
-            <td>{{ noten.inventarId }}</td>
+            <td style="max-width: 5rem">{{ noten.inventarId }}</td>
             <td>
                 {{ noten.titel }}
             </td>

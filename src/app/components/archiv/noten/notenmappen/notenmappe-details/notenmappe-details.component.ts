@@ -171,18 +171,22 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
     public detachNotenFromMappe(noten: Noten) {
         this.tableLocked = true;
         const mappenId = this.formGroup.controls.id.value;
-        this.notenService.detachNotenFromMappe(noten.id, mappenId).subscribe({
-            next: (res) => {
-                this.notenMappe.noten = this.notenMappe.noten.filter(
-                    (e) => e.id !== noten.id
-                );
-                this.tableLocked = false;
-            },
-            error: (err) => {
-                this.tableLocked = false;
-                this.infoService.error(err);
-            },
-        });
+        this.infoService
+            .confirmDelete(noten.titel + " aus Mappe löschen?", () =>
+                this.notenService.detachNotenFromMappe(noten.id, mappenId)
+            )
+            .subscribe({
+                next: (res) => {
+                    this.notenMappe.noten = this.notenMappe.noten.filter(
+                        (e) => e.id !== noten.id
+                    );
+                    this.tableLocked = false;
+                },
+                error: (err) => {
+                    this.tableLocked = false;
+                    this.infoService.error(err);
+                },
+            });
     }
 
     public deleteNotenmappe() {
@@ -209,22 +213,35 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
             });
     }
 
+    public navigateToNoten(noten: Noten): void {
+        this.toolbarService.resetToolbar();
+        this.router.navigate(["../../noten/", noten.id], {
+            relativeTo: this.route,
+        });
+    }
+
     private sortNoten(): void {
+        function splitString(value: string): { num: number; str: string } {
+            const num = parseInt(value, 10);
+            const str = value.replace(num.toString(), "");
+            return { num, str };
+        }
+
         if (this.notenMappe.hatVerzeichnis) {
-            this.notenMappe.noten?.sort((a, b) =>
-                a.pivot?.verzeichnisNr?.localeCompare(b.pivot?.verzeichnisNr)
-            );
+            this.notenMappe.noten?.sort((a, b) => {
+                const numA = splitString(a.pivot?.verzeichnisNr);
+                const numB = splitString(b.pivot?.verzeichnisNr);
+
+                if (numA.num !== numB.num) {
+                    return numA.num - numB.num;
+                }
+
+                return numA.str.localeCompare(numB.str);
+            });
         } else {
             this.notenMappe.noten?.sort((a, b) =>
                 a.titel.localeCompare(b.titel)
             );
         }
-    }
-
-    public navigateToNoten(noten: Noten): void {
-        this.toolbarService.resetToolbar();
-        this.router.navigate(["../../archiv/", noten.id], {
-            relativeTo: this.route,
-        });
     }
 }
