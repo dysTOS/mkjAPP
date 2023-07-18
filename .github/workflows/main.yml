@@ -42,7 +42,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           local-dir: ./
           server-dir: ./
           port: 21
@@ -83,6 +83,6 @@ jobs:
           server: ${{ secrets.TEST_FTP_SERVER }}
           username: ${{ secrets.TEST_FTP_USERNAME }}
           password: ${{ secrets.TEST_FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           local-dir: ./
           server-dir: ./
