@@ -5,8 +5,33 @@ name: Build and Deploy CI
 on:
   push:
     branches: [ master ]
-
 jobs:
+  web-deploy:
+    name: 🚀 Deploy Website Every Commit
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get Latest Code
+      uses: actions/checkout@v3
+
+    - name: 📦 Install Packages
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: "npm"
+    - run: npm ci
+      
+    - name: 🔨 Build
+      run: npm run build --prod
+    
+    - name: 📂 Sync Files
+      uses: SamKirkland/web-deploy@v1
+      with:
+        target-server: ${{ secrets.FTP_SERVER }}
+        remote-user: username
+        private-ssh-key: ${{ secrets.SSH_KEY }}
+        destination-path: ~/app.mk-jainzen.at/
+        
+
   build:
     name: Build
     runs-on: ubuntu-latest
