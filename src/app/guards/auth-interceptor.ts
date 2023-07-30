@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     public intercept(req: HttpRequest<any>, next: HttpHandler) {
         const accessToken = this.tokenService.getToken();
-        if (!req.headers.has("Authorization")) {
+        if (!req.headers.has("Authorization") && accessToken) {
             req = req.clone({
                 setHeaders: {
                     Authorization: "Bearer " + accessToken,

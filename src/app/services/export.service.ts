@@ -1,10 +1,10 @@
-import { Termin } from "../models/Termin";
 import { Injectable } from "@angular/core";
-import * as ics from "ics";
 import * as FileSaver from "file-saver";
-import * as moment from "moment";
+import * as ics from "ics";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import * as moment from "moment";
+import { Termin } from "../models/Termin";
 import { InfoService } from "./info.service";
 
 @Injectable({

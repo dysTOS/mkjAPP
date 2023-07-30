@@ -1,0 +1,34 @@
+name: Build and Deploy TEST
+
+on:
+    push:
+        branches:
+            - dev
+jobs:
+    web-deploy:
+        name: 🚀 Deploy Website Test
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🚚 Get Latest Code
+              uses: actions/checkout@v3
+
+            - name: 📦 Install Packages
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: 🔨 Build
+              run: npm run build --prod
+
+            - name: 📂 Sync Files
+              uses: SamKirkland/web-deploy@v1
+              with:
+                  target-server: ${{ secrets.FTP_SERVER }}
+                  remote-user: ${{ secrets.FTP_USERNAME }}
+                  private-ssh-key: ${{ secrets.SSH_KEY }}
+                  source-path: ./dist/mkjAPP/
+                  destination-path: ~/test.mk-jainzen.at/

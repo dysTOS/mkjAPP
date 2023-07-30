@@ -1,4 +1,4 @@
-import { Mitglied } from "./Mitglied";
+import { Mitglied } from './Mitglied';
 
 export interface Gruppe {
     id?: string;
