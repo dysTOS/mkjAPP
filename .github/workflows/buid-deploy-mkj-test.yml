@@ -1,12 +1,12 @@
-name: Build and Deploy MASTER
+name: Build and Deploy MKJ TEST
 
 on:
     push:
         branches:
-            - master
+            - dev
 jobs:
     web-deploy:
-        name: 🚀 Deploy Website Master
+        name: 🚀 Deploy Website Test
         runs-on: ubuntu-latest
         steps:
             - name: 🚚 Get Latest Code
@@ -22,7 +22,7 @@ jobs:
               run: npm ci
 
             - name: 🔨 Build
-              run: npm run build --prod
+              run: npm run build --configuration publictest
 
             - name: 📂 Sync Files
               uses: SamKirkland/web-deploy@v1
@@ -31,4 +31,4 @@ jobs:
                   remote-user: ${{ secrets.FTP_USERNAME }}
                   private-ssh-key: ${{ secrets.SSH_KEY }}
                   source-path: ./dist/mkjAPP/
-                  destination-path: ~/app.mk-jainzen.at/
+                  destination-path: ~/test.mk-jainzen.at/
