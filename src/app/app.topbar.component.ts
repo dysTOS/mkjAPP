@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AppMainComponent } from "./app.main.component";
 import { MenuService } from "./services/menu.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-topbar",
@@ -13,8 +14,7 @@ import { MenuService } from "./services/menu.service";
             </div>
 
             <div class="app-name font-bold" style="color: white">
-                <h3 *ngIf="!appMain.publicTestEnvironment">mkjAPP</h3>
-                <h3 *ngIf="appMain.publicTestEnvironment">mkjAPP (TEST)</h3>
+                <h3>{{ AppTitle }}</h3>
             </div>
 
             <a
@@ -106,6 +106,8 @@ import { MenuService } from "./services/menu.service";
     ],
 })
 export class AppTopbarComponent implements OnInit {
+    public readonly AppTitle = environment.appTitle;
+
     constructor(
         public appMain: AppMainComponent,
         public menuService: MenuService

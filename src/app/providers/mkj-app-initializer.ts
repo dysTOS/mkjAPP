@@ -7,13 +7,13 @@ export const mkjAppInitializer = () => {
     return {
         provide: APP_INITIALIZER,
         useFactory: (
-            userService: UserService,
             themeService: ThemeService,
+            userService: UserService,
             serviceWorkerService: ServiceWorkerService
         ) => {
             return () => userService.initializeUserData();
         },
-        deps: [UserService, ThemeService, ServiceWorkerService],
+        deps: [ThemeService, UserService, ServiceWorkerService],
         multi: true,
     };
 };

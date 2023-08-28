@@ -1,4 +1,6 @@
-export const MkjPrimeTranslation = {
+import { Translation } from "primeng/api";
+
+export const MkjPrimeTranslation: Translation = {
     startsWith: "beginnt mit",
     contains: "enthält",
     notContains: "enthält nicht",

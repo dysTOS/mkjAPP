@@ -7,7 +7,6 @@ import { environment } from "src/environments/environment";
 export class ThemeService {
     private themePrefix = environment.prefix;
 
-    public compactMode: boolean = false;
     public darkMode: boolean = false;
     public layoutMode: string = "static";
     public inputStyle: string = "outlined";
@@ -19,7 +18,6 @@ export class ThemeService {
     private initLocalSettings() {
         const settings = JSON.parse(localStorage.getItem("theme-settings"));
         if (settings) {
-            this.compactMode = settings.compactMode;
             this.darkMode = settings.darkMode;
             this.layoutMode = settings.layoutMode;
             this.inputStyle = settings.inputStyle;
@@ -35,7 +33,6 @@ export class ThemeService {
 
     private writeLocalSettings() {
         const settings = JSON.stringify({
-            compactMode: this.compactMode,
             darkMode: this.darkMode,
             layoutMode: this.layoutMode,
             inputStyle: this.inputStyle,
@@ -51,22 +48,12 @@ export class ThemeService {
     }
 
     public changeTheme() {
-        if (this.compactMode && this.darkMode) {
-            this.changeStyleSheet(
-                "theme-css",
-                "theme-" + this.themePrefix + "-dark-compact.css"
-            );
-        } else if (this.compactMode && !this.darkMode) {
-            this.changeStyleSheet(
-                "theme-css",
-                "theme-" + this.themePrefix + "-light-compact.css"
-            );
-        } else if (!this.compactMode && this.darkMode) {
+        if (this.darkMode) {
             this.changeStyleSheet(
                 "theme-css",
                 "theme-" + this.themePrefix + "-dark.css"
             );
-        } else if (!this.compactMode && !this.darkMode) {
+        } else {
             this.changeStyleSheet(
                 "theme-css",
                 "theme-" + this.themePrefix + "-light.css"
@@ -79,9 +66,7 @@ export class ThemeService {
         const element = document.getElementById(id);
         const urlTokens = element.getAttribute("href").split("/");
         urlTokens[urlTokens.length - 1] = value;
-
         const newURL = urlTokens.join("/");
-
         element.setAttribute("href", newURL);
     }
 }

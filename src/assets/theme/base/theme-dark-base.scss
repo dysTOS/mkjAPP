@@ -1,0 +1,23 @@
+$emphasis-high: rgb(241, 241, 241);
+$emphasis-medium: rgba(255, 255, 255, 0.7);
+$emphasis-low: rgba(255, 255, 255, 0.38);
+$emphasis-lower: rgba(255, 255, 255, 0.12);
+
+:root {
+    --surface-900: #eaeaea;
+    --surface-800: #c5c5c5;
+    --surface-700: #c4c4c4;
+    --surface-600: #adadad;
+    --surface-500: #919191;
+    --surface-400: #757575;
+    --surface-300: #696969;
+    --surface-200: #4d4d4d;
+    --surface-100: #3f3f3f;
+    --surface-50: #1f1f1f;
+    --surface-0: #161616;
+
+    --mkj-border: #757575;
+    --scrollbar-color: #757575;
+    --scrollbar-color-hover: var(--surface-800);
+    --mkj-error-color: #{$mkjErrorColor};
+}

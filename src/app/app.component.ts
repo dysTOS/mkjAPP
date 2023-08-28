@@ -5,6 +5,7 @@ import { MkjPrimeTranslation } from "src/app/configuration/primeTranslation";
 import { AuthStateService } from "./services/authentication/auth-state.service";
 import { TokenService } from "./services/authentication/token.service";
 import { UserService } from "./services/authentication/user.service";
+import { ThemeService } from "./services/theme.service";
 
 @Component({
     selector: "app-root",
@@ -14,6 +15,7 @@ export class AppComponent {
     ripple = true;
 
     constructor(
+        private themeService: ThemeService,
         private primengConfig: PrimeNGConfig,
         private authStatService: AuthStateService,
         private router: Router,

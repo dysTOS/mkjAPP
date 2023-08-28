@@ -59,19 +59,19 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                     path: environment.prefix,
                     component: AppMainComponent,
                     canActivate: [GlobalRouteGuard],
-                    title: environment.publictest ? "mkjAPP (TEST)" : "mkjAPP",
+                    title: environment.appTitle,
                     children: [
                         {
                             path: "dashboard",
                             component: MkjDashboardComponent,
-                            title: "mkjAPP - DASHBOARD",
+                            title: environment.appTitle + " - DASHBOARD",
                             canActivate: [RouteGuard],
                         },
                         {
                             path: "ausrueckungen",
                             component: AusrueckungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - TERMINE",
+                            title: environment.appTitle + " - TERMINE",
                             children: [
                                 {
                                     path: "aktuell",
@@ -111,7 +111,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                             path: "mitglieder",
                             component: MitgliederWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - MITGLIEDER",
+                            title: environment.appTitle + " -  MITGLIEDER",
                             children: [
                                 {
                                     path: "liste",
@@ -146,7 +146,10 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                             path: "archiv",
                             component: ArchivWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - ARCHIV",
+                            title:
+                                environment.appTitle +
+                                " -  ARCHIV" +
+                                environment.rename?.notenarchiv,
                             children: [
                                 {
                                     path: "noten",
@@ -188,7 +191,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                             path: "statistik",
                             component: StatistikOverviewComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - STATISTIKEN",
+                            title: environment.appTitle + " -  STATISTIKEN",
                         },
                         {
                             path: "tools/rechnungsgenerator",
@@ -199,7 +202,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                             path: "einstellungen",
                             component: EinstellungenWrapperComponent,
                             canActivate: [RouteGuard],
-                            title: "mkjAPP - EINSTELLUNGEN",
+                            title: environment.appTitle + " -  EINSTELLUNGEN",
 
                             children: [
                                 {

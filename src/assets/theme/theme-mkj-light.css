@@ -2118,9 +2118,9 @@ body a {
     box-sizing: border-box;
   }
   .layout-wrapper .topbar .topbar-menu > li > ul li a span,
-.layout-wrapper .topbar .topbar-menu > li > ul li a img,
-.layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
-.layout-wrapper .topbar .topbar-menu > li > ul li a i {
+  .layout-wrapper .topbar .topbar-menu > li > ul li a img,
+  .layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
+  .layout-wrapper .topbar .topbar-menu > li > ul li a i {
     display: inline-block;
     vertical-align: middle;
   }
@@ -2129,11 +2129,11 @@ body a {
     margin-right: 8px;
   }
   .layout-wrapper .topbar .topbar-menu > li > ul li a .fa,
-.layout-wrapper .topbar .topbar-menu > li > ul li a i {
+  .layout-wrapper .topbar .topbar-menu > li > ul li a i {
     margin-right: 8px;
   }
   .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem .topbar-item-name,
-.layout-wrapper .topbar .topbar-menu > li.active-topmenuitem .topbar-icon {
+  .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem .topbar-icon {
     font-weight: bold;
   }
   .layout-wrapper .topbar .topbar-menu > li.active-topmenuitem > ul {
@@ -3481,7 +3481,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 
 @media screen and (max-width: 769px) {
   .p-datepicker table th,
-.p-datepicker table td {
+  .p-datepicker table td {
     padding: 0;
   }
 }
