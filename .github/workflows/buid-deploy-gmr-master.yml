@@ -22,7 +22,7 @@ jobs:
               run: npm ci
 
             - name: 🔨 Build
-              run: npm run build --configuration gulaschmusi
+              run: npm run build-gmr
 
             - name: 📂 Sync Files
               uses: SamKirkland/web-deploy@v1
