@@ -1,12 +1,12 @@
-name: Build and Deploy TEST
+name: Build and Deploy GMR MASTER
 
 on:
     push:
         branches:
-            - dev
+            - master
 jobs:
     web-deploy:
-        name: 🚀 Deploy Website Test
+        name: 🚀 Deploy Website Master
         runs-on: ubuntu-latest
         steps:
             - name: 🚚 Get Latest Code
@@ -22,7 +22,7 @@ jobs:
               run: npm ci
 
             - name: 🔨 Build
-              run: npm run build-test
+              run: npm run build-gmr
 
             - name: 📂 Sync Files
               uses: SamKirkland/web-deploy@v1
@@ -31,4 +31,4 @@ jobs:
                   remote-user: ${{ secrets.FTP_USERNAME }}
                   private-ssh-key: ${{ secrets.SSH_KEY }}
                   source-path: ./dist/mkjAPP/
-                  destination-path: ~/test.mk-jainzen.at/
+                  destination-path: ~/app.gulaschmusi.at/
