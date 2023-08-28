@@ -5,6 +5,7 @@ import { SubSink } from "subsink";
 import { Permission, PermissionMap } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class MenuService implements OnDestroy {
@@ -17,9 +18,9 @@ export class MenuService implements OnDestroy {
             visible: false,
         },
         {
-            label: "Termine",
+            label: environment.naming.termine,
             icon: "pi pi-fw pi-calendar",
-            enumLabel: MenuLabels.AUSRUECKUNGEN,
+            enumLabel: MenuLabels.TERMINE,
             visible: false,
             children: [
                 {
@@ -67,7 +68,7 @@ export class MenuService implements OnDestroy {
             permission: PermissionMap.NOTEN_READ,
             children: [
                 {
-                    label: "Noten",
+                    label: environment.naming.noten,
                     icon: "mdi mdi-music",
                     routerLink: "archiv/noten",
                     visible: false,
@@ -270,7 +271,7 @@ export const MenuLabels = {
 
     //with sidemenu > 4
     DASHBOARD: 5,
-    AUSRUECKUNGEN: 7,
+    TERMINE: 7,
     MITGLIEDER: 8,
     LOGOUT: 9,
     ARCHIV: 10,

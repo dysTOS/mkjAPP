@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import {
     MkjAppChangeLog,
     MkjAppVersion,
-} from "src/app/configuration/changeLogVersion";
+} from "src/app/configurations/changeLogVersion";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({

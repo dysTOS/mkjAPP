@@ -1,9 +1,12 @@
+import { CONFIG_MAP } from "../app/configurations/_CONFIG_MAP";
+
+const config = CONFIG_MAP.publictest;
+
 export const environment = {
-    production: true,
-    apiUrl: "https://api-test.mk-jainzen.at/api/",
-    vapidPublicKey:
-        "BIsIB28fImumACBAnl09t3HKyJLBJDGKj17Nc7HFKhiRSzFYQdRUBfL0Yfrab8QpEl1ItEajx72I1Wje-yq7j-s",
-    prefix: "mkj",
-    appTitle: "mkjTEST",
-    publictest: true,
+    production: config.production,
+    apiUrl: config.apiUrl,
+    prefix: config.prefix,
+    appTitle: config.appTitle,
+    publictest: config.publictest,
+    naming: config.naming,
 };

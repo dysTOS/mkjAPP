@@ -25,6 +25,7 @@ import { UserService } from "src/app/services/authentication/user.service";
 import { ExportService } from "src/app/services/export.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -115,7 +116,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
             PermissionMap.TERMIN_DELETE,
         ]);
-        this.toolbarService.header = "Termine";
+        this.toolbarService.header = environment.naming.termine;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-filter",

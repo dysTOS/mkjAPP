@@ -6,6 +6,7 @@ import { PermissionMap } from "src/app/models/User";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-notenarchiv",
@@ -33,7 +34,7 @@ export class NotenarchivComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute
     ) {
-        this.toolbarService.header = "Notenarchiv";
+        this.toolbarService.header = environment.naming.noten;
         this.toolbarService.backButton = null;
         this.toolbarService.buttons = [
             {

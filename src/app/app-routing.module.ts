@@ -146,10 +146,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                             path: "archiv",
                             component: ArchivWrapperComponent,
                             canActivate: [RouteGuard],
-                            title:
-                                environment.appTitle +
-                                " -  ARCHIV" +
-                                environment.rename?.notenarchiv,
+                            title: environment.appTitle + " -  ARCHIV",
                             children: [
                                 {
                                     path: "noten",

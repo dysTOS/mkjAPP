@@ -71,22 +71,22 @@ export class ServiceWorkerService {
     }
 
     private requestPushSubscription() {
-        this.swPush
-            .requestSubscription({
-                serverPublicKey: environment.vapidPublicKey,
-            })
-            .then((pushSub) => {
-                console.log("Push subscription: ", pushSub);
-                this.pushNotiService.subscribeUser(pushSub).subscribe(
-                    (res) =>
-                        this.infoService.success(
-                            "Push Benachrichtigungen abonniert!"
-                        ),
-                    (err) => console.log(err)
-                );
-            })
-            .catch((err) =>
-                console.error("Could not subscribe to notifications", err)
-            );
+        // this.swPush
+        //     .requestSubscription({
+        //         serverPublicKey: environment.vapidPublicKey,
+        //     })
+        //     .then((pushSub) => {
+        //         console.log("Push subscription: ", pushSub);
+        //         this.pushNotiService.subscribeUser(pushSub).subscribe(
+        //             (res) =>
+        //                 this.infoService.success(
+        //                     "Push Benachrichtigungen abonniert!"
+        //                 ),
+        //             (err) => console.log(err)
+        //         );
+        //     })
+        //     .catch((err) =>
+        //         console.error("Could not subscribe to notifications", err)
+        //     );
     }
 }
