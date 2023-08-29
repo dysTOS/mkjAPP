@@ -3,7 +3,7 @@ name: Build and Deploy GMR MASTER
 on:
     push:
         branches:
-            - master
+            - dev
 jobs:
     web-deploy:
         name: 🚀 Deploy Website Master
