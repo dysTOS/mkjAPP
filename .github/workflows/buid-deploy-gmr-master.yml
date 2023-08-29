@@ -28,7 +28,7 @@ jobs:
               uses: SamKirkland/web-deploy@v1
               with:
                   target-server: ${{ secrets.FTP_SERVER }}
-                  remote-user: ${{ secrets.FTP_USERNAME }}
-                  private-ssh-key: ${{ secrets.SSH_KEY }}
+                  remote-user: ${{ secrets.FTP_USERNAME_GULASCH }}
+                  private-ssh-key: ${{ secrets.SSH_KEY_GULASCH }}
                   source-path: ./dist/mkjAPP/
                   destination-path: ~/app.gulaschmusi.at/
