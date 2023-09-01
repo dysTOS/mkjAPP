@@ -6,7 +6,7 @@ on:
             - dev
 jobs:
     web-deploy:
-        name: 🚀 Deploy Website Test
+        name: 🚀 Deploy Website MKJ Test
         runs-on: ubuntu-latest
         steps:
             - name: 🚚 Get Latest Code
@@ -28,7 +28,7 @@ jobs:
               uses: SamKirkland/web-deploy@v1
               with:
                   target-server: ${{ secrets.FTP_SERVER }}
-                  remote-user: ${{ secrets.FTP_USERNAME }}
-                  private-ssh-key: ${{ secrets.SSH_KEY }}
+                  remote-user: ${{ secrets.SSH_USERNAME_MKJ }}
+                  private-ssh-key: ${{ secrets.SSH_KEY_MKJ }}
                   source-path: ./dist/mkjAPP/
                   destination-path: ~/test.mk-jainzen.at/

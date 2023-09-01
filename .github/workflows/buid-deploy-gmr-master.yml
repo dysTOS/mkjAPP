@@ -3,10 +3,10 @@ name: Build and Deploy GMR MASTER
 on:
     push:
         branches:
-            - dev
+            - master
 jobs:
     web-deploy:
-        name: 🚀 Deploy Website Master
+        name: 🚀 Deploy Website GMR Master
         runs-on: ubuntu-latest
         steps:
             - name: 🚚 Get Latest Code
@@ -28,7 +28,7 @@ jobs:
               uses: SamKirkland/web-deploy@v1
               with:
                   target-server: ${{ secrets.FTP_SERVER }}
-                  remote-user: ${{ secrets.FTP_USERNAME_GULASCH }}
+                  remote-user: ${{ secrets.SSH_USERNAME_GULASCH }}
                   private-ssh-key: ${{ secrets.SSH_KEY_GULASCH }}
                   source-path: ./dist/mkjAPP/
                   destination-path: ~/app.gulaschmusi.at/
