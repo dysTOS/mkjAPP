@@ -5,7 +5,7 @@ import { Mitglied } from "../models/Mitglied";
     name: "fullName",
 })
 export class FullNamePipe implements PipeTransform {
-    transform(value: Mitglied, options?: {}): string {
+    transform(value: Mitglied): string {
         if (!value) return "";
 
         const name = value.vorname + " " + value.zuname;
