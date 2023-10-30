@@ -32,3 +32,4 @@ jobs:
                   private-ssh-key: ${{ secrets.SSH_KEY_GULASCH }}
                   source-path: ./dist/mkjAPP/
                   destination-path: ~/app.gulaschmusi.at/
+                  rsync-options: --archive
