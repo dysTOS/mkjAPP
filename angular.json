@@ -26,7 +26,7 @@
                         "assets": [
                             "src/assets",
                             "src/favicon.ico",
-                            "src/upload.php"
+                            "src/manifest.json"
                         ],
                         "styles": ["src/styles.scss"],
                         "scripts": [
@@ -47,7 +47,7 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "3mb",
+                                    "maximumWarning": "4mb",
                                     "maximumError": "5mb"
                                 },
                                 {
@@ -69,7 +69,7 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "3mb",
+                                    "maximumWarning": "4mb",
                                     "maximumError": "5mb"
                                 },
                                 {
@@ -91,7 +91,7 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "3mb",
+                                    "maximumWarning": "4mb",
                                     "maximumError": "5mb"
                                 },
                                 {
@@ -110,6 +110,10 @@
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.gulaschmusi.ts"
+                                },
+                                {
+                                    "replace": "src/manifest.json",
+                                    "with": "src/manifest.gulaschmusi.json"
                                 }
                             ],
                             "outputHashing": "all"
@@ -161,7 +165,7 @@
                         "assets": [
                             "src/assets",
                             "src/favicon.ico",
-                            "src/upload.php"
+                            "src/manifest.json"
                         ]
                     }
                 }
