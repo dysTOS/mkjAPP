@@ -1,14 +1,10 @@
-import { AppNaming, BASE_NAMING } from "./namings/_BASE_NAMING";
-import { GM_NAMING } from "./namings/gulaschmusi-naming";
-
 export interface AppConfig {
     [key: string]: {
         appTitle: string;
-        prefix: "mkj" | "gm";
+        prefix: "mkj" | "gmr";
         production: boolean;
         apiUrl: string;
         publictest: boolean;
-        naming: AppNaming;
     };
 }
 
@@ -17,15 +13,13 @@ export const CONFIG_MAP: AppConfig = {
         production: false,
         publictest: true,
 
-        apiUrl: "https://api.gulaschmusi.at/api/", //dev laravel gulaschmusi /db=plesk
+        apiUrl: "https://api.gulaschmusi.at/api/",
         appTitle: "gulaschAPP",
-        prefix: "gm",
-        naming: GM_NAMING,
+        prefix: "gmr",
 
-        //apiUrl: "http://localhost:8000/api/", //dev laravel local /db=plesk
-        //appTitle: "mkjLOCAL",
-        //prefix: "mkj",
-        //naming: BASE_NAMING,
+        // apiUrl: "http://localhost:8000/api/",
+        // appTitle: "mkjLOCAL",
+        // prefix: "mkj",
     },
     publictest: {
         appTitle: "testAPP",
@@ -33,7 +27,6 @@ export const CONFIG_MAP: AppConfig = {
         production: false,
         apiUrl: "https://api-test.mk-jainzen.at/api/",
         publictest: true,
-        naming: BASE_NAMING,
     },
     mkj: {
         appTitle: "mkjAPP",
@@ -41,14 +34,12 @@ export const CONFIG_MAP: AppConfig = {
         production: true,
         apiUrl: "https://api.mk-jainzen.at/api/",
         publictest: false,
-        naming: BASE_NAMING,
     },
-    gm: {
+    gmr: {
         appTitle: "gulaschAPP",
-        prefix: "gm",
+        prefix: "gmr",
         production: true,
         apiUrl: "https://api.gulaschmusi.at/api/",
         publictest: false,
-        naming: GM_NAMING,
     },
 };

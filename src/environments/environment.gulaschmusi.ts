@@ -1,6 +1,6 @@
 import { CONFIG_MAP } from "../app/configurations/_CONFIG_MAP";
 
-const config = CONFIG_MAP.gm;
+const config = CONFIG_MAP.gmr;
 
 export const environment = {
     production: config.production,
@@ -8,5 +8,4 @@ export const environment = {
     prefix: config.prefix,
     appTitle: config.appTitle,
     publictest: config.publictest,
-    naming: config.naming,
 };

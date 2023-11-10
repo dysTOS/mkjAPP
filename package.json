@@ -12,7 +12,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "artisan-serve": "cd ../mkjAPI && php artisan serve",
-        "build-css": "sass src/assets/theme/base/mkj/theme-mkj-dark.scss:src/assets/theme/theme-mkj-dark.css src/assets/theme/base/mkj/theme-mkj-light.scss:src/assets/theme/theme-mkj-light.css src/assets/theme/base/gm/theme-gm-dark.scss:src/assets/theme/theme-gm-dark.css src/assets/theme/base/gm/theme-gm-light.scss:src/assets/theme/theme-gm-light.css"
+        "build-css": "sass src/assets/theme/base/mkj/theme-mkj-dark.scss:src/assets/theme/theme-mkj-dark.css src/assets/theme/base/mkj/theme-mkj-light.scss:src/assets/theme/theme-mkj-light.css src/assets/theme/base/gmr/theme-gmr-dark.scss:src/assets/theme/theme-gmr-dark.css src/assets/theme/base/gmr/theme-gmr-light.scss:src/assets/theme/theme-gmr-light.css"
     },
     "private": true,
     "dependencies": {

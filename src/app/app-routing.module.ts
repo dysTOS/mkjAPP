@@ -40,6 +40,7 @@ import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/not
 import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
 import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
 import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
+import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
 
 @NgModule({
     imports: [
@@ -216,6 +217,11 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
                                 {
                                     path: "lokal",
                                     component: LokaleEinstellungenComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "global",
+                                    component: GlobaleEinstellungenComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {

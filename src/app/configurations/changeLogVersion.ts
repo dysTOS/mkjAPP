@@ -1,4 +1,4 @@
-export const MkjAppVersion = "0.8.3";
+export const MkjAppVersion = "0.8.3 - ALPHA";
 
 export interface MkjAppChangeLog {
     date: string;
@@ -7,6 +7,14 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
+    // {
+    //     date: "x",
+    //     version: "0.9.1 - BETA",
+    //     changes: {
+    //         Environments: "Die App kann nun automatisiert für verschiedene Umgebungen/Vereine/Bands ausgeliefert werden.",
+    //         Einstellungen: "Globale Einstellungen ermöglichen dem Administrator die Konfiguration des ganzen Environments.",
+    //     }
+    // },
     {
         date: "24. Juni 2023",
         version: "0.8.3 - ALPHA",

@@ -5,7 +5,7 @@ import { SubSink } from "subsink";
 import { Permission, PermissionMap } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
-import { environment } from "src/environments/environment";
+import { AppNamingService } from "./config.service";
 
 @Injectable()
 export class MenuService implements OnDestroy {
@@ -18,7 +18,7 @@ export class MenuService implements OnDestroy {
             visible: false,
         },
         {
-            label: environment.naming.termine,
+            label: this.namingService.appNaming.Termine,
             icon: "pi pi-fw pi-calendar",
             enumLabel: MenuLabels.TERMINE,
             visible: false,
@@ -68,7 +68,7 @@ export class MenuService implements OnDestroy {
             permission: PermissionMap.NOTEN_READ,
             children: [
                 {
-                    label: environment.naming.noten,
+                    label: this.namingService.appNaming.Noten,
                     icon: "mdi mdi-music",
                     routerLink: "archiv/noten",
                     visible: false,
@@ -138,6 +138,13 @@ export class MenuService implements OnDestroy {
                     visible: false,
                 },
                 {
+                    label: "Globale Einstellungen",
+                    icon: "mdi mdi-cog",
+                    routerLink: "einstellungen/global",
+                    permission: PermissionMap.USER_DELETE,
+                    visible: false,
+                },
+                {
                     label: "Bug Report",
                     icon: "mdi mdi-bug-outline",
                     routerLink: "einstellungen/bugreport",
@@ -188,7 +195,8 @@ export class MenuService implements OnDestroy {
     constructor(
         private authStateService: AuthStateService,
         private confirmationService: ConfirmationService,
-        private userService: UserService
+        private userService: UserService,
+        private namingService: AppNamingService
     ) {
         this.subSink.add(
             this.userService.getCurrentUserPermissions().subscribe({

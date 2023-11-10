@@ -22,10 +22,10 @@ import { PermissionMap } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
+import { AppNamingService } from "src/app/services/config.service";
 import { ExportService } from "src/app/services/export.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { environment } from "src/environments/environment";
 
 @Component({
     templateUrl: "./ausrueckungen-aktuell.component.html",
@@ -109,6 +109,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
+        private namingService: AppNamingService,
         public toolbarService: MkjToolbarService
     ) {
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
@@ -116,7 +117,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
             PermissionMap.TERMIN_DELETE,
         ]);
-        this.toolbarService.header = environment.naming.termine;
+        this.toolbarService.header = this.namingService.appNaming.Termine;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-filter",

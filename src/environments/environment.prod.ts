@@ -8,5 +8,4 @@ export const environment = {
     prefix: config.prefix,
     appTitle: config.appTitle,
     publictest: config.publictest,
-    naming: config.naming,
 };
