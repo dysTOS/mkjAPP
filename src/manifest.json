@@ -3,13 +3,13 @@
     "name": "mkjAPP: Vereinsverwaltung",
     "icons": [
         {
-            "src": "/assets/mkjICONS/Favicon_Square/android-icon-192x192.png",
+            "src": "/assets/images/icon_192x192.png",
             "type": "image/png",
             "sizes": "192x192",
             "purpose": "maskable any"
         },
         {
-            "src": "/assets/mkjICONS/LOGO_APP_512x512.png",
+            "src": "/assets/images/icon.png",
             "type": "image/png",
             "sizes": "512x512",
             "purpose": "maskable any"

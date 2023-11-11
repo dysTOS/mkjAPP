@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "../../models/Mitglied";
 import { Permission, Role, User } from "../../models/User";
-import { AuthAPIService } from "./auth-api.service";
+import { AuthAPIService } from "../api/auth-api.service";
 import { TokenService } from "./token.service";
 
 @Injectable({

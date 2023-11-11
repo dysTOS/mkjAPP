@@ -13,13 +13,13 @@ export const CONFIG_MAP: AppConfig = {
         production: false,
         publictest: true,
 
-        apiUrl: "https://api.gulaschmusi.at/api/",
-        appTitle: "gulaschAPP",
-        prefix: "gmr",
-
-        // apiUrl: "http://localhost:8000/api/",
-        // appTitle: "mkjLOCAL",
+        // apiUrl: "https://api.gulaschmusi.at/api/",
+        // appTitle: "gulaschAPP",
         // prefix: "mkj",
+
+        apiUrl: "http://localhost:8000/api/",
+        appTitle: "mkjLOCAL",
+        prefix: "mkj",
     },
     publictest: {
         appTitle: "testAPP",
@@ -38,7 +38,7 @@ export const CONFIG_MAP: AppConfig = {
     gmr: {
         appTitle: "gulaschAPP",
         prefix: "gmr",
-        production: false,
+        production: true,
         apiUrl: "https://api.gulaschmusi.at/api/",
         publictest: false,
     },

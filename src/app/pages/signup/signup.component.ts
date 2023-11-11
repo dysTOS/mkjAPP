@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { UserRegistrationInput } from "src/app/interfaces/api-middleware";
-import { AuthAPIService } from "src/app/services/authentication/auth-api.service";
+import { AuthAPIService } from "src/app/services/api/auth-api.service";
 import { InfoService } from "src/app/services/info.service";
 
 @Component({

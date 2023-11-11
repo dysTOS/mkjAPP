@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { AuthStateService } from "src/app/services/authentication/auth-state.service";
-import { AuthAPIService } from "src/app/services/authentication/auth-api.service";
+import { AuthAPIService } from "src/app/services/api/auth-api.service";
 import { TokenService } from "src/app/services/authentication/token.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
             this.isChecking = true;
             this.authService.login(this.user).subscribe(
                 (result) => {
-                    console.log(result);
                     this.tokenService.saveToken(result.token);
                     this.authState.setAuthState(true);
                     this.userService.setCurrentUser(result.user);

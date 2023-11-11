@@ -124,8 +124,8 @@
                                     "glob": "*.ico"
                                 },
                                 {
-                                    "input": "src/configurations/gmr/assets",
-                                    "output": "assets/",
+                                    "input": "src/configurations/gmr/assets/images",
+                                    "output": "assets/images",
                                     "glob": "*.*"
                                 }
                             ]

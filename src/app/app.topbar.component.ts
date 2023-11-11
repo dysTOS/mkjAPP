@@ -9,7 +9,7 @@ import { environment } from "src/environments/environment";
         <div class="topbar clearfix">
             <div class="logo">
                 <a routerLink="/">
-                    <img src="assets/mkjICONS/LOGO_APP_Favicon.png" />
+                    <img src="assets/images/app_logo.png" />
                 </a>
             </div>
 

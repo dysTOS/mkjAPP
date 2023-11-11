@@ -8,8 +8,8 @@ export class ThemeService {
     private themePrefix = environment.prefix;
 
     public darkMode: boolean = false;
-    public layoutMode: string = "static";
-    public inputStyle: string = "outlined";
+    public layoutMode: "static" | "overlay" = "static";
+    public inputStyle: "outlined" | "filled" = "outlined";
 
     constructor() {
         this.initLocalSettings();

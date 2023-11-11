@@ -1,12 +1,11 @@
 .login-body {
-    background-color: var(--surface-200);
+    background-color: var(--surface-0);
     padding-top: 200px;
     height: auto;
-    background: url("../layout/images/login/login-image.png") no-repeat;
     background-position: 0 -100px;
 
     .login-panel {
-        background-color: var(--surface-200);
+        background-color: var(--surface-100);
         width: 400px;
         margin: 0 auto;
         padding-bottom: 20px;
@@ -32,6 +31,7 @@
                 font-size: 14px;
                 font-weight: normal;
                 margin-top: 0;
+                padding-right: 5rem;
             }
 
             img {
