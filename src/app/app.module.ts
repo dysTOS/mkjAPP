@@ -179,6 +179,8 @@ import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnah
 import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
 import { GlobaleEinstellungenComponent } from './components/einstellungen/globale-einstellungen/globale-einstellungen.component';
+import { MkjTextInputComponent } from './utilities/form-input-components/mkj-text-input/mkj-text-input.component';
+import { UiNamingConfigComponent } from './components/einstellungen/globale-einstellungen/ui-naming-config/ui-naming-config.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -359,6 +361,8 @@ registerLocaleData(localeDe);
         MkjLinkInputComponent,
         MkjChangeLogsComponent,
         GlobaleEinstellungenComponent,
+        MkjTextInputComponent,
+        UiNamingConfigComponent,
     ],
     providers: [
         mkjAppInitializer(),

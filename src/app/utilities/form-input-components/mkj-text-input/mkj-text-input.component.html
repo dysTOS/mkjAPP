@@ -1,0 +1,13 @@
+<span class="p-float-label">
+    <input
+        pInputText
+        [ngModel]="value$ | async"
+        (ngModelChange)="change($event)"
+        [disabled]="disabled$ | async"
+        (onBlur)="touch()"
+        [class.ng-dirty]="formControl?.invalid"
+        [class.ng-invalid]="formControl?.invalid"
+        class="w-full"
+    />
+    <label [for]="label">{{ label }}</label>
+</span>

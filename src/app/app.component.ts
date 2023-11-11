@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { PrimeNGConfig } from "primeng/api";
-import { MkjPrimeTranslation } from "src/app/configurations/primeTranslation";
+import { MkjPrimeTranslation } from "src/configurations/primeTranslation";
 import { AuthStateService } from "./services/authentication/auth-state.service";
 import { TokenService } from "./services/authentication/token.service";
 import { UserService } from "./services/authentication/user.service";

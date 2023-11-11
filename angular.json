@@ -88,6 +88,7 @@
                             "outputHashing": "all"
                         },
                         "gulaschmusi": {
+                            "outputHashing": "all",
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -100,23 +101,34 @@
                                     "maximumError": "10kb"
                                 }
                             ],
-
                             "index": {
-                                "input": "src/index.gulaschmusi.html",
+                                "input": "src/configurations/gmr/index.html",
                                 "output": "index.html"
                             },
-
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
                                     "with": "src/environments/environment.gulaschmusi.ts"
-                                },
-                                {
-                                    "replace": "src/manifest.json",
-                                    "with": "src/manifest.gulaschmusi.json"
                                 }
                             ],
-                            "outputHashing": "all"
+                            "assets": [
+                                "src/assets",
+                                {
+                                    "input": "src/configurations/gmr",
+                                    "output": "/",
+                                    "glob": "*.json"
+                                },
+                                {
+                                    "input": "src/configurations/gmr",
+                                    "output": "/",
+                                    "glob": "*.ico"
+                                },
+                                {
+                                    "input": "src/configurations/gmr/assets",
+                                    "output": "assets/",
+                                    "glob": "*.*"
+                                }
+                            ]
                         },
                         "development": {
                             "buildOptimizer": false,

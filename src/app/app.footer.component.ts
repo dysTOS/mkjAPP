@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppMainComponent } from "./app.main.component";
-import { MkjAppVersion } from "./configurations/changeLogVersion";
+import { MkjAppVersion } from "../configurations/changeLogVersion";
 
 @Component({
     selector: "app-footer",

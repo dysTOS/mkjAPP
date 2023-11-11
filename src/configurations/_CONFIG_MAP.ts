@@ -24,7 +24,7 @@ export const CONFIG_MAP: AppConfig = {
     publictest: {
         appTitle: "testAPP",
         prefix: "mkj",
-        production: false,
+        production: true,
         apiUrl: "https://api-test.mk-jainzen.at/api/",
         publictest: true,
     },
@@ -38,7 +38,7 @@ export const CONFIG_MAP: AppConfig = {
     gmr: {
         appTitle: "gulaschAPP",
         prefix: "gmr",
-        production: true,
+        production: false,
         apiUrl: "https://api.gulaschmusi.at/api/",
         publictest: false,
     },

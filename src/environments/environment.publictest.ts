@@ -1,4 +1,4 @@
-import { CONFIG_MAP } from "../app/configurations/_CONFIG_MAP";
+import { CONFIG_MAP } from "../configurations/_CONFIG_MAP";
 
 const config = CONFIG_MAP.publictest;
 

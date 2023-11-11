@@ -1,15 +1,5 @@
-<div *ngFor="let name of appNaming | keyvalue">
-    <div class="form-group">
-        <label for="name">{{ name.key }}</label>
-        <input
-            pInputText
-            type="text"
-            class="form-control"
-            id="name"
-            [ngModel]="name.value"
-            (ngModelChange)="editNaming[name.key] = $event"
-        />
-    </div>
-</div>
-
-<p-button label="Save" (onClick)="saveNaming()"></p-button>
+<p-tabView>
+    <p-tabPanel header="UI Naming">
+        <app-ui-naming-config></app-ui-naming-config>
+    </p-tabPanel>
+</p-tabView>
