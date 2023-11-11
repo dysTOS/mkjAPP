@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
 export class ThemeService {
-    private themePrefix = environment.prefix;
-
     public darkMode: boolean = false;
     public layoutMode: "static" | "overlay" = "static";
     public inputStyle: "outlined" | "filled" = "outlined";
@@ -49,15 +46,9 @@ export class ThemeService {
 
     public changeTheme() {
         if (this.darkMode) {
-            this.changeStyleSheet(
-                "theme-css",
-                "theme-" + this.themePrefix + "-dark.css"
-            );
+            this.changeStyleSheet("theme-css", "theme-dark.css");
         } else {
-            this.changeStyleSheet(
-                "theme-css",
-                "theme-" + this.themePrefix + "-light.css"
-            );
+            this.changeStyleSheet("theme-css", "theme-light.css");
         }
         this.writeLocalSettings();
     }

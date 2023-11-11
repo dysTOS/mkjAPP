@@ -127,6 +127,11 @@
                                     "input": "src/configurations/gmr/assets/images",
                                     "output": "assets/images",
                                     "glob": "*.*"
+                                },
+                                {
+                                    "input": "src/configurations/gmr/assets/css",
+                                    "output": "assets/css",
+                                    "glob": "*.*"
                                 }
                             ]
                         },

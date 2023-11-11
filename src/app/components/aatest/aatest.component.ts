@@ -37,21 +37,6 @@ export class AatestComponent implements OnInit {
         this.notenService.getNotenmappen().subscribe((res) => console.log(res));
     }
 
-    public testOCS() {
-        const url = "https://cloud.mk-jainzen.at/ocs/v1.php/cloud";
-        const creds = window.btoa("admin:gmrmkjrs&1928/3");
-        const headers = {
-            headers: new HttpHeaders({
-                "ocs-apirequest": "true",
-                Authorization: creds,
-            }),
-        };
-        this.http.get(url, headers).subscribe({
-            next: (res) => console.log(res),
-            error: (err) => console.log(err),
-        });
-    }
-
     public saveWordpressPost() {
         const url = "http://localhost:8000/api/savepost";
         const headers = {
