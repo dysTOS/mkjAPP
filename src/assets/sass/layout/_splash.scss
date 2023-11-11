@@ -5,6 +5,9 @@
     position: fixed;
 
     .splash-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         left: 50%;
         top: 50%;

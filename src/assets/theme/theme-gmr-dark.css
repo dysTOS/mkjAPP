@@ -2378,6 +2378,9 @@ body a {
   position: fixed;
 }
 .splash-screen .splash-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   left: 50%;
   top: 50%;
