@@ -22,7 +22,7 @@ import { PermissionMap } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
-import { AppNamingService } from "src/app/services/config.service";
+import { AppConfigService } from "src/app/services/app-config.service";
 import { ExportService } from "src/app/services/export.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -109,7 +109,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
-        private namingService: AppNamingService,
+        private namingService: AppConfigService,
         public toolbarService: MkjToolbarService
     ) {
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([

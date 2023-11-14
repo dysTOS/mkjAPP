@@ -4,7 +4,7 @@ import { Table } from "primeng/table";
 import { Noten, NotenGattungMap } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
-import { AppNamingService } from "src/app/services/config.service";
+import { AppConfigService } from "src/app/services/app-config.service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -33,7 +33,7 @@ export class NotenarchivComponent implements OnInit {
         private toolbarService: MkjToolbarService,
         private router: Router,
         private route: ActivatedRoute,
-        private namingService: AppNamingService
+        private namingService: AppConfigService
     ) {
         this.toolbarService.header = this.namingService.appNaming.Noten;
         this.toolbarService.backButton = null;
