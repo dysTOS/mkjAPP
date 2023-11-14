@@ -6,6 +6,7 @@ import { AuthStateService } from "./services/authentication/auth-state.service";
 import { TokenService } from "./services/authentication/token.service";
 import { UserService } from "./services/authentication/user.service";
 import { ThemeService } from "./services/theme.service";
+import { AppNamingService } from "./services/config.service";
 
 @Component({
     selector: "app-root",
@@ -20,7 +21,8 @@ export class AppComponent {
         private authStatService: AuthStateService,
         private router: Router,
         private userService: UserService,
-        private tokenService: TokenService
+        private tokenService: TokenService,
+        private namingService: AppNamingService
     ) {
         this.authStatService.userAuthState.subscribe((isAuthenticated) => {
             if (!isAuthenticated && this.tokenService.isLoggedIn()) {

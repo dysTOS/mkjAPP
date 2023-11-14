@@ -98,16 +98,16 @@ export class MenuService implements OnDestroy {
             routerLink: "statistik",
         },
         {
-            label: "Tools",
-            icon: "mdi mdi-tools",
-            enumLabel: MenuLabels.TOOLS,
+            label: "Finanzen",
+            icon: "mdi mdi-currency-eur",
+            enumLabel: MenuLabels.FINANZEN,
             visible: false,
             permission: PermissionMap.ROLE_ASSIGN,
             children: [
                 {
-                    label: "Rechnungs-Generator",
+                    label: "Kassabuch",
                     icon: "mdi mdi-currency-eur",
-                    routerLink: "tools/rechnungsgenerator",
+                    routerLink: "finanzen/list",
                     visible: false,
                 },
             ],
@@ -225,7 +225,7 @@ export class MenuService implements OnDestroy {
         menu.forEach((item) => {
             if (
                 !item.permission ||
-                permissions.find((e) => e.name === item.permission)
+                permissions?.find((e) => e.name === item.permission)
             ) {
                 item.visible = true;
             } else {
@@ -273,7 +273,7 @@ export const MenuLabels = {
     //without sidemenu <= 4
     PRIMEMENU: 0,
     STATISTIK: 1,
-    TOOLS: 2,
+    FINANZEN: 2,
     NOTEN: 3,
     EINSTELLUNGEN: 4,
 

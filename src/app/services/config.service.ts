@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ConfigApiService } from "./api/config-api.service";
 import { Observable, map, tap } from "rxjs";
-import { UiNamingConfig } from "../models/UiNamingConfig";
+import { UiNamingConfig } from "../interfaces/UiNamingConfig";
 
 @Injectable({
     providedIn: "root",

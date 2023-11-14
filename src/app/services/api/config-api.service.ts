@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
-import { UiNamingConfig } from "src/app/models/UiNamingConfig";
+import { UiNamingConfig } from "src/app/interfaces/UiNamingConfig";
 import { StandardHttpOptions } from "src/app/interfaces/api-middleware";
 
 @Injectable({

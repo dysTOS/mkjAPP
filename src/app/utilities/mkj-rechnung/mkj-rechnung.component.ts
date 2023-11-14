@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Rechnung } from "src/app/models/Rechnung";
+import { Kassabuchung } from "src/app/models/Kassabuchung";
 
 @Component({
     selector: "app-mkj-rechnung",
@@ -8,26 +8,7 @@ import { Rechnung } from "src/app/models/Rechnung";
 })
 export class MkjRechnungComponent implements OnInit {
     @Input()
-    public re: Rechnung = {
-        datum: "2022-02-13",
-        gesamtpreis: 22.34,
-        empfaenger: {
-            vorname: "Roland",
-            zuname: "Sams",
-            firma: "Gulaschmusi Records",
-            strasse: "Kreutererstraße",
-            hausnummer: "40",
-            plz: "4820",
-            ort: "Bad Ischl",
-            staat: "AUSTRIA",
-        },
-        positionen: [
-            {
-                bezeichnung: "Testposition",
-                gesamtpreis: 22.34,
-            },
-        ],
-    };
+    public re: Kassabuchung;
 
     constructor() {}
 

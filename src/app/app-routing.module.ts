@@ -8,7 +8,6 @@ import { AppMainComponent } from "./app.main.component";
 import { AppNotfoundComponent } from "./pages/app.notfound.component";
 import { AppErrorComponent } from "./pages/app.error.component";
 import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
-import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
@@ -17,7 +16,7 @@ import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-s
 import { NotenarchivComponent } from "./components/archiv/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
 import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
-import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
+import { KassabuchComponent } from "./components/finanzen/kassabuchungen/kassabuchungen.component";
 import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
@@ -41,6 +40,7 @@ import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/in
 import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
 import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
+import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
 
 @NgModule({
     imports: [
@@ -193,8 +193,21 @@ import { GlobaleEinstellungenComponent } from "./components/einstellungen/global
                         },
                         {
                             path: "tools/rechnungsgenerator",
-                            component: RechnungsGeneratorComponent,
+                            component: KassabuchComponent,
                             canActivate: [RouteGuard],
+                        },
+                        {
+                            path: "finanzen",
+                            component: FinanzenWrapperComponent,
+                            canActivate: [RouteGuard],
+                            title: environment.appTitle + " -  FINANZEN",
+                            children: [
+                                {
+                                    path: "list",
+                                    component: KassabuchComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                            ],
                         },
                         {
                             path: "einstellungen",
@@ -243,10 +256,6 @@ import { GlobaleEinstellungenComponent } from "./components/einstellungen/global
                         },
                         // BARCELONA THEME STUFF-------------------------------------------------------------------------------------------------------------------------------
 
-                        {
-                            path: "pages/timeline",
-                            component: AppTimelineDemoComponent,
-                        },
                         {
                             path: "pages/invoice",
                             component: AppInvoiceComponent,

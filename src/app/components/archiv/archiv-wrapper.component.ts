@@ -5,6 +5,4 @@ import { InstrumenteUiService } from "./instrumente/instrumente-ui.service";
     template: `<router-outlet></router-outlet>`,
     providers: [InstrumenteUiService],
 })
-export class ArchivWrapperComponent {
-    constructor() {}
-}
+export class ArchivWrapperComponent {}

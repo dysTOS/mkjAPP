@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Rechnung } from "src/app/models/Rechnung";
+import { Kassabuchung } from "src/app/models/Kassabuchung";
 import {
     UntypedFormBuilder,
     UntypedFormGroup,
@@ -7,17 +7,12 @@ import {
 } from "@angular/forms";
 
 @Component({
-    selector: "app-rechnungs-generator",
-    templateUrl: "./rechnungs-generator.component.html",
-    styleUrls: ["./rechnungs-generator.component.scss"],
+    selector: "app-kassabuchungen",
+    templateUrl: "./kassabuchungen.component.html",
+    styleUrls: ["./kassabuchungen.component.scss"],
 })
-export class RechnungsGeneratorComponent implements OnInit {
-    public rechnung: Rechnung = {
-        empfaenger: {},
-        datum: null,
-        positionen: [],
-        gesamtpreis: null,
-    };
+export class KassabuchComponent implements OnInit {
+    public rechnung: Kassabuchung;
 
     public rForm: UntypedFormGroup;
 

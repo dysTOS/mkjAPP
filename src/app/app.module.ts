@@ -100,7 +100,6 @@ import { AppErrorComponent } from "./pages/app.error.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppNotfoundComponent } from "./pages/app.notfound.component";
-import { AppTimelineDemoComponent } from "./pages/app.timelinedemo.component";
 
 // import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGridPlugin from "@fullcalendar/timegrid";
@@ -147,7 +146,7 @@ import { StatistikMitgliederComponent } from "./components/statistik/components/
 import { StatistikNotenComponent } from "./components/statistik/components/statistik-noten/statistik-noten.component";
 import { StatistikTermineComponent } from "./components/statistik/components/statistik-termine/statistik-termine.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
-import { RechnungsGeneratorComponent } from "./components/tools/rechnungs-generator/rechnungs-generator.component";
+import { KassabuchComponent } from "./components/finanzen/kassabuchungen/kassabuchungen.component";
 import { MkjTemplateDirective } from "./directives/mkj-template.directive";
 import { VisibleForPermissionDirective } from "./directives/visible-for-permission.directive";
 import { AuthInterceptor } from "./guards/auth-interceptor";
@@ -178,9 +177,10 @@ import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.comp
 import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 import { MkjTileComponent } from "./utilities/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
-import { GlobaleEinstellungenComponent } from './components/einstellungen/globale-einstellungen/globale-einstellungen.component';
-import { MkjTextInputComponent } from './utilities/form-input-components/mkj-text-input/mkj-text-input.component';
-import { UiNamingConfigComponent } from './components/einstellungen/globale-einstellungen/ui-naming-config/ui-naming-config.component';
+import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
+import { MkjTextInputComponent } from "./utilities/form-input-components/mkj-text-input/mkj-text-input.component";
+import { UiNamingConfigComponent } from "./components/einstellungen/globale-einstellungen/ui-naming-config/ui-naming-config.component";
+import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -295,7 +295,6 @@ registerLocaleData(localeDe);
         StatistikMitgliederComponent,
         TestApiComponent,
         MkjDateInputComponent,
-        AppTimelineDemoComponent,
         AppInvoiceComponent,
         AppHelpComponent,
         AppNotfoundComponent,
@@ -321,7 +320,7 @@ registerLocaleData(localeDe);
         MitgliedPersonalEditComponent,
         MkjRechnungComponent,
         NotenmappenComponent,
-        RechnungsGeneratorComponent,
+        KassabuchComponent,
         MkjNotensucheComponent,
         LokaleEinstellungenComponent,
         KalenderaboComponent,
@@ -363,6 +362,7 @@ registerLocaleData(localeDe);
         GlobaleEinstellungenComponent,
         MkjTextInputComponent,
         UiNamingConfigComponent,
+        FinanzenWrapperComponent,
     ],
     providers: [
         mkjAppInitializer(),

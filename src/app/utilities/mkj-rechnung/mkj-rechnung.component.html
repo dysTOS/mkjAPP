@@ -29,15 +29,15 @@
                             <div class="invoice-details">
                                 <div class="invoice-label">Datum</div>
                                 <div class="invoice-value">
-                                    {{ re.datum | mkjDate }}
+                                    <!-- {{ re?.datum | mkjDate }} -->
                                 </div>
 
-                                <ng-container *ngIf="re.reNummer">
+                                <ng-container *ngIf="re?.nummer">
                                     <div class="invoice-label">
                                         Rechnungs-Nr.
                                     </div>
                                     <div class="invoice-value">
-                                        {{ re.reNummer }}
+                                        {{ re?.nummer }}
                                     </div>
                                 </ng-container>
 
@@ -50,18 +50,18 @@
                         <div class="bill-to">Rechnungsempfänger</div>
                         <div class="invoice-to-info">
                             <div>
-                                {{ re.empfaenger.vorname }}
-                                {{ re.empfaenger.zuname }}
+                                {{ re?.anschrift.vorname }}
+                                {{ re?.anschrift.zuname }}
                             </div>
-                            <div>{{ re.empfaenger.firma }}</div>
+                            <div>{{ re?.anschrift.firma }}</div>
                             <div>
-                                {{ re.empfaenger.strasse }}
-                                {{ re.empfaenger.hausnummer }}
+                                {{ re?.anschrift.strasse }}
+                                {{ re?.anschrift.hausnummer }}
                             </div>
                             <div>
-                                {{ re.empfaenger.plz }} {{ re.empfaenger.ort }}
+                                {{ re?.anschrift.plz }} {{ re?.anschrift.ort }}
                             </div>
-                            <div>{{ re.empfaenger.staat }}</div>
+                            <div>{{ re?.anschrift.staat }}</div>
                         </div>
                     </div>
                     <div class="invoice-items">
@@ -75,7 +75,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let pos of re.positionen">
+                                <tr *ngFor="let pos of re?.positionen">
                                     <td>{{ pos.bezeichnung }}</td>
                                     <td>{{ pos.menge }}</td>
                                     <td>{{ pos.einzelpreis }}</td>
@@ -87,13 +87,13 @@
                     <div class="invoice-summary">
                         <div class="invoice-notes">
                             <b>Anmerkungen</b>
-                            <div>{{ re.anmerkungen }}</div>
+                            <div>{{ re?.anmerkungen }}</div>
                         </div>
                         <div>
                             <div class="invoice-details">
                                 <div class="invoice-label">GESAMT</div>
                                 <div class="invoice-value">
-                                    {{ re.gesamtpreis }}
+                                    {{ re?.gesamtpreis }}
                                 </div>
                             </div>
                         </div>
