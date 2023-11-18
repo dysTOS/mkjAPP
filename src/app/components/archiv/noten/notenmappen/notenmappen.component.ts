@@ -1,42 +1,24 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { MenuItem } from "primeng/api";
-import { Noten, Notenmappe } from "src/app/models/Noten";
+import { Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
-import { NotenApiService } from "src/app/services/api/noten-api.service";
+import { NotenmappeListDatasource } from "src/app/utilities/_list-datasources/notenmappe-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-notenmappen",
     templateUrl: "./notenmappen.component.html",
     styleUrls: ["./notenmappen.component.scss"],
+    providers: [NotenmappeListDatasource],
 })
-export class NotenmappenComponent implements OnInit {
-    public notenmappen: Notenmappe[];
-    public selectedMappe: Notenmappe;
-    public selectedNoten: Noten;
-    public verzeichnisNr: string;
-    public loading: boolean = false;
-
-    public addDialogVisible: boolean = false;
-    public newMappeSubmitted: boolean = false;
-
-    public mappenMenuItems: MenuItem[] = [
-        {
-            label: "Bearbeiten",
-            icon: "pi pi-pencil",
-            command: () => (this.addDialogVisible = true),
-        },
-    ];
-
+export class NotenmappenComponent {
     constructor(
-        private notenService: NotenApiService,
+        public datasource: NotenmappeListDatasource,
         private route: ActivatedRoute,
         private router: Router,
         private toolbarService: MkjToolbarService
     ) {
         this.toolbarService.header = "Notenmappen";
-        this.toolbarService.backButton = null;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
@@ -48,17 +30,9 @@ export class NotenmappenComponent implements OnInit {
         ];
     }
 
-    public ngOnInit(): void {
-        this.getNotenmappen();
-    }
-
-    public getNotenmappen() {
-        this.loading = true;
-        this.notenService.getNotenmappen().subscribe({
-            next: (res) => {
-                this.notenmappen = res;
-                this.loading = false;
-            },
+    public navigateToNotenmappe(notenmappe: Notenmappe) {
+        this.router.navigate(["../mappen", notenmappe.id], {
+            relativeTo: this.route,
         });
     }
 }

@@ -23,8 +23,8 @@ export interface GetCollectionApiCallInput {
 }
 
 export interface GetCollectionApiCallOutput<T> {
-    totalCount?: number;
-    values?: Array<T>;
+    totalCount: number;
+    values: Array<T>;
 }
 
 export interface StandardAllocationInput {

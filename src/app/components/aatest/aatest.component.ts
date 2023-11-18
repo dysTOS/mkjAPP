@@ -33,9 +33,7 @@ export class AatestComponent implements OnInit {
         });
     }
 
-    public notenTest() {
-        this.notenService.getNotenmappen().subscribe((res) => console.log(res));
-    }
+    public notenTest() {}
 
     public saveWordpressPost() {
         const url = "http://localhost:8000/api/savepost";

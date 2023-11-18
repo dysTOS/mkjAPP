@@ -1,12 +1,23 @@
 import { Anschrift } from "./Anschrift";
+import { Gruppe } from "./Gruppe";
+
+export interface Kassabuch {
+    name: string;
+    aktiv: boolean;
+    color?: string;
+    anmerkungen?: string;
+    gruppe?: Gruppe;
+    kassabuchungen?: Kassabuchung[];
+}
 
 export interface Kassabuchung {
     typ: KassabuchungTyp;
     nummer: string;
     datum: string;
-    anschrift: Anschrift;
+    anschrift_id: string;
+    anschrift?: Anschrift;
     gesamtpreis: number;
-    bezahlt: boolean;
+    bezahltDatum?: string;
     anmerkungen?: string;
     positionen?: RechnungsPosition[];
     konditionen?: RechnungsKonditionen;

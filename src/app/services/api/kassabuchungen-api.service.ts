@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AbstractCrudApiService } from "./_abstract-crud-api-service";
-import { Kassabuchung } from "src/app/models/Kassabuchung";
+import { Kassabuchung } from "src/app/models/Kassabuch";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({

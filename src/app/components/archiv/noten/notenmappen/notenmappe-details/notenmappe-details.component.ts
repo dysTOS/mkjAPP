@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { Noten, Notenmappe } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
-import { NotenApiService } from "src/app/services/api/noten-api.service";
+import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { NotenmappenFormHelper } from "src/app/utilities/form-components/mkj-notenmappe-form/notenmappen-form-helper.class";
@@ -35,7 +35,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         private route: ActivatedRoute,
         private router: Router,
         private infoService: InfoService,
-        private notenService: NotenApiService,
+        private apiService: NotenmappenApiService,
         private userService: UserService
     ) {
         this.initToolbar();
@@ -92,7 +92,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
 
     private loadMappe(id: string) {
         this.loading = true;
-        this.notenService.getNotenMappe(id).subscribe({
+        this.apiService.getById(id).subscribe({
             next: (res) => {
                 NotenmappenFormHelper.patchNotenmappeFormGroup(
                     this.formGroup,
@@ -115,36 +115,32 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         this.isSaving = true;
         const update = this.formGroup.controls.id.value;
         if (update) {
-            this.notenService
-                .updateNotenmappe(this.formGroup.getRawValue())
-                .subscribe({
-                    next: (res) => {
-                        this.infoService.success("Mappe gespeichert!");
-                        this.isSaving = false;
-                        this.formGroup.markAsPristine();
-                    },
-                    error: (err) => {
-                        this.infoService.error(err);
-                        this.isSaving = false;
-                    },
-                });
+            this.apiService.update(this.formGroup.getRawValue()).subscribe({
+                next: (res) => {
+                    this.infoService.success("Mappe gespeichert!");
+                    this.isSaving = false;
+                    this.formGroup.markAsPristine();
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.isSaving = false;
+                },
+            });
         } else {
-            this.notenService
-                .createNotenmappe(this.formGroup.getRawValue())
-                .subscribe({
-                    next: (res) => {
-                        this.infoService.success("Mappe erstellt!");
-                        this.isSaving = false;
-                        this.formGroup.markAsPristine();
-                        this.router.navigate(["../"], {
-                            relativeTo: this.route,
-                        });
-                    },
-                    error: (err) => {
-                        this.infoService.error(err);
-                        this.isSaving = false;
-                    },
-                });
+            this.apiService.create(this.formGroup.getRawValue()).subscribe({
+                next: (res) => {
+                    this.infoService.success("Mappe erstellt!");
+                    this.isSaving = false;
+                    this.formGroup.markAsPristine();
+                    this.router.navigate(["../"], {
+                        relativeTo: this.route,
+                    });
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.isSaving = false;
+                },
+            });
         }
     }
 
@@ -152,7 +148,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         this.tableLocked = true;
         const noten = event.noten;
         const mappenId = this.formGroup.controls.id.value;
-        this.notenService
+        this.apiService
             .attachNotenToMappe(noten.id, mappenId, event.verzeichnisNr)
             .subscribe({
                 next: (res) => {
@@ -173,7 +169,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         const mappenId = this.formGroup.controls.id.value;
         this.infoService
             .confirmDelete(noten.titel + " aus Mappe löschen?", () =>
-                this.notenService.detachNotenFromMappe(noten.id, mappenId)
+                this.apiService.detachNotenFromMappe(noten.id, mappenId)
             )
             .subscribe({
                 next: (res) => {
@@ -193,9 +189,7 @@ export class NotenmappeDetailsComponent implements EditComponentDeactivate {
         this.loading = true;
         this.infoService
             .confirmDelete("Mappe wirklich löschen?", () =>
-                this.notenService.deleteNotenmappe(
-                    this.formGroup?.controls.id.value
-                )
+                this.apiService.delete(this.formGroup?.controls.id.value)
             )
             .subscribe({
                 next: (res) => {

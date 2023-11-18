@@ -1,12 +1,4 @@
-<mkj-content-loader [loading]="loading">
-    <div class="flex flex-wrap gap-4">
-        <mkj-tile
-            *ngFor="let mappe of notenmappen"
-            [label]="mappe.name"
-            [labelBottomLeft]="mappe.noten.length"
-            [labelBottomRight]="mappe.hatVerzeichnis ? 'Verzeichnis' : ''"
-            [color]="mappe.color"
-            [routerLink]="['../mappen', mappe.id]"
-        ></mkj-tile>
-    </div>
-</mkj-content-loader>
+<mkj-tile-view
+    [datasource]="datasource"
+    (clicked)="navigateToNotenmappe($event)"
+></mkj-tile-view>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Kassabuchung } from "src/app/models/Kassabuchung";
+import { Kassabuchung } from "src/app/models/Kassabuch";
 
 @Component({
     selector: "app-mkj-rechnung",

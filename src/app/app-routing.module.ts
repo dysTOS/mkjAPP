@@ -16,7 +16,7 @@ import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-s
 import { NotenarchivComponent } from "./components/archiv/noten/notenarchiv/notenarchiv.component";
 import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
 import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
-import { KassabuchComponent } from "./components/finanzen/kassabuchungen/kassabuchungen.component";
+import { KassabuecherComponent } from "./components/finanzen/kassabuecher-overview/kassabuecher-overview.component";
 import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
@@ -193,7 +193,7 @@ import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper
                         },
                         {
                             path: "tools/rechnungsgenerator",
-                            component: KassabuchComponent,
+                            component: KassabuecherComponent,
                             canActivate: [RouteGuard],
                         },
                         {
@@ -204,7 +204,7 @@ import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper
                             children: [
                                 {
                                     path: "list",
-                                    component: KassabuchComponent,
+                                    component: KassabuecherComponent,
                                     canActivate: [RouteGuard],
                                 },
                             ],

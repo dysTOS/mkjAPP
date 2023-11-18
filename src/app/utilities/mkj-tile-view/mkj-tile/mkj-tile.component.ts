@@ -36,6 +36,7 @@ export class MkjTileComponent {
     constructor() {}
 
     public setColors(c: any) {
+        c = c ? c : "#666666";
         this.colorStrong = c;
         this.colorLight = c + "b3";
         this.textColor = UtilFunctions.isDarkBackground(c)
