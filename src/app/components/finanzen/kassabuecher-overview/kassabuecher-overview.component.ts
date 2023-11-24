@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Kassabuch } from "src/app/models/Kassabuch";
 import { KassabuchListDatasource } from "src/app/utilities/_list-datasources/kassabuch-list-datasource";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -7,13 +9,30 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     templateUrl: "./kassabuecher-overview.component.html",
     providers: [KassabuchListDatasource],
 })
-export class KassabuecherComponent implements OnInit {
+export class KassabuecherComponent {
     constructor(
         public datasource: KassabuchListDatasource,
-        private toolbarService: MkjToolbarService
+        private toolbarService: MkjToolbarService,
+        private router: Router,
+        private route: ActivatedRoute
     ) {
         this.toolbarService.header = "Kassabücher";
+        this.toolbarService.buttons = [
+            {
+                icon: "pi pi-plus",
+                label: "Neu",
+                click: () => {
+                    this.router.navigate(["../buch/new"], {
+                        relativeTo: this.route,
+                    });
+                },
+            },
+        ];
     }
 
-    public ngOnInit(): void {}
+    public navigateDetails(buch: Kassabuch): void {
+        this.router.navigate(["../details", buch.id], {
+            relativeTo: this.route,
+        });
+    }
 }

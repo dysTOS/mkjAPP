@@ -97,7 +97,6 @@ export class MkjLinkInputComponent implements ControlValueAccessor, Validator {
     }
 
     validate(control: AbstractControl<any, any>): ValidationErrors {
-        console.log("validate");
         if (!this.addLink.label && !this.addLink.url) {
             return null;
         }

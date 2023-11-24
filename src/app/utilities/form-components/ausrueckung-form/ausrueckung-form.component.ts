@@ -126,7 +126,7 @@ export class AusrueckungFormComponent implements OnInit, OnDestroy {
             gruppenleiterMitgliedId =
                 this.userService.currentMitglied.getValue().id;
         }
-        this.gruppenService.getAllGruppen().subscribe((res) => {
+        this.gruppenService.getList().subscribe((res) => {
             let gruppen = res.values;
             if (gruppenleiterMitgliedId) {
                 gruppen = gruppen.filter(

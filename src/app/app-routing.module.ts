@@ -41,6 +41,9 @@ import { InstrumenteEditorComponent } from "./components/archiv/instrumente/inst
 import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
 import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
+import { KassabuchDetailsComponent } from "./components/finanzen/kassabuch-details/kassabuch-details.component";
+import { KassabuchEditComponent } from "./components/finanzen/kassabuch-edit/kassabuch-edit.component";
+import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
 
 @NgModule({
     imports: [
@@ -205,6 +208,22 @@ import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper
                                 {
                                     path: "list",
                                     component: KassabuecherComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "buch/:buchId",
+                                    component: KassabuchEditComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
+                                    path: "details/:buchId",
+                                    component: KassabuchDetailsComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "details/:buchId/:id",
+                                    component: KassabuchungEditComponent,
                                     canActivate: [RouteGuard],
                                 },
                             ],

@@ -87,7 +87,10 @@ export class InfoService {
         });
     }
 
-    public confirmDelete(message: string, asyncCall: () => Observable<any>) {
+    public confirmDelete(
+        message: string,
+        asyncCall: () => Observable<any>
+    ): Observable<any> {
         const subject = new Subject();
         this.confirmationService.confirm({
             header: "Löschen?",
@@ -111,6 +114,29 @@ export class InfoService {
             },
             reject: () => {
                 subject.error(null);
+                subject.complete();
+            },
+        });
+        return subject;
+    }
+
+    public confirm(message: string, options?: any): Observable<boolean> {
+        const subject = new Subject<boolean>();
+        this.confirmationService.confirm({
+            header: options?.header ?? "Bestätigen",
+            message:
+                message ??
+                "Bist du sicher das dieser Vorgang durchgeführt werden soll?",
+            acceptLabel: options?.acceptLabel ?? "Bestätigen",
+            rejectLabel: options?.rejectLabel ?? "Abbrechen",
+            acceptButtonStyleClass: options?.acceptButtonStyleClass ?? "",
+            rejectButtonStyleClass: options?.rejectButtonStyleClass ?? "",
+            accept: () => {
+                subject.next(true);
+                subject.complete();
+            },
+            reject: () => {
+                subject.next(false);
                 subject.complete();
             },
         });

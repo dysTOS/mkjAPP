@@ -1,0 +1,37 @@
+<mkj-content-loader [loading]="component.loading$ | async">
+    <div
+        class="flex flex-column"
+        [class.p-disabled]="component.saving$ | async"
+    >
+        <div class="card">
+            <ng-content></ng-content>
+        </div>
+        <p-messages
+            [value]="errors$ | async | mkjFormError"
+            [enableService]="false"
+        ></p-messages>
+        <div class="card flex justify-content-end">
+            <button
+                pButton
+                class="p-button-outlined mr-2"
+                label="Reset"
+                icon="pi pi-refresh"
+                [disabled]="component.formGroup.pristine"
+                (click)="component.reload()"
+            ></button>
+            <button
+                pButton
+                label="Speichern"
+                [icon]="
+                    (component.saving$ | async)
+                        ? 'pi pi-spin pi-spinner'
+                        : 'pi pi-save'
+                "
+                [disabled]="
+                    component.formGroup.invalid || component.formGroup.pristine
+                "
+                (click)="component.save()"
+            ></button>
+        </div>
+    </div>
+</mkj-content-loader>

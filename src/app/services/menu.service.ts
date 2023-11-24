@@ -108,6 +108,7 @@ export class MenuService implements OnDestroy {
                     label: "Kassabuch",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "finanzen/list",
+                    permission: PermissionMap.ROLE_ASSIGN,
                     visible: false,
                 },
             ],

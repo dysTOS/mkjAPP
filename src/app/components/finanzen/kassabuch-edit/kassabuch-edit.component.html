@@ -1,0 +1,28 @@
+<mkj-form-wrapper [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-boolean-input
+                label="Aktiv"
+                formControlName="aktiv"
+            ></mkj-boolean-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Name"
+                formControlName="name"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <p-colorPicker
+                label="Farbe"
+                formControlName="color"
+            ></p-colorPicker>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-area-input
+                label="Anmerkungen"
+                formControlName="anmerkungen"
+            ></mkj-text-area-input>
+        </div>
+    </div>
+</mkj-form-wrapper>

@@ -1,0 +1,60 @@
+<mkj-content-loader [loading]="loading$ | async">
+    <div class="card p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-tag
+                [label]="kassabuch?.aktiv ? 'Aktiv' : 'Inaktiv'"
+                [severity]="kassabuch?.aktiv ? 'success' : 'warning'"
+            ></mkj-tag>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-display-field label="Name">
+                {{ kassabuch?.name }}
+            </mkj-display-field>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-display-field label="Gruppe">
+                {{ kassabuch?.gruppe?.name ?? "--" }}
+            </mkj-display-field>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-display-field label="Kassastand">
+                {{ kassabuch?.kassastand | currency : "EUR" }}
+            </mkj-display-field>
+        </div>
+        <div
+            *ngIf="kassabuch?.anmerkungen"
+            class="p-field col-12 lg:col-3 md:col-6"
+        >
+            <mkj-display-field label="Anmerkungen">
+                {{ kassabuch.anmerkungen }}
+            </mkj-display-field>
+        </div>
+    </div>
+
+    <p-divider></p-divider>
+
+    <div class="flex justify-content-center">
+        <p-button label="Neue Buchung" [routerLink]="'new'"></p-button>
+    </div>
+
+    <p-table [value]="kassabuch?.kassabuchungen">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Datum</th>
+                <th>Typ</th>
+                <th>preis</th>
+                <th>Wert</th>
+                <th>Saldo</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-eintrag>
+            <tr (dblclick)="navigateBuchung(eintrag.id)">
+                <td>{{ eintrag.datum }}</td>
+                <td>{{ eintrag.typ }}</td>
+                <td>{{ eintrag.gesamtpreis }}</td>
+                <td>{{ eintrag.wert }}</td>
+                <td>{{ eintrag.saldo }}</td>
+            </tr>
+        </ng-template></p-table
+    >
+</mkj-content-loader>

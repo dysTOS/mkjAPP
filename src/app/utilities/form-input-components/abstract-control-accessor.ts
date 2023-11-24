@@ -18,8 +18,8 @@ export abstract class AbstractControlAccessor<T>
     private _value = new BehaviorSubject<T>(null);
     private _disabled = new BehaviorSubject(false);
 
-    private _registerOnChange: (_: T) => void;
-    private _registerOnTouched: () => void;
+    private _onChange: (_: T) => void;
+    private _onTouched: () => void;
 
     @Input()
     public set value(value: T) {
@@ -37,6 +37,9 @@ export abstract class AbstractControlAccessor<T>
 
     @Input()
     public label: string;
+
+    @Input()
+    public placeholder: string;
 
     @Output()
     public valueChange = new EventEmitter<T>();
@@ -59,22 +62,32 @@ export abstract class AbstractControlAccessor<T>
     }
 
     public change(value: T) {
-        this._registerOnChange?.(value);
+        this._onChange?.(value);
         this.valueChange.emit(value);
     }
 
     public touch() {
-        this._registerOnTouched?.();
+        this._onTouched?.();
+    }
+
+    /**
+     * Override this method to convert the form model to the model used by concrete component.
+     * @param model
+     * @returns
+     */
+    protected convertModelToFormModel(model: T): any {
+        return model;
     }
 
     writeValue(obj: T): void {
-        this._value.next(obj);
+        const value = this.convertModelToFormModel(obj);
+        this._value.next(value);
     }
     registerOnChange(fn: any): void {
-        this._registerOnChange = fn;
+        this._onChange = fn;
     }
     registerOnTouched(fn: any): void {
-        this._registerOnTouched = fn;
+        this._onTouched = fn;
     }
     setDisabledState(isDisabled: boolean): void {
         this._disabled.next(isDisabled);

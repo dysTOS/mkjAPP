@@ -1,0 +1,29 @@
+<div #opTarget class="flex gap-2" [formGroup]="internalFormGroup">
+    <mkj-text-input label="vorname" formControlName="vorname"></mkj-text-input>
+    <mkj-text-input label="zuname" formControlName="zuname"></mkj-text-input>
+    <mkj-text-input label="firma" formControlName="firma"></mkj-text-input>
+    <p-divider></p-divider>
+</div>
+
+<div class="pt-2 flex flex-column">
+    <div>
+        <i *ngIf="suggesting$ | async" class="pi pi-spin pi-spinner"></i>
+    </div>
+</div>
+
+<p-overlayPanel #op [dismissable]="true">
+    <ng-template pTemplate>
+        <div *ngFor="let sugg of suggestions" class="flex">
+            <span> {{ sugg.vorname }} </span>
+            <span> {{ sugg.zuname }} </span>
+            <span> {{ sugg.firma }}</span>
+            <button
+                pButton
+                type="button"
+                class="p-button-small p-button-text"
+                label="Auswählen"
+                (click)="setFromSuggestion(sugg)"
+            ></button>
+        </div>
+    </ng-template>
+</p-overlayPanel>

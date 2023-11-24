@@ -5,88 +5,78 @@ import { environment } from "src/environments/environment";
 import {
     GetCollectionApiCallOutput,
     StandardAllocationInput,
+    StandardHttpOptions,
     StandardMessageOutput,
 } from "../../interfaces/api-middleware";
 import { Gruppe } from "../../models/Gruppe";
 import { Mitglied } from "../../models/Mitglied";
-
-const httpOptions = {
-    headers: new HttpHeaders({
-        "Content-Type": "application/json",
-    }),
-};
+import { AbstractCrudApiService } from "./_abstract-crud-api-service";
 
 @Injectable({
     providedIn: "root",
 })
-export class GruppenApiService {
-    private apiURL = environment.apiUrl + "gruppen/";
+export class GruppenApiService extends AbstractCrudApiService<Gruppe> {
+    protected controllerApiUrlKey: string = "gruppen";
 
-    constructor(private http: HttpClient) {}
+    constructor(private httpClient: HttpClient) {
+        super(httpClient);
+    }
 
     public addMitgliedToGruppe(
         input: StandardAllocationInput
     ): Observable<StandardMessageOutput> {
-        const url = this.apiURL + "addmitglied";
-        return this.http.post<StandardMessageOutput>(
+        const url =
+            environment.apiUrl + this.controllerApiUrlKey + "/addmitglied";
+        return this.httpClient.post<StandardMessageOutput>(
             url,
             { gruppe_id: input.collectionId, mitglied_id: input.subjectId },
-            httpOptions
+            StandardHttpOptions
         );
     }
 
     public removeMitgliedFromGruppe(
         input: StandardAllocationInput
     ): Observable<StandardMessageOutput> {
-        const url = this.apiURL + "removemitglied";
-        return this.http.post<StandardMessageOutput>(
+        const url =
+            environment.apiUrl + this.controllerApiUrlKey + "/removemitglied";
+        return this.httpClient.post<StandardMessageOutput>(
             url,
             { gruppe_id: input.collectionId, mitglied_id: input.subjectId },
-            httpOptions
+            StandardHttpOptions
         );
-    }
-
-    public getAllGruppen(input?: {
-        includeMitglieder?: boolean;
-        includeGruppenleiter?: boolean;
-        includeTermine?: boolean;
-        nurRegister?: boolean;
-    }): Observable<GetCollectionApiCallOutput<Gruppe>> {
-        const url = this.apiURL + "all";
-        return this.http.post<GetCollectionApiCallOutput<Gruppe>>(
-            url,
-            input,
-            httpOptions
-        );
-    }
-
-    public getGruppe(id: string): Observable<Gruppe> {
-        const url = this.apiURL + "gruppe";
-        return this.http.post<Gruppe>(url, { id: id }, httpOptions);
-    }
-
-    public saveGruppe(input: Gruppe): Observable<Gruppe> {
-        const url = this.apiURL + "save";
-        return this.http.post<Gruppe>(url, input, httpOptions);
-    }
-
-    public deleteGruppe(id: string): Observable<any> {
-        const url = this.apiURL + id;
-        return this.http.delete<any>(url, httpOptions);
     }
 
     public getGruppenLeiter(gruppenId: string): Observable<Mitglied> {
-        const url = this.apiURL + "gruppenleiter";
-        return this.http.post<Mitglied>(url, { id: gruppenId }, httpOptions);
+        const url =
+            environment.apiUrl + this.controllerApiUrlKey + "/gruppenleiter";
+        return this.httpClient.post<Mitglied>(
+            url,
+            { id: gruppenId },
+            StandardHttpOptions
+        );
     }
 
     public getMitgliederOfGruppe(gruppenId: string): Observable<Mitglied[]> {
-        const url = this.apiURL + "mitgliederofgruppe";
-        return this.http.post<Mitglied[]>(url, { id: gruppenId }, httpOptions);
+        const url =
+            environment.apiUrl +
+            this.controllerApiUrlKey +
+            "/mitgliederofgruppe";
+        return this.httpClient.post<Mitglied[]>(
+            url,
+            { id: gruppenId },
+            StandardHttpOptions
+        );
     }
 
     public getGruppenOfMitglied(mitgliedId: string): Observable<Gruppe[]> {
-        const url = this.apiURL + "gruppenofmitglied";
-        return this.http.post<Gruppe[]>(url, { id: mitgliedId }, httpOptions);
+        const url =
+            environment.apiUrl +
+            this.controllerApiUrlKey +
+            "/gruppenofmitglied";
+        return this.httpClient.post<Gruppe[]>(
+            url,
+            { id: mitgliedId },
+            StandardHttpOptions
+        );
     }
 }

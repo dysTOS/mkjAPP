@@ -45,7 +45,7 @@ export class InstrumentFormComponent implements OnDestroy {
     }
 
     private getGruppen() {
-        this.gruppenService.getAllGruppen().subscribe((res) => {
+        this.gruppenService.getList().subscribe((res) => {
             this.GruppenMap = res.values
                 .filter((e) => e.register)
                 .map((e) => {

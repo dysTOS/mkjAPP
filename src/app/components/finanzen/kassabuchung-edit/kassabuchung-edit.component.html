@@ -1,0 +1,50 @@
+<mkj-form-wrapper
+    [formGroup]="formGroup"
+    [component]="this"
+    [errors]="formGroup.controls.anschrift.errors || formGroup.errors"
+>
+    <div class="p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Typ"
+                formControlName="typ"
+                [options]="typOptions"
+            ></mkj-dropdown>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Re-Nummer"
+                formControlName="nummer"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                type="date"
+                label="Re-Datum"
+                formControlName="datum"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-number-input
+                mode="currency"
+                label="Gesamtpreis"
+                formControlName="gesamtpreis"
+            ></mkj-number-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                type="date"
+                label="Bezahlt am"
+                formControlName="bezahltDatum"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-area-input
+                label="Anmerkungen"
+                formControlName="anmerkungen"
+            ></mkj-text-area-input>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <mkj-anschrift-form formControlName="anschrift"></mkj-anschrift-form>
+</mkj-form-wrapper>

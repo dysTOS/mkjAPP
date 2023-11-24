@@ -1,6 +1,9 @@
 export interface Anschrift {
+    id?: string;
     vorname?: string;
     zuname?: string;
+    titelVor?: string;
+    titelNach?: string;
     firma?: string;
     strasse?: string;
     hausnummer?: string;
@@ -8,5 +11,8 @@ export interface Anschrift {
     ort?: string;
     staat?: string;
     email?: string;
-    telefonNummer?: string;
+    telefonHaupt?: string;
+    telefonMobil?: string;
+    IBAN?: string;
+    BIC?: string;
 }

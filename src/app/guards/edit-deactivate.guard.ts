@@ -1,5 +1,9 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from "@angular/router";
+import {
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    UrlTree,
+} from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { Observable, Subject } from "rxjs";
 
@@ -10,9 +14,7 @@ export interface EditComponentDeactivate {
 @Injectable({
     providedIn: "root",
 })
-export class EditDeactivateGuard
-    
-{
+export class EditDeactivateGuard {
     constructor(private confirmationService: ConfirmationService) {}
 
     canDeactivate(

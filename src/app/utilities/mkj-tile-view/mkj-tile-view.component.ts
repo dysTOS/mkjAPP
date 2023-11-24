@@ -24,7 +24,7 @@ export class MkjTileViewComponent<T> implements OnInit {
     public clicked = new EventEmitter<T>();
 
     private _loading = new BehaviorSubject<boolean>(false);
-    public loading$ = this._loading.asObservable();
+    public readonly loading$ = this._loading.asObservable();
 
     public values: TileValue<T>[] = [];
 
@@ -38,9 +38,9 @@ export class MkjTileViewComponent<T> implements OnInit {
         this._loading.next(true);
         this.datasource.getList().subscribe({
             next: (res) => {
-                this.values = res.values.map((item) =>
-                    this.datasource.mapToTileValue(item)
-                );
+                this.values = res.values
+                    .map((item) => this.datasource.mapToTileValue(item))
+                    .sort((a, b) => b.color?.localeCompare(a.color));
                 this._loading.next(false);
             },
             error: (err) => {

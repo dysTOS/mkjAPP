@@ -15,7 +15,7 @@ export abstract class AbstractCrudApiService<T> {
     constructor(private http: HttpClient) {}
 
     public getList(
-        input: GetCollectionApiCallInput
+        input?: GetCollectionApiCallInput
     ): Observable<GetCollectionApiCallOutput<T>> {
         return this.http.post<GetCollectionApiCallOutput<T>>(
             this._baseApiUrl + this.controllerApiUrlKey + "/list",

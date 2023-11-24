@@ -37,25 +37,23 @@ export class AnwesenheitsListeComponent {
     ) {}
 
     public initMitglieder(id: string) {
-        this.gruppenService
-            .getAllGruppen({ nurRegister: true, includeMitglieder: true })
-            .subscribe({
-                next: (res) => {
-                    this.gruppenMitglieder = res.values.map((g) => {
-                        return {
-                            label: g.name,
-                            value: g,
-                            items: g.mitglieder.map((m) => {
-                                return {
-                                    label: m.vorname + " " + m.zuname,
-                                    value: m,
-                                };
-                            }),
-                        };
-                    });
-                },
-                error: (err) => this.infoService.error(err),
-            });
+        this.gruppenService.getList().subscribe({
+            next: (res) => {
+                this.gruppenMitglieder = res.values.map((g) => {
+                    return {
+                        label: g.name,
+                        value: g,
+                        items: g.mitglieder.map((m) => {
+                            return {
+                                label: m.vorname + " " + m.zuname,
+                                value: m,
+                            };
+                        }),
+                    };
+                });
+            },
+            error: (err) => this.infoService.error(err),
+        });
         this.mitgliedService.getMitgliederForAusrueckung(id).subscribe({
             next: (res) => (this.presentMitglieder = res),
             error: (err) => this.infoService.error(err),

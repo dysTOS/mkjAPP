@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { GetCollectionApiCallOutput } from "src/app/interfaces/api-middleware";
+import { GetCollectionApiCallOutput as GetCollectionApiOutput } from "src/app/interfaces/api-middleware";
 import { Kassabuch } from "src/app/models/Kassabuch";
 import { KassabuchApiService } from "src/app/services/api/kassabuch-api.service";
 import { AbstractListDatasource } from "./_abstract-list-datasource.class";
@@ -12,7 +12,7 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
         super();
     }
 
-    public getList(): Observable<GetCollectionApiCallOutput<Kassabuch>> {
+    public getList(): Observable<GetCollectionApiOutput<Kassabuch>> {
         return this.apiService.getList(null);
     }
 
@@ -21,6 +21,7 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
             label: item.name,
             value: item,
             color: item.color,
+            labelBottomLeft: item.gruppe?.name,
         };
     }
 }

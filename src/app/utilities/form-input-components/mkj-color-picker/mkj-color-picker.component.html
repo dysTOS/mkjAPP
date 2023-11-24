@@ -2,19 +2,19 @@
     <span class="p-float-label">
         <input
             type="text"
-            [(ngModel)]="internString"
-            (ngModelChange)="_onChange($event)"
+            [ngModel]="value$ | async"
+            (ngModelChange)="change($event)"
             pInputText
             inputId="color"
-            [disabled]="disabled"
+            [disabled]="disabled$ | async"
             pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
         />
         <label for="color">{{ label }}</label>
     </span>
     <p-colorPicker
-        [(ngModel)]="internString"
-        (ngModelChange)="_onChange($event)"
-        [disabled]="disabled"
+        [ngModel]="value$ | async"
+        (ngModelChange)="change($event)"
+        [disabled]="disabled$ | async"
         class="ml-3 ml-1"
     ></p-colorPicker>
 </div>

@@ -68,12 +68,13 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
 
     private loadGruppe(id: string) {
         this.isLoading = true;
-        this.gruppenService.getGruppe(id).subscribe({
+        this.gruppenService.getById(id).subscribe({
             next: (res) => {
                 this.formGroup = UtilFunctions.getGruppeFormGroup(this.fb, res);
                 this.formGroup.updateValueAndValidity();
                 this.mitglieder = res.mitglieder ?? [];
                 this.sortMitglieder();
+                this.formGroup.markAsPristine();
                 this.isLoading = false;
             },
             error: (err) => {
@@ -85,20 +86,39 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
 
     public saveGruppe() {
         this.isSaving = true;
-        this.gruppenService.saveGruppe(this.formGroup.getRawValue()).subscribe({
-            next: (res) => {
-                this.infoService.success("Gruppe gespeichert!");
-                this.isSaving = false;
-                if (!this.formGroup.get("id").value) {
-                    this.loadGruppe(res.id);
-                }
-                this.formGroup.markAsPristine();
-            },
-            error: (err) => {
-                this.infoService.error(err);
-                this.isSaving = false;
-            },
-        });
+        const rawValue = this.formGroup.getRawValue();
+
+        if (rawValue.id) {
+            this.gruppenService.update(rawValue).subscribe({
+                next: (res) => {
+                    this.infoService.success("Gruppe gespeichert!");
+                    this.isSaving = false;
+                    if (!this.formGroup.get("id").value) {
+                        this.loadGruppe(res.id);
+                    }
+                    this.formGroup.markAsPristine();
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.isSaving = false;
+                },
+            });
+        } else {
+            this.gruppenService.create(rawValue).subscribe({
+                next: (res) => {
+                    this.infoService.success("Gruppe gespeichert!");
+                    this.isSaving = false;
+                    if (!this.formGroup.get("id").value) {
+                        this.loadGruppe(res.id);
+                    }
+                    this.formGroup.markAsPristine();
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this.isSaving = false;
+                },
+            });
+        }
     }
 
     public addMitglied(mitglied: Mitglied) {
@@ -163,9 +183,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
     private deleteGruppe() {
         this.infoService
             .confirmDelete(null, () =>
-                this.gruppenService.deleteGruppe(
-                    this.formGroup?.controls.id.value
-                )
+                this.gruppenService.delete(this.formGroup?.controls.id.value)
             )
             .subscribe({
                 next: (res) => {
@@ -174,6 +192,7 @@ export class GruppeDetailsComponent implements EditComponentDeactivate {
                             this.formGroup.controls.name.value +
                             " gelöscht."
                     );
+                    this.formGroup.markAsPristine();
                     this.router.navigate(["../"], { relativeTo: this.route });
                 },
                 error: (err) => {

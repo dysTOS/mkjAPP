@@ -1,12 +1,4 @@
-<mkj-content-loader [loading]="gruppenLoading">
-    <div class="flex flex-wrap gap-4">
-        <mkj-tile
-            *ngFor="let gruppe of gruppen"
-            [label]="gruppe.name"
-            [labelBottomLeft]="gruppe.mitglieder.length"
-            [labelBottomRight]="gruppe.register ? 'Register' : ''"
-            [color]="gruppe.color"
-            (click)="navigateDetails(gruppe)"
-        ></mkj-tile>
-    </div>
-</mkj-content-loader>
+<mkj-tile-view
+    [datasource]="datasource"
+    (clicked)="navigateDetails($event)"
+></mkj-tile-view>

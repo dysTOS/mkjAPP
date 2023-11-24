@@ -3,8 +3,17 @@ import { Gruppe } from "../models/Gruppe";
 import { Instrument } from "../models/Instrument";
 import { Noten } from "../models/Noten";
 import { Termin } from "../models/Termin";
+import { MkjDropdownOption } from "../utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
 
-export class UtilFunctions {
+export abstract class UtilFunctions {
+    public static getDropdownOptionsFromEnum(
+        enumObject: any
+    ): MkjDropdownOption[] {
+        return Object.entries(enumObject).map((entry) => {
+            return { label: entry[0], value: entry[1] };
+        });
+    }
+
     public static findIndexById(id: string, array: Array<any>) {
         let index = -1;
         for (let i = 0; i < array.length; i++) {

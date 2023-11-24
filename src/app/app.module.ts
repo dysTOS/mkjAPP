@@ -183,6 +183,16 @@ import { UiNamingConfigComponent } from "./components/einstellungen/globale-eins
 import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
 import { MkjListComponent } from "./utilities/mkj-list/mkj-list.component";
 import { MkjTileViewComponent } from "./utilities/mkj-tile-view/mkj-tile-view.component";
+import { KassabuchDetailsComponent } from "./components/finanzen/kassabuch-details/kassabuch-details.component";
+import { KassabuchEditComponent } from "./components/finanzen/kassabuch-edit/kassabuch-edit.component";
+import { MkjFormWrapperComponent } from "./utilities/form-components/mkj-form-wrapper/mkj-form-wrapper.component";
+import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
+import { AnschriftFormComponent } from "./utilities/form-input-components/anschrift-form/anschrift-form.component";
+import { MkjFormErrorPipe } from "./utilities/form-components/mkj-form-wrapper/mkj-form-error.pipe";
+import { MkjNumberInputComponent } from './utilities/form-input-components/mkj-number-input/mkj-number-input.component';
+import { MkjDropdownComponent } from './utilities/form-input-components/mkj-dropdown/mkj-dropdown.component';
+import { MkjTextAreaInputComponent } from './utilities/form-input-components/mkj-text-area-input/mkj-text-area-input.component';
+import { MkjTagComponent } from './utilities/mkj-tag/mkj-tag.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -367,6 +377,16 @@ registerLocaleData(localeDe);
         FinanzenWrapperComponent,
         MkjListComponent,
         MkjTileViewComponent,
+        KassabuchDetailsComponent,
+        KassabuchEditComponent,
+        MkjFormWrapperComponent,
+        KassabuchungEditComponent,
+        AnschriftFormComponent,
+        MkjFormErrorPipe,
+        MkjNumberInputComponent,
+        MkjDropdownComponent,
+        MkjTextAreaInputComponent,
+        MkjTagComponent,
     ],
     providers: [
         mkjAppInitializer(),

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Role } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { RoleService } from "src/app/services/role.service";
+import { RolesApiService } from "src/app/services/api/roles-api.service";
 
 @Component({
     selector: "mitglied-roles-picker",
@@ -32,7 +32,7 @@ export class MitgliedRolesPickerComponent {
     public touched = new EventEmitter<boolean>();
 
     constructor(
-        private roleService: RoleService,
+        private roleService: RolesApiService,
         private infoService: InfoService,
         private userService: UserService
     ) {}

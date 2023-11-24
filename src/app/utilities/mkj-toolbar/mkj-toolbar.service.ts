@@ -14,6 +14,7 @@ export interface MkjToolbarButton {
     icon: string;
     label?: string;
     permissions?: string[];
+    routerLink?: string;
     click?: (event: MouseEvent) => void;
     visible?: boolean;
     hidden?: boolean;
@@ -21,7 +22,7 @@ export interface MkjToolbarButton {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class MkjToolbarService implements OnInit, OnDestroy {
     public backButton: boolean;

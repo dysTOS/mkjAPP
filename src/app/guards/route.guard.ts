@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment";
 import { UserService } from "../services/authentication/user.service";
 
 @Injectable()
-export class RouteGuard  {
+export class RouteGuard {
     constructor(
         private router: Router,
         private userService: UserService,
@@ -19,6 +19,7 @@ export class RouteGuard  {
         const item = this.menuService.getMenuItemByRouterLink(
             route.url[0].path
         );
+        // TODO: add permissions in router.module and check there, use permissions of menu-model only for visibility and not for the guard!!
 
         const permission = item?.permission;
 

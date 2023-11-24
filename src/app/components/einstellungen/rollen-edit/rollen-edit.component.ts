@@ -1,6 +1,6 @@
 import { ConfirmationService } from "primeng/api";
 import { Permission, PermissionMap, Role } from "../../../models/User";
-import { RoleService } from "../../../services/role.service";
+import { RolesApiService } from "../../../services/api/roles-api.service";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
@@ -27,7 +27,7 @@ export class RollenEditComponent implements OnInit {
     public addRoleName: string;
 
     constructor(
-        private roleService: RoleService,
+        private roleService: RolesApiService,
         private infoService: InfoService,
         private confirmationService: ConfirmationService,
         private userService: UserService,

@@ -1,6 +1,7 @@
 <p-checkbox
     [binary]="true"
     [label]="label"
-    [(ngModel)]="value"
-    (ngModelChange)="this._registerOnChange($event)"
+    [ngModel]="value$ | async"
+    (ngModelChange)="change($event)"
+    [disabled]="disabled$ | async"
 ></p-checkbox>
