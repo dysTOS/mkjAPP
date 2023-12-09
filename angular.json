@@ -149,17 +149,17 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "barcelona:build"
+                      "buildTarget": "barcelona:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "barcelona:build:production"
+                          "buildTarget": "barcelona:build:production"
                         },
                         "gulaschmusi": {
-                            "browserTarget": "barcelona:build:gulaschmusi"
+                          "buildTarget": "barcelona:build:gulaschmusi"
                         },
                         "development": {
-                            "browserTarget": "barcelona:build:development"
+                          "buildTarget": "barcelona:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -167,7 +167,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "barcelona:build"
+                      "buildTarget": "barcelona:build"
                     }
                 },
                 "test": {
