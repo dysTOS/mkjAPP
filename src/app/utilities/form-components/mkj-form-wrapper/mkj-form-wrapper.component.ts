@@ -1,6 +1,6 @@
 import { Component, HostListener, Input } from "@angular/core";
 import { ValidationErrors } from "@angular/forms";
-import { Subject, debounceTime } from "rxjs";
+import { Subject, debounceTime, distinctUntilChanged } from "rxjs";
 import { AbstractFormComponent } from "../_abstract-form-component.class";
 
 @Component({
@@ -27,5 +27,5 @@ export class MkjFormWrapperComponent {
     private _errors = new Subject<ValidationErrors>();
     public readonly errors$ = this._errors
         .asObservable()
-        .pipe(debounceTime(800));
+        .pipe(debounceTime(800), distinctUntilChanged());
 }

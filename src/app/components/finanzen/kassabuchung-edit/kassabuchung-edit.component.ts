@@ -32,6 +32,15 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         router: Router
     ) {
         super(toolbarService, apiService, infoService, route, router);
+        this.toolbarService.buttons = [
+            {
+                label: "Löschen",
+                icon: "pi pi-trash",
+                click: () => {
+                    this.delete();
+                },
+            },
+        ];
         this._subSink.add(
             this.formGroup.controls.anschrift.valueChanges.subscribe(
                 (anschrift) => {

@@ -84,6 +84,25 @@ export abstract class AbstractFormComponent<T> {
         //TODO ask for confirmation OR change deactivate-guard logic
     }
 
+    public delete(): void {
+        this._loading.next(true);
+        if (this.getId() === "new") {
+            throw new Error("Cannot delete unsaved data");
+        }
+        this.infoService
+            .confirmDelete(null, () => this.apiService.delete(this.getId()))
+            .subscribe({
+                next: () => {
+                    this.infoService.success("Gelöscht");
+                    this.router.navigate(["../"], { relativeTo: this.route });
+                },
+                error: (err) => {
+                    this.infoService.error(err);
+                    this._loading.next(false);
+                },
+            });
+    }
+
     private loadData(): void {
         const id = this.getId();
         if (id === "new") {

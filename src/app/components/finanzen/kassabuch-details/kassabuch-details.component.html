@@ -1,10 +1,12 @@
 <mkj-content-loader [loading]="loading$ | async">
     <div class="card p-fluid grid">
         <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-tag
-                [label]="kassabuch?.aktiv ? 'Aktiv' : 'Inaktiv'"
-                [severity]="kassabuch?.aktiv ? 'success' : 'warning'"
-            ></mkj-tag>
+            <mkj-display-field label="Status">
+                <mkj-tag
+                    [label]="kassabuch?.aktiv ? 'Aktiv' : 'Inaktiv'"
+                    [severity]="kassabuch?.aktiv ? 'success' : 'warning'"
+                ></mkj-tag>
+            </mkj-display-field>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-display-field label="Name">
@@ -18,7 +20,13 @@
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-display-field label="Kassastand">
-                {{ kassabuch?.kassastand | currency : "EUR" }}
+                <mkj-tag
+                    [label]="kassabuch?.kassastand | currency : 'EUR'"
+                    [severity]="
+                        kassabuch?.kassastand < 0 ? 'danger' : 'success'
+                    "
+                >
+                </mkj-tag>
             </mkj-display-field>
         </div>
         <div
@@ -37,23 +45,25 @@
         <p-button label="Neue Buchung" [routerLink]="'new'"></p-button>
     </div>
 
-    <p-table [value]="kassabuch?.kassabuchungen">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Datum</th>
-                <th>Typ</th>
-                <th>preis</th>
-                <th>Wert</th>
-                <th>Saldo</th>
-            </tr>
-        </ng-template>
+    <p-table
+        [value]="kassabuch?.kassabuchungen"
+        sortField="datum"
+        sortOrder="-1"
+    >
         <ng-template pTemplate="body" let-eintrag>
             <tr (dblclick)="navigateBuchung(eintrag.id)">
-                <td>{{ eintrag.datum }}</td>
-                <td>{{ eintrag.typ }}</td>
-                <td>{{ eintrag.gesamtpreis }}</td>
-                <td>{{ eintrag.wert }}</td>
-                <td>{{ eintrag.saldo }}</td>
+                <td>
+                    <mkj-tag
+                        [label]="eintrag.typ | uppercase"
+                        [severity]="
+                            eintrag.typ === BuchungTyp.EINNAHME
+                                ? 'success'
+                                : 'danger'
+                        "
+                    ></mkj-tag>
+                </td>
+                <td>{{ eintrag.datum | mkjDate }}</td>
+                <td>{{ eintrag.gesamtpreis | currency : "EUR" }}</td>
             </tr>
         </ng-template></p-table
     >

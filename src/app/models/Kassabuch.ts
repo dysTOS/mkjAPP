@@ -41,6 +41,6 @@ export interface RechnungsKonditionen {
 }
 
 export enum KassabuchungTyp {
-    EINGANGSRECHNUNG = "er",
-    AUSGANGSRECHNUNG = "ar",
+    EINNAHME = "e",
+    AUSGABE = "a",
 }

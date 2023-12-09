@@ -1,27 +1,127 @@
-<div #opTarget class="flex gap-2" [formGroup]="internalFormGroup">
-    <mkj-text-input label="vorname" formControlName="vorname"></mkj-text-input>
-    <mkj-text-input label="zuname" formControlName="zuname"></mkj-text-input>
-    <mkj-text-input label="firma" formControlName="firma"></mkj-text-input>
-    <p-divider></p-divider>
-</div>
-
-<div class="pt-2 flex flex-column">
-    <div>
-        <i *ngIf="suggesting$ | async" class="pi pi-spin pi-spinner"></i>
+<div class="p-fluid grid" [formGroup]="internalFormGroup">
+    <div #opTarget class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-text-input
+            label="Vorname"
+            formControlName="vorname"
+            [iconRight]="
+                (suggesting$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-search'
+            "
+        ></mkj-text-input>
     </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-text-input
+            label="Zuname"
+            formControlName="zuname"
+            [iconRight]="
+                (suggesting$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-search'
+            "
+        ></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+        <mkj-text-input
+            label="Firma"
+            formControlName="firma"
+            [iconRight]="
+                (suggesting$ | async) ? 'pi pi-spin pi-spinner' : 'pi pi-search'
+            "
+        ></mkj-text-input>
+    </div>
+    <p-accordion>
+        <p-accordionTab header="Addressdaten">
+            <div class="p-fluid grid">
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Titel (vor)"
+                        formControlName="titelVor"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Titel (nach)"
+                        formControlName="titelNach"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Straße"
+                        formControlName="strasse"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Hausnummer"
+                        formControlName="hausnummer"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="PLZ"
+                        formControlName="plz"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Ort"
+                        formControlName="ort"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Staat"
+                        formControlName="staat"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="E-Mail"
+                        formControlName="email"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Telefonnummer"
+                        formControlName="telefonHaupt"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="Mobilnummer"
+                        formControlName="telefonMobil"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="IBAN"
+                        formControlName="IBAN"
+                    ></mkj-text-input>
+                </div>
+                <div class="p-field col-12 lg:col-3 md:col-6">
+                    <mkj-text-input
+                        label="BIC"
+                        formControlName="BIC"
+                    ></mkj-text-input>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
 </div>
 
 <p-overlayPanel #op [dismissable]="true">
     <ng-template pTemplate>
-        <div *ngFor="let sugg of suggestions" class="flex">
+        <h6>Bereits gespeichert:</h6>
+        <div
+            *ngFor="let sugg of suggestions"
+            class="flex gap-2 suggestions-content min-w-min max-w-screen"
+        >
             <span> {{ sugg.vorname }} </span>
             <span> {{ sugg.zuname }} </span>
             <span> {{ sugg.firma }}</span>
+            <span> {{ sugg.strasse }} {{ sugg.hausnummer }}</span>
             <button
                 pButton
                 type="button"
                 class="p-button-small p-button-text"
-                label="Auswählen"
+                label="Übernehmen"
                 (click)="setFromSuggestion(sugg)"
             ></button>
         </div>

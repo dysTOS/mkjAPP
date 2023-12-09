@@ -1,4 +1,5 @@
-<span class="p-float-label">
+<span class="p-float-label" [class.p-input-icon-right]="iconRight">
+    <i *ngIf="iconRight" [class]="iconRight"></i>
     <input
         pInputText
         [ngModel]="value$ | async"

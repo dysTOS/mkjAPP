@@ -1,4 +1,4 @@
-import { Component, Injector } from "@angular/core";
+import { Component, Injector, Input } from "@angular/core";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
 import { AbstractControlAccessor } from "../abstract-control-accessor";
 
@@ -9,6 +9,9 @@ import { AbstractControlAccessor } from "../abstract-control-accessor";
     providers: [controlValueAccessor(MkjTextInputComponent)],
 })
 export class MkjTextInputComponent extends AbstractControlAccessor<string> {
+    @Input()
+    public iconRight: string;
+
     constructor(inj: Injector) {
         super(inj);
     }
