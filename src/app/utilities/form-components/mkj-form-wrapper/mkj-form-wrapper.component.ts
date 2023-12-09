@@ -14,6 +14,7 @@ export class MkjFormWrapperComponent {
         if (!this.component.canDeactivate()) {
             $event.returnValue = "Änderungen könnten verloren gehen!";
         }
+        return null;
     }
 
     @Input()

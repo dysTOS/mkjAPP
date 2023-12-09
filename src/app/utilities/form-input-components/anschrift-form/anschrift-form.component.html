@@ -112,6 +112,7 @@
         <div
             *ngFor="let sugg of suggestions"
             class="flex gap-2 suggestions-content min-w-min max-w-screen"
+            (click)="setFromSuggestion(sugg)"
         >
             <span> {{ sugg.vorname }} </span>
             <span> {{ sugg.zuname }} </span>

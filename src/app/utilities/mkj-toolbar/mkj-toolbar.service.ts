@@ -1,19 +1,14 @@
 import { Location } from "@angular/common";
 import { Injectable, OnDestroy, OnInit, TemplateRef } from "@angular/core";
-import {
-    ActivatedRoute,
-    ActivationStart,
-    NavigationEnd,
-    NavigationStart,
-    Router,
-} from "@angular/router";
+import { ActivationStart, NavigationEnd, Router } from "@angular/router";
+import { PermissionMap } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { SubSink } from "subsink";
 
 export interface MkjToolbarButton {
     icon: string;
     label?: string;
-    permissions?: string[];
+    permissions?: PermissionMap[];
     routerLink?: string;
     click?: (event: MouseEvent) => void;
     visible?: boolean;

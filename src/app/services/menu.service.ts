@@ -102,13 +102,13 @@ export class MenuService implements OnDestroy {
             icon: "mdi mdi-currency-eur",
             enumLabel: MenuLabels.FINANZEN,
             visible: false,
-            permission: PermissionMap.ROLE_ASSIGN,
+            permission: PermissionMap.KASSABUCH_READ,
             children: [
                 {
                     label: "Kassabuch",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "finanzen/list",
-                    permission: PermissionMap.ROLE_ASSIGN,
+                    permission: PermissionMap.KASSABUCH_READ,
                     visible: false,
                 },
             ],
@@ -143,13 +143,6 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-cog",
                     routerLink: "einstellungen/global",
                     permission: PermissionMap.USER_DELETE,
-                    visible: false,
-                },
-                {
-                    label: "Bug Report",
-                    icon: "mdi mdi-bug-outline",
-                    routerLink: "einstellungen/bugreport",
-                    permission: PermissionMap.ROLE_ASSIGN,
                     visible: false,
                 },
                 {

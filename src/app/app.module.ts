@@ -126,7 +126,6 @@ import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrue
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
 import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
-import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
@@ -189,10 +188,11 @@ import { MkjFormWrapperComponent } from "./utilities/form-components/mkj-form-wr
 import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
 import { AnschriftFormComponent } from "./utilities/form-input-components/anschrift-form/anschrift-form.component";
 import { MkjFormErrorPipe } from "./utilities/form-components/mkj-form-wrapper/mkj-form-error.pipe";
-import { MkjNumberInputComponent } from './utilities/form-input-components/mkj-number-input/mkj-number-input.component';
-import { MkjDropdownComponent } from './utilities/form-input-components/mkj-dropdown/mkj-dropdown.component';
-import { MkjTextAreaInputComponent } from './utilities/form-input-components/mkj-text-area-input/mkj-text-area-input.component';
-import { MkjTagComponent } from './utilities/mkj-tag/mkj-tag.component';
+import { MkjNumberInputComponent } from "./utilities/form-input-components/mkj-number-input/mkj-number-input.component";
+import { MkjDropdownComponent } from "./utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
+import { MkjTextAreaInputComponent } from "./utilities/form-input-components/mkj-text-area-input/mkj-text-area-input.component";
+import { MkjTagComponent } from "./utilities/mkj-tag/mkj-tag.component";
+import { PermissionSelectedPipe } from "./components/einstellungen/rollen-edit/permission-included.pipe";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -294,6 +294,7 @@ registerLocaleData(localeDe);
     ],
     declarations: [
         AppComponent,
+        PermissionSelectedPipe,
         AppMainComponent,
         AppTopbarComponent,
         AppFooterComponent,
@@ -348,7 +349,6 @@ registerLocaleData(localeDe);
         GruppeDetailsComponent,
         MkjGruppeFormComponent,
         FullNamePipe,
-        BugReportComponent,
         MkjColorPickerComponent,
         NotenmappeDetailsComponent,
         MkjNotenmappeFormComponent,

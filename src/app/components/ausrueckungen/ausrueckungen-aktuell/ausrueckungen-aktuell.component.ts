@@ -267,7 +267,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     }
 
     exportCsv() {
-        this.ausrueckungenTable.exportCSV({ filteredValues: true });
+        this.ausrueckungenTable.exportCSV();
     }
 
     public exportPdf() {

@@ -137,13 +137,13 @@ export class AnschriftFormComponent
 
         if (!vorname && !zuname && !firma) {
             return {
-                Anschrift:
+                Kontrahent:
                     "Zumindest Vor/Zuname oder Firma müssen angegeben werden.",
             };
         }
         if ((!vorname || !zuname) && !firma) {
             return {
-                Anschrift:
+                Kontrahent:
                     "Zumindest Vor/Zuname oder Firma müssen angegeben werden.",
             };
         }

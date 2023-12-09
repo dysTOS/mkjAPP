@@ -38,13 +38,26 @@
                 formControlName="bezahltDatum"
             ></mkj-date-input>
         </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
+        <div class="p-field col-12">
             <mkj-text-area-input
                 label="Anmerkungen"
                 formControlName="anmerkungen"
             ></mkj-text-area-input>
         </div>
     </div>
-    <p-divider></p-divider>
+    <div class="p-field col-12">
+        <p-divider align="left" type="solid">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b class="mr-2">Kontrahent</b>
+                <p *ngIf="formGroup.controls.anschrift_id.value">
+                    (aus System)
+                </p>
+                <p *ngIf="!formGroup.controls.anschrift_id.value">
+                    (Neuanlage)
+                </p>
+            </div>
+        </p-divider>
+    </div>
     <mkj-anschrift-form formControlName="anschrift"></mkj-anschrift-form>
 </mkj-form-wrapper>

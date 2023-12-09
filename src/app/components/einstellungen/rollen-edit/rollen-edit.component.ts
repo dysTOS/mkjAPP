@@ -38,6 +38,7 @@ export class RollenEditComponent implements OnInit {
             {
                 label: "Neue Rolle",
                 click: () => {
+                    this.rolePermissions = [];
                     this.addDialogVisible = true;
                 },
                 icon: "pi pi-plus",
@@ -146,5 +147,16 @@ export class RollenEditComponent implements OnInit {
                 });
             },
         });
+    }
+
+    public togglePermission(permission: Permission): void {
+        if (this.rolePermissions.some((p) => p.id === permission.id)) {
+            this.rolePermissions = this.rolePermissions.filter(
+                (p) => p.id !== permission.id
+            );
+        } else {
+            this.rolePermissions.push(permission);
+            this.rolePermissions = [...this.rolePermissions];
+        }
     }
 }

@@ -33,7 +33,6 @@ import { EinstellungenWrapperComponent } from "./components/einstellungen/einste
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
-import { BugReportComponent } from "./components/einstellungen/bug-report/bug-report.component";
 import { StatistikOverviewComponent } from "./components/statistik/statistik-overview/statistik-overview.component";
 import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/noten-editor.component";
 import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
@@ -225,6 +224,7 @@ import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-ed
                                     path: "details/:buchId/:id",
                                     component: KassabuchungEditComponent,
                                     canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
                                 },
                             ],
                         },
@@ -254,11 +254,6 @@ import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-ed
                                 {
                                     path: "global",
                                     component: GlobaleEinstellungenComponent,
-                                    canActivate: [RouteGuard],
-                                },
-                                {
-                                    path: "bugreport",
-                                    component: BugReportComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
