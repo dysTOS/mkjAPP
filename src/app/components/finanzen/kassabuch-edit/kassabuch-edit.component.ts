@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UiDropdownOption } from "src/app/interfaces/UiConfigurations";
-import { Gruppe } from "src/app/models/Gruppe";
 import { Kassabuch } from "src/app/models/Kassabuch";
 import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";

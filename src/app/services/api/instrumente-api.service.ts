@@ -1,41 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { StandardHttpOptions } from "src/app/interfaces/api-middleware";
 import { Instrument } from "src/app/models/Instrument";
-import { environment } from "src/environments/environment";
+import { AbstractCrudApiService } from "./_abstract-crud-api-service";
 
 @Injectable({
     providedIn: "root",
 })
-export class InstrumenteApiService {
-    private apiURL = environment.apiUrl + "instrumente";
+export class InstrumenteApiService extends AbstractCrudApiService<Instrument> {
+    protected controllerApiUrlKey: string = "instrumente";
 
-    constructor(private http: HttpClient) {}
-
-    public getInstrumente(): Observable<Instrument[]> {
-        return this.http.get<Instrument[]>(this.apiURL, StandardHttpOptions);
-    }
-
-    public getInstrument(id: string): Observable<Instrument> {
-        return this.http.get<Instrument>(
-            this.apiURL + "/" + id,
-            StandardHttpOptions
-        );
-    }
-
-    public saveInstrument(instrument: Instrument): Observable<Instrument> {
-        return this.http.post<Instrument>(
-            this.apiURL,
-            instrument,
-            StandardHttpOptions
-        );
-    }
-
-    public deleteInstrument(id: string): Observable<Instrument> {
-        return this.http.delete<Instrument>(
-            this.apiURL + "/" + id,
-            StandardHttpOptions
-        );
+    constructor(httpClient: HttpClient) {
+        super(httpClient);
     }
 }

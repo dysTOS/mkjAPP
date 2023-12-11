@@ -45,8 +45,6 @@ export class AnschriftFormComponent
     private _suggesting = new BehaviorSubject<boolean>(false);
     public readonly suggesting$ = this._suggesting.asObservable();
 
-    private _subSink = new SubSink();
-
     constructor(
         inj: Injector,
         private formBuilder: FormBuilder,
@@ -54,7 +52,7 @@ export class AnschriftFormComponent
     ) {
         super(inj);
         this.initFormGroup();
-        this._subSink.add(
+        this.subs.add(
             this.value$.subscribe((value) => {
                 if (value) {
                     this.internalFormGroup.patchValue(value, {

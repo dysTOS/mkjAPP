@@ -1,24 +1,57 @@
-<mkj-content-loader [loading]="uiService.loading | async" class="h-full">
-    <div class="card">
-        <mkj-instrument-form [formGroup]="formGroup"></mkj-instrument-form>
-        <div class="col-12 flex justify-content-end">
-            <button
-                pRipple
-                pButton
-                label="Speichern"
-                [icon]="
-                    (uiService.saving | async)
-                        ? 'pi pi-spin pi-spinner'
-                        : 'pi pi-check'
-                "
-                class="p-button-plain"
-                [disabled]="
-                    (uiService.saving | async) ||
-                    formGroup?.invalid ||
-                    formGroup?.pristine
-                "
-                (click)="saveInstrument()"
-            ></button>
+<mkj-form-wrapper [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid">
+        <div class="p-field col-12 md:col-6">
+            <mkj-text-input label="Bezeichung" formControlName="bezeichnung">
+            </mkj-text-input>
         </div>
-    </div>
-</mkj-content-loader>
+        <div class="p-field col-12 md:col-6">
+            <mkj-text-input label="Marke" formControlName="marke">
+            </mkj-text-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-text-input label="Verkäufer" formControlName="verkaeufer">
+            </mkj-text-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-text-input label="Schäden" formControlName="schaeden">
+            </mkj-text-input>
+        </div>
+
+        <div class="p-field col-12 md:col-6">
+            <mkj-text-input
+                label="Aufbewahrungsort"
+                formControlName="aufbewahrungsort"
+            >
+            </mkj-text-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-date-input
+                label="Anschaffungsdatum"
+                type="date"
+                formControlName="anschaffungsdatum"
+            ></mkj-date-input>
+        </div>
+
+        <div class="p-field col-12 md:col-6">
+            <mkj-mitglied-autocomplete
+                label="Besitzer"
+                [mitglied]="besitzer"
+                (mitgliedChange)="setBesitzer($event)"
+            ></mkj-mitglied-autocomplete>
+        </div>
+
+        <div class="p-field col-12 md:col-6">
+            <mkj-dropdown
+                label="Register"
+                formControlName="gruppe_id"
+                [options]="GruppenMap"
+            ></mkj-dropdown>
+        </div>
+
+        <div class="p-field col-12">
+            <mkj-text-area-input
+                label="Anmerkungen"
+                formControlName="anmerkungen"
+            ></mkj-text-area-input>
+        </div></div
+></mkj-form-wrapper>

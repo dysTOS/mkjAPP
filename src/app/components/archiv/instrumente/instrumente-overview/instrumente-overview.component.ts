@@ -30,7 +30,7 @@ export class InstrumenteOverviewComponent implements OnInit {
                 label: "Neu",
                 permissions: [PermissionMap.INSTRUMENTE_SAVE],
                 click: () => {
-                    this.router.navigate(["neu"], { relativeTo: this.route });
+                    this.router.navigate(["new"], { relativeTo: this.route });
                 },
             },
         ];
@@ -43,7 +43,6 @@ export class InstrumenteOverviewComponent implements OnInit {
     }
 
     public navigateEditor(instrument: Instrument): void {
-        this.uiService.editInstrument = instrument;
         this.router.navigate([instrument.id], { relativeTo: this.route });
     }
 }

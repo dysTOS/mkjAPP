@@ -53,9 +53,9 @@ export class NotenarchivComponent implements OnInit {
 
     getAllNoten() {
         this.loading = true;
-        this.notenService.getAllNoten().subscribe({
+        this.notenService.getList(null).subscribe({
             next: (res) => {
-                (this.notenArray = res), (this.loading = false);
+                (this.notenArray = res.values), (this.loading = false);
             },
             error: (err) => {
                 this.infoService.error(err), (this.loading = false);
@@ -68,6 +68,6 @@ export class NotenarchivComponent implements OnInit {
     }
 
     navigateToEditView(noten?: Noten) {
-        this.router.navigate([noten?.id ?? "neu"], { relativeTo: this.route });
+        this.router.navigate([noten?.id ?? "new"], { relativeTo: this.route });
     }
 }

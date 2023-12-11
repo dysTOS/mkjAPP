@@ -7,9 +7,12 @@
             <ng-content></ng-content>
         </div>
         <p-messages
-            *ngIf="!(component.loading$ | async)"
-            [value]="errors$ | async | mkjFormError"
+            *ngIf="component?.formGroup?.errors"
+            [value]="component.formGroup.errors | mkjFormError"
             [enableService]="false"
+            [closeable]="false"
+            showTransitionOptions="0ms"
+            hideTransitionOptions="0ms"
         ></p-messages>
         <div class="card flex justify-content-end">
             <button

@@ -21,7 +21,7 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
             label: item.name,
             value: item,
             color: item.color,
-            labelBottomLeft: item.gruppe?.name,
+            labelBottomLeft: null,
             labelBottomRight: "€ " + item.kassastand,
         };
     }

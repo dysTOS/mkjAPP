@@ -1,7 +1,5 @@
 import { FormBuilder, Validators } from "@angular/forms";
 import { Gruppe } from "../models/Gruppe";
-import { Instrument } from "../models/Instrument";
-import { Noten } from "../models/Noten";
 import { Termin } from "../models/Termin";
 import { MkjDropdownOption } from "../utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
 
@@ -80,47 +78,6 @@ export abstract class UtilFunctions {
             gruppe_id: [ausrueckung?.gruppe_id ?? null],
             created_at: [ausrueckung?.created_at ?? null],
             updated_at: [ausrueckung?.updated_at ?? null],
-        });
-    }
-
-    public static getNotenFormGroup(fb: FormBuilder, noten?: Noten) {
-        return fb.group({
-            id: [noten?.id ?? null],
-            titel: [noten?.titel ?? null, Validators.required],
-            inventarId: [noten?.inventarId ?? null],
-            komponist: [noten?.komponist ?? null],
-            arrangeur: [noten?.arrangeur ?? null],
-            verlag: [noten?.verlag ?? null],
-            gattung: [noten?.gattung ?? null],
-            ausgeliehenAb: [noten?.ausgeliehenAb ?? null],
-            ausgeliehenVon: [noten?.ausgeliehenVon ?? null],
-            anmerkungen: [noten?.anmerkungen ?? null],
-            aufbewahrungsort: [noten?.aufbewahrungsort ?? null],
-            links: [noten?.links ?? null],
-            created_at: [noten?.created_at ?? null],
-            updated_at: [noten?.updated_at ?? null],
-        });
-    }
-
-    public static getInstrumentFormGroup(
-        fb: FormBuilder,
-        instrument?: Instrument
-    ) {
-        return fb.group({
-            id: [instrument?.id ?? null],
-            marke: [instrument?.marke ?? null, Validators.required],
-            bezeichnung: [instrument?.bezeichnung ?? null, Validators.required],
-            anschaffungsdatum: [instrument?.anschaffungsdatum ?? null],
-            verkaeufer: [instrument?.verkaeufer ?? null],
-            schaeden: [instrument?.schaeden ?? null],
-            anmerkungen: [instrument?.anmerkungen ?? null],
-            aufbewahrungsort: [instrument?.aufbewahrungsort ?? null],
-            mitglied_id: [instrument?.mitglied_id ?? null],
-            mitglied: [instrument?.mitglied ?? null],
-            gruppe_id: [instrument?.gruppe_id ?? null],
-            gruppe: [instrument?.gruppe ?? null],
-            created_at: [instrument?.created_at ?? null],
-            updated_at: [instrument?.updated_at ?? null],
         });
     }
 

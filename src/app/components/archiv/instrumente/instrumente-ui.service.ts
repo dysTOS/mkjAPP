@@ -12,11 +12,6 @@ export class InstrumenteUiService {
     private _saving = new BehaviorSubject<boolean>(false);
     public saving = this._saving.asObservable();
 
-    private _editInstrument: Instrument;
-    public set editInstrument(instrument: Instrument) {
-        this._editInstrument = instrument;
-    }
-
     constructor(
         private apiService: InstrumenteApiService,
         private infoService: InfoService
@@ -24,63 +19,14 @@ export class InstrumenteUiService {
 
     public getAllInstrumente(): Observable<Instrument[]> {
         this._loading.next(true);
-        return this.apiService.getInstrumente().pipe(
+        return this.apiService.getList(null).pipe(
             tap((e) => this._loading.next(false)),
+            map((res) => res.values),
             catchError((err) => {
                 this._loading.next(false);
                 this.infoService.error(err);
                 return of(null);
             })
         );
-    }
-
-    public getInstrument(id: string): Observable<Instrument> {
-        if (this._editInstrument?.id === id) return of(this._editInstrument);
-
-        this._loading.next(true);
-        return this.apiService.getInstrument(id).pipe(
-            tap((e) => this._loading.next(false)),
-            catchError((err) => {
-                this._loading.next(false);
-                this.infoService.error(err);
-                return of(null);
-            })
-        );
-    }
-
-    public saveInstrument(instrument: Instrument): Observable<Instrument> {
-        this._saving.next(true);
-        return this.apiService.saveInstrument(instrument).pipe(
-            tap((e) => {
-                this._saving.next(false);
-                this.infoService.success("Instrument gespeichert.");
-            }),
-            catchError((err) => {
-                this._saving.next(false);
-                this.infoService.error(err);
-                return of(null);
-            })
-        );
-    }
-
-    public deleteInstrument(instrument: Instrument): Observable<any> {
-        this._loading.next(true);
-        return this.infoService
-            .confirmDelete(
-                `Instrument "${instrument.bezeichnung}" wirklich löschen?`,
-                () => this.apiService.deleteInstrument(instrument?.id)
-            )
-            .pipe(
-                map((e) => {
-                    this._loading.next(false);
-                    this.infoService.info("Instrument entfernt.");
-                    return of(true);
-                }),
-                catchError((err) => {
-                    this._loading.next(false);
-                    this.infoService.error(err);
-                    return of(null);
-                })
-            );
     }
 }

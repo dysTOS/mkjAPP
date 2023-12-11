@@ -1,16 +1,74 @@
-<mkj-content-loader [loading]="loading" class="h-full">
-    <div class="card">
-        <mkj-noten-form [formGroup]="formGroup"></mkj-noten-form>
-        <div class="col-12 flex justify-content-end">
-            <button
-                pRipple
-                pButton
-                label="Speichern"
-                [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-                class="p-button-plain"
-                [disabled]="saving || formGroup?.invalid || formGroup?.pristine"
-                (click)="saveNoten()"
-            ></button>
+<mkj-form-wrapper [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Inventarnummer"
+                formControlName="inventarId"
+            ></mkj-text-input>
         </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Titel"
+                formControlName="titel"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Komponist"
+                formControlName="komponist"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Arrangeur"
+                formControlName="arrangeur"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Verlag"
+                formControlName="verlag"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Gattung"
+                formControlName="gattung"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Aufbewahrungsort"
+                formControlName="aufbewahrungsort"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                label="Ausgeliehen ab"
+                type="date"
+                formControlName="ausgeliehenAb"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Ausgeliehen von"
+                formControlName="ausgeliehenVon"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12">
+            <mkj-text-area-input
+                label="Anmerkungen"
+                formControlName="anmerkungen"
+            ></mkj-text-area-input>
+        </div>
+
+        <p-accordion class="p-field col-12 md:col-6">
+            <p-accordionTab header=" Hörbeispiele (Links)">
+                <mkj-link-input
+                    label="Links"
+                    formControlName="links"
+                ></mkj-link-input>
+            </p-accordionTab>
+        </p-accordion>
     </div>
-</mkj-content-loader>
+</mkj-form-wrapper>

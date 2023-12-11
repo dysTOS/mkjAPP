@@ -159,10 +159,8 @@ import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MenuService } from "./services/menu.service";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
-import { InstrumentFormComponent } from "./utilities/form-components/instrument-form/instrument-form.component";
 import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
 import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
-import { MkjNotenFormComponent } from "./utilities/form-components/mkj-noten-form/mkj-noten-form.component";
 import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
 import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
 import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
@@ -187,7 +185,7 @@ import { KassabuchEditComponent } from "./components/finanzen/kassabuch-edit/kas
 import { MkjFormWrapperComponent } from "./utilities/form-components/mkj-form-wrapper/mkj-form-wrapper.component";
 import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
 import { AnschriftFormComponent } from "./utilities/form-input-components/anschrift-form/anschrift-form.component";
-import { MkjFormErrorPipe } from "./utilities/form-components/mkj-form-wrapper/mkj-form-error.pipe";
+import { MkjFormErrorPipe } from "./pipes/mkj-form-error.pipe";
 import { MkjNumberInputComponent } from "./utilities/form-input-components/mkj-number-input/mkj-number-input.component";
 import { MkjDropdownComponent } from "./utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
 import { MkjTextAreaInputComponent } from "./utilities/form-input-components/mkj-text-area-input/mkj-text-area-input.component";
@@ -344,7 +342,6 @@ registerLocaleData(localeDe);
         MkjBooleanInputComponent,
         GruppenOverviewComponent,
         MitgliedFormComponent,
-        MkjNotenFormComponent,
         MkjTileComponent,
         GruppeDetailsComponent,
         MkjGruppeFormComponent,
@@ -361,7 +358,6 @@ registerLocaleData(localeDe);
         MitgliedRolesPickerComponent,
         InstrumenteOverviewComponent,
         InstrumenteEditorComponent,
-        InstrumentFormComponent,
         AnwesenheitsListeComponent,
         StatistikMitgliederGeschlechtComponent,
         StatistikGruppenTermineComponent,

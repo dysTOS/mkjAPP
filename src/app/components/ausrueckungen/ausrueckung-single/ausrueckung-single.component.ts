@@ -81,7 +81,7 @@ export class AusrueckungSingleComponent implements OnInit {
 
     getGespielteNoten() {
         this.notenLoading = true;
-        this.notenService.getNotenForAusrueckung(this.termin.id).subscribe({
+        this.notenService.getNotenForTermin(this.termin.id).subscribe({
             next: (res) => {
                 this.gespielteNoten = res;
             },

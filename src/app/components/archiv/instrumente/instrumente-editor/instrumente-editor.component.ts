@@ -1,93 +1,98 @@
-import { Component } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
-import { UtilFunctions } from "src/app/helpers/util-functions";
+import { UiDropdownOption } from "src/app/interfaces/UiConfigurations";
+import { Instrument } from "src/app/models/Instrument";
 import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
+import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
+import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
+import { InfoService } from "src/app/services/info.service";
+import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { InstrumenteUiService } from "../instrumente-ui.service";
 
 @Component({
     selector: "app-instrumente-editor",
     templateUrl: "./instrumente-editor.component.html",
     styleUrls: ["./instrumente-editor.component.scss"],
 })
-export class InstrumenteEditorComponent implements EditComponentDeactivate {
-    public formGroup: FormGroup;
-
+export class InstrumenteEditorComponent
+    extends AbstractFormComponent<Instrument>
+    implements OnInit
+{
     public besitzer: Mitglied;
+    public GruppenMap: UiDropdownOption[];
 
     constructor(
-        public uiService: InstrumenteUiService,
-        private router: Router,
-        private route: ActivatedRoute,
-        toolbar: MkjToolbarService,
-        fb: FormBuilder
+        private gruppenService: GruppenApiService,
+        toolbarService: MkjToolbarService,
+        apiService: InstrumenteApiService,
+        infoService: InfoService,
+        route: ActivatedRoute,
+        router: Router
     ) {
-        toolbar.backButton = true;
+        super(toolbarService, apiService, infoService, route, router);
+    }
 
-        this.formGroup = UtilFunctions.getInstrumentFormGroup(fb);
-
-        const id = route.snapshot.params.id;
-        if (id && id !== "neu") {
-            this.uiService.getInstrument(id).subscribe({
-                next: (res) => {
-                    this.formGroup.patchValue(res);
-                    this.formGroup.markAsPristine();
-                    this.formGroup.updateValueAndValidity();
-                },
+    public ngOnInit(): void {
+        this.getGruppen();
+        this.subs.sink =
+            this.formGroup.controls.mitglied.valueChanges.subscribe((m) => {
+                this.besitzer = m;
             });
-            toolbar.header = "Instrument bearbeiten";
-            toolbar.buttons = [
+    }
+
+    public setBesitzer(mitglied: Mitglied): void {
+        this.formGroup?.controls.mitglied_id.setValue(mitglied?.id ?? null);
+        this.formGroup?.controls.mitglied_id.markAsDirty();
+    }
+
+    private getGruppen() {
+        this.gruppenService.getList().subscribe((res) => {
+            this.GruppenMap = res.values
+                .filter((e) => e.register)
+                .map((e) => {
+                    return {
+                        label: e.name,
+                        value: e.id,
+                    };
+                });
+        });
+    }
+
+    protected initToolbar(): void {
+        this.toolbarService.backButton = true;
+
+        if (this.getId() !== "new") {
+            this.toolbarService.header = "Instrument bearbeiten";
+            this.toolbarService.buttons = [
                 {
                     label: "Instrument Löschen",
                     icon: "pi pi-trash",
-                    click: () => this.deleteInstrument(),
+                    click: () => this.delete(),
                     permissions: [PermissionMap.INSTRUMENTE_DELETE],
                 },
             ];
         } else {
-            toolbar.header = "Neues Instrument";
+            this.toolbarService.header = "Neues Instrument";
         }
     }
-
-    public canDeactivate(): boolean {
-        return this.formGroup.pristine;
+    protected initFormGroup(): FormGroup<any> {
+        return new FormGroup({
+            marke: new FormControl(null, Validators.required),
+            bezeichnung: new FormControl(null, Validators.required),
+            anschaffungsdatum: new FormControl(null),
+            verkaeufer: new FormControl(null),
+            schaeden: new FormControl(null),
+            anmerkungen: new FormControl(null),
+            aufbewahrungsort: new FormControl(null),
+            mitglied_id: new FormControl(null),
+            mitglied: new FormControl(null),
+            gruppe_id: new FormControl(null),
+            gruppe: new FormControl(null),
+        });
     }
-
-    public saveInstrument(): void {
-        if (this.formGroup.valid) {
-            this.uiService
-                .saveInstrument(this.formGroup.getRawValue())
-                .subscribe({
-                    next: (res) => {
-                        if (!this.formGroup.controls.id.value) {
-                            this.formGroup.markAsPristine();
-                            this.router.navigate(["../"], {
-                                relativeTo: this.route,
-                            });
-                        } else {
-                            this.formGroup.patchValue(res);
-                            this.formGroup.markAsPristine();
-                            this.formGroup.updateValueAndValidity();
-                        }
-                    },
-                });
-        }
-    }
-
-    public deleteInstrument(): void {
-        this.uiService
-            .deleteInstrument(this.formGroup.getRawValue())
-            .subscribe({
-                next: (success) => {
-                    if (success) {
-                        this.router.navigate(["../"], {
-                            relativeTo: this.route,
-                        });
-                    }
-                },
-            });
+    protected getId(): string {
+        return this.route.snapshot.params.id;
     }
 }
