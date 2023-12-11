@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
+import { AppConfigService } from "src/app/services/app-config.service";
 import { GruppeListDatasource } from "src/app/utilities/_list-datasources/gruppe-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -23,9 +24,10 @@ export class GruppenOverviewComponent {
         public datasource: GruppeListDatasource,
         private toolbarService: MkjToolbarService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        configService: AppConfigService
     ) {
-        this.toolbarService.header = "Register & Gruppen";
+        this.toolbarService.header = configService.appNaming.Gruppen;
         this.toolbarService.backButton = null;
         this.toolbarService.buttons = [
             {

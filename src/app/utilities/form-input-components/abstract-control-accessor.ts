@@ -3,17 +3,19 @@ import {
     EventEmitter,
     Injector,
     Input,
+    OnDestroy,
     Output,
 } from "@angular/core";
 import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
 import { BehaviorSubject, Observable, distinctUntilChanged } from "rxjs";
+import { SubSink } from "subsink";
 
 @Component({
     selector: "abstract-control-accessor",
     template: "",
 })
 export abstract class AbstractControlAccessor<T>
-    implements ControlValueAccessor
+    implements ControlValueAccessor, OnDestroy
 {
     private _value = new BehaviorSubject<T>(null);
     private _disabled = new BehaviorSubject(false);
@@ -54,11 +56,17 @@ export abstract class AbstractControlAccessor<T>
 
     public formControl: FormControl;
 
+    protected subs = new SubSink();
+
     constructor(private inj: Injector) {}
 
     public ngAfterViewInit() {
         this.formControl = this.inj.get(NgControl, null)
             ?.control as FormControl;
+    }
+
+    public ngOnDestroy() {
+        this.subs.unsubscribe();
     }
 
     public change(value: T) {

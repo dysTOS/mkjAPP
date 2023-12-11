@@ -13,10 +13,18 @@
             ></mkj-text-input>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
-            <p-colorPicker
+            <mkj-color-picker
                 label="Farbe"
                 formControlName="color"
-            ></p-colorPicker>
+            ></mkj-color-picker>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Gruppe"
+                dataKey="id"
+                formControlName="gruppe_id"
+                [options]="GruppeDropdown"
+            ></mkj-dropdown>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-text-area-input

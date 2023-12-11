@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { GetCollectionApiCallOutput } from "src/app/interfaces/api-middleware";
+import { GetListOutput } from "src/app/interfaces/api-middleware";
 import { Gruppe } from "src/app/models/Gruppe";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { TileValue } from "../mkj-tile-view/mkj-tile-view.component";
@@ -12,7 +12,7 @@ export class GruppeListDatasource extends AbstractListDatasource<Gruppe> {
         super();
     }
 
-    public getList(): Observable<GetCollectionApiCallOutput<Gruppe>> {
+    public getList(): Observable<GetListOutput<Gruppe>> {
         return this.apiService.getList(null);
     }
 

@@ -4,6 +4,7 @@ import { Instrument } from "src/app/models/Instrument";
 import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { InstrumenteUiService } from "../instrumente-ui.service";
+import { AppConfigService } from "src/app/services/app-config.service";
 
 @Component({
     selector: "app-instrumente-overview",
@@ -18,9 +19,10 @@ export class InstrumenteOverviewComponent implements OnInit {
         public uiService: InstrumenteUiService,
         private toolbarService: MkjToolbarService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        configService: AppConfigService
     ) {
-        this.toolbarService.header = "Instrumente";
+        this.toolbarService.header = configService.appNaming.Instrumente;
         this.toolbarService.backButton = null;
         this.toolbarService.buttons = [
             {

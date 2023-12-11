@@ -16,4 +16,7 @@ export interface MkjDropdownOption {
 export class MkjDropdownComponent extends AbstractControlAccessor<any> {
     @Input()
     public options: MkjDropdownOption[] = [];
+
+    @Input()
+    public dataKey: string;
 }

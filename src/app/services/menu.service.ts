@@ -41,19 +41,19 @@ export class MenuService implements OnDestroy {
             ],
         },
         {
-            label: "Mitglieder",
+            label: this.namingService.appNaming.Mitglieder,
             icon: "pi pi-fw pi-users",
             enumLabel: MenuLabels.MITGLIEDER,
             permission: PermissionMap.MITGLIEDER_READ,
             children: [
                 {
-                    label: "Mitglieder",
+                    label: this.namingService.appNaming.Mitglieder,
                     icon: "pi pi-users",
                     routerLink: "mitglieder/liste",
                     permission: PermissionMap.MITGLIEDER_READ,
                 },
                 {
-                    label: "Register & Gruppen",
+                    label: this.namingService.appNaming.Gruppen,
                     icon: "pi pi-folder-open",
                     routerLink: "mitglieder/gruppen",
                     permission: PermissionMap.GRUPPEN_READ,
@@ -61,7 +61,7 @@ export class MenuService implements OnDestroy {
             ],
         },
         {
-            label: "Archiv",
+            label: this.namingService.appNaming.Archiv,
             icon: "mdi mdi-archive-music-outline",
             enumLabel: MenuLabels.ARCHIV,
             visible: false,
@@ -75,14 +75,14 @@ export class MenuService implements OnDestroy {
                     permission: PermissionMap.NOTEN_READ,
                 },
                 {
-                    label: "Notenmappen",
+                    label: this.namingService.appNaming.Notenmappen,
                     icon: "mdi mdi-book-music-outline",
                     routerLink: "archiv/mappen",
                     visible: false,
                     permission: PermissionMap.NOTENMAPPE_READ,
                 },
                 {
-                    label: "Instrumente",
+                    label: this.namingService.appNaming.Instrumente,
                     icon: "mdi mdi-trumpet",
                     routerLink: "archiv/instrumente",
                     visible: false,
@@ -91,21 +91,21 @@ export class MenuService implements OnDestroy {
             ],
         },
         {
-            label: "Statistiken",
+            label: this.namingService.appNaming.Statistiken,
             icon: "pi pi-chart-line",
             enumLabel: MenuLabels.STATISTIK,
             visible: false,
             routerLink: "statistik",
         },
         {
-            label: "Finanzen",
+            label: this.namingService.appNaming.Finanzen,
             icon: "mdi mdi-currency-eur",
             enumLabel: MenuLabels.FINANZEN,
             visible: false,
             permission: PermissionMap.KASSABUCH_READ,
             children: [
                 {
-                    label: "Kassabuch",
+                    label: "Kassabücher",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "finanzen/list",
                     permission: PermissionMap.KASSABUCH_READ,

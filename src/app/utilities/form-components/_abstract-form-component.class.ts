@@ -4,8 +4,14 @@ import { BehaviorSubject } from "rxjs";
 import { AbstractCrudApiService } from "src/app/services/api/_abstract-crud-api-service";
 import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "../mkj-toolbar/mkj-toolbar.service";
+import { Directive, OnDestroy } from "@angular/core";
+import { SubSink } from "subsink";
 
-export abstract class AbstractFormComponent<T> {
+@Directive()
+export abstract class AbstractFormComponent<T> implements OnDestroy {
+    protected navigateBackOnSave = false;
+    protected navigateBackRouteString = "../";
+
     public formGroup: FormGroup;
 
     private _loading = new BehaviorSubject<boolean>(false);
@@ -15,6 +21,8 @@ export abstract class AbstractFormComponent<T> {
 
     private _loadedModel: T;
 
+    protected subs = new SubSink();
+
     constructor(
         protected toolbarService: MkjToolbarService,
         protected apiService: AbstractCrudApiService<T>,
@@ -23,9 +31,16 @@ export abstract class AbstractFormComponent<T> {
         protected router: Router
     ) {
         this.toolbarService.backButton = true;
+        this.initToolbar();
         this.formGroup = this.initFormGroup();
         this.loadData();
     }
+
+    public ngOnDestroy(): void {
+        this.subs.unsubscribe();
+    }
+
+    protected abstract initToolbar(): void;
 
     protected abstract initFormGroup(): FormGroup;
 
@@ -66,10 +81,25 @@ export abstract class AbstractFormComponent<T> {
                     this.infoService.success("Gespeichert");
                     this.formGroup.patchValue(res);
                     this.formGroup.markAsPristine();
-                    // this.router.navigate([`../${(res as any).id}`], {
-                    //     relativeTo: this.route,
-                    // });
                     this._saving.next(false);
+                    if (this.navigateBackOnSave) {
+                        this.router.navigate([this.navigateBackRouteString], {
+                            relativeTo: this.route,
+                        });
+                    } else {
+                        this.router
+                            .navigate([`../${(res as any).id}`], {
+                                relativeTo: this.route,
+                            })
+                            .then(() => {
+                                this.toolbarService.temporaryBackRoute = {
+                                    backRoute: this.navigateBackRouteString,
+                                    route: this.route,
+                                };
+                                this.toolbarService.backButton = true;
+                                this.initToolbar();
+                            });
+                    }
                 },
                 error: (err) => {
                     this.infoService.error(err);
@@ -94,7 +124,9 @@ export abstract class AbstractFormComponent<T> {
             .subscribe({
                 next: () => {
                     this.infoService.success("Gelöscht");
-                    this.router.navigate(["../"], { relativeTo: this.route });
+                    this.router.navigate([this.navigateBackRouteString], {
+                        relativeTo: this.route,
+                    });
                 },
                 error: (err) => {
                     this.infoService.error(err);

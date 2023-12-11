@@ -3,7 +3,7 @@ import { Mitglied } from "../models/Mitglied";
 import { Gruppe } from "../models/Gruppe";
 import { HttpHeaders } from "@angular/common/http";
 
-export interface GetCollectionApiCallInput {
+export interface GetListInput {
     skip?: number;
     take?: number;
     sort?: {
@@ -22,7 +22,7 @@ export interface GetCollectionApiCallInput {
     }>;
 }
 
-export interface GetCollectionApiCallOutput<T> {
+export interface GetListOutput<T> {
     totalCount: number;
     values: Array<T>;
 }

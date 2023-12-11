@@ -1,6 +1,11 @@
 import { Location } from "@angular/common";
 import { Injectable, OnDestroy, OnInit, TemplateRef } from "@angular/core";
-import { ActivationStart, NavigationEnd, Router } from "@angular/router";
+import {
+    ActivatedRoute,
+    ActivationStart,
+    NavigationEnd,
+    Router,
+} from "@angular/router";
 import { PermissionMap } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { SubSink } from "subsink";
@@ -24,6 +29,7 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     public header: string;
     public contentSectionExpanded: boolean;
     public contentSectionTemplate: TemplateRef<any>;
+    public temporaryBackRoute: { backRoute: string; route: ActivatedRoute };
 
     private _buttons: MkjToolbarButton[];
     public get buttons(): MkjToolbarButton[] {
@@ -92,9 +98,16 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     }
 
     public navigateBack(): void {
-        if (this.firstNavigationHappened) {
+        if (this.temporaryBackRoute) {
+            this.router.navigate([this.temporaryBackRoute.backRoute], {
+                relativeTo: this.temporaryBackRoute.route,
+            });
+            this.temporaryBackRoute = null;
+        } else if (this.firstNavigationHappened) {
+            this.temporaryBackRoute = null;
             this.location.back();
         } else {
+            this.temporaryBackRoute = null;
             this.router.navigateByUrl("/");
         }
     }

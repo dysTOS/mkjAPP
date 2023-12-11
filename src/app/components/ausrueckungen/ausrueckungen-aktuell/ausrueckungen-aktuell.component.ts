@@ -11,7 +11,7 @@ import * as moment from "moment";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Menu } from "primeng/menu";
 import { Table } from "primeng/table";
-import { GetCollectionApiCallInput } from "src/app/interfaces/api-middleware";
+import { GetListInput } from "src/app/interfaces/api-middleware";
 import {
     Termin,
     TerminCsvColumnMap,
@@ -33,7 +33,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ausrueckungenArray: Termin[];
-    ausrueckungFilterInput: GetCollectionApiCallInput;
+    ausrueckungFilterInput: GetListInput;
     filteredRows: Termin[];
 
     actualDate = moment(new Date()).format("YYYY-MM-DD");

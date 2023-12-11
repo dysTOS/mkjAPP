@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {
-    GetCollectionApiCallInput,
-    GetCollectionApiCallOutput,
+    GetListInput,
+    GetListOutput,
     StandardHttpOptions,
 } from "src/app/interfaces/api-middleware";
 import { environment } from "src/environments/environment";
@@ -14,10 +14,8 @@ export abstract class AbstractCrudApiService<T> {
 
     constructor(private http: HttpClient) {}
 
-    public getList(
-        input?: GetCollectionApiCallInput
-    ): Observable<GetCollectionApiCallOutput<T>> {
-        return this.http.post<GetCollectionApiCallOutput<T>>(
+    public getList(input?: GetListInput): Observable<GetListOutput<T>> {
+        return this.http.post<GetListOutput<T>>(
             this._baseApiUrl + this.controllerApiUrlKey + "/list",
             input,
             StandardHttpOptions

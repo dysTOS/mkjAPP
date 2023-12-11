@@ -13,7 +13,6 @@ import { KassabuchungenApiService } from "src/app/services/api/kassabuchungen-ap
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { SubSink } from "subsink";
 
 @Component({
     selector: "app-kassabuchung-edit",
@@ -21,9 +20,10 @@ import { SubSink } from "subsink";
     styleUrls: ["./kassabuchung-edit.component.scss"],
 })
 export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchung> {
+    protected navigateBackOnSave = true;
+
     public readonly typOptions =
         UtilFunctions.getDropdownOptionsFromEnum(KassabuchungTyp);
-    private _subSink = new SubSink();
 
     constructor(
         toolbarService: MkjToolbarService,
@@ -33,17 +33,8 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         router: Router
     ) {
         super(toolbarService, apiService, infoService, route, router);
-        this.toolbarService.buttons = [
-            {
-                label: "Löschen",
-                icon: "pi pi-trash",
-                click: () => {
-                    this.delete();
-                },
-                permissions: [PermissionMap.KASSABUCHUNG_DELETE],
-            },
-        ];
-        this._subSink.add(
+
+        this.subs.add(
             this.formGroup.controls.anschrift.valueChanges.subscribe(
                 (anschrift) => {
                     if (anschrift.id) {
@@ -56,6 +47,20 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
                 }
             )
         );
+    }
+
+    protected initToolbar(): void {
+        this.toolbarService.buttons = [
+            {
+                label: "Löschen",
+                icon: "pi pi-trash",
+                hidden: this.getId() === "new",
+                click: () => {
+                    this.delete();
+                },
+                permissions: [PermissionMap.KASSABUCHUNG_DELETE],
+            },
+        ];
     }
 
     protected initFormGroup(): FormGroup<any> {

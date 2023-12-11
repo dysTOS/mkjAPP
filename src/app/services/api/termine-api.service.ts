@@ -3,10 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Termin } from "../../models/Termin";
 import { environment } from "../../../environments/environment";
-import {
-    GetCollectionApiCallInput,
-    GetCollectionApiCallOutput,
-} from "src/app/interfaces/api-middleware";
+import { GetListInput, GetListOutput } from "src/app/interfaces/api-middleware";
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -38,10 +35,10 @@ export class TermineApiService {
     }
 
     public getTermineFiltered(
-        filterInput: GetCollectionApiCallInput
-    ): Observable<GetCollectionApiCallOutput<Termin>> {
+        filterInput: GetListInput
+    ): Observable<GetListOutput<Termin>> {
         const url = this.apiURL + "ausrueckungenfiltered";
-        return this.http.post<GetCollectionApiCallOutput<Termin>>(
+        return this.http.post<GetListOutput<Termin>>(
             url,
             filterInput,
             httpOptions

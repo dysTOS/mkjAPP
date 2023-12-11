@@ -8,6 +8,7 @@ export interface Kassabuch {
     kassastand: number;
     color?: string;
     anmerkungen?: string;
+    gruppe_id?: string;
     gruppe?: Gruppe;
     kassabuchungen?: Kassabuchung[];
 }

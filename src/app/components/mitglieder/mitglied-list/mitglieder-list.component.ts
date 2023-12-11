@@ -7,6 +7,7 @@ import { MitgliederApiService } from "src/app/services/api/mitglieder-api.servic
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { Table } from "primeng/table";
 import { UserService } from "src/app/services/authentication/user.service";
+import { AppConfigService } from "src/app/services/app-config.service";
 
 @Component({
     selector: "app-mitglieder",
@@ -39,9 +40,10 @@ export class MitgliederListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private infoService: InfoService,
-        private toolbarService: MkjToolbarService
+        private toolbarService: MkjToolbarService,
+        appconfig: AppConfigService
     ) {
-        this.toolbarService.header = "Mitglieder";
+        this.toolbarService.header = appconfig.appNaming.Mitglieder;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-filter",
