@@ -191,6 +191,8 @@ import { MkjDropdownComponent } from "./utilities/form-input-components/mkj-drop
 import { MkjTextAreaInputComponent } from "./utilities/form-input-components/mkj-text-area-input/mkj-text-area-input.component";
 import { MkjTagComponent } from "./utilities/mkj-tag/mkj-tag.component";
 import { PermissionSelectedPipe } from "./components/einstellungen/rollen-edit/permission-included.pipe";
+import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
+import { AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -293,6 +295,8 @@ registerLocaleData(localeDe);
     declarations: [
         AppComponent,
         PermissionSelectedPipe,
+        AnschriftOverviewComponent,
+        AnschriftEditComponent,
         AppMainComponent,
         AppTopbarComponent,
         AppFooterComponent,

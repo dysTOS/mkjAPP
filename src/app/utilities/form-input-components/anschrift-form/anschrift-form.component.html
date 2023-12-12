@@ -108,7 +108,7 @@
     </div>
     <div class="p-field col-12">
         <p-messages
-            *ngIf="formControl?.errors"
+            *ngIf="formControl?.errors && mode !== 'edit'"
             [value]="formControl.errors | mkjFormError"
             [closeable]="false"
             [enableService]="false"

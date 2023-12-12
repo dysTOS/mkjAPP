@@ -43,6 +43,8 @@ import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper
 import { KassabuchDetailsComponent } from "./components/finanzen/kassabuch-details/kassabuch-details.component";
 import { KassabuchEditComponent } from "./components/finanzen/kassabuch-edit/kassabuch-edit.component";
 import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
+import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
+import { AnschriftEditComponent as AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
 
 @NgModule({
     imports: [
@@ -223,6 +225,17 @@ import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-ed
                                 {
                                     path: "details/:buchId/:id",
                                     component: KassabuchungEditComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
+                                    path: "adressen",
+                                    component: AnschriftOverviewComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "adressen/:id",
+                                    component: AnschriftEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },

@@ -111,6 +111,12 @@ export class MenuService implements OnDestroy {
                     permission: PermissionMap.KASSABUCH_READ,
                     visible: false,
                 },
+                {
+                    label: "Adressen",
+                    icon: "pi pi-fw pi-users",
+                    routerLink: "finanzen/adressen",
+                    permission: PermissionMap.ANSCHRIFTEN_READ,
+                },
             ],
         },
         {

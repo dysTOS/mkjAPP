@@ -1,4 +1,4 @@
-import { Component, Injector, ViewChild } from "@angular/core";
+import { Component, Injector, Input, ViewChild } from "@angular/core";
 import {
     AbstractControl,
     FormBuilder,
@@ -12,6 +12,7 @@ import {
     debounceTime,
     distinctUntilChanged,
     merge,
+    takeWhile,
     tap,
 } from "rxjs";
 import { Anschrift } from "src/app/models/Anschrift";
@@ -34,6 +35,9 @@ export class AnschriftFormComponent
     extends AbstractControlAccessor<Anschrift>
     implements Validator
 {
+    @Input()
+    public mode: "edit" | "suggest" = "edit";
+
     @ViewChild("op")
     private overlayPanel: OverlayPanel;
     @ViewChild("opTarget")
@@ -63,10 +67,12 @@ export class AnschriftFormComponent
                 }
             }),
             this.internalFormGroup.valueChanges.subscribe((value) => {
-                value.id = null;
-                this.internalFormGroup.controls.id.patchValue(null, {
-                    emitEvent: false,
-                });
+                if (this.mode === "suggest") {
+                    value.id = null;
+                    this.internalFormGroup.controls.id.patchValue(null, {
+                        emitEvent: false,
+                    });
+                }
                 this.touch();
                 this.change(value);
             }),
@@ -76,6 +82,7 @@ export class AnschriftFormComponent
                 this.internalFormGroup.controls.firma.valueChanges
             )
                 .pipe(
+                    takeWhile(() => this.mode === "suggest"),
                     tap((_) => {
                         this.suggestions = [];
                         this.overlayPanel?.hide();
