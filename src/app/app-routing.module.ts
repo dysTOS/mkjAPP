@@ -13,7 +13,7 @@ import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { RouteGuard } from "./guards/route.guard";
 import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
-import { NotenarchivComponent } from "./components/archiv/noten/notenarchiv/notenarchiv.component";
+import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
 import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
 import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { KassabuecherComponent } from "./components/finanzen/kassabuecher-overview/kassabuecher-overview.component";
@@ -155,7 +155,7 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                             children: [
                                 {
                                     path: "noten",
-                                    component: NotenarchivComponent,
+                                    component: NotenOverviewComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {

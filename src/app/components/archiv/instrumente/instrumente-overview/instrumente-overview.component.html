@@ -1,8 +1,4 @@
-<p-table
-    [value]="values"
-    [loading]="uiService.loading | async"
-    responsiveLayout="scroll"
->
+<p-table [value]="values" [loading]="!values" responsiveLayout="scroll">
     <ng-template pTemplate="header">
         <tr>
             <th>Bezeichnung</th>

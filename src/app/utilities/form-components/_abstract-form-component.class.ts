@@ -69,6 +69,11 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
                     this.infoService.success("Gespeichert");
                     this.formGroup.markAsPristine();
                     this._saving.next(false);
+                    if (this.navigateBackOnSave) {
+                        this.router.navigate([this.navigateBackRouteString], {
+                            relativeTo: this.route,
+                        });
+                    }
                 },
                 error: (err) => {
                     this.infoService.error(err);
@@ -96,7 +101,6 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
                                     backRoute: this.navigateBackRouteString,
                                     route: this.route,
                                 };
-                                this.toolbarService.backButton = true;
                                 this.initToolbar();
                             });
                     }
@@ -137,10 +141,7 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
 
     private loadData(): void {
         const id = this.getId();
-        if (id === "new") {
-            this.toolbarService.header = "Neu";
-            return;
-        }
+        if (id === "new") return;
 
         this._loading.next(true);
         this.apiService.getById(id).subscribe({

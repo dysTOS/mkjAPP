@@ -115,7 +115,7 @@ import { InstrumenteEditorComponent } from "./components/archiv/instrumente/inst
 import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
 import { NotenCardComponent } from "./components/archiv/noten/noten-card/noten-card.component";
 import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/noten-editor.component";
-import { NotenarchivComponent } from "./components/archiv/noten/notenarchiv/notenarchiv.component";
+import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
 import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
 import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
@@ -193,6 +193,7 @@ import { MkjTagComponent } from "./utilities/mkj-tag/mkj-tag.component";
 import { PermissionSelectedPipe } from "./components/einstellungen/rollen-edit/permission-included.pipe";
 import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
 import { AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
+import { MkjListCellComponent } from "./utilities/mkj-list/mkj-list-cell/mkj-list-cell.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -315,6 +316,7 @@ registerLocaleData(localeDe);
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,
+        MkjListCellComponent,
         AusrueckungSingleComponent,
         EinstellungenWrapperComponent,
         MkjDatePipe,
@@ -323,7 +325,7 @@ registerLocaleData(localeDe);
         LoginComponent,
         MitgliederListComponent,
         MitgliederDetailsComponent,
-        NotenarchivComponent,
+        NotenOverviewComponent,
         VisibleForPermissionDirective,
         NotenEditorComponent,
         MkjToolbarComponent,

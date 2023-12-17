@@ -13,7 +13,7 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
     }
 
     public getList(): Observable<GetCollectionApiOutput<Kassabuch>> {
-        return this.apiService.getList(null);
+        return this.apiService.getList();
     }
 
     public mapToTileValue(item: Kassabuch): TileValue<Kassabuch> {

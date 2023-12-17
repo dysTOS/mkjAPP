@@ -9,7 +9,4 @@ import { Termin } from "src/app/models/Termin";
 export class TerminCardComponent {
     @Input()
     public termin: Termin;
-
-    constructor() {}
-
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { InfoService } from "src/app/services/info.service";
-import { ListDatasource } from "../_list-datasources/_abstract-list-datasource.class";
+import { AbstractListDatasource } from "../_list-datasources/_abstract-list-datasource.class";
 
 export interface TileValue<T> {
     label: string;
@@ -18,7 +18,7 @@ export interface TileValue<T> {
 })
 export class MkjTileViewComponent<T> implements OnInit {
     @Input()
-    public datasource: ListDatasource<T>;
+    public datasource: AbstractListDatasource<T>;
 
     @Output()
     public clicked = new EventEmitter<T>();

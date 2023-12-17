@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Instrument } from "src/app/models/Instrument";
 import { PermissionMap } from "src/app/models/User";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
-import { InstrumenteUiService } from "../instrumente-ui.service";
 import { AppConfigService } from "src/app/services/app-config.service";
+import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
 
 @Component({
     selector: "app-instrumente-overview",
@@ -16,8 +16,8 @@ export class InstrumenteOverviewComponent implements OnInit {
     public readonly PermissionMap = PermissionMap;
 
     constructor(
-        public uiService: InstrumenteUiService,
         private toolbarService: MkjToolbarService,
+        private apiService: InstrumenteApiService,
         private router: Router,
         private route: ActivatedRoute,
         configService: AppConfigService
@@ -37,8 +37,8 @@ export class InstrumenteOverviewComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.uiService.getAllInstrumente().subscribe((data) => {
-            this.values = data;
+        this.apiService.getList(null).subscribe((data) => {
+            this.values = data.values;
         });
     }
 

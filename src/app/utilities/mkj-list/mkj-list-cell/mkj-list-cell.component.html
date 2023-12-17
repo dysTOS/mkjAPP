@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="colConfig?.type">
+    <ng-container *ngSwitchDefault>
+        {{ value?.[colConfig?.field] }}
+    </ng-container>
+</ng-container>

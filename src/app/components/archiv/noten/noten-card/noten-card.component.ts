@@ -9,6 +9,4 @@ import { Noten } from "src/app/models/Noten";
 export class NotenCardComponent {
     @Input()
     public noten: Noten;
-
-    constructor() {}
 }
