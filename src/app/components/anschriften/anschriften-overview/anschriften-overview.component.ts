@@ -2,26 +2,26 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Anschrift } from "src/app/models/Anschrift";
 import { PermissionMap } from "src/app/models/User";
-import { AnschriftenApiService } from "src/app/services/api/anschriften-api.service";
+import { UserService } from "src/app/services/authentication/user.service";
+import { AnschriftenListConfig } from "src/app/utilities/_list-configurations/anschriften-list-config.class";
+import { AnschriftenListDatasource } from "src/app/utilities/_list-datasources/anschriften-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-anschriften-overview",
     templateUrl: "./anschriften-overview.component.html",
     styleUrl: "./anschriften-overview.component.scss",
+    providers: [AnschriftenListConfig, AnschriftenListDatasource],
 })
 export class AnschriftenOverviewComponent {
-    public adressen: Anschrift[];
-
     constructor(
-        private apiService: AnschriftenApiService,
-        private toolbarService: MkjToolbarService,
+        public datasource: AnschriftenListDatasource,
+        public listConfig: AnschriftenListConfig,
+        toolbarService: MkjToolbarService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private userServie: UserService
     ) {
-        apiService.getList().subscribe((list) => {
-            this.adressen = list.values;
-        });
         toolbarService.header = "Adressen";
         toolbarService.buttons = [
             {
@@ -34,5 +34,13 @@ export class AnschriftenOverviewComponent {
                 permissions: [PermissionMap.ANSCHRIFTEN_SAVE],
             },
         ];
+    }
+
+    public navigateToEdit(item: Anschrift): void {
+        if (this.userServie.hasPermission(PermissionMap.ANSCHRIFTEN_SAVE)) {
+            this.router.navigate([item.id], {
+                relativeTo: this.route,
+            });
+        }
     }
 }

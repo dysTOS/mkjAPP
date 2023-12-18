@@ -1,4 +1,7 @@
 <ng-container [ngSwitch]="colConfig?.type">
+    <ng-container *ngSwitchCase="'value'">{{
+        value | listCellValue : colConfig?.getValue
+    }}</ng-container>
     <ng-container *ngSwitchDefault>
         {{ value?.[colConfig?.field] }}
     </ng-container>

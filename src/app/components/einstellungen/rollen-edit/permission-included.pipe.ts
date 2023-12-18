@@ -5,7 +5,7 @@ import { Permission } from "../../../models/User";
     name: "permissionIncluded",
 })
 export class PermissionSelectedPipe implements PipeTransform {
-    transform(value: Permission, permissions: Permission[]) {
+    public transform(value: Permission, permissions: Permission[]) {
         return permissions?.some((p) => p.id === value.id);
     }
 }

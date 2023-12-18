@@ -119,15 +119,20 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
     }
 
     public delete(): void {
-        this._loading.next(true);
-        if (this.getId() === "new") {
+        const id = this.getId();
+        if (id === "new") {
             throw new Error("Cannot delete unsaved data");
         }
         this.infoService
-            .confirmDelete(null, () => this.apiService.delete(this.getId()))
+            .confirmDelete(null, () => {
+                this._loading.next(true);
+                return this.apiService.delete(id);
+            })
             .subscribe({
                 next: () => {
                     this.infoService.success("Gelöscht");
+                    this.formGroup.markAsPristine();
+                    this.formGroup.markAsUntouched();
                     this.router.navigate([this.navigateBackRouteString], {
                         relativeTo: this.route,
                     });
@@ -149,6 +154,7 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
                 this._loadedModel = data;
                 this.formGroup.patchValue(data);
                 this.formGroup.markAsPristine();
+                this.formGroup.markAsUntouched();
                 this._loading.next(false);
             },
         });

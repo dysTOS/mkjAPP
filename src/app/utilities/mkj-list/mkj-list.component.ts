@@ -1,7 +1,9 @@
 import {
     Component,
+    EventEmitter,
     Input,
     OnInit,
+    Output,
     TemplateRef,
     ViewChild,
     signal,
@@ -28,6 +30,9 @@ export class MkjListComponent<T> implements OnInit {
 
     @Input()
     public templateMap: { [key: string]: TemplateRef<any> };
+
+    @Output()
+    public onDoubleClick: EventEmitter<T> = new EventEmitter<T>();
 
     public readonly loading$ = signal<boolean>(false);
 

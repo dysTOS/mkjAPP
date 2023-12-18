@@ -1,16 +1,21 @@
 import { Noten, NotenGattungMap } from "src/app/models/Noten";
-import { ListConfiguration, MkjListColumn } from "./_list-configuration.class";
+import {
+    ListConfiguration,
+    MkjListColumn,
+    MkjListGlobalFilterConfiguration,
+    MkjListSortConfiguration,
+} from "./_list-configuration.class";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class NotenListConfig implements ListConfiguration<Noten> {
     listName: string = "Noten";
     showTotalCount = true;
-    sort = {
+    sort: MkjListSortConfiguration<Noten> = {
         field: "titel",
         order: 1,
     };
-    globalFilter = {
+    globalFilter: MkjListGlobalFilterConfiguration<Noten> = {
         fields: ["titel", "komponist", "arrangeur"],
         matchMode: "contains",
     };
@@ -47,7 +52,10 @@ export class NotenListConfig implements ListConfiguration<Noten> {
             styleClass: "not-on-small",
             sortable: true,
             filter: {
-                filterOptions: NotenGattungMap,
+                filterOptions: [
+                    { label: "Kein Filter", value: null },
+                    ...NotenGattungMap,
+                ],
             },
         },
     ];

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { AppConfigService } from "src/app/services/app-config.service";
+import { UserService } from "src/app/services/authentication/user.service";
 import { NotenListConfig } from "src/app/utilities/_list-configurations/noten-list-config.class";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -22,7 +23,8 @@ export class NotenOverviewComponent {
         private toolbarService: MkjToolbarService,
         private router: Router,
         private route: ActivatedRoute,
-        private namingService: AppConfigService
+        private namingService: AppConfigService,
+        private userService: UserService
     ) {
         this.toolbarService.header = this.namingService.appNaming.Noten;
         this.toolbarService.buttons = [
@@ -36,6 +38,9 @@ export class NotenOverviewComponent {
     }
 
     public navigateToEditView(noten?: Noten) {
+        if (!this.userService.hasPermission(PermissionMap.NOTEN_SAVE)) {
+            return;
+        }
         this.router.navigate([noten?.id ?? "new"], { relativeTo: this.route });
     }
 }

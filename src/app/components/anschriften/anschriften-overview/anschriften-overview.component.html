@@ -1,14 +1,11 @@
-<mkj-content-loader [loading]="!adressen">
-    <div
-        *ngFor="let add of adressen"
-        class="col-12 flex justify-content-between border-1"
-    >
-        <span>{{ add.vorname }} {{ add.zuname }}{{ add.firma }}</span>
-        <button
-            pButton
-            icon="pi pi-pencil"
-            class="p-button-text p-button-small"
-            [routerLink]="add.id"
-        ></button>
-    </div>
-</mkj-content-loader>
+<mkj-list
+    [datasource]="datasource"
+    [configuration]="listConfig"
+    [templateMap]="{
+        rowexpansion: null,
+    }"
+    (onDoubleClick)="navigateToEdit($event)"
+>
+</mkj-list>
+
+<ng-template #rowexpansion let-anschrift> </ng-template>

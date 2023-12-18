@@ -194,6 +194,7 @@ import { PermissionSelectedPipe } from "./components/einstellungen/rollen-edit/p
 import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
 import { AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
 import { MkjListCellComponent } from "./utilities/mkj-list/mkj-list-cell/mkj-list-cell.component";
+import { ListCellValuePipe } from "./utilities/mkj-list/mkj-list-cell/list-cell-value.pipe";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -331,6 +332,7 @@ registerLocaleData(localeDe);
         MkjToolbarComponent,
         AusrueckungEditorComponent,
         RollenEditComponent,
+        ListCellValuePipe,
         MkjTextTransformPipe,
         MkjDisplayFieldComponent,
         AatestComponent,

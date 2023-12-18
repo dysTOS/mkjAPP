@@ -1,48 +1,45 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Instrument } from "src/app/models/Instrument";
 import { PermissionMap } from "src/app/models/User";
-import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 import { AppConfigService } from "src/app/services/app-config.service";
-import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
+import { UserService } from "src/app/services/authentication/user.service";
+import { InstrumenteListConfig } from "src/app/utilities/_list-configurations/instrumente-list-config.class";
+import { InstrumenteListDatasource } from "src/app/utilities/_list-datasources/instrumente-list-datasource.class";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-instrumente-overview",
     templateUrl: "./instrumente-overview.component.html",
     styleUrls: ["./instrumente-overview.component.scss"],
+    providers: [InstrumenteListDatasource, InstrumenteListConfig],
 })
-export class InstrumenteOverviewComponent implements OnInit {
-    public values: Instrument[];
-    public readonly PermissionMap = PermissionMap;
-
+export class InstrumenteOverviewComponent {
     constructor(
-        private toolbarService: MkjToolbarService,
-        private apiService: InstrumenteApiService,
+        public datasource: InstrumenteListDatasource,
+        public listConfig: InstrumenteListConfig,
         private router: Router,
         private route: ActivatedRoute,
+        private userService: UserService,
+        toolbarService: MkjToolbarService,
         configService: AppConfigService
     ) {
-        this.toolbarService.header = configService.appNaming.Instrumente;
-        this.toolbarService.backButton = null;
-        this.toolbarService.buttons = [
+        toolbarService.header = configService.appNaming.Instrumente;
+        toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 label: "Neu",
                 permissions: [PermissionMap.INSTRUMENTE_SAVE],
-                click: () => {
-                    this.router.navigate(["new"], { relativeTo: this.route });
-                },
+                click: () => this.navigateEditor(),
             },
         ];
     }
 
-    public ngOnInit(): void {
-        this.apiService.getList(null).subscribe((data) => {
-            this.values = data.values;
+    public navigateEditor(instrument?: Instrument): void {
+        if (!this.userService.hasPermission(PermissionMap.INSTRUMENTE_SAVE))
+            return;
+        this.router.navigate([instrument?.id ?? "new"], {
+            relativeTo: this.route,
         });
-    }
-
-    public navigateEditor(instrument: Instrument): void {
-        this.router.navigate([instrument.id], { relativeTo: this.route });
     }
 }
