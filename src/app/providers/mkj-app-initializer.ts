@@ -14,12 +14,11 @@ export const mkjAppInitializer = () => {
             appNamingService: AppConfigService,
             serviceWorkerService: ServiceWorkerService
         ) => {
+            console.log("App Initializer called");
             return () =>
-                userService
-                    .initializeUserData()
-                    .pipe(
-                        switchMap(() => appNamingService.initAppNamingConfig())
-                    );
+                appNamingService
+                    .initAppNamingConfig()
+                    .pipe(switchMap(() => userService.initializeUserData()));
         },
         deps: [
             ThemeService,
