@@ -1,4 +1,16 @@
 <ng-container [ngSwitch]="colConfig?.type">
+    <ng-container *ngSwitchCase="'date'">
+        {{value?.[colConfig?.field] | mkjDate}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'currency'">
+        {{value?.[colConfig?.field] | currency: "EUR"}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'template'">
+        <ng-template
+            [ngTemplateOutlet]="templateMap[colConfig?.templateName]"
+            [ngTemplateOutletContext]="{ $implicit: value }"
+        ></ng-template>
+    </ng-container>
     <ng-container *ngSwitchCase="'value'">{{
         value | listCellValue : colConfig?.getValue
     }}</ng-container>

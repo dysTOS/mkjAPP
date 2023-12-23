@@ -65,9 +65,9 @@ export class MkjNotensucheComponent {
         });
     }
 
-    public onSelect(noten: Noten) {
+    public onSelect(noten: any) {
         this.notenSelect.emit({
-            noten: noten,
+            noten: noten.value,
             verzeichnisNr: this.verzeichnisNr,
         });
         this.selectedNoten = null;

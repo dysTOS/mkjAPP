@@ -41,7 +41,7 @@ export abstract class AbstractControlAccessor<T>
     public label: string;
 
     @Input()
-    public placeholder: string;
+    public placeholder: string = "";
 
     @Output()
     public valueChange = new EventEmitter<T>();

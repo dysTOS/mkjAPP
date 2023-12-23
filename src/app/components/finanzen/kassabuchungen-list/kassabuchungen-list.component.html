@@ -1,0 +1,30 @@
+<mkj-list
+    [datasource]="datasource"
+    [configuration]="listConfig"
+    [templateMap]="{
+        caption: captionTemplate,
+        tagTemplate: tagTemplate,
+    }"
+></mkj-list>
+
+<ng-template #captionTemplate>
+    <div class="flex justify-content-center">
+        <p-button label="Neue Buchung" [routerLink]="'new'"></p-button>
+    </div>
+</ng-template>
+
+<ng-template #tagTemplate let-buchung>
+    <div class="flex gap-1">
+        <mkj-tag
+            [label]="buchung.typ | uppercase"
+            [severity]="
+                buchung.typ === BuchungTyp.EINNAHME ? 'success' : 'warning'
+            "
+        ></mkj-tag>
+        <mkj-tag
+            icon="pi pi-euro"
+            [label]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
+            [severity]="buchung.bezahltDatum ? 'success' : 'danger'"
+        ></mkj-tag>
+    </div>
+</ng-template>

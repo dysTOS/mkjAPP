@@ -1,28 +1,27 @@
-import { Noten, NotenGattungMap } from "src/app/models/Noten";
+import { Injectable } from "@angular/core";
+import { Instrument } from "src/app/models/Instrument";
+import { AppConfigService } from "src/app/services/app-config.service";
 import {
     ListConfiguration,
     MkjListColumn,
-    MkjListGlobalFilterConfiguration,
-    MkjListSortConfiguration,
+    MkjListGlobalFilter,
+    MkjListSelectionMode,
+    MkjListSort,
 } from "./_list-configuration.class";
-import { Injectable } from "@angular/core";
-import { Anschrift } from "src/app/models/Anschrift";
-import { Instrument } from "src/app/models/Instrument";
-import { AppConfigService } from "src/app/services/app-config.service";
 
 @Injectable()
 export class InstrumenteListConfig implements ListConfiguration<Instrument> {
     constructor(private appNaming: AppConfigService) {}
 
     listName: string = "Instrumente";
+    selectionMode: MkjListSelectionMode = "single";
     showTotalCount = true;
-    sort: MkjListSortConfiguration<Instrument> = {
+    sort: MkjListSort<Instrument> = {
         field: "marke",
         order: 1,
     };
-    globalFilter: MkjListGlobalFilterConfiguration<Instrument> = {
+    globalFilter: MkjListGlobalFilter<Instrument> = {
         fields: ["bezeichnung", "marke"],
-        matchMode: "contains",
     };
     columns: MkjListColumn<Instrument>[] = [
         {

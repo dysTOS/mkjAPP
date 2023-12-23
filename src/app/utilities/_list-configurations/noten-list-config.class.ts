@@ -2,22 +2,24 @@ import { Noten, NotenGattungMap } from "src/app/models/Noten";
 import {
     ListConfiguration,
     MkjListColumn,
-    MkjListGlobalFilterConfiguration,
-    MkjListSortConfiguration,
+    MkjListGlobalFilter,
+    MkjListSelectionMode,
+    MkjListSort,
 } from "./_list-configuration.class";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class NotenListConfig implements ListConfiguration<Noten> {
     listName: string = "Noten";
+    selectionMode: MkjListSelectionMode = "single";
     showTotalCount = true;
-    sort: MkjListSortConfiguration<Noten> = {
+    lazyLoad = true;
+    sort: MkjListSort<Noten> = {
         field: "titel",
         order: 1,
     };
-    globalFilter: MkjListGlobalFilterConfiguration<Noten> = {
+    globalFilter: MkjListGlobalFilter<Noten> = {
         fields: ["titel", "komponist", "arrangeur"],
-        matchMode: "contains",
     };
     columns: MkjListColumn<Noten>[] = [
         {
@@ -37,19 +39,19 @@ export class NotenListConfig implements ListConfiguration<Noten> {
             header: "Komponist",
             field: "komponist",
             type: "string",
-            styleClass: "not-on-small",
+            styleClass: "",
         },
         {
             header: "Arrangeur",
             field: "arrangeur",
             type: "string",
-            styleClass: "not-on-small",
+            styleClass: "",
         },
         {
             header: "Gattung",
             field: "gattung",
             type: "string",
-            styleClass: "not-on-small",
+            styleClass: "",
             sortable: true,
             filter: {
                 filterOptions: [

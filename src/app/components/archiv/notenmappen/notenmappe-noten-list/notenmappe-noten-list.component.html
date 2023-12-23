@@ -1,0 +1,61 @@
+<mkj-list
+    #list
+    [datasource]="listDatasource"
+    [configuration]="listConfig"
+    [rowReorder]="editMode"
+    [disabled]="tableLocked"
+    [templateMap]="{
+        caption: captionTemplate,
+        rowexpansion: rowexpansion,
+        verzeichnisNrTemplate: verzeichnisNrTemplate
+    }"
+    (onRowReorder)="onRowReorder($event)"
+></mkj-list>
+
+<ng-template #verzeichnisNrTemplate let-noten>
+    <div class="col-12 flex align-items-center">
+        <mkj-text-input
+            *ngIf="editMode"
+            label="Index"
+            [(value)]="noten.pivot.verzeichnisNr"
+            [disabled]="tableLocked"
+            (onBlur)="syncNotenToMappe(list.values)"
+            (onEnter)="syncNotenToMappe(list.values)"
+        ></mkj-text-input>
+        <span *ngIf="!editMode">{{ noten.pivot.verzeichnisNr }}</span>
+    </div>
+</ng-template>
+
+<ng-template #rowexpansion let-value>
+    <div class="col-12 card flex justify-content-center">
+        <button
+            *ngIf="hasSavePermission"
+            pButton
+            icon="pi pi-link"
+            label="Bearbeiten"
+            class="p-button-text ml-2"
+            (click)="navigateToNoten(value)"
+        ></button>
+        <button
+            *ngIf="hasAssignPermission && editMode"
+            pButton
+            icon="pi pi-trash"
+            label="Aus Mappe entfernen"
+            class="p-button-text p-button-danger"
+            (click)="detachNotenFromMappe(value)"
+        ></button>
+    </div>
+</ng-template>
+
+<ng-template #captionTemplate>
+    <div
+        *ngIf="hasAssignPermission && editMode"
+        class="flex justify-content-center"
+    >
+        <app-mkj-notensuche
+            [verzeichnisMode]="indexed"
+            placeholder="Noten hinzufügen"
+            (notenSelect)="addNotenToMappe($event)"
+        ></app-mkj-notensuche>
+    </div>
+</ng-template>

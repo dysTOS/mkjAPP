@@ -116,8 +116,8 @@ import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/in
 import { NotenCardComponent } from "./components/archiv/noten/noten-card/noten-card.component";
 import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/noten-editor.component";
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
-import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
-import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
+import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
+import { NotenmappenOverviewComponent } from "./components/archiv/notenmappen/notenmappen-overview/notenmappen-overview.component";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
@@ -130,8 +130,8 @@ import { EinstellungenWrapperComponent } from "./components/einstellungen/einste
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
-import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
-import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
+import { GruppeEditComponent } from "./components/gruppen/gruppe-edit/gruppe-edit.component";
+import { GruppenOverviewComponent } from "./components/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
 import { MitgliedRolesPickerComponent } from "./components/mitglieder/mitglieder-single/mitglied-roles-picker/mitglied-roles-picker.component";
 import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
@@ -160,8 +160,6 @@ import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MenuService } from "./services/menu.service";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
-import { MkjGruppeFormComponent } from "./utilities/form-components/mkj-gruppe-form/mkj-gruppe-form.component";
-import { MkjNotenmappeFormComponent } from "./utilities/form-components/mkj-notenmappe-form/mkj-notenmappe-form.component";
 import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
 import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
 import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
@@ -195,6 +193,9 @@ import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./co
 import { AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
 import { MkjListCellComponent } from "./utilities/mkj-list/mkj-list-cell/mkj-list-cell.component";
 import { ListCellValuePipe } from "./utilities/mkj-list/mkj-list-cell/list-cell-value.pipe";
+import { GruppeMitgliederListComponent } from "./components/gruppen/gruppe-mitglieder-list/gruppe-mitglieder-list.component";
+import { NotenmappeNotenListComponent } from "./components/archiv/notenmappen/notenmappe-noten-list/notenmappe-noten-list.component";
+import { KassabuchungenListComponent } from './components/finanzen/kassabuchungen-list/kassabuchungen-list.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -338,7 +339,7 @@ registerLocaleData(localeDe);
         AatestComponent,
         MitgliedPersonalEditComponent,
         MkjRechnungComponent,
-        NotenmappenComponent,
+        NotenmappenOverviewComponent,
         KassabuecherComponent,
         MkjNotensucheComponent,
         LokaleEinstellungenComponent,
@@ -351,12 +352,10 @@ registerLocaleData(localeDe);
         GruppenOverviewComponent,
         MitgliedFormComponent,
         MkjTileComponent,
-        GruppeDetailsComponent,
-        MkjGruppeFormComponent,
+        GruppeEditComponent,
         FullNamePipe,
         MkjColorPickerComponent,
-        NotenmappeDetailsComponent,
-        MkjNotenmappeFormComponent,
+        NotenmappeEditComponent,
         NextTerminComponent,
         TerminCardComponent,
         StatistikTermineComponent,
@@ -391,6 +390,9 @@ registerLocaleData(localeDe);
         MkjDropdownComponent,
         MkjTextAreaInputComponent,
         MkjTagComponent,
+        GruppeMitgliederListComponent,
+        NotenmappeNotenListComponent,
+        KassabuchungenListComponent,
     ],
     providers: [
         mkjAppInitializer(),

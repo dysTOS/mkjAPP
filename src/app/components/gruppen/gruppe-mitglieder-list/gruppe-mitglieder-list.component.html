@@ -1,0 +1,39 @@
+<mkj-list
+    [datasource]="listDatasource"
+    [configuration]="listConfig"
+    [disabled]="tableLocked"
+    [templateMap]="{
+        caption: captionTemplate,
+        rowexpansion: rowexpansion
+    }"
+></mkj-list>
+
+<ng-template #rowexpansion let-value>
+    <div class="col-12 card flex justify-content-center">
+        <button
+            pButton
+            label="Entfernen"
+            (click)="removeMitglied(value.id)"
+        ></button>
+    </div>
+</ng-template>
+
+<ng-template #captionTemplate>
+    <p-autoComplete
+        #autoComplete
+        [suggestions]="mitgliederSearchResult"
+        (completeMethod)="searchMitglieder($event)"
+        (onSelect)="addMitglied($event.value)"
+        [forceSelection]="true"
+        [autoHighlight]="true"
+        [appendTo]="'body'"
+        dataKey="id"
+        placeholder="Mitglied hinzufügen..."
+    >
+        <ng-template let-mitglied pTemplate="item">
+            <div>
+                {{ mitglied | fullName }}
+            </div>
+        </ng-template>
+    </p-autoComplete>
+</ng-template>

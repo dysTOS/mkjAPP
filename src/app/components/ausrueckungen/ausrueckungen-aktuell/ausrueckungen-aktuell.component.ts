@@ -33,7 +33,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
     ausrueckungenArray: Termin[];
-    ausrueckungFilterInput: GetListInput;
+    ausrueckungFilterInput: GetListInput<Termin>;
     filteredRows: Termin[];
 
     actualDate = moment(new Date()).format("YYYY-MM-DD");
@@ -152,12 +152,12 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
         this.ausrueckungFilterInput = {
             filterAnd: [
                 {
-                    filterField: "vonDatum",
+                    field: "vonDatum",
                     value: this.filterFromDate,
                     operator: ">=",
                 },
                 {
-                    filterField: "bisDatum",
+                    field: "bisDatum",
                     value: new Date().getFullYear() + "-12-31",
                     operator: "<=",
                 },
@@ -306,7 +306,7 @@ export class AusrueckungenAktuellComponent implements OnInit, AfterViewInit {
             this.ausrueckungFilterInput.filterAnd[filterIndex] = {
                 value: value,
                 operator: filterIndex === 0 ? ">=" : "<=",
-                filterField: filterIndex === 0 ? "vonDatum" : "bisDatum",
+                field: filterIndex === 0 ? "vonDatum" : "bisDatum",
             };
         }
         this.loadTermine();

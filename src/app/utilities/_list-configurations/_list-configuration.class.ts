@@ -1,9 +1,12 @@
 export interface ListConfiguration<T> {
     listName: string;
     columns: MkjListColumn<T>[];
+    lazyLoad?: boolean;
     showTotalCount?: boolean;
-    sort?: MkjListSortConfiguration<T>;
-    globalFilter?: MkjListGlobalFilterConfiguration<T>;
+    hideHeader?: boolean;
+    selectionMode?: MkjListSelectionMode;
+    sort?: MkjListSort<T>;
+    globalFilter?: MkjListGlobalFilter<T>;
 }
 
 export interface MkjListColumn<T> {
@@ -17,16 +20,17 @@ export interface MkjListColumn<T> {
     getValue?: (item: T) => any;
 }
 
-export interface MkjListSortConfiguration<T> {
-    field: keyof T;
+export interface MkjListSort<T> {
+    field: string;
     order: number;
 }
 
-export interface MkjListGlobalFilterConfiguration<T> {
+export interface MkjListGlobalFilter<T> {
     fields: Array<keyof T>;
-    matchMode?: string;
 }
 
 export interface MkjListColumnFilter {
     filterOptions?: any;
 }
+
+export type MkjListSelectionMode = "single" | "multiple";

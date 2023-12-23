@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
-import { Kassabuch, KassabuchungTyp } from "src/app/models/Kassabuch";
+import { Kassabuch } from "src/app/models/Kassabuch";
 import { PermissionMap } from "src/app/models/User";
 import { KassabuchApiService } from "src/app/services/api/kassabuch-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -13,8 +13,6 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class KassabuchDetailsComponent implements OnInit {
     public kassabuch: Kassabuch;
-
-    public readonly BuchungTyp = KassabuchungTyp;
 
     private _loading = new BehaviorSubject<boolean>(false);
     public readonly loading$ = this._loading.asObservable();

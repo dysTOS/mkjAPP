@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AbstractCrudApiService } from "./_abstract-crud-api-service";
-import { Notenmappe } from "src/app/models/Noten";
+import { Noten, Notenmappe } from "src/app/models/Noten";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { StandardHttpOptions } from "src/app/interfaces/api-middleware";
@@ -14,6 +14,21 @@ export class NotenmappenApiService extends AbstractCrudApiService<Notenmappe> {
 
     constructor(private httpClient: HttpClient) {
         super(httpClient);
+    }
+
+    public getNotenOfMappe(mappeId: string): Observable<Noten[]> {
+        const url =
+            environment.apiUrl + this.controllerApiUrlKey + "/noten/" + mappeId;
+        return this.httpClient.get<Noten[]>(url, StandardHttpOptions);
+    }
+
+    public syncNoten(mappeId: string, noten: Noten[]): Observable<void> {
+        const url = environment.apiUrl + this.controllerApiUrlKey + "/noten";
+        const input = {
+            collectionId: mappeId,
+            values: noten,
+        };
+        return this.httpClient.post<void>(url, input, StandardHttpOptions);
     }
 
     public attachNotenToMappe(

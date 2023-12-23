@@ -1,24 +1,24 @@
-import { Noten, NotenGattungMap } from "src/app/models/Noten";
+import { Injectable } from "@angular/core";
+import { Anschrift } from "src/app/models/Anschrift";
 import {
     ListConfiguration,
     MkjListColumn,
-    MkjListGlobalFilterConfiguration,
-    MkjListSortConfiguration,
+    MkjListGlobalFilter,
+    MkjListSelectionMode,
+    MkjListSort,
 } from "./_list-configuration.class";
-import { Injectable } from "@angular/core";
-import { Anschrift } from "src/app/models/Anschrift";
 
 @Injectable()
 export class AnschriftenListConfig implements ListConfiguration<Anschrift> {
     listName: string = "Anschriften";
+    selectionMode: MkjListSelectionMode = "single";
     showTotalCount = true;
-    sort: MkjListSortConfiguration<Anschrift> = {
+    sort: MkjListSort<Anschrift> = {
         field: "zuname",
         order: 1,
     };
-    globalFilter: MkjListGlobalFilterConfiguration<Anschrift> = {
+    globalFilter: MkjListGlobalFilter<Anschrift> = {
         fields: ["vorname", "zuname", "firma"],
-        matchMode: "contains",
     };
     columns: MkjListColumn<Anschrift>[] = [
         {

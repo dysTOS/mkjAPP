@@ -2,7 +2,7 @@ import { Noten } from "src/app/models/Noten";
 import { AbstractListDatasource } from "./_abstract-list-datasource.class";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { Observable } from "rxjs";
-import { GetListOutput } from "src/app/interfaces/api-middleware";
+import { GetListInput, GetListOutput } from "src/app/interfaces/api-middleware";
 import { TileValue } from "../mkj-tile-view/mkj-tile-view.component";
 import { Injectable } from "@angular/core";
 
@@ -12,8 +12,10 @@ export class NotenListDatasource extends AbstractListDatasource<Noten> {
         super();
     }
 
-    public getList(): Observable<GetListOutput<Noten>> {
-        return this.apiService.getList();
+    public getList(
+        input?: GetListInput<Noten>
+    ): Observable<GetListOutput<Noten>> {
+        return this.apiService.getList(input);
     }
 
     public mapToTileValue(item: Noten): TileValue<Noten> {

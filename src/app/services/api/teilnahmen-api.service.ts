@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import {
     StandardHttpOptions,
-    StandardMessageOutput,
+    MessageOutput,
 } from "src/app/interfaces/api-middleware";
 import { Gruppe } from "src/app/models/Gruppe";
 import { environment } from "src/environments/environment";
@@ -37,20 +37,18 @@ export class TeilnahmenApiService {
     public updateTeilnahme(
         terminId: string,
         status: "abwesend" | "anwesend"
-    ): Observable<StandardMessageOutput> {
+    ): Observable<MessageOutput> {
         const url = this.apiURL + "teilnahme";
-        return this.http.post<StandardMessageOutput>(
+        return this.http.post<MessageOutput>(
             url,
             { termin_id: terminId, status: status },
             StandardHttpOptions
         );
     }
 
-    public removeTeilnahme(
-        terminId: string
-    ): Observable<StandardMessageOutput> {
+    public removeTeilnahme(terminId: string): Observable<MessageOutput> {
         const url = this.apiURL + "teilnahmeremove";
-        return this.http.post<StandardMessageOutput>(
+        return this.http.post<MessageOutput>(
             url,
             { termin_id: terminId },
             StandardHttpOptions

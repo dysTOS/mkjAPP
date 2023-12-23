@@ -40,6 +40,7 @@ export class KassabuchEditComponent extends AbstractFormComponent<Kassabuch> {
         });
     }
     protected initToolbar(): void {
+        this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
             {
                 label: "Löschen",

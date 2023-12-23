@@ -1,4 +1,10 @@
-import { Component, Injector, Input } from "@angular/core";
+import {
+    Component,
+    EventEmitter,
+    Injector,
+    Input,
+    Output,
+} from "@angular/core";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
 import { AbstractControlAccessor } from "../abstract-control-accessor";
 
@@ -12,7 +18,17 @@ export class MkjTextInputComponent extends AbstractControlAccessor<string> {
     @Input()
     public iconRight: string;
 
+    @Output()
+    public onBlur = new EventEmitter<void>();
+    @Output()
+    public onEnter = new EventEmitter<void>();
+
     constructor(inj: Injector) {
         super(inj);
+    }
+
+    public blur(): void {
+        this.touch();
+        this.onBlur.emit();
     }
 }

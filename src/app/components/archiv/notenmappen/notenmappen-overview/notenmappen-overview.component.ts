@@ -7,12 +7,11 @@ import { NotenmappeListDatasource } from "src/app/utilities/_list-datasources/no
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
-    selector: "app-notenmappen",
-    templateUrl: "./notenmappen.component.html",
-    styleUrls: ["./notenmappen.component.scss"],
+    selector: "app-notenmappen-overview",
+    templateUrl: "./notenmappen-overview.component.html",
     providers: [NotenmappeListDatasource],
 })
-export class NotenmappenComponent {
+export class NotenmappenOverviewComponent {
     constructor(
         public datasource: NotenmappeListDatasource,
         private route: ActivatedRoute,
@@ -24,16 +23,15 @@ export class NotenmappenComponent {
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
-                click: () =>
-                    this.router.navigate(["neu"], { relativeTo: this.route }),
+                click: () => this.navigateToNotenmappe(),
                 label: "Neue Mappe",
                 permissions: [PermissionMap.NOTENMAPPE_SAVE],
             },
         ];
     }
 
-    public navigateToNotenmappe(notenmappe: Notenmappe) {
-        this.router.navigate(["../mappen", notenmappe.id], {
+    public navigateToNotenmappe(notenmappe?: Notenmappe) {
+        this.router.navigate([notenmappe?.id ?? "new"], {
             relativeTo: this.route,
         });
     }

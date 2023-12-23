@@ -80,17 +80,4 @@ export abstract class UtilFunctions {
             updated_at: [ausrueckung?.updated_at ?? null],
         });
     }
-
-    public static getGruppeFormGroup(fb: FormBuilder, gruppe?: Gruppe) {
-        return fb.group({
-            id: [gruppe?.id ?? null],
-            name: [gruppe?.name ?? null, Validators.required],
-            gruppenleiter_mitglied_id: [
-                gruppe?.gruppenleiter_mitglied_id ?? null,
-            ],
-            register: [gruppe?.register ?? null],
-            color: [gruppe?.color ?? null],
-            gruppenleiter: [gruppe?.gruppenleiter ?? null],
-        });
-    }
 }

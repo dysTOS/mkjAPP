@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { environment } from "src/environments/environment";
-import { AuthStateService } from "src/app/services/authentication/auth-state.service";
+import { UserLoginInput } from "src/app/interfaces/api-middleware";
 import { AuthAPIService } from "src/app/services/api/auth-api.service";
+import { AuthStateService } from "src/app/services/authentication/auth-state.service";
 import { TokenService } from "src/app/services/authentication/token.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { UserLoginInput } from "src/app/interfaces/api-middleware";
-import { TestScheduler } from "rxjs/testing";
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: "app-login",

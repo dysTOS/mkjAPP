@@ -1,5 +1,8 @@
 import { Observable } from "rxjs";
-import { GetListOutput as GetCollectionApiOutput } from "src/app/interfaces/api-middleware";
+import {
+    GetListOutput as GetCollectionApiOutput,
+    GetListInput,
+} from "src/app/interfaces/api-middleware";
 import { Kassabuch } from "src/app/models/Kassabuch";
 import { KassabuchApiService } from "src/app/services/api/kassabuch-api.service";
 import { AbstractListDatasource } from "./_abstract-list-datasource.class";
@@ -12,8 +15,10 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
         super();
     }
 
-    public getList(): Observable<GetCollectionApiOutput<Kassabuch>> {
-        return this.apiService.getList();
+    public getList(
+        input?: GetListInput<Kassabuch>
+    ): Observable<GetCollectionApiOutput<Kassabuch>> {
+        return this.apiService.getList(input);
     }
 
     public mapToTileValue(item: Kassabuch): TileValue<Kassabuch> {

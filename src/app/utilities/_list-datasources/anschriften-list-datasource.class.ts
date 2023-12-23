@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { GetListOutput } from "src/app/interfaces/api-middleware";
+import { GetListInput, GetListOutput } from "src/app/interfaces/api-middleware";
 import { Anschrift } from "src/app/models/Anschrift";
 import { AnschriftenApiService } from "src/app/services/api/anschriften-api.service";
 import { TileValue } from "../mkj-tile-view/mkj-tile-view.component";
@@ -12,8 +12,10 @@ export class AnschriftenListDatasource extends AbstractListDatasource<Anschrift>
         super();
     }
 
-    public getList(): Observable<GetListOutput<Anschrift>> {
-        return this.apiService.getList();
+    public getList(
+        input?: GetListInput<Anschrift>
+    ): Observable<GetListOutput<Anschrift>> {
+        return this.apiService.getList(input);
     }
 
     public mapToTileValue(item: Anschrift): TileValue<Anschrift> {

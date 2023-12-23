@@ -14,8 +14,8 @@ import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausruecku
 import { RouteGuard } from "./guards/route.guard";
 import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
-import { NotenmappenComponent } from "./components/archiv/noten/notenmappen/notenmappen.component";
-import { NotenmappeDetailsComponent } from "./components/archiv/noten/notenmappen/notenmappe-details/notenmappe-details.component";
+import { NotenmappenOverviewComponent } from "./components/archiv/notenmappen/notenmappen-overview/notenmappen-overview.component";
+import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
 import { KassabuecherComponent } from "./components/finanzen/kassabuecher-overview/kassabuecher-overview.component";
 import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
 import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
@@ -26,9 +26,9 @@ import { GlobalRouteGuard } from "./guards/global-route.guard";
 import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
 import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
 import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
-import { GruppenOverviewComponent } from "./components/mitglieder/gruppen/gruppen-overview/gruppen-overview.component";
+import { GruppenOverviewComponent } from "./components/gruppen/gruppen-overview/gruppen-overview.component";
 import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
-import { GruppeDetailsComponent } from "./components/mitglieder/gruppen/gruppe-details/gruppe-details.component";
+import { GruppeEditComponent } from "./components/gruppen/gruppe-edit/gruppe-edit.component";
 import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
@@ -124,19 +124,19 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                     canActivate: [RouteGuard],
                                 },
                                 {
+                                    path: ":id",
+                                    component: MitgliederDetailsComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
                                     path: "gruppen",
                                     component: GruppenOverviewComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "gruppen/:id",
-                                    component: GruppeDetailsComponent,
-                                    canActivate: [RouteGuard],
-                                    canDeactivate: [EditDeactivateGuard],
-                                },
-                                {
-                                    path: ":id",
-                                    component: MitgliederDetailsComponent,
+                                    component: GruppeEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
@@ -166,12 +166,12 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                 },
                                 {
                                     path: "mappen",
-                                    component: NotenmappenComponent,
+                                    component: NotenmappenOverviewComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "mappen/:id",
-                                    component: NotenmappeDetailsComponent,
+                                    component: NotenmappeEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
@@ -194,11 +194,6 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                             component: StatistikOverviewComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " -  STATISTIKEN",
-                        },
-                        {
-                            path: "tools/rechnungsgenerator",
-                            component: KassabuecherComponent,
-                            canActivate: [RouteGuard],
                         },
                         {
                             path: "finanzen",

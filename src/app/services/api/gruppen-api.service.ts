@@ -1,12 +1,11 @@
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import {
-    GetListOutput,
-    StandardAllocationInput,
+    AllocationInput,
     StandardHttpOptions,
-    StandardMessageOutput,
+    MessageOutput,
 } from "../../interfaces/api-middleware";
 import { Gruppe } from "../../models/Gruppe";
 import { Mitglied } from "../../models/Mitglied";
@@ -23,11 +22,11 @@ export class GruppenApiService extends AbstractCrudApiService<Gruppe> {
     }
 
     public addMitgliedToGruppe(
-        input: StandardAllocationInput
-    ): Observable<StandardMessageOutput> {
+        input: AllocationInput
+    ): Observable<MessageOutput> {
         const url =
             environment.apiUrl + this.controllerApiUrlKey + "/addmitglied";
-        return this.httpClient.post<StandardMessageOutput>(
+        return this.httpClient.post<MessageOutput>(
             url,
             { gruppe_id: input.collectionId, mitglied_id: input.subjectId },
             StandardHttpOptions
@@ -35,11 +34,11 @@ export class GruppenApiService extends AbstractCrudApiService<Gruppe> {
     }
 
     public removeMitgliedFromGruppe(
-        input: StandardAllocationInput
-    ): Observable<StandardMessageOutput> {
+        input: AllocationInput
+    ): Observable<MessageOutput> {
         const url =
             environment.apiUrl + this.controllerApiUrlKey + "/removemitglied";
-        return this.httpClient.post<StandardMessageOutput>(
+        return this.httpClient.post<MessageOutput>(
             url,
             { gruppe_id: input.collectionId, mitglied_id: input.subjectId },
             StandardHttpOptions

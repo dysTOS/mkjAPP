@@ -2,18 +2,25 @@
     #table
     [value]="values"
     [loading]="loading$()"
+    [scrollable]="true"
+    [class.p-disabled]="disabled"
+    [lazy]="configuration.lazyLoad"
+    [paginator]="configuration.lazyLoad"
+    [rows]="pageSize"
+    [totalRecords]="totalCount"
+    (onLazyLoad)="onLazyLoad($event)"
     stateStorage="session"
     [stateKey]="configuration.listName + '-list'"
-    selectionMode="single"
     rowExpandMode="single"
     dataKey="id"
+    [selectionMode]="configuration.selectionMode ?? null"
+    [rowHover]="configuration.selectionMode != null"
     [(selection)]="selectedRow"
     (onRowSelect)="table.toggleRow($event.data)"
-    (onRowUnselect)="table.toggleRow($event.data)"
     [sortField]="configuration.sort?.field"
     [sortOrder]="configuration.sort?.order"
-    [rowHover]="true"
     [globalFilterFields]="configuration.globalFilter?.fields"
+    (onRowReorder)="onRowReordered($event)"
     styleClass="p-datatable-striped"
     responsiveLayout="scroll"
 >
@@ -40,7 +47,7 @@
         </div>
 
         <ng-template
-            [ngTemplateOutlet]="templateMap.caption"
+            [ngTemplateOutlet]="templateMap?.caption"
             [ngTemplateOutletContext]="{ $implicit: value }"
         ></ng-template>
     </ng-template>
@@ -78,8 +85,9 @@
             </ng-template>
         </p-columnFilter>
     </ng-template>
-    <ng-template pTemplate="header"
+    <ng-template *ngIf="!configuration.hideHeader" pTemplate="header"
         ><tr>
+            <th *ngIf="rowReorder" class="w-2rem"></th>
             <ng-container *ngFor="let col of configuration.columns">
                 <th
                     *ngIf="col.sortable"
@@ -109,8 +117,12 @@
         <tr
             [pSelectableRow]="value"
             [pSelectableRowIndex]="rowIndex"
+            [pReorderableRow]="rowIndex"
             (dblclick)="onDoubleClick.emit(value)"
         >
+            <td *ngIf="rowReorder" class="w-2rem">
+                <span class="pi pi-bars" pReorderableRowHandle></span>
+            </td>
             <td
                 *ngFor="let col of configuration.columns"
                 [class]="col.styleClass"
@@ -124,7 +136,7 @@
         </tr>
     </ng-template>
     <ng-template
-        *ngIf="templateMap.rowexpansion != null"
+        *ngIf="templateMap?.rowexpansion != null"
         pTemplate="rowexpansion"
         let-value
     >

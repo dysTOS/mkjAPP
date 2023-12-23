@@ -2,10 +2,12 @@
     <i *ngIf="iconRight" [class]="iconRight"></i>
     <input
         pInputText
+        type="text"
         [ngModel]="value$ | async"
         (ngModelChange)="change($event)"
         [disabled]="disabled$ | async"
-        (onBlur)="touch()"
+        (blur)="blur()"
+        (keyup.enter)="onEnter.emit()"
         [class.ng-dirty]="formControl?.invalid"
         [class.ng-invalid]="formControl?.invalid"
         [placeholder]="placeholder"

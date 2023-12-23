@@ -15,6 +15,7 @@ export interface Noten {
     updated_at?: string;
     pivot?: {
         verzeichnisNr?: string;
+        orderIndex?: number;
     };
 }
 
@@ -32,7 +33,7 @@ export const NotenGattungMap = [
     { label: "Eröffnungsmusik", value: "Eröffnungsmusik" },
     { label: "Filmmusik", value: "Filmmusik" },
     { label: "Intermezzo", value: "Intermezzo" },
-    { label: "Kirchenmusik", value: "Kirchenmusik"},
+    { label: "Kirchenmusik", value: "Kirchenmusik" },
     { label: "Lied", value: "Lied" },
     { label: "Marsch", value: "Marsch" },
     { label: "Ouvertüre", value: "Ouvertüre" },

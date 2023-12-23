@@ -3,23 +3,25 @@ import { Mitglied } from "../models/Mitglied";
 import { Gruppe } from "../models/Gruppe";
 import { HttpHeaders } from "@angular/common/http";
 
-export interface GetListInput {
+export interface GetListInput<T = any> {
     skip?: number;
     take?: number;
     sort?: {
-        sortField?: string;
-        sortOrder?: 1 | -1;
+        field: keyof T;
+        order?: "asc" | "desc";
     };
-    filterAnd?: Array<{
-        filterField?: string;
-        value?: any;
-        operator?: "=" | "like" | ">" | "<" | ">=" | "<=";
-    }>;
-    filterOr?: Array<{
-        filterField?: string;
-        value?: any;
-        operator?: "=" | "like" | ">" | "<" | ">=" | "<=";
-    }>;
+    globalFilter?: {
+        fields: Array<keyof T>;
+        value: string;
+    };
+    filterAnd?: MkjListInputFilter<T>[];
+    filterOr?: MkjListInputFilter<T>[];
+}
+
+export interface MkjListInputFilter<T> {
+    field: keyof T;
+    value: any;
+    operator?: "=" | "LIKE" | ">" | "<" | ">=" | "<=";
 }
 
 export interface GetListOutput<T> {
@@ -27,12 +29,12 @@ export interface GetListOutput<T> {
     values: Array<T>;
 }
 
-export interface StandardAllocationInput {
+export interface AllocationInput {
     subjectId?: string;
     collectionId?: string;
 }
 
-export interface StandardMessageOutput {
+export interface MessageOutput {
     success?: boolean;
     message?: string;
 }

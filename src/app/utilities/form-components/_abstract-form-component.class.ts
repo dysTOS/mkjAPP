@@ -30,7 +30,6 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
         protected route: ActivatedRoute,
         protected router: Router
     ) {
-        this.toolbarService.backButton = true;
         this.initToolbar();
         this.formGroup = this.initFormGroup();
         this.loadData();
@@ -45,6 +44,8 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
     protected abstract initFormGroup(): FormGroup;
 
     protected abstract getId(): string | "new";
+
+    protected dataLoaded(): void {}
 
     public canDeactivate(): boolean {
         if (!this.formGroup.dirty) {
@@ -155,6 +156,7 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
                 this.formGroup.patchValue(data);
                 this.formGroup.markAsPristine();
                 this.formGroup.markAsUntouched();
+                this.dataLoaded();
                 this._loading.next(false);
             },
         });

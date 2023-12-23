@@ -1,0 +1,30 @@
+<mkj-form-wrapper *ngIf="editMode" [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid align-items-center">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                formControlName="name"
+                label="Mappenname"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-color-picker
+                label="Farbe"
+                formControlName="color"
+            ></mkj-color-picker>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-boolean-input
+                label="Verzeichnis"
+                formControlName="hatVerzeichnis"
+            ></mkj-boolean-input>
+        </div>
+    </div>
+</mkj-form-wrapper>
+
+<mkj-notenmappe-noten-list
+    *ngIf="formGroup?.controls.id.value"
+    [class.p-disabled]="!formGroup.pristine"
+    [mappenId]="formGroup.controls.id.value"
+    [editMode]="editMode"
+    [indexed]="formGroup.controls.hatVerzeichnis.value"
+></mkj-notenmappe-noten-list>

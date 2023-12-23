@@ -41,30 +41,8 @@
 
     <p-divider></p-divider>
 
-    <div class="flex justify-content-center">
-        <p-button label="Neue Buchung" [routerLink]="'new'"></p-button>
-    </div>
-
-    <p-table
-        [value]="kassabuch?.kassabuchungen"
-        sortField="datum"
-        sortOrder="-1"
-    >
-        <ng-template pTemplate="body" let-eintrag>
-            <tr (dblclick)="navigateBuchung(eintrag.id)">
-                <td>
-                    <mkj-tag
-                        [label]="eintrag.typ | uppercase"
-                        [severity]="
-                            eintrag.typ === BuchungTyp.EINNAHME
-                                ? 'success'
-                                : 'danger'
-                        "
-                    ></mkj-tag>
-                </td>
-                <td>{{ eintrag.datum | mkjDate }}</td>
-                <td>{{ eintrag.gesamtpreis | currency : "EUR" }}</td>
-            </tr>
-        </ng-template></p-table
-    >
+    <mkj-kassabuchungen-list
+        *ngIf="kassabuch?.id"
+        [kassabuchId]="kassabuch.id"
+    ></mkj-kassabuchungen-list>
 </mkj-content-loader>
