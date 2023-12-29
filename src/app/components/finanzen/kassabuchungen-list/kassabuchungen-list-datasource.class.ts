@@ -1,4 +1,4 @@
-import { Observable, map } from "rxjs";
+import { Observable } from "rxjs";
 import { GetListInput, GetListOutput } from "src/app/interfaces/api-middleware";
 import { Kassabuchung } from "src/app/models/Kassabuch";
 import { KassabuchungenApiService } from "src/app/services/api/kassabuchungen-api.service";
@@ -17,27 +17,17 @@ export class KassabuchungenListDatasource extends AbstractListDatasource<Kassabu
     ): Observable<GetListOutput<Kassabuchung>> {
         input = {
             ...input,
-            sort: {
-                field: "datum",
-                order: "desc",
-            },
             filterAnd: [
                 {
                     field: "kassabuch_id",
                     value: this.kassabuchId,
                     operator: "=",
                 },
+                ...input.filterAnd,
             ],
         };
 
-        return this.apiService.getList(input).pipe(
-            map((res) => {
-                return {
-                    values: res.values,
-                    totalCount: res.totalCount,
-                };
-            })
-        );
+        return this.apiService.getList(input);
     }
 
     mapToTileValue(item: Kassabuchung): TileValue<Kassabuchung> {

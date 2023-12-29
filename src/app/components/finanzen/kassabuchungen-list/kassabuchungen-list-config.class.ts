@@ -23,19 +23,20 @@ export class KassabuchungenListConfig
             header: null,
             type: "template",
             templateName: "tagTemplate",
-            styleClass: "w-6rem",
+            styleClass: "w-6rem not-on-small",
         },
         {
             header: "Nr",
             type: "string",
             field: "nummer",
-            styleClass: "w-8rem",
+            styleClass: "w-8rem not-on-small",
         },
         {
             header: "Datum",
             type: "date",
             field: "datum",
             styleClass: "w-10rem",
+            sortable: true,
         },
         {
             header: "Betrag",

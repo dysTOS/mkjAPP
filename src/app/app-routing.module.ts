@@ -124,12 +124,6 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                     canActivate: [RouteGuard],
                                 },
                                 {
-                                    path: ":id",
-                                    component: MitgliederDetailsComponent,
-                                    canActivate: [RouteGuard],
-                                    canDeactivate: [EditDeactivateGuard],
-                                },
-                                {
                                     path: "gruppen",
                                     component: GruppenOverviewComponent,
                                     canActivate: [RouteGuard],
@@ -137,6 +131,12 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                 {
                                     path: "gruppen/:id",
                                     component: GruppeEditComponent,
+                                    canActivate: [RouteGuard],
+                                    canDeactivate: [EditDeactivateGuard],
+                                },
+                                {
+                                    path: ":id",
+                                    component: MitgliederDetailsComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },

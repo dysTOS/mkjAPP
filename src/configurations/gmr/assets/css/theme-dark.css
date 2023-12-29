@@ -9700,4 +9700,13 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   height: 100%;
 }
 
+@media screen and (max-width: 960px) {
+  .not-on-small {
+    display: none !important;
+  }
+  .just-on-small {
+    display: block;
+  }
+}
+
 /*# sourceMappingURL=theme-dark.css.map */

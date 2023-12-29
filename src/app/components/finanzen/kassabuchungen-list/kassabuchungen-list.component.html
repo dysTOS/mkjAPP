@@ -17,13 +17,22 @@
     <div class="flex gap-1">
         <mkj-tag
             [label]="buchung.typ | uppercase"
+            [icon]="
+                buchung.typ === BuchungTyp.EINNAHME
+                    ? 'pi pi-plus-circle'
+                    : 'pi pi-minus-circle'
+            "
+            [pTooltip]="
+                buchung.typ === BuchungTyp.EINNAHME ? 'Einnahme' : 'Ausgabe'
+            "
             [severity]="
                 buchung.typ === BuchungTyp.EINNAHME ? 'success' : 'warning'
             "
         ></mkj-tag>
         <mkj-tag
             icon="pi pi-euro"
-            [label]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
+            [label]="buchung.bezahltDatum ? 'B' : 'O'"
+            [pTooltip]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
             [severity]="buchung.bezahltDatum ? 'success' : 'danger'"
         ></mkj-tag>
     </div>

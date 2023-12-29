@@ -1,28 +1,36 @@
-# PrimeNG Barcelona
+# mkjAPP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.2.
+This is the frontend-project (designed as Progressive Web App) for a distributed application that is used for organization and administration of music-bands/associations/societies.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Appointments
 
-## Code scaffolding
+Administration of appointments (gigs) or meetings for members and/or groups of members.
+Fully working calendar-subscriptions.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+### Members
 
-## Build
+Administration of members, addresses and personal data, groups, roles & permissions, relations.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Archive
 
-## Running unit tests
+Organization of Music-Pieces, Sets of Music-Pieces, Equipment and Instruments.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Financials
 
-## Running end-to-end tests
+Administration of arbitrary many cash-books for each group of members.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+### Statistics
 
-## Further help
+## Backend
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+see [mkjAPI-LARAVEL](https://github.com/dysTOS/mkjAPI-LARAVEL)
+
+## Learning-Sandbox
+
+This project was used to be my "learn-web-developement-sandbox" and still it is, but currently this app is also used in real-life by several bands.
+
+## PWA Icons and IOS splash-screens
+
+To automatically generate all needed PWA icons and splash-screens for iOS-devices, I used the free service [Progressier.com](https://progressier.com/pwa-icons-and-ios-splash-screen-generator).
