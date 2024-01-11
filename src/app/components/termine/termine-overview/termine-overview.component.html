@@ -1,0 +1,79 @@
+<mkj-list
+    [datasource]="datasource"
+    [configuration]="listConfig"
+    [templateMap]="{
+        rowexpansion: rowExpansionTemplate,
+        nameTemplate: nameTemplate,
+        datumTemplate: datumTemplate,
+        kategorieTemplate: kategorieTemplate,
+        statusTemplate: statusTemplate,
+    }"
+    (onDoubleClick)="navigateSingleAusrueckung($event)"
+>
+</mkj-list>
+
+<ng-template #nameTemplate let-termin>
+    <span class="font-bold">{{ termin.name }}</span>
+    <span
+        *ngIf="termin.gruppe"
+        class="gruppentermin ml-2"
+        [style.--gruppe-color]="termin.gruppe?.color"
+    >
+        <i class="pi pi-users" [pTooltip]="termin.gruppe?.name"></i
+    ></span>
+</ng-template>
+
+<ng-template #datumTemplate let-termin>
+    {{ termin.vonDatum | mkjDate : "E d. MMMM YYYY" }}
+    {{ termin.treffzeit }}
+</ng-template>
+
+<ng-template #kategorieTemplate let-termin>
+    {{ termin.kategorie | uppercase }}
+</ng-template>
+
+<ng-template #statusTemplate let-termin>
+    <span
+        [class]="
+            'ausrueckungen-badge status-' +
+            (termin.status ? termin.status.toLowerCase() : '')
+        "
+    >
+        {{ termin.status }}
+    </span>
+</ng-template>
+
+<ng-template #rowExpansionTemplate let-termin>
+    <div
+        *ngIf="actualDate < termin.vonDatum"
+        class="flex justify-content-center mb-5"
+    >
+        <mkj-termin-teilnahme-selector
+            [termin]="termin"
+        ></mkj-termin-teilnahme-selector>
+    </div>
+    <termin-card [termin]="termin"></termin-card>
+    <div class="flex justify-content-around">
+        <button
+            pButton
+            pRipple
+            icon="pi pi-list"
+            label="Details"
+            class="p-button-raised p-button-rounded p-button-secondary"
+            (click)="navigateSingleAusrueckung(termin)"
+        ></button>
+
+        <button
+            *ngIf="hasAktionenPermissions"
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            label="Aktionen"
+            class="p-button-outlined p-button-rounded p-button-info"
+            (click)="rowMenu.toggle($event)"
+        ></button>
+    </div>
+</ng-template>
+
+<p-menu #rowMenu [popup]="true" [model]="rowMenuItems"></p-menu>
+<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>

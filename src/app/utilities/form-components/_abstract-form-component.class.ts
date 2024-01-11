@@ -9,7 +9,7 @@ import { SubSink } from "subsink";
 
 @Directive()
 export abstract class AbstractFormComponent<T> implements OnDestroy {
-    protected navigateBackOnSave = false;
+    protected navigateBackOnSave = true;
     protected navigateBackRouteString = "../";
 
     public formGroup: FormGroup;

@@ -24,7 +24,7 @@ export interface Mitglied {
 }
 
 export const MitgliedGeschlechtMap = [
-    { name: "Männlich", value: "M" },
-    { name: "Weiblich", value: "W" },
-    { name: "Divers", value: "D" },
+    { label: "Männlich", value: "M" },
+    { label: "Weiblich", value: "W" },
+    { label: "Divers", value: "D" },
 ];

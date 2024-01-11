@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
 import * as moment from "moment";
-import { ControlValueAccessor, NgControl } from "@angular/forms";
+import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
 
 export enum MkjDateType {
     DATE = "date",
@@ -59,12 +59,13 @@ export class MkjDateInputComponent
         }
     }
 
-    ngControl: NgControl;
+    formControl: FormControl;
 
     constructor(private inj: Injector) {}
 
     ngAfterViewInit() {
-        this.ngControl = this.inj.get(NgControl);
+        this.formControl = this.inj.get(NgControl, null)
+            ?.control as FormControl;
     }
 
     writeValue(obj: any): void {

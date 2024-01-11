@@ -110,7 +110,6 @@ import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 import { environment } from "src/environments/environment";
 import { AatestComponent } from "./components/aatest/aatest.component";
 import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
-import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
 import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
 import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
 import { NotenCardComponent } from "./components/archiv/noten/noten-card/noten-card.component";
@@ -118,24 +117,21 @@ import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/not
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
 import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
 import { NotenmappenOverviewComponent } from "./components/archiv/notenmappen/notenmappen-overview/notenmappen-overview.component";
-import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { TerminEditComponent } from "./components/termine/termin-edit/termin-edit.component";
 import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { TeilnahmenOverviewComponent } from "./components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component";
-import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
-import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
-import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
+import { TermineOverviewComponent } from "./components/termine/termine-overview/termine-overview.component";
+import { KalenderaboComponent } from "./components/termine/kalenderabo/kalenderabo.component";
 import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
-import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { GruppeEditComponent } from "./components/gruppen/gruppe-edit/gruppe-edit.component";
 import { GruppenOverviewComponent } from "./components/gruppen/gruppen-overview/gruppen-overview.component";
-import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
-import { MitgliedRolesPickerComponent } from "./components/mitglieder/mitglieder-single/mitglied-roles-picker/mitglied-roles-picker.component";
-import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
-import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
+import { MitgliederOverviewComponent } from "./components/mitglieder/mitglied-overview/mitglieder-overview.component";
+import { MitgliedRolesPickerComponent } from "./components/mitglieder/mitglied-roles-picker/mitglied-roles-picker.component";
+import { MitgliederEditComponent } from "./components/mitglieder/mitglieder-edit/mitglieder-edit.component";
 import { MkjDashboardComponent } from "./components/mkj-dashboard/mkj-dashboard.component";
 import { NextGeburtstagComponent } from "./components/mkj-dashboard/next-geburtstag/next-geburtstag.component";
 import { NextTerminComponent } from "./components/mkj-dashboard/next-termin/next-termin.component";
@@ -159,7 +155,6 @@ import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MenuService } from "./services/menu.service";
 import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
-import { MitgliedFormComponent } from "./utilities/form-components/mitglied-form/mitglied-form.component";
 import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
 import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
 import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
@@ -175,7 +170,6 @@ import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.compone
 import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
 import { MkjTextInputComponent } from "./utilities/form-input-components/mkj-text-input/mkj-text-input.component";
 import { UiNamingConfigComponent } from "./components/einstellungen/globale-einstellungen/ui-naming-config/ui-naming-config.component";
-import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
 import { MkjListComponent } from "./utilities/mkj-list/mkj-list.component";
 import { MkjTileViewComponent } from "./utilities/mkj-tile-view/mkj-tile-view.component";
 import { KassabuchDetailsComponent } from "./components/finanzen/kassabuch-details/kassabuch-details.component";
@@ -195,7 +189,8 @@ import { MkjListCellComponent } from "./utilities/mkj-list/mkj-list-cell/mkj-lis
 import { ListCellValuePipe } from "./utilities/mkj-list/mkj-list-cell/list-cell-value.pipe";
 import { GruppeMitgliederListComponent } from "./components/gruppen/gruppe-mitglieder-list/gruppe-mitglieder-list.component";
 import { NotenmappeNotenListComponent } from "./components/archiv/notenmappen/notenmappe-noten-list/notenmappe-noten-list.component";
-import { KassabuchungenListComponent } from './components/finanzen/kassabuchungen-list/kassabuchungen-list.component';
+import { KassabuchungenListComponent } from "./components/finanzen/kassabuchungen-list/kassabuchungen-list.component";
+import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -299,6 +294,7 @@ registerLocaleData(localeDe);
         AppComponent,
         PermissionSelectedPipe,
         AnschriftOverviewComponent,
+        RouterOutletWrapperComponent,
         AnschriftEditComponent,
         AppMainComponent,
         AppTopbarComponent,
@@ -307,9 +303,6 @@ registerLocaleData(localeDe);
         AppNotfoundComponent,
         AppErrorComponent,
         AppAccessdeniedComponent,
-        AusrueckungenWrapperComponent,
-        ArchivWrapperComponent,
-        MitgliederWrapperComponent,
         StatistikMitgliederComponent,
         TestApiComponent,
         MkjDateInputComponent,
@@ -320,18 +313,17 @@ registerLocaleData(localeDe);
         AppAccessdeniedComponent,
         MkjListCellComponent,
         AusrueckungSingleComponent,
-        EinstellungenWrapperComponent,
         MkjDatePipe,
         MkjDashboardComponent,
         SignupComponent,
         LoginComponent,
-        MitgliederListComponent,
-        MitgliederDetailsComponent,
+        MitgliederOverviewComponent,
+        MitgliederEditComponent,
         NotenOverviewComponent,
         VisibleForPermissionDirective,
         NotenEditorComponent,
         MkjToolbarComponent,
-        AusrueckungEditorComponent,
+        TerminEditComponent,
         RollenEditComponent,
         ListCellValuePipe,
         MkjTextTransformPipe,
@@ -344,13 +336,12 @@ registerLocaleData(localeDe);
         MkjNotensucheComponent,
         LokaleEinstellungenComponent,
         KalenderaboComponent,
-        AusrueckungenAktuellComponent,
+        TermineOverviewComponent,
         MkjContentLoaderComponent,
         MkjTemplateDirective,
         AusrueckungFormComponent,
         MkjBooleanInputComponent,
         GruppenOverviewComponent,
-        MitgliedFormComponent,
         MkjTileComponent,
         GruppeEditComponent,
         FullNamePipe,
@@ -377,7 +368,6 @@ registerLocaleData(localeDe);
         GlobaleEinstellungenComponent,
         MkjTextInputComponent,
         UiNamingConfigComponent,
-        FinanzenWrapperComponent,
         MkjListComponent,
         MkjTileViewComponent,
         KassabuchDetailsComponent,

@@ -11,11 +11,10 @@ import { InfoService } from "src/app/services/info.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
-    selector: "app-ausrueckung-editor",
-    templateUrl: "./ausrueckung-editor.component.html",
-    styleUrls: ["./ausrueckung-editor.component.scss"],
+    templateUrl: "./termin-edit.component.html",
+    styleUrls: ["./termin-edit.component.scss"],
 })
-export class AusrueckungEditorComponent implements EditComponentDeactivate {
+export class TerminEditComponent implements EditComponentDeactivate {
     public formGroup: FormGroup;
 
     public loading: boolean = false;
@@ -48,7 +47,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
 
     private loadAusrueckung(id: string) {
         this.loading = true;
-        this.ausrueckungService.getSingleTermin(id).subscribe({
+        this.ausrueckungService.getById(id).subscribe({
             next: (res) => {
                 this.formGroup = UtilFunctions.getAusrueckungFormGroup(
                     this.fb,
@@ -93,7 +92,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
         }
 
         if (saveAusrueckung.id) {
-            this.ausrueckungService.updateTermin(saveAusrueckung).subscribe({
+            this.ausrueckungService.update(saveAusrueckung).subscribe({
                 next: (res) => {
                     this.infoService.success("Ausrückung aktualisiert!");
                     this.formGroup.markAsPristine();
@@ -105,7 +104,7 @@ export class AusrueckungEditorComponent implements EditComponentDeactivate {
                 },
             });
         } else {
-            this.ausrueckungService.createTermin(saveAusrueckung).subscribe({
+            this.ausrueckungService.create(saveAusrueckung).subscribe({
                 next: (res) => {
                     this.infoService.success("Ausrückung erstellt!");
                     this.formGroup.markAsPristine();

@@ -4,65 +4,38 @@ import { Observable } from "rxjs";
 import { StandardHttpOptions } from "src/app/interfaces/api-middleware";
 import { Mitglied } from "src/app/models/Mitglied";
 import { environment } from "src/environments/environment";
+import { AbstractCrudApiService } from "./_abstract-crud-api-service";
 
 @Injectable({
     providedIn: "root",
 })
-export class MitgliederApiService {
-    private selectedMitglied: Mitglied;
+export class MitgliederApiService extends AbstractCrudApiService<Mitglied> {
+    protected controllerApiUrlKey: string = "mitglieder";
     private apiURL = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
-
-    getAllMitglieder(): Observable<Mitglied[]> {
-        const url = this.apiURL + "mitglieder";
-        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
-    }
-
-    getAktiveMitglieder(): Observable<Mitglied[]> {
-        const url = this.apiURL + "mitgliederaktiv";
-        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
+    constructor(private httpClient: HttpClient) {
+        super(httpClient);
     }
 
     getMitgliederForAusrueckung(ausrueckungId: string): Observable<Mitglied[]> {
         const url =
             this.apiURL + "mitgliederausrueckung/" + ausrueckungId.toString();
-        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
-    }
-
-    getSingleMitglied(id: string): Observable<Mitglied> {
-        const url = this.apiURL + "mitglieder/" + id;
-        return this.http.get<Mitglied>(url, StandardHttpOptions);
+        return this.httpClient.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     searchMitglieder(searchkey: string): Observable<Mitglied[]> {
         const url = this.apiURL + "mitglieder/search/" + searchkey;
-        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
+        return this.httpClient.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     public getNextGeburtstag(): Observable<Mitglied[]> {
         const url = this.apiURL + "mitgliedernextgeb";
-        return this.http.get<Mitglied[]>(url, StandardHttpOptions);
+        return this.httpClient.get<Mitglied[]>(url, StandardHttpOptions);
     }
 
     updateOwnMitgliedData(mitglied: Mitglied): Observable<Mitglied> {
         const url = this.apiURL + "mitgliedselbst";
-        return this.http.post<any>(url, mitglied, StandardHttpOptions);
-    }
-
-    createMitglied(mitglied: Mitglied): Observable<Mitglied> {
-        const url = this.apiURL + "mitglieder";
-        return this.http.post<Mitglied>(url, mitglied, StandardHttpOptions);
-    }
-
-    updateMitglied(mitglied: Mitglied): Observable<Mitglied> {
-        const url = this.apiURL + "mitglieder/" + mitglied.id.toString();
-        return this.http.put<Mitglied>(url, mitglied, StandardHttpOptions);
-    }
-
-    deleteMitglied(id: string): Observable<any> {
-        const url = this.apiURL + "mitglieder/" + id;
-        return this.http.delete<any>(url, StandardHttpOptions);
+        return this.httpClient.post<any>(url, mitglied, StandardHttpOptions);
     }
 
     attachMitgliedToAusrueckung(
@@ -70,7 +43,7 @@ export class MitgliederApiService {
         mitgliedId: string
     ): Observable<any> {
         const url = this.apiURL + "addmitglied";
-        return this.http.post<any>(
+        return this.httpClient.post<any>(
             url,
             { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
             StandardHttpOptions
@@ -82,7 +55,7 @@ export class MitgliederApiService {
         mitgliedId: string
     ): Observable<any> {
         const url = this.apiURL + "removemitglied";
-        return this.http.post<any>(
+        return this.httpClient.post<any>(
             url,
             { mitglied_id: mitgliedId, ausrueckung_id: ausrueckungId },
             StandardHttpOptions
@@ -94,7 +67,7 @@ export class MitgliederApiService {
         mitgliedId: string
     ): Observable<any> {
         const url = this.apiURL + "addmitgliedgruppe";
-        return this.http.post<any>(
+        return this.httpClient.post<any>(
             url,
             { mitglied_id: mitgliedId, gruppe_id: gruppenId },
             StandardHttpOptions
@@ -106,23 +79,10 @@ export class MitgliederApiService {
         mitgliedId: string
     ): Observable<any> {
         const url = this.apiURL + "removemitgliedgruppe";
-        return this.http.post<any>(
+        return this.httpClient.post<any>(
             url,
             { mitglied_id: mitgliedId, gruppe_id: gruppenId },
             StandardHttpOptions
         );
-    }
-
-    hasSelectedMitglied(): boolean {
-        if (this.selectedMitglied) return true;
-        else return false;
-    }
-
-    getSelectedMitglied(): Mitglied {
-        return this.selectedMitglied;
-    }
-
-    setSelectedMitglied(mitglied: Mitglied) {
-        this.selectedMitglied = mitglied;
     }
 }

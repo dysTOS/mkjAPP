@@ -54,7 +54,7 @@ export class AusrueckungSingleComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((e) => {
-            this.ausrueckungenService.getSingleTermin(e.id).subscribe(
+            this.ausrueckungenService.getById(e.id).subscribe(
                 (ausrueckung) => {
                     this.termin = ausrueckung;
                     this.updateToolbarButtons();

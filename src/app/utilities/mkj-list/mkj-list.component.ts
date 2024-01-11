@@ -9,7 +9,7 @@ import {
     ViewChild,
     signal,
 } from "@angular/core";
-import { FilterMetadata, LazyLoadEvent } from "primeng/api";
+import { FilterMetadata, LazyLoadEvent, TableState } from "primeng/api";
 import { Table, TableRowReorderEvent } from "primeng/table";
 import {
     GetListInput,
@@ -61,6 +61,10 @@ export class MkjListComponent<T> implements OnChanges {
                 this.eagerLoad();
             }
         }
+    }
+
+    public onStateRestore(event: TableState): void {
+        event.selection = null;
     }
 
     public onRowReordered(event: TableRowReorderEvent): void {
@@ -149,11 +153,11 @@ export class MkjListComponent<T> implements OnChanges {
             if (Array.isArray(value)) {
                 (value as Array<any>).forEach((v) => {
                     const filter = getFilter(v);
-                    if (filter.value) {
+                    if (filter.value != null) {
                         result.push(filter);
                     }
                 });
-            } else if (value.value) {
+            } else if (value.value != null) {
                 result.push(getFilter(value));
             }
         });

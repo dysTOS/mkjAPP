@@ -4,7 +4,6 @@ import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
-import { MitgliedFormHelper } from "src/app/utilities/form-components/mitglied-form/mitglied-form-helper";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
@@ -30,15 +29,15 @@ export class MitgliedPersonalEditComponent
     }
 
     public ngOnInit(): void {
-        this.userservice.getCurrentMitglied().subscribe({
-            next: (res) => {
-                this.formGroup = MitgliedFormHelper.getMitgliedFormGroup(
-                    this.fb,
-                    res
-                );
-                this.formGroup.updateValueAndValidity();
-            },
-        });
+        // this.userservice.getCurrentMitglied().subscribe({
+        //     next: (res) => {
+        //         this.formGroup = MitgliedFormHelper.getMitgliedFormGroup(
+        //             this.fb,
+        //             res
+        //         );
+        //         this.formGroup.updateValueAndValidity();
+        //     },
+        // });
     }
 
     public updateOwnMitgliedData() {

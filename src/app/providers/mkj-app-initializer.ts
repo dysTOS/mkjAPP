@@ -14,7 +14,6 @@ export const mkjAppInitializer = () => {
             appNamingService: AppConfigService,
             serviceWorkerService: ServiceWorkerService
         ) => {
-            console.log("App Initializer called");
             return () =>
                 appNamingService
                     .initAppNamingConfig()

@@ -1,0 +1,31 @@
+<mkj-list
+    [datasource]="datasource"
+    [configuration]="listConfig"
+    [templateMap]="{
+        rowexpansion: rowexpansion,
+        aktivTemplate: aktivTemplate
+    }"
+    (onDoubleClick)="navigateSingleMitglied($event)"
+>
+</mkj-list>
+
+<ng-template #aktivTemplate let-mitglied>
+    <mkj-tag
+        [label]="mitglied.aktiv ? 'Aktiv' : 'Inaktiv'"
+        [severity]="mitglied.aktiv ? 'success' : 'warning'"
+    ></mkj-tag>
+</ng-template>
+
+<ng-template #rowexpansion let-mitglied>
+    <div class="col-12 flex justify-content-center">
+        <button
+            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
+            pButton
+            pRipple
+            label="Bearbeiten"
+            icon="pi pi-pencil"
+            class="p-button-outlined p-button-sm p-button-info mr-1"
+            (click)="navigateSingleMitglied(mitglied)"
+        ></button>
+    </div>
+</ng-template>

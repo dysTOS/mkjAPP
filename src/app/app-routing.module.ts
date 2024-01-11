@@ -12,24 +12,20 @@ import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
 import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
 import { RouteGuard } from "./guards/route.guard";
-import { MitgliederDetailsComponent } from "./components/mitglieder/mitglieder-single/mitglieder-details.component";
+import { MitgliederEditComponent } from "./components/mitglieder/mitglieder-edit/mitglieder-edit.component";
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
 import { NotenmappenOverviewComponent } from "./components/archiv/notenmappen/notenmappen-overview/notenmappen-overview.component";
 import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
 import { KassabuecherComponent } from "./components/finanzen/kassabuecher-overview/kassabuecher-overview.component";
-import { ArchivWrapperComponent } from "./components/archiv/archiv-wrapper.component";
-import { AusrueckungenWrapperComponent } from "./components/ausrueckungen/ausrueckungen-wrapper.component";
 import { environment } from "src/environments/environment";
-import { KalenderaboComponent } from "./components/ausrueckungen/kalenderabo/kalenderabo.component";
-import { AusrueckungenAktuellComponent } from "./components/ausrueckungen/ausrueckungen-aktuell/ausrueckungen-aktuell.component";
+import { KalenderaboComponent } from "./components/termine/kalenderabo/kalenderabo.component";
+import { TermineOverviewComponent } from "./components/termine/termine-overview/termine-overview.component";
 import { GlobalRouteGuard } from "./guards/global-route.guard";
-import { AusrueckungEditorComponent } from "./components/ausrueckungen/ausrueckung-editor/ausrueckung-editor.component";
+import { TerminEditComponent } from "./components/termine/termin-edit/termin-edit.component";
 import { EditDeactivateGuard } from "./guards/edit-deactivate.guard";
-import { MitgliederWrapperComponent } from "./components/mitglieder/mitglieder-wrapper.component";
 import { GruppenOverviewComponent } from "./components/gruppen/gruppen-overview/gruppen-overview.component";
-import { MitgliederListComponent } from "./components/mitglieder/mitglied-list/mitglieder-list.component";
+import { MitgliederOverviewComponent } from "./components/mitglieder/mitglied-overview/mitglieder-overview.component";
 import { GruppeEditComponent } from "./components/gruppen/gruppe-edit/gruppe-edit.component";
-import { EinstellungenWrapperComponent } from "./components/einstellungen/einstellungen-wrapper.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
@@ -39,12 +35,12 @@ import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/in
 import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
 import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.component";
 import { GlobaleEinstellungenComponent } from "./components/einstellungen/globale-einstellungen/globale-einstellungen.component";
-import { FinanzenWrapperComponent } from "./components/finanzen/finanzen-wrapper.component";
 import { KassabuchDetailsComponent } from "./components/finanzen/kassabuch-details/kassabuch-details.component";
 import { KassabuchEditComponent } from "./components/finanzen/kassabuch-edit/kassabuch-edit.component";
 import { KassabuchungEditComponent } from "./components/finanzen/kassabuchung-edit/kassabuchung-edit.component";
 import { AnschriftenOverviewComponent as AnschriftOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
 import { AnschriftEditComponent as AnschriftEditComponent } from "./components/anschriften/anschriften-edit/anschriften-edit.component";
+import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper.component";
 
 @NgModule({
     imports: [
@@ -74,13 +70,13 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                         },
                         {
                             path: "ausrueckungen",
-                            component: AusrueckungenWrapperComponent,
+                            component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " - TERMINE",
                             children: [
                                 {
                                     path: "aktuell",
-                                    component: AusrueckungenAktuellComponent,
+                                    component: TermineOverviewComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
@@ -90,13 +86,13 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                 },
                                 {
                                     path: "neu",
-                                    component: AusrueckungEditorComponent,
+                                    component: TerminEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
                                     path: ":id",
-                                    component: AusrueckungEditorComponent,
+                                    component: TerminEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
@@ -114,15 +110,10 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                         },
                         {
                             path: "mitglieder",
-                            component: MitgliederWrapperComponent,
+                            component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " -  MITGLIEDER",
                             children: [
-                                {
-                                    path: "liste",
-                                    component: MitgliederListComponent,
-                                    canActivate: [RouteGuard],
-                                },
                                 {
                                     path: "gruppen",
                                     component: GruppenOverviewComponent,
@@ -135,8 +126,13 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                                     canDeactivate: [EditDeactivateGuard],
                                 },
                                 {
+                                    path: "liste",
+                                    component: MitgliederOverviewComponent,
+                                    canActivate: [RouteGuard],
+                                },
+                                {
                                     path: ":id",
-                                    component: MitgliederDetailsComponent,
+                                    component: MitgliederEditComponent,
                                     canActivate: [RouteGuard],
                                     canDeactivate: [EditDeactivateGuard],
                                 },
@@ -149,7 +145,7 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                         },
                         {
                             path: "archiv",
-                            component: ArchivWrapperComponent,
+                            component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " -  ARCHIV",
                             children: [
@@ -197,7 +193,7 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                         },
                         {
                             path: "finanzen",
-                            component: FinanzenWrapperComponent,
+                            component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " -  FINANZEN",
                             children: [
@@ -238,7 +234,7 @@ import { AnschriftEditComponent as AnschriftEditComponent } from "./components/a
                         },
                         {
                             path: "einstellungen",
-                            component: EinstellungenWrapperComponent,
+                            component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " -  EINSTELLUNGEN",
 

@@ -17,12 +17,14 @@
     [rowHover]="configuration.selectionMode != null"
     [(selection)]="selectedRow"
     (onRowSelect)="table.toggleRow($event.data)"
+    (onRowUnselect)="table.toggleRow($event.data)"
     [sortField]="configuration.sort?.field"
     [sortOrder]="configuration.sort?.order"
     [globalFilterFields]="configuration.globalFilter?.fields"
     (onRowReorder)="onRowReordered($event)"
     styleClass="p-datatable-striped"
     responsiveLayout="scroll"
+    (onStateRestore)="onStateRestore($event)"
 >
     <ng-template pTemplate="caption">
         <div

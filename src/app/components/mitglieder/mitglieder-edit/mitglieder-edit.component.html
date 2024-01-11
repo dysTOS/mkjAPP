@@ -1,0 +1,117 @@
+<mkj-form-wrapper [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Vorname"
+                formControlName="vorname"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Nachname"
+                formControlName="zuname"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Titel Vor"
+                formControlName="titelVor"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Titel Nach"
+                formControlName="titelNach"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-date-input
+                type="date"
+                formControlName="geburtsdatum"
+                label="Geburtsdatum"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Geschlecht"
+                [options]="MitgliedGeschlechtMap"
+                formControlName="geschlecht"
+            ></mkj-dropdown>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="E-Mail"
+                formControlName="email"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Beruf"
+                formControlName="beruf"
+            ></mkj-text-input>
+        </div>
+
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Straße"
+                formControlName="strasse"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Hausnummer"
+                formControlName="hausnummer"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input label="Ort" formControlName="ort"></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input label="PLZ" formControlName="plz"></mkj-text-input>
+        </div>
+
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Telefon Festnetz"
+                formControlName="telefonHaupt"
+            ></mkj-text-input>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Telefon Mobil"
+                formControlName="telefonMobil"
+            ></mkj-text-input>
+        </div>
+        <ng-container *ngIf="!personalMode">
+            <p-divider class="col-12"></p-divider>
+            <div class="p-field col-12 lg:col-3 md:col-6">
+                <mkj-date-input
+                    type="date"
+                    formControlName="eintrittDatum"
+                    label="Datum Eintritt"
+                ></mkj-date-input>
+            </div>
+            <div class="p-field col-12 lg:col-3 md:col-6">
+                <mkj-date-input
+                    type="date"
+                    formControlName="austrittDatum"
+                    label="Datum Austritt"
+                ></mkj-date-input>
+            </div>
+            <div
+                class="p-field col-12 lg:col-3 md:col-6 flex align-items-center"
+            >
+                <mkj-boolean-input
+                    label="Aktives Mitglied"
+                    formControlName="aktiv"
+                ></mkj-boolean-input>
+            </div>
+        </ng-container></div
+></mkj-form-wrapper>
+
+<div *ngIf="canAssignRoles && formGroup.controls.user_id.value">
+    <mitglied-roles-picker
+        [userId]="formGroup.controls.user_id.value"
+        (touched)="rolesTouched = $event"
+    ></mitglied-roles-picker>
+</div>
