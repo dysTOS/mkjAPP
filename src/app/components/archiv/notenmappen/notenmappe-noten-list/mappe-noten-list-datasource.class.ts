@@ -12,7 +12,8 @@ export class MappeNotenListDatasource extends AbstractListDatasource<Noten> {
     ) {
         super();
     }
-    getList(): Observable<GetListOutput<Noten>> {
+
+    public getList(): Observable<GetListOutput<Noten>> {
         return this.apiService.getNotenOfMappe(this.mappeId).pipe(
             map((res) => {
                 this.sortNoten(res);
@@ -24,7 +25,11 @@ export class MappeNotenListDatasource extends AbstractListDatasource<Noten> {
         );
     }
 
-    mapToTileValue(item: Noten): TileValue<Noten> {
+    public getById(id: string): Observable<Noten> {
+        throw new Error("Method not implemented.");
+    }
+
+    public mapToTileValue(item: Noten): TileValue<Noten> {
         throw new Error("Method not implemented.");
     }
 

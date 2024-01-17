@@ -1,19 +1,110 @@
-<mkj-content-loader [loading]="loading" class="h-full">
-    <div class="card">
-        <mkj-ausrueckung-form
-            *ngIf="formGroup"
-            [formGroup]="formGroup"
-        ></mkj-ausrueckung-form>
-        <div class="col-12 flex justify-content-end">
-            <button
-                pRipple
-                pButton
-                label="Speichern"
-                [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
-                class="p-button-plain"
-                [disabled]="saving || formGroup?.invalid || formGroup?.pristine"
-                (click)="saveAusrueckung()"
-            ></button>
+<mkj-form-wrapper [formGroup]="formGroup" [component]="this">
+    <div class="p-fluid grid">
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input
+                label="Name"
+                formControlName="name"
+            ></mkj-text-input>
+        </div>
+
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Status"
+                formControlName="status"
+                [options]="StatusMap"
+            ></mkj-dropdown>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Kategorie"
+                formControlName="kategorie"
+                [options]="KategorieMap"
+            ></mkj-dropdown>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-dropdown
+                label="Register/Gruppe"
+                formControlName="gruppe_id"
+                [options]="GruppenMap"
+            ></mkj-dropdown>
+        </div>
+        <div class="p-field col-12 lg:col-3 md:col-6">
+            <mkj-text-input label="Ort" formControlName="ort"></mkj-text-input>
+        </div>
+        <div class="p-field col-12">
+            <mkj-text-area-input
+                label="Infos für die Musiker"
+                formControlName="infoMusiker"
+            ></mkj-text-area-input>
+        </div>
+
+        <p-divider class="col-12" align="left"
+            ><h6>Datum & Uhrzeit</h6></p-divider
+        >
+        <div class="p-field col-12 md:col-6">
+            <div class="p-inputgroup">
+                <mkj-date-input
+                    type="date"
+                    formControlName="vonDatum"
+                    label="Datum"
+                    class="p-inputgroup von-datum-input"
+                ></mkj-date-input>
+
+                <p-checkbox
+                    class="p-inputgroup-addon checkbox"
+                    [binary]="true"
+                    label="Mehrtägig"
+                    [(ngModel)]="severalDays"
+                    (ngModelChange)="onSeveralDaysUserChange($event)"
+                    [ngModelOptions]="{ standalone: true }"
+                >
+                </p-checkbox>
+            </div>
+        </div>
+        <div *ngIf="severalDays" class="p-field col-12 md:col-6">
+            <mkj-date-input
+                type="date"
+                formControlName="bisDatum"
+                label="Enddatum"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-date-input
+                type="time"
+                formControlName="vonZeit"
+                label="Offizieller Beginn"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-date-input
+                type="time"
+                formControlName="bisZeit"
+                label="Voraussichtliches Ende"
+            ></mkj-date-input>
+        </div>
+        <div class="p-field col-12 md:col-6">
+            <mkj-date-input
+                type="time"
+                formControlName="treffzeit"
+                label="Zusammenkunft um"
+            ></mkj-date-input>
+        </div>
+        <p-divider class="col-12" align="left"></p-divider>
+        <div class="p-field col-12 md:col-6">
+            <mkj-boolean-input
+                label="Öffentlich"
+                formControlName="oeffentlich"
+            ></mkj-boolean-input>
+        </div>
+
+        <div
+            *ngIf="formGroup.controls.oeffentlich.value"
+            class="p-field col-12"
+        >
+            <mkj-text-area-input
+                label="Beschreibung"
+                formControlName="beschreibung"
+            ></mkj-text-area-input>
         </div>
     </div>
-</mkj-content-loader>
+</mkj-form-wrapper>

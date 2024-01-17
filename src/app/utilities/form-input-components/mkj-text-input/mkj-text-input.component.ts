@@ -18,6 +18,9 @@ export class MkjTextInputComponent extends AbstractControlAccessor<string> {
     @Input()
     public iconRight: string;
 
+    @Input()
+    public clearable: boolean;
+
     @Output()
     public onBlur = new EventEmitter<void>();
     @Output()

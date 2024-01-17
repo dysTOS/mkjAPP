@@ -1,5 +1,13 @@
 <span class="p-float-label" [class.p-input-icon-right]="iconRight">
-    <i *ngIf="iconRight" [class]="iconRight"></i>
+    <i
+        *ngIf="iconRight && (!clearable || !(value$ | async))"
+        [class]="iconRight"
+    ></i>
+    <i
+        *ngIf="clearable && (value$ | async)"
+        class="pi pi-times cursor-pointer"
+        (click)="change(null)"
+    ></i>
     <input
         pInputText
         type="text"

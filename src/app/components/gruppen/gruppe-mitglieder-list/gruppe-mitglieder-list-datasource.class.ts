@@ -12,7 +12,8 @@ export class GruppeMitgliederListDatasource extends AbstractListDatasource<Mitgl
     ) {
         super();
     }
-    getList(): Observable<GetListOutput<Mitglied>> {
+
+    public getList(): Observable<GetListOutput<Mitglied>> {
         return this.apiService.getMitgliederOfGruppe(this.gruppeId).pipe(
             map((res) => {
                 return {
@@ -23,7 +24,11 @@ export class GruppeMitgliederListDatasource extends AbstractListDatasource<Mitgl
         );
     }
 
-    mapToTileValue(item: Mitglied): TileValue<Mitglied> {
+    public getById(id: string): Observable<Mitglied> {
+        throw new Error("Method not implemented.");
+    }
+
+    public mapToTileValue(item: Mitglied): TileValue<Mitglied> {
         throw new Error("Method not implemented.");
     }
 }

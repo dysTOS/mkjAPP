@@ -799,7 +799,7 @@ $dockBorderRadius: 0.5rem !default;
 
 :root {
     --text-color: #{$textColor};
-    --text-color-secondary: #{textSecondaryColor};
+    --text-color-secondary: #{$textSecondaryColor};
     --primary-color: #{$primaryColor};
     --primary-color-text: #{$primaryTextColor};
     --font-family: #{$fontFamily};

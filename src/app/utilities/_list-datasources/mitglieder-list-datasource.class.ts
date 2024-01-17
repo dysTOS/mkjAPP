@@ -18,6 +18,10 @@ export class MitgliederListDatasource extends AbstractListDatasource<Mitglied> {
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Mitglied> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Mitglied): TileValue<Mitglied> {
         throw new Error("Method not implemented.");
     }

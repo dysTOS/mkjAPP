@@ -18,6 +18,10 @@ export class NotenmappeListDatasource extends AbstractListDatasource<Notenmappe>
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Notenmappe> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Notenmappe): TileValue<Notenmappe> {
         return {
             label: item.name,

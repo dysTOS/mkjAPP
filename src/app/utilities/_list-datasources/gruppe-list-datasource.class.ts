@@ -18,6 +18,10 @@ export class GruppeListDatasource extends AbstractListDatasource<Gruppe> {
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Gruppe> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Gruppe): TileValue<Gruppe> {
         return {
             label: item.name,

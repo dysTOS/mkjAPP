@@ -13,27 +13,19 @@
         <button
             pButton
             label="Entfernen"
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
             (click)="removeMitglied(value.id)"
         ></button>
     </div>
 </ng-template>
 
 <ng-template #captionTemplate>
-    <p-autoComplete
-        #autoComplete
-        [suggestions]="mitgliederSearchResult"
-        (completeMethod)="searchMitglieder($event)"
-        (onSelect)="addMitglied($event.value)"
-        [forceSelection]="true"
-        [autoHighlight]="true"
-        [appendTo]="'body'"
-        dataKey="id"
-        placeholder="Mitglied hinzufügen..."
-    >
-        <ng-template let-mitglied pTemplate="item">
-            <div>
-                {{ mitglied | fullName }}
-            </div>
-        </ng-template>
-    </p-autoComplete>
+    <mkj-autocomplete
+        label=" Mitglied hinzufügen"
+        [value]="selectedMitglied"
+        [datasource]="mitgliedDatasource"
+        [listConfig]="mitgliedAutoCompleteConfig"
+        (valueChange)="addMitglied($event)"
+    ></mkj-autocomplete>
 </ng-template>

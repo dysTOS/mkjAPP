@@ -10,11 +10,11 @@ import { AbstractListDatasource } from "./_abstract-list-datasource.class";
 export class TermineListDatasource extends AbstractListDatasource<Termin> {
     constructor(private apiService: TermineApiService) {
         super();
-        this.preFilter = {
-            field: "vonDatum",
-            operator: ">=",
-            value: "2023-01-11",
-        };
+        // this.preFilter = {
+        //     field: "vonDatum",
+        //     operator: ">=",
+        //     value: "2023-01-11",
+        // };
     }
 
     public getList(
@@ -25,6 +25,10 @@ export class TermineListDatasource extends AbstractListDatasource<Termin> {
         }
 
         return this.apiService.getList(input);
+    }
+
+    public getById(id: string): Observable<Termin> {
+        return this.apiService.getById(id);
     }
 
     public mapToTileValue(item: Termin): TileValue<Termin> {

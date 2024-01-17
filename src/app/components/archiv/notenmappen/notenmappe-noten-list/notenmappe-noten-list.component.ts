@@ -3,15 +3,19 @@ import { Noten } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
 import { InfoService } from "src/app/services/info.service";
-import { NotenSucheOutput } from "src/app/utilities/mkj-notensuche/mkj-notensuche.component";
 import { MappeNotenListConfig } from "./mappe-noten-list-config.class";
 import { MappeNotenListDatasource } from "./mappe-noten-list-datasource.class";
 import { UserService } from "src/app/services/authentication/user.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
+import { AppConfigService } from "src/app/services/app-config.service";
+import { AutoCompleteConfiguration } from "src/app/utilities/_autocomplete-configurations/_autocomplete-configuration.class";
+import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
 
 @Component({
     selector: "mkj-notenmappe-noten-list",
     templateUrl: "./notenmappe-noten-list.component.html",
+    providers: [NotenListDatasource],
 })
 export class NotenmappeNotenListComponent implements OnChanges {
     @Input()
@@ -25,15 +29,20 @@ export class NotenmappeNotenListComponent implements OnChanges {
 
     public tableLocked: boolean = false;
 
-    public hasAssignPermission: boolean = false;
-    public hasSavePermission: boolean = false;
+    public readonly hasAssignPermission: boolean = false;
+    public readonly hasSavePermission: boolean = false;
 
     public readonly PermissionMap = PermissionMap;
 
-    public listConfig = new MappeNotenListConfig();
+    public selectedNoten: Noten;
     public listDatasource: MappeNotenListDatasource;
+    public listConfig = new MappeNotenListConfig();
+    public readonly notenAutoCompleteConfig =
+        new NotenAutoCompleteConfigiguration();
 
     constructor(
+        public notenDatasource: NotenListDatasource,
+        public configService: AppConfigService,
         private notenmappenApiService: NotenmappenApiService,
         private infoService: InfoService,
         private userService: UserService,
@@ -110,18 +119,20 @@ export class NotenmappeNotenListComponent implements OnChanges {
         }
     }
 
-    public addNotenToMappe(event: NotenSucheOutput) {
+    public addNotenToMappe(noten: Noten) {
+        if (!noten) return;
         this.tableLocked = true;
-        const noten = event.noten;
         this.notenmappenApiService
-            .attachNotenToMappe(noten.id, this.mappenId, event.verzeichnisNr)
+            .attachNotenToMappe(noten.id, this.mappenId)
             .subscribe({
                 next: (res) => {
                     this.setListDatasource();
                     this.tableLocked = false;
+                    this.selectedNoten = null;
                 },
                 error: (err) => {
                     this.tableLocked = false;
+                    this.selectedNoten = null;
                     this.infoService.error(err);
                 },
             });

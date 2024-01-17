@@ -5,12 +5,7 @@ import * as moment from "moment";
 import { MenuItem } from "primeng/api";
 import { Menu } from "primeng/menu";
 import { GetListInput } from "src/app/interfaces/api-middleware";
-import {
-    Termin,
-    TerminCsvColumnMap,
-    TerminKategorieMap,
-    TerminStatusMap,
-} from "src/app/models/Termin";
+import { Termin } from "src/app/models/Termin";
 import { PermissionMap } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
@@ -109,11 +104,11 @@ export class TermineOverviewComponent {
                     PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
                 ],
             },
-            // {
-            //     icon: "pi pi-download",
-            //     click: ($event) => this.exportMenu.show($event),
-            //     label: "Export",
-            // },
+            {
+                icon: "pi pi-download",
+                click: ($event) => this.exportMenu.show($event),
+                label: "Export",
+            },
         ];
     }
 

@@ -1,120 +1,172 @@
-import { Location } from "@angular/common";
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
-import { UtilFunctions } from "src/app/helpers/util-functions";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import * as moment from "moment";
+import { Termin, TerminStatusMap } from "src/app/models/Termin";
 import { PermissionMap } from "src/app/models/User";
+import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
+import { AppConfigService } from "src/app/services/app-config.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
+import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     templateUrl: "./termin-edit.component.html",
     styleUrls: ["./termin-edit.component.scss"],
 })
-export class TerminEditComponent implements EditComponentDeactivate {
-    public formGroup: FormGroup;
+export class TerminEditComponent extends AbstractFormComponent<Termin> {
+    public readonly StatusMap = TerminStatusMap;
+    public readonly KategorieMap =
+        this.configService.terminConfig.terminKategorien;
+    public GruppenMap: { label: string; value: string }[];
 
-    public loading: boolean = false;
-    public saving: boolean = false;
+    public severalDays: boolean = false;
 
     constructor(
-        private fb: FormBuilder,
-        private route: ActivatedRoute,
-        private ausrueckungService: TermineApiService,
-        private infoService: InfoService,
-        public location: Location,
-        private toolbarService: MkjToolbarService,
-        private userService: UserService
+        route: ActivatedRoute,
+        router: Router,
+        terminApiService: TermineApiService,
+        infoService: InfoService,
+        toolbarService: MkjToolbarService,
+        private configService: AppConfigService,
+        private userService: UserService,
+        private gruppenService: GruppenApiService
     ) {
-        this.toolbarService.header = "Editor";
-        this.toolbarService.backButton = true;
+        super(toolbarService, terminApiService, infoService, route, router);
+        this.getGruppen();
+        this.subs.add(
+            this.formGroup.get("vonDatum").valueChanges.subscribe((value) => {
+                if (this.severalDays === false) {
+                    this.formGroup
+                        .get("bisDatum")
+                        .setValue(value, { emitEvent: false });
+                }
+                this.updateSeveralDays();
+            }),
+            this.formGroup.get("bisDatum").valueChanges.subscribe((value) => {
+                this.updateSeveralDays();
+            }),
+            this.formGroup.get("vonZeit").valueChanges.subscribe((value) => {
+                this.onVonZeitChange(value);
+            })
+        );
+    }
 
-        const id = this.route.snapshot.params.id;
-        if (id && id !== "neu") {
-            this.loadAusrueckung(id);
+    protected initToolbar(): void {
+        this.toolbarService.header = "Termin";
+        this.toolbarService.backButton = true;
+        this.toolbarService.buttons = [
+            {
+                label: "Löschen",
+                icon: "pi pi-trash",
+                hidden: this.getId() === "new",
+                click: () => this.delete(),
+                permissions: [PermissionMap.TERMIN_DELETE],
+            },
+        ];
+    }
+    protected initFormGroup(): FormGroup<any> {
+        return new FormGroup({
+            id: new FormControl(null),
+            name: new FormControl(null, Validators.required),
+            beschreibung: new FormControl(null),
+            infoMusiker: new FormControl(null),
+            oeffentlich: new FormControl(false),
+            ort: new FormControl(null),
+            kategorie: new FormControl(null, Validators.required),
+            status: new FormControl(null, Validators.required),
+            vonDatum: new FormControl(null, Validators.required),
+            vonZeit: new FormControl(null),
+            bisDatum: new FormControl(null, Validators.required),
+            bisZeit: new FormControl(null),
+            treffzeit: new FormControl(null),
+            gruppe_id: new FormControl(null),
+        });
+    }
+    protected getId(): string {
+        return this.route.snapshot.params.id;
+    }
+
+    public onSeveralDaysUserChange(value: boolean) {
+        this.formGroup.markAsDirty();
+        const vonDatum = this.formGroup.get("vonDatum")?.value;
+        if (!vonDatum) {
+            this.formGroup.get("bisDatum").setValue(null, { emitEvent: false });
+            return;
+        }
+
+        if (value) {
+            let bisDatum = moment(new Date(vonDatum));
+            this.formGroup
+                .get("bisDatum")
+                .setValue(bisDatum.add(1, "day").format("YYYY-MM-DD"));
         } else {
-            (this.formGroup = UtilFunctions.getAusrueckungFormGroup(fb)),
-                this.formGroup.updateValueAndValidity();
+            this.formGroup.get("bisDatum").setValue(vonDatum);
         }
     }
 
-    public canDeactivate(): boolean {
-        return this.formGroup?.pristine;
+    private updateSeveralDays() {
+        if (
+            this.formGroup?.get("vonDatum").value ===
+            this.formGroup?.get("bisDatum").value
+        ) {
+            this.severalDays = false;
+        } else {
+            this.severalDays = true;
+        }
     }
 
-    private loadAusrueckung(id: string) {
-        this.loading = true;
-        this.ausrueckungService.getById(id).subscribe({
-            next: (res) => {
-                this.formGroup = UtilFunctions.getAusrueckungFormGroup(
-                    this.fb,
-                    res
-                );
-                this.formGroup.updateValueAndValidity();
-                this.loading = false;
-            },
-            error: (err) => {
-                this.loading = false;
-                this.infoService.error(err);
-            },
-        });
+    private onVonZeitChange(value: any) {
+        if (!value) {
+            this.formGroup.get("bisZeit").setValue(null, { emitEvent: false });
+            this.formGroup
+                .get("treffzeit")
+                .setValue(null, { emitEvent: false });
+            return;
+        }
+
+        const objectBisZeit = moment(new Date("2022-01-01T" + value));
+        const objectTreffzeit = moment(new Date("2022-01-01T" + value));
+        this.formGroup
+            .get("bisZeit")
+            .setValue(objectBisZeit.add(2, "hours").format("HH:mm"), {
+                emitEvent: false,
+            });
+        this.formGroup
+            .get("treffzeit")
+            .setValue(objectTreffzeit.subtract(30, "minutes").format("HH:mm"), {
+                emitEvent: false,
+            });
     }
 
-    public saveAusrueckung() {
-        const saveAusrueckung = this.formGroup?.getRawValue();
-        this.saving = true;
+    private getGruppen() {
+        let gruppenleiterMitgliedId = null;
         if (
             this.userService.hasPermission(
                 PermissionMap.TERMIN_GRUPPENLEITER_SAVE
             ) &&
             this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
         ) {
-            this.ausrueckungService
-                .saveTerminbyLeiter(saveAusrueckung)
-                .subscribe(
-                    (ausrueckungFromAPI) => {
-                        this.formGroup.markAsPristine();
-                        this.location.back();
-                    },
-                    (error) => {
-                        this.infoService.error(error);
-                        this.saving = false;
-                    },
-                    () => {
-                        this.infoService.success("Ausrückung gespeichert!");
-                        this.saving = false;
-                    }
+            gruppenleiterMitgliedId =
+                this.userService.currentMitglied.getValue().id;
+        }
+        this.gruppenService.getList().subscribe((res) => {
+            let gruppen = res.values;
+            if (gruppenleiterMitgliedId) {
+                gruppen = gruppen.filter(
+                    (g) =>
+                        g.gruppenleiter_mitglied_id === gruppenleiterMitgliedId
                 );
-            return;
-        }
+            }
 
-        if (saveAusrueckung.id) {
-            this.ausrueckungService.update(saveAusrueckung).subscribe({
-                next: (res) => {
-                    this.infoService.success("Ausrückung aktualisiert!");
-                    this.formGroup.markAsPristine();
-                    this.location.back();
-                },
-                error: (err) => {
-                    this.infoService.error(err);
-                    this.saving = false;
-                },
+            this.GruppenMap = gruppen.map((e) => {
+                return {
+                    label: e.name,
+                    value: e.id,
+                };
             });
-        } else {
-            this.ausrueckungService.create(saveAusrueckung).subscribe({
-                next: (res) => {
-                    this.infoService.success("Ausrückung erstellt!");
-                    this.formGroup.markAsPristine();
-                    this.location.back();
-                },
-                error: (err) => {
-                    this.infoService.error(err);
-                    this.saving = false;
-                },
-            });
-        }
+        });
     }
 }

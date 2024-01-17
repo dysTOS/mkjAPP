@@ -18,7 +18,7 @@
 
 :root {
   --text-color: rgb(241, 241, 241);
-  --text-color-secondary: textSecondaryColor;
+  --text-color-secondary: rgba(255, 255, 255, 0.7);
   --primary-color: #49df49;
   --primary-color-text: #e8f5e9;
   --font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;

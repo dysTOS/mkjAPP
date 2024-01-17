@@ -8,6 +8,8 @@ import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
 import { InfoService } from "src/app/services/info.service";
+import { MitgliedAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/mitglied-autocomplete-config.class";
+import { MitgliederListDatasource } from "src/app/utilities/_list-datasources/mitglieder-list-datasource.class";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -15,15 +17,19 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     selector: "app-instrumente-editor",
     templateUrl: "./instrumente-editor.component.html",
     styleUrls: ["./instrumente-editor.component.scss"],
+    providers: [MitgliederListDatasource],
 })
 export class InstrumenteEditorComponent
     extends AbstractFormComponent<Instrument>
     implements OnInit
 {
-    public besitzer: Mitglied;
     public GruppenMap: UiDropdownOption[];
 
+    public readonly mitgliedAutoCompleteConfig =
+        new MitgliedAutoCompleteConfigiguration();
+
     constructor(
+        public readonly mitgliedDatasource: MitgliederListDatasource,
         private gruppenService: GruppenApiService,
         toolbarService: MkjToolbarService,
         apiService: InstrumenteApiService,
@@ -36,15 +42,6 @@ export class InstrumenteEditorComponent
 
     public ngOnInit(): void {
         this.getGruppen();
-        this.subs.sink =
-            this.formGroup.controls.mitglied.valueChanges.subscribe((m) => {
-                this.besitzer = m;
-            });
-    }
-
-    public setBesitzer(mitglied: Mitglied): void {
-        this.formGroup?.controls.mitglied_id.setValue(mitglied?.id ?? null);
-        this.formGroup?.controls.mitglied_id.markAsDirty();
     }
 
     private getGruppen() {
@@ -87,7 +84,6 @@ export class InstrumenteEditorComponent
             anmerkungen: new FormControl(null),
             aufbewahrungsort: new FormControl(null),
             mitglied_id: new FormControl(null),
-            mitglied: new FormControl(null),
             gruppe_id: new FormControl(null),
             gruppe: new FormControl(null),
         });

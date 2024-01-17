@@ -10,8 +10,8 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     templateUrl: "./change-logs.component.html",
 })
 export class MkjChangeLogsComponent {
-    public version = MkjAppVersion;
-    public logs = MkjAppChangeLog;
+    public readonly version = MkjAppVersion;
+    public readonly logs = MkjAppChangeLog;
 
     constructor(toolbarService: MkjToolbarService) {
         toolbarService.header = "Changelog";

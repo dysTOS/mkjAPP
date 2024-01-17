@@ -12,7 +12,8 @@ export class KassabuchungenListDatasource extends AbstractListDatasource<Kassabu
     ) {
         super();
     }
-    getList(
+
+    public getList(
         input?: GetListInput<Kassabuchung>
     ): Observable<GetListOutput<Kassabuchung>> {
         input = {
@@ -30,7 +31,11 @@ export class KassabuchungenListDatasource extends AbstractListDatasource<Kassabu
         return this.apiService.getList(input);
     }
 
-    mapToTileValue(item: Kassabuchung): TileValue<Kassabuchung> {
+    public getById(id: string): Observable<Kassabuchung> {
+        return this.apiService.getById(id);
+    }
+
+    public mapToTileValue(item: Kassabuchung): TileValue<Kassabuchung> {
         throw new Error("Method not implemented.");
     }
 }

@@ -8,6 +8,7 @@
         kategorieTemplate: kategorieTemplate,
         statusTemplate: statusTemplate,
     }"
+    (onSelectionChange)="this.selectedRow = $event"
     (onDoubleClick)="navigateSingleAusrueckung($event)"
 >
 </mkj-list>
@@ -33,14 +34,10 @@
 </ng-template>
 
 <ng-template #statusTemplate let-termin>
-    <span
-        [class]="
-            'ausrueckungen-badge status-' +
-            (termin.status ? termin.status.toLowerCase() : '')
-        "
-    >
-        {{ termin.status }}
-    </span>
+    <mkj-tag
+        [label]="termin.status | uppercase"
+        [severity]="termin.status | terminStatusSeverity"
+    ></mkj-tag>
 </ng-template>
 
 <ng-template #rowExpansionTemplate let-termin>

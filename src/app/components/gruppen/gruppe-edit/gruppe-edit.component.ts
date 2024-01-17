@@ -2,19 +2,25 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
-import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
+import { MitgliedAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/mitglied-autocomplete-config.class";
+import { MitgliederListDatasource } from "src/app/utilities/_list-datasources/mitglieder-list-datasource.class";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "app-gruppe-details",
     templateUrl: "./gruppe-edit.component.html",
+    providers: [MitgliederListDatasource],
 })
 export class GruppeEditComponent extends AbstractFormComponent<Gruppe> {
+    public readonly mitgliedAutoCompleteConfig =
+        new MitgliedAutoCompleteConfigiguration();
+
     constructor(
+        public mitgliedDatasource: MitgliederListDatasource,
         gruppenService: GruppenApiService,
         toolbarService: MkjToolbarService,
         route: ActivatedRoute,
@@ -49,10 +55,5 @@ export class GruppeEditComponent extends AbstractFormComponent<Gruppe> {
                 permissions: [PermissionMap.GRUPPEN_DELETE],
             },
         ];
-    }
-
-    public setGruppenleiter(leiter: Mitglied) {
-        this.formGroup.controls.gruppenleiter_mitglied_id.setValue(leiter?.id);
-        this.formGroup.controls.gruppenleiter_mitglied_id.markAsDirty();
     }
 }

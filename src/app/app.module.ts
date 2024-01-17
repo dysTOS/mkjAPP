@@ -123,7 +123,7 @@ import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausruecku
 import { TeilnahmenOverviewComponent } from "./components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component";
 import { TermineOverviewComponent } from "./components/termine/termine-overview/termine-overview.component";
 import { KalenderaboComponent } from "./components/termine/kalenderabo/kalenderabo.component";
-import { TerminCardComponent } from "./components/ausrueckungen/termin-card/termin-card.component";
+import { TerminCardComponent } from "./components/termine/termin-card/termin-card.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
@@ -154,15 +154,12 @@ import { MkjDatePipe } from "./pipes/mkj-date.pipe";
 import { MkjTextTransformPipe } from "./pipes/mkj-text-transform.pipe";
 import { mkjAppInitializer } from "./providers/mkj-app-initializer";
 import { MenuService } from "./services/menu.service";
-import { AusrueckungFormComponent } from "./utilities/form-components/ausrueckung-form/ausrueckung-form.component";
 import { MkjBooleanInputComponent } from "./utilities/form-input-components/mkj-boolean-input/mkj-boolean-input.component";
 import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-color-picker/mkj-color-picker.component";
 import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
 import { MkjLinkInputComponent } from "./utilities/form-input-components/mkj-link-input/mkj-link-input.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
-import { MkjMitgliedAutocompleteComponent } from "./utilities/mkj-mitglied-autocomplete/mkj-mitglied-autocomplete.component";
-import { MkjNotensucheComponent } from "./utilities/mkj-notensuche/mkj-notensuche.component";
 import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 import { MkjTileComponent } from "./utilities/mkj-tile-view/mkj-tile/mkj-tile.component";
@@ -191,6 +188,8 @@ import { GruppeMitgliederListComponent } from "./components/gruppen/gruppe-mitgl
 import { NotenmappeNotenListComponent } from "./components/archiv/notenmappen/notenmappe-noten-list/notenmappe-noten-list.component";
 import { KassabuchungenListComponent } from "./components/finanzen/kassabuchungen-list/kassabuchungen-list.component";
 import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper.component";
+import { TerminStatusSeverityPipe } from "./pipes/termin-status-severity.pipe";
+import { MkjAutocompleteComponent } from "./utilities/form-input-components/mkj-autocomplete/mkj-autocomplete.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -295,6 +294,7 @@ registerLocaleData(localeDe);
         PermissionSelectedPipe,
         AnschriftOverviewComponent,
         RouterOutletWrapperComponent,
+        TerminStatusSeverityPipe,
         AnschriftEditComponent,
         AppMainComponent,
         AppTopbarComponent,
@@ -333,13 +333,11 @@ registerLocaleData(localeDe);
         MkjRechnungComponent,
         NotenmappenOverviewComponent,
         KassabuecherComponent,
-        MkjNotensucheComponent,
         LokaleEinstellungenComponent,
         KalenderaboComponent,
         TermineOverviewComponent,
         MkjContentLoaderComponent,
         MkjTemplateDirective,
-        AusrueckungFormComponent,
         MkjBooleanInputComponent,
         GruppenOverviewComponent,
         MkjTileComponent,
@@ -362,7 +360,6 @@ registerLocaleData(localeDe);
         NextGeburtstagComponent,
         TerminTeilnahmeSelectorComponent,
         TeilnahmenOverviewComponent,
-        MkjMitgliedAutocompleteComponent,
         MkjLinkInputComponent,
         MkjChangeLogsComponent,
         GlobaleEinstellungenComponent,
@@ -383,6 +380,7 @@ registerLocaleData(localeDe);
         GruppeMitgliederListComponent,
         NotenmappeNotenListComponent,
         KassabuchungenListComponent,
+        MkjAutocompleteComponent,
     ],
     providers: [
         mkjAppInitializer(),

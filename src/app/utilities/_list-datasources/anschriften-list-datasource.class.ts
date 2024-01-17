@@ -18,6 +18,10 @@ export class AnschriftenListDatasource extends AbstractListDatasource<Anschrift>
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Anschrift> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Anschrift): TileValue<Anschrift> {
         throw new Error("Method not implemented.");
     }

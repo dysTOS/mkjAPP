@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     EventEmitter,
     Input,
@@ -18,14 +19,16 @@ import {
 import { InfoService } from "src/app/services/info.service";
 import { ListConfiguration } from "../_list-configurations/_list-configuration.class";
 import { AbstractListDatasource } from "../_list-datasources/_abstract-list-datasource.class";
+import * as moment from "moment";
 
 @Component({
     selector: "mkj-list",
     templateUrl: "./mkj-list.component.html",
     styleUrls: ["./mkj-list.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MkjListComponent<T> implements OnChanges {
-    @ViewChild("defaultTemplate", { static: true })
+    @ViewChild("table", { static: true })
     public table: Table;
 
     @Input()
@@ -39,6 +42,8 @@ export class MkjListComponent<T> implements OnChanges {
     @Input()
     public disabled: boolean = false;
 
+    @Output()
+    public onSelectionChange: EventEmitter<T> = new EventEmitter<T>();
     @Output()
     public onDoubleClick: EventEmitter<T> = new EventEmitter<T>();
     @Output()
@@ -64,7 +69,16 @@ export class MkjListComponent<T> implements OnChanges {
     }
 
     public onStateRestore(event: TableState): void {
-        event.selection = null;
+        if (this.configuration.initialFilter) {
+            Object.entries(this.configuration.initialFilter).forEach(
+                ([key, value]) => {
+                    event.filters[key] = value;
+                    this.table.filter(value.value, key, value.matchMode);
+                }
+            );
+        }
+        // event.selection = null;
+        // event.expandedRowKeys = null;
     }
 
     public onRowReordered(event: TableRowReorderEvent): void {
@@ -143,25 +157,47 @@ export class MkjListComponent<T> implements OnChanges {
         const result: MkjListInputFilter<T>[] = [];
         Object.entries(filters).forEach(([key, value]) => {
             if (key === "global") return;
-            const getFilter = (f: any): MkjListInputFilter<T> => {
-                return {
-                    field: key as keyof T,
-                    value: f.value,
-                    operator: f.matchMode === "contains" ? "LIKE" : "=",
-                };
-            };
+
             if (Array.isArray(value)) {
                 (value as Array<any>).forEach((v) => {
-                    const filter = getFilter(v);
+                    const filter = this.mapSingleFilter(key, v);
                     if (filter.value != null) {
                         result.push(filter);
                     }
                 });
             } else if (value.value != null) {
-                result.push(getFilter(value));
+                result.push(this.mapSingleFilter(key, value));
             }
         });
 
         return result;
+    }
+
+    private mapSingleFilter(
+        key: string,
+        f: FilterMetadata
+    ): MkjListInputFilter<T> {
+        let value = f.value;
+        let operator = f.matchMode === "contains" ? "LIKE" : "=";
+        const matchMode = f.matchMode;
+
+        if (matchMode.includes("date")) {
+            value = moment(value).format("YYYY-MM-DD");
+            value = value === "Invalid date" ? null : value;
+
+            if (matchMode === "dateBefore") {
+                operator = "<";
+            } else if (matchMode === "dateAfter") {
+                operator = ">";
+            } else if (matchMode === "dateIsNot") {
+                operator = "!=";
+            }
+        }
+
+        return {
+            field: key as keyof T,
+            value: value,
+            operator: operator as any,
+        };
     }
 }

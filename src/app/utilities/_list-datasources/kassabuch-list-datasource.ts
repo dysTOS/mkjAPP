@@ -21,6 +21,10 @@ export class KassabuchListDatasource extends AbstractListDatasource<Kassabuch> {
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Kassabuch> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Kassabuch): TileValue<Kassabuch> {
         return {
             label: item.name,

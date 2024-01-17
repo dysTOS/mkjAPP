@@ -33,11 +33,12 @@
         </div>
 
         <div class="p-field col-12 md:col-6">
-            <mkj-mitglied-autocomplete
-                label="Besitzer"
-                [mitglied]="besitzer"
-                (mitgliedChange)="setBesitzer($event)"
-            ></mkj-mitglied-autocomplete>
+            <mkj-autocomplete
+                label="Ausgegeben an"
+                formControlName="mitglied_id"
+                [datasource]="mitgliedDatasource"
+                [listConfig]="mitgliedAutoCompleteConfig"
+            ></mkj-autocomplete>
         </div>
 
         <div class="p-field col-12 md:col-6">

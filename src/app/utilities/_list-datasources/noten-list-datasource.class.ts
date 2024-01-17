@@ -18,6 +18,10 @@ export class NotenListDatasource extends AbstractListDatasource<Noten> {
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Noten> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Noten): TileValue<Noten> {
         throw new Error("Method not implemented.");
     }

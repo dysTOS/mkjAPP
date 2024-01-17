@@ -16,6 +16,7 @@
     [selectionMode]="configuration.selectionMode ?? null"
     [rowHover]="configuration.selectionMode != null"
     [(selection)]="selectedRow"
+    (selectionChange)="onSelectionChange.emit($event)"
     (onRowSelect)="table.toggleRow($event.data)"
     (onRowUnselect)="table.toggleRow($event.data)"
     [sortField]="configuration.sort?.field"
@@ -37,6 +38,7 @@
             <mkj-text-input
                 *ngIf="configuration.globalFilter != null"
                 iconRight="pi pi-search"
+                [clearable]="true"
                 [value]="table.filters?.global?.value"
                 (valueChange)="
                     table.filterGlobal(
@@ -54,39 +56,59 @@
         ></ng-template>
     </ng-template>
 
+    <ng-template #filterTemplate let-col>
+        <ng-container [ngSwitch]="col.filter?.filterType">
+            <ng-container *ngSwitchCase="'date'">
+                <p-columnFilter
+                    type="date"
+                    display="menu"
+                    [field]="col.field"
+                    [showOperator]="false"
+                ></p-columnFilter>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <p-columnFilter
+                    *ngIf="col.filter != null"
+                    [field]="col.field"
+                    matchMode="equals"
+                    display="menu"
+                    [showOperator]="false"
+                    [showClearButton]="false"
+                    [showApplyButton]="false"
+                    [showMatchModes]="false"
+                    [showAddButton]="false"
+                    [hideOnClear]="true"
+                >
+                    <ng-template
+                        pTemplate="filter"
+                        let-value
+                        let-filter="filterCallback"
+                    >
+                        <p-dropdown
+                            [ngModel]="value"
+                            [options]="col.filter.filterOptions"
+                            (onChange)="filter($event.value)"
+                            placeholder="Filter"
+                        >
+                            <ng-template let-option pTemplate="item">
+                                <span>{{ option.label }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </ng-container>
+        </ng-container>
+    </ng-template>
+
     <ng-template #headerCell let-col>
         {{ col.header }}
         <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
-        <p-columnFilter
-            *ngIf="col.filter != null"
-            [field]="col.field"
-            matchMode="equals"
-            display="menu"
-            [showOperator]="false"
-            [showClearButton]="false"
-            [showApplyButton]="false"
-            [showMatchModes]="false"
-            [showAddButton]="false"
-            [hideOnClear]="true"
-        >
-            <ng-template
-                pTemplate="filter"
-                let-value
-                let-filter="filterCallback"
-            >
-                <p-dropdown
-                    [ngModel]="value"
-                    [options]="col.filter.filterOptions"
-                    (onChange)="filter($event.value)"
-                    placeholder="Filter"
-                >
-                    <ng-template let-option pTemplate="item">
-                        <span>{{ option.label }}</span>
-                    </ng-template>
-                </p-dropdown>
-            </ng-template>
-        </p-columnFilter>
+        <ng-template
+            [ngTemplateOutlet]="filterTemplate"
+            [ngTemplateOutletContext]="{ $implicit: col }"
+        ></ng-template>
     </ng-template>
+
     <ng-template *ngIf="!configuration.hideHeader" pTemplate="header"
         ><tr>
             <th *ngIf="rowReorder" class="w-2rem"></th>
@@ -110,6 +132,7 @@
             </ng-container>
         </tr>
     </ng-template>
+
     <ng-template
         pTemplate="body"
         let-value
@@ -120,6 +143,11 @@
             [pSelectableRow]="value"
             [pSelectableRowIndex]="rowIndex"
             [pReorderableRow]="rowIndex"
+            [ngClass]="
+                configuration.rowStyle?.condition(value)
+                    ? configuration.rowStyle.styleClass
+                    : ''
+            "
             (dblclick)="onDoubleClick.emit(value)"
         >
             <td *ngIf="rowReorder" class="w-2rem">

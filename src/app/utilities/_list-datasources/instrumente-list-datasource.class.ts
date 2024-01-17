@@ -18,6 +18,10 @@ export class InstrumenteListDatasource extends AbstractListDatasource<Instrument
         return this.apiService.getList(input);
     }
 
+    public getById(id: string): Observable<Instrument> {
+        return this.apiService.getById(id);
+    }
+
     public mapToTileValue(item: Instrument): TileValue<Instrument> {
         throw new Error("Method not implemented.");
     }

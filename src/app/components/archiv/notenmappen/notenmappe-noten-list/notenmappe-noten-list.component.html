@@ -15,7 +15,7 @@
 <ng-template #verzeichnisNrTemplate let-noten>
     <div class="col-12 flex align-items-center">
         <mkj-text-input
-            *ngIf="editMode"
+            *ngIf="editMode && hasSavePermission"
             label="Index"
             [(value)]="noten.pivot.verzeichnisNr"
             [disabled]="tableLocked"
@@ -50,12 +50,14 @@
 <ng-template #captionTemplate>
     <div
         *ngIf="hasAssignPermission && editMode"
-        class="flex justify-content-center"
+        class="flex justify-content-start"
     >
-        <app-mkj-notensuche
-            [verzeichnisMode]="indexed"
-            placeholder="Noten hinzufügen"
-            (notenSelect)="addNotenToMappe($event)"
-        ></app-mkj-notensuche>
+        <mkj-autocomplete
+            [value]="selectedNoten"
+            [datasource]="notenDatasource"
+            [listConfig]="notenAutoCompleteConfig"
+            [label]="configService.appNaming.Noten + ' hinzufügen'"
+            (valueChange)="addNotenToMappe($event)"
+        ></mkj-autocomplete>
     </div>
 </ng-template>

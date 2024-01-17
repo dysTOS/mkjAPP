@@ -25,21 +25,11 @@ export const TerminTeilnahmeMap = [
     { label: "Nicht da", value: "abwesend", icon: "pi pi-times" },
 ];
 
-export const TerminKategorieMap = [
-    { label: "Kurkonzert", value: "kurkonzert" },
-    { label: "Konzert", value: "Konzert" },
-    { label: "Weckruf", value: "weckruf" },
-    { label: "Kirchlich", value: "kirchlich" },
-    { label: "Probe", value: "probe" },
-    { label: "Sitzung", value: "sitzung" },
-    { label: "Sonstige", value: "sonstige" },
-];
-
 export const TerminStatusMap = [
-    { label: "Fixiert", value: "fixiert" },
-    { label: "Geplant", value: "geplant" },
-    { label: "Ersatztermin", value: "ersatztermin", color: "#b2ebfd" },
-    { label: "Abgesagt", value: "abgesagt" },
+    { label: "Fixiert", value: "fixiert", severity: "success" },
+    { label: "Geplant", value: "geplant", severity: "warning" },
+    { label: "Ersatztermin", value: "ersatztermin", severity: "info" },
+    { label: "Abgesagt", value: "abgesagt", severity: "danger" },
 ];
 
 export const TerminCsvColumnMap = [

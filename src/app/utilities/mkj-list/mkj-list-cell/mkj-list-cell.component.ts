@@ -7,10 +7,10 @@ import { MkjListColumn } from "../../_list-configurations/_list-configuration.cl
     styleUrl: "./mkj-list-cell.component.scss",
 })
 export class MkjListCellComponent<T> {
-    @Input()
+    @Input({ required: true })
     public value: T;
 
-    @Input()
+    @Input({ required: true })
     public colConfig: MkjListColumn<T>;
 
     @Input()

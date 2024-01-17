@@ -1,6 +1,3 @@
-import { FormBuilder, Validators } from "@angular/forms";
-import { Gruppe } from "../models/Gruppe";
-import { Termin } from "../models/Termin";
 import { MkjDropdownOption } from "../utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
 
 export abstract class UtilFunctions {
@@ -55,29 +52,5 @@ export abstract class UtilFunctions {
             // use a light font color for dark backgrounds
             return true;
         }
-    }
-
-    public static getAusrueckungFormGroup(
-        fb: FormBuilder,
-        ausrueckung?: Termin
-    ) {
-        return fb.group({
-            id: [ausrueckung?.id ?? null],
-            name: [ausrueckung?.name ?? null, Validators.required],
-            beschreibung: [ausrueckung?.beschreibung ?? null],
-            infoMusiker: [ausrueckung?.infoMusiker ?? null],
-            oeffentlich: [ausrueckung?.oeffentlich ?? false],
-            ort: [ausrueckung?.ort ?? null],
-            kategorie: [ausrueckung?.kategorie ?? null, Validators.required],
-            status: [ausrueckung?.status ?? null, Validators.required],
-            vonDatum: [ausrueckung?.vonDatum ?? null, Validators.required],
-            vonZeit: [ausrueckung?.vonZeit ?? null],
-            bisDatum: [ausrueckung?.bisDatum ?? null, Validators.required],
-            bisZeit: [ausrueckung?.bisZeit ?? null],
-            treffzeit: [ausrueckung?.treffzeit ?? null],
-            gruppe_id: [ausrueckung?.gruppe_id ?? null],
-            created_at: [ausrueckung?.created_at ?? null],
-            updated_at: [ausrueckung?.updated_at ?? null],
-        });
     }
 }
