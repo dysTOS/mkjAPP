@@ -11,7 +11,7 @@
             <span>Nächster Termin:</span>
         </p>
         <div *ngIf="nextAusrueckung" class="next-ausrueckung">
-            <a routerLink="../ausrueckungen/details/{{ nextAusrueckung?.id }}">
+            <a routerLink="../termine/details/{{ nextAusrueckung?.id }}">
                 <h4 pRipple>
                     {{ nextAusrueckung?.name }}
                 </h4>
@@ -54,7 +54,7 @@
                 pButton
                 label="Alle Termine"
                 icon="pi pi-calendar"
-                routerLink="../ausrueckungen"
+                routerLink="../termine"
                 class="p-button-secondary p-button-rounded p-button-raised mt-2"
             ></button>
         </div>

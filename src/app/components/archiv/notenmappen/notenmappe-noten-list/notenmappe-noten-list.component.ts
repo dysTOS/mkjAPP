@@ -1,16 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
 import { PermissionMap } from "src/app/models/User";
 import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
+import { AppConfigService } from "src/app/services/app-config.service";
+import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
+import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
+import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { MappeNotenListConfig } from "./mappe-noten-list-config.class";
 import { MappeNotenListDatasource } from "./mappe-noten-list-datasource.class";
-import { UserService } from "src/app/services/authentication/user.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
-import { AppConfigService } from "src/app/services/app-config.service";
-import { AutoCompleteConfiguration } from "src/app/utilities/_autocomplete-configurations/_autocomplete-configuration.class";
-import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
 
 @Component({
     selector: "mkj-notenmappe-noten-list",

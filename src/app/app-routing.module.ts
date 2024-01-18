@@ -10,7 +10,7 @@ import { AppErrorComponent } from "./pages/app.error.component";
 import { AppAccessdeniedComponent } from "./pages/app.accessdenied.component";
 import { AppInvoiceComponent } from "./pages/app.invoice.component";
 import { AppHelpComponent } from "./pages/app.help.component";
-import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
+import { TerminDetailsComponent } from "./components/termine/termin-details/termin-details.component";
 import { RouteGuard } from "./guards/route.guard";
 import { MitgliederEditComponent } from "./components/mitglieder/mitglieder-edit/mitglieder-edit.component";
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
@@ -69,13 +69,13 @@ import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper
                             canActivate: [RouteGuard],
                         },
                         {
-                            path: "ausrueckungen",
+                            path: "termine",
                             component: RouterOutletWrapperComponent,
                             canActivate: [RouteGuard],
                             title: environment.appTitle + " - TERMINE",
                             children: [
                                 {
-                                    path: "aktuell",
+                                    path: "liste",
                                     component: TermineOverviewComponent,
                                     canActivate: [RouteGuard],
                                 },
@@ -85,12 +85,6 @@ import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper
                                     canActivate: [RouteGuard],
                                 },
                                 {
-                                    path: "neu",
-                                    component: TerminEditComponent,
-                                    canActivate: [RouteGuard],
-                                    canDeactivate: [EditDeactivateGuard],
-                                },
-                                {
                                     path: ":id",
                                     component: TerminEditComponent,
                                     canActivate: [RouteGuard],
@@ -98,12 +92,12 @@ import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper
                                 },
                                 {
                                     path: "details/:id",
-                                    component: AusrueckungSingleComponent,
+                                    component: TerminDetailsComponent,
                                     canActivate: [RouteGuard],
                                 },
                                 {
                                     path: "",
-                                    redirectTo: "aktuell",
+                                    redirectTo: "liste",
                                     pathMatch: "full",
                                 },
                             ],

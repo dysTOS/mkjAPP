@@ -23,18 +23,17 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     providers: [TermineListDatasource, TermineListConfig],
 })
 export class TermineOverviewComponent {
-    ausrueckungenArray: Termin[];
-    ausrueckungFilterInput: GetListInput<Termin>;
-    filteredRows: Termin[];
+    // ausrueckungFilterInput: GetListInput<Termin>;
+    // filteredRows: Termin[];
 
-    actualDate = moment(new Date()).format("YYYY-MM-DD");
-    filterFromDate = moment(new Date())
-        .subtract(1, "week")
-        .format("YYYY-MM-DD");
+    // actualDate = moment(new Date()).format("YYYY-MM-DD");
+    // filterFromDate = moment(new Date())
+    //     .subtract(1, "week")
+    //     .format("YYYY-MM-DD");
 
     @ViewChild("exportMenu") exportMenu: Menu;
 
-    selectedRow: any;
+    public selectedRow: Termin;
     public hasAktionenPermissions: boolean = false;
 
     public rowMenuItems: MenuItem[] = [
@@ -104,11 +103,11 @@ export class TermineOverviewComponent {
                     PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
                 ],
             },
-            {
-                icon: "pi pi-download",
-                click: ($event) => this.exportMenu.show($event),
-                label: "Export",
-            },
+            // {
+            //     icon: "pi pi-download",
+            //     click: ($event) => this.exportMenu.show($event),
+            //     label: "Export",
+            // },
         ];
     }
 
@@ -121,7 +120,6 @@ export class TermineOverviewComponent {
 
         this.termineApiService.create(duplicateAusrueckung).subscribe({
             next: (res) => {
-                this.ausrueckungenArray = [res, ...this.ausrueckungenArray];
                 this.navigateEditor(res);
                 this.infoService.success("Termin dupliziert!");
             },
@@ -158,23 +156,23 @@ export class TermineOverviewComponent {
             { title: "Spielbeginn", dataKey: "vonZeit" },
             { title: "Infos", dataKey: "infosMusiker" },
         ];
-        const rows = this.filteredRows.map((e) => {
-            const ausr = { ...e };
-            ausr.status = _.startCase(ausr.status);
-            ausr.vonDatum = this.mkjDatePipe.transform(
-                ausr.vonDatum,
-                "E d. MMM YYYY"
-            );
-            if (e.gruppe?.name) {
-                ausr.name = ausr.name + " (" + e.gruppe.name + ")";
-            }
-            return ausr;
-        });
+        // const rows = this.filteredRows.map((e) => {
+        //     const ausr = { ...e };
+        //     ausr.status = _.startCase(ausr.status);
+        //     ausr.vonDatum = this.mkjDatePipe.transform(
+        //         ausr.vonDatum,
+        //         "E d. MMM YYYY"
+        //     );
+        //     if (e.gruppe?.name) {
+        //         ausr.name = ausr.name + " (" + e.gruppe.name + ")";
+        //     }
+        //     return ausr;
+        // });
 
-        this.exportService.savePDF(columns, rows, "Termine");
+        // this.exportService.savePDF(columns, rows, "Termine");
     }
 
     public exportExcel() {
-        this.exportService.exportExcel(this.filteredRows, "Ausrückungen");
+        // this.exportService.exportExcel(this.filteredRows, "Ausrückungen");
     }
 }

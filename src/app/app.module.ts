@@ -118,9 +118,9 @@ import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview
 import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
 import { NotenmappenOverviewComponent } from "./components/archiv/notenmappen/notenmappen-overview/notenmappen-overview.component";
 import { TerminEditComponent } from "./components/termine/termin-edit/termin-edit.component";
-import { AnwesenheitsListeComponent } from "./components/ausrueckungen/ausrueckung-single/anwesenheits-liste/anwesenheits-liste.component";
-import { AusrueckungSingleComponent } from "./components/ausrueckungen/ausrueckung-single/ausrueckung-single.component";
-import { TeilnahmenOverviewComponent } from "./components/ausrueckungen/ausrueckung-single/teilnahmen-overview/teilnahmen-overview.component";
+import { AnwesenheitsListeComponent } from "./components/termine/anwesenheits-liste/anwesenheits-liste.component";
+import { TerminDetailsComponent } from "./components/termine/termin-details/termin-details.component";
+import { TeilnahmenOverviewComponent } from "./components/termine/teilnahmen-overview/teilnahmen-overview.component";
 import { TermineOverviewComponent } from "./components/termine/termine-overview/termine-overview.component";
 import { KalenderaboComponent } from "./components/termine/kalenderabo/kalenderabo.component";
 import { TerminCardComponent } from "./components/termine/termin-card/termin-card.component";
@@ -312,7 +312,7 @@ registerLocaleData(localeDe);
         AppErrorComponent,
         AppAccessdeniedComponent,
         MkjListCellComponent,
-        AusrueckungSingleComponent,
+        TerminDetailsComponent,
         MkjDatePipe,
         MkjDashboardComponent,
         SignupComponent,

@@ -10,19 +10,23 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 import { NotenApiService } from "../../../services/api/noten-api.service";
 import { TermineApiService } from "../../../services/api/termine-api.service";
 import { ExportService } from "../../../services/export.service";
+import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
+import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
+import { AppConfigService } from "src/app/services/app-config.service";
 
 @Component({
-    selector: "app-ausrueckung-single",
-    templateUrl: "./ausrueckung-single.component.html",
-    styleUrls: ["./ausrueckung-single.component.scss"],
+    selector: "app-termin-details",
+    templateUrl: "./termin-details.component.html",
+    providers: [NotenListDatasource],
 })
-export class AusrueckungSingleComponent implements OnInit {
+export class TerminDetailsComponent implements OnInit {
     termin: Termin;
 
     loading: boolean = true;
     notenLoading: boolean = true;
 
     gespielteNoten: Noten[] = [];
+    selectedNoten: Noten;
     searchNotenResult: Noten[];
 
     mitglieder: Mitglied[];
@@ -40,9 +44,14 @@ export class AusrueckungSingleComponent implements OnInit {
 
     @ViewChild("exportMenu") exportMenu: Menu;
 
+    public readonly notenAutoCompleteConfig =
+        new NotenAutoCompleteConfigiguration();
+
     constructor(
+        public notenDatasource: NotenListDatasource,
+        public configService: AppConfigService,
         private route: ActivatedRoute,
-        private ausrueckungenService: TermineApiService,
+        private termineApiService: TermineApiService,
         private infoService: InfoService,
         private notenService: NotenApiService,
         private calExport: ExportService,
@@ -54,7 +63,7 @@ export class AusrueckungSingleComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((e) => {
-            this.ausrueckungenService.getById(e.id).subscribe(
+            this.termineApiService.getById(e.id).subscribe(
                 (ausrueckung) => {
                     this.termin = ausrueckung;
                     this.updateToolbarButtons();
@@ -90,15 +99,18 @@ export class AusrueckungSingleComponent implements OnInit {
     }
 
     attachNoten(noten: Noten) {
+        if (!noten) return;
         this.notenLoading = true;
         this.notenService
             .attachNotenToAusrueckung(noten.id, this.termin.id)
             .subscribe({
                 next: (res) => {
-                    this.gespielteNoten = [noten, ...this.gespielteNoten];
+                    this.selectedNoten = null;
                     this.notenLoading = false;
+                    this.getGespielteNoten();
                 },
                 error: (error) => {
+                    this.selectedNoten = null;
                     this.infoService.error(error);
                     this.notenLoading = false;
                 },

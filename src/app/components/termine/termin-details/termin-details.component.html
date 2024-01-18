@@ -65,11 +65,16 @@
                     responsiveLayout="scroll"
                     styleClass="p-datatable-sm p-datatable-striped"
                 >
-                    <ng-template pTemplate="caption"
-                        ><div class="col-12 flex justify-content-center">
-                            <app-mkj-notensuche
-                                (notenSelect)="attachNoten($event.noten)"
-                            ></app-mkj-notensuche></div
+                    <ng-template pTemplate="caption">
+                        <mkj-autocomplete
+                            [value]="selectedNoten"
+                            [datasource]="notenDatasource"
+                            [listConfig]="notenAutoCompleteConfig"
+                            [label]="
+                                configService.appNaming.Noten + ' hinzufügen'
+                            "
+                            (valueChange)="attachNoten($event)"
+                        ></mkj-autocomplete
                     ></ng-template>
                     <ng-template pTemplate="body" let-noten>
                         <tr>

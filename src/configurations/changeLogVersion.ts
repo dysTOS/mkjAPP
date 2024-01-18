@@ -1,4 +1,4 @@
-export const MkjAppVersion = "0.9.1 - BETA";
+export const MkjAppVersion = "0.9.2 - BETA";
 
 export interface MkjAppChangeLog {
     date: string;
@@ -9,7 +9,7 @@ export interface MkjAppChangeLog {
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
     {
         date: "01.01.2024",
-        version: "0.9.1 - BETA",
+        version: "0.9.2 - BETA",
         changes: {
             Environments:
                 "Die App kann nun automatisiert für verschiedene Umgebungen/Vereine/Bands ausgeliefert werden.",

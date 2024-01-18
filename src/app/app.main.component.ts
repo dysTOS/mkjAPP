@@ -163,7 +163,7 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.activeTabIndex = MenuLabels.DASHBOARD;
             } else if (first === "noten") {
                 this.activeTabIndex = MenuLabels.NOTEN;
-            } else if (first === "ausrueckungen") {
+            } else if (first === "termine") {
                 this.activeTabIndex = MenuLabels.TERMINE;
             } else if (first === "mitglieder") {
                 this.activeTabIndex = MenuLabels.MITGLIEDER;

@@ -27,13 +27,13 @@
 </ng-template>
 
 <ng-template #rowexpansion let-value>
-    <div class="col-12 card flex justify-content-center">
+    <div class="col-12 card flex gap-2 justify-content-center">
         <button
             *ngIf="hasSavePermission"
             pButton
             icon="pi pi-link"
             label="Bearbeiten"
-            class="p-button-text ml-2"
+            class="p-button-text"
             (click)="navigateToNoten(value)"
         ></button>
         <button

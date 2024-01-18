@@ -26,12 +26,12 @@ export class MenuService implements OnDestroy {
                 {
                     label: "Terminübersicht",
                     icon: "pi pi-fw pi-calendar",
-                    routerLink: "ausrueckungen/aktuell",
+                    routerLink: "termine/liste",
                 },
                 {
                     label: "Kalenderabo",
                     icon: "pi pi-fw pi-calendar",
-                    routerLink: "ausrueckungen/kalenderabo",
+                    routerLink: "termine/kalenderabo",
                 },
             ],
         },
