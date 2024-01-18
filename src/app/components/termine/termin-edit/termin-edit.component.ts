@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import * as moment from "moment";
+import moment from "moment";
 import { Termin, TerminStatusMap } from "src/app/models/Termin";
 import { PermissionMap } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";

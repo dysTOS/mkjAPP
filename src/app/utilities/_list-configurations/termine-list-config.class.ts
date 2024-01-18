@@ -8,7 +8,7 @@ import {
     MkjListSelectionMode,
     MkjListSort,
 } from "./_list-configuration.class";
-import * as moment from "moment";
+import moment from "moment";
 import { AppConfigService } from "src/app/services/app-config.service";
 import { FilterMetadata } from "primeng/api";
 

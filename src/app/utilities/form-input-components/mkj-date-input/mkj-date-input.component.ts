@@ -7,7 +7,7 @@ import {
     Output,
 } from "@angular/core";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
-import * as moment from "moment";
+import moment from "moment";
 import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
 
 export enum MkjDateType {

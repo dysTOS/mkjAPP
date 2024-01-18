@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import * as moment from "moment";
+import moment from "moment";
 import { Termin, TerminTeilnahmeMap } from "src/app/models/Termin";
 import { TeilnahmenApiService } from "src/app/services/api/teilnahmen-api.service";
 import { InfoService } from "src/app/services/info.service";

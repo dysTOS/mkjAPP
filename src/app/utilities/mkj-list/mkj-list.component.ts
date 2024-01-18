@@ -19,7 +19,7 @@ import {
 import { InfoService } from "src/app/services/info.service";
 import { ListConfiguration } from "../_list-configurations/_list-configuration.class";
 import { AbstractListDatasource } from "../_list-datasources/_abstract-list-datasource.class";
-import * as moment from "moment";
+import moment from "moment";
 
 @Component({
     selector: "mkj-list",
