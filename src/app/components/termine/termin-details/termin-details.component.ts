@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { Menu } from "primeng/menu";
 import { Mitglied } from "src/app/models/Mitglied";
@@ -13,6 +13,7 @@ import { ExportService } from "../../../services/export.service";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
 import { AppConfigService } from "src/app/services/app-config.service";
+import { PermissionMap } from "src/app/models/User";
 
 @Component({
     selector: "app-termin-details",
@@ -50,6 +51,7 @@ export class TerminDetailsComponent implements OnInit {
     constructor(
         public notenDatasource: NotenListDatasource,
         public configService: AppConfigService,
+        private router: Router,
         private route: ActivatedRoute,
         private termineApiService: TermineApiService,
         private infoService: InfoService,
@@ -77,6 +79,15 @@ export class TerminDetailsComponent implements OnInit {
 
     public updateToolbarButtons() {
         this.toolbarService.buttons = [
+            {
+                icon: "pi pi-pencil",
+                label: "Bearbeiten",
+                permissions: [PermissionMap.TERMIN_SAVE],
+                click: () =>
+                    this.router.navigate(["../../", this.termin.id], {
+                        relativeTo: this.route,
+                    }),
+            },
             {
                 icon: "pi pi-download",
                 label: "Exportieren",

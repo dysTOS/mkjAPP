@@ -46,7 +46,7 @@ export class TermineOverviewComponent {
             command: () => this.duplicateAusrueckung(this.selectedRow),
         },
         {
-            label: "Editieren",
+            label: "Bearbeiten",
             icon: "pi pi-pencil",
             visible: this.userService.hasOneOfPermissions([
                 PermissionMap.TERMIN_SAVE,

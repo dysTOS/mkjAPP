@@ -1,21 +1,38 @@
 <span class="p-float-label">
     <p-calendar
+        *ngIf="isDesktop"
         [inputId]="label"
         [(ngModel)]="internModel"
         (ngModelChange)="onModelChange($event)"
         [showTime]="type === MkjDateType.DATE ? false : true"
         [timeOnly]="type === MkjDateType.TIME ? true : false"
-        [dataType]="type === MkjDateType.TIME ? 'string' : 'date'"
+        [dataType]="type === MkjDateType.TIME ? 'date' : 'date'"
         showIcon="true"
         [icon]="type === MkjDateType.TIME ? 'pi pi-clock' : 'pi pi-calendar'"
         [showButtonBar]="type !== MkjDateType.TIME ? true : false"
-        [touchUI]="true"
-        [readonlyInput]="true"
+        [touchUI]="false"
+        [readonlyInput]="false"
         [appendTo]="'body'"
         [disabled]="isDisabled"
         (onBlur)="_registerOnTouched?.()"
         [class.ng-dirty]="formControl?.invalid"
         [class.ng-invalid]="formControl?.invalid"
     ></p-calendar>
+    <input
+        *ngIf="isDesktop === false"
+        pInputText
+        [type]="
+            type === MkjDateType.DATE
+                ? 'date'
+                : type === MkjDateType.TIME
+                ? 'time'
+                : 'datetime-local'
+        "
+        [id]="label"
+        [(ngModel)]="nativeModel"
+        (ngModelChange)="onNativeModelChange($event)"
+        [class.ng-dirty]="formControl?.invalid"
+        [class.ng-invalid]="formControl?.invalid"
+    />
     <label [for]="label">{{ label }}</label>
 </span>

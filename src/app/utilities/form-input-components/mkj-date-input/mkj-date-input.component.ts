@@ -9,6 +9,7 @@ import {
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
 import moment from "moment";
 import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
+import { UtilFunctions } from "src/app/helpers/util-functions";
 
 export enum MkjDateType {
     DATE = "date",
@@ -42,6 +43,8 @@ export class MkjDateInputComponent
     public _registerOnChange: (_: any) => void;
     public _registerOnTouched: () => void;
     public isDisabled: boolean = false;
+    public isDesktop: boolean = UtilFunctions.isDesktop();
+    public nativeModel: string;
 
     private _value: string | Date;
     @Input()
@@ -70,22 +73,21 @@ export class MkjDateInputComponent
 
     writeValue(obj: any): void {
         if (obj) {
+            this.nativeModel = obj;
             switch (this.type) {
                 case MkjDateType.DATE:
                     this.internModel = new Date(obj);
-
                     break;
                 case MkjDateType.TIME:
                     this.internModel = obj;
-
                     break;
                 case MkjDateType.COMBINED:
                     this.internModel = new Date(obj);
-
                     break;
             }
         } else {
             this.internModel = null;
+            this.nativeModel = null;
         }
     }
 
@@ -102,6 +104,32 @@ export class MkjDateInputComponent
     }
 
     public onModelChange(newDate: Date | string) {
+        if (!newDate) {
+            this.valueChanged.emit(null);
+            this._registerOnChange?.(null);
+            return;
+        }
+
+        switch (this.type) {
+            case MkjDateType.DATE:
+                const date = moment(newDate).format("YYYY-MM-DD");
+                this.valueChanged.emit(date);
+                this._registerOnChange?.(date);
+                break;
+            case MkjDateType.TIME:
+                const time = moment(newDate).format("hh:mm");
+                this.valueChanged.emit(time);
+                this._registerOnChange?.(time);
+                break;
+            case MkjDateType.COMBINED:
+                const combined = moment(newDate).format("YYYY-MM-DD hh:mm:ss");
+                this.valueChanged.emit(date);
+                this._registerOnChange?.(combined);
+                break;
+        }
+    }
+
+    public onNativeModelChange(newDate: string) {
         if (!newDate) {
             this.valueChanged.emit(null);
             this._registerOnChange?.(null);
