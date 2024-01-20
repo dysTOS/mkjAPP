@@ -117,12 +117,12 @@ export class MkjDateInputComponent
                 this._registerOnChange?.(date);
                 break;
             case MkjDateType.TIME:
-                const time = moment(newDate).format("hh:mm");
+                const time = moment(newDate).format("HH:mm");
                 this.valueChanged.emit(time);
                 this._registerOnChange?.(time);
                 break;
             case MkjDateType.COMBINED:
-                const combined = moment(newDate).format("YYYY-MM-DD hh:mm:ss");
+                const combined = moment(newDate).format("YYYY-MM-DD HH:mm:ss");
                 this.valueChanged.emit(date);
                 this._registerOnChange?.(combined);
                 break;

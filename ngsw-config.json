@@ -26,27 +26,5 @@
                 ]
             }
         }
-    ],
-    "dataGroups": [
-        {
-            "name": "api-perform",
-            "urls": ["https://api.mk-jainzen.at/api/noten"],
-            "cacheConfig": {
-                "strategy": "performance",
-                "maxSize": 100,
-                "maxAge": "3d",
-                "timeout": "10s"
-            }
-        },
-        {
-            "name": "api-freshness",
-            "urls": ["https://api.mk-jainzen.at/api/**"],
-            "cacheConfig": {
-                "strategy": "freshness",
-                "maxSize": 100,
-                "maxAge": "3d",
-                "timeout": "3s"
-            }
-        }
     ]
 }
