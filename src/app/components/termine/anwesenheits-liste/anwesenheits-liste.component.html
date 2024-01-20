@@ -10,7 +10,6 @@
     [options]="gruppenMitglieder"
     [ngModel]="presentMitglieder"
     [multiple]="true"
-    [group]="true"
     [checkbox]="true"
     [showToggleAll]="false"
     dataKey="id"
@@ -21,4 +20,7 @@
     <ng-template pTemplate="header">
         Anwesend: {{ presentMitglieder?.length }}</ng-template
     >
+    <ng-template let-mitglied pTemplate="item">
+        {{ mitglied.vorname }} {{ mitglied.zuname }}
+    </ng-template>
 </p-listbox>

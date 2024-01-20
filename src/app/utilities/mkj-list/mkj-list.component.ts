@@ -10,16 +10,12 @@ import {
     ViewChild,
     signal,
 } from "@angular/core";
-import { FilterMetadata, LazyLoadEvent, TableState } from "primeng/api";
+import { LazyLoadEvent, TableState } from "primeng/api";
 import { Table, TableRowReorderEvent } from "primeng/table";
-import {
-    GetListInput,
-    MkjListInputFilter,
-} from "src/app/interfaces/api-middleware";
 import { InfoService } from "src/app/services/info.service";
 import { ListConfiguration } from "../_list-configurations/_list-configuration.class";
 import { AbstractListDatasource } from "../_list-datasources/_abstract-list-datasource.class";
-import moment from "moment";
+import { MkjListHelper } from "./mkj-list-helper.class";
 
 @Component({
     selector: "mkj-list",
@@ -69,10 +65,13 @@ export class MkjListComponent<T> implements OnChanges {
     }
 
     public onStateRestore(event: TableState): void {
-        if (this.configuration.initialFilter) {
+        // console.log(event);
+        if (
+            this.configuration.initialFilter &&
+            MkjListHelper.hasSetFilters(event) === false
+        ) {
             Object.entries(this.configuration.initialFilter).forEach(
                 ([key, value]) => {
-                    event.filters[key] = value;
                     this.table.filter(value.value, key, value.matchMode);
                 }
             );
@@ -94,7 +93,11 @@ export class MkjListComponent<T> implements OnChanges {
 
     public onLazyLoad(event: LazyLoadEvent): void {
         this.loading$.set(true);
-        const input = this.mapLazyLoadEvent(event);
+        const input = MkjListHelper.getListInput<T>(
+            event,
+            this.configuration.globalFilter,
+            this.pageSize
+        );
         this.datasource.getList(input).subscribe({
             next: (res) => {
                 this.values = [...res.values];
@@ -125,79 +128,5 @@ export class MkjListComponent<T> implements OnChanges {
                 this.infoService.error(err);
             },
         });
-    }
-
-    private mapLazyLoadEvent(event: LazyLoadEvent): GetListInput<T> {
-        const result: GetListInput = {
-            skip: event.first ?? 0,
-            take: event.rows ?? this.pageSize,
-        };
-        if (event.sortField) {
-            result.sort = {
-                field: event.sortField,
-                order: event.sortOrder === 1 ? "asc" : "desc",
-            };
-        }
-        if (event.globalFilter && this.configuration.globalFilter) {
-            result.globalFilter = {
-                fields: this.configuration.globalFilter?.fields,
-                value: event.globalFilter,
-            };
-        }
-
-        const filters = this.getFilters(event.filters);
-        result.filterAnd = filters;
-
-        return result;
-    }
-
-    private getFilters(filters: {
-        [key: string]: FilterMetadata;
-    }): MkjListInputFilter<T>[] {
-        const result: MkjListInputFilter<T>[] = [];
-        Object.entries(filters).forEach(([key, value]) => {
-            if (key === "global") return;
-
-            if (Array.isArray(value)) {
-                (value as Array<any>).forEach((v) => {
-                    const filter = this.mapSingleFilter(key, v);
-                    if (filter.value != null) {
-                        result.push(filter);
-                    }
-                });
-            } else if (value.value != null) {
-                result.push(this.mapSingleFilter(key, value));
-            }
-        });
-
-        return result;
-    }
-
-    private mapSingleFilter(
-        key: string,
-        f: FilterMetadata
-    ): MkjListInputFilter<T> {
-        let value = f.value;
-        let operator = f.matchMode === "contains" ? "LIKE" : "=";
-        const matchMode = f.matchMode;
-
-        if (matchMode.includes("date")) {
-            value = moment(value).format("YYYY-MM-DD");
-            value = value === "Invalid date" ? null : value;
-
-            if (matchMode === "dateBefore") {
-                operator = "<";
-            } else if (matchMode === "dateAfter") {
-                operator = ">";
-            } else if (matchMode === "dateIsNot") {
-                operator = "!=";
-            }
-        }
-
-        return {
-            field: key as keyof T,
-            value: value,
-            operator: operator as any,
-        };
     }
 }

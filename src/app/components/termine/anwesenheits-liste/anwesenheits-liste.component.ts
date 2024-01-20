@@ -1,9 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { SelectItemGroup } from "primeng/api";
-import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "src/app/models/Mitglied";
 import { Termin } from "src/app/models/Termin";
-import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { InfoService } from "src/app/services/info.service";
 
@@ -26,34 +23,31 @@ export class AnwesenheitsListeComponent {
     }
 
     public presentMitglieder: Mitglied[];
-    public gruppenMitglieder: SelectItemGroup[];
+    public gruppenMitglieder: Mitglied[];
 
     public saving: boolean = false;
 
     constructor(
         private mitgliedService: MitgliederApiService,
-        private gruppenService: GruppenApiService,
         private infoService: InfoService
     ) {}
 
     public initMitglieder(id: string) {
-        this.gruppenService.getList().subscribe({
-            next: (res) => {
-                this.gruppenMitglieder = res.values.map((g) => {
-                    return {
-                        label: g.name,
-                        value: g,
-                        items: g.mitglieder.map((m) => {
-                            return {
-                                label: m.vorname + " " + m.zuname,
-                                value: m,
-                            };
-                        }),
-                    };
-                });
-            },
-            error: (err) => this.infoService.error(err),
-        });
+        this.mitgliedService
+            .getList({
+                filterAnd: [
+                    {
+                        field: "aktiv",
+                        operator: "=",
+                        value: true,
+                    },
+                ],
+                sort: { field: "zuname", order: "asc" },
+            })
+            .subscribe({
+                next: (res) => (this.gruppenMitglieder = res.values),
+                error: (err) => this.infoService.error(err),
+            });
         this.mitgliedService.getMitgliederForAusrueckung(id).subscribe({
             next: (res) => (this.presentMitglieder = res),
             error: (err) => this.infoService.error(err),
