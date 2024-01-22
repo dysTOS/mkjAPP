@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
 import { PermissionKey } from "src/app/models/User";
 import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
@@ -41,7 +41,7 @@ export class NotenmappeNotenListComponent implements OnChanges {
 
     constructor(
         public notenDatasource: NotenListDatasource,
-        public configService: AppConfigService,
+        public configService: ConfigurationService,
         private notenmappenApiService: NotenmappenApiService,
         private infoService: InfoService,
         private userService: UserService,

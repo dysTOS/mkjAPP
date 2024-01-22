@@ -6,7 +6,7 @@ import { MitgliedAutoCompleteConfigiguration } from "src/app/utilities/_autocomp
 import { MitgliederListDatasource } from "src/app/utilities/_list-datasources/mitglieder-list-datasource.class";
 import { GruppeMitgliederListConfig } from "./gruppe-mitglieder-list-config.class";
 import { GruppeMitgliederListDatasource } from "./gruppe-mitglieder-list-datasource.class";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 
 @Component({
     selector: "mkj-gruppe-mitglieder-list",
@@ -29,7 +29,7 @@ export class GruppeMitgliederListComponent implements OnChanges {
 
     constructor(
         public mitgliedDatasource: MitgliederListDatasource,
-        public configService: AppConfigService,
+        public configService: ConfigurationService,
         private gruppenService: GruppenApiService,
         private infoService: InfoService
     ) {}

@@ -1,13 +1,11 @@
 <div class="grid">
-    <ng-container *ngFor="let name of appNaming | keyvalue">
+    <ng-container *ngFor="let name of namingConfig | keyvalue">
         <div class="col-12 lg:col-3 md:col-4 sm:col-6">
             <mkj-text-input
                 [label]="name.key"
                 [value]="name.value"
-                (valueChange)="editNaming[name.key] = $event"
+                (valueChange)="namingConfig[name.key] = $event"
             ></mkj-text-input>
         </div>
     </ng-container>
 </div>
-
-<p-button label="Save" (onClick)="updateNaming()"></p-button>

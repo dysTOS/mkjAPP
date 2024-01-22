@@ -1,0 +1,32 @@
+<div class="flex justify-content-center mb-2">
+    <button pButton icon="pi pi-plus" (click)="add()"></button>
+</div>
+<div
+    *ngFor="let option of options; let i = index"
+    class="card flex align-items-center gap-2"
+>
+    <div class="flex flex-column">
+        <button
+            pButton
+            icon="pi pi-arrow-up"
+            class="p-button-text p-button-warning p-button-small"
+            [disabled]="i === 0"
+            (click)="move('up', i)"
+        ></button>
+        <button
+            pButton
+            icon="pi pi-arrow-down"
+            class="p-button-text p-button-warning p-button-small"
+            [disabled]="i === options.length - 1"
+            (click)="move('down', i)"
+        ></button>
+    </div>
+    <mkj-text-input label="Label" [(value)]="option.label"></mkj-text-input>
+    <mkj-text-input label="Value" [(value)]="option.value"></mkj-text-input>
+    <button
+        pButton
+        class="p-button-danger"
+        icon="pi pi-trash"
+        (click)="remove(i)"
+    ></button>
+</div>

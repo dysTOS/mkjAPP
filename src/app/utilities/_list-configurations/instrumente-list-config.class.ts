@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Instrument } from "src/app/models/Instrument";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import {
     ListConfiguration,
     MkjListColumn,
@@ -11,7 +11,7 @@ import {
 
 @Injectable()
 export class InstrumenteListConfig implements ListConfiguration<Instrument> {
-    constructor(private appNaming: AppConfigService) {}
+    constructor(private appNaming: ConfigurationService) {}
 
     listName: string = "Instrumente";
     selectionMode: MkjListSelectionMode = "single";

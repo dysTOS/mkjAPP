@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
 import { PermissionKey } from "src/app/models/User";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { NotenListConfig } from "src/app/utilities/_list-configurations/noten-list-config.class";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
@@ -23,7 +23,7 @@ export class NotenOverviewComponent {
         private toolbarService: MkjToolbarService,
         private router: Router,
         private route: ActivatedRoute,
-        private namingService: AppConfigService,
+        private namingService: ConfigurationService,
         private userService: UserService
     ) {
         this.toolbarService.header = this.namingService.uiNaming.Noten;

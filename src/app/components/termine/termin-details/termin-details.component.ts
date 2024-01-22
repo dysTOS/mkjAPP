@@ -12,7 +12,7 @@ import { TermineApiService } from "../../../services/api/termine-api.service";
 import { ExportService } from "../../../services/export.service";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { PermissionKey } from "src/app/models/User";
 
 @Component({
@@ -50,7 +50,7 @@ export class TerminDetailsComponent implements OnInit {
 
     constructor(
         public notenDatasource: NotenListDatasource,
-        public configService: AppConfigService,
+        public configService: ConfigurationService,
         private router: Router,
         private route: ActivatedRoute,
         private termineApiService: TermineApiService,

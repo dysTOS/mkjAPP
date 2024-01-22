@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Instrument } from "src/app/models/Instrument";
 import { PermissionKey } from "src/app/models/User";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InstrumenteListConfig } from "src/app/utilities/_list-configurations/instrumente-list-config.class";
 import { InstrumenteListDatasource } from "src/app/utilities/_list-datasources/instrumente-list-datasource.class";
@@ -22,7 +22,7 @@ export class InstrumenteOverviewComponent {
         private route: ActivatedRoute,
         private userService: UserService,
         toolbarService: MkjToolbarService,
-        configService: AppConfigService
+        configService: ConfigurationService
     ) {
         toolbarService.header = configService.uiNaming.Instrumente;
         toolbarService.buttons = [

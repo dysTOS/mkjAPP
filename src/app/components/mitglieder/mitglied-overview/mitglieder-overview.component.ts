@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Mitglied } from "src/app/models/Mitglied";
 import { PermissionKey } from "src/app/models/User";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { MitgliederListConfig } from "src/app/utilities/_list-configurations/mitglieder-list-config.class";
 import { MitgliederListDatasource } from "src/app/utilities/_list-datasources/mitglieder-list-datasource.class";
@@ -24,7 +24,7 @@ export class MitgliederOverviewComponent {
         private route: ActivatedRoute,
         private toolbarService: MkjToolbarService,
         private userService: UserService,
-        appconfig: AppConfigService
+        appconfig: ConfigurationService
     ) {
         this.toolbarService.header = appconfig.uiNaming.Mitglieder;
         this.toolbarService.buttons = [

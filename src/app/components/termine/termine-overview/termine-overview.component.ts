@@ -9,7 +9,7 @@ import { Termin } from "src/app/models/Termin";
 import { PermissionKey } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { ExportService } from "src/app/services/export.service";
 import { InfoService } from "src/app/services/info.service";
@@ -84,7 +84,7 @@ export class TermineOverviewComponent {
         private route: ActivatedRoute,
         private exportService: ExportService,
         private mkjDatePipe: MkjDatePipe,
-        private namingService: AppConfigService,
+        private namingService: ConfigurationService,
         public toolbarService: MkjToolbarService
     ) {
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([

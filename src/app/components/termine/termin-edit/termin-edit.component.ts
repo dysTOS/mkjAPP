@@ -6,7 +6,7 @@ import { Termin, TerminStatusMap } from "src/app/models/Termin";
 import { PermissionKey } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -30,7 +30,7 @@ export class TerminEditComponent extends AbstractFormComponent<Termin> {
         terminApiService: TermineApiService,
         infoService: InfoService,
         toolbarService: MkjToolbarService,
-        private configService: AppConfigService,
+        private configService: ConfigurationService,
         private userService: UserService,
         private gruppenService: GruppenApiService
     ) {

@@ -9,7 +9,7 @@ import {
     MkjListSort,
 } from "./_list-configuration.class";
 import moment from "moment";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { FilterMetadata } from "primeng/api";
 
 @Injectable()
@@ -91,5 +91,5 @@ export class TermineListConfig implements ListConfiguration<Termin> {
         },
     ];
 
-    constructor(private configService: AppConfigService) {}
+    constructor(private configService: ConfigurationService) {}
 }

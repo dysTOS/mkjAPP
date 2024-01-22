@@ -190,6 +190,7 @@ import { KassabuchungenListComponent } from "./components/finanzen/kassabuchunge
 import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper.component";
 import { TerminStatusSeverityPipe } from "./pipes/termin-status-severity.pipe";
 import { MkjAutocompleteComponent } from "./utilities/form-input-components/mkj-autocomplete/mkj-autocomplete.component";
+import { DropdownOptionsEditComponent } from "./components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -381,6 +382,7 @@ registerLocaleData(localeDe);
         NotenmappeNotenListComponent,
         KassabuchungenListComponent,
         MkjAutocompleteComponent,
+        DropdownOptionsEditComponent,
     ],
     providers: [
         mkjAppInitializer(),

@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Notenmappe } from "src/app/models/Noten";
 import { PermissionKey } from "src/app/models/User";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { NotenmappeListDatasource } from "src/app/utilities/_list-datasources/notenmappe-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -17,7 +17,7 @@ export class NotenmappenOverviewComponent {
         private route: ActivatedRoute,
         private router: Router,
         private toolbarService: MkjToolbarService,
-        configService: AppConfigService
+        configService: ConfigurationService
     ) {
         this.toolbarService.header = configService.uiNaming.Notenmappen;
         this.toolbarService.buttons = [

@@ -5,7 +5,7 @@ import { SubSink } from "subsink";
 import { Permission, PermissionKey } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
-import { AppConfigService } from "./app-config.service";
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable()
 export class MenuService implements OnDestroy {
@@ -191,7 +191,7 @@ export class MenuService implements OnDestroy {
         private authStateService: AuthStateService,
         private confirmationService: ConfirmationService,
         private userService: UserService,
-        private namingService: AppConfigService
+        private namingService: ConfigurationService
     ) {
         this.subSink.add(
             this.userService.getCurrentUserPermissions().subscribe({

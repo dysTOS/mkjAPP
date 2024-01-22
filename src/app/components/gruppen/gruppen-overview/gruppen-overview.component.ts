@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
 import { PermissionKey } from "src/app/models/User";
-import { AppConfigService } from "src/app/services/app-config.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { GruppeListDatasource } from "src/app/utilities/_list-datasources/gruppe-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -18,7 +18,7 @@ export class GruppenOverviewComponent {
         private toolbarService: MkjToolbarService,
         private router: Router,
         private route: ActivatedRoute,
-        configService: AppConfigService
+        configService: ConfigurationService
     ) {
         this.toolbarService.header = configService.uiNaming.Gruppen;
         this.toolbarService.buttons = [
