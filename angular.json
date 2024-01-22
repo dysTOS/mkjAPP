@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "barcelona": {
+        "mkjapp": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -15,12 +15,12 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": "dist/mkjAPP",
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "browser": "src/main.ts",
+                        "polyfills": ["src/polyfills.ts"],
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
                         "assets": [
@@ -39,8 +39,7 @@
                             "@fullcalendar/interaction",
                             "chart.js"
                         ],
-                        "serviceWorker": true,
-                        "ngswConfigPath": "ngsw-config.json"
+                        "serviceWorker": "ngsw-config.json"
                     },
                     "configurations": {
                         "production": {
@@ -136,9 +135,7 @@
                             ]
                         },
                         "development": {
-                            "buildOptimizer": false,
                             "optimization": false,
-                            "vendorChunk": true,
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
@@ -149,17 +146,17 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                      "buildTarget": "barcelona:build"
+                        "buildTarget": "mkjapp:build"
                     },
                     "configurations": {
                         "production": {
-                          "buildTarget": "barcelona:build:production"
+                            "buildTarget": "mkjapp:build:production"
                         },
                         "gulaschmusi": {
-                          "buildTarget": "barcelona:build:gulaschmusi"
+                            "buildTarget": "mkjapp:build:gulaschmusi"
                         },
                         "development": {
-                          "buildTarget": "barcelona:build:development"
+                            "buildTarget": "mkjapp:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -167,7 +164,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "barcelona:build"
+                        "buildTarget": "mkjapp:build"
                     }
                 },
                 "test": {
@@ -188,5 +185,8 @@
                 }
             }
         }
+    },
+    "cli": {
+        "analytics": false
     }
 }
