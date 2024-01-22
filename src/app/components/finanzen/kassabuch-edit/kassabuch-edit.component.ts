@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UiDropdownOption } from "src/app/interfaces/UiConfigurations";
 import { Kassabuch } from "src/app/models/Kassabuch";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { KassabuchApiService } from "src/app/services/api/kassabuch-api.service";
 import { InfoService } from "src/app/services/info.service";
@@ -49,7 +49,7 @@ export class KassabuchEditComponent extends AbstractFormComponent<Kassabuch> {
                 click: () => {
                     this.delete();
                 },
-                permissions: [PermissionMap.KASSABUCH_DELETE],
+                permissions: [PermissionKey.KASSABUCH_DELETE],
             },
         ];
     }

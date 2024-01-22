@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UiDropdownOption } from "src/app/interfaces/UiConfigurations";
 import { Instrument } from "src/app/models/Instrument";
 import { Mitglied } from "src/app/models/Mitglied";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InstrumenteApiService } from "src/app/services/api/instrumente-api.service";
 import { InfoService } from "src/app/services/info.service";
@@ -67,7 +67,7 @@ export class InstrumenteEditorComponent
                     label: "Instrument Löschen",
                     icon: "pi pi-trash",
                     click: () => this.delete(),
-                    permissions: [PermissionMap.INSTRUMENTE_DELETE],
+                    permissions: [PermissionKey.INSTRUMENTE_DELETE],
                 },
             ];
         } else {

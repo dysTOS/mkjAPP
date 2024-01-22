@@ -1,5 +1,5 @@
 import { ConfirmationService } from "primeng/api";
-import { Permission, PermissionMap, Role } from "../../../models/User";
+import { Permission, PermissionKey, Role } from "../../../models/User";
 import { RolesApiService } from "../../../services/api/roles-api.service";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/authentication/user.service";
@@ -42,7 +42,7 @@ export class RollenEditComponent implements OnInit {
                     this.addDialogVisible = true;
                 },
                 icon: "pi pi-plus",
-                permissions: [PermissionMap.ROLE_SAVE],
+                permissions: [PermissionKey.ROLE_SAVE],
             },
         ];
     }

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
 import { AppConfigService } from "src/app/services/app-config.service";
 import { UserService } from "src/app/services/authentication/user.service";
@@ -31,7 +31,7 @@ export class NotenmappeNotenListComponent implements OnChanges {
     public readonly hasAssignPermission: boolean = false;
     public readonly hasSavePermission: boolean = false;
 
-    public readonly PermissionMap = PermissionMap;
+    public readonly PermissionMap = PermissionKey;
 
     public selectedNoten: Noten;
     public listDatasource: MappeNotenListDatasource;
@@ -49,10 +49,10 @@ export class NotenmappeNotenListComponent implements OnChanges {
         private route: ActivatedRoute
     ) {
         this.hasAssignPermission = this.userService.hasPermission(
-            PermissionMap.NOTENMAPPE_ASSIGN
+            PermissionKey.NOTENMAPPE_ASSIGN
         );
         this.hasSavePermission = this.userService.hasPermission(
-            PermissionMap.NOTEN_SAVE
+            PermissionKey.NOTEN_SAVE
         );
     }
 

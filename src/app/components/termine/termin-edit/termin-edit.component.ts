@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import moment from "moment";
 import { Termin, TerminStatusMap } from "src/app/models/Termin";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { AppConfigService } from "src/app/services/app-config.service";
@@ -63,7 +63,7 @@ export class TerminEditComponent extends AbstractFormComponent<Termin> {
                 icon: "pi pi-trash",
                 hidden: this.getId() === "new",
                 click: () => this.delete(),
-                permissions: [PermissionMap.TERMIN_DELETE],
+                permissions: [PermissionKey.TERMIN_DELETE],
             },
         ];
     }
@@ -145,9 +145,9 @@ export class TerminEditComponent extends AbstractFormComponent<Termin> {
         let gruppenleiterMitgliedId = null;
         if (
             this.userService.hasPermission(
-                PermissionMap.TERMIN_GRUPPENLEITER_SAVE
+                PermissionKey.TERMIN_GRUPPENLEITER_SAVE
             ) &&
-            this.userService.hasPermissionNot(PermissionMap.TERMIN_SAVE)
+            this.userService.hasPermissionNot(PermissionKey.TERMIN_SAVE)
         ) {
             gruppenleiterMitgliedId =
                 this.userService.currentMitglied.getValue().id;

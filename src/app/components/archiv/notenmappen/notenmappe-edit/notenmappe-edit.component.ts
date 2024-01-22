@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Notenmappe } from "src/app/models/Noten";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { NotenmappenApiService } from "src/app/services/api/notenmappen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -13,7 +13,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     templateUrl: "./notenmappe-edit.component.html",
 })
 export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
-    public readonly Permission = PermissionMap;
+    public readonly Permission = PermissionKey;
     public editMode: boolean = false;
 
     constructor(
@@ -54,8 +54,8 @@ export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
                     this.toolbarService.buttons[0].highlighted = this.editMode;
                 },
                 permissions: [
-                    PermissionMap.NOTENMAPPE_SAVE,
-                    PermissionMap.NOTENMAPPE_ASSIGN,
+                    PermissionKey.NOTENMAPPE_SAVE,
+                    PermissionKey.NOTENMAPPE_ASSIGN,
                 ],
             },
             {
@@ -63,7 +63,7 @@ export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
                 icon: "pi pi-trash",
                 hidden: this.getId() === "new",
                 click: () => this.delete(),
-                permissions: [PermissionMap.NOTENMAPPE_DELETE],
+                permissions: [PermissionKey.NOTENMAPPE_DELETE],
             },
         ];
     }

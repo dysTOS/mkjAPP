@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Kassabuch } from "src/app/models/Kassabuch";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { KassabuchListDatasource } from "src/app/utilities/_list-datasources/kassabuch-list-datasource";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -27,7 +27,7 @@ export class KassabuecherComponent {
                         relativeTo: this.route,
                     });
                 },
-                permissions: [PermissionMap.KASSABUCH_SAVE],
+                permissions: [PermissionKey.KASSABUCH_SAVE],
             },
         ];
     }

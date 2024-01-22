@@ -6,7 +6,7 @@ import { MenuItem } from "primeng/api";
 import { Menu } from "primeng/menu";
 import { GetListInput } from "src/app/interfaces/api-middleware";
 import { Termin } from "src/app/models/Termin";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
 import { AppConfigService } from "src/app/services/app-config.service";
@@ -41,7 +41,7 @@ export class TermineOverviewComponent {
             label: "Duplizieren",
             icon: "pi pi-copy",
             visible: this.userService.hasOneOfPermissions([
-                PermissionMap.TERMIN_SAVE,
+                PermissionKey.TERMIN_SAVE,
             ]),
             command: () => this.duplicateAusrueckung(this.selectedRow),
         },
@@ -49,8 +49,8 @@ export class TermineOverviewComponent {
             label: "Bearbeiten",
             icon: "pi pi-pencil",
             visible: this.userService.hasOneOfPermissions([
-                PermissionMap.TERMIN_SAVE,
-                PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+                PermissionKey.TERMIN_SAVE,
+                PermissionKey.TERMIN_GRUPPENLEITER_SAVE,
             ]),
             command: () => this.navigateEditor(this.selectedRow),
         },
@@ -88,19 +88,19 @@ export class TermineOverviewComponent {
         public toolbarService: MkjToolbarService
     ) {
         this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
-            PermissionMap.TERMIN_SAVE,
-            PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
-            PermissionMap.TERMIN_DELETE,
+            PermissionKey.TERMIN_SAVE,
+            PermissionKey.TERMIN_GRUPPENLEITER_SAVE,
+            PermissionKey.TERMIN_DELETE,
         ]);
-        this.toolbarService.header = this.namingService.appNaming.Termine;
+        this.toolbarService.header = this.namingService.uiNaming.Termine;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 click: () => this.navigateEditor(),
                 label: "Neu",
                 permissions: [
-                    PermissionMap.TERMIN_SAVE,
-                    PermissionMap.TERMIN_GRUPPENLEITER_SAVE,
+                    PermissionKey.TERMIN_SAVE,
+                    PermissionKey.TERMIN_GRUPPENLEITER_SAVE,
                 ],
             },
             // {

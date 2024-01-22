@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
 import { Subject } from "rxjs";
 import { SubSink } from "subsink";
-import { Permission, PermissionMap } from "../models/User";
+import { Permission, PermissionKey } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
 import { UserService } from "./authentication/user.service";
 import { AppConfigService } from "./app-config.service";
@@ -18,7 +18,7 @@ export class MenuService implements OnDestroy {
             visible: false,
         },
         {
-            label: this.namingService.appNaming.Termine,
+            label: this.namingService.uiNaming.Termine,
             icon: "pi pi-fw pi-calendar",
             enumLabel: MenuLabels.TERMINE,
             visible: false,
@@ -36,81 +36,81 @@ export class MenuService implements OnDestroy {
             ],
         },
         {
-            label: this.namingService.appNaming.Mitglieder,
+            label: this.namingService.uiNaming.Mitglieder,
             icon: "pi pi-fw pi-users",
             enumLabel: MenuLabels.MITGLIEDER,
-            permission: PermissionMap.MITGLIEDER_READ,
+            permission: PermissionKey.MITGLIEDER_READ,
             children: [
                 {
-                    label: this.namingService.appNaming.Mitglieder,
+                    label: this.namingService.uiNaming.Mitglieder,
                     icon: "pi pi-users",
                     routerLink: "mitglieder/liste",
-                    permission: PermissionMap.MITGLIEDER_READ,
+                    permission: PermissionKey.MITGLIEDER_READ,
                 },
                 {
-                    label: this.namingService.appNaming.Gruppen,
+                    label: this.namingService.uiNaming.Gruppen,
                     icon: "pi pi-folder-open",
                     routerLink: "mitglieder/gruppen",
-                    permission: PermissionMap.GRUPPEN_READ,
+                    permission: PermissionKey.GRUPPEN_READ,
                 },
             ],
         },
         {
-            label: this.namingService.appNaming.Archiv,
+            label: this.namingService.uiNaming.Archiv,
             icon: "mdi mdi-archive-music-outline",
             enumLabel: MenuLabels.ARCHIV,
             visible: false,
-            permission: PermissionMap.NOTEN_READ,
+            permission: PermissionKey.NOTEN_READ,
             children: [
                 {
-                    label: this.namingService.appNaming.Noten,
+                    label: this.namingService.uiNaming.Noten,
                     icon: "mdi mdi-music",
                     routerLink: "archiv/noten",
                     visible: false,
-                    permission: PermissionMap.NOTEN_READ,
+                    permission: PermissionKey.NOTEN_READ,
                 },
                 {
-                    label: this.namingService.appNaming.Notenmappen,
+                    label: this.namingService.uiNaming.Notenmappen,
                     icon: "mdi mdi-book-music-outline",
                     routerLink: "archiv/mappen",
                     visible: false,
-                    permission: PermissionMap.NOTENMAPPE_READ,
+                    permission: PermissionKey.NOTENMAPPE_READ,
                 },
                 {
-                    label: this.namingService.appNaming.Instrumente,
+                    label: this.namingService.uiNaming.Instrumente,
                     icon: "mdi mdi-trumpet",
                     routerLink: "archiv/instrumente",
                     visible: false,
-                    permission: PermissionMap.INSTRUMENTE_READ,
+                    permission: PermissionKey.INSTRUMENTE_READ,
                 },
             ],
         },
         {
-            label: this.namingService.appNaming.Statistiken,
+            label: this.namingService.uiNaming.Statistiken,
             icon: "pi pi-chart-line",
             enumLabel: MenuLabels.STATISTIK,
             visible: false,
             routerLink: "statistik",
         },
         {
-            label: this.namingService.appNaming.Finanzen,
+            label: this.namingService.uiNaming.Finanzen,
             icon: "mdi mdi-currency-eur",
             enumLabel: MenuLabels.FINANZEN,
             visible: false,
-            permission: PermissionMap.KASSABUCH_READ,
+            permission: PermissionKey.KASSABUCH_READ,
             children: [
                 {
                     label: "Kassabücher",
                     icon: "mdi mdi-currency-eur",
                     routerLink: "finanzen/list",
-                    permission: PermissionMap.KASSABUCH_READ,
+                    permission: PermissionKey.KASSABUCH_READ,
                     visible: false,
                 },
                 {
                     label: "Adressen",
                     icon: "pi pi-fw pi-users",
                     routerLink: "finanzen/adressen",
-                    permission: PermissionMap.ANSCHRIFTEN_READ,
+                    permission: PermissionKey.ANSCHRIFTEN_READ,
                 },
             ],
         },
@@ -131,7 +131,7 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-account-lock-open-outline",
                     routerLink: "einstellungen/rollen",
                     visible: false,
-                    permission: PermissionMap.ROLE_READ,
+                    permission: PermissionKey.ROLE_READ,
                 },
                 {
                     label: "Lokale Einstellungen",
@@ -143,7 +143,7 @@ export class MenuService implements OnDestroy {
                     label: "Globale Einstellungen",
                     icon: "mdi mdi-cog",
                     routerLink: "einstellungen/global",
-                    permission: PermissionMap.USER_DELETE,
+                    permission: PermissionKey.USER_DELETE,
                     visible: false,
                 },
                 {
@@ -175,7 +175,7 @@ export class MenuService implements OnDestroy {
             routerLink: "test",
             enumLabel: MenuLabels.TEST,
             visible: false,
-            permission: PermissionMap.ROLE_ASSIGN,
+            permission: PermissionKey.ROLE_ASSIGN,
         },
     ];
 

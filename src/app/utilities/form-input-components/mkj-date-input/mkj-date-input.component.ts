@@ -1,15 +1,9 @@
-import {
-    AfterViewInit,
-    Component,
-    EventEmitter,
-    Injector,
-    Input,
-    Output,
-} from "@angular/core";
-import { controlValueAccessor } from "src/app/providers/control-value-accessor";
+import { AfterViewInit, Component, Injector, Input } from "@angular/core";
+import { ControlValueAccessor } from "@angular/forms";
 import moment from "moment";
-import { ControlValueAccessor, FormControl, NgControl } from "@angular/forms";
 import { UtilFunctions } from "src/app/helpers/util-functions";
+import { controlValueAccessor } from "src/app/providers/control-value-accessor";
+import { AbstractControlAccessor } from "../abstract-control-accessor";
 
 export enum MkjDateType {
     DATE = "date",
@@ -24,6 +18,7 @@ export enum MkjDateType {
     providers: [controlValueAccessor(MkjDateInputComponent)],
 })
 export class MkjDateInputComponent
+    extends AbstractControlAccessor<Date | string>
     implements ControlValueAccessor, AfterViewInit
 {
     @Input()
@@ -32,124 +27,74 @@ export class MkjDateInputComponent
     @Input()
     public label: string;
 
-    @Input()
     public internModel: Date | string;
-
-    @Output()
-    public valueChanged = new EventEmitter<string | Date>();
-
-    public MkjDateType = MkjDateType;
-
-    public _registerOnChange: (_: any) => void;
-    public _registerOnTouched: () => void;
     public isDisabled: boolean = false;
     public isDesktop: boolean = UtilFunctions.isDesktop();
     public nativeModel: string;
+    public readonly MkjDateType = MkjDateType;
 
-    private _value: string | Date;
-    @Input()
-    public get value(): string | Date {
-        return this._value;
-    }
-    public set value(value: string | Date) {
-        this._value = value;
-        if (!value) {
-            this.internModel = null;
-        } else if (this.type === MkjDateType.TIME) {
-            this.internModel = value;
-        } else {
-            this.internModel = new Date(value);
-        }
-    }
-
-    formControl: FormControl;
-
-    constructor(private inj: Injector) {}
-
-    ngAfterViewInit() {
-        this.formControl = this.inj.get(NgControl, null)
-            ?.control as FormControl;
-    }
-
-    writeValue(obj: any): void {
-        if (obj) {
-            this.nativeModel = obj;
-            switch (this.type) {
-                case MkjDateType.DATE:
-                    this.internModel = new Date(obj);
-                    break;
-                case MkjDateType.TIME:
-                    this.internModel = obj;
-                    break;
-                case MkjDateType.COMBINED:
-                    this.internModel = new Date(obj);
-                    break;
+    constructor(inj: Injector) {
+        super(inj);
+        this.subs.sink = this.value$.subscribe((value) => {
+            if (value) {
+                this.nativeModel = value as string;
+                switch (this.type) {
+                    case MkjDateType.DATE:
+                        this.internModel = new Date(value);
+                        break;
+                    case MkjDateType.TIME:
+                        this.internModel = value;
+                        break;
+                    case MkjDateType.COMBINED:
+                        this.internModel = new Date(value);
+                        break;
+                }
+            } else {
+                this.internModel = null;
+                this.nativeModel = null;
             }
-        } else {
-            this.internModel = null;
-            this.nativeModel = null;
-        }
-    }
-
-    registerOnChange(fn: any): void {
-        this._registerOnChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this._registerOnTouched = fn;
-    }
-
-    setDisabledState(isDisabled: boolean): void {
-        this.isDisabled = isDisabled;
+        });
     }
 
     public onModelChange(newDate: Date | string) {
         if (!newDate) {
-            this.valueChanged.emit(null);
-            this._registerOnChange?.(null);
+            this.change?.(null);
             return;
         }
 
         switch (this.type) {
             case MkjDateType.DATE:
                 const date = moment(newDate).format("YYYY-MM-DD");
-                this.valueChanged.emit(date);
-                this._registerOnChange?.(date);
+                this.change(date);
                 break;
             case MkjDateType.TIME:
                 const time = moment(newDate).format("HH:mm");
-                this.valueChanged.emit(time);
-                this._registerOnChange?.(time);
+                this.change(time);
                 break;
             case MkjDateType.COMBINED:
                 const combined = moment(newDate).format("YYYY-MM-DD HH:mm:ss");
-                this.valueChanged.emit(date);
-                this._registerOnChange?.(combined);
+                this.change(combined);
                 break;
         }
     }
 
     public onNativeModelChange(newDate: string) {
         if (!newDate) {
-            this.valueChanged.emit(null);
-            this._registerOnChange?.(null);
+            this.change(null);
             return;
         }
 
         switch (this.type) {
             case MkjDateType.DATE:
                 const date = moment(newDate).format("YYYY-MM-DD");
-                this.valueChanged.emit(date);
-                this._registerOnChange?.(date);
+                this.change(date);
                 break;
             case MkjDateType.TIME:
-                this.valueChanged.emit(newDate);
-                this._registerOnChange?.(newDate);
+                this.change(newDate);
                 break;
             case MkjDateType.COMBINED:
                 const combined = moment(newDate).format("YYYY-MM-DD hh:mm:ss");
-                this.valueChanged.emit(date);
-                this._registerOnChange?.(combined);
+                this.change(combined);
                 break;
         }
     }

@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { UtilFunctions } from "src/app/helpers/util-functions";
 import { Kassabuchung, KassabuchungTyp } from "src/app/models/Kassabuch";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { KassabuchungenApiService } from "src/app/services/api/kassabuchungen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -58,7 +58,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
                 click: () => {
                     this.delete();
                 },
-                permissions: [PermissionMap.KASSABUCHUNG_DELETE],
+                permissions: [PermissionKey.KASSABUCHUNG_DELETE],
             },
         ];
     }

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { MenuService } from "../services/menu.service";
 import { environment } from "src/environments/environment";
 import { UserService } from "../services/authentication/user.service";
+import { PermissionKey } from "../models/User";
 
 @Injectable()
 export class RouteGuard {
@@ -23,7 +24,10 @@ export class RouteGuard {
 
         const permission = item?.permission;
 
-        if (!permission || this.userService.hasPermission(permission)) {
+        if (
+            !permission ||
+            this.userService.hasPermission(permission as PermissionKey)
+        ) {
             return true;
         } else {
             return this.router.parseUrl(environment.prefix + "/noaccess");

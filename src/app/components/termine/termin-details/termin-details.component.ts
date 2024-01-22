@@ -13,7 +13,7 @@ import { ExportService } from "../../../services/export.service";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
 import { AppConfigService } from "src/app/services/app-config.service";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 
 @Component({
     selector: "app-termin-details",
@@ -82,7 +82,7 @@ export class TerminDetailsComponent implements OnInit {
             {
                 icon: "pi pi-pencil",
                 label: "Bearbeiten",
-                permissions: [PermissionMap.TERMIN_SAVE],
+                permissions: [PermissionKey.TERMIN_SAVE],
                 click: () =>
                     this.router.navigate(["../../", this.termin.id], {
                         relativeTo: this.route,

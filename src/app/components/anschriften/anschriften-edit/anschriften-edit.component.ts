@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Anschrift } from "src/app/models/Anschrift";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { AnschriftenApiService } from "src/app/services/api/anschriften-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -36,7 +36,7 @@ export class AnschriftEditComponent extends AbstractFormComponent<Anschrift> {
                     label: "Adresse Löschen",
                     icon: "pi pi-trash",
                     click: () => this.delete(),
-                    permissions: [PermissionMap.ANSCHRIFTEN_DELETE],
+                    permissions: [PermissionKey.ANSCHRIFTEN_DELETE],
                 },
             ];
         } else {

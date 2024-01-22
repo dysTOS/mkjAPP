@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Anschrift } from "src/app/models/Anschrift";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { AnschriftenListConfig } from "src/app/utilities/_list-configurations/anschriften-list-config.class";
 import { AnschriftenListDatasource } from "src/app/utilities/_list-datasources/anschriften-list-datasource.class";
@@ -31,13 +31,13 @@ export class AnschriftenOverviewComponent {
                     this.router.navigate(["new"], {
                         relativeTo: this.route,
                     }),
-                permissions: [PermissionMap.ANSCHRIFTEN_SAVE],
+                permissions: [PermissionKey.ANSCHRIFTEN_SAVE],
             },
         ];
     }
 
     public navigateToEdit(item: Anschrift): void {
-        if (this.userServie.hasPermission(PermissionMap.ANSCHRIFTEN_SAVE)) {
+        if (this.userServie.hasPermission(PermissionKey.ANSCHRIFTEN_SAVE)) {
             this.router.navigate([item.id], {
                 relativeTo: this.route,
             });

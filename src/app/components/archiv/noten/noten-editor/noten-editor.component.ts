@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Noten, NotenGattungMap } from "src/app/models/Noten";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -40,7 +40,7 @@ export class NotenEditorComponent extends AbstractFormComponent<Noten> {
                     label: "Mappe Löschen",
                     icon: "pi pi-trash",
                     click: () => this.delete(),
-                    permissions: [PermissionMap.NOTEN_DELETE],
+                    permissions: [PermissionKey.NOTEN_DELETE],
                 },
             ];
         } else {

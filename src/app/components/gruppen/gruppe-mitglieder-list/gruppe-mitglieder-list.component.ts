@@ -19,7 +19,7 @@ export class GruppeMitgliederListComponent implements OnChanges {
     public gruppeId: string;
 
     public listDatasource: GruppeMitgliederListDatasource;
-    public listConfig = new GruppeMitgliederListConfig();
+    public readonly listConfig = new GruppeMitgliederListConfig();
 
     public selectedMitglied: Mitglied;
     public tableLocked: boolean = false;

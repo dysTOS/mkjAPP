@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Instrument } from "src/app/models/Instrument";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { AppConfigService } from "src/app/services/app-config.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InstrumenteListConfig } from "src/app/utilities/_list-configurations/instrumente-list-config.class";
@@ -24,19 +24,19 @@ export class InstrumenteOverviewComponent {
         toolbarService: MkjToolbarService,
         configService: AppConfigService
     ) {
-        toolbarService.header = configService.appNaming.Instrumente;
+        toolbarService.header = configService.uiNaming.Instrumente;
         toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 label: "Neu",
-                permissions: [PermissionMap.INSTRUMENTE_SAVE],
+                permissions: [PermissionKey.INSTRUMENTE_SAVE],
                 click: () => this.navigateEditor(),
             },
         ];
     }
 
     public navigateEditor(instrument?: Instrument): void {
-        if (!this.userService.hasPermission(PermissionMap.INSTRUMENTE_SAVE))
+        if (!this.userService.hasPermission(PermissionKey.INSTRUMENTE_SAVE))
             return;
         this.router.navigate([instrument?.id ?? "new"], {
             relativeTo: this.route,

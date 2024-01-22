@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { AppConfigService } from "src/app/services/app-config.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { NotenListConfig } from "src/app/utilities/_list-configurations/noten-list-config.class";
@@ -15,7 +15,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     providers: [NotenListDatasource, NotenListConfig],
 })
 export class NotenOverviewComponent {
-    public readonly PermissionMap = PermissionMap;
+    public readonly PermissionMap = PermissionKey;
 
     constructor(
         public datasource: NotenListDatasource,
@@ -26,19 +26,19 @@ export class NotenOverviewComponent {
         private namingService: AppConfigService,
         private userService: UserService
     ) {
-        this.toolbarService.header = this.namingService.appNaming.Noten;
+        this.toolbarService.header = this.namingService.uiNaming.Noten;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 label: "Neu",
-                permissions: [PermissionMap.NOTEN_SAVE],
+                permissions: [PermissionKey.NOTEN_SAVE],
                 click: () => this.navigateToEditView(),
             },
         ];
     }
 
     public navigateToEditView(noten?: Noten) {
-        if (!this.userService.hasPermission(PermissionMap.NOTEN_SAVE)) {
+        if (!this.userService.hasPermission(PermissionKey.NOTEN_SAVE)) {
             return;
         }
         this.router.navigate([noten?.id ?? "new"], { relativeTo: this.route });

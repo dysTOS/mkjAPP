@@ -37,7 +37,7 @@ export class InstrumenteListConfig implements ListConfiguration<Instrument> {
             sortable: true,
         },
         {
-            header: this.appNaming.appNaming.Gruppen,
+            header: this.appNaming.uiNaming.Gruppen,
             field: null,
             templateName: "gruppen",
             type: "value",

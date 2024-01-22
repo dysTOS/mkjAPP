@@ -31,7 +31,7 @@ export interface Permission {
     updated_at?: string;
 }
 
-export enum PermissionMap {
+export enum PermissionKey {
     ANSCHRIFTEN_READ = "anschriften_read",
     ANSCHRIFTEN_SAVE = "anschriften_save",
     ANSCHRIFTEN_DELETE = "anschriften_delete",

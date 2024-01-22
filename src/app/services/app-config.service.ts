@@ -12,14 +12,14 @@ import { InfoService } from "./info.service";
     providedIn: "root",
 })
 export class AppConfigService {
-    private _appNaming = new BehaviorSubject<UiNamingConfig>(null);
-    public get appNaming(): UiNamingConfig {
-        return this._appNaming.value;
+    private readonly _uiConfig = new BehaviorSubject<UiConfigurations>(null);
+
+    public get uiNaming(): UiNamingConfig {
+        return this._uiConfig.value?.uiNaming;
     }
 
-    private _terminConfig = new BehaviorSubject<UiTerminConfig>(null);
     public get terminConfig(): UiTerminConfig {
-        return this._terminConfig.value;
+        return this._uiConfig.value?.terminConfig;
     }
 
     constructor(
@@ -29,12 +29,14 @@ export class AppConfigService {
 
     public initAppNamingConfig(): Observable<void> {
         return this.configService.getConfigs().pipe(
-            tap((config) => this.setInternalConfigs(config)),
+            tap((config) => this._uiConfig.next(config)),
             map((config) => null)
         );
     }
 
-    public updateAppNamingConfig(naming: UiNamingConfig) {
+    public saveUiNamingConfig(naming: UiNamingConfig) {
+        if (!this._uiConfig.value) return;
+
         const configurations: UiConfigurations = {
             uiNaming: naming,
             terminConfig: this.terminConfig,
@@ -49,14 +51,9 @@ export class AppConfigService {
     private permitConfigs(configurations: UiConfigurations): Observable<void> {
         return this.configService.saveConfigs(configurations).pipe(
             tap((res) => {
-                this.setInternalConfigs(res);
+                this._uiConfig.next(res);
             }),
             map((_) => null)
         );
-    }
-
-    private setInternalConfigs(config: UiConfigurations): void {
-        this._appNaming.next(config.uiNaming);
-        this._terminConfig.next(config.terminConfig);
     }
 }

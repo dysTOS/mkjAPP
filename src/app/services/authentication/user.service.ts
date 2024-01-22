@@ -3,7 +3,7 @@ import { Observable, Subject } from "rxjs";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Gruppe } from "src/app/models/Gruppe";
 import { Mitglied } from "../../models/Mitglied";
-import { Permission, Role, User } from "../../models/User";
+import { Permission, PermissionKey, Role, User } from "../../models/User";
 import { AuthAPIService } from "../api/auth-api.service";
 import { TokenService } from "./token.service";
 
@@ -82,7 +82,7 @@ export class UserService {
         this.currentMitgliedGruppen.next(gruppen);
     }
 
-    public hasPermission(permission: string): boolean {
+    public hasPermission(permission: PermissionKey): boolean {
         if (!this.currentPermissions.getValue() || permission === null)
             return false;
         let bool = false;
@@ -92,13 +92,13 @@ export class UserService {
         return bool;
     }
 
-    public hasPermissionNot(permission: any): boolean {
+    public hasPermissionNot(permission: PermissionKey): boolean {
         return !this.currentPermissions
             .getValue()
             .find((e) => e.name === permission);
     }
 
-    public hasOneOfPermissions(permissions: string[]): boolean {
+    public hasOneOfPermissions(permissions: PermissionKey[]): boolean {
         if (!this.currentPermissions.getValue() || !permissions) return false;
         let bool = false;
         permissions.forEach((e) => {
@@ -109,7 +109,7 @@ export class UserService {
         return bool;
     }
 
-    public hasAllOfPermissions(permissions: string[]): boolean {
+    public hasAllOfPermissions(permissions: PermissionKey[]): boolean {
         if (!this.currentPermissions.getValue() || !permissions) return false;
         let bool = true;
         permissions.forEach((e) => {

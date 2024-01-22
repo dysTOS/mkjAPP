@@ -8,12 +8,12 @@ import { AppConfigService } from "src/app/services/app-config.service";
     styleUrls: ["./ui-naming-config.component.scss"],
 })
 export class UiNamingConfigComponent {
-    public readonly appNaming = _.cloneDeep(this.configService.appNaming);
-    public readonly editNaming = _.cloneDeep(this.configService.appNaming);
+    public readonly appNaming = _.cloneDeep(this.configService.uiNaming);
+    public readonly editNaming = _.cloneDeep(this.configService.uiNaming);
 
     constructor(private configService: AppConfigService) {}
 
     public updateNaming(): void {
-        this.configService.updateAppNamingConfig(this.editNaming);
+        this.configService.saveUiNamingConfig(this.editNaming);
     }
 }

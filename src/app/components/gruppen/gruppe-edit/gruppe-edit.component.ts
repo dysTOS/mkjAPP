@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Gruppe } from "src/app/models/Gruppe";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { GruppenApiService } from "src/app/services/api/gruppen-api.service";
 import { InfoService } from "src/app/services/info.service";
 import { MitgliedAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/mitglied-autocomplete-config.class";
@@ -52,7 +52,7 @@ export class GruppeEditComponent extends AbstractFormComponent<Gruppe> {
                 icon: "pi pi-trash",
                 hidden: this.getId() === "new",
                 click: () => this.delete(),
-                permissions: [PermissionMap.GRUPPEN_DELETE],
+                permissions: [PermissionKey.GRUPPEN_DELETE],
             },
         ];
     }

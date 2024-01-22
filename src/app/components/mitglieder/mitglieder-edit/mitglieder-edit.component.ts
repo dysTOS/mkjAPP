@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { Mitglied, MitgliedGeschlechtMap } from "src/app/models/Mitglied";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
@@ -36,7 +36,7 @@ export class MitgliederEditComponent extends AbstractFormComponent<Mitglied> {
         super(toolbarService, apiService, infoService, route, router);
 
         this.canAssignRoles = this.userService.hasPermission(
-            PermissionMap.ROLE_ASSIGN
+            PermissionKey.ROLE_ASSIGN
         );
     }
 
@@ -51,7 +51,7 @@ export class MitgliederEditComponent extends AbstractFormComponent<Mitglied> {
                 {
                     icon: "pi pi-trash",
                     click: () => this.deleteMitglied(),
-                    permissions: [PermissionMap.MITGLIEDER_DELETE],
+                    permissions: [PermissionKey.MITGLIEDER_DELETE],
                     label: "Löschen",
                 },
             ];

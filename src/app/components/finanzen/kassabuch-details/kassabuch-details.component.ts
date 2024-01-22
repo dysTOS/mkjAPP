@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { Kassabuch } from "src/app/models/Kassabuch";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { KassabuchApiService } from "src/app/services/api/kassabuch-api.service";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
@@ -37,7 +37,7 @@ export class KassabuchDetailsComponent implements OnInit {
                         ],
                         { relativeTo: this.route }
                     ),
-                permissions: [PermissionMap.KASSABUCH_SAVE],
+                permissions: [PermissionKey.KASSABUCH_SAVE],
             },
         ];
     }

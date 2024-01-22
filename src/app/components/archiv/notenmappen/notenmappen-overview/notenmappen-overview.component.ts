@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Notenmappe } from "src/app/models/Noten";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { AppConfigService } from "src/app/services/app-config.service";
 import { NotenmappeListDatasource } from "src/app/utilities/_list-datasources/notenmappe-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -19,13 +19,13 @@ export class NotenmappenOverviewComponent {
         private toolbarService: MkjToolbarService,
         configService: AppConfigService
     ) {
-        this.toolbarService.header = configService.appNaming.Notenmappen;
+        this.toolbarService.header = configService.uiNaming.Notenmappen;
         this.toolbarService.buttons = [
             {
                 icon: "pi pi-plus",
                 click: () => this.navigateToNotenmappe(),
                 label: "Neue Mappe",
-                permissions: [PermissionMap.NOTENMAPPE_SAVE],
+                permissions: [PermissionKey.NOTENMAPPE_SAVE],
             },
         ];
     }

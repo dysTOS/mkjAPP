@@ -45,16 +45,3 @@
         </ng-container>
     </div>
 </div>
-
-<div
-    class="mkj-toolbar-content fadeInDown"
-    [ngClass]="{
-        'mkj-toolbar-content-visible': toolbarService.contentSectionExpanded
-    }"
->
-    <div class="card">
-        <ng-container
-            *ngTemplateOutlet="toolbarService.contentSectionTemplate"
-        ></ng-container>
-    </div>
-</div>

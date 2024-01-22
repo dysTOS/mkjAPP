@@ -7,6 +7,7 @@ import {
     ViewContainerRef,
 } from "@angular/core";
 import { UserService } from "../services/authentication/user.service";
+import { PermissionKey } from "../models/User";
 
 @Directive({
     selector: "[visibleFor]",
@@ -28,7 +29,8 @@ export class VisibleForPermissionDirective implements OnDestroy {
             .subscribe({
                 next: () => {
                     permissions.forEach((r) => {
-                        if (this.userService.hasPermission(r)) isVisible = true;
+                        if (this.userService.hasPermission(r as PermissionKey))
+                            isVisible = true;
                     });
                     if (isVisible) {
                         this.viewContainer.createEmbeddedView(this.templateRef);

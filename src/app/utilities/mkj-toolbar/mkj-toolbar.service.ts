@@ -6,14 +6,14 @@ import {
     NavigationEnd,
     Router,
 } from "@angular/router";
-import { PermissionMap } from "src/app/models/User";
+import { PermissionKey } from "src/app/models/User";
 import { UserService } from "src/app/services/authentication/user.service";
 import { SubSink } from "subsink";
 
 export interface MkjToolbarButton {
     icon: string;
     label?: string;
-    permissions?: PermissionMap[];
+    permissions?: PermissionKey[];
     routerLink?: string;
     click?: (event: MouseEvent) => void;
     visible?: boolean;
@@ -27,8 +27,6 @@ export interface MkjToolbarButton {
 export class MkjToolbarService implements OnInit, OnDestroy {
     public backButton: boolean;
     public header: string;
-    public contentSectionExpanded: boolean;
-    public contentSectionTemplate: TemplateRef<any>;
     public temporaryBackRoute: { backRoute: string; route: ActivatedRoute };
 
     private _buttons: MkjToolbarButton[];
@@ -92,8 +90,6 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     public resetToolbar(): void {
         this.backButton = null;
         this.header = null;
-        this.contentSectionTemplate = null;
-        this.contentSectionExpanded = false;
         this.buttons = null;
     }
 
