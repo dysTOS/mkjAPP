@@ -32,4 +32,3 @@ jobs:
                   private-ssh-key: ${{ secrets.SSH_KEY_MKJ }}
                   source-path: ./dist/mkjAPP/
                   destination-path: ~/app.mk-jainzen.at/
-                  rsync-options: --archive
