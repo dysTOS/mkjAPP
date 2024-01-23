@@ -3,17 +3,26 @@
         @for(c of config.fields; track c.label){ @if(c.value){
         <div [class]="c.styleClass ?? 'lg:col-3 md:col-4 col-12'">
             <mkj-display-field [label]="c.label">
+                @switch(c.type){ @case('links'){
+                <mkj-link-input
+                    [jsonLinks]="c.value"
+                    [readonly]="true"
+                ></mkj-link-input>
+                } @default {
                 {{ c.value }}
+                } }
             </mkj-display-field>
         </div>
         } }
+
+        <div class="col-12 flex text-sm opacity-50 justify-space-start gap-2">
+            @if(model.created_at){
+            <p>Erstellt: {{ model.created_at | mkjDate }}</p>
+            } @if(model.created_by && model.updated_at){
+            <p>|</p>
+            } @if(model.updated_at){
+            <p>Aktualisiert: {{ model.updated_at | mkjDate }}</p>
+            }
+        </div>
     </div>
-    <!-- <div class="col-12">
-        <mkj-display-field label="Links">
-            <mkj-link-input
-                [jsonLinks]="noten.links"
-                [readonly]="true"
-            ></mkj-link-input>
-        </mkj-display-field>
-    </div> -->
 </div>

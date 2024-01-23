@@ -21,14 +21,16 @@
     </div>
 </div>
 
-<div *ngIf="!readonly" class="flex flex-column gap-3 mt-5">
+@if(!readonly){
+<div class="flex flex-column gap-3 mt-5">
     <span class="p-float-label">
         <input
             type="text"
             [(ngModel)]="addLink.label"
+            (ngModelChange)="touch()"
             pInputText
             inputId="label"
-            [disabled]="disabled"
+            [disabled]="disabled$ | async"
             placeholder="z.B. Youtube"
             [ngClass]="{
                 'ng-invalid ng-dirty': !addLink.label && addLink.url
@@ -41,9 +43,10 @@
         <textarea
             type="text"
             [(ngModel)]="addLink.url"
+            (ngModelChange)="touch()"
             pInputTextarea
             inputId="label"
-            [disabled]="disabled"
+            [disabled]="disabled$ | async"
             placeholder="z.B. youtube.com/abc2345dfa2"
             [ngClass]="{
                 'ng-invalid ng-dirty': !addLink.url && addLink.label
@@ -57,7 +60,8 @@
         class="p-button-secondary p-button-rounded"
         label="Hinzufügen"
         icon="pi pi-plus"
-        [disabled]="!addLink.label || !addLink.url"
+        [disabled]="!addLink.label || !addLink.url || disabled$ | async"
         (click)="addLinkToList()"
     ></button>
 </div>
+}

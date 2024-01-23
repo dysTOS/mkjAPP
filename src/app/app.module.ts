@@ -112,7 +112,6 @@ import { AatestComponent } from "./components/aatest/aatest.component";
 import { TestApiComponent } from "./components/aatest/test-api/test-api.component";
 import { InstrumenteEditorComponent } from "./components/archiv/instrumente/instrumente-editor/instrumente-editor.component";
 import { InstrumenteOverviewComponent } from "./components/archiv/instrumente/instrumente-overview/instrumente-overview.component";
-import { NotenCardComponent } from "./components/archiv/noten/noten-card/noten-card.component";
 import { NotenEditorComponent } from "./components/archiv/noten/noten-editor/noten-editor.component";
 import { NotenOverviewComponent } from "./components/archiv/noten/noten-overview/noten-overview.component";
 import { NotenmappeEditComponent } from "./components/archiv/notenmappen/notenmappe-edit/notenmappe-edit.component";
@@ -159,7 +158,7 @@ import { MkjColorPickerComponent } from "./utilities/form-input-components/mkj-c
 import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-date-input/mkj-date-input.component";
 import { MkjLinkInputComponent } from "./utilities/form-input-components/mkj-link-input/mkj-link-input.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
-import { MkjDisplayFieldComponent } from "./utilities/mkj-display-field/mkj-display-field.component";
+import { MkjDisplayFieldComponent } from "./utilities/mkj-display-model/mkj-display-field/mkj-display-field.component";
 import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 import { MkjTileComponent } from "./utilities/mkj-tile-view/mkj-tile/mkj-tile.component";
@@ -352,7 +351,6 @@ registerLocaleData(localeDe);
         TerminCardComponent,
         StatistikTermineComponent,
         StatistikNotenComponent,
-        NotenCardComponent,
         StatistikOverviewComponent,
         MitgliedRolesPickerComponent,
         InstrumenteOverviewComponent,

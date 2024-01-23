@@ -6,6 +6,5 @@ export function displayModel(component: any): Provider {
     return {
         provide: DISPLAY_MODEL,
         useClass: component,
-        multi: true,
     };
 }

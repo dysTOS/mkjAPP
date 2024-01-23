@@ -9,10 +9,12 @@
 </mkj-list>
 
 <ng-template #rowexpansion let-noten>
-    <mkj-display-model [model]="noten"></mkj-display-model>
-    <div class="col-12 flex justify-content-center">
+    <mkj-display-model *ngIf="noten" [model]="noten"></mkj-display-model>
+    <div
+        *visibleFor="[PermissionMap.NOTEN_SAVE]"
+        class="col-12 flex justify-content-center"
+    >
         <button
-            *visibleFor="[PermissionMap.NOTEN_SAVE]"
             pButton
             pRipple
             label="Bearbeiten"

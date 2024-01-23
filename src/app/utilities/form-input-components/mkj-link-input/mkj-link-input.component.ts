@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Injector, Input } from "@angular/core";
 import {
     AbstractControl,
     ControlValueAccessor,
@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { controlValidator } from "src/app/providers/control-validator";
 import { controlValueAccessor } from "src/app/providers/control-value-accessor";
+import { AbstractControlAccessor } from "../abstract-control-accessor";
 
 export type Link = {
     url: string;
@@ -22,7 +23,10 @@ export type Link = {
         controlValidator(MkjLinkInputComponent),
     ],
 })
-export class MkjLinkInputComponent implements ControlValueAccessor, Validator {
+export class MkjLinkInputComponent
+    extends AbstractControlAccessor<string>
+    implements Validator
+{
     private _jsonLinks: string;
     @Input()
     public get jsonLinks(): string {
@@ -43,12 +47,16 @@ export class MkjLinkInputComponent implements ControlValueAccessor, Validator {
         label: "",
     };
 
-    public disabled: boolean;
-
-    public onChange: (value: string) => void;
-    public onTouch: () => void;
-
-    constructor() {}
+    constructor(inj: Injector) {
+        super(inj);
+        this.subs.sink = this.value$.subscribe((value) => {
+            try {
+                this.links = JSON.parse(value) ?? [];
+            } catch {
+                this.links = [];
+            }
+        });
+    }
 
     public addLinkToList(): void {
         if (this.addLink.url && this.addLink.label) {
@@ -71,32 +79,15 @@ export class MkjLinkInputComponent implements ControlValueAccessor, Validator {
 
     public onInternChange(): void {
         if (this.links.length === 0) {
-            this.onChange(null);
+            this.change(null);
         } else {
             const formattedValue = JSON.stringify(this.links);
-            this.onChange(formattedValue);
+            this.change(formattedValue);
         }
-        this.onTouch();
+        this.touch();
     }
 
-    writeValue(obj: string): void {
-        try {
-            this.links = JSON.parse(obj) ?? [];
-        } catch {
-            this.links = [];
-        }
-    }
-    registerOnChange(fn: any): void {
-        this.onChange = fn;
-    }
-    registerOnTouched(fn: any): void {
-        this.onTouch = fn;
-    }
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-    }
-
-    validate(control: AbstractControl<any, any>): ValidationErrors {
+    public validate(control: AbstractControl<any, any>): ValidationErrors {
         if (!this.addLink.label && !this.addLink.url) {
             return null;
         }
