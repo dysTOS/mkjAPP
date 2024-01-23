@@ -2,8 +2,10 @@ import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Noten } from "src/app/models/Noten";
 import { PermissionKey } from "src/app/models/User";
-import { ConfigurationService } from "src/app/services/configuration.service";
+import { displayModel } from "src/app/providers/display-model";
 import { UserService } from "src/app/services/authentication/user.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
+import { NotenDisplayModel } from "src/app/utilities/_display-model-configurations/noten-display-model.class";
 import { NotenListConfig } from "src/app/utilities/_list-configurations/noten-list-config.class";
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -12,7 +14,11 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     selector: "app-noten-overview",
     templateUrl: "./noten-overview.component.html",
     styleUrls: ["./noten-overview.component.scss"],
-    providers: [NotenListDatasource, NotenListConfig],
+    providers: [
+        NotenListDatasource,
+        NotenListConfig,
+        displayModel(NotenDisplayModel),
+    ],
 })
 export class NotenOverviewComponent {
     public readonly PermissionMap = PermissionKey;

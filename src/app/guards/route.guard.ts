@@ -1,36 +1,27 @@
 import { Injectable } from "@angular/core";
-import { Router, UrlTree, ActivatedRouteSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Router, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
-import { MenuService } from "../services/menu.service";
 import { environment } from "src/environments/environment";
-import { UserService } from "../services/authentication/user.service";
 import { PermissionKey } from "../models/User";
+import { UserService } from "../services/authentication/user.service";
 
 @Injectable()
 export class RouteGuard {
-    constructor(
-        private router: Router,
-        private userService: UserService,
-        private menuService: MenuService
-    ) {}
+    constructor(private router: Router, private userService: UserService) {}
 
-    canActivate(
+    public canActivate(
         route: ActivatedRouteSnapshot
     ): boolean | UrlTree | Observable<boolean> {
-        const item = this.menuService.getMenuItemByRouterLink(
-            route.url[0].path
-        );
-        // TODO: add permissions in router.module and check there, use permissions of menu-model only for visibility and not for the guard!!
+        const permissions = route.data?.permissions as PermissionKey[];
 
-        const permission = item?.permission;
+        if (!permissions || permissions.length === 0) {
+            return true;
+        }
 
-        if (
-            !permission ||
-            this.userService.hasPermission(permission as PermissionKey)
-        ) {
+        if (this.userService.hasOneOfPermissions(permissions)) {
             return true;
         } else {
-            return this.router.parseUrl(environment.prefix + "/noaccess");
+            return this.router.parseUrl(environment.prefix + "/access");
         }
     }
 }

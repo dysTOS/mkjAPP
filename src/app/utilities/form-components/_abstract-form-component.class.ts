@@ -9,10 +9,10 @@ import { SubSink } from "subsink";
 
 @Directive()
 export abstract class AbstractFormComponent<T> implements OnDestroy {
+    public formGroup: FormGroup;
+
     protected navigateBackOnSave = true;
     protected navigateBackRouteString = "../";
-
-    public formGroup: FormGroup;
 
     private _loading = new BehaviorSubject<boolean>(false);
     public readonly loading$ = this._loading.asObservable();
@@ -40,9 +40,7 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
     }
 
     protected abstract initToolbar(): void;
-
     protected abstract initFormGroup(): FormGroup;
-
     protected abstract getId(): string | "new";
 
     protected dataLoaded(): void {}
@@ -115,11 +113,24 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
     }
 
     public reload(): void {
-        this.loadData();
-        //TODO ask for confirmation OR change deactivate-guard logic
+        this.infoService
+            .confirm("Sollen alle Änderungen zurückgesetzt werden?", {
+                icon: "pi pi-refresh",
+                acceptLabel: "Reset",
+            })
+            .subscribe({
+                next: (accpted) => {
+                    if (accpted) {
+                        this.formGroup.reset();
+                        this.formGroup.markAsPristine();
+                        this.formGroup.markAsUntouched();
+                        this.loadData();
+                    }
+                },
+            });
     }
 
-    public delete(): void {
+    protected delete(): void {
         const id = this.getId();
         if (id === "new") {
             throw new Error("Cannot delete unsaved data");

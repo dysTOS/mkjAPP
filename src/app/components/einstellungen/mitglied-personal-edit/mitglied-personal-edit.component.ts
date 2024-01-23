@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { EditComponentDeactivate } from "src/app/guards/edit-deactivate.guard";
 import { MitgliederApiService } from "src/app/services/api/mitglieder-api.service";
 import { UserService } from "src/app/services/authentication/user.service";
 import { InfoService } from "src/app/services/info.service";
@@ -11,9 +10,7 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
     templateUrl: "./mitglied-personal-edit.component.html",
     styleUrls: ["./mitglied-personal-edit.component.scss"],
 })
-export class MitgliedPersonalEditComponent
-    implements OnInit, EditComponentDeactivate
-{
+export class MitgliedPersonalEditComponent implements OnInit {
     public isSaving: boolean = false;
 
     public formGroup: FormGroup;

@@ -94,10 +94,12 @@ export class InfoService {
         const subject = new Subject();
         this.confirmationService.confirm({
             header: "Löschen?",
+            icon: "pi pi-trash",
             message:
                 message ??
                 "Bist du sicher das dieser Datensatz gelöscht werden soll?",
             acceptLabel: "Löschen",
+            rejectLabel: "Abbrechen",
             acceptButtonStyleClass: "p-button-danger",
             rejectButtonStyleClass: "p-button-text",
             accept: () => {
@@ -124,6 +126,7 @@ export class InfoService {
         const subject = new Subject<boolean>();
         this.confirmationService.confirm({
             header: options?.header ?? "Bestätigen",
+            icon: options?.icon ?? "pi pi-exclamation-triangle",
             message:
                 message ??
                 "Bist du sicher das dieser Vorgang durchgeführt werden soll?",

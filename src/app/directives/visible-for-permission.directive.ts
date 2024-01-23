@@ -13,7 +13,7 @@ import { PermissionKey } from "../models/User";
     selector: "[visibleFor]",
 })
 export class VisibleForPermissionDirective implements OnDestroy {
-    private subscription: Subscription;
+    private _sub: Subscription;
 
     constructor(
         private userService: UserService,
@@ -21,27 +21,20 @@ export class VisibleForPermissionDirective implements OnDestroy {
         private viewContainer: ViewContainerRef
     ) {}
 
-    @Input() set visibleFor(permissions: string[]) {
-        let isVisible: boolean = false;
+    @Input({ required: true }) set visibleFor(permissions: PermissionKey[]) {
         this.viewContainer.clear();
-        this.subscription = this.userService
-            .getCurrentUserPermissions()
-            .subscribe({
-                next: () => {
-                    permissions.forEach((r) => {
-                        if (this.userService.hasPermission(r as PermissionKey))
-                            isVisible = true;
-                    });
-                    if (isVisible) {
-                        this.viewContainer.createEmbeddedView(this.templateRef);
-                    } else {
-                        this.viewContainer.clear();
-                    }
-                },
-            });
+        this._sub = this.userService.getCurrentUserPermissions().subscribe({
+            next: () => {
+                if (this.userService.hasOneOfPermissions(permissions)) {
+                    this.viewContainer.createEmbeddedView(this.templateRef);
+                } else {
+                    this.viewContainer.clear();
+                }
+            },
+        });
     }
 
     public ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this._sub.unsubscribe();
     }
 }

@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="grid col-12">
+        @for(c of config.fields; track c.label){ @if(c.value){
+        <div [class]="c.styleClass ?? 'lg:col-3 md:col-4 col-12'">
+            <mkj-display-field [label]="c.label">
+                {{ c.value }}
+            </mkj-display-field>
+        </div>
+        } }
+    </div>
+    <!-- <div class="col-12">
+        <mkj-display-field label="Links">
+            <mkj-link-input
+                [jsonLinks]="noten.links"
+                [readonly]="true"
+            ></mkj-link-input>
+        </mkj-display-field>
+    </div> -->
+</div>

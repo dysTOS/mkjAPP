@@ -191,6 +191,7 @@ import { RouterOutletWrapperComponent } from "./components/router-outlet-wrapper
 import { TerminStatusSeverityPipe } from "./pipes/termin-status-severity.pipe";
 import { MkjAutocompleteComponent } from "./utilities/form-input-components/mkj-autocomplete/mkj-autocomplete.component";
 import { DropdownOptionsEditComponent } from "./components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component";
+import { MkjDisplayModelComponent } from "./utilities/mkj-display-model/mkj-display-model.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -311,6 +312,7 @@ registerLocaleData(localeDe);
         AppHelpComponent,
         AppNotfoundComponent,
         AppErrorComponent,
+        MkjDisplayModelComponent,
         AppAccessdeniedComponent,
         MkjListCellComponent,
         TerminDetailsComponent,

@@ -46,12 +46,11 @@
             <div class="inline-flex align-items-center">
                 <i class="pi pi-user mr-2"></i>
                 <b class="mr-2">Kontrahent</b>
-                <p *ngIf="formGroup.controls.anschrift_id.value">
-                    (aus System)
-                </p>
-                <p *ngIf="!formGroup.controls.anschrift_id.value">
-                    (Neuanlage)
-                </p>
+                @if(formGroup.controls.anschrift_id.value){
+                <p>(aus System)</p>
+                } @else {
+                <p>(Neuanlage)</p>
+                }
             </div>
         </p-divider>
     </div>

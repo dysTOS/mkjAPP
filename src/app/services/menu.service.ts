@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { ConfirmationService, MenuItem } from "primeng/api";
-import { Subject } from "rxjs";
 import { SubSink } from "subsink";
 import { Permission, PermissionKey } from "../models/User";
 import { AuthStateService } from "./authentication/auth-state.service";
@@ -15,13 +14,12 @@ export class MenuService implements OnDestroy {
             icon: "pi pi-fw pi-home",
             routerLink: "dashboard",
             enumLabel: MenuLabels.DASHBOARD,
-            visible: false,
         },
         {
             label: this.namingService.uiNaming.Termine,
             icon: "pi pi-fw pi-calendar",
             enumLabel: MenuLabels.TERMINE,
-            visible: false,
+            permission: PermissionKey.TERMIN_READ,
             children: [
                 {
                     label: "Terminübersicht",
@@ -59,28 +57,27 @@ export class MenuService implements OnDestroy {
             label: this.namingService.uiNaming.Archiv,
             icon: "mdi mdi-archive-music-outline",
             enumLabel: MenuLabels.ARCHIV,
-            visible: false,
             permission: PermissionKey.NOTEN_READ,
             children: [
                 {
                     label: this.namingService.uiNaming.Noten,
                     icon: "mdi mdi-music",
                     routerLink: "archiv/noten",
-                    visible: false,
+
                     permission: PermissionKey.NOTEN_READ,
                 },
                 {
                     label: this.namingService.uiNaming.Notenmappen,
                     icon: "mdi mdi-book-music-outline",
                     routerLink: "archiv/mappen",
-                    visible: false,
+
                     permission: PermissionKey.NOTENMAPPE_READ,
                 },
                 {
                     label: this.namingService.uiNaming.Instrumente,
                     icon: "mdi mdi-trumpet",
                     routerLink: "archiv/instrumente",
-                    visible: false,
+
                     permission: PermissionKey.INSTRUMENTE_READ,
                 },
             ],
@@ -89,14 +86,12 @@ export class MenuService implements OnDestroy {
             label: this.namingService.uiNaming.Statistiken,
             icon: "pi pi-chart-line",
             enumLabel: MenuLabels.STATISTIK,
-            visible: false,
             routerLink: "statistik",
         },
         {
             label: this.namingService.uiNaming.Finanzen,
             icon: "mdi mdi-currency-eur",
             enumLabel: MenuLabels.FINANZEN,
-            visible: false,
             permission: PermissionKey.KASSABUCH_READ,
             children: [
                 {
@@ -104,7 +99,6 @@ export class MenuService implements OnDestroy {
                     icon: "mdi mdi-currency-eur",
                     routerLink: "finanzen/list",
                     permission: PermissionKey.KASSABUCH_READ,
-                    visible: false,
                 },
                 {
                     label: "Adressen",
@@ -118,33 +112,29 @@ export class MenuService implements OnDestroy {
             label: "Einstellungen",
             icon: "pi pi-fw pi-cog",
             enumLabel: MenuLabels.EINSTELLUNGEN,
-            visible: false,
             children: [
                 {
                     label: "Meine Daten",
                     icon: "pi pi-user",
                     routerLink: "einstellungen/mitgliedsdaten",
-                    visible: false,
                 },
                 {
                     label: "Rollen & Rechte",
                     icon: "mdi mdi-account-lock-open-outline",
                     routerLink: "einstellungen/rollen",
-                    visible: false,
+
                     permission: PermissionKey.ROLE_READ,
                 },
                 {
                     label: "Lokale Einstellungen",
                     icon: "mdi mdi-cellphone-cog",
                     routerLink: "einstellungen/lokal",
-                    visible: false,
                 },
                 {
                     label: "Globale Einstellungen",
                     icon: "mdi mdi-cog",
                     routerLink: "einstellungen/global",
                     permission: PermissionKey.USER_DELETE,
-                    visible: false,
                 },
                 {
                     label: "Change Log",
@@ -157,7 +147,6 @@ export class MenuService implements OnDestroy {
             label: "Logout",
             icon: "pi pi-sign-out",
             enumLabel: MenuLabels.LOGOUT,
-            visible: false,
             command: () => {
                 this.confirmationService.confirm({
                     message: "Auf diesem Gerät abmelden?",
@@ -174,16 +163,15 @@ export class MenuService implements OnDestroy {
             icon: "pi pi-pencil",
             routerLink: "test",
             enumLabel: MenuLabels.TEST,
-            visible: false,
-            permission: PermissionKey.ROLE_ASSIGN,
+            permission: PermissionKey.USER_DELETE,
         },
     ];
 
-    private menuSource = new Subject<string>();
-    private resetSource = new Subject();
+    // private menuSource = new Subject<string>();
+    // private resetSource = new Subject();
 
-    public menuSource$ = this.menuSource.asObservable();
-    public resetSource$ = this.resetSource.asObservable();
+    // public menuSource$ = this.menuSource.asObservable();
+    // public resetSource$ = this.resetSource.asObservable();
 
     private subSink = new SubSink();
 
@@ -205,13 +193,13 @@ export class MenuService implements OnDestroy {
         this.subSink.unsubscribe();
     }
 
-    onMenuStateChange(key: string) {
-        this.menuSource.next(key);
-    }
+    // public onMenuStateChange(key: string) {
+    //     this.menuSource.next(key);
+    // }
 
-    reset() {
-        this.resetSource.next(null);
-    }
+    // public reset() {
+    //     this.resetSource.next(null);
+    // }
 
     private updateMenuItemsVisibility(
         permissions: Permission[],
@@ -233,29 +221,29 @@ export class MenuService implements OnDestroy {
         });
     }
 
-    public getMenuItemByRouterLink(
-        routerLink: string,
-        menuArray: MkjMenuItem[] = this.MainMenu
-    ): MkjMenuItem | null {
-        let item = null;
+    // public getMenuItemByRouterLink(
+    //     routerLink: string,
+    //     menuArray: MkjMenuItem[] = this.MainMenu
+    // ): MkjMenuItem | null {
+    //     let item = null;
 
-        for (let i = 0; i < menuArray.length - 1; i++) {
-            if (menuArray[i].routerLink?.includes(routerLink)) {
-                item = menuArray[i];
-            }
-            if (!item && menuArray[i].children) {
-                item = this.getMenuItemByRouterLink(
-                    routerLink,
-                    menuArray[i].children
-                );
-            }
-            if (item) {
-                break;
-            }
-        }
+    //     for (let i = 0; i < menuArray.length - 1; i++) {
+    //         if (menuArray[i].routerLink?.includes(routerLink)) {
+    //             item = menuArray[i];
+    //         }
+    //         if (!item && menuArray[i].children) {
+    //             item = this.getMenuItemByRouterLink(
+    //                 routerLink,
+    //                 menuArray[i].children
+    //             );
+    //         }
+    //         if (item) {
+    //             break;
+    //         }
+    //     }
 
-        return item;
-    }
+    //     return item;
+    // }
 }
 
 export interface MkjMenuItem extends MenuItem {
