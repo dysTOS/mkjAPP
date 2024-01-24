@@ -9,11 +9,11 @@
     .invoice-company {
         .logo-image {
             width: 75px;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
         }
 
         div {
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
         }
 
         .company-name {
@@ -35,7 +35,7 @@
 
         > div {
             width: 50%;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
         }
 
         .invoice-label {
@@ -56,12 +56,12 @@
         .bill-to {
             font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
         }
 
         .invoice-to-info {
             div {
-                margin-bottom: .5rem;
+                margin-bottom: 0.5rem;
             }
         }
     }
@@ -82,12 +82,14 @@
                 font-weight: 700;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 1rem;
                 text-align: right;
             }
 
-            th:first-child, td:first-child {
+            th:first-child,
+            td:first-child {
                 text-align: left;
             }
         }
@@ -105,7 +107,7 @@
     }
 }
 
-@media print{
+@media print {
     body * {
         visibility: hidden;
     }
@@ -121,6 +123,3 @@
         margin: 0;
     }
 }
-
-
-

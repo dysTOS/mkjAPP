@@ -50,6 +50,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
     }
 
     protected initToolbar(): void {
+        this.toolbarService.backButton = true;
         this.toolbarService.buttons = [
             {
                 label: "Löschen",
@@ -100,6 +101,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
             }
         );
     }
+
     protected getId(): string {
         const id = this.route.snapshot.paramMap.get("id");
         return id;

@@ -42,6 +42,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
 import { LoginComponent } from "./pages/login/login.component";
 import { SignupComponent } from "./pages/signup/signup.component";
 import { AnschriftenOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
+import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 
 @NgModule({
     imports: [
@@ -267,6 +268,16 @@ import { AnschriftenOverviewComponent } from "./components/anschriften/anschrift
                                     path: "details/:buchId",
                                     component: KassabuchDetailsComponent,
                                     canActivate: [RouteGuard],
+                                },
+                                {
+                                    path: "rechnung/:id",
+                                    component: MkjRechnungComponent,
+                                    canActivate: [RouteGuard],
+                                    data: {
+                                        permissions: [
+                                            PermissionKey.KASSABUCHUNG_SAVE,
+                                        ],
+                                    },
                                 },
                                 {
                                     path: "details/:buchId/:id",

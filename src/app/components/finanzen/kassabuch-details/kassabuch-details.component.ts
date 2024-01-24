@@ -46,10 +46,6 @@ export class KassabuchDetailsComponent implements OnInit {
         this.loadData();
     }
 
-    public navigateBuchung(id: string): void {
-        this.router.navigate([id], { relativeTo: this.route });
-    }
-
     private loadData(): void {
         this._loading.next(true);
         const id = this.route.snapshot.paramMap.get("buchId");

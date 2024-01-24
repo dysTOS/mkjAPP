@@ -2602,11 +2602,13 @@ body a {
 #invoice-content .invoice .invoice-items table th {
   font-weight: 700;
 }
-#invoice-content .invoice .invoice-items table th, #invoice-content .invoice .invoice-items table td {
+#invoice-content .invoice .invoice-items table th,
+#invoice-content .invoice .invoice-items table td {
   padding: 1rem;
   text-align: right;
 }
-#invoice-content .invoice .invoice-items table th:first-child, #invoice-content .invoice .invoice-items table td:first-child {
+#invoice-content .invoice .invoice-items table th:first-child,
+#invoice-content .invoice .invoice-items table td:first-child {
   text-align: left;
 }
 #invoice-content .invoice .invoice-summary {

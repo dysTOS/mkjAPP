@@ -39,13 +39,13 @@ export class NotenListConfig implements ListConfiguration<Noten> {
             header: "Komponist",
             field: "komponist",
             type: "string",
-            styleClass: "",
+            styleClass: "not-on-small",
         },
         {
             header: "Arrangeur",
             field: "arrangeur",
             type: "string",
-            styleClass: "",
+            styleClass: "not-on-small",
         },
         {
             header: "Gattung",

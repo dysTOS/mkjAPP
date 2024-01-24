@@ -14,6 +14,7 @@ export const CONFIG_MAP: AppConfig = {
         publictest: true,
 
         apiUrl: "http://localhost:8000/api/",
+        // apiUrl: "https://api-test.mk-jainzen.at/api/",
         appTitle: "mkjLOCAL",
         prefix: "mkj",
     },

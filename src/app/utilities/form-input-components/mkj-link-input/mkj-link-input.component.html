@@ -60,7 +60,7 @@
         class="p-button-secondary p-button-rounded"
         label="Hinzufügen"
         icon="pi pi-plus"
-        [disabled]="!addLink.label || !addLink.url || disabled$ | async"
+        [disabled]="!addLink.label || !addLink.url || (disabled$ | async)"
         (click)="addLinkToList()"
     ></button>
 </div>

@@ -26,7 +26,8 @@
     </div>
 </ng-template>
 
-<ng-template #rowexpansion let-value>
+<ng-template #rowexpansion let-noten>
+    <mkj-display-model *ngIf="noten" [model]="noten"></mkj-display-model>
     <div class="col-12 card flex gap-2 justify-content-center">
         <button
             *ngIf="hasSavePermission"
@@ -34,7 +35,7 @@
             icon="pi pi-link"
             label="Bearbeiten"
             class="p-button-text"
-            (click)="navigateToNoten(value)"
+            (click)="navigateToNoten(noten)"
         ></button>
         <button
             *ngIf="hasAssignPermission && editMode"
@@ -42,7 +43,7 @@
             icon="pi pi-trash"
             label="Entfernen"
             class="p-button-text p-button-danger"
-            (click)="detachNotenFromMappe(value)"
+            (click)="detachNotenFromMappe(noten)"
         ></button>
     </div>
 </ng-template>

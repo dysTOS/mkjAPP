@@ -10,11 +10,13 @@ import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplet
 import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-list-datasource.class";
 import { MappeNotenListConfig } from "./mappe-noten-list-config.class";
 import { MappeNotenListDatasource } from "./mappe-noten-list-datasource.class";
+import { displayModel } from "src/app/providers/display-model";
+import { NotenDisplayModel } from "src/app/utilities/_display-model-configurations/noten-display-model.class";
 
 @Component({
     selector: "mkj-notenmappe-noten-list",
     templateUrl: "./notenmappe-noten-list.component.html",
-    providers: [NotenListDatasource],
+    providers: [NotenListDatasource, displayModel(NotenDisplayModel)],
 })
 export class NotenmappeNotenListComponent implements OnChanges {
     @Input()

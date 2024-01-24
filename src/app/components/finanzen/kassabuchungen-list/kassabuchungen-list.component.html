@@ -4,24 +4,26 @@
     [templateMap]="{
         caption: captionTemplate,
         tagTemplate: tagTemplate,
+        rowexpansion: rowExpansionTemplate
     }"
+    (onSelectionChange)="selectedKassabuchung = $event"
+    (onDoubleClick)="navigateBuchung($event.id)"
 ></mkj-list>
 
 <ng-template #captionTemplate>
     <div class="flex justify-content-center">
-        <p-button label="Neue Buchung" [routerLink]="'new'"></p-button>
+        <p-button
+            label="Buchung"
+            icon="pi pi-plus"
+            [routerLink]="'new'"
+        ></p-button>
     </div>
 </ng-template>
 
 <ng-template #tagTemplate let-buchung>
-    <div class="flex gap-1">
+    <div class="flex gap-1 align-items-center">
         <mkj-tag
             [label]="buchung.typ | uppercase"
-            [icon]="
-                buchung.typ === BuchungTyp.EINNAHME
-                    ? 'pi pi-plus-circle'
-                    : 'pi pi-minus-circle'
-            "
             [pTooltip]="
                 buchung.typ === BuchungTyp.EINNAHME ? 'Einnahme' : 'Ausgabe'
             "
@@ -30,10 +32,34 @@
             "
         ></mkj-tag>
         <mkj-tag
+            *ngIf="!buchung.bezahltDatum"
             icon="pi pi-euro"
-            [label]="buchung.bezahltDatum ? 'B' : 'O'"
             [pTooltip]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
             [severity]="buchung.bezahltDatum ? 'success' : 'danger'"
         ></mkj-tag>
+    </div>
+</ng-template>
+
+<ng-template #rowExpansionTemplate let-buchung>
+    <div
+        *visibleFor="[Permissions.KASSABUCHUNG_SAVE]"
+        class="flex gap-2 justify-content-center"
+    >
+        <button
+            pButton
+            pRipple
+            label="Rechnung"
+            icon="pi pi-file"
+            class="p-button-secondary p-button-rounded p-button-raised"
+            (click)="navigateRechnung(buchung.id)"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Bearbeiten"
+            icon="pi pi-pencil"
+            class="p-button-secondary p-button-rounded p-button-outlined p-button-raised"
+            (click)="navigateBuchung(buchung.id)"
+        ></button>
     </div>
 </ng-template>
