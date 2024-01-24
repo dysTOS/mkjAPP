@@ -67,8 +67,9 @@ export class MkjListComponent<T> implements OnChanges {
     public onStateRestore(event: TableState): void {
         // console.log(event);
         if (
-            this.configuration.initialFilter &&
-            MkjListHelper.hasSetFilters(event) === false
+            this.configuration.initialFilter
+            // &&
+            // MkjListHelper.hasSetFilters(event) === false
         ) {
             Object.entries(this.configuration.initialFilter).forEach(
                 ([key, value]) => {

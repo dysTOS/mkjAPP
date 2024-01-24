@@ -50,38 +50,36 @@
         ></mkj-termin-teilnahme-selector>
     </div>
     <mkj-display-model [model]="termin"></mkj-display-model>
-    <div class="flex justify-content-center">
-        <div class="p-buttonset">
-            <button
-                pButton
-                pRipple
-                label="Details"
-                icon="pi pi-list"
-                class="p-button-secondary p-button-rounded p-button-raised"
-                (click)="navigateSingleAusrueckung(termin)"
-            ></button>
-            <button
-                *visibleFor="[Permissions.TERMIN_SAVE]"
-                pButton
-                pRipple
-                icon="pi pi-copy"
-                label="Duplizieren"
-                class="p-button-secondary p-button-rounded p-button-raised"
-                (click)="this.duplicateAusrueckung(termin)"
-            ></button>
-            <button
-                *visibleFor="[
-                    Permissions.TERMIN_SAVE,
-                    Permissions.TERMIN_GRUPPENLEITER_SAVE
-                ]"
-                pButton
-                pRipple
-                icon="pi pi-pencil"
-                label="Bearbeiten"
-                class="p-button-secondary p-button-rounded p-button-raised"
-                (click)="this.navigateEditor(termin)"
-            ></button>
-        </div>
+    <div class="flex justify-content-center gap-2">
+        <button
+            pButton
+            pRipple
+            label="Details"
+            icon="pi pi-list"
+            class="p-button-secondary p-button-rounded p-button-raised"
+            (click)="navigateSingleAusrueckung(termin)"
+        ></button>
+        <button
+            *visibleFor="[Permissions.TERMIN_SAVE]"
+            pButton
+            pRipple
+            icon="pi pi-copy"
+            label="Duplizieren"
+            class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
+            (click)="this.duplicateAusrueckung(termin)"
+        ></button>
+        <button
+            *visibleFor="[
+                Permissions.TERMIN_SAVE,
+                Permissions.TERMIN_GRUPPENLEITER_SAVE
+            ]"
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            label="Bearbeiten"
+            class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
+            (click)="this.navigateEditor(termin)"
+        ></button>
     </div>
 </ng-template>
 
