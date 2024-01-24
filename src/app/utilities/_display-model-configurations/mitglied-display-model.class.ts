@@ -20,7 +20,8 @@ export class MitgliedDisplayModel
         {
             label: "Adresse",
             getValue: (model: Mitglied) =>
-                `${model.strasse} ${model.hausnummer}, ${model.plz} ${model.ort}`,
+                `${model.strasse ?? ""} ${model.hausnummer ?? ""}
+                 ${model.plz ?? ""} ${model.ort ?? ""}`,
         },
         {
             label: "Telefon",

@@ -24,7 +24,8 @@ export class AnschriftDisplayModel
         {
             label: "Adresse",
             getValue: (model: Anschrift) =>
-                `${model.strasse} ${model.hausnummer}, ${model.plz} ${model.ort}`,
+                `${model.strasse ?? ""} ${model.hausnummer ?? ""}
+            ${model.plz ?? ""} ${model.ort ?? ""}`,
         },
         {
             label: "Telefon Haupt",

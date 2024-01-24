@@ -26,7 +26,7 @@ export class InstrumentDisplayModel
             getValue: (model: Instrument) => model.aufbewahrungsort,
         },
         {
-            label: "Mitglied",
+            label: "Ausgegeben an",
             getValue: (model: Instrument) =>
                 this.namePipe.transform(model.mitglied),
         },
