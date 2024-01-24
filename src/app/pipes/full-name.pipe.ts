@@ -1,12 +1,13 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Injectable, Pipe, PipeTransform } from "@angular/core";
 import { Mitglied } from "../models/Mitglied";
 import { Anschrift } from "../models/Anschrift";
 
 @Pipe({
     name: "fullName",
 })
+@Injectable()
 export class FullNamePipe implements PipeTransform {
-    transform(value: Mitglied | Anschrift): string {
+    public transform(value: Mitglied | Anschrift): string {
         if (!value) return "";
 
         const name = value.vorname + " " + value.zuname;
