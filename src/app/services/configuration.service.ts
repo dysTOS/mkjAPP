@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, map, of, tap } from "rxjs";
 import {
     UiConfigurations,
     UiNamingConfig,
+    UiNotenConfig,
     UiTerminConfig,
 } from "../interfaces/UiConfigurations";
 import { ConfigApiService } from "./api/config-api.service";
@@ -21,6 +22,10 @@ export class ConfigurationService {
 
     public get terminConfig(): UiTerminConfig {
         return this._uiConfig.value?.terminConfig;
+    }
+
+    public get notenConfig(): UiNotenConfig {
+        return this._uiConfig.value?.notenConfig;
     }
 
     constructor(

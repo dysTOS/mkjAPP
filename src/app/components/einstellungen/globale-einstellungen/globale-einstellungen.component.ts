@@ -17,6 +17,13 @@ export class GlobaleEinstellungenComponent {
         toolBar: MkjToolbarService
     ) {
         toolBar.header = "Globale Einstellungen";
+        toolBar.buttons = [
+            {
+                label: "Speichern",
+                icon: "pi pi-save",
+                click: () => this.save(),
+            },
+        ];
         this.uiConfig = configService.getEditConfig();
     }
 

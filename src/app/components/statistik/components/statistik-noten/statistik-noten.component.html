@@ -1,6 +1,6 @@
 <div class="flex flex-column text-center">
     <h5>
-        Anzahl Noten nach Gattung
+        Anzahl {{ NotenUiNaming }} nach {{ NotenGattungUiNaming }}
         <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
     </h5>
     <p *ngIf="!data?.labels?.length">Keine Daten verfügbar...</p>

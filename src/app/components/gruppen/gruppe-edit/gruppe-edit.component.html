@@ -2,13 +2,13 @@
     <div class="p-fluid grid align-items-center">
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-text-input
-                label="Gruppenname"
+                label="Name"
                 formControlName="name"
             ></mkj-text-input>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-autocomplete
-                label="Gruppenleiter"
+                label="Leiter"
                 formControlName="gruppenleiter_mitglied_id"
                 [datasource]="mitgliedDatasource"
                 [listConfig]="mitgliedAutoCompleteConfig"

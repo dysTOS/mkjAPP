@@ -5,10 +5,14 @@ import {
 } from "./display-model-configuration.interface";
 import { Noten } from "src/app/models/Noten";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
+import { ConfigurationService } from "src/app/services/configuration.service";
 
 @Injectable()
 export class NotenDisplayModel implements DisplayModelConfiguration<Noten> {
-    constructor(private datePipe: MkjDatePipe) {}
+    constructor(
+        private datePipe: MkjDatePipe,
+        private configService: ConfigurationService
+    ) {}
 
     public fields: DisplayModelField<Noten>[] = [
         {
@@ -32,7 +36,7 @@ export class NotenDisplayModel implements DisplayModelConfiguration<Noten> {
             getValue: (model: Noten) => model.verlag,
         },
         {
-            label: "Gattung",
+            label: this.configService.uiNaming.Notengattung,
             getValue: (model: Noten) => model.gattung,
         },
         {

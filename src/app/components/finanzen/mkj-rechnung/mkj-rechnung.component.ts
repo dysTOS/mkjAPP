@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Kassabuchung } from "src/app/models/Kassabuch";
 import { KassabuchungenApiService } from "src/app/services/api/kassabuchungen-api.service";
-import { MkjToolbarService } from "../mkj-toolbar/mkj-toolbar.service";
+import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
 
 @Component({
     selector: "mkj-rechnung",
@@ -18,6 +18,13 @@ export class MkjRechnungComponent {
         private toolbarService: MkjToolbarService
     ) {
         toolbarService.backButton = true;
+        toolbarService.buttons = [
+            {
+                label: "Drucken",
+                icon: "pi pi-print",
+                click: () => window.print(),
+            },
+        ];
         const id = this.route.snapshot.params.id;
         this.loadKassabuchung(id);
     }
@@ -27,9 +34,5 @@ export class MkjRechnungComponent {
             this.re = re;
             this.toolbarService.header = `Rechnung ${re.nummer ?? ""}`;
         });
-    }
-
-    public print() {
-        window.print();
     }
 }

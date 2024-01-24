@@ -1,4 +1,4 @@
-import { Noten, NotenGattungMap } from "src/app/models/Noten";
+import { Noten } from "src/app/models/Noten";
 import {
     ListConfiguration,
     MkjListColumn,
@@ -7,9 +7,12 @@ import {
     MkjListSort,
 } from "./_list-configuration.class";
 import { Injectable } from "@angular/core";
+import { ConfigurationService } from "src/app/services/configuration.service";
 
 @Injectable()
 export class NotenListConfig implements ListConfiguration<Noten> {
+    constructor(private configService: ConfigurationService) {}
+
     listName: string = "Noten";
     selectionMode: MkjListSelectionMode = "single";
     showTotalCount = true;
@@ -48,15 +51,15 @@ export class NotenListConfig implements ListConfiguration<Noten> {
             styleClass: "not-on-small",
         },
         {
-            header: "Gattung",
+            header: this.configService.uiNaming.Notengattung,
             field: "gattung",
             type: "string",
             styleClass: "",
             sortable: true,
             filter: {
                 filterOptions: [
-                    { label: "Kein Filter", value: null },
-                    ...NotenGattungMap,
+                    { label: "Alle", value: null },
+                    ...this.configService.notenConfig.notenGattungen,
                 ],
             },
         },

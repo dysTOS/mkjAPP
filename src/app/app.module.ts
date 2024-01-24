@@ -158,7 +158,6 @@ import { MkjDateInputComponent } from "./utilities/form-input-components/mkj-dat
 import { MkjLinkInputComponent } from "./utilities/form-input-components/mkj-link-input/mkj-link-input.component";
 import { MkjContentLoaderComponent } from "./utilities/mkj-content-loader/mkj-content-loader.component";
 import { MkjDisplayFieldComponent } from "./utilities/mkj-display-model/mkj-display-field/mkj-display-field.component";
-import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
 import { TerminTeilnahmeSelectorComponent } from "./utilities/mkj-termin-teilnahme-selector/termin-teilnahme-selector.component";
 import { MkjTileComponent } from "./utilities/mkj-tile-view/mkj-tile/mkj-tile.component";
 import { MkjToolbarComponent } from "./utilities/mkj-toolbar/mkj-toolbar.component";
@@ -190,6 +189,7 @@ import { TerminStatusSeverityPipe } from "./pipes/termin-status-severity.pipe";
 import { MkjAutocompleteComponent } from "./utilities/form-input-components/mkj-autocomplete/mkj-autocomplete.component";
 import { DropdownOptionsEditComponent } from "./components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component";
 import { MkjDisplayModelComponent } from "./utilities/mkj-display-model/mkj-display-model.component";
+import { MkjRechnungComponent } from "./components/finanzen/mkj-rechnung/mkj-rechnung.component";
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,

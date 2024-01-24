@@ -1,22 +1,30 @@
 export interface UiConfigurations {
     uiNaming: UiNamingConfig;
     terminConfig: UiTerminConfig;
+    notenConfig: UiNotenConfig;
 }
 
 export interface UiNamingConfig {
     Archiv: string;
+    Anschrift: string;
+    Anschriften: string;
     Finanzen: string;
-    Instrumente: string;
-    Statistiken: string;
-    Notenmappen: string;
-    Mitglieder: string;
-    Termine: string;
-    Noten: string;
     Gruppen: string;
+    Instrumente: string;
+    Mitglieder: string;
+    Noten: string;
+    Notengattung: string;
+    Notenmappen: string;
+    Statistiken: string;
+    Termine: string;
 }
 
 export interface UiTerminConfig {
     terminKategorien: UiDropdownOption[];
+}
+
+export interface UiNotenConfig {
+    notenGattungen: UiDropdownOption[];
 }
 
 export interface UiDropdownOption<T = any> {

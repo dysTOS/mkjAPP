@@ -42,7 +42,7 @@ import { MkjChangeLogsComponent } from "./pages/change-logs/change-logs.componen
 import { LoginComponent } from "./pages/login/login.component";
 import { SignupComponent } from "./pages/signup/signup.component";
 import { AnschriftenOverviewComponent } from "./components/anschriften/anschriften-overview/anschriften-overview.component";
-import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.component";
+import { MkjRechnungComponent } from "./components/finanzen/mkj-rechnung/mkj-rechnung.component";
 
 @NgModule({
     imports: [
@@ -365,11 +365,6 @@ import { MkjRechnungComponent } from "./utilities/mkj-rechnung/mkj-rechnung.comp
                             data: {
                                 permissions: [PermissionKey.USER_DELETE],
                             },
-                        },
-
-                        {
-                            path: "pages/invoice",
-                            component: AppInvoiceComponent,
                         },
                         { path: "pages/help", component: AppHelpComponent },
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ChartData } from "chart.js";
 import * as _ from "lodash";
 import { StatistikApiService } from "src/app/services/api/statistik-api.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
@@ -15,7 +16,14 @@ export class StatistikNotenComponent implements OnInit {
 
     public loading = false;
 
-    constructor(private statistikService: StatistikApiService) {
+    public readonly NotenGattungUiNaming =
+        this.configService.uiNaming.Notengattung;
+    public readonly NotenUiNaming = this.configService.uiNaming.Noten;
+
+    constructor(
+        private statistikService: StatistikApiService,
+        private configService: ConfigurationService
+    ) {
         this.loading = true;
         this.statistikService.getNoten().subscribe({
             next: (res) => {

@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Noten, NotenGattungMap } from "src/app/models/Noten";
+import { Noten } from "src/app/models/Noten";
 import { PermissionKey } from "src/app/models/User";
 import { NotenApiService } from "src/app/services/api/noten-api.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { InfoService } from "src/app/services/info.service";
 import { AbstractFormComponent } from "src/app/utilities/form-components/_abstract-form-component.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -15,9 +16,9 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 })
 export class NotenEditorComponent extends AbstractFormComponent<Noten> {
     protected navigateBackOnSave = true;
-    public readonly GattungOptions = NotenGattungMap;
 
     constructor(
+        public configService: ConfigurationService,
         toolbarService: MkjToolbarService,
         apiService: NotenApiService,
         infoService: InfoService,

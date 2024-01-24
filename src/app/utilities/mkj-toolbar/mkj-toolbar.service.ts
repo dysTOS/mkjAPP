@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Injectable, OnDestroy, OnInit, TemplateRef } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import {
     ActivatedRoute,
     ActivationStart,
@@ -39,7 +39,7 @@ export class MkjToolbarService implements OnInit, OnDestroy {
     }
 
     private subSink = new SubSink();
-    private firstNavigationHappened = false;
+    private firstUserNavigationHappened = null;
 
     constructor(
         private userService: UserService,
@@ -53,7 +53,11 @@ export class MkjToolbarService implements OnInit, OnDestroy {
                         this.resetToolbar();
                     }
                     if (event instanceof NavigationEnd) {
-                        this.firstNavigationHappened = true;
+                        if (this.firstUserNavigationHappened == null) {
+                            this.firstUserNavigationHappened = false;
+                        } else {
+                            this.firstUserNavigationHappened = true;
+                        }
                     }
                 },
             })
@@ -99,7 +103,7 @@ export class MkjToolbarService implements OnInit, OnDestroy {
                 relativeTo: this.temporaryBackRoute.route,
             });
             this.temporaryBackRoute = null;
-        } else if (this.firstNavigationHappened) {
+        } else if (this.firstUserNavigationHappened) {
             this.temporaryBackRoute = null;
             this.location.back();
         } else {

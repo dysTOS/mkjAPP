@@ -31,10 +31,11 @@
             ></mkj-text-input>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Gattung"
+            <mkj-dropdown
+                [label]="configService.uiNaming.Notengattung"
+                [options]="configService.notenConfig.notenGattungen"
                 formControlName="gattung"
-            ></mkj-text-input>
+            ></mkj-dropdown>
         </div>
         <div class="p-field col-12 lg:col-3 md:col-6">
             <mkj-text-input

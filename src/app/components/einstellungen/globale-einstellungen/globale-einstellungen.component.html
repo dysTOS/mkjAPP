@@ -1,12 +1,4 @@
-<div class="m-2 flex justify-content-end">
-    <p-button
-        label="Speichern"
-        [icon]="saving ? 'pi pi-spin pi-spinner' : null"
-        [disabled]="saving"
-        (onClick)="save()"
-    ></p-button>
-</div>
-<p-tabView>
+<p-tabView [class.p-disabled]="saving">
     <p-tabPanel header="UI Naming">
         <app-ui-naming-config
             [namingConfig]="uiConfig.uiNaming"
@@ -17,6 +9,14 @@
             <h4>Kategorien</h4>
             <mkj-dropdown-options-edit
                 [options]="uiConfig.terminConfig.terminKategorien"
+            ></mkj-dropdown-options-edit>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel [header]="configService.uiNaming.Noten">
+        <div class="flex flex-column gap-2">
+            <h4>Gattungen</h4>
+            <mkj-dropdown-options-edit
+                [options]="uiConfig.notenConfig.notenGattungen"
             ></mkj-dropdown-options-edit>
         </div>
     </p-tabPanel>
