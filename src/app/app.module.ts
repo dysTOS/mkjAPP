@@ -122,7 +122,6 @@ import { TerminDetailsComponent } from "./components/termine/termin-details/term
 import { TeilnahmenOverviewComponent } from "./components/termine/teilnahmen-overview/teilnahmen-overview.component";
 import { TermineOverviewComponent } from "./components/termine/termine-overview/termine-overview.component";
 import { KalenderaboComponent } from "./components/termine/kalenderabo/kalenderabo.component";
-import { TerminCardComponent } from "./components/termine/termin-card/termin-card.component";
 import { LokaleEinstellungenComponent } from "./components/einstellungen/lokale-einstellungen/lokale-einstellungen.component";
 import { MitgliedPersonalEditComponent } from "./components/einstellungen/mitglied-personal-edit/mitglied-personal-edit.component";
 import { RollenEditComponent } from "./components/einstellungen/rollen-edit/rollen-edit.component";
@@ -348,7 +347,6 @@ registerLocaleData(localeDe);
         MkjColorPickerComponent,
         NotenmappeEditComponent,
         NextTerminComponent,
-        TerminCardComponent,
         StatistikTermineComponent,
         StatistikNotenComponent,
         StatistikOverviewComponent,

@@ -49,28 +49,40 @@
             [termin]="termin"
         ></mkj-termin-teilnahme-selector>
     </div>
-    <termin-card [termin]="termin"></termin-card>
-    <div class="flex justify-content-around">
-        <button
-            pButton
-            pRipple
-            icon="pi pi-list"
-            label="Details"
-            class="p-button-raised p-button-rounded p-button-secondary"
-            (click)="navigateSingleAusrueckung(termin)"
-        ></button>
-
-        <button
-            *ngIf="hasAktionenPermissions"
-            pButton
-            pRipple
-            icon="pi pi-pencil"
-            label="Aktionen"
-            class="p-button-outlined p-button-rounded p-button-info"
-            (click)="rowMenu.toggle($event)"
-        ></button>
+    <mkj-display-model [model]="termin"></mkj-display-model>
+    <div class="flex justify-content-center">
+        <div class="p-buttonset">
+            <button
+                pButton
+                pRipple
+                label="Details"
+                icon="pi pi-list"
+                class="p-button-secondary p-button-rounded p-button-raised"
+                (click)="navigateSingleAusrueckung(termin)"
+            ></button>
+            <button
+                *visibleFor="[Permissions.TERMIN_SAVE]"
+                pButton
+                pRipple
+                icon="pi pi-copy"
+                label="Duplizieren"
+                class="p-button-secondary p-button-rounded p-button-raised"
+                (click)="this.duplicateAusrueckung(termin)"
+            ></button>
+            <button
+                *visibleFor="[
+                    Permissions.TERMIN_SAVE,
+                    Permissions.TERMIN_GRUPPENLEITER_SAVE
+                ]"
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                label="Bearbeiten"
+                class="p-button-secondary p-button-rounded p-button-raised"
+                (click)="this.navigateEditor(termin)"
+            ></button>
+        </div>
     </div>
 </ng-template>
 
-<p-menu #rowMenu [popup]="true" [model]="rowMenuItems"></p-menu>
 <p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>

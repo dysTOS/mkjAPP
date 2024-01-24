@@ -4,7 +4,7 @@
     <p-tabView [(activeIndex)]="activeTabIndex">
         <p-tabPanel [selected]="true" header="Infos">
             <div *ngIf="termin">
-                <termin-card [termin]="termin"></termin-card>
+                <mkj-display-model [model]="termin"></mkj-display-model>
 
                 <div class="col-12 flex justify-content-center mb-5">
                     <mkj-termin-teilnahme-selector

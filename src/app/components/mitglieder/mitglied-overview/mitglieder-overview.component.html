@@ -17,14 +17,19 @@
 </ng-template>
 
 <ng-template #rowexpansion let-mitglied>
-    <div class="col-12 flex justify-content-center">
+    @if(mitglied){
+    <mkj-display-model [model]="mitglied"></mkj-display-model>
+    }
+    <div
+        *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
+        class="col-12 flex justify-content-center"
+    >
         <button
-            *visibleFor="[PermissionMap.MITGLIEDER_SAVE]"
             pButton
             pRipple
             label="Bearbeiten"
             icon="pi pi-pencil"
-            class="p-button-outlined p-button-sm p-button-info mr-1"
+            class="p-button-secondary p-button-rounded p-button-raised"
             (click)="navigateSingleMitglied(mitglied)"
         ></button>
     </div>

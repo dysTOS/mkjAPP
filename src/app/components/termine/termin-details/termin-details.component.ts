@@ -14,11 +14,13 @@ import { NotenListDatasource } from "src/app/utilities/_list-datasources/noten-l
 import { NotenAutoCompleteConfigiguration } from "src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class";
 import { ConfigurationService } from "src/app/services/configuration.service";
 import { PermissionKey } from "src/app/models/User";
+import { displayModel } from "src/app/providers/display-model";
+import { TerminDisplayModel } from "src/app/utilities/_display-model-configurations/termin-display-model.class";
 
 @Component({
     selector: "app-termin-details",
     templateUrl: "./termin-details.component.html",
-    providers: [NotenListDatasource],
+    providers: [NotenListDatasource, displayModel(TerminDisplayModel)],
 })
 export class TerminDetailsComponent implements OnInit {
     termin: Termin;

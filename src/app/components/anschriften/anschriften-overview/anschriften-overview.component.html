@@ -2,10 +2,25 @@
     [datasource]="datasource"
     [configuration]="listConfig"
     [templateMap]="{
-        rowexpansion: null,
+        rowexpansion: rowexpansion,
     }"
     (onDoubleClick)="navigateToEdit($event)"
 >
 </mkj-list>
 
-<ng-template #rowexpansion let-anschrift> </ng-template>
+<ng-template #rowexpansion let-anschrift>
+    <mkj-display-model [model]="anschrift"></mkj-display-model>
+    <div
+        *visibleFor="[PermissionMap.ANSCHRIFTEN_SAVE]"
+        class="col-12 flex justify-content-center"
+    >
+        <button
+            pButton
+            pRipple
+            label="Bearbeiten"
+            icon="pi pi-pencil"
+            class="p-button-secondary p-button-rounded p-button-raised"
+            (click)="navigateEditor(anschrift)"
+        ></button>
+    </div>
+</ng-template>

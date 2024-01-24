@@ -7,12 +7,18 @@ import { UserService } from "src/app/services/authentication/user.service";
 import { MitgliederListConfig } from "src/app/utilities/_list-configurations/mitglieder-list-config.class";
 import { MitgliederListDatasource } from "src/app/utilities/_list-datasources/mitglieder-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
+import { displayModel } from "src/app/providers/display-model";
+import { MitgliedDisplayModel } from "src/app/utilities/_display-model-configurations/mitglied-display-model.class";
 
 @Component({
     selector: "app-mitglieder-overview",
     templateUrl: "./mitglieder-overview.component.html",
     styleUrls: ["./mitglieder-overview.component.scss"],
-    providers: [MitgliederListDatasource, MitgliederListConfig],
+    providers: [
+        MitgliederListDatasource,
+        MitgliederListConfig,
+        displayModel(MitgliedDisplayModel),
+    ],
 })
 export class MitgliederOverviewComponent {
     public readonly PermissionMap = PermissionKey;

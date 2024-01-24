@@ -1,18 +1,18 @@
 import { Component, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
-import * as moment from "moment";
 import { MenuItem } from "primeng/api";
 import { Menu } from "primeng/menu";
-import { GetListInput } from "src/app/interfaces/api-middleware";
 import { Termin } from "src/app/models/Termin";
 import { PermissionKey } from "src/app/models/User";
 import { MkjDatePipe } from "src/app/pipes/mkj-date.pipe";
+import { displayModel } from "src/app/providers/display-model";
 import { TermineApiService } from "src/app/services/api/termine-api.service";
-import { ConfigurationService } from "src/app/services/configuration.service";
 import { UserService } from "src/app/services/authentication/user.service";
+import { ConfigurationService } from "src/app/services/configuration.service";
 import { ExportService } from "src/app/services/export.service";
 import { InfoService } from "src/app/services/info.service";
+import { TerminDisplayModel } from "src/app/utilities/_display-model-configurations/termin-display-model.class";
 import { TermineListConfig } from "src/app/utilities/_list-configurations/termine-list-config.class";
 import { TermineListDatasource } from "src/app/utilities/_list-datasources/termine-list-datasource.class";
 import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.service";
@@ -20,41 +20,16 @@ import { MkjToolbarService } from "src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 @Component({
     templateUrl: "./termine-overview.component.html",
     styleUrls: ["./termine-overview.component.scss"],
-    providers: [TermineListDatasource, TermineListConfig],
+    providers: [
+        TermineListDatasource,
+        TermineListConfig,
+        displayModel(TerminDisplayModel),
+    ],
 })
 export class TermineOverviewComponent {
-    // ausrueckungFilterInput: GetListInput<Termin>;
-    // filteredRows: Termin[];
-
-    // actualDate = moment(new Date()).format("YYYY-MM-DD");
-    // filterFromDate = moment(new Date())
-    //     .subtract(1, "week")
-    //     .format("YYYY-MM-DD");
-
     @ViewChild("exportMenu") exportMenu: Menu;
 
     public selectedRow: Termin;
-    public hasAktionenPermissions: boolean = false;
-
-    public rowMenuItems: MenuItem[] = [
-        {
-            label: "Duplizieren",
-            icon: "pi pi-copy",
-            visible: this.userService.hasOneOfPermissions([
-                PermissionKey.TERMIN_SAVE,
-            ]),
-            command: () => this.duplicateAusrueckung(this.selectedRow),
-        },
-        {
-            label: "Bearbeiten",
-            icon: "pi pi-pencil",
-            visible: this.userService.hasOneOfPermissions([
-                PermissionKey.TERMIN_SAVE,
-                PermissionKey.TERMIN_GRUPPENLEITER_SAVE,
-            ]),
-            command: () => this.navigateEditor(this.selectedRow),
-        },
-    ];
 
     public exportMenuItems: MenuItem[] = [
         {
@@ -74,6 +49,8 @@ export class TermineOverviewComponent {
         },
     ];
 
+    public readonly Permissions = PermissionKey;
+
     constructor(
         public datasource: TermineListDatasource,
         public listConfig: TermineListConfig,
@@ -87,11 +64,6 @@ export class TermineOverviewComponent {
         private namingService: ConfigurationService,
         public toolbarService: MkjToolbarService
     ) {
-        this.hasAktionenPermissions = this.userService.hasOneOfPermissions([
-            PermissionKey.TERMIN_SAVE,
-            PermissionKey.TERMIN_GRUPPENLEITER_SAVE,
-            PermissionKey.TERMIN_DELETE,
-        ]);
         this.toolbarService.header = this.namingService.uiNaming.Termine;
         this.toolbarService.buttons = [
             {
