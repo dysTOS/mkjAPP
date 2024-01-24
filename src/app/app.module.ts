@@ -391,6 +391,7 @@ registerLocaleData(localeDe);
         GlobalRouteGuard,
         MessageService,
         MkjDatePipe,
+        FullNamePipe,
         { provide: LOCALE_ID, useValue: "de-AT" },
         {
             provide: HTTP_INTERCEPTORS,
