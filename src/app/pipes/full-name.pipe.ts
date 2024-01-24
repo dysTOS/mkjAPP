@@ -7,7 +7,9 @@ import { Anschrift } from "../models/Anschrift";
 })
 @Injectable()
 export class FullNamePipe implements PipeTransform {
-    public transform(value: Mitglied | Anschrift): string {
+    constructor() {}
+
+    transform(value: Mitglied | Anschrift): string {
         if (!value) return "";
 
         const name = value.vorname + " " + value.zuname;
