@@ -1,61 +1,69 @@
 <mkj-form-wrapper [formGroup]="formGroup" [component]="this">
-    <div class="p-fluid grid">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-dropdown
-                label="Typ"
-                formControlName="typ"
-                [options]="typOptions"
-            ></mkj-dropdown>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Re-Nummer"
-                formControlName="nummer"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-date-input
-                type="date"
-                label="Re-Datum"
-                formControlName="datum"
-            ></mkj-date-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
+  <div class="p-fluid grid">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-dropdown label="Typ" formControlName="typ" [options]="typOptions"></mkj-dropdown>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Re-Nummer" formControlName="nummer"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-date-input type="date" label="Re-Datum" formControlName="datum"></mkj-date-input>
+    </div>
+    <p-divider class="col-12"></p-divider>
+    <div formArrayName="positionen" class="p-field col-12">
+      <div class="flex flex-column gap-2">
+        @for (position of positionenFormArray.controls; track position; let i = $index) {
+          <div class="flex gap-2 align-items-center" [formGroupName]="i">
+            <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
+            <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
+            <mkj-number-input formControlName="preis" label="Preis" mode="currency"></mkj-number-input>
             <mkj-number-input
-                mode="currency"
-                label="Gesamtpreis"
-                formControlName="gesamtpreis"
+              formControlName="gesamtPreis"
+              label="Gesamt"
+              mode="currency"
+              [disabled]="true"
             ></mkj-number-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-date-input
-                type="date"
-                label="Bezahlt am"
-                formControlName="bezahltDatum"
-            ></mkj-date-input>
-        </div>
-        <div class="p-field col-12">
-            <mkj-text-area-input
-                label="Anmerkungen"
-                formControlName="anmerkungen"
-            ></mkj-text-area-input>
-        </div>
+            <button
+              pButton
+              pRipple
+              class="p-button-danger p-button-text"
+              type="button"
+              icon="pi pi-trash"
+              (click)="removePosition(i)"
+            ></button>
+          </div>
+        }
+        <button pButton type="button" icon="pi pi-plus" (click)="addPosition()" label="Position hinzufügen"></button>
+      </div>
+    </div>
+    <p-divider class="col-12"></p-divider>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-number-input
+        mode="currency"
+        label="Gesamtpreis"
+        formControlName="gesamtpreis"
+        [disabled]="positionenFormArray.controls.length != 0"
+      ></mkj-number-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-date-input type="date" label="Bezahlt am" formControlName="bezahltDatum"></mkj-date-input>
     </div>
     <div class="p-field col-12">
-        <p-divider align="left" type="solid">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-user mr-2"></i>
-                <b class="mr-2">Kontrahent</b>
-                @if(formGroup.controls.anschrift_id.value){
-                <p>(aus System)</p>
-                } @else {
-                <p>(Neuanlage)</p>
-                }
-            </div>
-        </p-divider>
+      <mkj-text-area-input label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
     </div>
-    <mkj-anschrift-form
-        mode="suggest"
-        formControlName="anschrift"
-    ></mkj-anschrift-form>
+  </div>
+  <div class="p-field col-12">
+    <p-divider align="left" type="solid">
+      <div class="inline-flex align-items-center">
+        <i class="pi pi-user mr-2"></i>
+        <b class="mr-2">Kontrahent</b>
+        @if (formGroup.controls.anschrift_id.value) {
+          <p>(aus System)</p>
+        } @else {
+          <p>(Neuanlage)</p>
+        }
+      </div>
+    </p-divider>
+  </div>
+  <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
 </mkj-form-wrapper>

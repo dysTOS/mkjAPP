@@ -1,37 +1,38 @@
 <mkj-content-loader [loading]="rolesLoading">
+  @if (allRoles && selectedRoles) {
     <p-listbox
-        *ngIf="allRoles && selectedRoles"
-        [options]="allRoles"
-        [(ngModel)]="selectedRoles"
-        (onChange)="rolesTouched = true; touched.emit(rolesTouched)"
-        [multiple]="true"
-        [checkbox]="true"
-        [filter]="false"
-        [showToggleAll]="false"
-        [listStyle]="{ 'max-height': '500px' }"
-        optionLabel="name"
-        dataKey="id"
-    >
-        <ng-template pTemplate="header">
-            <div
-                class="col-12 flex justify-content-between align-items-center p-0"
-            >
-                <span> Rollen</span>
-                <p-button
-                    label="Update"
+      [options]="allRoles"
+      [(ngModel)]="selectedRoles"
+      (onChange)="rolesTouched = true; touched.emit(rolesTouched)"
+      [multiple]="true"
+      [checkbox]="true"
+      [filter]="false"
+      [showToggleAll]="false"
+      [listStyle]="{ 'max-height': '500px' }"
+      optionLabel="name"
+      dataKey="id"
+      >
+      <ng-template pTemplate="header">
+        <div
+          class="col-12 flex justify-content-between align-items-center p-0"
+          >
+          <span> Rollen</span>
+          <p-button
+            label="Update"
                     [icon]="
                         rolesSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'
                     "
-                    class="m-2"
-                    [disabled]="!rolesTouched || rolesSaving"
-                    (click)="updateRoles()"
-                ></p-button></div
+            class="m-2"
+            [disabled]="!rolesTouched || rolesSaving"
+            (click)="updateRoles()"
+          ></p-button></div
         ></ng-template>
         <ng-template let-role pTemplate="item">
-            <div>
-                <div>{{ role.name }}</div>
-            </div>
+          <div>
+            <div>{{ role.name }}</div>
+          </div>
         </ng-template>
         <ng-template pTemplate="footer"></ng-template>
-    </p-listbox>
-</mkj-content-loader>
+      </p-listbox>
+    }
+  </mkj-content-loader>

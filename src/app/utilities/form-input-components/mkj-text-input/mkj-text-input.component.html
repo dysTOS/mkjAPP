@@ -1,25 +1,27 @@
 <span class="p-float-label" [class.p-input-icon-right]="iconRight">
+  @if (iconRight && (!clearable || !(value$ | async))) {
     <i
-        *ngIf="iconRight && (!clearable || !(value$ | async))"
-        [class]="iconRight"
+      [class]="iconRight"
     ></i>
+  }
+  @if (clearable && (value$ | async)) {
     <i
-        *ngIf="clearable && (value$ | async)"
-        class="pi pi-times cursor-pointer"
-        (click)="change(null)"
+      class="pi pi-times cursor-pointer"
+      (click)="change(null)"
     ></i>
-    <input
-        pInputText
-        type="text"
-        [ngModel]="value$ | async"
-        (ngModelChange)="change($event)"
-        [disabled]="disabled$ | async"
-        (blur)="blur()"
-        (keyup.enter)="onEnter.emit()"
-        [class.ng-dirty]="formControl?.invalid"
-        [class.ng-invalid]="formControl?.invalid"
-        [placeholder]="placeholder"
-        class="w-full"
+  }
+  <input
+    pInputText
+    type="text"
+    [ngModel]="value$ | async"
+    (ngModelChange)="change($event)"
+    [disabled]="disabled$ | async"
+    (blur)="blur()"
+    (keyup.enter)="onEnter.emit()"
+    [class.ng-dirty]="formControl?.invalid"
+    [class.ng-invalid]="formControl?.invalid"
+    [placeholder]="placeholder"
+    class="w-full"
     />
     <label [for]="label">{{ label }}</label>
-</span>
+  </span>

@@ -1,12 +1,13 @@
 <mkj-content-loader [loading]="loading$ | async">
-    <div class="flex flex-wrap gap-4">
-        <mkj-tile
-            *ngFor="let value of values"
-            [label]="value.label"
-            [color]="value.color"
-            [labelBottomLeft]="value.labelBottomLeft"
-            [labelBottomRight]="value.labelBottomRight"
-            (click)="clicked.emit(value.value)"
-        ></mkj-tile>
-    </div>
+  <div class="flex flex-wrap gap-4">
+    @for (value of values; track value) {
+      <mkj-tile
+        [label]="value.label"
+        [color]="value.color"
+        [labelBottomLeft]="value.labelBottomLeft"
+        [labelBottomRight]="value.labelBottomRight"
+        (click)="clicked.emit(value.value)"
+      ></mkj-tile>
+    }
+  </div>
 </mkj-content-loader>

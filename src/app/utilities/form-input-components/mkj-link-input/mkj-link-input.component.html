@@ -1,67 +1,74 @@
 <div class="link-list mt-2">
-    <div *ngFor="let link of links; let index = index" class="flex flex-column">
-        <p-divider *ngIf="index !== 0" class="w-full"></p-divider>
-        <div class="flex justify-content-between">
-            <div class="link">
-                <a [href]="link.url" target="_blank" rel="noopener">
-                    <i class="pi pi-external-link mr-2"></i>
-                    <span>{{ link.label }}</span>
-                </a>
-                <span *ngIf="!readonly" class="url mt-2">{{ link.url }}</span>
-            </div>
-            <button
-                *ngIf="!readonly"
-                pButton
-                class="p-button-rounded p-button-text p-button-danger"
-                pTooltip="Link löschen"
-                icon="pi pi-trash"
-                (click)="removeLink(index)"
-            ></button>
+  @for (link of links; track link; let index = $index) {
+    <div class="flex flex-column">
+      @if (index !== 0) {
+        <p-divider class="w-full"></p-divider>
+      }
+      <div class="flex justify-content-between">
+        <div class="link">
+          <a [href]="link.url" target="_blank" rel="noopener">
+            <i class="pi pi-external-link mr-2"></i>
+            <span>{{ link.label }}</span>
+          </a>
+          @if (!readonly) {
+            <span class="url mt-2">{{ link.url }}</span>
+          }
         </div>
+        @if (!readonly) {
+          <button
+            pButton
+            class="p-button-rounded p-button-text p-button-danger"
+            pTooltip="Link löschen"
+            icon="pi pi-trash"
+            (click)="removeLink(index)"
+          ></button>
+        }
+      </div>
     </div>
+  }
 </div>
 
 @if(!readonly){
-<div class="flex flex-column gap-3 mt-5">
+  <div class="flex flex-column gap-3 mt-5">
     <span class="p-float-label">
-        <input
-            type="text"
-            [(ngModel)]="addLink.label"
-            (ngModelChange)="touch()"
-            pInputText
-            inputId="label"
-            [disabled]="disabled$ | async"
-            placeholder="z.B. Youtube"
+      <input
+        type="text"
+        [(ngModel)]="addLink.label"
+        (ngModelChange)="touch()"
+        pInputText
+        inputId="label"
+        [disabled]="disabled$ | async"
+        placeholder="z.B. Youtube"
             [ngClass]="{
                 'ng-invalid ng-dirty': !addLink.label && addLink.url
             }"
-            (keyup.enter)="addLinkToList()"
+        (keyup.enter)="addLinkToList()"
         />
         <label for="label">Name</label>
-    </span>
-    <span class="p-float-label">
+      </span>
+      <span class="p-float-label">
         <textarea
-            type="text"
-            [(ngModel)]="addLink.url"
-            (ngModelChange)="touch()"
-            pInputTextarea
-            inputId="label"
-            [disabled]="disabled$ | async"
-            placeholder="z.B. youtube.com/abc2345dfa2"
+          type="text"
+          [(ngModel)]="addLink.url"
+          (ngModelChange)="touch()"
+          pInputTextarea
+          inputId="label"
+          [disabled]="disabled$ | async"
+          placeholder="z.B. youtube.com/abc2345dfa2"
             [ngClass]="{
                 'ng-invalid ng-dirty': !addLink.url && addLink.label
             }"
-            (keyup.enter)="addLinkToList()"
+          (keyup.enter)="addLinkToList()"
         ></textarea>
         <label for="label">Link</label>
-    </span>
-    <button
+      </span>
+      <button
         pButton
         class="p-button-secondary p-button-rounded"
         label="Hinzufügen"
         icon="pi pi-plus"
         [disabled]="!addLink.label || !addLink.url || (disabled$ | async)"
         (click)="addLinkToList()"
-    ></button>
-</div>
-}
+      ></button>
+    </div>
+  }

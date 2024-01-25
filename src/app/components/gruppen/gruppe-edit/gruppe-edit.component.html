@@ -1,30 +1,31 @@
 <mkj-form-wrapper [formGroup]="formGroup" [component]="this">
-    <div class="p-fluid grid align-items-center">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Name"
-                formControlName="name"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-autocomplete
-                label="Leiter"
-                formControlName="gruppenleiter_mitglied_id"
-                [datasource]="mitgliedDatasource"
-                [listConfig]="mitgliedAutoCompleteConfig"
-            ></mkj-autocomplete>
-        </div>
-
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-color-picker
-                label="Farbe"
-                formControlName="color"
-            ></mkj-color-picker>
-        </div>
+  <div class="p-fluid grid align-items-center">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input
+        label="Name"
+        formControlName="name"
+      ></mkj-text-input>
     </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-autocomplete
+        label="Leiter"
+        formControlName="gruppenleiter_mitglied_id"
+        [datasource]="mitgliedDatasource"
+        [listConfig]="mitgliedAutoCompleteConfig"
+      ></mkj-autocomplete>
+    </div>
+
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-color-picker
+        label="Farbe"
+        formControlName="color"
+      ></mkj-color-picker>
+    </div>
+  </div>
 </mkj-form-wrapper>
 
-<mkj-gruppe-mitglieder-list
-    *ngIf="formGroup?.controls.id.value"
+@if (formGroup?.controls.id.value) {
+  <mkj-gruppe-mitglieder-list
     [gruppeId]="formGroup.controls.id.value"
-></mkj-gruppe-mitglieder-list>
+  ></mkj-gruppe-mitglieder-list>
+}

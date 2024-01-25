@@ -1,138 +1,148 @@
 <div style="z-index: 10000">
-    <p-toast></p-toast>
-    <p-toast key="bottom-center" position="bottom-center"></p-toast>
+  <p-toast></p-toast>
+  <p-toast key="bottom-center" position="bottom-center"></p-toast>
 </div>
 <div class="login-body">
-    <div class="login-panel p-fluid">
-        <div class="grid grid-nogutter">
-            <div class="col-12 login-header">
-                <h1>Registrierung</h1>
-                <h2>
-                    Erste Registrierung - bitte beachte das deine Mail-Adresse
-                    dem Administrator schon bekannt sein muss.
-                </h2>
-                <img src="assets\images\app_logo.png" />
-            </div>
-            <div class="col-12 pb-0 pt-0">
-                <span class="p-float-label">
-                    <input
-                        type="text"
-                        pInputText
-                        [(ngModel)]="user.vorname"
+  <div class="login-panel p-fluid">
+    <div class="grid grid-nogutter">
+      <div class="col-12 login-header">
+        <h1>Registrierung</h1>
+        <h2>
+          Erste Registrierung - bitte beachte das deine Mail-Adresse
+          dem Administrator schon bekannt sein muss.
+        </h2>
+        <img src="assets\images\app_logo.png" />
+      </div>
+      <div class="col-12 pb-0 pt-0">
+        <span class="p-float-label">
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="user.vorname"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.vorname
                         }"
-                        required
-                        autofocus
-                    />
-                    <small class="p-error" *ngIf="submitted && !user.vorname"
-                        >Vorname ist erforderlich!</small
-                    >
-                    <label>Vorname</label>
-                </span>
-            </div>
-            <div class="col-12 pb-0">
-                <span class="p-float-label">
-                    <input
-                        type="text"
-                        pInputText
-                        [(ngModel)]="user.zuname"
+            required
+            autofocus
+            />
+            @if (submitted && !user.vorname) {
+              <small class="p-error"
+                >Vorname ist erforderlich!</small
+                >
+            }
+            <label>Vorname</label>
+          </span>
+        </div>
+        <div class="col-12 pb-0">
+          <span class="p-float-label">
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="user.zuname"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.zuname
                         }"
-                        required
-                    /><small class="p-error" *ngIf="submitted && !user.zuname"
-                        >Familienname ist erforderlich!</small
-                    >
-                    <label>Familienname</label>
-                </span>
-            </div>
-            <div class="col-12 pb-0">
-                <span class="p-float-label">
-                    <input
-                        type="email"
-                        pInputText
-                        [(ngModel)]="user.email"
+              required
+              />@if (submitted && !user.zuname) {
+              <small class="p-error"
+                >Familienname ist erforderlich!</small
+                >
+            }
+            <label>Familienname</label>
+          </span>
+        </div>
+        <div class="col-12 pb-0">
+          <span class="p-float-label">
+            <input
+              type="email"
+              pInputText
+              [(ngModel)]="user.email"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.email
                         }"
-                        required
-                    /><small class="p-error" *ngIf="submitted && !user.email"
-                        >Email ist erforderlich!</small
-                    >
-                    <label>E-Mail</label>
-                </span>
-            </div>
-            <div class="col-12 pb-0">
-                <span class="p-float-label">
-                    <!-- <input
-                        type="password"
-                        pInputText
-                        [(ngModel)]="user.passwort"
+              required
+              />@if (submitted && !user.email) {
+              <small class="p-error"
+                >Email ist erforderlich!</small
+                >
+            }
+            <label>E-Mail</label>
+          </span>
+        </div>
+        <div class="col-12 pb-0">
+          <span class="p-float-label">
+            <!-- <input
+            type="password"
+            pInputText
+            [(ngModel)]="user.passwort"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.passwort
                         }"
-                        required
-                    /> -->
-                    <p-password
-                        [(ngModel)]="user.passwort"
+            required
+            /> -->
+            <p-password
+              [(ngModel)]="user.passwort"
                         [inputStyleClass]="
                             submitted && !user.passwort
                                 ? 'ng-invalid ng-dirty'
                                 : ''
                         "
-                    >
-                        <ng-template pTemplate="footer">
-                            <p-divider></p-divider>
-                            <p class="mt-2">Empfohlen:</p>
-                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                <li>min. 1 Kleinbuchstabe</li>
-                                <li>min. 1 Großbuchstabe</li>
-                                <li>min. 1 Zahl</li>
-                                <li>min. 8 Zeichen lang</li>
-                            </ul>
-                        </ng-template>
-                    </p-password>
-                    <small class="p-error" *ngIf="submitted && !user.passwort"
-                        >Passwort ist erforderlich!</small
-                    >
-                    <label>Passwort wählen</label>
-                </span>
-            </div>
-            <div class="col-12 pb-0">
-                <span class="p-float-label">
-                    <input
-                        type="password"
-                        pInputText
-                        [(ngModel)]="pwdCheck"
+              >
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <p class="mt-2">Empfohlen:</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                  <li>min. 1 Kleinbuchstabe</li>
+                  <li>min. 1 Großbuchstabe</li>
+                  <li>min. 1 Zahl</li>
+                  <li>min. 8 Zeichen lang</li>
+                </ul>
+              </ng-template>
+            </p-password>
+            @if (submitted && !user.passwort) {
+              <small class="p-error"
+                >Passwort ist erforderlich!</small
+                >
+              }
+              <label>Passwort wählen</label>
+            </span>
+          </div>
+          <div class="col-12 pb-0">
+            <span class="p-float-label">
+              <input
+                type="password"
+                pInputText
+                [(ngModel)]="pwdCheck"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !pwdCheck
                         }"
-                        (keydown.enter)="onSubmit()"
-                        required
-                    />
-                    <small class="p-error" *ngIf="submitted && !pwdCheck"
-                        >Wiederholung ist erforderlich!</small
+                (keydown.enter)="onSubmit()"
+                required
+                />
+                @if (submitted && !pwdCheck) {
+                  <small class="p-error"
+                    >Wiederholung ist erforderlich!</small
                     >
-                    <label>Passwort wiederholen</label>
-                </span>
+                }
+                <label>Passwort wiederholen</label>
+              </span>
             </div>
             <div class="col-12 pb-0 button-container">
-                <button
-                    pButton
-                    type="button"
-                    label="Registrieren"
-                    [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
-                    (click)="onSubmit()"
-                ></button>
-                <button
-                    pButton
-                    label="Login"
-                    icon="pi pi-sign-in"
-                    class="p-button-sm p-button-outlined mt-3"
-                    routerLink="/login"
-                ></button>
+              <button
+                pButton
+                type="button"
+                label="Registrieren"
+                [icon]="isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-user'"
+                (click)="onSubmit()"
+              ></button>
+              <button
+                pButton
+                label="Login"
+                icon="pi pi-sign-in"
+                class="p-button-sm p-button-outlined mt-3"
+                routerLink="/login"
+              ></button>
             </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>

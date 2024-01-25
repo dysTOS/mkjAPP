@@ -1,6 +1,6 @@
 <mkj-list
-    [datasource]="datasource"
-    [configuration]="listConfig"
+  [datasource]="datasource"
+  [configuration]="listConfig"
     [templateMap]="{
         rowexpansion: rowExpansionTemplate,
         nameTemplate: nameTemplate,
@@ -8,79 +8,81 @@
         kategorieTemplate: kategorieTemplate,
         statusTemplate: statusTemplate,
     }"
-    (onSelectionChange)="this.selectedRow = $event"
-    (onDoubleClick)="navigateSingleAusrueckung($event)"
->
+  (onSelectionChange)="this.selectedRow = $event"
+  (onDoubleClick)="navigateSingleAusrueckung($event)"
+  >
 </mkj-list>
 
 <ng-template #nameTemplate let-termin>
-    <span class="font-bold">{{ termin.name }}</span>
+  <span class="font-bold">{{ termin.name }}</span>
+  @if (termin.gruppe) {
     <span
-        *ngIf="termin.gruppe"
-        class="gruppentermin ml-2"
-        [style.--gruppe-color]="termin.gruppe?.color"
-    >
-        <i class="pi pi-users" [pTooltip]="termin.gruppe?.name"></i
-    ></span>
-</ng-template>
+      class="gruppentermin ml-2"
+      [style.--gruppe-color]="termin.gruppe?.color"
+      >
+      <i class="pi pi-users" [pTooltip]="termin.gruppe?.name"></i
+      ></span>
+    }
+  </ng-template>
 
-<ng-template #datumTemplate let-termin>
+  <ng-template #datumTemplate let-termin>
     {{ termin.vonDatum | mkjDate : "E d. MMMM YYYY" }}
     {{ termin.treffzeit }}
-</ng-template>
+  </ng-template>
 
-<ng-template #kategorieTemplate let-termin>
+  <ng-template #kategorieTemplate let-termin>
     {{ termin.kategorie | uppercase }}
-</ng-template>
+  </ng-template>
 
-<ng-template #statusTemplate let-termin>
+  <ng-template #statusTemplate let-termin>
     <mkj-tag
-        [label]="termin.status | uppercase"
-        [severity]="termin.status | terminStatusSeverity"
+      [label]="termin.status | uppercase"
+      [severity]="termin.status | terminStatusSeverity"
     ></mkj-tag>
-</ng-template>
+  </ng-template>
 
-<ng-template #rowExpansionTemplate let-termin>
-    <div
-        *ngIf="actualDate < termin.vonDatum"
+  <ng-template #rowExpansionTemplate let-termin>
+    @if (actualDate < termin.vonDatum) {
+      <div
         class="flex justify-content-center mb-5"
-    >
+        >
         <mkj-termin-teilnahme-selector
-            [termin]="termin"
+          [termin]="termin"
         ></mkj-termin-teilnahme-selector>
-    </div>
+      </div>
+    }
     <mkj-display-model [model]="termin"></mkj-display-model>
     <div class="flex flex-wrap justify-content-center gap-2">
-        <button
-            pButton
-            pRipple
-            label="Details"
-            icon="pi pi-list"
-            class="p-button-secondary p-button-rounded p-button-raised"
-            (click)="navigateSingleAusrueckung(termin)"
-        ></button>
-        <button
-            *visibleFor="[Permissions.TERMIN_SAVE]"
-            pButton
-            pRipple
-            icon="pi pi-copy"
-            label="Duplizieren"
-            class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
-            (click)="this.duplicateAusrueckung(termin)"
-        ></button>
-        <button
+      <button
+        pButton
+        pRipple
+        label="Details"
+        icon="pi pi-list"
+        class="p-button-secondary p-button-rounded p-button-raised"
+        (click)="navigateSingleAusrueckung(termin)"
+      ></button>
+      <button
+        *visibleFor="[Permissions.TERMIN_SAVE]"
+        pButton
+        pRipple
+        icon="pi pi-copy"
+        label="Duplizieren"
+        class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
+        (click)="this.duplicateAusrueckung(termin)"
+      ></button>
+      <button
             *visibleFor="[
                 Permissions.TERMIN_SAVE,
                 Permissions.TERMIN_GRUPPENLEITER_SAVE
             ]"
-            pButton
-            pRipple
-            icon="pi pi-pencil"
-            label="Bearbeiten"
-            class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
-            (click)="this.navigateEditor(termin)"
-        ></button>
+        pButton
+        pRipple
+        icon="pi pi-pencil"
+        label="Bearbeiten"
+        class="p-button-secondary p-button-outlined p-button-rounded p-button-raised"
+        (click)="this.navigateEditor(termin)"
+      ></button>
     </div>
-</ng-template>
+  </ng-template>
 
-<p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>
+  <p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>

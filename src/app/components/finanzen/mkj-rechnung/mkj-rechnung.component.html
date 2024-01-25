@@ -1,100 +1,102 @@
 <mkj-content-loader [loading]="re == null">
-    <div class="grid">
-        <div class="p-col w-full">
-            <div class="card">
-                <div id="invoice-content">
-                    <div class="invoice">
-                        <div class="invoice-header">
-                            <div class="invoice-company">
-                                <img
-                                    id="invoice-logo"
-                                    class="logo-image"
-                                    src="assets/images/icon_192x192.png"
-                                />
-                                <div class="company-name">
-                                    Musikkapelle Jainzen
-                                </div>
-                                <div>Kreutererstraße 40</div>
-                                <div>4820 Bad Ischl</div>
-                            </div>
-                            <div>
-                                <div class="invoice-title">RECHNUNG</div>
-                                <div class="invoice-details">
-                                    <div class="invoice-label">Datum</div>
-                                    <div class="invoice-value">
-                                        {{ re?.datum | mkjDate }}
-                                    </div>
-
-                                    <ng-container *ngIf="re?.nummer">
-                                        <div class="invoice-label">
-                                            Rechnungs-Nr.
-                                        </div>
-                                        <div class="invoice-value">
-                                            {{ re?.nummer }}
-                                        </div>
-                                    </ng-container>
-
-                                    <!-- <div class="invoice-label">CUSTOMER ID</div>
-                                    <div class="invoice-value">C1613</div> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="invoice-to">
-                            <div class="bill-to">Rechnungsempfänger</div>
-                            <div class="invoice-to-info">
-                                <div>
-                                    {{ re?.anschrift?.vorname }}
-                                    {{ re?.anschrift?.zuname }}
-                                </div>
-                                <div>{{ re?.anschrift?.firma }}</div>
-                                <div>
-                                    {{ re?.anschrift?.strasse }}
-                                    {{ re?.anschrift?.hausnummer }}
-                                </div>
-                                <div>
-                                    {{ re?.anschrift?.plz }}
-                                    {{ re?.anschrift?.ort }}
-                                </div>
-                                <div>{{ re?.anschrift?.staat }}</div>
-                            </div>
-                        </div>
-                        <div class="invoice-items">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Bezeichnung</th>
-                                        <th>Menge</th>
-                                        <th>Einzelpreis</th>
-                                        <th>Gesamtpreis</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let pos of re?.positionen">
-                                        <td>{{ pos.bezeichnung }}</td>
-                                        <td>{{ pos.menge }}</td>
-                                        <td>{{ pos.einzelpreis }}</td>
-                                        <td>{{ pos.gesamtpreis }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="invoice-summary">
-                            <div class="invoice-notes">
-                                <b>Anmerkungen</b>
-                                <div>{{ re?.anmerkungen }}</div>
-                            </div>
-                            <div>
-                                <div class="invoice-details">
-                                    <div class="invoice-label">GESAMT</div>
-                                    <div class="invoice-value">
-                                        {{ re?.gesamtpreis | currency : "EUR" }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="grid">
+    <div class="p-col w-full">
+      <div class="card">
+        <div id="invoice-content">
+          <div class="invoice">
+            <div class="invoice-header">
+              <div class="invoice-company">
+                <img
+                  id="invoice-logo"
+                  class="logo-image"
+                  src="assets/images/icon_192x192.png"
+                  />
+                  <div class="company-name">
+                    Musikkapelle Jainzen
+                  </div>
+                  <div>Kreutererstraße 40</div>
+                  <div>4820 Bad Ischl</div>
                 </div>
+                <div>
+                  <div class="invoice-title">RECHNUNG</div>
+                  <div class="invoice-details">
+                    <div class="invoice-label">Datum</div>
+                    <div class="invoice-value">
+                      {{ re?.datum | mkjDate }}
+                    </div>
+
+                    @if (re?.nummer) {
+                      <div class="invoice-label">
+                        Rechnungs-Nr.
+                      </div>
+                      <div class="invoice-value">
+                        {{ re?.nummer }}
+                      </div>
+                    }
+
+                    <!-- <div class="invoice-label">CUSTOMER ID</div>
+                    <div class="invoice-value">C1613</div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="invoice-to">
+                <div class="bill-to">Rechnungsempfänger</div>
+                <div class="invoice-to-info">
+                  <div>
+                    {{ re?.anschrift?.vorname }}
+                    {{ re?.anschrift?.zuname }}
+                  </div>
+                  <div>{{ re?.anschrift?.firma }}</div>
+                  <div>
+                    {{ re?.anschrift?.strasse }}
+                    {{ re?.anschrift?.hausnummer }}
+                  </div>
+                  <div>
+                    {{ re?.anschrift?.plz }}
+                    {{ re?.anschrift?.ort }}
+                  </div>
+                  <div>{{ re?.anschrift?.staat }}</div>
+                </div>
+              </div>
+              <div class="invoice-items">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Bezeichnung</th>
+                      <th>Menge</th>
+                      <th>Einzelpreis</th>
+                      <th>Gesamtpreis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (pos of re?.positionen; track pos) {
+                      <tr>
+                        <td>{{ pos.bezeichnung }}</td>
+                        <td>{{ pos.menge }}</td>
+                        <td>{{ pos.einzelpreis }}</td>
+                        <td>{{ pos.gesamtpreis }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div class="invoice-summary">
+                <div class="invoice-notes">
+                  <b>Anmerkungen</b>
+                  <div>{{ re?.anmerkungen }}</div>
+                </div>
+                <div>
+                  <div class="invoice-details">
+                    <div class="invoice-label">GESAMT</div>
+                    <div class="invoice-value">
+                      {{ re?.gesamtpreis | currency : "EUR" }}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</mkj-content-loader>
+  </mkj-content-loader>

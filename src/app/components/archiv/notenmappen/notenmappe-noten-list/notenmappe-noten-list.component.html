@@ -1,64 +1,72 @@
 <mkj-list
-    #list
-    [datasource]="listDatasource"
-    [configuration]="listConfig"
-    [rowReorder]="editMode"
-    [disabled]="tableLocked"
+  #list
+  [datasource]="listDatasource"
+  [configuration]="listConfig"
+  [rowReorder]="editMode"
+  [disabled]="tableLocked"
     [templateMap]="{
         caption: captionTemplate,
         rowexpansion: rowexpansion,
         verzeichnisNrTemplate: verzeichnisNrTemplate
     }"
-    (onRowReorder)="onRowReorder($event)"
+  (onRowReorder)="onRowReorder($event)"
 ></mkj-list>
 
 <ng-template #verzeichnisNrTemplate let-noten>
-    <div class="col-12 flex align-items-center">
-        <mkj-text-input
-            *ngIf="editMode && hasSavePermission"
-            label="Index"
-            [(value)]="noten.pivot.verzeichnisNr"
-            [disabled]="tableLocked"
-            (onBlur)="syncNotenToMappe(list.values)"
-            (onEnter)="syncNotenToMappe(list.values)"
-        ></mkj-text-input>
-        <span *ngIf="!editMode">{{ noten.pivot.verzeichnisNr }}</span>
-    </div>
+  <div class="col-12 flex align-items-center">
+    @if (editMode && hasSavePermission) {
+      <mkj-text-input
+        label="Index"
+        [(value)]="noten.pivot.verzeichnisNr"
+        [disabled]="tableLocked"
+        (onBlur)="syncNotenToMappe(list.values)"
+        (onEnter)="syncNotenToMappe(list.values)"
+      ></mkj-text-input>
+    }
+    @if (!editMode) {
+      <span>{{ noten.pivot.verzeichnisNr }}</span>
+    }
+  </div>
 </ng-template>
 
 <ng-template #rowexpansion let-noten>
-    <mkj-display-model *ngIf="noten" [model]="noten"></mkj-display-model>
-    <div class="col-12 card flex gap-2 justify-content-center">
-        <button
-            *ngIf="hasSavePermission"
-            pButton
-            icon="pi pi-link"
-            label="Bearbeiten"
-            class="p-button-text"
-            (click)="navigateToNoten(noten)"
-        ></button>
-        <button
-            *ngIf="hasAssignPermission && editMode"
-            pButton
-            icon="pi pi-trash"
-            label="Entfernen"
-            class="p-button-text p-button-danger"
-            (click)="detachNotenFromMappe(noten)"
-        ></button>
-    </div>
+  @if (noten) {
+    <mkj-display-model [model]="noten"></mkj-display-model>
+  }
+  <div class="col-12 card flex gap-2 justify-content-center">
+    @if (hasSavePermission) {
+      <button
+        pButton
+        icon="pi pi-link"
+        label="Bearbeiten"
+        class="p-button-text"
+        (click)="navigateToNoten(noten)"
+      ></button>
+    }
+    @if (hasAssignPermission && editMode) {
+      <button
+        pButton
+        icon="pi pi-trash"
+        label="Entfernen"
+        class="p-button-text p-button-danger"
+        (click)="detachNotenFromMappe(noten)"
+      ></button>
+    }
+  </div>
 </ng-template>
 
 <ng-template #captionTemplate>
+  @if (hasAssignPermission && editMode) {
     <div
-        *ngIf="hasAssignPermission && editMode"
-        class="flex justify-content-start"
-    >
-        <mkj-autocomplete
-            [value]="selectedNoten"
-            [datasource]="notenDatasource"
-            [listConfig]="notenAutoCompleteConfig"
-            [label]="configService.uiNaming.Noten + ' hinzufügen'"
-            (valueChange)="addNotenToMappe($event)"
-        ></mkj-autocomplete>
+      class="flex justify-content-start"
+      >
+      <mkj-autocomplete
+        [value]="selectedNoten"
+        [datasource]="notenDatasource"
+        [listConfig]="notenAutoCompleteConfig"
+        [label]="configService.uiNaming.Noten + ' hinzufügen'"
+        (valueChange)="addNotenToMappe($event)"
+      ></mkj-autocomplete>
     </div>
+  }
 </ng-template>

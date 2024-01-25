@@ -1,44 +1,45 @@
 <p-tabView>
-    <p-tabPanel header="Wordpress">
-        <button
-            pButton
-            label="Wordpress savePost"
-            (click)="saveWordpressPost()"
-        ></button>
-    </p-tabPanel>
-    <p-tabPanel header="File upload"
-        ><p-fileUpload
-            name="file"
-            url="http://localhost:8000/api/file"
-            [method]="'post'"
-        >
-        </p-fileUpload>
-    </p-tabPanel>
-    <p-tabPanel header="Push Notifications">
-        <p-card>
-            <div class="col-12 flex justify-content-around">
-                <p-badge
-                    [value]="pushService.receivedNotifications.length"
-                    severity="success"
-                ></p-badge>
-                <button
-                    pButton
-                    label="TEST PUSH NOTIFICATION"
-                    (click)="push()"
-                ></button>
-            </div>
-            <div class="col-12 flex">
-                <div class="flex flex-column">
-                    <span
-                        *ngFor="let noti of pushService.receivedNotifications"
-                    >
-                        {{ noti }}
-                    </span>
-                </div>
-            </div>
-        </p-card>
-    </p-tabPanel>
-    <p-tabPanel header="Test API">
-        <test-api-component></test-api-component>
-    </p-tabPanel>
+  <p-tabPanel header="Wordpress">
+    <button
+      pButton
+      label="Wordpress savePost"
+      (click)="saveWordpressPost()"
+    ></button>
+  </p-tabPanel>
+  <p-tabPanel header="File upload"
+    ><p-fileUpload
+    name="file"
+    url="http://localhost:8000/api/file"
+    [method]="'post'"
+    >
+  </p-fileUpload>
+</p-tabPanel>
+<p-tabPanel header="Push Notifications">
+  <p-card>
+    <div class="col-12 flex justify-content-around">
+      <p-badge
+        [value]="pushService.receivedNotifications.length"
+        severity="success"
+      ></p-badge>
+      <button
+        pButton
+        label="TEST PUSH NOTIFICATION"
+        (click)="push()"
+      ></button>
+    </div>
+    <div class="col-12 flex">
+      <div class="flex flex-column">
+        @for (noti of pushService.receivedNotifications; track noti) {
+          <span
+            >
+            {{ noti }}
+          </span>
+        }
+      </div>
+    </div>
+  </p-card>
+</p-tabPanel>
+<p-tabPanel header="Test API">
+  <test-api-component></test-api-component>
+</p-tabPanel>
 </p-tabView>

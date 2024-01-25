@@ -1,70 +1,76 @@
 <div class="flex justify-content-between align-items-center">
-    <button
-        pButton
-        icon="pi pi-arrow-left"
-        class="p-button-text"
-        (click)="skip = skip - 1"
-        [disabled]="loading || skip === 0"
-    ></button>
-    <div class="text-center">
+  <button
+    pButton
+    icon="pi pi-arrow-left"
+    class="p-button-text"
+    (click)="skip = skip - 1"
+    [disabled]="loading || skip === 0"
+  ></button>
+  <div class="text-center">
+    <p>
+      <span>Nächster Termin:</span>
+    </p>
+    @if (nextAusrueckung) {
+      <div class="next-ausrueckung">
+        <a routerLink="../termine/details/{{ nextAusrueckung?.id }}">
+          <h4 pRipple>
+            {{ nextAusrueckung?.name }}
+          </h4>
+        </a>
         <p>
-            <span>Nächster Termin:</span>
+          {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
+          <b>{{ nextAusrueckung?.treffzeit }}</b>
         </p>
-        <div *ngIf="nextAusrueckung" class="next-ausrueckung">
-            <a routerLink="../termine/details/{{ nextAusrueckung?.id }}">
-                <h4 pRipple>
-                    {{ nextAusrueckung?.name }}
-                </h4>
-            </a>
-            <p>
-                {{ nextAusrueckung?.vonDatum | mkjDate : "E d. MMMM" }}
-                <b>{{ nextAusrueckung?.treffzeit }}</b>
-            </p>
-            <p *ngIf="nextAusrueckung?.bisDatum > nextAusrueckung?.vonDatum">
-                bis {{ nextAusrueckung?.bisDatum | mkjDate : "E d. MMMM" }}
-                <b>{{ nextAusrueckung?.bisZeit }}</b>
-            </p>
-            <p>{{ nextAusrueckung?.ort }}</p>
-            <p>{{ nextAusrueckung?.infoMusiker }}</p>
-            <p>{{ nextAusrueckung?.beschreibung }}</p>
-        </div>
-        <div
-            *ngIf="loading"
-            class="next-ausrueckung flex flex-column align-items-start text-center"
+        @if (nextAusrueckung?.bisDatum > nextAusrueckung?.vonDatum) {
+          <p>
+            bis {{ nextAusrueckung?.bisDatum | mkjDate : "E d. MMMM" }}
+            <b>{{ nextAusrueckung?.bisZeit }}</b>
+          </p>
+        }
+        <p>{{ nextAusrueckung?.ort }}</p>
+        <p>{{ nextAusrueckung?.infoMusiker }}</p>
+        <p>{{ nextAusrueckung?.beschreibung }}</p>
+      </div>
+    }
+    @if (loading) {
+      <div
+        class="next-ausrueckung flex flex-column align-items-start text-center"
         >
-            <p-skeleton width="16rem" height="2.5rem"></p-skeleton>
-            <p-skeleton
-                width="13rem"
-                height="1.5rem"
-                class="pt-2 align-self-center"
-            ></p-skeleton>
-        </div>
-        <div
-            *ngIf="!nextAusrueckung && !loading"
-            class="next-ausrueckung flex flex-column align-items-start text-center"
+        <p-skeleton width="16rem" height="2.5rem"></p-skeleton>
+        <p-skeleton
+          width="13rem"
+          height="1.5rem"
+          class="pt-2 align-self-center"
+        ></p-skeleton>
+      </div>
+    }
+    @if (!nextAusrueckung && !loading) {
+      <div
+        class="next-ausrueckung flex flex-column align-items-start text-center"
         >
-            Keine Termine vorhanden...
-        </div>
-        <div class="col-12">
-            <mkj-termin-teilnahme-selector [termin]="nextAusrueckung">
-            </mkj-termin-teilnahme-selector>
-        </div>
-        <div class="col-12">
-            <button
-                pButton
-                pRipple
-                label="Alle Termine"
-                icon="pi pi-calendar"
-                routerLink="../termine"
-                class="p-button-secondary p-button-rounded p-button-raised mt-2"
-            ></button>
-        </div>
+        Keine Termine vorhanden...
+      </div>
+    }
+    <div class="col-12">
+      <mkj-termin-teilnahme-selector [termin]="nextAusrueckung">
+      </mkj-termin-teilnahme-selector>
     </div>
-    <button
+    <div class="col-12">
+      <button
         pButton
-        icon="pi pi-arrow-right"
-        class="p-button-text"
-        (click)="skip = skip + 1"
-        [disabled]="loading || !nextAusrueckung"
-    ></button>
+        pRipple
+        label="Alle Termine"
+        icon="pi pi-calendar"
+        routerLink="../termine"
+        class="p-button-secondary p-button-rounded p-button-raised mt-2"
+      ></button>
+    </div>
+  </div>
+  <button
+    pButton
+    icon="pi pi-arrow-right"
+    class="p-button-text"
+    (click)="skip = skip + 1"
+    [disabled]="loading || !nextAusrueckung"
+  ></button>
 </div>

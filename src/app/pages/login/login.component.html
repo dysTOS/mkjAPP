@@ -1,73 +1,77 @@
 <div style="z-index: 10000">
-    <p-toast></p-toast>
-    <p-toast key="bottom-center" position="bottom-center"></p-toast>
+  <p-toast></p-toast>
+  <p-toast key="bottom-center" position="bottom-center"></p-toast>
 </div>
 <div class="login-body">
-    <div class="login-panel p-fluid">
-        <div class="grid grid-nogutter">
-            <div class="col-12 login-header">
-                <h1>LOGIN</h1>
-                <h2>
-                    Wenn du das erste Mal hier bist, drücke unten auf
-                    "Registrierung".
-                </h2>
-                <img src="assets\images\app_logo.png" />
-            </div>
-            <div class="col-12 pb-0 pt-0">
-                <span class="p-float-label">
-                    <input
-                        type="email"
-                        pInputText
-                        [(ngModel)]="user.email"
+  <div class="login-panel p-fluid">
+    <div class="grid grid-nogutter">
+      <div class="col-12 login-header">
+        <h1>LOGIN</h1>
+        <h2>
+          Wenn du das erste Mal hier bist, drücke unten auf
+          "Registrierung".
+        </h2>
+        <img src="assets\images\app_logo.png" />
+      </div>
+      <div class="col-12 pb-0 pt-0">
+        <span class="p-float-label">
+          <input
+            type="email"
+            pInputText
+            [(ngModel)]="user.email"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.email
                         }"
-                        required
-                        autofocus
-                    />
-                    <small class="p-error" *ngIf="submitted && !user.email"
-                        >Name ist erforderlich!</small
-                    >
-                    <label>E-Mail</label>
-                </span>
-            </div>
-            <div class="col-12">
-                <span class="p-float-label">
-                    <input
-                        type="password"
-                        pInputText
-                        [(ngModel)]="user.passwort"
+            required
+            autofocus
+            />
+            @if (submitted && !user.email) {
+              <small class="p-error"
+                >Name ist erforderlich!</small
+                >
+            }
+            <label>E-Mail</label>
+          </span>
+        </div>
+        <div class="col-12">
+          <span class="p-float-label">
+            <input
+              type="password"
+              pInputText
+              [(ngModel)]="user.passwort"
                         [ngClass]="{
                             'ng-invalid ng-dirty': submitted && !user.passwort
                         }"
-                        (keydown.enter)="onSubmit()"
-                        required
-                    />
-                    <small class="p-error" *ngIf="submitted && !user.passwort"
-                        >Passwort ist erforderlich!</small
-                    >
-                    <label>Passwort</label>
-                </span>
-            </div>
-            <!-- <div style="height: 400px"></div> -->
-            <div class="col-12 button-container">
-                <button
-                    pButton
-                    type="button"
-                    label="Login"
+              (keydown.enter)="onSubmit()"
+              required
+              />
+              @if (submitted && !user.passwort) {
+                <small class="p-error"
+                  >Passwort ist erforderlich!</small
+                  >
+              }
+              <label>Passwort</label>
+            </span>
+          </div>
+          <!-- <div style="height: 400px"></div> -->
+          <div class="col-12 button-container">
+            <button
+              pButton
+              type="button"
+              label="Login"
                     [icon]="
                         isChecking ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'
                     "
-                    (click)="onSubmit()"
-                ></button>
-                <button
-                    pButton
-                    class="p-button p-button-outlined p-button-sm mt-3"
-                    label="Registrierung"
-                    icon="pi pi-user"
-                    routerLink="/signup"
-                ></button>
-            </div>
+              (click)="onSubmit()"
+            ></button>
+            <button
+              pButton
+              class="p-button p-button-outlined p-button-sm mt-3"
+              label="Registrierung"
+              icon="pi pi-user"
+              routerLink="/signup"
+            ></button>
+          </div>
         </div>
+      </div>
     </div>
-</div>

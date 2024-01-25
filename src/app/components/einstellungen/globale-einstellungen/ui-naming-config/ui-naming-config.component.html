@@ -1,11 +1,11 @@
 <div class="grid">
-    <ng-container *ngFor="let name of namingConfig | keyvalue">
-        <div class="col-12 lg:col-3 md:col-4 sm:col-6">
-            <mkj-text-input
-                [label]="name.key"
-                [value]="name.value"
-                (valueChange)="namingConfig[name.key] = $event"
-            ></mkj-text-input>
-        </div>
-    </ng-container>
+  @for (name of namingConfig | keyvalue; track name) {
+    <div class="col-12 lg:col-3 md:col-4 sm:col-6">
+      <mkj-text-input
+        [label]="name.key"
+        [value]="name.value"
+        (valueChange)="namingConfig[name.key] = $event"
+      ></mkj-text-input>
+    </div>
+  }
 </div>

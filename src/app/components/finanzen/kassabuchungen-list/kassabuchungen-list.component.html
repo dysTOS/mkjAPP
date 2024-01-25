@@ -1,65 +1,66 @@
 <mkj-list
-    [datasource]="datasource"
-    [configuration]="listConfig"
+  [datasource]="datasource"
+  [configuration]="listConfig"
     [templateMap]="{
         caption: captionTemplate,
         tagTemplate: tagTemplate,
         rowexpansion: rowExpansionTemplate
     }"
-    (onSelectionChange)="selectedKassabuchung = $event"
-    (onDoubleClick)="navigateBuchung($event.id)"
+  (onSelectionChange)="selectedKassabuchung = $event"
+  (onDoubleClick)="navigateBuchung($event.id)"
 ></mkj-list>
 
 <ng-template #captionTemplate>
-    <div class="flex justify-content-center">
-        <p-button
-            label="Buchung"
-            icon="pi pi-plus"
-            [routerLink]="'new'"
-        ></p-button>
-    </div>
+  <div class="flex justify-content-center">
+    <p-button
+      label="Buchung"
+      icon="pi pi-plus"
+      [routerLink]="'new'"
+    ></p-button>
+  </div>
 </ng-template>
 
 <ng-template #tagTemplate let-buchung>
-    <div class="flex gap-1 align-items-center">
-        <mkj-tag
-            [label]="buchung.typ | uppercase"
+  <div class="flex gap-1 align-items-center">
+    <mkj-tag
+      [label]="buchung.typ | uppercase"
             [pTooltip]="
                 buchung.typ === BuchungTyp.EINNAHME ? 'Einnahme' : 'Ausgabe'
             "
             [severity]="
                 buchung.typ === BuchungTyp.EINNAHME ? 'success' : 'warning'
             "
-        ></mkj-tag>
-        <mkj-tag
-            *ngIf="!buchung.bezahltDatum"
-            icon="pi pi-euro"
-            [pTooltip]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
-            [severity]="buchung.bezahltDatum ? 'success' : 'danger'"
-        ></mkj-tag>
-    </div>
+    ></mkj-tag>
+    @if (!buchung.bezahltDatum) {
+      <mkj-tag
+        icon="pi pi-euro"
+        [pTooltip]="buchung.bezahltDatum ? 'Bezahlt' : 'Offen'"
+        [severity]="buchung.bezahltDatum ? 'success' : 'danger'"
+      ></mkj-tag>
+    }
+  </div>
 </ng-template>
 
 <ng-template #rowExpansionTemplate let-buchung>
-    <div
-        *visibleFor="[Permissions.KASSABUCHUNG_SAVE]"
-        class="flex gap-2 justify-content-center"
+  <div
+    *visibleFor="[Permissions.KASSABUCHUNG_SAVE]"
+    class="flex gap-2 justify-content-center"
     >
-        <button
-            pButton
-            pRipple
-            label="Rechnung"
-            icon="pi pi-file"
-            class="p-button-secondary p-button-rounded p-button-raised"
-            (click)="navigateRechnung(buchung.id)"
-        ></button>
-        <button
-            pButton
-            pRipple
-            label="Bearbeiten"
-            icon="pi pi-pencil"
-            class="p-button-secondary p-button-rounded p-button-outlined p-button-raised"
-            (click)="navigateBuchung(buchung.id)"
-        ></button>
-    </div>
+    <button
+      pButton
+      pRipple
+      label="Rechnung"
+      icon="pi pi-file"
+      class="p-button-secondary p-button-rounded p-button-raised"
+      (click)="navigateRechnung(buchung.id)"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Bearbeiten"
+      icon="pi pi-pencil"
+      class="p-button-secondary p-button-rounded p-button-outlined p-button-raised"
+      (click)="navigateBuchung(buchung.id)"
+    ></button>
+  </div>
 </ng-template>

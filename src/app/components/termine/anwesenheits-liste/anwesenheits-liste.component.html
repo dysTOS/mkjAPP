@@ -1,12 +1,13 @@
-<div
-    *ngIf="!gruppenMitglieder || !presentMitglieder"
+@if (!gruppenMitglieder || !presentMitglieder) {
+  <div
     class="flex flex-1 justify-content-center"
->
+    >
     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-</div>
-<p-listbox
+  </div>
+}
+@if (gruppenMitglieder && presentMitglieder) {
+  <p-listbox
     #listbox
-    *ngIf="gruppenMitglieder && presentMitglieder"
     [options]="gruppenMitglieder"
     [ngModel]="presentMitglieder"
     [multiple]="true"
@@ -16,11 +17,12 @@
     (onChange)="onMitgliederChange($event)"
     [listStyle]="{ 'min-height': '300rem' }"
     [disabled]="saving"
->
-    <ng-template pTemplate="header">
-        Anwesend: {{ presentMitglieder?.length }}</ng-template
     >
-    <ng-template let-mitglied pTemplate="item">
+    <ng-template pTemplate="header">
+      Anwesend: {{ presentMitglieder?.length }}</ng-template
+      >
+      <ng-template let-mitglied pTemplate="item">
         {{ mitglied.vorname }} {{ mitglied.zuname }}
-    </ng-template>
-</p-listbox>
+      </ng-template>
+    </p-listbox>
+  }

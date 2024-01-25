@@ -1,17 +1,22 @@
-<div
-    *ngIf="loading"
+@if (loading) {
+  <div
     class="flex justify-content-center align-items-center"
     [style.min-height]="minHeight"
     [style.max-height]="maxHeight"
->
-    <i
-        *ngIf="type === 'spinner'"
+    >
+    @if (type === 'spinner') {
+      <i
         class="pi pi-spin pi-spinner"
         [style.font-size]="size"
-    ></i>
-    <p-skeleton
-        *ngIf="type === 'skeleton'"
+      ></i>
+    }
+    @if (type === 'skeleton') {
+      <p-skeleton
         style="height: 100%; width: 100%"
-    ></p-skeleton>
-</div>
-<ng-content *ngIf="!loading"></ng-content>
+      ></p-skeleton>
+    }
+  </div>
+}
+@if (!loading) {
+  <ng-content></ng-content>
+}

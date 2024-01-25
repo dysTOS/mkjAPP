@@ -1,48 +1,50 @@
 <mkj-content-loader [loading]="loading$ | async">
-    <div class="card p-fluid grid">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-display-field label="Status">
-                <mkj-tag
-                    [label]="kassabuch?.aktiv ? 'Aktiv' : 'Inaktiv'"
-                    [severity]="kassabuch?.aktiv ? 'success' : 'warning'"
-                ></mkj-tag>
-            </mkj-display-field>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-display-field label="Name">
-                {{ kassabuch?.name }}
-            </mkj-display-field>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-display-field label="Gruppe">
-                {{ kassabuch?.gruppe?.name ?? "--" }}
-            </mkj-display-field>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-display-field label="Kassastand">
-                <mkj-tag
-                    [label]="kassabuch?.kassastand | currency : 'EUR'"
+  <div class="card p-fluid grid">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-display-field label="Status">
+        <mkj-tag
+          [label]="kassabuch?.aktiv ? 'Aktiv' : 'Inaktiv'"
+          [severity]="kassabuch?.aktiv ? 'success' : 'warning'"
+        ></mkj-tag>
+      </mkj-display-field>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-display-field label="Name">
+        {{ kassabuch?.name }}
+      </mkj-display-field>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-display-field label="Gruppe">
+        {{ kassabuch?.gruppe?.name ?? "--" }}
+      </mkj-display-field>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-display-field label="Kassastand">
+        <mkj-tag
+          [label]="kassabuch?.kassastand | currency : 'EUR'"
                     [severity]="
                         kassabuch?.kassastand < 0 ? 'danger' : 'success'
                     "
-                >
-                </mkj-tag>
-            </mkj-display-field>
-        </div>
-        <div
-            *ngIf="kassabuch?.anmerkungen"
-            class="p-field col-12 lg:col-3 md:col-6"
-        >
-            <mkj-display-field label="Anmerkungen">
-                {{ kassabuch.anmerkungen }}
-            </mkj-display-field>
-        </div>
+          >
+        </mkj-tag>
+      </mkj-display-field>
     </div>
+    @if (kassabuch?.anmerkungen) {
+      <div
+        class="p-field col-12 lg:col-3 md:col-6"
+        >
+        <mkj-display-field label="Anmerkungen">
+          {{ kassabuch.anmerkungen }}
+        </mkj-display-field>
+      </div>
+    }
+  </div>
 
-    <p-divider></p-divider>
+  <p-divider></p-divider>
 
+  @if (kassabuch?.id) {
     <mkj-kassabuchungen-list
-        *ngIf="kassabuch?.id"
-        [kassabuchId]="kassabuch.id"
+      [kassabuchId]="kassabuch.id"
     ></mkj-kassabuchungen-list>
+  }
 </mkj-content-loader>

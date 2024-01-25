@@ -1,35 +1,38 @@
 <span class="p-float-label" [class.p-input-icon-left]="loading">
-    <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
-    <p-autoComplete
-        [(ngModel)]="internalModel"
-        (ngModelChange)="onSelect($event)"
-        [disabled]="disabled$ | async"
-        [suggestions]="searchResults"
-        [placeholder]="placeholder"
-        [class.ng-dirty]="formControl?.invalid"
-        [class.ng-invalid]="formControl?.invalid"
-        (completeMethod)="search($event)"
-        [forceSelection]="true"
-        [autoHighlight]="true"
-        [dataKey]="listConfig.dataKey ?? 'id'"
-        [showEmptyMessage]="true"
-        [optionLabel]="listConfig.getDisplayValue"
-        class="w-full"
+  @if (loading) {
+    <i class="pi pi-spin pi-spinner"></i>
+  }
+  <p-autoComplete
+    [(ngModel)]="internalModel"
+    (ngModelChange)="onSelect($event)"
+    [disabled]="disabled$ | async"
+    [suggestions]="searchResults"
+    [placeholder]="placeholder"
+    [class.ng-dirty]="formControl?.invalid"
+    [class.ng-invalid]="formControl?.invalid"
+    (completeMethod)="search($event)"
+    [forceSelection]="true"
+    [autoHighlight]="true"
+    [dataKey]="listConfig.dataKey ?? 'id'"
+    [showEmptyMessage]="true"
+    [optionLabel]="listConfig.getDisplayValue"
+    class="w-full"
     >
-        <ng-template let-item pTemplate="item">
-            <div class="flex gap-2 justify-between">
-                <span
-                    *ngFor="let col of listConfig.columns; let i = index"
-                    [class]="col.styleClass"
-                >
-                    <mkj-list-cell
-                        [value]="item"
-                        [colConfig]="col"
-                        [templateMap]="templateMap"
-                    ></mkj-list-cell>
-                </span></div
+    <ng-template let-item pTemplate="item">
+      <div class="flex gap-2 justify-between">
+        @for (col of listConfig.columns; track col; let i = $index) {
+          <span
+            [class]="col.styleClass"
+            >
+            <mkj-list-cell
+              [value]="item"
+              [colConfig]="col"
+              [templateMap]="templateMap"
+            ></mkj-list-cell>
+          </span>
+          }</div
         ></ng-template>
-    </p-autoComplete>
+      </p-autoComplete>
 
-    <label [for]="label">{{ label }}</label>
-</span>
+      <label [for]="label">{{ label }}</label>
+    </span>

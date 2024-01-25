@@ -1,42 +1,46 @@
 <div class="grid">
-    <div class="col-12" *ngIf="appMain.publicTestEnvironment">
-        <div class="card flex justify-content-center">
-            <h3>TESTUMGEBUNG</h3>
-        </div>
+  @if (appMain.publicTestEnvironment) {
+    <div class="col-12">
+      <div class="card flex justify-content-center">
+        <h3>TESTUMGEBUNG</h3>
+      </div>
     </div>
+  }
 
-    <div class="md:col-6 col-12">
-        <div class="card pl-0 pr-0">
-            <next-termin></next-termin>
-        </div>
+  <div class="md:col-6 col-12">
+    <div class="card pl-0 pr-0">
+      <next-termin></next-termin>
     </div>
+  </div>
 
-    <div class="md:col-6 col-12">
-        <div class="card text-center">
-            <h4>Hallo {{ currentMitglied?.vorname }}!</h4>
-            <p>
-                Das ist die erste Demo-Version unserer App für die mobile
-                Vereinsverwaltung.
-            </p>
-            <p *ngIf="appMain.publicTestEnvironment">
-                Du kannst hier rumklicksen wie du willst - nichts kann kaputt
-                werden! Aber bitte sei so gut und gib mir einen kurzen
-                Bug-Report wenn du einen Fehler/Fehlermeldung etc. entdeckst
-                oder du einen Verbesserungsvorschlag hast.
-            </p>
-            <button
-                pButton
-                label="Changelog ansehen"
-                icon="pi pi-list"
-                class="p-button-info p-button-rounded mt-2"
-                routerLink="../einstellungen/changelog"
-            ></button>
-        </div>
+  <div class="md:col-6 col-12">
+    <div class="card text-center">
+      <h4>Hallo {{ currentMitglied?.vorname }}!</h4>
+      <p>
+        Das ist die erste Demo-Version unserer App für die mobile
+        Vereinsverwaltung.
+      </p>
+      @if (appMain.publicTestEnvironment) {
+        <p>
+          Du kannst hier rumklicksen wie du willst - nichts kann kaputt
+          werden! Aber bitte sei so gut und gib mir einen kurzen
+          Bug-Report wenn du einen Fehler/Fehlermeldung etc. entdeckst
+          oder du einen Verbesserungsvorschlag hast.
+        </p>
+      }
+      <button
+        pButton
+        label="Changelog ansehen"
+        icon="pi pi-list"
+        class="p-button-info p-button-rounded mt-2"
+        routerLink="../einstellungen/changelog"
+      ></button>
     </div>
+  </div>
 
-    <div class="md:col-6 col-12">
-        <div class="card">
-            <next-geburtstag></next-geburtstag>
-        </div>
+  <div class="md:col-6 col-12">
+    <div class="card">
+      <next-geburtstag></next-geburtstag>
     </div>
+  </div>
 </div>

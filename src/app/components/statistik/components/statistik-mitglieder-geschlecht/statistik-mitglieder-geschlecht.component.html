@@ -1,8 +1,12 @@
 <div class="flex flex-column text-center">
-    <h5>
-        Aktive Mitglieder nach Geschlecht
-        <i *ngIf="loading" class="pi pi-spin pi-spinner"></i>
-    </h5>
-    <p *ngIf="!data?.labels?.length">Keine Daten verfügbar...</p>
+  <h5>
+    Aktive Mitglieder nach Geschlecht
+    @if (loading) {
+      <i class="pi pi-spin pi-spinner"></i>
+    }
+  </h5>
+  @if (!data?.labels?.length) {
+    <p>Keine Daten verfügbar...</p>
+  }
 </div>
 <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>

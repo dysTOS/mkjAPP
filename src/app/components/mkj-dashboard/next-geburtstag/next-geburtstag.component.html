@@ -1,14 +1,18 @@
 <div class="flex flex-column justify-content-center align-items-center">
-    <h4>Nächste Geburtstage</h4>
-    <mkj-content-loader [loading]="loading" class="w-full mt-4">
-        <div *ngFor="let mitglied of mitglieder; let index = index">
-            <p-divider *ngIf="index > 0"></p-divider>
-            <div class="flex justify-content-center align-items-center">
-                <span
-                    >{{ mitglied?.vorname }} {{ mitglied?.zuname }} -
-                    {{ mitglied?.geburtsdatum | mkjDate : "d. MMMM" }}</span
-                >
-            </div>
+  <h4>Nächste Geburtstage</h4>
+  <mkj-content-loader [loading]="loading" class="w-full mt-4">
+    @for (mitglied of mitglieder; track mitglied; let index = $index) {
+      <div>
+        @if (index > 0) {
+          <p-divider></p-divider>
+        }
+        <div class="flex justify-content-center align-items-center">
+          <span
+            >{{ mitglied?.vorname }} {{ mitglied?.zuname }} -
+            {{ mitglied?.geburtsdatum | mkjDate : "d. MMMM" }}</span
+            >
+          </div>
         </div>
+      }
     </mkj-content-loader>
-</div>
+  </div>

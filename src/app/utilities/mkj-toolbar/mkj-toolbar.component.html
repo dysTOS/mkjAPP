@@ -1,47 +1,52 @@
-<div
-    *ngIf="
-        toolbarService.backButton ||
-        toolbarService.header ||
-        toolbarService.buttons
-    "
+@if (
+  toolbarService.backButton ||
+  toolbarService.header ||
+  toolbarService.buttons
+  ) {
+  <div
     class="mkj-toolbar col-12 flex justify-content-between align-items-center mb-3"
->
-    <div>
-        <button
-            *ngIf="toolbarService.backButton"
-            pButton
-            icon="pi pi-arrow-left"
-            class="p-button p-button-text p-button-plain button-opacity p-1"
-            (click)="toolbarService.navigateBack()"
-            pTooltip="Zurück"
-            tooltipPosition="bottom"
-        ></button>
-        <div
-            *ngIf="toolbarService.header && !toolbarService.backButton"
-            class="toolbar-header"
-        >
-            {{ toolbarService.header }}
-        </div>
-    </div>
-    <div
-        *ngIf="toolbarService.header && toolbarService.backButton"
-        class="toolbar-header"
     >
-        {{ toolbarService.header }}
-    </div>
     <div>
-        <ng-container *ngFor="let button of toolbarService.buttons">
-            <button
-                *ngIf="button.visible && !button.hidden"
-                pButton
-                pRipple
-                class="p-button p-button-text p-button-plain button-opacity p-1"
-                [class.button-highlighted]="button.highlighted"
-                [icon]="button.icon"
-                (click)="button.click?.($event) "
-                [pTooltip]="button.label"
-                tooltipPosition="bottom"
-            ></button>
-        </ng-container>
+      @if (toolbarService.backButton) {
+        <button
+          pButton
+          icon="pi pi-arrow-left"
+          class="p-button p-button-text p-button-plain button-opacity p-1"
+          (click)="toolbarService.navigateBack()"
+          pTooltip="Zurück"
+          tooltipPosition="bottom"
+        ></button>
+      }
+      @if (toolbarService.header && !toolbarService.backButton) {
+        <div
+          class="toolbar-header"
+          >
+          {{ toolbarService.header }}
+        </div>
+      }
     </div>
-</div>
+    @if (toolbarService.header && toolbarService.backButton) {
+      <div
+        class="toolbar-header"
+        >
+        {{ toolbarService.header }}
+      </div>
+    }
+    <div>
+      @for (button of toolbarService.buttons; track button) {
+        @if (button.visible && !button.hidden) {
+          <button
+            pButton
+            pRipple
+            class="p-button p-button-text p-button-plain button-opacity p-1"
+            [class.button-highlighted]="button.highlighted"
+            [icon]="button.icon"
+            (click)="button.click?.($event) "
+            [pTooltip]="button.label"
+            tooltipPosition="bottom"
+          ></button>
+        }
+      }
+    </div>
+  </div>
+}

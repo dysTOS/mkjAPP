@@ -1,99 +1,103 @@
 <div class="col-12">
-    <p-table
-        [value]="roles"
-        [(selection)]="selectedRole"
-        [loading]="rolesLoading || permissionsLoading"
-        dataKey="id"
-        responsiveLayout="scroll"
-        selectionMode="single"
-        rowExpandMode="single"
-        styleClass="p-datatable p-datatable-striped"
-        (onRowSelect)="loadPermissionsForRole()"
+  <p-table
+    [value]="roles"
+    [(selection)]="selectedRole"
+    [loading]="rolesLoading || permissionsLoading"
+    dataKey="id"
+    responsiveLayout="scroll"
+    selectionMode="single"
+    rowExpandMode="single"
+    styleClass="p-datatable p-datatable-striped"
+    (onRowSelect)="loadPermissionsForRole()"
     >
-        <ng-template pTemplate="body" let-role let-expanded="expanded"
-            ><tr [pSelectableRow]="role" [pRowToggler]="role">
-                <td style="font-size: 1.2rem">
-                    <b>{{ role.name | mkjTextTransform }}</b>
-                </td>
-            </tr></ng-template
-        ><ng-template pTemplate="rowexpansion" let-role>
-            <mkj-content-loader [loading]="!rolePermissions">
-                <div class="col-12 m-4 flex justify-content-between">
-                    <h4>Berechtigungen</h4>
-                    <button
-                        pButton
-                        pRipple
-                        label="Speichern"
-                        class="p-button-text"
-                        (click)="saveRolePermissions()"
-                    ></button>
-                </div>
-                <div
-                    *ngFor="let permission of permissions"
-                    class="col-12 flex justify-content-between permission-row"
-                    (click)="togglePermission(permission)"
-                >
-                    <i
-                        *ngIf="
-                            permission | permissionIncluded : rolePermissions
-                        "
-                        class="pi pi-check"
-                    ></i>
-                    <span>{{ permission.name | mkjTextTransform }}</span>
-                </div>
-            </mkj-content-loader>
-        </ng-template></p-table
-    >
+    <ng-template pTemplate="body" let-role let-expanded="expanded"
+      ><tr [pSelectableRow]="role" [pRowToggler]="role">
+      <td style="font-size: 1.2rem">
+        <b>{{ role.name | mkjTextTransform }}</b>
+      </td>
+    </tr></ng-template
+    ><ng-template pTemplate="rowexpansion" let-role>
+    <mkj-content-loader [loading]="!rolePermissions">
+      <div class="col-12 m-4 flex justify-content-between">
+        <h4>Berechtigungen</h4>
+        <button
+          pButton
+          pRipple
+          label="Speichern"
+          class="p-button-text"
+          (click)="saveRolePermissions()"
+        ></button>
+      </div>
+      @for (permission of permissions; track permission) {
+        <div
+          class="col-12 flex justify-content-between permission-row"
+          (click)="togglePermission(permission)"
+          >
+          @if (
+            permission | permissionIncluded : rolePermissions
+            ) {
+            <i
+              class="pi pi-check"
+            ></i>
+          }
+          <span>{{ permission.name | mkjTextTransform }}</span>
+        </div>
+      }
+    </mkj-content-loader>
+  </ng-template></p-table
+  >
 </div>
 
 <p-dialog
-    [(visible)]="addDialogVisible"
-    [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-    [style]="{ width: '50vw' }"
-    header="Neue Rolle"
-    [modal]="true"
-    styleClass="p-fluid"
-    position="top"
->
-    <ng-template pTemplate="content">
-        <input
-            pInputText
-            [(ngModel)]="addRoleName"
-            placeholder="Name der neuen Rolle"
-            class="mb-3"
-            required
-        />
+  [(visible)]="addDialogVisible"
+  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+  [style]="{ width: '50vw' }"
+  header="Neue Rolle"
+  [modal]="true"
+  styleClass="p-fluid"
+  position="top"
+  >
+  <ng-template pTemplate="content">
+    <input
+      pInputText
+      [(ngModel)]="addRoleName"
+      placeholder="Name der neuen Rolle"
+      class="mb-3"
+      required
+      />
 
+      @for (permission of permissions; track permission) {
         <div
-            *ngFor="let permission of permissions"
-            class="col-12 flex justify-content-between permission-row"
-            (click)="togglePermission(permission)"
-        >
+          class="col-12 flex justify-content-between permission-row"
+          (click)="togglePermission(permission)"
+          >
+          @if (permission | permissionIncluded : rolePermissions) {
             <i
-                *ngIf="permission | permissionIncluded : rolePermissions"
-                class="pi pi-check"
+              class="pi pi-check"
             ></i>
-            <span>{{ permission.name | mkjTextTransform }}</span>
+          }
+          <span>{{ permission.name | mkjTextTransform }}</span>
         </div>
+      }
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button
-            pButton
-            pRipple
-            label="Abbrechen"
-            icon="pi pi-times"
-            class="p-button-text"
-            (click)="addDialogVisible = false; addRoleName = null"
-        ></button>
-        <button
-            pButton
-            pRipple
-            label="Speichern"
-            [icon]="isCreating ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
-            [disabled]="isCreating || !addRoleName || !rolePermissions?.length"
-            class="p-button-plain"
-            (click)="createRole(addRoleName)"
+      <button
+        pButton
+        pRipple
+        label="Abbrechen"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="addDialogVisible = false; addRoleName = null"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Speichern"
+        [icon]="isCreating ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+        [disabled]="isCreating || !addRoleName || !rolePermissions?.length"
+        class="p-button-plain"
+        (click)="createRole(addRoleName)"
         ></button
-    ></ng-template>
-</p-dialog>
+      ></ng-template>
+    </p-dialog>
