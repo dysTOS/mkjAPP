@@ -1,101 +1,101 @@
-import { AfterViewInit, Component, Injector, Input } from "@angular/core";
-import { ControlValueAccessor } from "@angular/forms";
-import moment from "moment";
-import { UtilFunctions } from "src/app/helpers/util-functions";
-import { controlValueAccessor } from "src/app/providers/control-value-accessor";
-import { AbstractControlAccessor } from "../abstract-control-accessor";
+import { AfterViewInit, Component, Injector, Input } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+import dayjs from 'dayjs';
+import { UtilFunctions } from 'src/app/helpers/util-functions';
+import { controlValueAccessor } from 'src/app/providers/control-value-accessor';
+import { AbstractControlAccessor } from '../abstract-control-accessor';
 
 export enum MkjDateType {
-    DATE = "date",
-    TIME = "time",
-    COMBINED = "combined",
+  DATE = 'date',
+  TIME = 'time',
+  COMBINED = 'combined',
 }
 
 @Component({
-    selector: "mkj-date-input",
-    templateUrl: "./mkj-date-input.component.html",
-    styleUrls: ["./mkj-date-input.component.scss"],
-    providers: [controlValueAccessor(MkjDateInputComponent)],
+  selector: 'mkj-date-input',
+  templateUrl: './mkj-date-input.component.html',
+  styleUrls: ['./mkj-date-input.component.scss'],
+  providers: [controlValueAccessor(MkjDateInputComponent)],
 })
 export class MkjDateInputComponent
-    extends AbstractControlAccessor<Date | string>
-    implements ControlValueAccessor, AfterViewInit
+  extends AbstractControlAccessor<Date | string>
+  implements ControlValueAccessor, AfterViewInit
 {
-    @Input()
-    public type: MkjDateType = MkjDateType.COMBINED;
+  @Input()
+  public type: MkjDateType = MkjDateType.COMBINED;
 
-    @Input()
-    public label: string;
+  @Input()
+  public label: string;
 
-    public internModel: Date | string;
-    public isDisabled: boolean = false;
-    public isDesktop: boolean = UtilFunctions.isDesktop();
-    public nativeModel: string;
-    public readonly MkjDateType = MkjDateType;
+  public internModel: Date | string;
+  public isDisabled: boolean = false;
+  public isDesktop: boolean = UtilFunctions.isDesktop();
+  public nativeModel: string;
+  public readonly MkjDateType = MkjDateType;
 
-    constructor(inj: Injector) {
-        super(inj);
-        this.subs.sink = this.value$.subscribe((value) => {
-            if (value) {
-                this.nativeModel = value as string;
-                switch (this.type) {
-                    case MkjDateType.DATE:
-                        this.internModel = new Date(value);
-                        break;
-                    case MkjDateType.TIME:
-                        this.internModel = value;
-                        break;
-                    case MkjDateType.COMBINED:
-                        this.internModel = new Date(value);
-                        break;
-                }
-            } else {
-                this.internModel = null;
-                this.nativeModel = null;
-            }
-        });
-    }
-
-    public onModelChange(newDate: Date | string) {
-        if (!newDate) {
-            this.change?.(null);
-            return;
-        }
-
+  constructor(inj: Injector) {
+    super(inj);
+    this.subs.sink = this.value$.subscribe((value) => {
+      if (value) {
+        this.nativeModel = value as string;
         switch (this.type) {
-            case MkjDateType.DATE:
-                const date = moment(newDate).format("YYYY-MM-DD");
-                this.change(date);
-                break;
-            case MkjDateType.TIME:
-                const time = moment(newDate).format("HH:mm");
-                this.change(time);
-                break;
-            case MkjDateType.COMBINED:
-                const combined = moment(newDate).format("YYYY-MM-DD HH:mm:ss");
-                this.change(combined);
-                break;
+          case MkjDateType.DATE:
+            this.internModel = new Date(value);
+            break;
+          case MkjDateType.TIME:
+            this.internModel = value;
+            break;
+          case MkjDateType.COMBINED:
+            this.internModel = new Date(value);
+            break;
         }
+      } else {
+        this.internModel = null;
+        this.nativeModel = null;
+      }
+    });
+  }
+
+  public onModelChange(newDate: Date | string) {
+    if (!newDate) {
+      this.change?.(null);
+      return;
     }
 
-    public onNativeModelChange(newDate: string) {
-        if (!newDate) {
-            this.change(null);
-            return;
-        }
-
-        switch (this.type) {
-            case MkjDateType.DATE:
-                const date = moment(newDate).format("YYYY-MM-DD");
-                this.change(date);
-                break;
-            case MkjDateType.TIME:
-                this.change(newDate);
-                break;
-            case MkjDateType.COMBINED:
-                const combined = moment(newDate).format("YYYY-MM-DD hh:mm:ss");
-                this.change(combined);
-                break;
-        }
+    switch (this.type) {
+      case MkjDateType.DATE:
+        const date = dayjs(newDate).format('YYYY-MM-DD');
+        this.change(date);
+        break;
+      case MkjDateType.TIME:
+        const time = dayjs(newDate).format('HH:mm');
+        this.change(time);
+        break;
+      case MkjDateType.COMBINED:
+        const combined = dayjs(newDate).format('YYYY-MM-DD HH:mm:ss');
+        this.change(combined);
+        break;
     }
+  }
+
+  public onNativeModelChange(newDate: string) {
+    if (!newDate) {
+      this.change(null);
+      return;
+    }
+
+    switch (this.type) {
+      case MkjDateType.DATE:
+        const date = dayjs(newDate).format('YYYY-MM-DD');
+        this.change(date);
+        break;
+      case MkjDateType.TIME:
+        this.change(newDate);
+        break;
+      case MkjDateType.COMBINED:
+        const combined = dayjs(newDate).format('YYYY-MM-DD hh:mm:ss');
+        this.change(combined);
+        break;
+    }
+  }
 }
