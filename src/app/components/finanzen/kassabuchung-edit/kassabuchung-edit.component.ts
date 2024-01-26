@@ -9,6 +9,13 @@ import { InfoService } from 'src/app/services/info.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
 import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.service';
 
+export interface KassabuchungPositionenFormGroup {
+  bezeichnung: FormControl<string>;
+  menge: FormControl<number>;
+  preis: FormControl<number>;
+  gesamtPreis: FormControl<number>;
+}
+
 @Component({
   selector: 'app-kassabuchung-edit',
   templateUrl: './kassabuchung-edit.component.html',
@@ -17,7 +24,7 @@ import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchung> {
   protected navigateBackOnSave = true;
 
-  public positionenFormArray: FormArray;
+  public positionenFormArray: FormArray<FormGroup<KassabuchungPositionenFormGroup>>;
   public readonly typOptions = UtilFunctions.getDropdownOptionsFromEnum(KassabuchungTyp);
 
   constructor(
@@ -68,11 +75,11 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         nummer: new FormControl<string>(null),
         datum: new FormControl<string>(null, Validators.required),
         anschrift_id: new FormControl<string>(null),
-        kassabuch_id: new FormControl<string>(buchId),
-        gesamtpreis: new FormControl<number>(null, Validators.required),
+        kassabuch_id: new FormControl<string>(buchId, Validators.required),
+        gesamtpreis: new FormControl<number>(0, Validators.required),
         bezahltDatum: new FormControl<string>(null),
         anmerkungen: new FormControl<string>(null),
-        positionen: new FormArray<any>([]),
+        positionen: new FormArray<FormGroup<KassabuchungPositionenFormGroup>>([]),
         konditionen: new FormControl<any>(null),
         anschrift: new FormControl(null),
       },
@@ -91,6 +98,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
     );
 
     this.positionenFormArray = formGroup.controls.positionen as FormArray;
+    this.addPosition();
     return formGroup;
   }
 
@@ -102,9 +110,9 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
     this.positionenFormArray.push(
       new FormGroup({
         bezeichnung: new FormControl<string>(null, Validators.required),
-        menge: new FormControl<number>(null, Validators.required),
-        preis: new FormControl<number>(null, Validators.required),
-        gesamtPreis: new FormControl<number>(null, Validators.required),
+        menge: new FormControl<number>(1),
+        preis: new FormControl<number>(null),
+        gesamtPreis: new FormControl<number>(0, Validators.required),
       })
     );
   }

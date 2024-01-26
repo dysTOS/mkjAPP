@@ -1,28 +1,38 @@
 <mkj-form-wrapper [formGroup]="formGroup" [component]="this">
   <div class="p-fluid grid">
-    <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-dropdown label="Typ" formControlName="typ" [options]="typOptions"></mkj-dropdown>
-    </div>
-    <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-text-input label="Re-Nummer" formControlName="nummer"></mkj-text-input>
-    </div>
-    <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-date-input type="date" label="Re-Datum" formControlName="datum"></mkj-date-input>
-    </div>
+    <mkj-dropdown
+      class="p-field col-12 lg:col-3 md:col-6"
+      label="Typ"
+      formControlName="typ"
+      [options]="typOptions"
+    ></mkj-dropdown>
+    <mkj-text-input
+      class="p-field col-12 lg:col-3 md:col-6"
+      label="Re-Nummer"
+      formControlName="nummer"
+    ></mkj-text-input>
+    <mkj-date-input
+      class="p-field col-12 lg:col-3 md:col-6"
+      type="date"
+      label="Re-Datum"
+      formControlName="datum"
+    ></mkj-date-input>
+    <mkj-date-input
+      class="p-field col-12 lg:col-3 md:col-6"
+      type="date"
+      label="Bezahlt am"
+      formControlName="bezahltDatum"
+    ></mkj-date-input>
+    <mkj-text-area-input class="p-field col-12" label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
     <p-divider class="col-12"></p-divider>
-    <div formArrayName="positionen" class="p-field col-12">
-      <div class="flex flex-column gap-2">
-        @for (position of positionenFormArray.controls; track position; let i = $index) {
-          <div class="flex gap-2 align-items-center" [formGroupName]="i">
-            <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
-            <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
-            <mkj-number-input formControlName="preis" label="Preis" mode="currency"></mkj-number-input>
-            <mkj-number-input
-              formControlName="gesamtPreis"
-              label="Gesamt"
-              mode="currency"
-              [disabled]="true"
-            ></mkj-number-input>
+    <div formArrayName="positionen" class="p-field col-12 flex flex-column gap-3">
+      @for (position of positionenFormArray.controls; track position; let i = $index) {
+        <div class="flex flex-wrap gap-3 lg:justify-content-around align-items-center" [formGroupName]="i">
+          <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
+          <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
+          <mkj-number-input formControlName="preis" label="Preis" mode="currency"></mkj-number-input>
+          <div class="flex gap-3 align-items-center">
+            {{ position.controls.gesamtPreis.value | currency: 'EUR' }}
             <button
               pButton
               pRipple
@@ -32,25 +42,26 @@
               (click)="removePosition(i)"
             ></button>
           </div>
-        }
-        <button pButton type="button" icon="pi pi-plus" (click)="addPosition()" label="Position hinzufügen"></button>
-      </div>
+        </div>
+      }
+      <div class="border-top-1"></div>
+      <button
+        pButton
+        type="button"
+        class="max-w-20rem"
+        icon="pi pi-plus"
+        (click)="addPosition()"
+        label="Position hinzufügen"
+      ></button>
     </div>
+    <mkj-number-input
+      *ngIf="positionenFormArray.controls.length > 1"
+      class="p-field col-12 lg:col-3 md:col-6"
+      mode="currency"
+      label="Gesamtpreis"
+      formControlName="gesamtpreis"
+    ></mkj-number-input>
     <p-divider class="col-12"></p-divider>
-    <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-number-input
-        mode="currency"
-        label="Gesamtpreis"
-        formControlName="gesamtpreis"
-        [disabled]="positionenFormArray.controls.length != 0"
-      ></mkj-number-input>
-    </div>
-    <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-date-input type="date" label="Bezahlt am" formControlName="bezahltDatum"></mkj-date-input>
-    </div>
-    <div class="p-field col-12">
-      <mkj-text-area-input label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
-    </div>
   </div>
   <div class="p-field col-12">
     <p-divider align="left" type="solid">
