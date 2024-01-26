@@ -26,11 +26,9 @@
   styleClass="p-datatable-striped"
   responsiveLayout="scroll"
   (onStateRestore)="onStateRestore($event)"
-  >
+>
   <ng-template pTemplate="caption">
-    <div
-      class="flex flex-column md:flex-row md:justify-content-between align-items-center"
-      >
+    <div class="flex flex-column md:flex-row md:justify-content-between align-items-center">
       @if (configuration.showTotalCount) {
         <div class="m-2">
           Anzahl:
@@ -42,14 +40,9 @@
           iconRight="pi pi-search"
           [clearable]="true"
           [value]="table.filters?.global?.value"
-                (valueChange)="
-                    table.filterGlobal(
-                        $event,
-                        configuration.globalfilter?.matchMode ?? 'contains'
-                    )
-                "
+          (valueChange)="table.filterGlobal($event, configuration.globalfilter?.matchMode ?? 'contains')"
           placeholder="Suchen..."
-          />
+        />
       }
     </div>
 
@@ -62,12 +55,7 @@
   <ng-template #filterTemplate let-col>
     @switch (col.filter?.filterType) {
       @case ('date') {
-        <p-columnFilter
-          type="date"
-          display="menu"
-          [field]="col.field"
-          [showOperator]="false"
-        ></p-columnFilter>
+        <p-columnFilter type="date" display="menu" [field]="col.field" [showOperator]="false"></p-columnFilter>
       }
       @default {
         @if (col.filter != null) {
@@ -81,18 +69,14 @@
             [showMatchModes]="false"
             [showAddButton]="false"
             [hideOnClear]="true"
-            >
-            <ng-template
-              pTemplate="filter"
-              let-value
-              let-filter="filterCallback"
-              >
+          >
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
               <p-dropdown
                 [ngModel]="value"
                 [options]="col.filter.filterOptions"
                 (onChange)="filter($event.value)"
                 placeholder="Filter"
-                >
+              >
                 <ng-template let-option pTemplate="item">
                   <span>{{ option.label }}</span>
                 </ng-template>
@@ -109,91 +93,63 @@
     @if (col.sortable) {
       <p-sortIcon [field]="col.field"></p-sortIcon>
     }
-    <ng-template
-      [ngTemplateOutlet]="filterTemplate"
-      [ngTemplateOutletContext]="{ $implicit: col }"
-    ></ng-template>
+    <ng-template [ngTemplateOutlet]="filterTemplate" [ngTemplateOutletContext]="{ $implicit: col }"></ng-template>
   </ng-template>
 
   @if (!configuration.hideHeader) {
     <ng-template pTemplate="header"
       ><tr>
+        @if (rowReorder) {
+          <th class="w-2rem"></th>
+        }
+        @for (col of configuration.columns; track col) {
+          @if (col.sortable) {
+            <th [class]="col.styleClass" [pSortableColumn]="col.field">
+              <ng-template [ngTemplateOutlet]="headerCell" [ngTemplateOutletContext]="{ $implicit: col }"></ng-template>
+            </th>
+          }
+          @if (!col.sortable) {
+            <th [class]="col.styleClass">
+              <ng-template [ngTemplateOutlet]="headerCell" [ngTemplateOutletContext]="{ $implicit: col }"></ng-template>
+            </th>
+          }
+        }
+      </tr>
+    </ng-template>
+  }
+
+  <ng-template pTemplate="body" let-value let-expanded="expanded" let-rowIndex="rowIndex">
+    <tr
+      [pSelectableRow]="value"
+      [pSelectableRowIndex]="rowIndex"
+      [pReorderableRow]="rowIndex"
+      [ngClass]="configuration.rowStyle?.condition(value) ? configuration.rowStyle.styleClass : ''"
+      (dblclick)="onDoubleClick.emit(value)"
+    >
       @if (rowReorder) {
-        <th class="w-2rem"></th>
+        <td class="w-2rem">
+          <span class="pi pi-bars" pReorderableRowHandle></span>
+        </td>
       }
       @for (col of configuration.columns; track col) {
-        @if (col.sortable) {
-          <th
-            [class]="col.styleClass"
-            [pSortableColumn]="col.field"
-            >
-            <ng-template
-              [ngTemplateOutlet]="headerCell"
-              [ngTemplateOutletContext]="{ $implicit: col }"
-            ></ng-template>
-          </th>
-        }
-        @if (!col.sortable) {
-          <th [class]="col.styleClass">
-            <ng-template
-              [ngTemplateOutlet]="headerCell"
-              [ngTemplateOutletContext]="{ $implicit: col }"
-            ></ng-template>
-          </th>
-        }
+        <td [class]="col.styleClass">
+          <mkj-list-cell [value]="value" [colConfig]="col" [templateMap]="templateMap"></mkj-list-cell>
+        </td>
       }
     </tr>
   </ng-template>
-}
 
-<ng-template
-  pTemplate="body"
-  let-value
-  let-expanded="expanded"
-  let-rowIndex="rowIndex"
-  >
-  <tr
-    [pSelectableRow]="value"
-    [pSelectableRowIndex]="rowIndex"
-    [pReorderableRow]="rowIndex"
-            [ngClass]="
-                configuration.rowStyle?.condition(value)
-                    ? configuration.rowStyle.styleClass
-                    : ''
-            "
-    (dblclick)="onDoubleClick.emit(value)"
-    >
-    @if (rowReorder) {
-      <td class="w-2rem">
-        <span class="pi pi-bars" pReorderableRowHandle></span>
-      </td>
-    }
-    @for (col of configuration.columns; track col) {
-      <td
-        [class]="col.styleClass"
-        >
-        <mkj-list-cell
-          [value]="value"
-          [colConfig]="col"
-          [templateMap]="templateMap"
-        ></mkj-list-cell>
-      </td>
-    }
-  </tr>
-</ng-template>
-@if (templateMap?.rowexpansion != null; as value) {
-  <ng-template
-    pTemplate="rowexpansion"
-    let-value
-    >
-    <tr>
-      <td colspan="200">
-        <ng-template
-          [ngTemplateOutlet]="templateMap.rowexpansion"
-          [ngTemplateOutletContext]="{ $implicit: value }"
-        ></ng-template>
-      </td>
-    </tr>
-  </ng-template>
-}
+  @if (templateMap?.rowexpansion != null; as value) {
+    <ng-template pTemplate="rowexpansion" let-value>
+      <tr>
+        <td colspan="200">
+          <ng-template
+            [ngTemplateOutlet]="templateMap.rowexpansion"
+            [ngTemplateOutletContext]="{ $implicit: value }"
+          ></ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  }
 </p-table>
+
