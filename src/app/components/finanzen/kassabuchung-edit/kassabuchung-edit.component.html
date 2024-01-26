@@ -24,15 +24,31 @@
       formControlName="bezahltDatum"
     ></mkj-date-input>
     <mkj-text-area-input class="p-field col-12" label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
+
+    <div class="p-field col-12">
+      <p-divider align="left" type="solid">
+        <div class="inline-flex align-items-center">
+          <i class="pi pi-user mr-2"></i>
+          <b class="mr-2">Kontrahent</b>
+          @if (formGroup.controls.anschrift_id.value) {
+            <p>(aus System)</p>
+          } @else {
+            <p>(Neuanlage)</p>
+          }
+        </div>
+      </p-divider>
+    </div>
+    <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
+
     <p-divider class="col-12"></p-divider>
     <div formArrayName="positionen" class="p-field col-12 flex flex-column gap-3">
       @for (position of positionenFormArray.controls; track position; let i = $index) {
         <div class="flex flex-wrap gap-3 lg:justify-content-around align-items-center" [formGroupName]="i">
           <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
           <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
-          <mkj-number-input formControlName="preis" label="Preis" mode="currency"></mkj-number-input>
+          <mkj-number-input formControlName="einzelpreis" label="Preis" mode="currency"></mkj-number-input>
           <div class="flex gap-3 align-items-center">
-            {{ position.controls.gesamtPreis.value | currency: 'EUR' }}
+            {{ position.controls.gesamtpreis.value | currency: 'EUR' }}
             <button
               pButton
               pRipple
@@ -44,7 +60,9 @@
           </div>
         </div>
       }
-      <div class="border-top-1"></div>
+    </div>
+    <div class="col-12 border-top-1"></div>
+    <div class="col-12 flex justify-content-between">
       <button
         pButton
         type="button"
@@ -53,28 +71,15 @@
         (click)="addPosition()"
         label="Position hinzufügen"
       ></button>
+
+      <mkj-number-input
+        *ngIf="positionenFormArray.controls.length > 1"
+        class="p-field col-12 lg:col-3 md:col-6"
+        mode="currency"
+        label="Gesamtpreis"
+        formControlName="gesamtpreis"
+      ></mkj-number-input>
     </div>
-    <mkj-number-input
-      *ngIf="positionenFormArray.controls.length > 1"
-      class="p-field col-12 lg:col-3 md:col-6"
-      mode="currency"
-      label="Gesamtpreis"
-      formControlName="gesamtpreis"
-    ></mkj-number-input>
     <p-divider class="col-12"></p-divider>
   </div>
-  <div class="p-field col-12">
-    <p-divider align="left" type="solid">
-      <div class="inline-flex align-items-center">
-        <i class="pi pi-user mr-2"></i>
-        <b class="mr-2">Kontrahent</b>
-        @if (formGroup.controls.anschrift_id.value) {
-          <p>(aus System)</p>
-        } @else {
-          <p>(Neuanlage)</p>
-        }
-      </div>
-    </p-divider>
-  </div>
-  <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
 </mkj-form-wrapper>

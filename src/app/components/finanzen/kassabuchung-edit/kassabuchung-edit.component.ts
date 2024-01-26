@@ -12,8 +12,8 @@ import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.ser
 export interface KassabuchungPositionenFormGroup {
   bezeichnung: FormControl<string>;
   menge: FormControl<number>;
-  preis: FormControl<number>;
-  gesamtPreis: FormControl<number>;
+  einzelpreis: FormControl<number>;
+  gesamtpreis: FormControl<number>;
 }
 
 @Component({
@@ -106,13 +106,21 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
     return this.route.snapshot.paramMap.get('id');
   }
 
+  protected dataLoaded(data: Kassabuchung): void {
+    if (data.positionen && data.positionen.length > 1) {
+      for (let i = this.positionenFormArray.length; i < data.positionen.length; i++) {
+        this.addPosition();
+      }
+    }
+  }
+
   public addPosition(): void {
     this.positionenFormArray.push(
-      new FormGroup({
+      new FormGroup<KassabuchungPositionenFormGroup>({
         bezeichnung: new FormControl<string>(null, Validators.required),
         menge: new FormControl<number>(1),
-        preis: new FormControl<number>(null),
-        gesamtPreis: new FormControl<number>(0, Validators.required),
+        einzelpreis: new FormControl<number>(null),
+        gesamtpreis: new FormControl<number>(0, Validators.required),
       })
     );
   }
@@ -124,11 +132,11 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
 
   private calculateGesamtpreis(): void {
     let gesamtpreis = 0;
-    this.positionenFormArray.controls.forEach((control: FormGroup) => {
+    this.positionenFormArray.controls.forEach((control: FormGroup<KassabuchungPositionenFormGroup>) => {
       let positionGesamtpreis: number;
-      if (control.controls.menge.value != null && control.controls.preis.value != null) {
-        positionGesamtpreis = control.controls.menge.value * control.controls.preis.value;
-        control.controls.gesamtPreis.setValue(positionGesamtpreis, {
+      if (control.controls.menge.value != null && control.controls.einzelpreis.value != null) {
+        positionGesamtpreis = control.controls.menge.value * control.controls.einzelpreis.value;
+        control.controls.gesamtpreis.setValue(positionGesamtpreis, {
           emitEvent: false,
           onlySelf: true,
         });
