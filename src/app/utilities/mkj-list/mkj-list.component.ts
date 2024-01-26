@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -23,7 +24,7 @@ import { MkjListHelper } from './mkj-list-helper.class';
   styleUrls: ['./mkj-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MkjListComponent<T> implements OnChanges {
+export class MkjListComponent<T> implements OnChanges, AfterViewInit {
   @ViewChild('table', { static: true })
   public table: Table;
 
@@ -55,6 +56,10 @@ export class MkjListComponent<T> implements OnChanges {
 
   constructor(private infoService: InfoService) {}
 
+  public ngAfterViewInit(): void {
+    this.setInitialFilter();
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.datasource || changes.configuration) {
       this.selectedRow = null;
@@ -65,16 +70,7 @@ export class MkjListComponent<T> implements OnChanges {
   }
 
   public onStateRestore(event: TableState): void {
-    console.log(event);
-    if (
-      this.configuration.initialFilter
-      // &&
-      // MkjListHelper.hasSetFilters(event) === false
-    ) {
-      Object.entries(this.configuration.initialFilter).forEach(([key, value]) => {
-        this.table.filter(value.value, key, value.matchMode);
-      });
-    }
+    // console.log(event);
     // event.selection = null;
     // event.expandedRowKeys = null;
   }
@@ -123,5 +119,14 @@ export class MkjListComponent<T> implements OnChanges {
         this.infoService.error(err);
       },
     });
+  }
+
+  private setInitialFilter(): void {
+    const sessionState = JSON.parse(sessionStorage.getItem(this.configuration.listName + '-list')) as TableState;
+    if (this.configuration.initialFilter && MkjListHelper.hasSetFilters(sessionState) === false) {
+      Object.entries(this.configuration.initialFilter).forEach(([key, value]) => {
+        this.table.filter(value.value, key, value.matchMode);
+      });
+    }
   }
 }

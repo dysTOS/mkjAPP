@@ -33,7 +33,9 @@ export abstract class MkjListHelper {
   }
 
   public static hasSetFilters(event: TableState): boolean {
-    return Object.values(event?.filters)?.some((value) => {
+    if (!event?.filters) return false;
+
+    return Object.values(event.filters).some((value) => {
       if (Array.isArray(value)) {
         return value.some((v) => v.value != null);
       }
@@ -68,7 +70,7 @@ export abstract class MkjListHelper {
 
     if (matchMode.includes('date')) {
       value = dayjs(value).format('YYYY-MM-DD');
-      value = value === 'Invalid date' ? null : value;
+      value = value === 'Invalid Date' ? null : value;
 
       if (matchMode === 'dateBefore') {
         operator = '<';
