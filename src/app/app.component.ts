@@ -5,6 +5,7 @@ import { MkjPrimeTranslation } from 'src/configurations/primeTranslation';
 import { AuthStateService } from './services/authentication/auth-state.service';
 import { TokenService } from './services/authentication/token.service';
 import { UserService } from './services/authentication/user.service';
+import { UtilFunctions } from './helpers/util-functions';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent {
       }
     });
 
-    this.primengConfig.ripple = true;
+    this.primengConfig.ripple = UtilFunctions.isDesktop() === false;
     this.primengConfig.setTranslation(MkjPrimeTranslation);
   }
 }
