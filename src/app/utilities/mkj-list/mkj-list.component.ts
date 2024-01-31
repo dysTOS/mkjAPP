@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -24,7 +23,7 @@ import { MkjListHelper } from './mkj-list-helper.class';
   styleUrls: ['./mkj-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MkjListComponent<T> implements OnChanges, AfterViewInit {
+export class MkjListComponent<T> implements OnChanges {
   @ViewChild('table', { static: true })
   public table: Table;
 
@@ -56,15 +55,12 @@ export class MkjListComponent<T> implements OnChanges, AfterViewInit {
 
   constructor(private infoService: InfoService) {}
 
-  public ngAfterViewInit(): void {
-    this.setInitialFilter();
-  }
-
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.datasource || changes.configuration) {
+      this.setInitialFilter();
       this.selectedRow = null;
       if (!this.configuration?.lazyLoad) {
-        this.eagerLoad();
+        this.loadData();
       }
     }
   }
@@ -86,7 +82,7 @@ export class MkjListComponent<T> implements OnChanges, AfterViewInit {
     this.onRowReorder.emit(values);
   }
 
-  public onLazyLoad(event: LazyLoadEvent): void {
+  public loadData(event?: LazyLoadEvent): void {
     this.loading$.set(true);
     const input = MkjListHelper.getListInput<T>(event, this.configuration.globalFilter, this.pageSize);
     this.datasource.getList(input).subscribe({
@@ -104,29 +100,12 @@ export class MkjListComponent<T> implements OnChanges, AfterViewInit {
     });
   }
 
-  private eagerLoad(): void {
-    this.loading$.set(true);
-    this.datasource.getList().subscribe({
-      next: (res) => {
-        this.values = [...res.values];
-        this.totalCount = res.totalCount;
-        this.loading$.set(false);
-      },
-      error: (err) => {
-        this.values = [];
-        this.totalCount = 0;
-        this.loading$.set(false);
-        this.infoService.error(err);
-      },
-    });
-  }
-
   private setInitialFilter(): void {
     const sessionState = JSON.parse(sessionStorage.getItem(this.configuration.listName + '-list')) as TableState;
     if (this.configuration.initialFilter && MkjListHelper.hasSetFilters(sessionState) === false) {
-      Object.entries(this.configuration.initialFilter).forEach(([key, value]) => {
-        this.table.filter(value.value, key, value.matchMode);
-      });
+      sessionState.filters = this.configuration.initialFilter || {};
+      Object.entries(this.configuration.initialFilter).forEach(([key, value]) => {});
+      sessionStorage.setItem(this.configuration.listName + '-list', JSON.stringify(sessionState));
     }
   }
 }

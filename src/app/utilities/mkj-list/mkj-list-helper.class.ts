@@ -5,10 +5,12 @@ import { MkjListGlobalFilter } from '../_list-configurations/_list-configuration
 
 export abstract class MkjListHelper {
   public static getListInput<T>(
-    event: LazyLoadEvent,
+    event?: LazyLoadEvent,
     globalFilter?: MkjListGlobalFilter<T>,
     pageSize: number = 25
-  ): GetListInput<T> {
+  ): GetListInput<T> | null {
+    if (!event) return null;
+
     const result: GetListInput = {
       skip: event.first ?? 0,
       take: event.rows ?? pageSize,
@@ -43,8 +45,10 @@ export abstract class MkjListHelper {
     });
   }
 
-  public static getFilters<T>(filters: { [key: string]: FilterMetadata }): MkjListInputFilter<T>[] {
+  public static getFilters<T>(filters: { [key: string]: FilterMetadata | FilterMetadata[] }): MkjListInputFilter<T>[] {
     const result: MkjListInputFilter<T>[] = [];
+    if (!filters) return result;
+
     Object.entries(filters).forEach(([key, value]) => {
       if (key === 'global') return;
 

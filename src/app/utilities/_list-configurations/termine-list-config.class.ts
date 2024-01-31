@@ -30,12 +30,14 @@ export class TermineListConfig implements ListConfiguration<Termin> {
     condition: (termin) => termin.vonDatum < dayjs(new Date()).format('YYYY-MM-DD'),
   };
 
-  initialFilter: { [key: string]: FilterMetadata } = {
-    vonDatum: {
-      value: dayjs(new Date()).subtract(2, 'week').toDate(),
-      matchMode: 'dateAfter',
-      operator: 'and',
-    },
+  initialFilter: { [key: string]: FilterMetadata[] } = {
+    vonDatum: [
+      {
+        value: dayjs(new Date()).subtract(2, 'week').toDate(),
+        matchMode: 'dateAfter',
+        operator: 'and',
+      },
+    ],
   };
 
   columns: MkjListColumn<Termin>[] = [
@@ -55,6 +57,12 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       filter: {
         filterType: 'date',
       },
+    },
+    {
+      header: 'Ort',
+      field: 'ort',
+      type: 'string',
+      styleClass: 'w-12rem not-on-small',
     },
     {
       header: 'Kategorie',

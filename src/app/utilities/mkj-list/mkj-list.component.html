@@ -8,7 +8,7 @@
   [paginator]="configuration.lazyLoad"
   [rows]="pageSize"
   [totalRecords]="totalCount"
-  (onLazyLoad)="onLazyLoad($event)"
+  (onLazyLoad)="loadData($event)"
   stateStorage="session"
   [stateKey]="configuration.listName + '-list'"
   rowExpandMode="single"
@@ -25,6 +25,7 @@
   (onRowReorder)="onRowReordered($event)"
   styleClass="p-datatable-striped"
   responsiveLayout="scroll"
+  [filters]="configuration.initialFilter ?? {}"
   (onStateRestore)="onStateRestore($event)"
 >
   <ng-template pTemplate="caption">
