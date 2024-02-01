@@ -19,6 +19,9 @@ export abstract class AbstractControlAccessor<T> implements ControlValueAccessor
   public set value(value: T) {
     this._value.next(value);
   }
+  public get value(): T {
+    return this._value.value;
+  }
 
   public get disabled(): boolean {
     return this._disabled.value;
@@ -39,7 +42,7 @@ export abstract class AbstractControlAccessor<T> implements ControlValueAccessor
   public valueChange = new EventEmitter<T>();
 
   public get value$(): Observable<T> {
-    return this._value;
+    return this._value.asObservable();
   }
 
   public get disabled$(): Observable<boolean> {
@@ -62,6 +65,7 @@ export abstract class AbstractControlAccessor<T> implements ControlValueAccessor
 
   public change(value: T) {
     if (_.isEqual(value, this._value.value) === false) {
+      console.log('change', value);
       this._onChange?.(value);
       this.valueChange.emit(value);
     }

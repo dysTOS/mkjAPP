@@ -3,14 +3,13 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import { CONFIG_MAP } from "../configurations/_CONFIG_MAP";
+import { CONFIG_MAP } from '../configurations/_CONFIG_MAP';
 
 const config = CONFIG_MAP.local;
 
 export const environment = {
-    production: config.production,
-    apiUrl: config.apiUrl,
-    prefix: config.prefix,
-    appTitle: config.appTitle,
-    publictest: config.publictest,
+  production: config.production,
+  apiUrl: config.apiUrl,
+  appTitle: config.appTitle,
+  publictest: config.publictest,
 };

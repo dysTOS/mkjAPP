@@ -1,19 +1,14 @@
 <span class="p-float-label" [class.p-input-icon-right]="iconRight">
   @if (iconRight && (!clearable || !(value$ | async))) {
-    <i
-      [class]="iconRight"
-    ></i>
+    <i [class]="iconRight"></i>
   }
   @if (clearable && (value$ | async)) {
-    <i
-      class="pi pi-times cursor-pointer"
-      (click)="change(null)"
-    ></i>
+    <i class="pi pi-times cursor-pointer" (click)="change(null)"></i>
   }
   <input
     pInputText
     type="text"
-    [ngModel]="value$ | async"
+    [ngModel]="formControl?.value ?? value"
     (ngModelChange)="change($event)"
     [disabled]="disabled$ | async"
     (blur)="blur()"
@@ -22,6 +17,6 @@
     [class.ng-invalid]="formControl?.invalid"
     [placeholder]="placeholder"
     class="w-full"
-    />
-    <label [for]="label">{{ label }}</label>
-  </span>
+  />
+  <label [for]="label">{{ label }}</label>
+</span>

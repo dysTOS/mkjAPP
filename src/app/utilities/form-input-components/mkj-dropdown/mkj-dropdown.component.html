@@ -1,17 +1,17 @@
 <span class="p-float-label">
-    <p-dropdown
-        optionLabel="label"
-        optionValue="value"
-        dataKey="value"
-        [options]="options"
-        [ngModel]="value$ | async"
-        (ngModelChange)="change($event)"
-        [disabled]="disabled$ | async"
-        (onBlur)="touch()"
-        [class.ng-dirty]="formControl?.invalid"
-        [class.ng-invalid]="formControl?.invalid"
-        class="w-full"
-    >
-    </p-dropdown>
-    <label [for]="label">{{ label }}</label>
+  <p-dropdown
+    optionLabel="label"
+    optionValue="value"
+    dataKey="value"
+    [options]="options"
+    [ngModel]="formControl?.value ?? value"
+    (ngModelChange)="change($event)"
+    [disabled]="disabled$ | async"
+    (onBlur)="touch()"
+    [class.ng-dirty]="formControl?.invalid"
+    [class.ng-invalid]="formControl?.invalid"
+    class="w-full"
+  >
+  </p-dropdown>
+  <label [for]="label">{{ label }}</label>
 </span>

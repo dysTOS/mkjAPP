@@ -102,9 +102,12 @@ export class MkjListComponent<T> implements OnChanges {
 
   private setInitialFilter(): void {
     const sessionState = JSON.parse(sessionStorage.getItem(this.configuration.listName + '-list')) as TableState;
-    if (this.configuration.initialFilter && MkjListHelper.hasSetFilters(sessionState) === false) {
+    if (
+      this.configuration.initialFilter &&
+      sessionState != null &&
+      MkjListHelper.hasSetFilters(sessionState) === false
+    ) {
       sessionState.filters = this.configuration.initialFilter || {};
-      Object.entries(this.configuration.initialFilter).forEach(([key, value]) => {});
       sessionStorage.setItem(this.configuration.listName + '-list', JSON.stringify(sessionState));
     }
   }

@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { AppMainComponent } from './app.main.component';
 import { AatestComponent } from './components/aatest/aatest.component';
 import { AnschriftEditComponent } from './components/anschriften/anschriften-edit/anschriften-edit.component';
+import { AnschriftenOverviewComponent } from './components/anschriften/anschriften-overview/anschriften-overview.component';
 import { InstrumenteEditorComponent } from './components/archiv/instrumente/instrumente-editor/instrumente-editor.component';
 import { InstrumenteOverviewComponent } from './components/archiv/instrumente/instrumente-overview/instrumente-overview.component';
 import { NotenEditorComponent } from './components/archiv/noten/noten-editor/noten-editor.component';
@@ -18,6 +19,7 @@ import { KassabuchDetailsComponent } from './components/finanzen/kassabuch-detai
 import { KassabuchEditComponent } from './components/finanzen/kassabuch-edit/kassabuch-edit.component';
 import { KassabuchungEditComponent } from './components/finanzen/kassabuchung-edit/kassabuchung-edit.component';
 import { KassabuecherComponent } from './components/finanzen/kassabuecher-overview/kassabuecher-overview.component';
+import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rechnung.component';
 import { GruppeEditComponent } from './components/gruppen/gruppe-edit/gruppe-edit.component';
 import { GruppenOverviewComponent } from './components/gruppen/gruppen-overview/gruppen-overview.component';
 import { MitgliederOverviewComponent } from './components/mitglieder/mitglied-overview/mitglieder-overview.component';
@@ -36,13 +38,10 @@ import { PermissionKey } from './models/User';
 import { AppAccessdeniedComponent } from './pages/app.accessdenied.component';
 import { AppErrorComponent } from './pages/app.error.component';
 import { AppHelpComponent } from './pages/app.help.component';
-import { AppInvoiceComponent } from './pages/app.invoice.component';
 import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { MkjChangeLogsComponent } from './pages/change-logs/change-logs.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { AnschriftenOverviewComponent } from './components/anschriften/anschriften-overview/anschriften-overview.component';
-import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rechnung.component';
 
 @NgModule({
   imports: [
@@ -55,11 +54,6 @@ import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rec
         { path: 'notfound', component: AppNotfoundComponent },
         {
           path: '',
-          redirectTo: environment.prefix,
-          pathMatch: 'full',
-        },
-        {
-          path: environment.prefix,
           component: AppMainComponent,
           canActivate: [GlobalRouteGuard],
           title: environment.appTitle,

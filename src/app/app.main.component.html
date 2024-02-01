@@ -1,36 +1,36 @@
 <div
-    class="layout-wrapper"
-    [ngClass]="{
-        'layout-wrapper-menu-active': sidebarActive,
-        'layout-overlay-menu': overlay,
-        'p-ripple-disabled': !app.ripple,
-        'p-input-filled': themeService.inputStyle === 'filled'
-    }"
+  class="layout-wrapper"
+  [ngClass]="{
+    'layout-wrapper-menu-active': sidebarActive,
+    'layout-overlay-menu': overlay,
+    'p-ripple-disabled': !app.ripple,
+    'p-input-filled': themeService.inputStyle === 'filled'
+  }"
 >
-    <div style="z-index: 10000">
-        <p-toast></p-toast>
-        <p-toast key="bottom-center" position="bottom-center"></p-toast>
+  <div style="z-index: 10000">
+    <p-toast></p-toast>
+    <p-toast key="bottom-center" position="bottom-center"></p-toast>
+  </div>
+  <p-confirmDialog
+    header="Bestätigen"
+    icon="pi pi-exclamation-triangle"
+    [dismissableMask]="false"
+    defaultFocus="reject"
+    acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text"
+    [breakpoints]="{ '960px': '75vw', '640px': '95vw' }"
+    [style]="{ width: '40vw' }"
+  ></p-confirmDialog>
+
+  <app-topbar></app-topbar>
+  <app-sidebar></app-sidebar>
+
+  <div class="layout-main">
+    <app-mkj-toolbar></app-mkj-toolbar>
+    <div class="layout-main-content">
+      <router-outlet></router-outlet>
     </div>
-    <p-confirmDialog
-        header="Bestätigen"
-        icon="pi pi-exclamation-triangle"
-        [dismissableMask]="false"
-        defaultFocus="reject"
-        acceptButtonStyleClass="p-button-text"
-        rejectButtonStyleClass="p-button-text"
-        [breakpoints]="{ '960px': '75vw', '640px': '95vw' }"
-        [style]="{ width: '40vw' }"
-    ></p-confirmDialog>
+  </div>
 
-    <app-topbar></app-topbar>
-    <app-sidebar></app-sidebar>
-
-    <div class="layout-main">
-        <app-mkj-toolbar></app-mkj-toolbar>
-        <div class="layout-main-content">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </div>
