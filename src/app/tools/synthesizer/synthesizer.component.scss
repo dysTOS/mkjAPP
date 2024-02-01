@@ -1,0 +1,35 @@
+.key {
+  color: black;
+  min-width: 2rem;
+  height: 10rem;
+  border: 1px solid black;
+  margin: 1px;
+  text-align: center;
+  line-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #000;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  &.black {
+    background-color: #000;
+    color: #fff;
+    height: 6rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    align-items: start;
+    z-index: 1;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

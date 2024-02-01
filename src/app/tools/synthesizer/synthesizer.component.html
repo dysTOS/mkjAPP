@@ -1,0 +1,22 @@
+<div class="flex gap-4 mb-3 align-items-center">
+  <div class="w-10rem">
+    <p-slider [ngModel]="50" (ngModelChange)="SynthCtx.setMasterVolume($event / 100)"></p-slider>
+  </div>
+  <mkj-dropdown
+    label="Wave"
+    [value]="SynthCtx.type"
+    (valueChange)="SynthCtx.setWaveType($event)"
+    [options]="WaveOptions"
+  ></mkj-dropdown>
+  <button pButton label="Stop" (click)="SynthCtx.stopAll()"></button>
+</div>
+
+<div class="flex">
+  @for (octave of octaves; track octave) {
+    @for (key of octave.keys; track key) {
+      <div class="key" [class.black]="key.black" (click)="SynthCtx.playKey(key)">
+        {{ key.key }}
+      </div>
+    }
+  }
+</div>

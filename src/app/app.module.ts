@@ -190,6 +190,9 @@ import { MkjAutocompleteComponent } from './utilities/form-input-components/mkj-
 import { DropdownOptionsEditComponent } from './components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component';
 import { MkjDisplayModelComponent } from './utilities/mkj-display-model/mkj-display-model.component';
 import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rechnung.component';
+import { TunerComponent } from './tools/tuner/tuner.component';
+import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
+import { TransposerComponent } from './tools/transposer/transposer.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -381,6 +384,9 @@ registerLocaleData(localeDe);
     KassabuchungenListComponent,
     MkjAutocompleteComponent,
     DropdownOptionsEditComponent,
+    TunerComponent,
+    SynthesizerComponent,
+    TransposerComponent,
   ],
   providers: [
     mkjAppInitializer(),
