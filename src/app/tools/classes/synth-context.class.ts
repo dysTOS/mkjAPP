@@ -1,12 +1,12 @@
 import { KeyPitch } from '../interfaces/key-pitches.interface';
+import { getAudioContext } from '../getAudioContext.function';
 
 export class SynthContext {
   public masterVolume = 0.5;
   public type: OscillatorType = 'sine';
 
-  private _audioCtx = window.AudioContext
-    ? new AudioContext()
-    : (new (window as any).webkitAudioContext() as AudioContext);
+  private _audioCtx = getAudioContext();
+
   private _gainNode = this._audioCtx.createGain();
 
   private _oscillators: OscillatorNode[] = [];

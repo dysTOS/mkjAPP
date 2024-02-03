@@ -1,7 +1,7 @@
+import { getAudioContext } from '../getAudioContext.function';
+
 export class TunerContext {
-  private _audioCtx = window.AudioContext
-    ? new AudioContext()
-    : (new (window as any).webkitAudioContext() as AudioContext);
+  private _audioCtx = getAudioContext();
 
   constructor() {
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
