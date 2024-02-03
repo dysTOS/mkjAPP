@@ -1,12 +1,25 @@
-import { KeyPitch, Octave, Temperament } from '../interfaces/key-pitches.interface';
+import { KeyPitch, KeyPitchesConfig, Octave, Temperament } from '../interfaces/key-pitches.interface';
 
 export class KeyPitchesFactory {
-  public readonly A4_FREQUENCY: number;
-  public readonly TEMPERAMENT: Temperament;
+  public config: KeyPitchesConfig = {
+    A4_FREQUENCY: 440,
+    TEMPERAMENT: Temperament.EQUAL,
+  };
 
-  constructor(A4_FREQUENCY: number = 440, TEMPERAMENT: Temperament = Temperament.EQUAL) {
-    this.A4_FREQUENCY = A4_FREQUENCY;
-    this.TEMPERAMENT = TEMPERAMENT;
+  constructor(config?: KeyPitchesConfig) {
+    this.init(config);
+  }
+
+  public init(config?: KeyPitchesConfig): void {
+    if (config) {
+      this.config = config;
+    }
+
+    const keyPitches: KeyPitch[] = [];
+
+    for (let i = 0; i < 8; i++) {
+      keyPitches.push(...this.getOctaveKeys(i));
+    }
   }
 
   public getOctave(octave: number): Octave {
@@ -17,9 +30,9 @@ export class KeyPitchesFactory {
     };
   }
 
-  public getOctaveKeys(octave: number): KeyPitch[] {
+  private getOctaveKeys(octave: number): KeyPitch[] {
     const keys = [];
-    const octaveBaseFrequency = this.A4_FREQUENCY * Math.pow(2, octave - 4);
+    const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, octave - 4);
     for (let i = 0; i < 12; i++) {
       const key: KeyPitch = {
         key: KeyPitchesFactory.getKeyLabel(i),

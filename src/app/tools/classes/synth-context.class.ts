@@ -4,7 +4,9 @@ export class SynthContext {
   public masterVolume = 0.5;
   public type: OscillatorType = 'sine';
 
-  private _audioCtx = new AudioContext();
+  private _audioCtx = window.AudioContext
+    ? new AudioContext()
+    : (new (window as any).webkitAudioContext() as AudioContext);
   private _gainNode = this._audioCtx.createGain();
 
   private _oscillators: OscillatorNode[] = [];

@@ -11,7 +11,7 @@
   <button pButton label="Stop" (click)="SynthCtx.stopAll()"></button>
 </div>
 
-<div class="flex">
+<div class="flex overflow-x-auto">
   @for (octave of octaves; track octave) {
     @for (key of octave.keys; track key) {
       <div class="key" [class.black]="key.black" (click)="SynthCtx.playKey(key)">
