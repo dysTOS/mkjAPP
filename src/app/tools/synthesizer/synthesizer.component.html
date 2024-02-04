@@ -1,22 +1,44 @@
-<div class="flex gap-4 mb-3 align-items-center">
+<div class="flex gap-4 mt-3 mb-5 align-items-center">
   <div class="w-10rem">
     <p-slider [ngModel]="50" (ngModelChange)="SynthCtx.setMasterVolume($event / 100)"></p-slider>
   </div>
-  <mkj-dropdown
-    label="Wave"
-    [value]="SynthCtx.type"
-    (valueChange)="SynthCtx.setWaveType($event)"
-    [options]="WaveOptions"
-  ></mkj-dropdown>
-  <button pButton label="Stop" (click)="SynthCtx.stopAll()"></button>
 </div>
 
 <div class="flex overflow-x-auto">
   @for (octave of octaves; track octave) {
     @for (key of octave.keys; track key) {
-      <div class="key" [class.black]="key.black" (click)="SynthCtx.playKey(key)">
+      <div
+        class="key"
+        [class.black]="key.black"
+        (mousedown)="mouseEventSubject.next({ type: $event.type, key })"
+        (mouseup)="mouseEventSubject.next({ type: $event.type, key })"
+        (mouseenter)="mouseEventSubject.next({ type: $event.type, key })"
+        (mouseleave)="mouseEventSubject.next({ type: $event.type, key })"
+      >
         {{ key.key }}
       </div>
     }
+  }
+</div>
+
+<div class="flex flex-column gap-4 mt-5">
+  @for (osc of SynthCtx.oscillatorBlueprints; let index = $index; track osc) {
+    <div class="flex gap-2 align-items-center">
+      Oscillator {{ index + 1 }}
+      <mkj-dropdown
+        label="Type"
+        [value]="osc.type"
+        (valueChange)="SynthCtx.setWaveType($event, index)"
+        [options]="WaveOptions"
+      ></mkj-dropdown>
+      <div class="flex flex-column justify-content-center">
+        Gain
+        <p-knob [size]="70" [ngModel]="50" (ngModelChange)="SynthCtx.setGain($event, index)"></p-knob>
+      </div>
+      <div class="flex flex-column">
+        Detune
+        <p-knob [size]="70" [ngModel]="50" (ngModelChange)="SynthCtx.setDetune($event, index)"></p-knob>
+      </div>
+    </div>
   }
 </div>
