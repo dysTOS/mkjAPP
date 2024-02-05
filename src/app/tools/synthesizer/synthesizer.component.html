@@ -6,18 +6,25 @@
 
 <div class="flex overflow-x-auto">
   @for (octave of octaves; track octave) {
-    @for (key of octave.keys; track key) {
-      <div
-        class="key"
-        [class.black]="key.black"
-        (mousedown)="mouseEventSubject.next({ type: $event.type, key })"
-        (mouseup)="mouseEventSubject.next({ type: $event.type, key })"
-        (mouseenter)="mouseEventSubject.next({ type: $event.type, key })"
-        (mouseleave)="mouseEventSubject.next({ type: $event.type, key })"
-      >
-        {{ key.key }}
+    <div class="flex flex-column">
+      <div class="octave">{{ octave.label }}</div>
+      <div class="flex">
+        @for (key of octave.keys; track key) {
+          <div
+            class="key"
+            [class.black]="key.black"
+            (mousedown)="mouseEventSubject.next({ type: $event.type, key })"
+            (mouseup)="mouseEventSubject.next({ type: $event.type, key })"
+            (mouseenter)="mouseEventSubject.next({ type: $event.type, key })"
+            (mouseleave)="mouseEventSubject.next({ type: $event.type, key })"
+          >
+            @if (key.black == false) {
+              {{ key.key }}
+            }
+          </div>
+        }
       </div>
-    }
+    </div>
   }
 </div>
 

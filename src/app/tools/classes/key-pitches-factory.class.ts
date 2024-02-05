@@ -4,7 +4,10 @@ export class KeyPitchesFactory {
   public config: KeyPitchesConfig = {
     A4_FREQUENCY: 440,
     TEMPERAMENT: Temperament.EQUAL,
+    LANGUAGE: 'german',
   };
+
+  private _allKeys: KeyPitch[] = [];
 
   constructor(config?: KeyPitchesConfig) {
     this.init(config);
@@ -15,44 +18,45 @@ export class KeyPitchesFactory {
       this.config = config;
     }
 
-    const keyPitches: KeyPitch[] = [];
+    this._allKeys = [];
 
     for (let i = 0; i < 8; i++) {
-      keyPitches.push(...this.getOctaveKeys(i));
+      this._allKeys.push(...this.getRawOctaveKeys(i));
     }
   }
 
   public getOctave(octave: number): Octave {
     return {
       index: octave,
-      germanLabel: KeyPitchesFactory.getOctaveLabel(octave),
-      keys: this.getOctaveKeys(octave),
+      label: this.config.LANGUAGE === 'german' ? this.getGermanOctaveLabel(octave) : octave.toString(),
+      keys: this._allKeys.filter((k) => k.octaveIndex === octave),
     };
   }
 
-  private getOctaveKeys(octave: number): KeyPitch[] {
+  private getRawOctaveKeys(octave: number): KeyPitch[] {
     const keys = [];
     const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, octave - 4);
     for (let i = 0; i < 12; i++) {
+      const keyName = this.getKeyLabel(i);
       const key: KeyPitch = {
-        key: KeyPitchesFactory.getKeyLabel(i),
-        black: KeyPitchesFactory.getKeyLabel(i).includes('#'),
+        key: keyName,
+        black: keyName.includes('#'),
         frequency: octaveBaseFrequency * Math.pow(2, i / 12),
-        octaveIndex: octave,
+        octaveIndex: i < 3 ? octave : octave + 1,
       };
       keys.push(key);
     }
     return keys;
   }
 
-  public static getKeyLabel(keyIndex: number): string {
+  private getKeyLabel(keyIndex: number): string {
     switch (keyIndex) {
       case 0:
         return 'A';
       case 1:
         return 'A#';
       case 2:
-        return 'B';
+        return this.config.LANGUAGE === 'german' ? 'H' : 'B';
       case 3:
         return 'C';
       case 4:
@@ -76,7 +80,7 @@ export class KeyPitchesFactory {
     }
   }
 
-  public static getOctaveLabel(octave: number): string {
+  private getGermanOctaveLabel(octave: number): string {
     switch (octave) {
       case 0:
         return 'Subkontra';
@@ -87,17 +91,17 @@ export class KeyPitchesFactory {
       case 3:
         return 'Kleine';
       case 4:
-        return '´';
+        return '/';
       case 5:
-        return '´´';
+        return '//';
       case 6:
-        return '´´´';
+        return '///';
       case 7:
-        return '4´';
+        return '////';
       case 8:
-        return '5´';
+        return '/////';
       case 9:
-        return '6´';
+        return '//////';
       default:
         return '--';
     }

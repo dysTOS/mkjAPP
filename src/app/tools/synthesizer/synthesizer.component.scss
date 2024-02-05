@@ -1,5 +1,19 @@
+.octave {
+  display: flex;
+  font-size: small;
+  padding: 0.25rem;
+  margin: 0 0.25rem 0 0.25rem;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-color: lightgray;
+  border-radius: 3px;
+}
+
 .key {
   color: black;
+  background-color: #fff;
   min-width: 2rem;
   height: 10rem;
   border: 1px solid black;
@@ -10,7 +24,6 @@
   justify-content: center;
   align-items: end;
   cursor: pointer;
-  background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px #000;
   transition: all 0.1s ease-in-out;

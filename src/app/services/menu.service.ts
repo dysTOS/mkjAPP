@@ -23,6 +23,7 @@ export const MenuLabels = {
 
   //with sidemenu > 4
   DASHBOARD: 5,
+  TOOLS: 6,
   TERMINE: 7,
   MITGLIEDER: 8,
   LOGOUT: 9,
@@ -126,6 +127,34 @@ export class MenuService implements OnDestroy {
           icon: 'pi pi-fw pi-users',
           routerLink: 'finanzen/adressen',
           permission: PermissionKey.ANSCHRIFTEN_READ,
+        },
+      ],
+    },
+    {
+      label: 'Tools',
+      icon: 'mdi mdi-music-box-multiple-outline',
+      enumLabel: MenuLabels.TOOLS,
+      permission: PermissionKey.USER_DELETE,
+      children: [
+        {
+          label: 'Stimmgerät',
+          icon: 'mdi mdi-speedometer',
+          routerLink: 'tools/tuner',
+        },
+        {
+          label: 'Synthesizer',
+          icon: 'mdi mdi-piano',
+          routerLink: 'tools/synth',
+        },
+        {
+          label: 'Transponierer',
+          icon: 'mdi mdi-music-accidental-sharp',
+          routerLink: 'tools/transposer',
+        },
+        {
+          label: 'Metronom',
+          icon: 'mdi mdi-metronome',
+          routerLink: 'tools/metronom',
         },
       ],
     },

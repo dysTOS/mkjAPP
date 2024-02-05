@@ -58,6 +58,7 @@ export class TunerContext implements OnDestroy {
 
   public ngOnDestroy(): void {
     cancelAnimationFrame(this._requestId);
+    this._micStream.mediaStream.getTracks().forEach((track) => track.stop());
     this._micStream.disconnect();
     this._analyser.disconnect();
     this._audioCtx.close();

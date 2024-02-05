@@ -1,13 +1,4 @@
 <p-tabView [(activeIndex)]="activeIndex" (activeIndexChange)="updateUrl()">
-  <p-tabPanel header="Tuner">
-    <mkj-tuner></mkj-tuner>
-  </p-tabPanel>
-  <p-tabPanel header="Synthesizer">
-    <mkj-synthesizer></mkj-synthesizer>
-  </p-tabPanel>
-  <p-tabPanel header="Transposer">
-    <mkj-transposer></mkj-transposer>
-  </p-tabPanel>
   <p-tabPanel header="Test API">
     <test-api-component></test-api-component>
   </p-tabPanel>
@@ -33,5 +24,25 @@
         </div>
       </div>
     </p-card>
+  </p-tabPanel>
+  <p-tabPanel header="Errors">
+    <ul>
+      @for (error of loggerService.errors; track error) {
+        <li>
+          <div class="flex flex-column">
+            <p>{{ error.name }}</p>
+            <p>
+              {{ error.cause }}
+            </p>
+            <p>
+              {{ error.message }}
+            </p>
+            <p>
+              {{ error.stack }}
+            </p>
+          </div>
+        </li>
+      }
+    </ul>
   </p-tabPanel>
 </p-tabView>

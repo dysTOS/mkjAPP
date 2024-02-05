@@ -42,6 +42,10 @@ import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { MkjChangeLogsComponent } from './pages/change-logs/change-logs.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { TunerComponent } from './tools/tuner/tuner.component';
+import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
+import { TransposerComponent } from './tools/transposer/transposer.component';
+import { MetronomeComponent } from './tools/metronome/metronome.component';
 
 @NgModule({
   imports: [
@@ -282,11 +286,37 @@ import { SignupComponent } from './pages/signup/signup.component';
               ],
             },
             {
+              path: 'tools',
+              component: RouterOutletWrapperComponent,
+              canActivate: [RouteGuard],
+              title: environment.appTitle + ' -  TOOLS',
+              data: {
+                permissions: [PermissionKey.USER_DELETE],
+              },
+              children: [
+                {
+                  path: 'tuner',
+                  component: TunerComponent,
+                },
+                {
+                  path: 'synth',
+                  component: SynthesizerComponent,
+                },
+                {
+                  path: 'transposer',
+                  component: TransposerComponent,
+                },
+                {
+                  path: 'metronom',
+                  component: MetronomeComponent,
+                },
+              ],
+            },
+            {
               path: 'einstellungen',
               component: RouterOutletWrapperComponent,
               canActivate: [RouteGuard],
               title: environment.appTitle + ' -  EINSTELLUNGEN',
-
               children: [
                 {
                   path: 'mitgliedsdaten',

@@ -1,7 +1,7 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de-AT';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -193,6 +193,8 @@ import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rec
 import { TunerComponent } from './tools/tuner/tuner.component';
 import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
 import { TransposerComponent } from './tools/transposer/transposer.component';
+import { MetronomeComponent } from './tools/metronome/metronome.component';
+import { ErrorLogHandler } from './providers/error-log-handler';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -387,6 +389,7 @@ registerLocaleData(localeDe);
     TunerComponent,
     SynthesizerComponent,
     TransposerComponent,
+    MetronomeComponent,
   ],
   providers: [
     mkjAppInitializer(),
@@ -404,6 +407,7 @@ registerLocaleData(localeDe);
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: ErrorHandler, useClass: ErrorLogHandler },
   ],
   bootstrap: [AppComponent],
 })

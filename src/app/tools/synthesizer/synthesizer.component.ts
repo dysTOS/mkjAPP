@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MkjDropdownOption } from 'src/app/utilities/form-input-components/mkj-dropdown/mkj-dropdown.component';
 import { SubSink } from 'subsink';
 import { KeyPitchesFactory } from '../classes/key-pitches-factory.class';
 import { SynthContext } from '../classes/synth-context.class';
 import { KeyPitch, Octave } from '../interfaces/key-pitches.interface';
+import { MusicTool } from '../abstract-music-tool.class';
 
 @Component({
   selector: 'mkj-synthesizer',
@@ -12,7 +13,10 @@ import { KeyPitch, Octave } from '../interfaces/key-pitches.interface';
   styleUrl: './synthesizer.component.scss',
   providers: [SynthContext],
 })
-export class SynthesizerComponent {
+export class SynthesizerComponent extends MusicTool {
+  public readonly title: string = 'Synthesizer';
+  public readonly localStorageKey: string = 'synth';
+
   public keyFactory = new KeyPitchesFactory();
 
   public octaves: Octave[] = [];
@@ -40,8 +44,12 @@ export class SynthesizerComponent {
   private _isMouseDown = false;
   private _subs = new SubSink();
 
-  constructor(public SynthCtx: SynthContext) {
-    for (let i = 4; i < 8; i++) {
+  constructor(
+    inj: Injector,
+    public SynthCtx: SynthContext
+  ) {
+    super(inj);
+    for (let i = 2; i < 8; i++) {
       this.octaves.push(this.keyFactory.getOctave(i));
     }
 

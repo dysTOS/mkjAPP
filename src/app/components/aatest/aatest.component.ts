@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
 import { NotenApiService } from 'src/app/services/api/noten-api.service';
 import { FileService } from 'src/app/services/file.service';
+import { LoggerService } from 'src/app/services/logger.service';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 
 @Component({
@@ -15,9 +16,10 @@ export class AatestComponent {
   public activeIndex = 0;
 
   constructor(
+    public loggerService: LoggerService,
+    public pushService: PushNotificationsService,
     private fileService: FileService,
     private notenService: NotenApiService,
-    public pushService: PushNotificationsService,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router

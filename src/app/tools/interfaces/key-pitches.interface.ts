@@ -5,11 +5,12 @@ export enum Temperament {
 export interface KeyPitchesConfig {
   A4_FREQUENCY: number;
   TEMPERAMENT: Temperament;
+  LANGUAGE: 'german' | 'english';
 }
 
 export interface Octave {
   index: number;
-  germanLabel: string;
+  label: string;
   keys: KeyPitch[];
 }
 
