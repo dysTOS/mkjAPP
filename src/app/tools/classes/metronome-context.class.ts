@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { getAudioContext } from '../getAudioContext.function';
 import { Observable, Subject, interval } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Injectable()
-export class MetronomeContext {
+export class MetronomeContext implements OnDestroy {
   public metronomeConfig = {
     numerator: 4,
     denominator: 4,
@@ -25,6 +25,12 @@ export class MetronomeContext {
 
   constructor() {
     this._masterGainNode.connect(this._audioCtx.destination);
+  }
+
+  public ngOnDestroy(): void {
+    this.stop();
+    this._subs.unsubscribe();
+    this._audioCtx.close();
   }
 
   public start(): void {
