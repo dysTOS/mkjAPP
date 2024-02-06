@@ -13,10 +13,10 @@
           <div
             class="key"
             [class.black]="key.black"
-            (mousedown)="mouseEventSubject.next({ type: $event.type, key })"
-            (mouseup)="mouseEventSubject.next({ type: $event.type, key })"
-            (mouseenter)="mouseEventSubject.next({ type: $event.type, key })"
-            (mouseleave)="mouseEventSubject.next({ type: $event.type, key })"
+            (pointerdown)="mouseEventSubject.next({ type: $event.type, key })"
+            (pointerup)="mouseEventSubject.next({ type: $event.type, key })"
+            (pointerenter)="mouseEventSubject.next({ type: $event.type, key })"
+            (pointerleave)="mouseEventSubject.next({ type: $event.type, key })"
           >
             @if (key.black == false) {
               {{ key.key }}
