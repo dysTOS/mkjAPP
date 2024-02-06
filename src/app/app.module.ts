@@ -195,6 +195,7 @@ import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component'
 import { TransposerComponent } from './tools/transposer/transposer.component';
 import { MetronomeComponent } from './tools/metronome/metronome.component';
 import { ErrorLogHandler } from './providers/error-log-handler';
+import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -390,6 +391,7 @@ registerLocaleData(localeDe);
     SynthesizerComponent,
     TransposerComponent,
     MetronomeComponent,
+    NumberToArrayPipe,
   ],
   providers: [
     mkjAppInitializer(),

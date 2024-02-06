@@ -1,1 +1,25 @@
-<p>metronome works!</p>
+<div class="flex gap-4">
+  <mkj-number-input
+    label="Zähler"
+    [(value)]="metronomeContext.metronomeConfig.numerator"
+    (valueChange)="!isPlaying || start()"
+  ></mkj-number-input>
+  <mkj-number-input
+    label="Nenner"
+    [(value)]="metronomeContext.metronomeConfig.denominator"
+    (valueChange)="!isPlaying || start()"
+  ></mkj-number-input>
+  <mkj-text-input
+    label="BPM"
+    [(value)]="metronomeContext.metronomeConfig.bpm"
+    (valueChange)="!isPlaying || start()"
+  ></mkj-text-input>
+
+  <button pButton pRipple [label]="isPlaying ? 'Stop' : 'Start'" (click)="isPlaying ? stop() : start()"></button>
+</div>
+
+<div class="mt-5 beat-bar">
+  @for (beat of metronomeContext.metronomeConfig.numerator | numberToArray; let index = $index; track beat) {
+    <span [class.active-beat]="index + 1 === count">{{ beat }}</span>
+  }
+</div>

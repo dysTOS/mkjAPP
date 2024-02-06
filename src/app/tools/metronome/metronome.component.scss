@@ -1,0 +1,19 @@
+.beat-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  border-radius: 5px;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #000;
+
+  .active-beat {
+    color: #ff0000;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ff0000;
+    animation: beat 0.5s infinite;
+  }
+}
