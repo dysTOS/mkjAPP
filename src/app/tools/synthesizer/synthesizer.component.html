@@ -13,10 +13,10 @@
           <div
             class="key"
             [class.black]="key.black"
-            (pointerdown)="mouseEventSubject.next({ type: $event.type, key })"
-            (pointerup)="mouseEventSubject.next({ type: $event.type, key })"
-            (pointerenter)="mouseEventSubject.next({ type: $event.type, key })"
-            (pointerleave)="mouseEventSubject.next({ type: $event.type, key })"
+            (pointerdown)="pointerEvents.next({ type: $event.type, key })"
+            (pointerup)="pointerEvents.next({ type: $event.type, key })"
+            (pointerenter)="pointerEvents.next({ type: $event.type, key })"
+            (pointerleave)="pointerEvents.next({ type: $event.type, key })"
           >
             @if (key.black == false) {
               {{ key.key }}
@@ -32,12 +32,7 @@
   @for (osc of SynthCtx.oscillatorBlueprints; let index = $index; track osc) {
     <div class="flex gap-2 align-items-center">
       Oscillator {{ index + 1 }}
-      <mkj-dropdown
-        label="Type"
-        [value]="osc.type"
-        (valueChange)="SynthCtx.setWaveType($event, index)"
-        [options]="WaveOptions"
-      ></mkj-dropdown>
+      <mkj-dropdown label="Type" [(value)]="osc.type" [options]="WaveOptions"></mkj-dropdown>
       <div class="flex flex-column justify-content-center">
         Gain
         <p-knob [size]="70" [ngModel]="50" (ngModelChange)="SynthCtx.setGain($event, index)"></p-knob>

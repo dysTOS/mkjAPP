@@ -40,8 +40,8 @@ export class SynthesizerComponent extends MusicTool {
     },
   ];
 
-  public readonly mouseEventSubject = new Subject<{ type: string; key: KeyPitch }>();
-  private _isMouseDown = false;
+  public readonly pointerEvents = new Subject<{ type: string; key: KeyPitch }>();
+  private _isPointerDown = false;
   private _subs = new SubSink();
 
   constructor(
@@ -53,16 +53,16 @@ export class SynthesizerComponent extends MusicTool {
       this.octaves.push(this.keyFactory.getOctave(i));
     }
 
-    this._subs.sink = this.mouseEventSubject.subscribe((data) => {
-      if (data.type === 'mouseup') {
-        this._isMouseDown = false;
+    this._subs.sink = this.pointerEvents.subscribe((data) => {
+      if (data.type === 'pointerup') {
+        this._isPointerDown = false;
         this.SynthCtx.stopAll();
-      } else if (data.type === 'mouseenter' && this._isMouseDown) {
+      } else if (data.type === 'pointerenter' && this._isPointerDown) {
         this.SynthCtx.playKey(data.key);
-      } else if (data.type === 'mousedown') {
-        this._isMouseDown = true;
+      } else if (data.type === 'pointerdown') {
+        this._isPointerDown = true;
         this.SynthCtx.playKey(data.key);
-      } else if (data.type === 'mouseleave') {
+      } else if (data.type === 'pointerleave') {
         this.SynthCtx.stopAll();
       }
     });
