@@ -46,6 +46,7 @@ import { TunerComponent } from './tools/tuner/tuner.component';
 import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
 import { TransposerComponent } from './tools/transposer/transposer.component';
 import { MetronomeComponent } from './tools/metronome/metronome.component';
+import { CircleOfFifthsComponent } from './tools/circle-of-fifths/circle-of-fifths.component';
 
 @NgModule({
   imports: [
@@ -309,6 +310,10 @@ import { MetronomeComponent } from './tools/metronome/metronome.component';
                 {
                   path: 'metronom',
                   component: MetronomeComponent,
+                },
+                {
+                  path: 'circle-of-fifths',
+                  component: CircleOfFifthsComponent,
                 },
               ],
             },

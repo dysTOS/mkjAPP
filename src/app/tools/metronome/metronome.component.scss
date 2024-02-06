@@ -1,19 +1,24 @@
-.beat-bar {
+.beat-bar-container {
   display: flex;
-  justify-content: space-around;
-  padding: 1rem;
-  border-radius: 5px;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
+  gap: 2rem;
+  padding: 0.5rem;
+  border-radius: 5px;
   width: 100%;
   font-size: 2rem;
   font-weight: bold;
-  background-color: #000;
+  background-color: var(--surface-100);
 
-  .active-beat {
-    color: #ff0000;
-    font-weight: bold;
-    text-shadow: 0 0 10px #ff0000;
-    animation: beat 0.5s infinite;
+  .bar-counts {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    .active-beat {
+      color: var(--primary-color);
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--primary-color);
+    }
   }
 }

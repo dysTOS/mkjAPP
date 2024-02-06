@@ -132,10 +132,15 @@ export class MenuService implements OnDestroy {
     },
     {
       label: 'Tools',
-      icon: 'mdi mdi-music-box-multiple-outline',
+      icon: 'mdi mdi-timer-music-outline',
       enumLabel: MenuLabels.TOOLS,
       permission: PermissionKey.USER_DELETE,
       children: [
+        {
+          label: 'Metronom',
+          icon: 'mdi mdi-metronome',
+          routerLink: 'tools/metronom',
+        },
         {
           label: 'Stimmgerät',
           icon: 'mdi mdi-speedometer',
@@ -148,13 +153,13 @@ export class MenuService implements OnDestroy {
         },
         {
           label: 'Transponierer',
-          icon: 'mdi mdi-music-accidental-sharp',
+          icon: 'mdi mdi-playlist-music',
           routerLink: 'tools/transposer',
         },
         {
-          label: 'Metronom',
-          icon: 'mdi mdi-metronome',
-          routerLink: 'tools/metronom',
+          label: 'Quintenzirkel',
+          icon: 'mdi mdi-music-circle-outline',
+          routerLink: 'tools/circle-of-fifths',
         },
       ],
     },

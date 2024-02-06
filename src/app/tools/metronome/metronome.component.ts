@@ -19,11 +19,11 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
   private _subs = new SubSink();
 
   constructor(
-    injector: Injector,
-    public metronomeContext: MetronomeContext
+    public ctx: MetronomeContext,
+    injector: Injector
   ) {
     super(injector);
-    this._subs.sink = this.metronomeContext.count$.subscribe((count: number) => {
+    this._subs.sink = this.ctx.count$.subscribe((count: number) => {
       this.count = count;
     });
   }
@@ -33,12 +33,13 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
   }
 
   public start(): void {
-    this.metronomeContext.start();
+    this.ctx.start();
     this.isPlaying = true;
   }
 
   public stop(): void {
-    this.metronomeContext.stop();
+    this.ctx.stop();
     this.isPlaying = false;
+    this.count = 0;
   }
 }

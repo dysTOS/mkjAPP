@@ -1,25 +1,32 @@
-<div class="flex gap-4">
-  <mkj-number-input
-    label="Zähler"
-    [(value)]="metronomeContext.metronomeConfig.numerator"
-    (valueChange)="!isPlaying || start()"
-  ></mkj-number-input>
-  <mkj-number-input
-    label="Nenner"
-    [(value)]="metronomeContext.metronomeConfig.denominator"
-    (valueChange)="!isPlaying || start()"
-  ></mkj-number-input>
-  <mkj-text-input
-    label="BPM"
-    [(value)]="metronomeContext.metronomeConfig.bpm"
-    (valueChange)="!isPlaying || start()"
-  ></mkj-text-input>
-
-  <button pButton pRipple [label]="isPlaying ? 'Stop' : 'Start'" (click)="isPlaying ? stop() : start()"></button>
+<div class="grid align-items-center">
+  <div class="col-6 lg:col-4">
+    <mkj-number-input
+      label="Schläge pro Takt"
+      [(value)]="ctx.metronomeConfig.numerator"
+      (valueChange)="!isPlaying || start()"
+    ></mkj-number-input>
+  </div>
+  <div class="col-6 lg:col-4">
+    <mkj-text-input
+      label="BPM"
+      [(value)]="ctx.metronomeConfig.bpm"
+      (valueChange)="!isPlaying || start()"
+    ></mkj-text-input>
+  </div>
 </div>
 
-<div class="mt-5 beat-bar">
-  @for (beat of metronomeContext.metronomeConfig.numerator | numberToArray; let index = $index; track beat) {
-    <span [class.active-beat]="index + 1 === count">{{ beat }}</span>
-  }
+<div class="beat-bar-container mt-5">
+  <div class="bar-counts">
+    @for (beat of ctx.metronomeConfig.numerator | numberToArray; let index = $index; track beat) {
+      <span [class.active-beat]="index + 1 === count">{{ beat }}</span>
+    }
+  </div>
+  <button
+    pButton
+    pRipple
+    class="p-button-rounded"
+    [class.p-button-danger]="isPlaying"
+    [icon]="isPlaying ? 'pi pi-stop' : 'pi pi-play'"
+    (click)="isPlaying ? stop() : start()"
+  ></button>
 </div>

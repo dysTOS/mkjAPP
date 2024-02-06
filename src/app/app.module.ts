@@ -196,6 +196,7 @@ import { TransposerComponent } from './tools/transposer/transposer.component';
 import { MetronomeComponent } from './tools/metronome/metronome.component';
 import { ErrorLogHandler } from './providers/error-log-handler';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
+import { CircleOfFifthsComponent } from './tools/circle-of-fifths/circle-of-fifths.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -392,6 +393,7 @@ registerLocaleData(localeDe);
     TransposerComponent,
     MetronomeComponent,
     NumberToArrayPipe,
+    CircleOfFifthsComponent,
   ],
   providers: [
     mkjAppInitializer(),
