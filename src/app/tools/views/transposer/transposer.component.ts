@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { MusicTool } from '../abstract-music-tool.class';
+import { MusicTool } from '../../abstract-music-tool.class';
 
 @Component({
   selector: 'mkj-transposer',

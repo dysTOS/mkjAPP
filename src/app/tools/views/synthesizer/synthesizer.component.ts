@@ -2,10 +2,10 @@ import { Component, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MkjDropdownOption } from 'src/app/utilities/form-input-components/mkj-dropdown/mkj-dropdown.component';
 import { SubSink } from 'subsink';
-import { KeyPitchesFactory } from '../classes/key-pitches-factory.class';
-import { SynthContext } from '../classes/synth-context.class';
-import { KeyPitch, Octave } from '../interfaces/key-pitches.interface';
-import { MusicTool } from '../abstract-music-tool.class';
+import { KeyPitchesFactory } from '../../classes/key-pitches-factory.class';
+import { SynthContext } from '../../classes/synth-context.class';
+import { KeyPitch, Octave } from '../../interfaces/key-pitches.interface';
+import { MusicTool } from '../../abstract-music-tool.class';
 
 @Component({
   selector: 'mkj-synthesizer',

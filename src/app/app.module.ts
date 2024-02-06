@@ -190,13 +190,13 @@ import { MkjAutocompleteComponent } from './utilities/form-input-components/mkj-
 import { DropdownOptionsEditComponent } from './components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component';
 import { MkjDisplayModelComponent } from './utilities/mkj-display-model/mkj-display-model.component';
 import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rechnung.component';
-import { TunerComponent } from './tools/tuner/tuner.component';
-import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
-import { TransposerComponent } from './tools/transposer/transposer.component';
-import { MetronomeComponent } from './tools/metronome/metronome.component';
+import { TunerComponent } from './tools/views/tuner/tuner.component';
+import { SynthesizerComponent } from './tools/views/synthesizer/synthesizer.component';
+import { TransposerComponent } from './tools/views/transposer/transposer.component';
 import { ErrorLogHandler } from './providers/error-log-handler';
 import { NumberToArrayPipe } from './pipes/number-to-array.pipe';
-import { CircleOfFifthsComponent } from './tools/circle-of-fifths/circle-of-fifths.component';
+import { CircleOfFifthsComponent } from './tools/views/circle-of-fifths/circle-of-fifths.component';
+import { MetronomeComponent } from './tools/views/metronome/metronome.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,

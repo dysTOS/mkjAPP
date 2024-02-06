@@ -1,6 +1,6 @@
 import { Component, Injector } from '@angular/core';
-import { TunerContext } from '../classes/tuner-context.class';
-import { MusicTool } from '../abstract-music-tool.class';
+import { TunerContext } from '../../classes/tuner-context.class';
+import { MusicTool } from '../../abstract-music-tool.class';
 
 @Component({
   selector: 'mkj-tuner',

@@ -1,6 +1,6 @@
 import { Component, Injector, OnDestroy } from '@angular/core';
-import { MusicTool } from '../abstract-music-tool.class';
-import { MetronomeContext } from '../classes/metronome-context.class';
+import { MusicTool } from '../../abstract-music-tool.class';
+import { MetronomeContext } from '../../classes/metronome-context.class';
 import { SubSink } from 'subsink';
 
 @Component({

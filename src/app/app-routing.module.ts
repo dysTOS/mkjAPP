@@ -42,11 +42,11 @@ import { AppNotfoundComponent } from './pages/app.notfound.component';
 import { MkjChangeLogsComponent } from './pages/change-logs/change-logs.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { TunerComponent } from './tools/tuner/tuner.component';
-import { SynthesizerComponent } from './tools/synthesizer/synthesizer.component';
-import { TransposerComponent } from './tools/transposer/transposer.component';
-import { MetronomeComponent } from './tools/metronome/metronome.component';
-import { CircleOfFifthsComponent } from './tools/circle-of-fifths/circle-of-fifths.component';
+import { TunerComponent } from './tools/views/tuner/tuner.component';
+import { SynthesizerComponent } from './tools/views/synthesizer/synthesizer.component';
+import { TransposerComponent } from './tools/views/transposer/transposer.component';
+import { CircleOfFifthsComponent } from './tools/views/circle-of-fifths/circle-of-fifths.component';
+import { MetronomeComponent } from './tools/views/metronome/metronome.component';
 
 @NgModule({
   imports: [
