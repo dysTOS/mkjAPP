@@ -1,7 +1,7 @@
 <p-checkbox
   [binary]="true"
   [label]="label"
-  [ngModel]="formControl?.value ?? value"
+  [ngModel]="value$ | async"
   (ngModelChange)="change($event)"
   [disabled]="disabled$ | async"
 ></p-checkbox>
