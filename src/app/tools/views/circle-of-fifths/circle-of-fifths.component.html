@@ -1,5 +1,14 @@
+<p>{{ circleSteps | json }}</p>
+
 <ul class="circle-of-fifths">
-  <li class="key">
+  @for (step of circleSteps; track step) {
+    <li class="key">
+      <div class="major">{{ step.key.key }}</div>
+      <div class="minor">{{ step.step?.step }}</div>
+      <div class="sig">{{ step.step?.type }}</div>
+    </li>
+  }
+  <!-- <li class="key">
     <div class="major">c</div>
     <div class="minor">a</div>
     <div class="sig"><span class="accidental">&#x266e;</span></div>
@@ -58,5 +67,5 @@
     <div class="major">f</div>
     <div class="minor">d</div>
     <div class="sig">1<span class="accidental">&#x266d;</span></div>
-  </li>
+  </li> -->
 </ul>

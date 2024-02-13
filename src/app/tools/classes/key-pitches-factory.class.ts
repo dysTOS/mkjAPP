@@ -1,4 +1,5 @@
 import { KeyPitch, KeyPitchesConfig, Octave, Temperament } from '../interfaces/key-pitches.interface';
+import { CircleStep, ModeScale, ScaleStepInfo } from '../interfaces/mode-scale-interface';
 
 export class KeyPitchesFactory {
   public config: KeyPitchesConfig = {
@@ -25,24 +26,87 @@ export class KeyPitchesFactory {
     }
   }
 
-  public getOctave(octave: number): Octave {
+  public getOctave(octaveIndex: number): Octave {
     return {
-      index: octave,
-      label: this.config.LANGUAGE === 'german' ? this.getGermanOctaveLabel(octave) : octave.toString(),
-      keys: this._allKeys.filter((k) => k.octaveIndex === octave),
+      index: octaveIndex,
+      label: this.config.LANGUAGE === 'german' ? this.getGermanOctaveLabel(octaveIndex) : octaveIndex.toString(),
+      keys: this._allKeys.filter((k) => k.a_octaveIndex === octaveIndex),
     };
   }
 
-  private getRawOctaveKeys(octave: number): KeyPitch[] {
+  public getCircleOfFifths(tonic: string, scale?: ModeScale): CircleStep[] {
+    const circleSteps: CircleStep[] = [];
+    let stepIndex = this._allKeys.findIndex((k) => k.key === tonic);
+
+    for (let i = 0; i < 12; i++) {
+      const step: CircleStep = {
+        key: i > 5 ? this.getKeyEnharmonic(this._allKeys[stepIndex]) : this._allKeys[stepIndex],
+      };
+      circleSteps.push(step);
+
+      stepIndex += 7;
+      if (stepIndex >= 12) {
+        stepIndex -= 12;
+      }
+    }
+
+    if (scale) {
+      let scaleStepIndex = circleSteps[0].key.c_noteIndex;
+      scale.steps.forEach((s, i) => {
+        const circleStep = circleSteps.find((cs) => cs.key.c_noteIndex === scaleStepIndex);
+        if (circleStep) {
+          circleStep.step = {
+            step: i,
+            type: 'maj',
+          };
+        }
+        scaleStepIndex += s;
+        if (scaleStepIndex >= 12) {
+          scaleStepIndex -= 12;
+        }
+      });
+    }
+
+    return circleSteps;
+  }
+
+  private getTriadQuality(scale: ModeScale, step: number): string {
+    let numberHaltones = scale.steps[step];
+    switch (numberHaltones) {
+      case 1:
+        return 'maj';
+      case 2:
+        return 'min';
+      case 3:
+        return 'min';
+      case 4:
+        return 'maj';
+      default:
+        return '';
+    }
+  }
+
+  private getKeyEnharmonic(key: KeyPitch): KeyPitch {
+    const enharmonicKey = { ...key };
+    if (enharmonicKey.key.includes('#')) {
+      enharmonicKey.key = enharmonicKey.key.replace('#', 'b');
+    } else if (enharmonicKey.key.includes('b')) {
+      enharmonicKey.key = enharmonicKey.key.replace('b', '#');
+    }
+    return enharmonicKey;
+  }
+
+  private getRawOctaveKeys(c_octaveIndex: number): KeyPitch[] {
     const keys = [];
-    const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, octave - 4);
+    const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, c_octaveIndex - 4);
     for (let i = 0; i < 12; i++) {
       const keyName = this.getKeyLabel(i);
       const key: KeyPitch = {
         key: keyName,
         black: keyName.includes('#'),
         frequency: octaveBaseFrequency * Math.pow(2, i / 12),
-        octaveIndex: i < 3 ? octave : octave + 1,
+        c_noteIndex: i < 3 ? i + 9 : i - 3,
+        a_octaveIndex: i < 3 ? c_octaveIndex : c_octaveIndex + 1,
       };
       keys.push(key);
     }

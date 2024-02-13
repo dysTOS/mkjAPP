@@ -1,6 +1,6 @@
 @use "sass:math";
 
-$size: 75vw;
+$size: 40vw;
 $border: 1px solid #efefef;
 
 .accidental {
@@ -70,10 +70,10 @@ $border: 1px solid #efefef;
     position: absolute;
   }
   > .major {
-    text-transform: uppercase;
+    // text-transform: uppercase;
   }
   > .minor {
-    text-transform: lowercase;
+    // text-transform: lowercase;
     color: white;
   }
   > .sig {

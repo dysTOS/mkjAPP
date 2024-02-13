@@ -1,5 +1,5 @@
 import { KeyPitch } from '../interfaces/key-pitches.interface';
-import { getAudioContext } from '../getAudioContext.function';
+import { getAudioContext } from '../constants/getAudioContext.function';
 import { Injectable, OnDestroy } from '@angular/core';
 import { OscillatorBlueprint } from '../interfaces/oscillator-blueprint.interface';
 

@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { getAudioContext } from '../getAudioContext.function';
+import { getAudioContext } from '../constants/getAudioContext.function';
 import { Observable, Subject, interval } from 'rxjs';
 import { SubSink } from 'subsink';
 

@@ -18,5 +18,6 @@ export interface KeyPitch {
   key: string;
   black: boolean;
   frequency: number;
-  octaveIndex: number;
+  a_octaveIndex: number;
+  c_noteIndex: number;
 }
