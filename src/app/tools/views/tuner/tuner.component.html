@@ -1,3 +1,9 @@
 <div style="overflow-wrap: break-word">
   {{ tunerCtx.sub | async }}
 </div>
+
+<div class="flex flex-column">
+  <div>Frequenz: {{ tunerCtx.fundatementalFreq }}</div>
+  <div>Note: {{ tunerCtx.note?.key }}</div>
+  <div>Cents off: {{ tunerCtx.centsOffPitch }}</div>
+</div>

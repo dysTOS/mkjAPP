@@ -27,6 +27,10 @@ export class KeyPitchesFactory {
     }
   }
 
+  public getAllKeys(): KeyPitch[] {
+    return this._allKeys;
+  }
+
   public getOctave(octaveIndex: number): Octave {
     return {
       index: octaveIndex,
