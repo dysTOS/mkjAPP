@@ -6,10 +6,17 @@ export interface ModeScale {
 
 export interface CircleStep {
   key: KeyPitch;
-  step?: ScaleStepInfo;
+  scaleStepInfo?: ScaleStepInfo;
 }
 
 export interface ScaleStepInfo {
   step: number;
-  type: 'maj' | 'min' | 'dim';
+  quality: TriadQuality;
+}
+
+export enum TriadQuality {
+  MAJ = 'maj',
+  MIN = 'min',
+  DIM = 'dim',
+  AUG = 'aug',
 }

@@ -1,11 +1,19 @@
-<p>{{ circleSteps | json }}</p>
+<div class="flex gap-3 mb-3">
+  <mkj-dropdown
+    label="Tonika"
+    [options]="tonicOptions"
+    [(value)]="selectedTonic"
+    (valueChange)="update()"
+  ></mkj-dropdown>
+  <mkj-dropdown label="Modus" [options]="modeOptions" [(value)]="selectedMode" (valueChange)="update()"></mkj-dropdown>
+</div>
 
 <ul class="circle-of-fifths">
   @for (step of circleSteps; track step) {
-    <li class="key">
-      <div class="major">{{ step.key.key }}</div>
-      <div class="minor">{{ step.step?.step }}</div>
-      <div class="sig">{{ step.step?.type }}</div>
+    <li class="key" [ngClass]="step.scaleStepInfo?.quality">
+      <div class="step">{{ step.key.key }}</div>
+      <div class="literal">{{ step.scaleStepInfo?.step | scaleStepLiteral: step.scaleStepInfo?.quality }}</div>
+      <div class="sig"></div>
     </li>
   }
   <!-- <li class="key">

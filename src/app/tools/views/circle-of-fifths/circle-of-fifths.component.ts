@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
 import { MusicTool } from '../../abstract-music-tool.class';
 import { KeyPitchesFactory } from '../../classes/key-pitches-factory.class';
-import { AeolianScale, IonianScale } from '../../constants/scales';
+import { IonianScale } from '../../constants/scales';
+import { ModeScale } from '../../interfaces/mode-scale-interface';
+import { ModeOptions } from './mode-options';
 
 @Component({
   selector: 'app-circle-of-fifths',
@@ -12,7 +15,26 @@ export class CircleOfFifthsComponent extends MusicTool {
   public title: string = 'Quintenzirkel';
   public localStorageKey: string = 'circle-of-fifths';
 
-  public keyFactory = new KeyPitchesFactory();
+  private _keyFactory = new KeyPitchesFactory();
 
-  public circleSteps = this.keyFactory.getCircleOfFifths('C', AeolianScale);
+  public selectedTonic: string = 'C';
+  public selectedMode: ModeScale = IonianScale;
+  public circleSteps = this._keyFactory.getCircleOfFifths(this.selectedTonic, this.selectedMode);
+
+  public readonly tonicOptions: UiDropdownOption[] = this._keyFactory.getOctave(1).keys.map((k) => {
+    return {
+      label: k.key,
+      value: k.key,
+    };
+  });
+
+  public readonly modeOptions: UiDropdownOption[] = ModeOptions;
+
+  constructor(inj: Injector) {
+    super(inj);
+  }
+
+  public update(): void {
+    this.circleSteps = this._keyFactory.getCircleOfFifths(this.selectedTonic, this.selectedMode);
+  }
 }

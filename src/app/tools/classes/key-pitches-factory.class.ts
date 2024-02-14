@@ -1,11 +1,12 @@
-import { KeyPitch, KeyPitchesConfig, Octave, Temperament } from '../interfaces/key-pitches.interface';
-import { CircleStep, ModeScale, ScaleStepInfo } from '../interfaces/mode-scale-interface';
+import { KeyPitch, KeyPitchesConfig, NoteLanguage, Octave, Temperament } from '../interfaces/key-pitches.interface';
+import { CircleStep, ModeScale } from '../interfaces/mode-scale-interface';
+import { ChordHelper } from './_chord-helper.class';
 
 export class KeyPitchesFactory {
   public config: KeyPitchesConfig = {
     A4_FREQUENCY: 440,
     TEMPERAMENT: Temperament.EQUAL,
-    LANGUAGE: 'german',
+    LANGUAGE: NoteLanguage.GERMAN,
   };
 
   private _allKeys: KeyPitch[] = [];
@@ -29,7 +30,10 @@ export class KeyPitchesFactory {
   public getOctave(octaveIndex: number): Octave {
     return {
       index: octaveIndex,
-      label: this.config.LANGUAGE === 'german' ? this.getGermanOctaveLabel(octaveIndex) : octaveIndex.toString(),
+      label:
+        this.config.LANGUAGE === NoteLanguage.GERMAN
+          ? ChordHelper.getGermanOctaveLabel(octaveIndex)
+          : octaveIndex.toString(),
       keys: this._allKeys.filter((k) => k.a_octaveIndex === octaveIndex),
     };
   }
@@ -40,7 +44,7 @@ export class KeyPitchesFactory {
 
     for (let i = 0; i < 12; i++) {
       const step: CircleStep = {
-        key: i > 5 ? this.getKeyEnharmonic(this._allKeys[stepIndex]) : this._allKeys[stepIndex],
+        key: i > 5 ? ChordHelper.getKeyEnharmonic(this._allKeys[stepIndex]) : this._allKeys[stepIndex],
       };
       circleSteps.push(step);
 
@@ -55,9 +59,9 @@ export class KeyPitchesFactory {
       scale.steps.forEach((s, i) => {
         const circleStep = circleSteps.find((cs) => cs.key.c_noteIndex === scaleStepIndex);
         if (circleStep) {
-          circleStep.step = {
+          circleStep.scaleStepInfo = {
             step: i,
-            type: 'maj',
+            quality: ChordHelper.getTriadQuality(scale, i),
           };
         }
         scaleStepIndex += s;
@@ -70,37 +74,11 @@ export class KeyPitchesFactory {
     return circleSteps;
   }
 
-  private getTriadQuality(scale: ModeScale, step: number): string {
-    let numberHaltones = scale.steps[step];
-    switch (numberHaltones) {
-      case 1:
-        return 'maj';
-      case 2:
-        return 'min';
-      case 3:
-        return 'min';
-      case 4:
-        return 'maj';
-      default:
-        return '';
-    }
-  }
-
-  private getKeyEnharmonic(key: KeyPitch): KeyPitch {
-    const enharmonicKey = { ...key };
-    if (enharmonicKey.key.includes('#')) {
-      enharmonicKey.key = enharmonicKey.key.replace('#', 'b');
-    } else if (enharmonicKey.key.includes('b')) {
-      enharmonicKey.key = enharmonicKey.key.replace('b', '#');
-    }
-    return enharmonicKey;
-  }
-
   private getRawOctaveKeys(c_octaveIndex: number): KeyPitch[] {
     const keys = [];
     const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, c_octaveIndex - 4);
     for (let i = 0; i < 12; i++) {
-      const keyName = this.getKeyLabel(i);
+      const keyName = ChordHelper.getKeyLabel(i, this.config.LANGUAGE);
       const key: KeyPitch = {
         key: keyName,
         black: keyName.includes('#'),
@@ -111,63 +89,5 @@ export class KeyPitchesFactory {
       keys.push(key);
     }
     return keys;
-  }
-
-  private getKeyLabel(keyIndex: number): string {
-    switch (keyIndex) {
-      case 0:
-        return 'A';
-      case 1:
-        return 'A#';
-      case 2:
-        return this.config.LANGUAGE === 'german' ? 'H' : 'B';
-      case 3:
-        return 'C';
-      case 4:
-        return 'C#';
-      case 5:
-        return 'D';
-      case 6:
-        return 'D#';
-      case 7:
-        return 'E';
-      case 8:
-        return 'F';
-      case 9:
-        return 'F#';
-      case 10:
-        return 'G';
-      case 11:
-        return 'G#';
-      default:
-        return '--';
-    }
-  }
-
-  private getGermanOctaveLabel(octave: number): string {
-    switch (octave) {
-      case 0:
-        return 'Subkontra';
-      case 1:
-        return 'Kontra';
-      case 2:
-        return 'Große';
-      case 3:
-        return 'Kleine';
-      case 4:
-        return '/';
-      case 5:
-        return '//';
-      case 6:
-        return '///';
-      case 7:
-        return '////';
-      case 8:
-        return '/////';
-      case 9:
-        return '//////';
-      default:
-        return '--';
-    }
   }
 }

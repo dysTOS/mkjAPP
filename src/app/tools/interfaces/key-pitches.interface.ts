@@ -2,10 +2,15 @@ export enum Temperament {
   EQUAL,
 }
 
+export enum NoteLanguage {
+  GERMAN,
+  ENGLISH,
+}
+
 export interface KeyPitchesConfig {
   A4_FREQUENCY: number;
   TEMPERAMENT: Temperament;
-  LANGUAGE: 'german' | 'english';
+  LANGUAGE: NoteLanguage;
 }
 
 export interface Octave {

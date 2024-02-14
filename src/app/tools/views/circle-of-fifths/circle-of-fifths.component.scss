@@ -1,6 +1,6 @@
 @use "sass:math";
 
-$size: 40vw;
+$size: 95vw; // $window
 $border: 1px solid #efefef;
 
 .accidental {
@@ -23,8 +23,9 @@ $border: 1px solid #efefef;
 
   box-shadow:
     0 calc($size/40) calc($size/40) rgba(0, 0, 0, 0.25),
-    inset 0 0 0 9vw white,
-    inset 0 0 0 16vw #ccc;
+    inset 0 0 0 calc($size/8) white,
+    inset 0 0 0 calc($size/4.8) rgba(0, 0, 0, 0.1),
+    inset 0 0 0 $size white;
 
   $inner-size: 30%;
   &::after {
@@ -38,7 +39,7 @@ $border: 1px solid #efefef;
     border-radius: 50%;
     box-sizing: border-box;
     background-color: white;
-    box-shadow: inset 0 $size/40 $size/40 rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 calc($size/40) calc($size/40) rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -46,16 +47,26 @@ $border: 1px solid #efefef;
   position: absolute;
   top: 50%;
   left: 50%;
-  //   transform+_: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
 .key {
-  background-color: white;
   @include center();
 
-  &:hover {
-    background-color: red !important;
+  &.maj {
+    color: red;
+  }
+
+  &.min {
+    color: blue;
+  }
+
+  &.dim {
+    color: green;
+  }
+
+  &.aug {
+    color: orange;
   }
 
   &::before {
@@ -69,12 +80,12 @@ $border: 1px solid #efefef;
   > * {
     position: absolute;
   }
-  > .major {
+  > .step {
     // text-transform: uppercase;
   }
-  > .minor {
+  > .literal {
     // text-transform: lowercase;
-    color: white;
+    // color: white;
   }
   > .sig {
     font-size: 0.75em;
@@ -86,14 +97,13 @@ $border: 1px solid #efefef;
   $a: ($key-pos - 4) * (math.$pi / 6);
   $dist: $size * 0.33;
 
-  //   transform+_: translate(cos($a) * $dist, sin($a) * $dist);
   transform: translate(cos($a) * $dist, sin($a) * $dist);
 
-  > .major {
+  > .step {
     transform: translate(cos($a) * ($size/10), sin($a) * ($size/10)) translate(-50%, -50%);
   }
 
-  > .minor {
+  > .literal {
     transform: translate(cos($a) * (-$size/12), sin($a) * (-$size/12)) translate(-50%, -50%);
   }
 
