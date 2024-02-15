@@ -3,6 +3,14 @@ import { getAudioContext } from '../constants/getAudioContext.function';
 import { Subject } from 'rxjs';
 import { KeyPitchesFactory } from './key-pitches-factory.class';
 import { KeyPitch } from '../interfaces/key-pitches.interface';
+import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
+import { autoCorrelate2 } from '../pitch-detection-algorithms/auto-correlate-2.function';
+import { autoCorrelate1 } from '../pitch-detection-algorithms/auto-correlate-1.function';
+import { acf2plusAlgorithm } from '../pitch-detection-algorithms/acf2plus.function';
+import { amdfAlgorithm } from '../pitch-detection-algorithms/amdf.function';
+import { dynamicWaveletAlgorithm } from '../pitch-detection-algorithms/dynamic-wavelet.function';
+import { macleodAlgorithm } from '../pitch-detection-algorithms/macleod.function';
+import { yinAlgorithm } from '../pitch-detection-algorithms/yin.function';
 
 @Injectable()
 export class TunerContext implements OnDestroy {
@@ -19,6 +27,38 @@ export class TunerContext implements OnDestroy {
 
   private _keys = new KeyPitchesFactory().getAllKeys();
 
+  public pitchDetectionAlgorithms: UiDropdownOption[] = [
+    {
+      label: 'Auto Correlate 1',
+      value: autoCorrelate1,
+    },
+    {
+      label: 'Auto Correlate 2',
+      value: autoCorrelate2,
+    },
+    {
+      label: 'ACF2Plus',
+      value: acf2plusAlgorithm,
+    },
+    {
+      label: 'AMDF',
+      value: amdfAlgorithm,
+    },
+    {
+      label: 'Dynamic Wavelet',
+      value: dynamicWaveletAlgorithm,
+    },
+    {
+      label: 'Yin',
+      value: yinAlgorithm,
+    },
+    {
+      label: 'Macleod - BUG!!',
+      value: macleodAlgorithm,
+    },
+  ];
+  public selectedPDA = this.pitchDetectionAlgorithms[1].value;
+
   constructor() {
     this.init();
   }
@@ -34,9 +74,9 @@ export class TunerContext implements OnDestroy {
           //   osc.connect(this._audioCtx.destination);
 
           //   osc.frequency.value = 438;
-          //   //   osc.frequency.linearRampToValueAtTime(800, this._audioCtx.currentTime + 10);
+          //   osc.frequency.linearRampToValueAtTime(800, this._audioCtx.currentTime + 10);
 
-          //   osc.start();
+          //   osc.start(this._audioCtx.currentTime + 2);
           //   osc.stop(this._audioCtx.currentTime + 10);
           this.detectPitch();
         },
@@ -50,10 +90,11 @@ export class TunerContext implements OnDestroy {
   }
 
   private detectPitch() {
-    let buffer = new Uint8Array(this._analyser.fftSize);
+    let buffer = new Float32Array(this._analyser.fftSize);
     // See initializations in the AudioContent and AnalyserNode sections of the demo.
-    this._analyser.getByteTimeDomainData(buffer);
-    var fundalmentalFreq = this.findFundamentalFreq(buffer, this._audioCtx.sampleRate);
+    this._analyser.getFloatTimeDomainData(buffer);
+    this.sub.next(Array.from(buffer));
+    var fundalmentalFreq = this.selectedPDA(buffer, this._audioCtx.sampleRate);
 
     if (fundalmentalFreq !== -1) {
       this.fundatementalFreq = fundalmentalFreq;
@@ -101,48 +142,6 @@ export class TunerContext implements OnDestroy {
 
     // We use Math.floor to get the integer part and ignore decimals
     this.centsOffPitch = Math.floor(1200 * (Math.log(multiplicativeFactor) / log2));
-  }
-
-  private findFundamentalFreq(buffer: Uint8Array, sampleRate: number) {
-    // We use Autocorrelation to find the fundamental frequency.
-
-    // In order to correlate the signal with itself (hence the name of the algorithm), we will check two points 'k' frames away.
-    // The autocorrelation index will be the average of these products. At the same time, we normalize the values.
-    // Source: http://www.phy.mty.edu/~suits/autocorrelation.html
-    // Assuming the sample rate is 48000Hz, a 'k' equal to 1000 would correspond to a 48Hz signal (48000/1000 = 48),
-    // while a 'k' equal to 8 would correspond to a 6000Hz one, which is enough to cover most (if not all)
-    // the notes we have in the notes.json file.
-    var n = 1024,
-      bestR = 0,
-      bestK = -1;
-    for (var k = 8; k <= 1000; k++) {
-      var sum = 0;
-
-      for (var i = 0; i < n; i++) {
-        sum += ((buffer[i] - 128) / 128) * ((buffer[i + k] - 128) / 128);
-      }
-
-      var r = sum / (n + k);
-
-      if (r > bestR) {
-        bestR = r;
-        bestK = k;
-      }
-
-      if (r > 0.9) {
-        // Let's assume that this is good enough and stop right here
-        break;
-      }
-    }
-
-    if (bestR > 0.0025) {
-      // The period (in frames) of the fundamental frequency is 'bestK'. Getting the frequency from there is trivial.
-      var fundamentalFreq = sampleRate / bestK;
-      return fundamentalFreq;
-    } else {
-      // We haven't found a good correlation
-      return -1;
-    }
   }
 
   public ngOnDestroy(): void {

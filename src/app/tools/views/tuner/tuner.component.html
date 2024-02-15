@@ -1,9 +1,17 @@
-<div style="overflow-wrap: break-word">
-  {{ tunerCtx.sub | async }}
+<div class="flex gap-3">
+  <mkj-dropdown
+    label="PDA"
+    [options]="tunerCtx.pitchDetectionAlgorithms"
+    [(value)]="tunerCtx.selectedPDA"
+  ></mkj-dropdown>
 </div>
 
-<div class="flex flex-column">
-  <div>Frequenz: {{ tunerCtx.fundatementalFreq }}</div>
+<div class="flex flex-column mt-3">
+  <div>Frequenz: {{ tunerCtx.fundatementalFreq ?? 0 | number }} Hz</div>
   <div>Note: {{ tunerCtx.note?.key }}</div>
   <div>Cents off: {{ tunerCtx.centsOffPitch }}</div>
+</div>
+
+<div style="overflow-wrap: break-word" class="mt-3">
+  {{ tunerCtx.sub | async }}
 </div>
