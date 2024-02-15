@@ -190,7 +190,7 @@ import { MkjAutocompleteComponent } from './utilities/form-input-components/mkj-
 import { DropdownOptionsEditComponent } from './components/einstellungen/globale-einstellungen/dropdown-options-edit/dropdown-options-edit.component';
 import { MkjDisplayModelComponent } from './utilities/mkj-display-model/mkj-display-model.component';
 import { MkjRechnungComponent } from './components/finanzen/mkj-rechnung/mkj-rechnung.component';
-import { TunerComponent } from './tools/views/tuner/tuner.component';
+import { ChromaticTunerComponent } from './tools/views/chromatic-tuner/chromatic-tuner.component';
 import { SynthesizerComponent } from './tools/views/synthesizer/synthesizer.component';
 import { TransposerComponent } from './tools/views/transposer/transposer.component';
 import { ErrorLogHandler } from './providers/error-log-handler';
@@ -389,7 +389,7 @@ registerLocaleData(localeDe);
     KassabuchungenListComponent,
     MkjAutocompleteComponent,
     DropdownOptionsEditComponent,
-    TunerComponent,
+    ChromaticTunerComponent,
     SynthesizerComponent,
     TransposerComponent,
     MetronomeComponent,

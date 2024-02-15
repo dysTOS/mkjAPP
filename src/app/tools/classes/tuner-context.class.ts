@@ -1,62 +1,24 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { getAudioContext } from '../constants/getAudioContext.function';
-import { Subject } from 'rxjs';
-import { KeyPitchesFactory } from './key-pitches-factory.class';
-import { KeyPitch } from '../interfaces/key-pitches.interface';
 import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
-import { autoCorrelate2 } from '../pitch-detection-algorithms/auto-correlate-2.function';
-import { autoCorrelate1 } from '../pitch-detection-algorithms/auto-correlate-1.function';
-import { acf2plusAlgorithm } from '../pitch-detection-algorithms/acf2plus.function';
-import { amdfAlgorithm } from '../pitch-detection-algorithms/amdf.function';
-import { dynamicWaveletAlgorithm } from '../pitch-detection-algorithms/dynamic-wavelet.function';
-import { macleodAlgorithm } from '../pitch-detection-algorithms/macleod.function';
-import { yinAlgorithm } from '../pitch-detection-algorithms/yin.function';
+import { getAudioContext } from '../constants/getAudioContext.function';
+import { PitchDetectionAlgorithms } from '../constants/pda-algorithm-options';
+import { KeyPitch } from '../interfaces/key-pitches.interface';
+import { KeyPitchesFactory } from './key-pitches-factory.class';
 
 @Injectable()
 export class TunerContext implements OnDestroy {
   private _audioCtx: AudioContext = getAudioContext();
   private _analyser: AnalyserNode = this._audioCtx.createAnalyser();
-  private _audioData: Uint8Array = new Uint8Array(this._analyser.frequencyBinCount);
   private _micStream: MediaStreamAudioSourceNode;
   private _requestId: number;
 
-  public sub = new Subject<number[]>();
   public fundatementalFreq: number;
   public centsOffPitch: number;
   public note: KeyPitch;
 
   private _keys = new KeyPitchesFactory().getAllKeys();
 
-  public pitchDetectionAlgorithms: UiDropdownOption[] = [
-    {
-      label: 'Auto Correlate 1',
-      value: autoCorrelate1,
-    },
-    {
-      label: 'Auto Correlate 2',
-      value: autoCorrelate2,
-    },
-    {
-      label: 'ACF2Plus',
-      value: acf2plusAlgorithm,
-    },
-    {
-      label: 'AMDF',
-      value: amdfAlgorithm,
-    },
-    {
-      label: 'Dynamic Wavelet',
-      value: dynamicWaveletAlgorithm,
-    },
-    {
-      label: 'Yin',
-      value: yinAlgorithm,
-    },
-    {
-      label: 'Macleod - BUG!!',
-      value: macleodAlgorithm,
-    },
-  ];
+  public pitchDetectionAlgorithms: UiDropdownOption[] = PitchDetectionAlgorithms;
   public selectedPDA = this.pitchDetectionAlgorithms[1].value;
 
   constructor() {
@@ -93,7 +55,6 @@ export class TunerContext implements OnDestroy {
     let buffer = new Float32Array(this._analyser.fftSize);
     // See initializations in the AudioContent and AnalyserNode sections of the demo.
     this._analyser.getFloatTimeDomainData(buffer);
-    this.sub.next(Array.from(buffer));
     var fundalmentalFreq = this.selectedPDA(buffer, this._audioCtx.sampleRate);
 
     if (fundalmentalFreq !== -1) {

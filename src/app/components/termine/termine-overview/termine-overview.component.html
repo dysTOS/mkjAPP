@@ -14,7 +14,7 @@
 </mkj-list>
 
 <ng-template #nameTemplate let-termin>
-  <div class="flex gap-2">
+  <div class="flex align-items-center gap-2">
     @if (termin.gruppe) {
       <i class="pi pi-users" [style.color]="termin.gruppe?.color" [pTooltip]="termin.gruppe?.name"></i>
     }
@@ -76,4 +76,3 @@
 </ng-template>
 
 <p-menu #exportMenu [popup]="true" [model]="exportMenuItems"></p-menu>
-

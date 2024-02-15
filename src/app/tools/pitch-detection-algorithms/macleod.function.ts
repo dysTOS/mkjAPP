@@ -143,7 +143,7 @@ export function macleodAlgorithm(buffer: Float32Array, sampleRate: number) {
     }
   }
 
-  return function Macleod(float32AudioBuffer: Float32Array): any {
+  function Macleod(float32AudioBuffer: Float32Array): any {
     // 0. Clear old results.
     let pitch;
     maxPositions = [];
@@ -205,5 +205,7 @@ export function macleodAlgorithm(buffer: Float32Array, sampleRate: number) {
     //   freq: pitch,
     // };
     return pitch;
-  };
+  }
+
+  return Macleod(buffer);
 }

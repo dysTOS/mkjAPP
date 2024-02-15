@@ -3,14 +3,14 @@ import { TunerContext } from '../../classes/tuner-context.class';
 import { MusicTool } from '../../abstract-music-tool.class';
 
 @Component({
-  selector: 'mkj-tuner',
-  templateUrl: './tuner.component.html',
-  styleUrl: './tuner.component.scss',
+  selector: 'mkj-chromatic-tuner',
+  templateUrl: './chromatic-tuner.component.html',
+  styleUrl: './chromatic-tuner.component.scss',
   providers: [TunerContext],
 })
-export class TunerComponent extends MusicTool {
-  public readonly title: string = 'Stimmgerät';
-  public readonly localStorageKey: string = 'tuner';
+export class ChromaticTunerComponent extends MusicTool {
+  public readonly title: string = 'Chromatisches Stimmgerät';
+  public readonly localStorageKey: string = 'chromatic-tuner';
 
   constructor(
     inj: Injector,
