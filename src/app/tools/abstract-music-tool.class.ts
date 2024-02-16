@@ -3,8 +3,8 @@ import { MkjToolbarService } from '../utilities/mkj-toolbar/mkj-toolbar.service'
 
 @Directive()
 export abstract class MusicTool implements OnInit {
-  public abstract title: string;
-  public abstract localStorageKey: string;
+  public abstract readonly title: string;
+  public abstract readonly localStorageKey: string;
 
   protected toolbarService: MkjToolbarService;
 

@@ -1,0 +1,17 @@
+:host {
+  --offset: 0deg;
+  --color-value: 0;
+}
+
+.needle {
+  height: 10rem;
+  border-left: 3px solid red;
+  transition: transform 0.5s ease-out;
+  transform: rotate(calc(90 / 50 * var(--offset)));
+  transform-origin: bottom;
+
+  --color: var(--color-value);
+  border-color: rgb(calc(255 / 50 * var(--color)), calc(255 - calc(255 / 50 * var(--color))), 0);
+
+  transition: border-color 0.05s ease;
+}

@@ -9,9 +9,9 @@
 </div>
 
 <ul class="circle-of-fifths">
-  @for (step of circleSteps; track step) {
+  @for (step of circleSteps; let i = $index; track step) {
     <li class="key" [ngClass]="step.scaleStepInfo?.quality">
-      <div class="step">{{ step.key.key }}</div>
+      <div class="step">{{ step.key | enharmonicKeyNote: i > 5 ?? step.key.keyName : i === 6 }}</div>
       <div class="literal">{{ step.scaleStepInfo?.step | scaleStepLiteral: step.scaleStepInfo?.quality }}</div>
       <div class="sig"></div>
     </li>

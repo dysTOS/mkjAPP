@@ -23,8 +23,8 @@ export class CircleOfFifthsComponent extends MusicTool {
 
   public readonly tonicOptions: UiDropdownOption[] = this._keyFactory.getOctave(1).keys.map((k) => {
     return {
-      label: k.key,
-      value: k.key,
+      label: k.keyName,
+      value: k.keyName,
     };
   });
 

@@ -12,14 +12,14 @@
         @for (key of octave.keys; track key) {
           <div
             class="key"
-            [class.black]="key.black"
+            [class.black]="key.enharmonicKeyName != null"
             (pointerdown)="pointerEvents.next({ type: $event.type, key })"
             (pointerup)="pointerEvents.next({ type: $event.type, key })"
             (pointerenter)="pointerEvents.next({ type: $event.type, key })"
             (pointerleave)="pointerEvents.next({ type: $event.type, key })"
           >
-            @if (key.black == false) {
-              {{ key.key }}
+            @if (key.enharmonicKeyName != null) {
+              {{ key.enharmonicKeyName }}
             }
           </div>
         }

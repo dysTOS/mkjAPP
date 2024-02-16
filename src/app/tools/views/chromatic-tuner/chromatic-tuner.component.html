@@ -6,8 +6,16 @@
   ></mkj-dropdown>
 </div>
 
-<div class="flex flex-column gap-2 mt-3">
+<div class="flex justify-content-center card mt-3">
+  <div
+    class="needle"
+    [style.--offset]="tunerCtx.centsOffPitch + 'deg'"
+    [style.--color-value]="tunerCtx.centsOffPitch"
+  ></div>
+</div>
+
+<div class="flex flex-column gap-2 mt-3 card">
   <div>Frequenz: {{ tunerCtx.fundatementalFreq ?? 0 | number }} Hz</div>
-  <div>Note: {{ tunerCtx.note?.key }}</div>
+  <div>Note: {{ tunerCtx.note | enharmonicKeyNote: false : true }}</div>
   <div>Cents off: {{ tunerCtx.centsOffPitch }}</div>
 </div>

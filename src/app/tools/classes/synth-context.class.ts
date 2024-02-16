@@ -44,6 +44,16 @@ export class SynthContext implements OnDestroy {
     });
   }
 
+  public stopKey(key: KeyPitch): void {
+    this._oscillators = this._oscillators.filter((oscillator) => {
+      if (oscillator.frequency.value === key.frequency) {
+        oscillator.stop();
+        return false;
+      }
+      return true;
+    });
+  }
+
   public stopAll(): void {
     this._oscillators.forEach((oscillator) => oscillator.stop());
     this._oscillators = [];

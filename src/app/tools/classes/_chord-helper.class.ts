@@ -1,4 +1,4 @@
-import { KeyPitch, NoteLanguage } from '../interfaces/key-pitches.interface';
+import { NoteLanguage } from '../interfaces/key-pitches.interface';
 import { ModeScale, TriadQuality } from '../interfaces/mode-scale-interface';
 
 export abstract class ChordHelper {
@@ -20,42 +20,40 @@ export abstract class ChordHelper {
     return null;
   }
 
-  public static getKeyEnharmonic(key: KeyPitch): KeyPitch {
-    const enharmonicKey = { ...key };
-    if (enharmonicKey.key.includes('#')) {
-      enharmonicKey.key = enharmonicKey.key.replace('#', 'b');
-    } else if (enharmonicKey.key.includes('b')) {
-      enharmonicKey.key = enharmonicKey.key.replace('b', '#');
-    }
-    return enharmonicKey;
+  public static isEnharmonic(keyName: string): boolean {
+    return keyName.includes('b') || keyName.includes('#');
   }
 
-  public static getKeyLabel(keyIndex: number, lang: NoteLanguage = NoteLanguage.GERMAN): string {
-    switch (keyIndex) {
+  public static getKeyLabel(
+    a_noteIndex: number,
+    lang: NoteLanguage = NoteLanguage.GERMAN,
+    flat: boolean = false
+  ): string {
+    switch (a_noteIndex) {
       case 0:
         return 'A';
       case 1:
-        return 'A#';
+        return flat ? 'Bb' : 'A#';
       case 2:
         return lang === NoteLanguage.GERMAN ? 'H' : 'B';
       case 3:
         return 'C';
       case 4:
-        return 'C#';
+        return flat ? 'Db' : 'C#';
       case 5:
         return 'D';
       case 6:
-        return 'D#';
+        return flat ? 'Eb' : 'D#';
       case 7:
         return 'E';
       case 8:
         return 'F';
       case 9:
-        return 'F#';
+        return flat ? 'Gb' : 'F#';
       case 10:
         return 'G';
       case 11:
-        return 'G#';
+        return flat ? 'Ab' : 'G#';
       default:
         return '--';
     }

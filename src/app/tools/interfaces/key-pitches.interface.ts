@@ -20,9 +20,10 @@ export interface Octave {
 }
 
 export interface KeyPitch {
-  key: string;
-  black: boolean;
+  keyName: string;
+  enharmonicKeyName?: string;
   frequency: number;
   a_octaveIndex: number;
+  c_octaveIndex: number;
   c_noteIndex: number;
 }

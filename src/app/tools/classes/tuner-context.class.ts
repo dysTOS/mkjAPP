@@ -18,7 +18,7 @@ export class TunerContext implements OnDestroy {
 
   private _keys = new KeyPitchesFactory().getAllKeys();
 
-  public pitchDetectionAlgorithms: UiDropdownOption[] = PitchDetectionAlgorithms;
+  public readonly pitchDetectionAlgorithms: UiDropdownOption[] = PitchDetectionAlgorithms;
   public selectedPDA = this.pitchDetectionAlgorithms[1].value;
 
   constructor() {
@@ -36,9 +36,9 @@ export class TunerContext implements OnDestroy {
           //   osc.connect(this._audioCtx.destination);
 
           //   osc.frequency.value = 438;
-          //   osc.frequency.linearRampToValueAtTime(800, this._audioCtx.currentTime + 10);
+          //   osc.frequency.linearRampToValueAtTime(500, this._audioCtx.currentTime + 10);
 
-          //   osc.start(this._audioCtx.currentTime + 2);
+          //   osc.start(this._audioCtx.currentTime);
           //   osc.stop(this._audioCtx.currentTime + 10);
           this.detectPitch();
         },
@@ -93,7 +93,13 @@ export class TunerContext implements OnDestroy {
       }
     }
 
-    this.note = this._keys[nth] ?? null;
+    if (
+      Math.abs(fundamentalFreq - this._keys[nth].frequency) < Math.abs(fundamentalFreq - this._keys[nth + 1].frequency)
+    ) {
+      this.note = this._keys[nth] ?? null;
+    } else {
+      this.note = this._keys[nth + 1] ?? null;
+    }
   }
 
   private findCentsOffPitch(freq: number) {

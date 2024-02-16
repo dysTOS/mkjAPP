@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { KeyPitch, KeyPitchesConfig, NoteLanguage, Octave, Temperament } from '../interfaces/key-pitches.interface';
 import { CircleStep, ModeScale } from '../interfaces/mode-scale-interface';
 import { ChordHelper } from './_chord-helper.class';
@@ -31,6 +32,21 @@ export class KeyPitchesFactory {
     return this._allKeys;
   }
 
+  public getDefaultGuitarTuning(): KeyPitch[] {
+    const guitarTuning = [
+      { c_octave: 2, c_noteIndex: 4 },
+      { c_octave: 2, c_noteIndex: 9 },
+      { c_octave: 3, c_noteIndex: 2 },
+      { c_octave: 3, c_noteIndex: 7 },
+      { c_octave: 3, c_noteIndex: 11 },
+      { c_octave: 4, c_noteIndex: 4 },
+    ];
+
+    return guitarTuning.map((t) =>
+      this._allKeys.find((k) => k.c_octaveIndex === t.c_octave && k.c_noteIndex === t.c_noteIndex)
+    );
+  }
+
   public getOctave(octaveIndex: number): Octave {
     return {
       index: octaveIndex,
@@ -44,11 +60,11 @@ export class KeyPitchesFactory {
 
   public getCircleOfFifths(tonic: string, scale?: ModeScale): CircleStep[] {
     const circleSteps: CircleStep[] = [];
-    let stepIndex = this._allKeys.findIndex((k) => k.key === tonic);
+    let stepIndex = this._allKeys.findIndex((k) => k.keyName === tonic);
 
     for (let i = 0; i < 12; i++) {
       const step: CircleStep = {
-        key: i > 5 ? ChordHelper.getKeyEnharmonic(this._allKeys[stepIndex]) : this._allKeys[stepIndex],
+        key: this._allKeys[stepIndex],
       };
       circleSteps.push(step);
 
@@ -78,17 +94,20 @@ export class KeyPitchesFactory {
     return circleSteps;
   }
 
-  private getRawOctaveKeys(c_octaveIndex: number): KeyPitch[] {
+  private getRawOctaveKeys(a_octaveIndex: number): KeyPitch[] {
     const keys = [];
-    const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, c_octaveIndex - 4);
+    const octaveBaseFrequency = this.config.A4_FREQUENCY * Math.pow(2, a_octaveIndex - 4);
     for (let i = 0; i < 12; i++) {
       const keyName = ChordHelper.getKeyLabel(i, this.config.LANGUAGE);
       const key: KeyPitch = {
-        key: keyName,
-        black: keyName.includes('#'),
+        keyName: keyName,
+        enharmonicKeyName: ChordHelper.isEnharmonic(keyName)
+          ? ChordHelper.getKeyLabel(i, this.config.LANGUAGE, true)
+          : undefined,
         frequency: octaveBaseFrequency * Math.pow(2, i / 12),
         c_noteIndex: i < 3 ? i + 9 : i - 3,
-        a_octaveIndex: i < 3 ? c_octaveIndex : c_octaveIndex + 1,
+        c_octaveIndex: i < 3 ? a_octaveIndex : a_octaveIndex + 1,
+        a_octaveIndex: a_octaveIndex,
       };
       keys.push(key);
     }
