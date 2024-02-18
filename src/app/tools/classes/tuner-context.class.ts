@@ -14,12 +14,12 @@ export class TunerContext implements OnDestroy {
 
   public fundatementalFreq: number;
   public centsOffPitch: number;
-  public note: KeyPitch;
+  public noteIndex: number;
 
-  private _keys = new KeyPitchesFactory().getAllKeys();
+  public keys = new KeyPitchesFactory().getAllKeys();
 
   public readonly pitchDetectionAlgorithms: UiDropdownOption[] = PitchDetectionAlgorithms;
-  public selectedPDA = this.pitchDetectionAlgorithms[1].value;
+  public selectedPDA = this.pitchDetectionAlgorithms[2].value;
 
   constructor() {
     this.init();
@@ -36,10 +36,10 @@ export class TunerContext implements OnDestroy {
           //   osc.connect(this._audioCtx.destination);
 
           //   osc.frequency.value = 438;
-          //   osc.frequency.linearRampToValueAtTime(500, this._audioCtx.currentTime + 10);
+          //   osc.frequency.linearRampToValueAtTime(500, this._audioCtx.currentTime + 100);
 
           //   osc.start(this._audioCtx.currentTime);
-          //   osc.stop(this._audioCtx.currentTime + 10);
+          //   osc.stop(this._audioCtx.currentTime + 100);
           this.detectPitch();
         },
         (err) => {
@@ -62,7 +62,7 @@ export class TunerContext implements OnDestroy {
       this.findClosestNote(fundalmentalFreq); // See the 'Finding the right note' section.
       this.findCentsOffPitch(fundalmentalFreq); // See the 'Calculating the cents off pitch' section.
     } else {
-      this.note = null;
+      this.noteIndex = null;
       this.centsOffPitch = null;
       this.fundatementalFreq = null;
     }
@@ -72,40 +72,40 @@ export class TunerContext implements OnDestroy {
 
   private findClosestNote(fundamentalFreq: number) {
     var low = 0,
-      high = this._keys.length - 1,
+      high = this.keys.length - 1,
       mid,
       nth = 0;
 
     while (low <= high) {
       mid = Math.floor((low + high) / 2);
 
-      if (this._keys[mid].frequency < fundamentalFreq) {
+      if (this.keys[mid].frequency < fundamentalFreq) {
         low = mid + 1;
-      } else if (this._keys[mid].frequency > fundamentalFreq) {
+      } else if (this.keys[mid].frequency > fundamentalFreq) {
         high = mid - 1;
       } else {
         nth = mid;
         break;
       }
 
-      if (this._keys[mid].frequency < fundamentalFreq) {
+      if (this.keys[mid].frequency < fundamentalFreq) {
         nth = mid;
       }
     }
 
     if (
-      Math.abs(fundamentalFreq - this._keys[nth].frequency) < Math.abs(fundamentalFreq - this._keys[nth + 1].frequency)
+      Math.abs(fundamentalFreq - this.keys[nth].frequency) < Math.abs(fundamentalFreq - this.keys[nth + 1].frequency)
     ) {
-      this.note = this._keys[nth] ?? null;
+      this.noteIndex = nth ?? null;
     } else {
-      this.note = this._keys[nth + 1] ?? null;
+      this.noteIndex = nth ? nth + 1 : null;
     }
   }
 
   private findCentsOffPitch(freq: number) {
     // We need to find how far freq is from baseFreq in cents
     var log2 = 0.6931471805599453; // Math.log(2)
-    var multiplicativeFactor = freq / this.note.frequency;
+    var multiplicativeFactor = freq / this.keys[this.noteIndex]?.frequency;
 
     // We use Math.floor to get the integer part and ignore decimals
     this.centsOffPitch = Math.floor(1200 * (Math.log(multiplicativeFactor) / log2));

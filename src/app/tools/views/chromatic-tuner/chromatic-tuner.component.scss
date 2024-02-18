@@ -5,13 +5,87 @@
 
 .needle {
   height: 10rem;
-  border-left: 3px solid red;
-  transition: transform 0.5s ease-out;
+  width: 5px;
+  border: 3px solid red;
+  border-radius: 3px;
+
   transform: rotate(calc(90 / 50 * var(--offset)));
   transform-origin: bottom;
 
-  --color: var(--color-value);
-  border-color: rgb(calc(255 / 50 * var(--color)), calc(255 - calc(255 / 50 * var(--color))), 0);
+  --color: max(var(--color-value), -1 * var(--color-value));
+  border-color: rgb(calc(255 / 50 * var(--color) * log(8, 2)), calc(255 - calc(255 / 50 * var(--color))), 0);
 
-  transition: border-color 0.05s ease;
+  transition:
+    transform 0.1s ease-in,
+    transform 0.4s ease-out,
+    border-color 0.5s ease;
+}
+
+.meter-scale {
+  width: 1px;
+  height: 10rem;
+  transform-origin: bottom;
+  transition: transform 0.2s;
+  box-sizing: border-box;
+  border-top: 10px solid;
+  position: absolute;
+  right: 50%;
+  color: gray;
+
+  &.strong {
+    width: 2px;
+    border-top-width: 20px;
+  }
+}
+
+.dot {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: gray;
+  margin-right: -1rem;
+  bottom: 0;
+  transform: translate(-50%, -50%);
+}
+
+.notes {
+  width: 100%;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+
+  .notes-list {
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
+    mask-image: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
+
+    .note {
+      font-size: 90px;
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+      padding-right: 30px;
+      padding-left: 10px;
+
+      &.active {
+        --color: max(var(--color-value), -1 * var(--color-value));
+        color: rgb(calc(255 / 50 * var(--color) * log(8, 2)), calc(255 - calc(255 / 50 * var(--color))), 0);
+      }
+
+      .octave-nr {
+        font-size: 50px;
+        margin-left: -1rem;
+      }
+    }
+  }
+}
+
+.frequency,
+.cents {
+  font-size: 1.5rem;
 }
