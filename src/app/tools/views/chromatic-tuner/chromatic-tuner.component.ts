@@ -5,7 +5,7 @@ import { MusicTool } from '../../abstract-music-tool.class';
 import { TunerContext } from '../../classes/tuner-context.class';
 import { DefaultChromaticTunerConfig } from '../../interfaces/chromatic-tuner-config.interface';
 import { SynthContext } from '../../classes/synth-context.class';
-import { KeyPitch } from '../../interfaces/key-pitches.interface';
+import { KeyPitch, NoteLanguage, Temperament } from '../../interfaces/key-pitches.interface';
 
 @Component({
   selector: 'mkj-chromatic-tuner',
@@ -18,6 +18,7 @@ export class ChromaticTunerComponent extends MusicTool implements AfterViewInit,
   public readonly localStorageKey: string = 'chromatic-tuner';
   public readonly tunerConfig = DefaultChromaticTunerConfig;
   public playingKey: KeyPitch;
+  public baseFreq: number = 440;
 
   private _subs = new SubSink();
 
@@ -40,6 +41,14 @@ export class ChromaticTunerComponent extends MusicTool implements AfterViewInit,
           behavior: 'smooth',
         });
       }
+    });
+  }
+
+  public setBaseTuning(freq: number): void {
+    this.tunerCtx.setKeyPitchConfig({
+      A4_FREQUENCY: freq,
+      TEMPERAMENT: Temperament.EQUAL,
+      LANGUAGE: NoteLanguage.GERMAN,
     });
   }
 

@@ -30,13 +30,12 @@
 
 <div class="flex flex-column gap-4 mt-5">
   @for (osc of SynthCtx.oscillatorBlueprints; let index = $index; track osc) {
-    <div class="flex gap-4 align-items-center border-1 border-200 border-round-md p-2">
+    <div class="flex flex-wrap gap-4 align-items-center border-1 border-200 border-round-md p-2">
       Oscillator {{ index + 1 }}
       <mkj-dropdown label="Type" [(value)]="osc.type" [options]="WaveOptions"></mkj-dropdown>
-      <div class="flex flex-column justify-content-center">
+
+      <div class="flex gap-4">
         <mkj-knob label="Gain" [size]="80" [value]="50" (valueChange)="SynthCtx.setGain($event, index)"></mkj-knob>
-      </div>
-      <div class="flex flex-column">
         <mkj-knob label="Detune" [size]="80" [value]="50" (valueChange)="SynthCtx.setDetune($event, index)"></mkj-knob>
       </div>
     </div>

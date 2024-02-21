@@ -90,9 +90,10 @@ $border: 1px solid #efefef;
   > .literal {
     // text-transform: lowercase;
     // color: white;
+    font-size: 0.75em;
   }
   > .sig {
-    font-size: 0.75em;
+    font-size: 0.5em;
     color: #999;
   }
 }

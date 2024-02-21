@@ -137,29 +137,29 @@ export class MenuService implements OnDestroy {
       permission: PermissionKey.USER_DELETE,
       children: [
         {
-          label: 'Metronom',
-          icon: 'mdi mdi-metronome',
-          routerLink: 'tools/metronom',
-        },
-        {
           label: 'Stimmgerät',
           icon: 'mdi mdi-speedometer',
           routerLink: 'tools/tuner',
         },
         {
-          label: 'Synthesizer',
-          icon: 'mdi mdi-piano',
-          routerLink: 'tools/synth',
+          label: 'Metronom',
+          icon: 'mdi mdi-metronome',
+          routerLink: 'tools/metronom',
         },
-        {
-          label: 'Transponierer',
-          icon: 'mdi mdi-playlist-music',
-          routerLink: 'tools/transposer',
-        },
+        // {
+        //   label: 'Transponierer',
+        //   icon: 'mdi mdi-playlist-music',
+        //   routerLink: 'tools/transposer',
+        // },
         {
           label: 'Quintenzirkel',
           icon: 'mdi mdi-music-circle-outline',
           routerLink: 'tools/circle-of-fifths',
+        },
+        {
+          label: 'Synthesizer',
+          icon: 'mdi mdi-piano',
+          routerLink: 'tools/synth',
         },
       ],
     },

@@ -1,4 +1,4 @@
-export const MkjAppVersion = '0.9.4 - BETA';
+export const MkjAppVersion = '0.9.5 - BETA';
 
 export interface MkjAppChangeLog {
   date: string;
@@ -7,6 +7,13 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
+  {
+    date: '21.02.2024',
+    version: '0.9.5 - BETA',
+    changes: {
+      Tools: 'Stimmgerät, Metronom, Quintenzirkel, Synthesizer hinzugefügt.',
+    },
+  },
   {
     date: '01.02.2024',
     version: '0.9.4 - BETA',

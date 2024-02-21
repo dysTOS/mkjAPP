@@ -1,5 +1,5 @@
-<div class="flex align-items-center gap-3">
-  <mkj-boolean-input
+<div class="flex align-items-center justify-content-between">
+  <!-- <mkj-boolean-input
     label="Auto"
     [(value)]="this.tunerConfig.autoMode"
     (valueChange)="onAutoModeChange()"
@@ -8,7 +8,13 @@
     label="Test OSC"
     [value]="false"
     (valueChange)="tunerCtx.setTestOscillator($event)"
-  ></mkj-boolean-input>
+  ></mkj-boolean-input> -->
+  <mkj-counter
+    label="Grundstimmung"
+    [(value)]="baseFreq"
+    [range]="{ min: 430, max: 450 }"
+    (valueChange)="setBaseTuning($event)"
+  ></mkj-counter>
   <mkj-dropdown
     label="Algorithmus"
     [options]="tunerCtx.pitchDetectionAlgorithms"
