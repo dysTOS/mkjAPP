@@ -1,0 +1,8 @@
+:host ::ng-deep .p-button {
+  width: unset !important;
+  padding: 0.5rem !important;
+
+  .p-button-icon {
+    font-size: 2rem;
+  }
+}

@@ -18,8 +18,8 @@
             (pointerenter)="pointerEvents.next({ type: $event.type, key })"
             (pointerleave)="pointerEvents.next({ type: $event.type, key })"
           >
-            @if (key.enharmonicKeyName != null) {
-              {{ key.enharmonicKeyName }}
+            @if (key.enharmonicKeyName == null) {
+              {{ key.keyName }}
             }
           </div>
         }
@@ -30,16 +30,14 @@
 
 <div class="flex flex-column gap-4 mt-5">
   @for (osc of SynthCtx.oscillatorBlueprints; let index = $index; track osc) {
-    <div class="flex gap-2 align-items-center">
+    <div class="flex gap-4 align-items-center border-1 border-200 border-round-md p-2">
       Oscillator {{ index + 1 }}
       <mkj-dropdown label="Type" [(value)]="osc.type" [options]="WaveOptions"></mkj-dropdown>
       <div class="flex flex-column justify-content-center">
-        Gain
-        <p-knob [size]="70" [ngModel]="50" (ngModelChange)="SynthCtx.setGain($event, index)"></p-knob>
+        <mkj-knob label="Gain" [size]="80" [value]="50" (valueChange)="SynthCtx.setGain($event, index)"></mkj-knob>
       </div>
       <div class="flex flex-column">
-        Detune
-        <p-knob [size]="70" [ngModel]="50" (ngModelChange)="SynthCtx.setDetune($event, index)"></p-knob>
+        <mkj-knob label="Detune" [size]="80" [value]="50" (valueChange)="SynthCtx.setDetune($event, index)"></mkj-knob>
       </div>
     </div>
   }

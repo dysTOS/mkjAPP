@@ -13,9 +13,9 @@ export interface MkjDropdownOption<T = any> {
   styleUrls: ['./mkj-dropdown.component.scss'],
   providers: [controlValueAccessor(MkjDropdownComponent)],
 })
-export class MkjDropdownComponent extends AbstractControlAccessor<any> {
+export class MkjDropdownComponent<T> extends AbstractControlAccessor<T> {
   @Input()
-  public options: MkjDropdownOption[] = [];
+  public options: MkjDropdownOption<T>[] = [];
 
   @Input()
   public dataKey: string;

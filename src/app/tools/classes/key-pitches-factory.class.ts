@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { KeyPitch, KeyPitchesConfig, NoteLanguage, Octave, Temperament } from '../interfaces/key-pitches.interface';
 import { CircleStep, ModeScale } from '../interfaces/mode-scale-interface';
 import { ChordHelper } from './_chord-helper.class';

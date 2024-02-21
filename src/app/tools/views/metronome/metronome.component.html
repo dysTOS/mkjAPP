@@ -1,24 +1,36 @@
-<div class="grid align-items-center">
-  <div class="col-6 lg:col-4">
-    <mkj-number-input
-      label="Schläge pro Takt"
-      [(value)]="ctx.metronomeConfig.numerator"
-      (valueChange)="!isPlaying || start()"
-    ></mkj-number-input>
-  </div>
-  <div class="col-6 lg:col-4">
-    <mkj-text-input
-      label="BPM"
-      [(value)]="ctx.metronomeConfig.bpm"
-      (valueChange)="!isPlaying || start()"
-    ></mkj-text-input>
-  </div>
+<div class="flex flex-column align-items-center gap-4">
+  <mkj-knob
+    [(value)]="ctx.metronomeConfig.bpm"
+    size="200"
+    [range]="{
+      min: 30,
+      max: 240
+    }"
+    [valuePostFix]="' bpm'"
+    (valueChange)="!isPlaying || start()"
+  ></mkj-knob>
+
+  <mkj-counter
+    label="Schläge pro Takt"
+    sizeRem="2rem"
+    [(value)]="ctx.metronomeConfig.numerator"
+    [range]="{ min: 1, max: 24 }"
+  ></mkj-counter>
 </div>
 
-<div class="beat-bar-container mt-5">
+<div class="beat-bar-container card mt-5">
   <div class="bar-counts">
     @for (beat of ctx.metronomeConfig.numerator | numberToArray; let index = $index; track beat) {
-      <span [class.active-beat]="index + 1 === count">{{ beat }}</span>
+      <div
+        class="flex flex-column justify-content-end cursor-pointer"
+        [class.active-beat]="index + 1 === count"
+        (click)="setAccent(index)"
+      >
+        @if (accents[index]) {
+          <span>></span>
+        }
+        <span>{{ beat }}</span>
+      </div>
     }
   </div>
   <button

@@ -1,9 +1,20 @@
-<div class="flex gap-3">
+<div class="flex align-items-center gap-3">
+  <mkj-boolean-input
+    label="Auto"
+    [(value)]="this.tunerConfig.autoMode"
+    (valueChange)="onAutoModeChange()"
+  ></mkj-boolean-input>
+  <mkj-boolean-input
+    label="Test OSC"
+    [value]="false"
+    (valueChange)="tunerCtx.setTestOscillator($event)"
+  ></mkj-boolean-input>
   <mkj-dropdown
     label="Algorithmus"
     [options]="tunerCtx.pitchDetectionAlgorithms"
     [(value)]="tunerCtx.selectedPDA"
   ></mkj-dropdown>
+  {{ playingKey | json }}
 </div>
 
 <div class="relative flex justify-content-center card mt-3">
@@ -13,7 +24,7 @@
   <div
     class="needle"
     [style.--offset]="tunerCtx.centsOffPitch + 'deg'"
-    [style.--color-value]="tunerCtx.centsOffPitch"
+    [style.--color-value]="tunerCtx.centsOffPitch ?? 0"
   ></div>
   <div class="dot"></div>
 </div>
@@ -22,9 +33,15 @@
   <div class="notes">
     <div class="notes-list">
       @for (note of tunerCtx.keys; let i = $index; track note) {
-        <div class="note" [class.active]="tunerCtx.noteIndex === i" [style.--color-value]="tunerCtx.centsOffPitch">
-          {{ note | enharmonicKeyNote: false : true
-          }}<span class="octave-nr">
+        <div
+          pRipple
+          class="note"
+          [class.active]="tunerCtx.noteIndex === i"
+          [style.--color-value]="tunerCtx.centsOffPitch"
+          (click)="onKeyClick(note)"
+        >
+          {{ note | enharmonicKeyNote: false : true }}
+          <span class="octave-nr">
             {{ note.c_octaveIndex }}
           </span>
         </div>
@@ -32,5 +49,5 @@
     </div>
   </div>
   <div class="frequency">{{ tunerCtx.fundatementalFreq ?? 0 | number }} Hz</div>
-  <div class="cents">{{ tunerCtx.centsOffPitch }} Cents</div>
+  <div class="cents">{{ tunerCtx.centsOffPitch ?? 0 }} Cents</div>
 </div>

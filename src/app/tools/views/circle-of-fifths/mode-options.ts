@@ -11,12 +11,8 @@ import {
 
 export const ModeOptions: UiDropdownOption[] = [
   {
-    label: 'Dur/Ionisch',
+    label: 'Ionisch',
     value: IonianScale,
-  },
-  {
-    label: 'Moll/Äolisch',
-    value: AeolianScale,
   },
   {
     label: 'Dorisch',
@@ -33,6 +29,10 @@ export const ModeOptions: UiDropdownOption[] = [
   {
     label: 'Mixolydisch',
     value: MixolydianScale,
+  },
+  {
+    label: 'Äolisch',
+    value: AeolianScale,
   },
   {
     label: 'Lokrisch',

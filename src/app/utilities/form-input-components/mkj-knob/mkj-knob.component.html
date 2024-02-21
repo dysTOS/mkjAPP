@@ -1,0 +1,13 @@
+<div class="flex flex-column align-items-center">
+  <p-knob
+    #knob
+    [size]="size"
+    [max]="range.max"
+    [min]="range.min"
+    [ngModel]="value$ | async"
+    (ngModelChange)="change($event)"
+    [valueColor]="color ?? 'var(--primary-color)'"
+    [valueTemplate]="'{value}' + valuePostFix"
+  />
+  <span class="text-sm opacity-80">{{ label }}</span>
+</div>

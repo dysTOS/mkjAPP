@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
 import { getAudioContext } from '../constants/getAudioContext.function';
 import { PitchDetectionAlgorithms } from '../constants/pda-algorithm-options';
-import { KeyPitch } from '../interfaces/key-pitches.interface';
+import { KeyPitchesConfig } from '../interfaces/key-pitches.interface';
 import { KeyPitchesFactory } from './key-pitches-factory.class';
 
 @Injectable()
@@ -25,21 +25,34 @@ export class TunerContext implements OnDestroy {
     this.init();
   }
 
+  public setKeyPitchConfig(config: KeyPitchesConfig): void {
+    this.keys = new KeyPitchesFactory(config).getAllKeys();
+  }
+
+  public setTestOscillator(on: boolean): void {
+    if (on === false) {
+      this._micStream.connect(this._analyser);
+      return;
+    }
+
+    this._micStream.disconnect();
+    const osc = this._audioCtx.createOscillator();
+    osc.connect(this._analyser);
+    osc.connect(this._audioCtx.destination);
+
+    osc.frequency.value = 438;
+    osc.frequency.linearRampToValueAtTime(500, this._audioCtx.currentTime + 50);
+
+    osc.start(this._audioCtx.currentTime);
+    osc.stop(this._audioCtx.currentTime + 50);
+  }
+
   private init() {
     if (navigator.mediaDevices?.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(
+      navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(
         (stream) => {
           this._micStream = this._audioCtx.createMediaStreamSource(stream);
-          this._micStream.connect(this._analyser);
-          //   const osc = this._audioCtx.createOscillator();
-          //   osc.connect(this._analyser);
-          //   osc.connect(this._audioCtx.destination);
-
-          //   osc.frequency.value = 438;
-          //   osc.frequency.linearRampToValueAtTime(500, this._audioCtx.currentTime + 100);
-
-          //   osc.start(this._audioCtx.currentTime);
-          //   osc.stop(this._audioCtx.currentTime + 100);
+          this.setTestOscillator(false);
           this.detectPitch();
         },
         (err) => {
@@ -71,9 +84,9 @@ export class TunerContext implements OnDestroy {
   }
 
   private findClosestNote(fundamentalFreq: number) {
-    var low = 0,
+    let low = 0,
       high = this.keys.length - 1,
-      mid,
+      mid = 0,
       nth = 0;
 
     while (low <= high) {
@@ -94,7 +107,7 @@ export class TunerContext implements OnDestroy {
     }
 
     if (
-      Math.abs(fundamentalFreq - this.keys[nth].frequency) < Math.abs(fundamentalFreq - this.keys[nth + 1].frequency)
+      Math.abs(fundamentalFreq - this.keys[nth]?.frequency) < Math.abs(fundamentalFreq - this.keys[nth + 1]?.frequency)
     ) {
       this.noteIndex = nth ?? null;
     } else {
@@ -104,8 +117,8 @@ export class TunerContext implements OnDestroy {
 
   private findCentsOffPitch(freq: number) {
     // We need to find how far freq is from baseFreq in cents
-    var log2 = 0.6931471805599453; // Math.log(2)
-    var multiplicativeFactor = freq / this.keys[this.noteIndex]?.frequency;
+    const log2 = 0.6931471805599453; // Math.log(2)
+    const multiplicativeFactor = freq / this.keys[this.noteIndex]?.frequency;
 
     // We use Math.floor to get the integer part and ignore decimals
     this.centsOffPitch = Math.floor(1200 * (Math.log(multiplicativeFactor) / log2));
@@ -113,8 +126,8 @@ export class TunerContext implements OnDestroy {
 
   public ngOnDestroy(): void {
     cancelAnimationFrame(this._requestId);
-    this._micStream.mediaStream.getTracks().forEach((track) => track.stop());
-    this._micStream.disconnect();
+    this._micStream?.mediaStream.getTracks().forEach((track) => track.stop());
+    this._micStream?.disconnect();
     this._analyser.disconnect();
     this._audioCtx.close();
   }

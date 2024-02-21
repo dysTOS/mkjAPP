@@ -199,6 +199,10 @@ import { CircleOfFifthsComponent } from './tools/views/circle-of-fifths/circle-o
 import { MetronomeComponent } from './tools/views/metronome/metronome.component';
 import { ScaleStepLiteralPipe } from './tools/pipes/scale-step-literal.pipe';
 import { EnharmonicKeyNotePipe } from './tools/pipes/enharmonic-key-note.pipe';
+import { MkjKnobComponent } from './utilities/form-input-components/mkj-knob/mkj-knob.component';
+import { MkjCounterComponent } from './utilities/form-input-components/mkj-counter/mkj-counter.component';
+import { CircleAccidentalCountPipePipe } from './tools/pipes/circle-accidental-count-pipe.pipe';
+import { CircleParallelMinorPipePipe } from './tools/pipes/circle-parallel-minor-pipe.pipe';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -398,6 +402,10 @@ registerLocaleData(localeDe);
     CircleOfFifthsComponent,
     ScaleStepLiteralPipe,
     EnharmonicKeyNotePipe,
+    MkjKnobComponent,
+    MkjCounterComponent,
+    CircleAccidentalCountPipePipe,
+    CircleParallelMinorPipePipe,
   ],
   providers: [
     mkjAppInitializer(),

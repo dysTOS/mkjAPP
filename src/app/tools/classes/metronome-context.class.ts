@@ -24,6 +24,7 @@ export class MetronomeContext implements OnDestroy {
   private _subs = new SubSink();
 
   constructor() {
+    this._masterGainNode.gain.value = this.metronomeConfig.gain;
     this._masterGainNode.connect(this._audioCtx.destination);
   }
 
@@ -33,7 +34,7 @@ export class MetronomeContext implements OnDestroy {
     this._audioCtx.close();
   }
 
-  public start(): void {
+  public start(accents?: boolean[]): void {
     this.stop();
     if (this.metronomeConfig.bpm > 400 || this.metronomeConfig.bpm < 20) {
       this.metronomeConfig.bpm = 120;
@@ -43,7 +44,7 @@ export class MetronomeContext implements OnDestroy {
     this._subs.sink = this._beatInterval.subscribe((count: number) => {
       const beat = count % this.metronomeConfig.numerator;
       this.count$.next(beat + 1);
-      this.playClick(beat === 0);
+      this.playClick(accents?.[beat]);
     });
   }
 

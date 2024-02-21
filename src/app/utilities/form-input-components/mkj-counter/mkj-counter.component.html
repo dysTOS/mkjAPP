@@ -1,0 +1,23 @@
+<div class="flex flex-column align-items-center">
+  <span class="text-sm opacity-80">{{ label }}</span>
+  <div class="flex gap-2 align-items-center" [ngClass]="{ 'flex-column-reverse': vertical }">
+    <button
+      pRipple
+      pButton
+      type="button"
+      class="p-button-text"
+      [icon]="vertical ? 'pi pi-angle-down' : 'pi pi-angle-left'"
+      (click)="decrement()"
+      [style.sizeRem]="sizeRem"
+    ></button>
+    <span [style.font-size]="sizeRem">{{ value$ | async }}</span>
+    <button
+      pRipple
+      pButton
+      type="button"
+      class="p-button-text"
+      [icon]="vertical ? 'pi pi-angle-up' : 'pi pi-angle-right'"
+      (click)="increment()"
+    ></button>
+  </div>
+</div>

@@ -2,8 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
 import { MusicTool } from '../../abstract-music-tool.class';
 import { KeyPitchesFactory } from '../../classes/key-pitches-factory.class';
-import { IonianScale } from '../../constants/scales';
-import { ModeScale } from '../../interfaces/mode-scale-interface';
+import { CircleStep, ModeScale } from '../../interfaces/mode-scale-interface';
 import { ModeOptions } from './mode-options';
 
 @Component({
@@ -18,8 +17,8 @@ export class CircleOfFifthsComponent extends MusicTool {
   private _keyFactory = new KeyPitchesFactory();
 
   public selectedTonic: string = 'C';
-  public selectedMode: ModeScale = IonianScale;
-  public circleSteps = this._keyFactory.getCircleOfFifths(this.selectedTonic, this.selectedMode);
+  public selectedMode: ModeScale = null;
+  public circleSteps: CircleStep[];
 
   public readonly tonicOptions: UiDropdownOption[] = this._keyFactory.getOctave(1).keys.map((k) => {
     return {
@@ -28,10 +27,11 @@ export class CircleOfFifthsComponent extends MusicTool {
     };
   });
 
-  public readonly modeOptions: UiDropdownOption[] = ModeOptions;
+  public readonly modeOptions: UiDropdownOption[] = [{ label: 'Standard', value: null }, ...ModeOptions];
 
   constructor(inj: Injector) {
     super(inj);
+    this.update();
   }
 
   public update(): void {

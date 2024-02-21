@@ -16,6 +16,8 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
   public count: number = 0;
   public isPlaying: boolean = false;
 
+  public accents: boolean[] = [];
+
   private _subs = new SubSink();
 
   constructor(
@@ -23,6 +25,7 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
     injector: Injector
   ) {
     super(injector);
+    this.accents[0] = true;
     this._subs.sink = this.ctx.count$.subscribe((count: number) => {
       this.count = count;
     });
@@ -33,7 +36,7 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
   }
 
   public start(): void {
-    this.ctx.start();
+    this.ctx.start(this.accents);
     this.isPlaying = true;
   }
 
@@ -41,5 +44,9 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
     this.ctx.stop();
     this.isPlaying = false;
     this.count = 0;
+  }
+
+  public setAccent(index: number): void {
+    this.accents[index] = !this.accents[index];
   }
 }
