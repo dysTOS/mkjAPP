@@ -12,6 +12,7 @@ export const MkjAppChangeLog: MkjAppChangeLog[] = [
     version: '0.9.5 - BETA',
     changes: {
       Tools: 'Stimmgerät, Metronom, Quintenzirkel, Synthesizer hinzugefügt.',
+      Termine: 'Termine können jetzt als PDF exportiert werden.',
     },
   },
   {
