@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+import dayjs from 'dayjs';
+import { FilterMetadata } from 'primeng/api';
 import { Termin, TerminStatusMap } from 'src/app/models/Termin';
+import { MkjDatePipe } from 'src/app/pipes/mkj-date.pipe';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import {
   ListConfiguration,
   MkjListColumn,
@@ -8,12 +12,14 @@ import {
   MkjListSelectionMode,
   MkjListSort,
 } from './_list-configuration.class';
-import dayjs from 'dayjs';
-import { ConfigurationService } from 'src/app/services/configuration.service';
-import { FilterMetadata } from 'primeng/api';
 
 @Injectable()
 export class TermineListConfig implements ListConfiguration<Termin> {
+  constructor(
+    private configService: ConfigurationService,
+    private mkjDatePipe: MkjDatePipe
+  ) {}
+
   listName: string = 'Termine';
   selectionMode: MkjListSelectionMode = 'single';
   showTotalCount = true;
@@ -46,6 +52,14 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       field: 'name',
       type: 'template',
       templateName: 'nameTemplate',
+      getJsPdfValue: (termin) => {
+        const name = termin.name;
+
+        if (termin.gruppe) {
+          return name + ' (' + termin.gruppe.name + ')';
+        }
+        return name;
+      },
     },
     {
       header: 'Datum',
@@ -57,12 +71,17 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       filter: {
         filterType: 'date',
       },
+      getJsPdfValue: (termin) =>
+        this.mkjDatePipe.transform(termin.vonDatum, 'E d. MMMM YYYY') +
+        ' ' +
+        (termin.treffzeit ?? termin.vonZeit ?? ''),
     },
     {
       header: 'Ort',
       field: 'ort',
       type: 'string',
       styleClass: 'w-12rem not-on-small',
+      //   getJsPdfValue: (termin) => termin.ort,
     },
     {
       header: 'Kategorie',
@@ -71,6 +90,7 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       templateName: 'kategorieTemplate',
       styleClass: 'not-on-small w-12rem',
       filter: {
+        // filterType: 'multiselect',
         filterOptions: [
           {
             label: 'Alle',
@@ -79,6 +99,7 @@ export class TermineListConfig implements ListConfiguration<Termin> {
           ...this.configService.terminConfig.terminKategorien,
         ],
       },
+      getJsPdfValue: (termin) => termin.kategorie?.toUpperCase(),
     },
     {
       header: 'Status',
@@ -95,8 +116,14 @@ export class TermineListConfig implements ListConfiguration<Termin> {
           ...TerminStatusMap,
         ],
       },
+      getJsPdfValue: (termin) => {
+        return {
+          content: termin.status?.toUpperCase(),
+          styles: {
+            textColor: termin.status === 'abgesagt' ? 'red' : termin.status === 'ersatztermin' ? 'blue' : null,
+          },
+        };
+      },
     },
   ];
-
-  constructor(private configService: ConfigurationService) {}
 }

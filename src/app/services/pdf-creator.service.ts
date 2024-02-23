@@ -22,12 +22,15 @@ export class PdfCreatorService {
   //   }
 
   public createListPdf<T>(collection: T[], config: ListConfiguration<T>, options: { filename: string }) {
-    const doc = new jsPDF('p', 'pt', 'a3');
-    doc.setFontSize(12);
+    const doc = new jsPDF('p', 'pt', 'a4');
+    doc.setFontSize(14);
 
     autoTable(doc, {
-      head: [config.columns.map((c) => c.header)],
-      body: collection.map((row) => config.columns.map((c) => row[c.field])),
+      head: [config.columns.filter((c) => c.getJsPdfValue != null).map((c) => c.header)],
+      body: collection.map((row) =>
+        config.columns.filter((c) => c.getJsPdfValue != null).map((c) => (c.getJsPdfValue ? c.getJsPdfValue(row) : ''))
+      ),
+
       willDrawPage: function (data) {
         // Header
         doc.setFontSize(20);
@@ -35,7 +38,7 @@ export class PdfCreatorService {
         // if (base64Img) {
         //   doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10)
         // }
-        doc.text(config.listName, data.settings.margin.left, doc.internal.pageSize.height - 30);
+        doc.text(config.listName, data.settings.margin.left, 0);
       },
       //   didDrawPage: function (data) {
       //     // Footer
@@ -53,7 +56,7 @@ export class PdfCreatorService {
       //   },
       theme: 'striped',
       styles: {},
-      headStyles: { fillColor: [0, 66, 0] },
+      headStyles: { fillColor: getComputedStyle(document.documentElement).getPropertyValue('--theme-color') },
       bodyStyles: {},
       alternateRowStyles: {},
       // columnStyles: { columnWidth: 'auto' },

@@ -1,3 +1,20 @@
+<div class="flex flex-column md:flex-row md:justify-content-between align-items-center">
+  @if (configuration.showTotalCount) {
+    <div class="m-2">
+      Anzahl:
+      {{ totalCount }}
+    </div>
+  }
+  @if (configuration.globalFilter != null) {
+    <mkj-text-input
+      iconRight="pi pi-search"
+      [clearable]="true"
+      [value]="table.filters?.global?.value"
+      (valueChange)="table.filterGlobal($event, 'contains')"
+      placeholder="Suchen..."
+    />
+  }
+</div>
 <p-table
   #table
   [value]="values"
@@ -29,24 +46,6 @@
   (onStateRestore)="onStateRestore($event)"
 >
   <ng-template pTemplate="caption">
-    <div class="flex flex-column md:flex-row md:justify-content-between align-items-center">
-      @if (configuration.showTotalCount) {
-        <div class="m-2">
-          Anzahl:
-          {{ totalCount }}
-        </div>
-      }
-      @if (configuration.globalFilter != null) {
-        <mkj-text-input
-          iconRight="pi pi-search"
-          [clearable]="true"
-          [value]="table.filters?.global?.value"
-          (valueChange)="table.filterGlobal($event, configuration.globalfilter?.matchMode ?? 'contains')"
-          placeholder="Suchen..."
-        />
-      }
-    </div>
-
     <ng-template
       [ngTemplateOutlet]="templateMap?.caption"
       [ngTemplateOutletContext]="{ $implicit: value }"
@@ -58,6 +57,25 @@
       @case ('date') {
         <p-columnFilter type="date" display="menu" [field]="col.field" [showOperator]="false"></p-columnFilter>
       }
+      @case ('multiselect') {
+        <p-columnFilter [field]="col.field" matchMode="in" [showMenu]="true">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-multiSelect
+              [ngModel]="value"
+              [options]="col.filter.filterOptions"
+              placeholder="Any"
+              (onChange)="filter($event.value)"
+              optionLabel="label"
+            >
+              <ng-template let-option pTemplate="item">
+                <div class="inline-block vertical-align-middle">
+                  <span class="ml-1 mt-1">{{ option.label }}</span>
+                </div>
+              </ng-template>
+            </p-multiSelect>
+          </ng-template>
+        </p-columnFilter>
+      }
       @default {
         @if (col.filter != null) {
           <p-columnFilter
@@ -65,9 +83,9 @@
             matchMode="equals"
             display="menu"
             [showOperator]="false"
-            [showClearButton]="false"
-            [showApplyButton]="false"
-            [showMatchModes]="false"
+            [showClearButton]="true"
+            [showApplyButton]="true"
+            [showMatchModes]="true"
             [showAddButton]="false"
             [hideOnClear]="true"
           >
@@ -153,4 +171,3 @@
     </ng-template>
   }
 </p-table>
-

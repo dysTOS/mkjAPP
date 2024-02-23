@@ -24,6 +24,7 @@ export interface MkjListColumn<T> {
   sortable?: boolean;
   filter?: MkjListColumnFilter;
   getValue?: (item: T) => any;
+  getJsPdfValue?: (item: T) => any;
 }
 
 export interface MkjListSort<T> {

@@ -4,6 +4,7 @@ import { getAudioContext } from '../constants/getAudioContext.function';
 import { PitchDetectionAlgorithms } from '../constants/pda-algorithm-options';
 import { KeyPitchesConfig } from '../interfaces/key-pitches.interface';
 import { KeyPitchesFactory } from './key-pitches-factory.class';
+import { Subject, bufferTime, debounceTime, map } from 'rxjs';
 
 @Injectable()
 export class TunerContext implements OnDestroy {
@@ -15,6 +16,17 @@ export class TunerContext implements OnDestroy {
   public fundatementalFreq: number;
   public centsOffPitch: number;
   public noteIndex: number;
+
+  private readonly _displayFrequ = new Subject<number>();
+  private readonly _displayCents = new Subject<number>();
+  public readonly displayFrequ = this._displayFrequ.pipe(
+    bufferTime(500),
+    map((freqs) => freqs.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / freqs.length)
+  );
+  public readonly displayCents = this._displayCents.pipe(
+    bufferTime(500),
+    map((cents) => cents.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / cents.length)
+  );
 
   public keys = new KeyPitchesFactory().getAllKeys();
 
@@ -68,7 +80,8 @@ export class TunerContext implements OnDestroy {
     let buffer = new Float32Array(this._analyser.fftSize);
     // See initializations in the AudioContent and AnalyserNode sections of the demo.
     this._analyser.getFloatTimeDomainData(buffer);
-    var fundalmentalFreq = this.selectedPDA(buffer, this._audioCtx.sampleRate);
+    const fundalmentalFreq = this.selectedPDA(buffer, this._audioCtx.sampleRate);
+    this._displayFrequ.next(fundalmentalFreq);
 
     if (fundalmentalFreq !== -1) {
       this.fundatementalFreq = fundalmentalFreq;
@@ -122,6 +135,7 @@ export class TunerContext implements OnDestroy {
 
     // We use Math.floor to get the integer part and ignore decimals
     this.centsOffPitch = Math.floor(1200 * (Math.log(multiplicativeFactor) / log2));
+    this._displayCents.next(this.centsOffPitch);
   }
 
   public ngOnDestroy(): void {

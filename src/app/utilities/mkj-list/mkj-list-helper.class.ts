@@ -69,7 +69,7 @@ export abstract class MkjListHelper {
 
   public static mapSingleFilter<T>(key: string, f: FilterMetadata): MkjListInputFilter<T> {
     let value = f.value;
-    let operator = f.matchMode === 'contains' ? 'LIKE' : '=';
+    let operator = this.mapOperator(f.matchMode);
     const matchMode = f.matchMode;
 
     if (matchMode.includes('date')) {
@@ -90,5 +90,31 @@ export abstract class MkjListHelper {
       value: value,
       operator: operator as any,
     };
+  }
+
+  public static mapOperator(matchMode: string): string {
+    if (matchMode === 'contains') {
+      return 'LIKE';
+    }
+    if (matchMode === 'notContains') {
+      return 'NOT LIKE';
+    }
+    if (matchMode === 'startsWith') {
+      return 'LIKE';
+    }
+    if (matchMode === 'endsWith') {
+      return 'LIKE';
+    }
+    if (matchMode === 'equals') {
+      return '=';
+    }
+    if (matchMode === 'notEquals') {
+      return '!=';
+    }
+    if (matchMode === 'in') {
+      return 'IN';
+    }
+
+    return matchMode;
   }
 }

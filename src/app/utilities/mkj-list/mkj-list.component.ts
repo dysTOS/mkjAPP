@@ -90,6 +90,7 @@ export class MkjListComponent<T> implements OnChanges {
     this.loading$.set(true);
     const input = MkjListHelper.getListInput<T>(event, this.configuration.globalFilter, this.pageSize);
     this._lastListInput = input;
+    console.log(event, input);
     this.datasource.getList(input).subscribe({
       next: (res) => {
         this.values = [...res.values];

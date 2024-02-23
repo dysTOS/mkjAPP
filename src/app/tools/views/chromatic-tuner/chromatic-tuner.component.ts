@@ -62,7 +62,7 @@ export class ChromaticTunerComponent extends MusicTool implements AfterViewInit,
   }
 
   public onKeyClick(key: KeyPitch): void {
-    if (this.playingKey?.frequency === key.frequency) {
+    if (this.playingKey?.keyName === key.keyName) {
       this.synthCtx.stopAll();
       this.playingKey = null;
       return;

@@ -10,6 +10,7 @@
   --surface-100: #3f3f3f;
   --surface-50: #1f1f1f;
   --surface-0: #161616;
+  --theme-color: #006600;
   --mkj-border: #757575;
   --scrollbar-color: #757575;
   --scrollbar-color-hover: var(--surface-800);
@@ -2621,12 +2622,6 @@ body a {
 }
 #invoice-content .invoice .invoice-summary .invoice-value {
   font-weight: 700;
-}
-@page {
-  #invoice-content .invoice {
-    size: 7in 9.25in;
-    margin: 27mm 16mm 27mm 16mm;
-  }
 }
 
 @media print {

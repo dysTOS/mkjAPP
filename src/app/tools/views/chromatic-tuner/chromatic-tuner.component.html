@@ -20,7 +20,6 @@
     [options]="tunerCtx.pitchDetectionAlgorithms"
     [(value)]="tunerCtx.selectedPDA"
   ></mkj-dropdown>
-  {{ playingKey | json }}
 </div>
 
 <div class="relative flex justify-content-center card mt-3">
@@ -42,7 +41,8 @@
         <div
           pRipple
           class="note"
-          [class.active]="tunerCtx.noteIndex === i"
+          [class.cursor-pointer]="!this.tunerConfig.autoMode"
+          [class.active]="tunerCtx.noteIndex === i || playingKey?.keyName === note.keyName"
           [style.--color-value]="tunerCtx.centsOffPitch"
           (click)="onKeyClick(note)"
         >
@@ -54,6 +54,6 @@
       }
     </div>
   </div>
-  <div class="frequency">{{ tunerCtx.fundatementalFreq ?? 0 | number }} Hz</div>
-  <div class="cents">{{ tunerCtx.centsOffPitch ?? 0 }} Cents</div>
+  <div class="frequency">{{ (tunerCtx.displayFrequ | async) || 0 | number: '1.0-0' }} Hz</div>
+  <div class="cents">{{ (tunerCtx.displayCents | async) || 0 | number: '1.0-0' }} Cent</div>
 </div>
