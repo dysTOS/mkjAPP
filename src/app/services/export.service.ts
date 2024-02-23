@@ -79,30 +79,6 @@ export class ExportService {
     });
   }
 
-  public exportExcel(array: any, fileName: string) {
-    import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(array);
-      const workbook = {
-        Sheets: { data: worksheet },
-        SheetNames: ['data'],
-      };
-      const excelBuffer: any = xlsx.write(workbook, {
-        bookType: 'xlsx',
-        type: 'array',
-      });
-      this.saveAsExcelFile(excelBuffer, fileName);
-    });
-  }
-
-  private saveAsExcelFile(buffer: any, fileName: string): void {
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const EXCEL_EXTENSION = '.xlsx';
-    const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE,
-    });
-    FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
-  }
-
   public savePDF(columns: any[], rows: any[], filename: string) {
     const doc: any = new jsPDF('l', 'pt');
 

@@ -16,6 +16,8 @@ import { InfoService } from 'src/app/services/info.service';
 import { ListConfiguration } from '../_list-configurations/_list-configuration.class';
 import { AbstractListDatasource } from '../_list-datasources/_abstract-list-datasource.class';
 import { MkjListHelper } from './mkj-list-helper.class';
+import { GetListInput, GetListOutput } from 'src/app/interfaces/api-middleware';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'mkj-list',
@@ -53,6 +55,8 @@ export class MkjListComponent<T> implements OnChanges {
   public totalCount: number = 0;
   public selectedRow: T;
 
+  private _lastListInput: GetListInput<T>;
+
   constructor(private infoService: InfoService) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -85,6 +89,7 @@ export class MkjListComponent<T> implements OnChanges {
   public loadData(event?: LazyLoadEvent): void {
     this.loading$.set(true);
     const input = MkjListHelper.getListInput<T>(event, this.configuration.globalFilter, this.pageSize);
+    this._lastListInput = input;
     this.datasource.getList(input).subscribe({
       next: (res) => {
         this.values = [...res.values];
@@ -98,6 +103,15 @@ export class MkjListComponent<T> implements OnChanges {
         this.infoService.error(err);
       },
     });
+  }
+
+  public getFullFilteredData(): Observable<GetListOutput<T>> {
+    const input = this._lastListInput;
+    if (input == null) return of(null);
+
+    input.skip = null;
+    input.take = null;
+    return this.datasource.getList(input);
   }
 
   private setInitialFilter(): void {
