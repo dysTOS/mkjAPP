@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
+import { MkjListInputFilter } from 'src/app/interfaces/api-middleware';
 import { Termin } from 'src/app/models/Termin';
 import { PermissionKey } from 'src/app/models/User';
 import { displayModel } from 'src/app/providers/display-model';
@@ -115,7 +116,7 @@ export class TermineOverviewComponent {
   public exportPdf() {
     this.list.getFullFilteredData().subscribe((res) => {
       this.pdfCreatorService.createListPdf(res.values, this.listConfig, {
-        filename: 'termine',
+        filename: 'termine_' + new Date().toLocaleDateString().replace(/\./g, '-'),
       });
     });
   }

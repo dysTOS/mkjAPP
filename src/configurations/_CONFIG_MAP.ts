@@ -12,8 +12,8 @@ export const CONFIG_MAP: AppConfig = {
     production: false,
     publictest: true,
 
-    // apiUrl: 'http://localhost:8000/api/',
-    apiUrl: 'https://api-test.mk-jainzen.at/api/',
+    apiUrl: 'http://localhost:8000/api/',
+    // apiUrl: 'https://api-test.mk-jainzen.at/api/',
     appTitle: 'mkjLOCAL',
   },
   publictest: {

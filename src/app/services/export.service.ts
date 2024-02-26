@@ -78,22 +78,4 @@ export class ExportService {
       }
     });
   }
-
-  public savePDF(columns: any[], rows: any[], filename: string) {
-    const doc: any = new jsPDF('l', 'pt');
-
-    doc.autoTable(columns, rows, {
-      theme: 'striped',
-      styles: {},
-      headStyles: { fillColor: [0, 66, 0] },
-      bodyStyles: {},
-      alternateRowStyles: {},
-      columnStyles: { columnWidth: 'auto' },
-      margin: { top: 50 },
-      beforePageContent: function (data) {
-        doc.text(filename, 40, 30);
-      },
-    });
-    doc.save(filename + '.pdf');
-  }
 }

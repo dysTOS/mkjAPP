@@ -90,7 +90,6 @@ export class MkjListComponent<T> implements OnChanges {
     this.loading$.set(true);
     const input = MkjListHelper.getListInput<T>(event, this.configuration.globalFilter, this.pageSize);
     this._lastListInput = input;
-    console.log(event, input);
     this.datasource.getList(input).subscribe({
       next: (res) => {
         this.values = [...res.values];
@@ -113,6 +112,10 @@ export class MkjListComponent<T> implements OnChanges {
     input.skip = null;
     input.take = null;
     return this.datasource.getList(input);
+  }
+
+  public getLastListInput(): GetListInput<T> {
+    return this._lastListInput;
   }
 
   private setInitialFilter(): void {

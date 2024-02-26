@@ -71,10 +71,18 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       filter: {
         filterType: 'date',
       },
-      getJsPdfValue: (termin) =>
-        this.mkjDatePipe.transform(termin.vonDatum, 'E d. MMMM YYYY') +
-        ' ' +
-        (termin.treffzeit ?? termin.vonZeit ?? ''),
+      getJsPdfValue: (termin) => {
+        let date =
+          this.mkjDatePipe.transform(termin.vonDatum, 'E d. MMMM YYYY') +
+          ' ' +
+          (termin.treffzeit ?? termin.vonZeit ?? '');
+
+        if (termin.vonDatum !== termin.bisDatum) {
+          date += ' - ' + this.mkjDatePipe.transform(termin.bisDatum, 'E d. MMMM YYYY') + ' ' + (termin.bisZeit ?? '');
+        }
+
+        return date.trim();
+      },
     },
     {
       header: 'Ort',
