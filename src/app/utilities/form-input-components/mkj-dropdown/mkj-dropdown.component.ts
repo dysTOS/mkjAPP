@@ -19,4 +19,7 @@ export class MkjDropdownComponent<T> extends AbstractControlAccessor<T> {
 
   @Input()
   public dataKey: string;
+
+  @Input()
+  public showClear: boolean = false;
 }

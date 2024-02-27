@@ -7,6 +7,7 @@ import {
   MkjListSelectionMode,
   MkjListSort,
 } from './_list-configuration.class';
+import { FilterMetadata } from 'primeng/api';
 
 @Injectable()
 export class MitgliederListConfig implements ListConfiguration<Mitglied> {
@@ -20,6 +21,15 @@ export class MitgliederListConfig implements ListConfiguration<Mitglied> {
   };
   globalFilter: MkjListGlobalFilter<Mitglied> = {
     fields: ['vorname', 'zuname', 'email'],
+  };
+  initialFilter: { [key: string]: FilterMetadata[] } = {
+    aktiv: [
+      {
+        value: 1,
+        matchMode: 'equals',
+        operator: 'and',
+      },
+    ],
   };
   columns: MkjListColumn<Mitglied>[] = [
     {

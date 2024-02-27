@@ -27,7 +27,7 @@ export class CircleOfFifthsComponent extends MusicTool {
     };
   });
 
-  public readonly modeOptions: UiDropdownOption[] = [{ label: 'Standard', value: null }, ...ModeOptions];
+  public readonly modeOptions: UiDropdownOption[] = ModeOptions;
 
   constructor(inj: Injector) {
     super(inj);

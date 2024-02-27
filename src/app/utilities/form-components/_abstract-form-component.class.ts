@@ -1,5 +1,5 @@
-import { Directive, OnDestroy } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Directive, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AbstractCrudApiService } from 'src/app/services/api/_abstract-crud-api-service';
@@ -8,7 +8,7 @@ import { SubSink } from 'subsink';
 import { MkjToolbarService } from '../mkj-toolbar/mkj-toolbar.service';
 
 @Directive()
-export abstract class AbstractFormComponent<T> implements OnDestroy {
+export abstract class AbstractFormComponent<T> implements OnInit, OnDestroy {
   public formGroup: FormGroup;
 
   protected navigateBackOnSave = true;
@@ -29,7 +29,9 @@ export abstract class AbstractFormComponent<T> implements OnDestroy {
     protected infoService: InfoService,
     protected route: ActivatedRoute,
     protected router: Router
-  ) {
+  ) {}
+
+  public ngOnInit(): void {
     this.initToolbar();
     this.formGroup = this.initFormGroup();
     this.loadData();

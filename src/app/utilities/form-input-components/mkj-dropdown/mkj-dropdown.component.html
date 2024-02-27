@@ -5,6 +5,7 @@
     dataKey="value"
     [options]="options"
     [ngModel]="formControl?.value ?? value"
+    [showClear]="showClear"
     (ngModelChange)="change($event)"
     [disabled]="disabled$ | async"
     (onBlur)="touch()"

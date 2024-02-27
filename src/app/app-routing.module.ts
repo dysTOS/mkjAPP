@@ -324,7 +324,7 @@ import { MetronomeComponent } from './tools/views/metronome/metronome.component'
               title: environment.appTitle + ' -  EINSTELLUNGEN',
               children: [
                 {
-                  path: 'mitgliedsdaten',
+                  path: 'mitgliedsdaten/:id',
                   component: MitgliedPersonalEditComponent,
                   canActivate: [RouteGuard],
                   canDeactivate: [EditDeactivateGuard],

@@ -171,7 +171,7 @@ export class MenuService implements OnDestroy {
         {
           label: 'Meine Daten',
           icon: 'pi pi-user',
-          routerLink: 'einstellungen/mitgliedsdaten',
+          routerLink: 'einstellungen/mitgliedsdaten/' + this.userService.currentMitglied.value?.id,
         },
         {
           label: 'Rollen & Rechte',
