@@ -35,10 +35,10 @@ export class PdfCreatorService {
         // Header
         doc.setFontSize(20);
         doc.setTextColor(40);
-        // if (base64Img) {
-        //   doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10)
-        // }
-        doc.text(config.listName, data.settings.margin.left, 0);
+        const base64Img = new Image();
+        base64Img.src = 'assets/images/app_logo.png';
+        doc.addImage(base64Img, 'PNG', data.settings.margin.left, data.settings.margin.top - 17, 15, 15);
+        doc.text(config.listName, data.settings.margin.left + 18, data.settings.margin.top - 2);
       },
       //   didDrawPage: function (data) {
       //     // Footer
@@ -60,7 +60,7 @@ export class PdfCreatorService {
       bodyStyles: {},
       alternateRowStyles: {},
       // columnStyles: { columnWidth: 'auto' },
-      //   margin: { top: 50 },
+      margin: { top: 50 },
     });
     doc.save(options.filename + '.pdf');
   }

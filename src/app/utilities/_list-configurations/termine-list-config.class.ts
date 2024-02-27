@@ -12,13 +12,25 @@ import {
   MkjListSelectionMode,
   MkjListSort,
 } from './_list-configuration.class';
+import { GruppenApiService } from 'src/app/services/api/gruppen-api.service';
 
 @Injectable()
 export class TermineListConfig implements ListConfiguration<Termin> {
   constructor(
     private configService: ConfigurationService,
-    private mkjDatePipe: MkjDatePipe
-  ) {}
+    private mkjDatePipe: MkjDatePipe,
+    private gruppenApiService: GruppenApiService
+  ) {
+    this.gruppenApiService.getList({ sort: { field: 'name' } }).subscribe((gruppen) => {
+      this.columns.find((c) => c.field === 'gruppe_id').filter.filterOptions = [
+        {
+          label: 'Alle',
+          value: '',
+        },
+        ...gruppen.values.map((g) => ({ label: g.name, value: g.id })),
+      ];
+    });
+  }
 
   listName: string = 'Termine';
   selectionMode: MkjListSelectionMode = 'single';
@@ -90,6 +102,17 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       type: 'string',
       styleClass: 'w-12rem not-on-small',
       //   getJsPdfValue: (termin) => termin.ort,
+    },
+    {
+      header: 'Gruppe',
+      field: 'gruppe_id',
+      type: 'template',
+      templateName: 'gruppeTemplate',
+      styleClass: 'w-12rem not-on-small',
+      filter: {
+        // filterType: 'multiselect',
+        filterOptions: null, //set in constructor
+      },
     },
     {
       header: 'Kategorie',

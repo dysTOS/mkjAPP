@@ -7,7 +7,8 @@
     nameTemplate: nameTemplate,
     datumTemplate: datumTemplate,
     kategorieTemplate: kategorieTemplate,
-    statusTemplate: statusTemplate
+    statusTemplate: statusTemplate,
+    gruppeTemplate: gruppeTemplate
   }"
   (onSelectionChange)="this.selectedRow = $event"
   (onDoubleClick)="navigateSingleAusrueckung($event)"
@@ -35,6 +36,8 @@
   {{ termin.kategorie | uppercase }}
 </ng-template>
 
+<ng-template #gruppeTemplate let-termin> {{ termin.gruppe?.name | uppercase }}</ng-template>
+
 <ng-template #statusTemplate let-termin>
   <mkj-tag [label]="termin.status | uppercase" [severity]="termin.status | terminStatusSeverity"></mkj-tag>
 </ng-template>
@@ -46,7 +49,7 @@
     </div>
   }
   <mkj-display-model [model]="termin"></mkj-display-model>
-  <div class="flex flex-wrap justify-content-center gap-2">
+  <div class="flex flex-wrap flex-column sm:flex-row justify-content-center gap-2">
     <button
       pButton
       pRipple
