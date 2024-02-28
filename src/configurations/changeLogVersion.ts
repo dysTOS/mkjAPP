@@ -1,4 +1,4 @@
-export const MkjAppVersion = '0.9.5 - BETA';
+export const MkjAppVersion = '0.9.6 - BETA';
 
 export interface MkjAppChangeLog {
   date: string;
@@ -7,6 +7,14 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
+  {
+    date: '28.02.2024',
+    version: '0.9.6 - BETA',
+    changes: {
+      PersonalData: 'Jeder User kann jetzt seine eigenen Mitgliedsdaten bearbeiten.',
+      Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
+    },
+  },
   {
     date: '21.02.2024',
     version: '0.9.5 - BETA',

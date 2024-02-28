@@ -10,7 +10,7 @@ export interface Noten {
   ausgeliehenVon?: string;
   anmerkungen?: string;
   aufbewahrungsort?: string;
-  links: { name: string; url: string }[];
+  links: { name: string; url: string }[]; // TODO: polymorphe Links?
   created_at?: string;
   updated_at?: string;
   pivot?: {

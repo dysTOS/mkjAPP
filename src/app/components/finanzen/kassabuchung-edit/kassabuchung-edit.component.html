@@ -38,12 +38,14 @@
         </div>
       </p-divider>
     </div>
-    <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
 
-    <p-divider class="col-12"></p-divider>
+    <div class="p-field col-12">
+      <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
+    </div>
+
     <div formArrayName="positionen" class="p-field col-12 flex flex-column gap-3">
       @for (position of positionenFormArray.controls; track position; let i = $index) {
-        <div class="flex flex-wrap gap-3 lg:justify-content-around align-items-center" [formGroupName]="i">
+        <div class="card flex flex-wrap gap-3 lg:justify-content-between align-items-center" [formGroupName]="i">
           <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
           <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
           <mkj-number-input formControlName="einzelpreis" label="Preis" mode="currency"></mkj-number-input>
@@ -61,24 +63,31 @@
         </div>
       }
     </div>
-    <div class="col-12 border-top-1"></div>
-    <div class="col-12 flex justify-content-between">
+
+    <div class="col-12 flex justify-content-center mt-4">
       <button
         pButton
+        pRipple
         type="button"
-        class="max-w-20rem"
+        class="max-w-15rem p-button-secondary p-button-rounded"
         icon="pi pi-plus"
         (click)="addPosition()"
         label="Position hinzufügen"
       ></button>
+    </div>
 
-      <mkj-number-input
-        *ngIf="positionenFormArray.controls.length > 1"
-        class="p-field col-12 lg:col-3 md:col-6"
-        mode="currency"
-        label="Gesamtpreis"
-        formControlName="gesamtpreis"
-      ></mkj-number-input>
+    <div class="col-12 flex flex-wrap justify-content-end">
+      @if (positionenFormArray.controls.length === 0) {
+        <mkj-number-input
+          class="p-field col-12 lg:col-3 md:col-6"
+          mode="currency"
+          label="Gesamtpreis"
+          formControlName="gesamtpreis"
+        ></mkj-number-input>
+      } @else {
+        <div class="w-full border-top-1 mt-4 mb-4 opacity-60"></div>
+        <span> Gesamt: {{ formGroup.controls.gesamtpreis.value | currency: 'EUR' }} </span>
+      }
     </div>
     <p-divider class="col-12"></p-divider>
   </div>

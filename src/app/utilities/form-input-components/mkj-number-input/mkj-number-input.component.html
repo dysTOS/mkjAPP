@@ -3,7 +3,7 @@
     currency="EUR"
     locale="de-DE"
     [mode]="mode"
-    [ngModel]="formControl?.value ?? value"
+    [ngModel]="formControl?.value || value"
     (ngModelChange)="change($event)"
     [disabled]="disabled$ | async"
     (onBlur)="touch()"

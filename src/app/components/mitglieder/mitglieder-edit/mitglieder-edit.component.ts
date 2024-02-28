@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Injector, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -25,15 +25,12 @@ export class MitgliederEditComponent extends AbstractFormComponent<Mitglied> {
   public readonly MitgliedGeschlechtMap = MitgliedGeschlechtMap;
 
   constructor(
+    inj: Injector,
     apiService: MitgliederApiService,
     private confirmationService: ConfirmationService,
-    private userService: UserService,
-    router: Router,
-    route: ActivatedRoute,
-    infoService: InfoService,
-    toolbarService: MkjToolbarService
+    private userService: UserService
   ) {
-    super(toolbarService, apiService, infoService, route, router);
+    super(inj, apiService);
 
     this.canAssignRoles = this.userService.hasPermission(PermissionKey.ROLE_ASSIGN);
   }

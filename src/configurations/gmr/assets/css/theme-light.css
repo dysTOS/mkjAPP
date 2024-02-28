@@ -6523,7 +6523,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1.5rem;
   border: 0 none;
   color: rgb(0, 0, 1);
-  background: var(--surface-50);
+  background: var(--surface-100);
   font-weight: 400;
   border-radius: 4px;
   transition: none;
@@ -6537,12 +6537,12 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
-  background: var(--surface-100);
+  background: var(--surface-200);
   border-color: transparent;
   color: rgb(0, 0, 1);
 }
 .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
-  background: var(--surface-0);
+  background: var(--surface-100);
   border-color: transparent;
   color: rgb(0, 0, 1);
   border-bottom-right-radius: 0;
@@ -7681,7 +7681,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   padding: 1.5rem;
   border: 0 none;
   color: rgb(0, 0, 1);
-  background: var(--surface-50);
+  background: var(--surface-100);
   font-weight: 400;
   border-radius: 4px;
   transition: none;
@@ -7698,7 +7698,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   box-shadow: none;
 }
 .p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
-  background: var(--surface-100);
+  background: var(--surface-200);
   border-color: transparent;
   color: rgb(0, 0, 1);
 }
@@ -7706,7 +7706,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-bottom: 0;
 }
 .p-panelmenu .p-panelmenu-header.p-highlight > a {
-  background: var(--surface-0);
+  background: var(--surface-100);
   border-color: transparent;
   color: rgb(0, 0, 1);
   border-bottom-right-radius: 0;
@@ -8574,7 +8574,7 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   transition: transform 0.3s;
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-header-link:focus {
-  background: var(--surface-100);
+  background: var(--surface-200);
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-toggle-icon {
   transform: rotate(-270deg);
@@ -9500,7 +9500,7 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   opacity: 0.38;
 }
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header:not(.p-highlight) .p-panelmenu-header-link:focus {
-  background: var(--surface-100);
+  background: var(--surface-200);
 }
 
 .p-progressbar {

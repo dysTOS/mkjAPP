@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UtilFunctions } from 'src/app/helpers/util-functions';
 import { Kassabuchung, KassabuchungTyp } from 'src/app/models/Kassabuch';
 import { PermissionKey } from 'src/app/models/User';
 import { KassabuchungenApiService } from 'src/app/services/api/kassabuchungen-api.service';
-import { InfoService } from 'src/app/services/info.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
-import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.service';
 
 export interface KassabuchungPositionenFormGroup {
   bezeichnung: FormControl<string>;
@@ -27,15 +24,12 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
   public positionenFormArray: FormArray<FormGroup<KassabuchungPositionenFormGroup>>;
   public readonly typOptions = UtilFunctions.getDropdownOptionsFromEnum(KassabuchungTyp);
 
-  constructor(
-    toolbarService: MkjToolbarService,
-    apiService: KassabuchungenApiService,
-    infoService: InfoService,
-    route: ActivatedRoute,
-    router: Router
-  ) {
-    super(toolbarService, apiService, infoService, route, router);
+  constructor(inj: Injector, buchungenApiService: KassabuchungenApiService) {
+    super(inj, buchungenApiService);
+  }
 
+  public ngOnInit(): void {
+    super.ngOnInit();
     this.subs.add(
       this.formGroup.controls.anschrift.valueChanges.subscribe((anschrift) => {
         if (anschrift.id) {
@@ -107,6 +101,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
   }
 
   protected dataLoaded(data: Kassabuchung): void {
+    this.removePosition(0);
     if (data.positionen && data.positionen.length > 1) {
       for (let i = this.positionenFormArray.length; i < data.positionen.length; i++) {
         this.addPosition();
@@ -118,8 +113,8 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
     this.positionenFormArray.push(
       new FormGroup<KassabuchungPositionenFormGroup>({
         bezeichnung: new FormControl<string>(null, Validators.required),
-        menge: new FormControl<number>(1),
-        einzelpreis: new FormControl<number>(null),
+        menge: new FormControl<number>(1, Validators.required),
+        einzelpreis: new FormControl<number>(null, Validators.required),
         gesamtpreis: new FormControl<number>(0, Validators.required),
       })
     );
@@ -131,10 +126,18 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
   }
 
   private calculateGesamtpreis(): void {
+    if (this.positionenFormArray.controls.length === 0) return;
+
     let gesamtpreis = 0;
     this.positionenFormArray.controls.forEach((control: FormGroup<KassabuchungPositionenFormGroup>) => {
       let positionGesamtpreis: number;
-      if (control.controls.menge.value != null && control.controls.einzelpreis.value != null) {
+      if (!control.controls.menge.value) {
+        control.controls.menge.setValue(1, {
+          emitEvent: true,
+          onlySelf: false,
+        });
+      }
+      if (control.controls.einzelpreis.value != null) {
         positionGesamtpreis = control.controls.menge.value * control.controls.einzelpreis.value;
         control.controls.gesamtpreis.setValue(positionGesamtpreis, {
           emitEvent: false,

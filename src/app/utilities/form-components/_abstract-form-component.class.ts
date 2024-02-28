@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -22,14 +22,20 @@ export abstract class AbstractFormComponent<T> implements OnInit, OnDestroy {
   private _loadedModel: T;
 
   protected subs = new SubSink();
+  protected toolbarService: MkjToolbarService;
+  protected infoService: InfoService;
+  protected route: ActivatedRoute;
+  protected router: Router;
 
   constructor(
-    protected toolbarService: MkjToolbarService,
-    protected apiService: AbstractCrudApiService<T>,
-    protected infoService: InfoService,
-    protected route: ActivatedRoute,
-    protected router: Router
-  ) {}
+    inj: Injector,
+    protected readonly apiService: AbstractCrudApiService<T>
+  ) {
+    this.toolbarService = inj.get(MkjToolbarService);
+    this.infoService = inj.get(InfoService);
+    this.route = inj.get(ActivatedRoute);
+    this.router = inj.get(Router);
+  }
 
   public ngOnInit(): void {
     this.initToolbar();

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
+import dayjs from 'dayjs';
 import * as FileSaver from 'file-saver';
 import * as ics from 'ics';
-import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import dayjs from 'dayjs';
 import { Termin } from '../models/Termin';
 import { InfoService } from './info.service';
-
-//TODO: use LARAVEL EXCEL
 
 @Injectable({
   providedIn: 'root',

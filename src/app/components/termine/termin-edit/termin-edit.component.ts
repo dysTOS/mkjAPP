@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import dayjs from 'dayjs';
 import { Termin, TerminStatusMap } from 'src/app/models/Termin';
 import { PermissionKey } from 'src/app/models/User';
 import { GruppenApiService } from 'src/app/services/api/gruppen-api.service';
 import { TermineApiService } from 'src/app/services/api/termine-api.service';
-import { ConfigurationService } from 'src/app/services/configuration.service';
 import { UserService } from 'src/app/services/authentication/user.service';
-import { InfoService } from 'src/app/services/info.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
-import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.service';
 
 @Component({
   templateUrl: './termin-edit.component.html',
@@ -24,16 +21,13 @@ export class TerminEditComponent extends AbstractFormComponent<Termin> {
   public severalDays: boolean = false;
 
   constructor(
-    route: ActivatedRoute,
-    router: Router,
+    inj: Injector,
     terminApiService: TermineApiService,
-    infoService: InfoService,
-    toolbarService: MkjToolbarService,
     private configService: ConfigurationService,
     private userService: UserService,
     private gruppenService: GruppenApiService
   ) {
-    super(toolbarService, terminApiService, infoService, route, router);
+    super(inj, terminApiService);
     this.getGruppen();
     this.subs.add(
       this.formGroup.get('vonDatum').valueChanges.subscribe((value) => {

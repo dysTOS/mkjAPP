@@ -16,23 +16,18 @@
     [dataKey]="listConfig.dataKey ?? 'id'"
     [showEmptyMessage]="true"
     [optionLabel]="listConfig.getDisplayValue"
+    [showClear]="showClear"
     class="w-full"
-    >
+  >
     <ng-template let-item pTemplate="item">
       <div class="flex gap-2 justify-between">
         @for (col of listConfig.columns; track col; let i = $index) {
-          <span
-            [class]="col.styleClass"
-            >
-            <mkj-list-cell
-              [value]="item"
-              [colConfig]="col"
-              [templateMap]="templateMap"
-            ></mkj-list-cell>
+          <span [class]="col.styleClass">
+            <mkj-list-cell [value]="item" [colConfig]="col" [templateMap]="templateMap"></mkj-list-cell>
           </span>
-          }</div
-        ></ng-template>
-      </p-autoComplete>
+        }</div
+    ></ng-template>
+  </p-autoComplete>
 
-      <label [for]="label">{{ label }}</label>
-    </span>
+  <label [for]="label">{{ label }}</label>
+</span>
