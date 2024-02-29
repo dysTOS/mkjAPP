@@ -29,6 +29,10 @@ export class TerminEditComponent extends AbstractFormComponent<Termin> {
   ) {
     super(inj, terminApiService);
     this.getGruppen();
+  }
+
+  public ngOnInit(): void {
+    super.ngOnInit();
     this.subs.add(
       this.formGroup.get('vonDatum').valueChanges.subscribe((value) => {
         if (this.severalDays === false) {

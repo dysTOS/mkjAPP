@@ -51,6 +51,8 @@ export class NotenEditorComponent extends AbstractFormComponent<Noten> {
       arrangeur: new FormControl(''),
       verlag: new FormControl(''),
       gattung: new FormControl(''),
+      dauer: new FormControl('', Validators.pattern('^(?:(?:[0-1]?[0-9]|2[0-3]):)?(?:[0-5]?[0-9]:)?[0-5]?[0-9]$')),
+      schwierigkeit: new FormControl(null),
       ausgeliehenAb: new FormControl(''),
       ausgeliehenVon: new FormControl(''),
       anmerkungen: new FormControl(''),

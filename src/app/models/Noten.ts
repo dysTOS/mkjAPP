@@ -6,6 +6,8 @@ export interface Noten {
   arrangeur?: string;
   verlag?: string;
   gattung?: string;
+  dauer?: any;
+  schwierigkeit?: number;
   ausgeliehenAb?: string;
   ausgeliehenVon?: string;
   anmerkungen?: string;
@@ -17,7 +19,7 @@ export interface Noten {
     verzeichnisNr?: string;
     orderIndex?: number;
   };
-  //TODO: add 'dauer', 'schwierigkeit', 'bewertung',
+  //TODO: add  'bewertung',
 }
 
 export interface Notenmappe {

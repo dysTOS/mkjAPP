@@ -24,9 +24,6 @@ export class MkjDateInputComponent
   @Input()
   public type: MkjDateType = MkjDateType.COMBINED;
 
-  @Input()
-  public label: string;
-
   public internModel: Date | string;
   public isDisabled: boolean = false;
   public isDesktop: boolean = UtilFunctions.isDesktop();

@@ -25,13 +25,13 @@ export class NotenListConfig implements ListConfiguration<Noten> {
     fields: ['titel', 'komponist', 'arrangeur'],
   };
   columns: MkjListColumn<Noten>[] = [
-    {
-      header: 'ID',
-      field: 'inventarId',
-      type: 'string',
-      styleClass: 'w-5rem not-on-small',
-      sortable: true,
-    },
+    // {
+    //   header: 'ID',
+    //   field: 'inventarId',
+    //   type: 'string',
+    //   styleClass: 'w-5rem not-on-small',
+    //   sortable: true,
+    // },
     {
       header: 'Titel',
       field: 'titel',
@@ -58,6 +58,27 @@ export class NotenListConfig implements ListConfiguration<Noten> {
       sortable: true,
       filter: {
         filterOptions: [{ label: 'Alle', value: null }, ...this.configService.notenConfig.notenGattungen],
+      },
+    },
+    {
+      header: 'Ausgeliehen',
+      field: 'ausgeliehenAb',
+      type: 'date',
+      styleClass: 'not-on-small',
+      filter: {
+        filterType: 'not-null',
+      },
+    },
+    {
+      header: 'Schwierigkeit',
+      field: 'schwierigkeit',
+      type: 'string',
+      styleClass: 'not-on-small',
+      filter: {
+        filterOptions: [
+          { label: 'Alle', value: null },
+          ...[1, 2, 3, 4, 5].map((i) => ({ label: i.toString(), value: i })),
+        ],
       },
     },
   ];

@@ -37,7 +37,7 @@ export interface MkjListGlobalFilter<T> {
 }
 
 export interface MkjListColumnFilter {
-  filterType?: 'dropdown' | 'multiselect' | 'date';
+  filterType?: 'dropdown' | 'multiselect' | 'date' | 'not-null';
   filterOptions?: any;
 }
 

@@ -53,6 +53,16 @@
       @case ('date') {
         <p-columnFilter type="date" display="menu" [field]="col.field" [showOperator]="false"></p-columnFilter>
       }
+      @case ('not-null') {
+        <p-columnFilter [field]="col.field" matchMode="notContains" [showMenu]="false" [showOperator]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <mkj-boolean-input
+              [value]="value"
+              (valueChange)="filter($event === true ? true : null)"
+            ></mkj-boolean-input>
+          </ng-template>
+        </p-columnFilter>
+      }
       @case ('multiselect') {
         <p-columnFilter [field]="col.field" matchMode="in" [showMenu]="true">
           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -104,11 +114,13 @@
   </ng-template>
 
   <ng-template #headerCell let-col>
-    {{ col.header }}
-    @if (col.sortable) {
-      <p-sortIcon [field]="col.field"></p-sortIcon>
-    }
-    <ng-template [ngTemplateOutlet]="filterTemplate" [ngTemplateOutletContext]="{ $implicit: col }"></ng-template>
+    <div class="flex gap-2 align-items-center">
+      {{ col.header }}
+      @if (col.sortable) {
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      }
+      <ng-template [ngTemplateOutlet]="filterTemplate" [ngTemplateOutletContext]="{ $implicit: col }"></ng-template>
+    </div>
   </ng-template>
 
   @if (!configuration.hideHeader) {

@@ -6,6 +6,8 @@
     [ngModel]="formControl?.value || value"
     (ngModelChange)="change($event)"
     [disabled]="disabled$ | async"
+    [max]="range?.max"
+    [min]="range?.min"
     (onBlur)="touch()"
     [class.ng-dirty]="formControl?.invalid"
     [class.ng-invalid]="formControl?.invalid"

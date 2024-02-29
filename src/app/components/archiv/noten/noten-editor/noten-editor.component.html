@@ -1,72 +1,54 @@
 <mkj-form-wrapper [formGroup]="formGroup" [component]="this">
-    <div class="p-fluid grid">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Inventarnummer"
-                formControlName="inventarId"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Titel"
-                formControlName="titel"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Komponist"
-                formControlName="komponist"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Arrangeur"
-                formControlName="arrangeur"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Verlag"
-                formControlName="verlag"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-dropdown
-                [label]="configService.uiNaming.Notengattung"
-                [options]="configService.notenConfig.notenGattungen"
-                formControlName="gattung"
-            ></mkj-dropdown>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Aufbewahrungsort"
-                formControlName="aufbewahrungsort"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-date-input
-                label="Ausgeliehen ab"
-                type="date"
-                formControlName="ausgeliehenAb"
-            ></mkj-date-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Ausgeliehen von"
-                formControlName="ausgeliehenVon"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12">
-            <mkj-text-area-input
-                label="Anmerkungen"
-                formControlName="anmerkungen"
-            ></mkj-text-area-input>
-        </div>
-
-        <p-accordion class="p-field col-12 md:col-6">
-            <p-accordionTab header="Links">
-                <mkj-link-input formControlName="links"></mkj-link-input>
-            </p-accordionTab>
-        </p-accordion>
+  <div class="p-fluid grid">
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Inventarnummer" formControlName="inventarId"></mkj-text-input>
     </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Titel" formControlName="titel"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Komponist" formControlName="komponist"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Arrangeur" formControlName="arrangeur"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Verlag" formControlName="verlag"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-dropdown
+        [label]="configService.uiNaming.Notengattung"
+        [options]="configService.notenConfig.notenGattungen"
+        formControlName="gattung"
+      ></mkj-dropdown>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Dauer (hh:mm:ss)" formControlName="dauer"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-number-input
+        label="Schwierigkeit (1-5)"
+        formControlName="schwierigkeit"
+        [range]="{ min: 1, max: 5 }"
+      ></mkj-number-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Aufbewahrungsort" formControlName="aufbewahrungsort"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-date-input label="Ausgeliehen ab" type="date" formControlName="ausgeliehenAb"></mkj-date-input>
+    </div>
+    <div class="p-field col-12 lg:col-3 md:col-6">
+      <mkj-text-input label="Ausgeliehen von" formControlName="ausgeliehenVon"></mkj-text-input>
+    </div>
+    <div class="p-field col-12">
+      <mkj-text-area-input label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
+    </div>
+
+    <p-accordion class="p-field col-12 md:col-6">
+      <p-accordionTab header="Links">
+        <mkj-link-input formControlName="links"></mkj-link-input>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
 </mkj-form-wrapper>
