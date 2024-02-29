@@ -4,6 +4,7 @@ import { UtilFunctions } from 'src/app/helpers/util-functions';
 import { Kassabuchung, KassabuchungTyp } from 'src/app/models/Kassabuch';
 import { PermissionKey } from 'src/app/models/User';
 import { KassabuchungenApiService } from 'src/app/services/api/kassabuchungen-api.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
 
 export interface KassabuchungPositionenFormGroup {
@@ -24,7 +25,11 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
   public positionenFormArray: FormArray<FormGroup<KassabuchungPositionenFormGroup>>;
   public readonly typOptions = UtilFunctions.getDropdownOptionsFromEnum(KassabuchungTyp);
 
-  constructor(inj: Injector, buchungenApiService: KassabuchungenApiService) {
+  constructor(
+    inj: Injector,
+    buchungenApiService: KassabuchungenApiService,
+    public configService: ConfigurationService
+  ) {
     super(inj, buchungenApiService);
   }
 
@@ -81,8 +86,8 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         validators: (group: FormGroup): ValidationErrors | null => {
           if (!group.controls.anschrift_id.value && !group.controls.anschrift.value) {
             const err = {
-              Anschrift:
-                'Es muss eine existierende Anschrift ausgewählt werden oder eine neue Anschrift angelegt werden.',
+              [this.configService.uiNaming.Anschrift]:
+                `Es muss eine existierende ${this.configService.uiNaming.Anschrift} ausgewählt oder eine neue angelegt werden.`,
             };
             return err;
           }
@@ -102,7 +107,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
 
   protected dataLoaded(data: Kassabuchung): void {
     this.removePosition(0);
-    if (data.positionen && data.positionen.length > 1) {
+    if (data.positionen && data.positionen.length > 0) {
       for (let i = this.positionenFormArray.length; i < data.positionen.length; i++) {
         this.addPosition();
       }

@@ -1,14 +1,13 @@
-import { Component, Injector, Input, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validator } from '@angular/forms';
-import { OverlayPanel } from 'primeng/overlaypanel';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, merge, takeWhile, tap } from 'rxjs';
+import { ChangeDetectorRef, Component, Injector, Input } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { Anschrift } from 'src/app/models/Anschrift';
 import { controlValidator } from 'src/app/providers/control-validator';
 import { controlValueAccessor } from 'src/app/providers/control-value-accessor';
-import { AnschriftenApiService } from 'src/app/services/api/anschriften-api.service';
-import { AbstractControlAccessor } from '../abstract-control-accessor';
-import { AnschriftenListDatasource } from '../../_list-datasources/anschriften-list-datasource.class';
 import { AnschriftenAutoCompleteConfigiguration } from '../../_autocomplete-configurations/anschriften-autocomplete-config.class';
+import { AnschriftenListDatasource } from '../../_list-datasources/anschriften-list-datasource.class';
+import { AbstractControlAccessor } from '../abstract-control-accessor';
+import { ConfigurationService } from 'src/app/services/configuration.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mkj-anschrift-form',
@@ -22,17 +21,21 @@ import { AnschriftenAutoCompleteConfigiguration } from '../../_autocomplete-conf
 })
 export class AnschriftFormComponent extends AbstractControlAccessor<Anschrift> implements Validator {
   @Input()
+  public label: string;
+
+  @Input()
   public mode: 'edit' | 'suggest' = 'edit';
 
   public internalFormGroup: FormGroup;
 
-  public autoCompleteConfig = new AnschriftenAutoCompleteConfigiguration(false);
+  public readonly autoCompleteConfig = new AnschriftenAutoCompleteConfigiguration(false);
+  public readonly searchValue = new BehaviorSubject<Anschrift>(null);
 
   constructor(
     inj: Injector,
-    private formBuilder: FormBuilder,
-    private apiService: AnschriftenApiService,
-    public dataSource: AnschriftenListDatasource
+    public dataSource: AnschriftenListDatasource,
+    private configService: ConfigurationService,
+    private formBuilder: FormBuilder
   ) {
     super(inj);
     this.initFormGroup();
@@ -42,6 +45,7 @@ export class AnschriftFormComponent extends AbstractControlAccessor<Anschrift> i
           this.internalFormGroup.patchValue(value, {
             emitEvent: false,
           });
+          this.searchValue.next(value);
         } else {
           this.internalFormGroup.reset();
         }
@@ -52,7 +56,9 @@ export class AnschriftFormComponent extends AbstractControlAccessor<Anschrift> i
           this.internalFormGroup.controls.id.patchValue(null, {
             emitEvent: false,
           });
+          this.searchValue.next(null);
         }
+        this.updateInternalValidators();
         this.touch();
         this.change(value);
       })
@@ -61,6 +67,7 @@ export class AnschriftFormComponent extends AbstractControlAccessor<Anschrift> i
 
   public setFromSuggestion(anschrift: Anschrift) {
     this.internalFormGroup.patchValue(anschrift, { emitEvent: false });
+    this.searchValue.next(anschrift);
     this.touch();
     this.change(anschrift);
   }
@@ -78,30 +85,49 @@ export class AnschriftFormComponent extends AbstractControlAccessor<Anschrift> i
       plz: [null],
       ort: [null],
       staat: [null],
-      email: [null],
-      telefonHaupt: [null],
-      telefonMobil: [null],
-      IBAN: [null],
+      email: [null, Validators.email],
+      telefonHaupt: [null, Validators.pattern(`^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$`)],
+      telefonMobil: [null, Validators.pattern(`^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$`)],
+      IBAN: [null, Validators.pattern(`^[A-Z]{2}(?:[ ]?[0-9]){18,20}$`)],
       BIC: [null],
     });
   }
 
-  validate(control: AbstractControl<any, any>): ValidationErrors {
+  public validate(control: AbstractControl<any, any>): ValidationErrors {
     const vorname = control?.value?.['vorname'];
     const zuname = control?.value?.['zuname'];
     const firma = control?.value?.['firma'];
 
     if (!vorname && !zuname && !firma) {
       return {
-        Kontrahent: 'Zumindest Vor/Zuname oder Firma müssen angegeben werden.',
+        [this.configService.uiNaming.Anschriften]: 'Zumindest Vor/Zuname oder Firma müssen angegeben werden.',
       };
     }
     if ((!vorname || !zuname) && !firma) {
       return {
-        Kontrahent: 'Zumindest Vor/Zuname oder Firma müssen angegeben werden.',
+        [this.configService.uiNaming.Anschriften]: 'Zumindest Vor/Zuname oder Firma müssen angegeben werden.',
+      };
+    }
+    if (this.internalFormGroup.invalid) {
+      return {
+        [this.configService.uiNaming.Anschriften]: 'Angaben fehlerhaft.',
       };
     }
 
     return null;
+  }
+
+  private updateInternalValidators(): void {
+    if (this.internalFormGroup.controls['firma'].value) {
+      this.internalFormGroup.controls['vorname'].removeValidators(Validators.required);
+      this.internalFormGroup.controls['zuname'].removeValidators(Validators.required);
+    } else {
+      this.internalFormGroup.controls['vorname'].setValidators(Validators.required);
+      this.internalFormGroup.controls['zuname'].setValidators(Validators.required);
+      this.internalFormGroup.controls['firma'].removeValidators(Validators.required);
+    }
+    this.internalFormGroup.controls['vorname'].updateValueAndValidity({ emitEvent: false });
+    this.internalFormGroup.controls['zuname'].updateValueAndValidity({ emitEvent: false });
+    this.internalFormGroup.controls['firma'].updateValueAndValidity({ emitEvent: false });
   }
 }

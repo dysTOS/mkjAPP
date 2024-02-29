@@ -25,30 +25,29 @@
     ></mkj-date-input>
     <mkj-text-area-input class="p-field col-12" label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
 
-    <div class="p-field col-12">
-      <p-divider align="left" type="solid">
-        <div class="inline-flex align-items-center">
-          <i class="pi pi-user mr-2"></i>
-          <b class="mr-2">Kontrahent</b>
-          @if (formGroup.controls.anschrift_id.value) {
-            <p>(aus System)</p>
-          } @else {
-            <p>(Neuanlage)</p>
-          }
-        </div>
-      </p-divider>
-    </div>
-
-    <div class="p-field col-12">
-      <mkj-anschrift-form mode="suggest" formControlName="anschrift"></mkj-anschrift-form>
+    <div class="p-field col-12 mb-4">
+      <mkj-anschrift-form
+        mode="suggest"
+        formControlName="anschrift"
+        [label]="
+          configService.uiNaming.Anschrift +
+          ' ' +
+          (formGroup.controls.anschrift_id.value ? '(aus System)' : '(Neuanlage)')
+        "
+      ></mkj-anschrift-form>
     </div>
 
     <div formArrayName="positionen" class="p-field col-12 flex flex-column gap-3">
       @for (position of positionenFormArray.controls; track position; let i = $index) {
-        <div class="card flex flex-wrap gap-3 lg:justify-content-between align-items-center" [formGroupName]="i">
-          <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
-          <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
-          <mkj-number-input formControlName="einzelpreis" label="Preis" mode="currency"></mkj-number-input>
+        <div
+          [formGroupName]="i"
+          class="surface-100 p-4 border-round-md flex flex-wrap gap-3 lg:justify-content-between align-items-center"
+        >
+          <div class="flex flex-wrap gap-3">
+            <mkj-text-input formControlName="bezeichnung" label="Beschreibung" />
+            <mkj-number-input formControlName="menge" label="Menge"></mkj-number-input>
+            <mkj-number-input formControlName="einzelpreis" label="Preis" mode="currency"></mkj-number-input>
+          </div>
           <div class="flex gap-3 align-items-center">
             {{ position.controls.gesamtpreis.value | currency: 'EUR' }}
             <button

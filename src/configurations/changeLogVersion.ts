@@ -11,6 +11,7 @@ export const MkjAppChangeLog: MkjAppChangeLog[] = [
     date: '28.02.2024',
     version: '0.9.6 - BETA',
     changes: {
+      Kassabuchungen: 'Es können jetzt Positionen für Kassabuchungen angelegt werden.',
       PersonalData: 'Jeder User kann jetzt seine eigenen Mitgliedsdaten bearbeiten.',
       Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
     },
