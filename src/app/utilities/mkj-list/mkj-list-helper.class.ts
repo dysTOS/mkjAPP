@@ -46,7 +46,6 @@ export abstract class MkjListHelper {
   }
 
   public static getFilters<T>(filters: { [key: string]: FilterMetadata | FilterMetadata[] }): MkjListInputFilter<T>[] {
-    console.log('getFilters', filters);
     const result: MkjListInputFilter<T>[] = [];
     if (!filters) return result;
 

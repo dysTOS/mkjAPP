@@ -1,73 +1,72 @@
 <div class="grid gap-3">
-    <div class="card col-12 lg:col-4 md:col-6">
-        <div class="layout-config-content">
-            <h5>Dark Theme</h5>
-            <div class="p-field">
-                <p-inputSwitch
-                    [(ngModel)]="themeService.darkMode"
-                    (onChange)="themeService.changeTheme()"
-                ></p-inputSwitch>
-            </div>
+  <div class="card col-12 lg:col-4 md:col-6">
+    <div class="layout-config-content">
+      <h5>Dark Theme</h5>
+      <div class="p-field">
+        <p-inputSwitch [(ngModel)]="themeService.darkMode" (onChange)="themeService.changeTheme()"></p-inputSwitch>
+      </div>
 
-            <h5>Style der Eingabefelder</h5>
-            <div class="field-radiobutton">
-                <p-radioButton
-                    name="inputStyle"
-                    value="outlined"
-                    [(ngModel)]="themeService.inputStyle"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="inputStyle1"
-                ></p-radioButton>
-                <label for="inputStyle1">Umrandet</label>
-            </div>
-            <div class="field-radiobutton">
-                <p-radioButton
-                    name="inputStyle"
-                    value="filled"
-                    [(ngModel)]="themeService.inputStyle"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="inputStyle2"
-                ></p-radioButton>
-                <label for="inputStyle2">Gefüllt</label>
-            </div>
+      <h5>Style der Eingabefelder</h5>
+      <div class="field-radiobutton">
+        <p-radioButton
+          name="inputStyle"
+          value="outlined"
+          [(ngModel)]="themeService.inputStyle"
+          (onClick)="themeService.changeTheme()"
+          inputId="inputStyle1"
+        ></p-radioButton>
+        <label for="inputStyle1">Umrandet</label>
+      </div>
+      <div class="field-radiobutton">
+        <p-radioButton
+          name="inputStyle"
+          value="filled"
+          [(ngModel)]="themeService.inputStyle"
+          (onClick)="themeService.changeTheme()"
+          inputId="inputStyle2"
+        ></p-radioButton>
+        <label for="inputStyle2">Gefüllt</label>
+      </div>
 
-            <h5>Desktop Menü</h5>
-            <div class="field-radiobutton">
-                <p-radioButton
-                    name="menuMode"
-                    value="static"
-                    [(ngModel)]="themeService.layoutMode"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="mode1"
-                ></p-radioButton>
-                <label for="mode1">Statisch</label>
-            </div>
-            <div class="field-radiobutton">
-                <p-radioButton
-                    name="menuMode"
-                    value="overlay"
-                    [(ngModel)]="themeService.layoutMode"
-                    (onClick)="themeService.changeTheme()"
-                    inputId="mode2"
-                ></p-radioButton>
-                <label for="mode2">Overlay</label>
-            </div>
-        </div>
+      <h5>Desktop Menü</h5>
+      <div class="field-radiobutton">
+        <p-radioButton
+          name="menuMode"
+          value="static"
+          [(ngModel)]="themeService.layoutMode"
+          (onClick)="themeService.changeTheme()"
+          inputId="mode1"
+        ></p-radioButton>
+        <label for="mode1">Statisch</label>
+      </div>
+      <div class="field-radiobutton">
+        <p-radioButton
+          name="menuMode"
+          value="overlay"
+          [(ngModel)]="themeService.layoutMode"
+          (onClick)="themeService.changeTheme()"
+          inputId="mode2"
+        ></p-radioButton>
+        <label for="mode2">Overlay</label>
+      </div>
     </div>
+  </div>
 
-    <div class="card col-12 lg:col-4 md:col-6">
-        <h5>Neustart</h5>
-        <p></p>
+  <div class="card col-12 lg:col-4 md:col-6">
+    <h5>Neustart</h5>
+    <p></p>
 
-        <div class="flex justify-content-center">
-            <button
-                pButton
-                pRipple
-                type="button"
-                label="Reload mkjAPP"
-                icon="pi pi-refresh"
-                (click)="reloadApp()"
-            ></button>
-        </div>
+    <div class="flex justify-content-center">
+      <button pButton pRipple type="button" label="Reload mkjAPP" icon="pi pi-refresh" (click)="reloadApp()"></button>
     </div>
+  </div>
+
+  <div class="card col-12 lg:col-4 md:col-6">
+    <h5>Reset Session Storage</h5>
+    <p>(bei Problemen)</p>
+
+    <div class="flex justify-content-center">
+      <button pButton pRipple type="button" label="Reset" icon="pi pi-refresh" (click)="resetSessionStorage()"></button>
+    </div>
+  </div>
 </div>

@@ -65,7 +65,6 @@ export class ExportService {
   private saveIcsEvent(event: ics.EventAttributes, fileName: string) {
     ics.createEvent(event, (error, value) => {
       if (error) {
-        console.log(error);
         this.infoService.error(error);
         return;
       }

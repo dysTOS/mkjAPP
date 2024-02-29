@@ -11,7 +11,6 @@ export class PdfCreatorService {
   constructor() {}
 
   //   public createPdfFromHtml() {
-  //     console.log('create pdf');
   //     const doc: any = new jsPDF('l', 'pt');
   //     doc.autoTable({
   //       html: '.p-datatable-striped',
