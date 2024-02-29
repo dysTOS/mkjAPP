@@ -5,6 +5,7 @@
       {{ totalCount }}
     </div>
   }
+  <ng-template [ngTemplateOutlet]="templateMap?.caption"></ng-template>
   @if (configuration.globalFilter != null) {
     <mkj-text-input
       iconRight="pi pi-search"
@@ -45,12 +46,7 @@
   [filters]="configuration.initialFilter ?? {}"
   (onStateRestore)="onStateRestore($event)"
 >
-  <ng-template pTemplate="caption">
-    <ng-template
-      [ngTemplateOutlet]="templateMap?.caption"
-      [ngTemplateOutletContext]="{ $implicit: value }"
-    ></ng-template>
-  </ng-template>
+  <ng-template pTemplate="caption"> </ng-template>
 
   <ng-template #filterTemplate let-col>
     @switch (col.filter?.filterType) {

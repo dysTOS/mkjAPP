@@ -64,10 +64,8 @@ export abstract class AbstractControlAccessor<T> implements ControlValueAccessor
   }
 
   public change(value: T) {
-    if (_.isEqual(value, this._value.value) === false) {
-      this._onChange?.(value);
-      this.valueChange.emit(value);
-    }
+    this._onChange?.(value);
+    this.valueChange.emit(value);
   }
 
   public touch() {

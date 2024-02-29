@@ -1,13 +1,10 @@
 import { Component, Injector, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { Mitglied, MitgliedGeschlechtMap } from 'src/app/models/Mitglied';
 import { PermissionKey } from 'src/app/models/User';
 import { UserService } from 'src/app/services/authentication/user.service';
-import { InfoService } from 'src/app/services/info.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
-import { MkjToolbarService } from 'src/app/utilities/mkj-toolbar/mkj-toolbar.service';
 import { MitgliederApiService } from '../../../services/api/mitglieder-api.service';
 
 @Component({
@@ -69,8 +66,14 @@ export class MitgliederEditComponent extends AbstractFormComponent<Mitglied> {
       hausnummer: new FormControl(''),
       ort: new FormControl(''),
       plz: new FormControl(''),
-      telefonHaupt: new FormControl(''),
-      telefonMobil: new FormControl(''),
+      telefonHaupt: new FormControl(
+        '',
+        Validators.pattern(`^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$`)
+      ),
+      telefonMobil: new FormControl(
+        '',
+        Validators.pattern(`^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$`)
+      ),
       beruf: new FormControl(''),
       aktiv: new FormControl(false),
       eintrittDatum: new FormControl(''),

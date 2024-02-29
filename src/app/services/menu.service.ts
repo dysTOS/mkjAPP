@@ -18,7 +18,6 @@ export const MenuLabels = {
   PRIMEMENU: 0,
   STATISTIK: 1,
   FINANZEN: 2,
-  NOTEN: 3,
   EINSTELLUNGEN: 4,
 
   //with sidemenu > 4

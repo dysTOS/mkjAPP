@@ -1,6 +1,9 @@
+import { Anschrift } from './Anschrift';
+
 export interface Mitglied {
   id?: string;
   user_id?: string;
+  anschrift_id?: string;
   vorname?: string;
   zuname?: string;
   email?: string;
@@ -19,6 +22,7 @@ export interface Mitglied {
   eintrittDatum?: string;
   austrittDatum?: string;
   teilnahmen?: { status?: string }[];
+  anschrift?: Anschrift;
   created_at?: string;
   updated_at?: string;
 }

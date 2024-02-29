@@ -9,8 +9,17 @@ import { AbstractControlAccessor } from '../abstract-control-accessor';
   providers: [controlValueAccessor(MkjBooleanInputComponent)],
 })
 export class MkjBooleanInputComponent extends AbstractControlAccessor<boolean> {
+  public internalValue: boolean;
+
   constructor(inj: Injector) {
     super(inj);
+    this.subs.sink = this.value$.subscribe((value) => {
+      this.internalValue = value;
+    });
+  }
+
+  public onChange(event: boolean): void {
+    this.change(event);
   }
 
   protected convertModelToFormModel(obj: any): boolean {

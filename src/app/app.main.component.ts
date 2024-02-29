@@ -151,8 +151,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
       const first = urlSeg[0]?.path;
       if (!first) {
         this.activeTabIndex = MenuLabels.DASHBOARD;
-      } else if (first === 'noten') {
-        this.activeTabIndex = MenuLabels.NOTEN;
+      } else if (first === 'archiv') {
+        this.activeTabIndex = MenuLabels.ARCHIV;
       } else if (first === 'termine') {
         this.activeTabIndex = MenuLabels.TERMINE;
       } else if (first === 'mitglieder') {
