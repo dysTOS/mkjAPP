@@ -12,7 +12,7 @@ import { UtilFunctions } from './helpers/util-functions';
   template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-  ripple = true;
+  public ripple = true;
 
   constructor(
     private primengConfig: PrimeNGConfig,
