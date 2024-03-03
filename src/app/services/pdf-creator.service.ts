@@ -27,7 +27,7 @@ export class PdfCreatorService {
     autoTable(doc, {
       head: [config.columns.filter((c) => c.getJsPdfValue != null).map((c) => c.header)],
       body: collection.map((row) =>
-        config.columns.filter((c) => c.getJsPdfValue != null).map((c) => (c.getJsPdfValue ? c.getJsPdfValue(row) : ''))
+        config.columns.filter((c) => c.getJsPdfValue != null).map((c) => c.getJsPdfValue(row))
       ),
 
       willDrawPage: function (data) {

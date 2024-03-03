@@ -12,10 +12,8 @@ import { UtilFunctions } from './helpers/util-functions';
   template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-  public ripple = true;
-
   constructor(
-    private primengConfig: PrimeNGConfig,
+    public primengConfig: PrimeNGConfig,
     private authStatService: AuthStateService,
     private router: Router,
     private userService: UserService,
@@ -30,6 +28,22 @@ export class AppComponent {
     });
 
     this.primengConfig.ripple = UtilFunctions.isDesktop() === false;
-    this.primengConfig.setTranslation(MkjPrimeTranslation);
+    this.primengConfig.filterMatchModeOptions = {
+      text: [
+        'equals',
+        'notEquals',
+        //   'contains',
+        // 'startsWith',
+        // 'endsWith',
+        // 'notContains'
+      ],
+      numeric: ['equals', 'notEquals', 'lt', 'lte', 'gt', 'gte'],
+      date: [
+        // 'dateIs', 'dateIsNot',
+        'dateBefore',
+        'dateAfter',
+      ],
+    };
+    this.primengConfig.setTranslation({ ...this.primengConfig.translation, ...MkjPrimeTranslation });
   }
 }

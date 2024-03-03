@@ -72,6 +72,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         id: new FormControl<string>(null),
         typ: new FormControl<KassabuchungTyp>(null, Validators.required),
         nummer: new FormControl<string>(null),
+        betreff: new FormControl<string>(null, Validators.required),
         datum: new FormControl<string>(null, Validators.required),
         anschrift_id: new FormControl<string>(null),
         kassabuch_id: new FormControl<string>(buchId, Validators.required),

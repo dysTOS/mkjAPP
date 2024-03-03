@@ -29,7 +29,8 @@ export abstract class MkjListHelper {
     }
 
     const filters = MkjListHelper.getFilters<T>(event.filters);
-    result.filterAnd = filters;
+    result.filterAnd = filters.andFilters;
+    result.filterOr = filters.orFilters;
 
     return result;
   }
@@ -45,29 +46,43 @@ export abstract class MkjListHelper {
     });
   }
 
-  public static getFilters<T>(filters: { [key: string]: FilterMetadata | FilterMetadata[] }): MkjListInputFilter<T>[] {
-    const result: MkjListInputFilter<T>[] = [];
-    if (!filters) return result;
+  private static getFilters<T>(filters: { [key: string]: FilterMetadata | FilterMetadata[] }): {
+    andFilters: MkjListInputFilter<T>[];
+    orFilters: MkjListInputFilter<T>[];
+  } {
+    console.log(filters);
+    const andFilters: MkjListInputFilter<T>[] = [];
+    const orFilters: MkjListInputFilter<T>[] = [];
+    if (!filters) return { andFilters, orFilters };
 
     Object.entries(filters).forEach(([key, value]) => {
       if (key === 'global') return;
 
       if (Array.isArray(value)) {
-        (value as Array<any>).forEach((v) => {
-          const filter = this.mapSingleFilter<T>(key, v);
-          if (filter.value != null) {
-            result.push(filter);
+        (value as Array<FilterMetadata>).forEach((v) => {
+          if (v.value != null) {
+            const filters = this.mapSingleFilter<T>(key, v);
+            if (Array.isArray(filters)) {
+              filters.length > 1 ? orFilters.push(...filters) : andFilters.push(filters[0]);
+            } else {
+              andFilters.push(filters);
+            }
           }
         });
       } else if (value.value != null) {
-        result.push(this.mapSingleFilter<T>(key, value));
+        const filters = this.mapSingleFilter<T>(key, value);
+        if (Array.isArray(filters)) {
+          filters.length > 1 ? orFilters.push(...filters) : andFilters.push(filters[0]);
+        } else {
+          andFilters.push(filters);
+        }
       }
     });
 
-    return result;
+    return { andFilters, orFilters };
   }
 
-  public static mapSingleFilter<T>(key: string, f: FilterMetadata): MkjListInputFilter<T> {
+  private static mapSingleFilter<T>(key: string, f: FilterMetadata): MkjListInputFilter<T> | MkjListInputFilter<T>[] {
     let value = f.value;
     let operator = this.mapOperator(f.matchMode);
     const matchMode = f.matchMode;
@@ -85,14 +100,24 @@ export abstract class MkjListHelper {
       }
     }
 
-    return {
-      field: key as keyof T,
-      value: value,
-      operator: operator as any,
-    };
+    if (Array.isArray(value)) {
+      return value.map((v) => {
+        return {
+          field: key as keyof T,
+          value: v.value,
+          operator: operator as any,
+        };
+      });
+    } else {
+      return {
+        field: key as keyof T,
+        value: value,
+        operator: operator as any,
+      };
+    }
   }
 
-  public static mapOperator(matchMode: string): string {
+  private static mapOperator(matchMode: string): string {
     if (matchMode === 'contains') {
       return 'LIKE';
     }
@@ -116,5 +141,9 @@ export abstract class MkjListHelper {
     }
 
     return matchMode;
+  }
+
+  private static isOrFilter(filter: FilterMetadata): boolean {
+    return filter.operator === 'or';
   }
 }

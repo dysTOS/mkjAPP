@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { PrimeNGConfig } from 'primeng/api';
 import { first } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SubSink } from 'subsink';
@@ -37,7 +36,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public renderer: Renderer2,
     public themeService: ThemeService,
-    private primengConfig: PrimeNGConfig,
     public app: AppComponent,
     private route: ActivatedRoute,
     private router: Router
@@ -135,11 +133,6 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onConfigClick(event) {
     this.configClick = true;
-  }
-
-  onRippleChange(event) {
-    this.app.ripple = event.checked;
-    this.primengConfig = event.checked;
   }
 
   get overlay(): boolean {

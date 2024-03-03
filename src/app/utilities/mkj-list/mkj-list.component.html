@@ -51,7 +51,8 @@
   <ng-template #filterTemplate let-col>
     @switch (col.filter?.filterType) {
       @case ('date') {
-        <p-columnFilter type="date" display="menu" [field]="col.field" [showOperator]="false"></p-columnFilter>
+        <p-columnFilter type="date" display="menu" [field]="col.field" [showOperator]="false" [hideOnClear]="false">
+        </p-columnFilter>
       }
       @case ('not-null') {
         <p-columnFilter [field]="col.field" matchMode="notContains" [showMenu]="false" [showOperator]="false">
@@ -64,7 +65,15 @@
         </p-columnFilter>
       }
       @case ('multiselect') {
-        <p-columnFilter [field]="col.field" matchMode="in" [showMenu]="true">
+        <p-columnFilter
+          [field]="col.field"
+          display="menu"
+          matchMode="equals"
+          [showOperator]="false"
+          [showMatchModes]="false"
+          [hideOnClear]="true"
+          [showAddButton]="false"
+        >
           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
             <p-multiSelect
               [ngModel]="value"

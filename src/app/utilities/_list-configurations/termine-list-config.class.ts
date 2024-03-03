@@ -23,10 +23,6 @@ export class TermineListConfig implements ListConfiguration<Termin> {
   ) {
     this.gruppenApiService.getList({ sort: { field: 'name' } }).subscribe((gruppen) => {
       this.columns.find((c) => c.field === 'gruppe_id').filter.filterOptions = [
-        {
-          label: 'Alle',
-          value: '',
-        },
         ...gruppen.values.map((g) => ({ label: g.name, value: g.id })),
       ];
     });
@@ -74,6 +70,12 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       },
     },
     {
+      header: 'Info',
+      field: 'infoMusiker',
+      styleClass: 'hidden',
+      getJsPdfValue: (termin) => termin.infoMusiker,
+    },
+    {
       header: 'Datum',
       field: 'vonDatum',
       type: 'template',
@@ -110,7 +112,7 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       templateName: 'gruppeTemplate',
       styleClass: 'w-12rem not-on-small',
       filter: {
-        // filterType: 'multiselect',
+        filterType: 'multiselect',
         filterOptions: null, //set in constructor
       },
     },
@@ -121,14 +123,8 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       templateName: 'kategorieTemplate',
       styleClass: 'not-on-small w-12rem',
       filter: {
-        // filterType: 'multiselect',
-        filterOptions: [
-          {
-            label: 'Alle',
-            value: null,
-          },
-          ...this.configService.terminConfig.terminKategorien,
-        ],
+        filterType: 'multiselect',
+        filterOptions: [...this.configService.terminConfig.terminKategorien],
       },
       getJsPdfValue: (termin) => termin.kategorie?.toUpperCase(),
     },
@@ -139,21 +135,19 @@ export class TermineListConfig implements ListConfiguration<Termin> {
       templateName: 'statusTemplate',
       styleClass: 'not-on-small w-10rem',
       filter: {
-        filterOptions: [
-          {
-            label: 'Alle',
-            value: null,
-          },
-          ...TerminStatusMap,
-        ],
+        filterType: 'multiselect',
+        filterOptions: [...TerminStatusMap],
       },
       getJsPdfValue: (termin) => {
-        return {
-          content: termin.status?.toUpperCase(),
-          styles: {
-            textColor: termin.status === 'abgesagt' ? 'red' : termin.status === 'ersatztermin' ? 'blue' : null,
-          },
-        };
+        if (termin.status !== 'fixiert') {
+          return {
+            content: termin.status?.toUpperCase(),
+            styles: {
+              textColor: termin.status === 'abgesagt' ? 'red' : termin.status === 'ersatztermin' ? 'blue' : null,
+            },
+          };
+        }
+        return '';
       },
     },
   ];

@@ -1,47 +1,48 @@
-import { Anschrift } from "./Anschrift";
-import { Gruppe } from "./Gruppe";
+import { Anschrift } from './Anschrift';
+import { Gruppe } from './Gruppe';
 
 export interface Kassabuch {
-    id?: string;
-    name: string;
-    aktiv: boolean;
-    kassastand: number;
-    color?: string;
-    anmerkungen?: string;
-    gruppe_id?: string;
-    gruppe?: Gruppe;
-    kassabuchungen?: Kassabuchung[];
+  id?: string;
+  name: string;
+  aktiv: boolean;
+  kassastand: number;
+  color?: string;
+  anmerkungen?: string;
+  gruppe_id?: string;
+  gruppe?: Gruppe;
+  kassabuchungen?: Kassabuchung[];
 }
 
 export interface Kassabuchung {
-    id?: string;
-    typ: KassabuchungTyp;
-    nummer: string;
-    datum: string;
-    anschrift_id: string;
-    anschrift?: Anschrift;
-    kassabuch_id: string;
-    gesamtpreis: number;
-    bezahltDatum?: string;
-    anmerkungen?: string;
-    positionen: RechnungsPosition[];
-    konditionen?: RechnungsKonditionen;
+  id?: string;
+  typ: KassabuchungTyp;
+  nummer: string;
+  datum: string;
+  betreff: string;
+  anschrift_id: string;
+  anschrift?: Anschrift;
+  kassabuch_id: string;
+  gesamtpreis: number;
+  bezahltDatum?: string;
+  anmerkungen?: string;
+  positionen: RechnungsPosition[];
+  konditionen?: RechnungsKonditionen;
 }
 
 export interface RechnungsPosition {
-    bezeichnung: string;
-    menge?: number;
-    einzelpreis?: number;
-    gesamtpreis: number;
+  bezeichnung: string;
+  menge?: number;
+  einzelpreis?: number;
+  gesamtpreis: number;
 }
 
 export interface RechnungsKonditionen {
-    skonto?: number;
-    skontoTage?: number;
-    zahlungsziel?: number;
+  skonto?: number;
+  skontoTage?: number;
+  zahlungsziel?: number;
 }
 
 export enum KassabuchungTyp {
-    EINNAHME = "e",
-    AUSGABE = "a",
+  EINNAHME = 'e',
+  AUSGABE = 'a',
 }
