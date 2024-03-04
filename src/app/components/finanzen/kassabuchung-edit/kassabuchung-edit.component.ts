@@ -57,9 +57,7 @@ export class KassabuchungEditComponent extends AbstractFormComponent<Kassabuchun
         label: 'Löschen',
         icon: 'pi pi-trash',
         hidden: this.getId() === 'new',
-        click: () => {
-          this.delete();
-        },
+        click: () => this.delete(),
         permissions: [PermissionKey.KASSABUCHUNG_DELETE],
       },
     ];
