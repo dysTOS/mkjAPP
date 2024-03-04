@@ -2,7 +2,7 @@ import { Directive, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { AbstractCrudApiService } from 'src/app/services/api/_abstract-crud-api-service';
+import { AbstractCrudApiService } from 'src/app/services/api/_abstract-crud-api-service.class';
 import { InfoService } from 'src/app/services/info.service';
 import { SubSink } from 'subsink';
 import { MkjToolbarService } from '../mkj-toolbar/mkj-toolbar.service';

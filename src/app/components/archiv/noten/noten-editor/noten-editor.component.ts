@@ -4,6 +4,9 @@ import { Noten } from 'src/app/models/Noten';
 import { PermissionKey } from 'src/app/models/User';
 import { NotenApiService } from 'src/app/services/api/noten-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
+import { AutoCompleteConfiguration } from 'src/app/utilities/_autocomplete-configurations/_autocomplete-configuration.class';
+import { GenericFieldValuesAutoCompleteConfigiguration } from 'src/app/utilities/_autocomplete-configurations/generic-field-values-autocomplete-config.class';
+import { GenericFieldValueDatasource } from 'src/app/utilities/_list-datasources/generic-field-values-datasource.class';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
 
 @Component({
@@ -14,12 +17,51 @@ import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstra
 export class NotenEditorComponent extends AbstractFormComponent<Noten> {
   protected navigateBackOnSave = true;
 
+  public readonly valuesDatasource = new GenericFieldValueDatasource(this.notenApiService);
+  public readonly komponistAutocompleteConfig = new GenericFieldValuesAutoCompleteConfigiguration<Noten>(
+    'komponist',
+    'Komponist'
+  );
+  public readonly arrangeurAutocompleteConfig = new GenericFieldValuesAutoCompleteConfigiguration<Noten>(
+    'arrangeur',
+    'Arrangeur'
+  );
+  public readonly verlagAutocompleteConfig = new GenericFieldValuesAutoCompleteConfigiguration<Noten>(
+    'verlag',
+    'Verlag'
+  );
+
+  public readonly komponistAutoCompleteConfig: AutoCompleteConfiguration<any> = {
+    searchFields: ['komponist'],
+    controlValueIsDataKey: false,
+    allowCustomValues: true,
+    dataKey: 'value',
+    columns: [{ header: 'Komponist', field: 'value' }],
+    getDisplayValue: (item: any) => `${item.value}`,
+  };
+  public readonly arrangeurAutoCompleteConfig: AutoCompleteConfiguration<any> = {
+    searchFields: ['arrangeur'],
+    controlValueIsDataKey: false,
+    allowCustomValues: true,
+    dataKey: 'value',
+    columns: [{ header: 'Arrangeur', field: 'value' }],
+    getDisplayValue: (item: any) => `${item.value}`,
+  };
+  public readonly verlagAutoCompleteConfig: AutoCompleteConfiguration<any> = {
+    searchFields: ['verlag'],
+    controlValueIsDataKey: false,
+    allowCustomValues: true,
+    dataKey: 'value',
+    columns: [{ header: 'Verlag', field: 'value' }],
+    getDisplayValue: (item: any) => `${item.value}`,
+  };
+
   constructor(
     inj: Injector,
-    public configService: ConfigurationService,
-    apiService: NotenApiService
+    private notenApiService: NotenApiService,
+    public configService: ConfigurationService
   ) {
-    super(inj, apiService);
+    super(inj, notenApiService);
   }
 
   protected getId(): string {

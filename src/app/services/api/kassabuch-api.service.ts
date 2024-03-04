@@ -1,15 +1,15 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Kassabuch } from "src/app/models/Kassabuch";
-import { AbstractCrudApiService } from "./_abstract-crud-api-service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Kassabuch } from 'src/app/models/Kassabuch';
+import { AbstractCrudApiService } from './_abstract-crud-api-service.class';
 
 @Injectable({
-    providedIn: "root",
+  providedIn: 'root',
 })
 export class KassabuchApiService extends AbstractCrudApiService<Kassabuch> {
-    protected controllerApiUrlKey: string = "kassabuch";
+  protected controllerApiUrlKey: string = 'kassabuch';
 
-    constructor(http: HttpClient) {
-        super(http);
-    }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 }

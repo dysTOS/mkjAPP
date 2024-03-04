@@ -11,7 +11,7 @@
     [class.ng-dirty]="formControl?.invalid"
     [class.ng-invalid]="formControl?.invalid"
     (completeMethod)="search($event)"
-    [forceSelection]="true"
+    [forceSelection]="!listConfig.allowCustomValues"
     [autoHighlight]="true"
     [dataKey]="listConfig.dataKey ?? 'id'"
     [showEmptyMessage]="true"

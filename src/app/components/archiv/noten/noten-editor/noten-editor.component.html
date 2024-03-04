@@ -7,13 +7,28 @@
       <mkj-text-input label="Titel" formControlName="titel"></mkj-text-input>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-text-input label="Komponist" formControlName="komponist"></mkj-text-input>
+      <mkj-autocomplete
+        label="Komponist"
+        formControlName="komponist"
+        [datasource]="valuesDatasource"
+        [listConfig]="komponistAutocompleteConfig"
+      ></mkj-autocomplete>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-text-input label="Arrangeur" formControlName="arrangeur"></mkj-text-input>
+      <mkj-autocomplete
+        label="Arrangeur"
+        formControlName="arrangeur"
+        [datasource]="valuesDatasource"
+        [listConfig]="arrangeurAutocompleteConfig"
+      ></mkj-autocomplete>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
-      <mkj-text-input label="Verlag" formControlName="verlag"></mkj-text-input>
+      <mkj-autocomplete
+        label="Verlag"
+        formControlName="verlag"
+        [datasource]="valuesDatasource"
+        [listConfig]="verlagAutocompleteConfig"
+      ></mkj-autocomplete>
     </div>
     <div class="p-field col-12 lg:col-3 md:col-6">
       <mkj-dropdown
