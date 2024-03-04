@@ -4,32 +4,32 @@
   [configuration]="listConfig"
   [rowReorder]="editMode"
   [disabled]="tableLocked"
-    [templateMap]="{
-        caption: captionTemplate,
-        rowexpansion: rowexpansion,
-        verzeichnisNrTemplate: verzeichnisNrTemplate
-    }"
-  (onRowReorder)="onRowReorder($event)"
+  [templateMap]="{
+    caption: captionTemplate,
+    rowexpansion: rowexpansion,
+    verzeichnisNrTemplate: verzeichnisNrTemplate
+  }"
+  (onRowReorder)="syncNotenSubject.next($event)"
 ></mkj-list>
 
 <ng-template #verzeichnisNrTemplate let-noten>
+  <div class="col-12 flex align-items-center">
+    <span>{{ noten.pivot.verzeichnisNr }}</span>
+  </div>
+</ng-template>
+
+<ng-template #rowexpansion let-noten>
   <div class="col-12 flex align-items-center">
     @if (editMode && hasSavePermission) {
       <mkj-text-input
         label="Index"
         [(value)]="noten.pivot.verzeichnisNr"
         [disabled]="tableLocked"
-        (onBlur)="syncNotenToMappe(list.values)"
-        (onEnter)="syncNotenToMappe(list.values)"
+        (onBlur)="syncNotenSubject.next(list.values)"
+        (onEnter)="syncNotenSubject.next(list.values)"
       ></mkj-text-input>
     }
-    @if (!editMode) {
-      <span>{{ noten.pivot.verzeichnisNr }}</span>
-    }
   </div>
-</ng-template>
-
-<ng-template #rowexpansion let-noten>
   @if (noten) {
     <mkj-display-model [model]="noten"></mkj-display-model>
   }
@@ -57,9 +57,7 @@
 
 <ng-template #captionTemplate>
   @if (hasAssignPermission && editMode) {
-    <div
-      class="flex justify-content-start"
-      >
+    <div class="flex justify-content-start">
       <mkj-autocomplete
         [value]="selectedNoten"
         [datasource]="notenDatasource"

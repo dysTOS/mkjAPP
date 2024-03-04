@@ -1,11 +1,5 @@
 <div class="flex gap-3 mb-3">
   <mkj-dropdown
-    label="Tonika"
-    [options]="tonicOptions"
-    [(value)]="selectedTonic"
-    (valueChange)="update()"
-  ></mkj-dropdown>
-  <mkj-dropdown
     label="Modus"
     placeholder="Modus"
     [showClear]="true"
@@ -13,6 +7,14 @@
     [(value)]="selectedMode"
     (valueChange)="update()"
   ></mkj-dropdown>
+  @if (selectedMode != null) {
+    <mkj-dropdown
+      label="Tonika"
+      [options]="tonicOptions"
+      [(value)]="selectedTonic"
+      (valueChange)="update()"
+    ></mkj-dropdown>
+  }
 </div>
 
 <ul class="circle-of-fifths">

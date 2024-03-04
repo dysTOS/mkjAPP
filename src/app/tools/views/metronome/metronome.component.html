@@ -1,4 +1,5 @@
 <div class="flex flex-column align-items-center gap-4">
+  <button pButton pRipple class="tap-button p-button-outlined p-button-rounded" label="Tap" (click)="tap()"></button>
   <mkj-knob
     [(value)]="ctx.metronomeConfig.bpm"
     size="200"

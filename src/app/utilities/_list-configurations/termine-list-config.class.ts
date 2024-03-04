@@ -108,9 +108,9 @@ export class TermineListConfig implements ListConfiguration<Termin> {
     {
       header: 'Gruppe',
       field: 'gruppe_id',
-      type: 'template',
-      templateName: 'gruppeTemplate',
+      type: 'value',
       styleClass: 'w-12rem not-on-small',
+      getValue: (termin) => termin.gruppe?.name ?? '',
       filter: {
         filterType: 'multiselect',
         filterOptions: null, //set in constructor

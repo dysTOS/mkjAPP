@@ -30,6 +30,7 @@ export class InstrumenteEditorComponent extends AbstractFormComponent<Instrument
   }
 
   public ngOnInit(): void {
+    super.ngOnInit();
     this.getGruppen();
   }
 

@@ -75,15 +75,25 @@ export class MkjListComponent<T> implements OnChanges {
     // event.expandedRowKeys = null;
   }
 
-  public onRowReordered(event: TableRowReorderEvent): void {
-    const fromIndex = event.dragIndex;
-    const toIndex = event.dropIndex;
-    if (fromIndex === toIndex) {
+  public onRowReordered(rowIndex: number, direction: 1 | -1): void {
+    const fromIndex = rowIndex;
+    const toIndex = rowIndex + direction;
+    if (
+      fromIndex === toIndex ||
+      fromIndex < 0 ||
+      toIndex < 0 ||
+      fromIndex >= this.values.length ||
+      toIndex >= this.values.length
+    ) {
       return;
     }
     const values = [...this.values];
-    values.splice(toIndex, 0, values.splice(fromIndex, 1)[0]);
-    this.onRowReorder.emit(values);
+    const replaceValue = values[fromIndex];
+    values[fromIndex] = values[toIndex];
+    values[toIndex] = replaceValue;
+    this.values = [...values];
+    this.table.clear();
+    this.onRowReorder.emit(this.values);
   }
 
   public loadData(event?: LazyLoadEvent): void {

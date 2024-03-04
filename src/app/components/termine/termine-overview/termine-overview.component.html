@@ -7,8 +7,7 @@
     nameTemplate: nameTemplate,
     datumTemplate: datumTemplate,
     kategorieTemplate: kategorieTemplate,
-    statusTemplate: statusTemplate,
-    gruppeTemplate: gruppeTemplate
+    statusTemplate: statusTemplate
   }"
   (onSelectionChange)="this.selectedRow = $event"
   (onDoubleClick)="navigateSingleAusrueckung($event)"
@@ -35,8 +34,6 @@
 <ng-template #kategorieTemplate let-termin>
   {{ termin.kategorie | uppercase }}
 </ng-template>
-
-<ng-template #gruppeTemplate let-termin> {{ termin.gruppe?.name | uppercase }}</ng-template>
 
 <ng-template #statusTemplate let-termin>
   <mkj-tag [label]="termin.status | uppercase" [severity]="termin.status | terminStatusSeverity"></mkj-tag>
