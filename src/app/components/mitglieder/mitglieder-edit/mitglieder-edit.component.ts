@@ -6,6 +6,7 @@ import { PermissionKey } from 'src/app/models/User';
 import { UserService } from 'src/app/services/authentication/user.service';
 import { AbstractFormComponent } from 'src/app/utilities/form-components/_abstract-form-component.class';
 import { MitgliederApiService } from '../../../services/api/mitglieder-api.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
   selector: 'app-mitglieder-edit',
@@ -24,6 +25,7 @@ export class MitgliederEditComponent extends AbstractFormComponent<Mitglied> {
   constructor(
     inj: Injector,
     apiService: MitgliederApiService,
+    public configService: ConfigurationService,
     private confirmationService: ConfirmationService,
     private userService: UserService
   ) {

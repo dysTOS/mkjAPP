@@ -1,0 +1,20 @@
+<mkj-list
+  [datasource]="listDatasource"
+  [configuration]="listConfig"
+  [templateMap]="{
+    rowexpansion: rowexpansion
+  }"
+></mkj-list>
+
+<ng-template #rowexpansion let-value>
+  <mkj-display-model [model]="value"></mkj-display-model>
+  <div *visibleFor="[PermissionKey.INSTRUMENTE_SAVE]" class="col-12 card flex justify-content-center">
+    <button
+      pButton
+      label="Bearbeiten"
+      icon="pi pi-pencil"
+      class="p-button-secondary p-button-rounded"
+      (click)="navigateToInstrument(value.id)"
+    ></button>
+  </div>
+</ng-template>

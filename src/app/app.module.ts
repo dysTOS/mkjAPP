@@ -203,6 +203,7 @@ import { MkjKnobComponent } from './utilities/form-input-components/mkj-knob/mkj
 import { MkjCounterComponent } from './utilities/form-input-components/mkj-counter/mkj-counter.component';
 import { CircleAccidentalCountPipePipe } from './tools/pipes/circle-accidental-count-pipe.pipe';
 import { CircleParallelMinorPipePipe } from './tools/pipes/circle-parallel-minor-pipe.pipe';
+import { MitgliedInstrumenteListComponent } from './components/mitglieder/mitglied-instrumente-list/mitglied-instrumente-list.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -406,6 +407,7 @@ registerLocaleData(localeDe);
     MkjCounterComponent,
     CircleAccidentalCountPipePipe,
     CircleParallelMinorPipePipe,
+    MitgliedInstrumenteListComponent,
   ],
   providers: [
     mkjAppInitializer(),

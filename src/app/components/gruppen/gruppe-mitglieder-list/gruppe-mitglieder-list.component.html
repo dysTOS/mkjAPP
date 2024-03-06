@@ -1,31 +1,31 @@
 <mkj-list
-    [datasource]="listDatasource"
-    [configuration]="listConfig"
-    [disabled]="tableLocked"
-    [templateMap]="{
-        caption: captionTemplate,
-        rowexpansion: rowexpansion
-    }"
+  [datasource]="listDatasource"
+  [configuration]="listConfig"
+  [disabled]="tableLocked"
+  [templateMap]="{
+    caption: captionTemplate,
+    rowexpansion: rowexpansion
+  }"
 ></mkj-list>
 
 <ng-template #rowexpansion let-value>
-    <div class="col-12 card flex justify-content-center">
-        <button
-            pButton
-            label="Entfernen"
-            icon="pi pi-trash"
-            class="p-button-text p-button-danger"
-            (click)="removeMitglied(value.id)"
-        ></button>
-    </div>
+  <div class="col-12 card flex justify-content-center">
+    <button
+      pButton
+      label="Entfernen"
+      icon="pi pi-trash"
+      class="p-button-rounded p-button-danger"
+      (click)="removeMitglied(value.id)"
+    ></button>
+  </div>
 </ng-template>
 
 <ng-template #captionTemplate>
-    <mkj-autocomplete
-        label=" Mitglied hinzufügen"
-        [value]="selectedMitglied"
-        [datasource]="mitgliedDatasource"
-        [listConfig]="mitgliedAutoCompleteConfig"
-        (valueChange)="addMitglied($event)"
-    ></mkj-autocomplete>
+  <mkj-autocomplete
+    label=" Mitglied hinzufügen"
+    [value]="selectedMitglied"
+    [datasource]="mitgliedDatasource"
+    [listConfig]="mitgliedAutoCompleteConfig"
+    (valueChange)="addMitglied($event)"
+  ></mkj-autocomplete>
 </ng-template>

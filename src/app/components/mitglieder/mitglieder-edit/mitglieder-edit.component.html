@@ -58,11 +58,18 @@
     }</div
 ></mkj-form-wrapper>
 
-@if (canAssignRoles && formGroup.controls.user_id.value && !personalMode) {
-  <div>
-    <mitglied-roles-picker
-      [userId]="formGroup.controls.user_id.value"
-      (touched)="rolesTouched = $event"
-    ></mitglied-roles-picker>
-  </div>
+@if (!personalMode && formGroup.controls.id.value) {
+  <p-accordion>
+    @if (canAssignRoles && formGroup.controls.user_id.value) {
+      <p-accordionTab header="Rollen">
+        <mitglied-roles-picker
+          [userId]="formGroup.controls.user_id.value"
+          (touched)="rolesTouched = $event"
+        ></mitglied-roles-picker>
+      </p-accordionTab>
+    }
+    <p-accordionTab [header]="configService.uiNaming.Instrumente">
+      <mkj-mitglied-instrumente-list [mitgliedId]="formGroup.controls.id.value"></mkj-mitglied-instrumente-list>
+    </p-accordionTab>
+  </p-accordion>
 }

@@ -37,18 +37,18 @@
     @if (hasSavePermission) {
       <button
         pButton
-        icon="pi pi-link"
         label="Bearbeiten"
-        class="p-button-text"
+        icon="pi pi-pencil"
+        class="p-button-secondary p-button-rounded"
         (click)="navigateToNoten(noten)"
       ></button>
     }
     @if (hasAssignPermission && editMode) {
       <button
         pButton
-        icon="pi pi-trash"
         label="Entfernen"
-        class="p-button-text p-button-danger"
+        icon="pi pi-trash"
+        class="p-button-rounded p-button-danger"
         (click)="detachNotenFromMappe(noten)"
       ></button>
     }
