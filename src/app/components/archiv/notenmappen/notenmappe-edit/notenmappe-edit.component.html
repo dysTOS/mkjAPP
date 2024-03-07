@@ -17,6 +17,7 @@
 
   @if (formGroup?.controls.id.value) {
     <mkj-notenmappe-noten-list
+      #notenList
       [class.p-disabled]="!formGroup.pristine"
       [mappenId]="formGroup.controls.id.value"
       [editMode]="editMode"

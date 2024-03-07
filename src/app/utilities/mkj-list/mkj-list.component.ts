@@ -115,8 +115,8 @@ export class MkjListComponent<T> implements OnChanges {
     });
   }
 
-  public getFullFilteredData(): Observable<GetListOutput<T>> {
-    const input = this._lastListInput;
+  public getFullFilteredData(listInput?: GetListInput<T>): Observable<GetListOutput<T>> {
+    const input = listInput ?? this._lastListInput;
     if (input == null) return of(null);
 
     input.skip = null;

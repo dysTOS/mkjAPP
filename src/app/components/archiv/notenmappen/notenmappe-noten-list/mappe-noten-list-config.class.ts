@@ -1,25 +1,29 @@
-import { Noten } from "src/app/models/Noten";
+import { Noten } from 'src/app/models/Noten';
 import {
-    ListConfiguration,
-    MkjListColumn,
-    MkjListSelectionMode,
-    MkjListSort,
-} from "src/app/utilities/_list-configurations/_list-configuration.class";
+  ListConfiguration,
+  MkjListColumn,
+  MkjListGlobalFilter,
+  MkjListSelectionMode,
+  MkjListSort,
+} from 'src/app/utilities/_list-configurations/_list-configuration.class';
 
 export class MappeNotenListConfig implements ListConfiguration<Noten> {
-    listName: string = "mappe-noten";
-    selectionMode: MkjListSelectionMode = "single";
-    hideHeader: boolean = true;
-    showTotalCount = true;
-    sort: MkjListSort<Noten> = {
-        field: "pivot.orderIndex",
-        order: 1,
-    };
-    columns: MkjListColumn<Noten>[] = [
-        {
-            header: "Titel",
-            type: "string",
-            field: "titel",
-        },
-    ];
+  listName: string = 'mappe-noten';
+  selectionMode: MkjListSelectionMode = 'single';
+  hideHeader: boolean = false;
+  showTotalCount = true;
+  sort: MkjListSort<Noten> = {
+    field: 'pivot.orderIndex',
+    order: 1,
+  };
+  globalFilter: MkjListGlobalFilter<Noten> = {
+    fields: ['titel'],
+  };
+  columns: MkjListColumn<Noten>[] = [
+    {
+      header: 'Titel',
+      type: 'string',
+      field: 'titel',
+    },
+  ];
 }

@@ -1,4 +1,4 @@
-export const MkjAppVersion = '0.9.6 - BETA';
+export const MkjAppVersion = '0.9.7 - BETA';
 
 export interface MkjAppChangeLog {
   date: string;
@@ -8,12 +8,20 @@ export interface MkjAppChangeLog {
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
   {
+    date: '07.03.2024',
+    version: '0.9.7 - BETA',
+    changes: {
+      Notenmappen: 'Das Inhaltsverzeichnis kann jetzt als PDF exportiert werden.',
+    },
+  },
+  {
     date: '28.02.2024',
     version: '0.9.6 - BETA',
     changes: {
       Kassabuchungen: 'Es können jetzt Positionen für Kassabuchungen angelegt werden.',
       PersonalData: 'Jeder User kann jetzt seine eigenen Mitgliedsdaten bearbeiten.',
       Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
+      Noten: 'Existierende Werte "Komponist/Arrangeur und Verlag" werden jetzt automatisch bei Eingabe vorgeschlagen.',
     },
   },
   {

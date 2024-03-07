@@ -1,19 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Noten } from 'src/app/models/Noten';
 import { PermissionKey } from 'src/app/models/User';
+import { displayModel } from 'src/app/providers/display-model';
 import { NotenmappenApiService } from 'src/app/services/api/notenmappen-api.service';
-import { ConfigurationService } from 'src/app/services/configuration.service';
 import { UserService } from 'src/app/services/authentication/user.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import { InfoService } from 'src/app/services/info.service';
 import { NotenAutoCompleteConfigiguration } from 'src/app/utilities/_autocomplete-configurations/noten-autocomplete-config.class';
+import { NotenDisplayModel } from 'src/app/utilities/_display-model-configurations/noten-display-model.class';
 import { NotenListDatasource } from 'src/app/utilities/_list-datasources/noten-list-datasource.class';
+import { MkjListComponent } from 'src/app/utilities/mkj-list/mkj-list.component';
+import { SubSink } from 'subsink';
 import { MappeNotenListConfig } from './mappe-noten-list-config.class';
 import { MappeNotenListDatasource } from './mappe-noten-list-datasource.class';
-import { displayModel } from 'src/app/providers/display-model';
-import { NotenDisplayModel } from 'src/app/utilities/_display-model-configurations/noten-display-model.class';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'mkj-notenmappe-noten-list',
@@ -29,6 +30,9 @@ export class NotenmappeNotenListComponent implements OnChanges {
 
   @Input()
   public indexed: boolean = false;
+
+  @ViewChild('list')
+  public list: MkjListComponent<Noten>;
 
   public tableLocked: boolean = false;
 
@@ -79,6 +83,9 @@ export class NotenmappeNotenListComponent implements OnChanges {
     }
     if (changes.mappenId) {
       this.setListDatasource();
+    }
+    if (changes.editMode) {
+      this.listConfig.globalFilter = changes.editMode.currentValue ? null : { fields: ['titel'] };
     }
   }
 

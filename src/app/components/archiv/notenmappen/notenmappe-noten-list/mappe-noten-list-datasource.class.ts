@@ -34,6 +34,6 @@ export class MappeNotenListDatasource extends AbstractListDatasource<Noten> {
   }
 
   private sortNoten(noten: Noten[]): void {
-    noten.sort((a, b) => a.pivot?.orderIndex - b.pivot?.orderIndex);
+    // noten.sort((a, b) => a.pivot?.orderIndex - b.pivot?.orderIndex);
   }
 }
