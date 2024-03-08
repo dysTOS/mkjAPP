@@ -3,13 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
-import { MkjListInputFilter } from 'src/app/interfaces/api-middleware';
 import { Termin } from 'src/app/models/Termin';
 import { PermissionKey } from 'src/app/models/User';
 import { displayModel } from 'src/app/providers/display-model';
 import { TermineApiService } from 'src/app/services/api/termine-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
-import { ExportService } from 'src/app/services/export.service';
 import { InfoService } from 'src/app/services/info.service';
 import { PdfCreatorService } from 'src/app/services/pdf-creator.service';
 import { TerminDisplayModel } from 'src/app/utilities/_display-model-configurations/termin-display-model.class';
@@ -56,7 +54,6 @@ export class TermineOverviewComponent {
     private infoService: InfoService,
     private router: Router,
     private route: ActivatedRoute,
-    private exportService: ExportService,
     private namingService: ConfigurationService,
     public toolbarService: MkjToolbarService,
     private pdfCreatorService: PdfCreatorService

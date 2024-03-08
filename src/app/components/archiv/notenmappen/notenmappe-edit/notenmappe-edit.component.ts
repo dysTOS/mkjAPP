@@ -104,27 +104,64 @@ export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
           lexicalOrdered: lexicalOrderedNoten[i],
         };
       });
+      const fontSize = 9;
+      const cellPadding = 3;
       listConfig.columns = [
         {
           header: 'Verzeichnis',
-          getJsPdfValue: (noten: ExportNoten) => noten.indexOrdered.pivot?.verzeichnisNr,
+          getJsPdfValue: (noten: ExportNoten) => {
+            return {
+              content: noten.indexOrdered.pivot?.verzeichnisNr,
+              styles: {
+                fontSize: fontSize,
+                cellPadding,
+              },
+            };
+          },
         },
         {
           header: 'Titel',
-          getJsPdfValue: (noten: ExportNoten) => noten.indexOrdered.titel,
+          getJsPdfValue: (noten: ExportNoten) => {
+            return {
+              content: noten.indexOrdered.titel,
+              styles: {
+                fontSize: fontSize,
+                cellPadding,
+              },
+            };
+          },
         },
         {
           header: 'Verzeichnis',
-          getJsPdfValue: (noten: ExportNoten) => noten.lexicalOrdered.pivot?.verzeichnisNr,
+          getJsPdfValue: (noten: ExportNoten) => {
+            return {
+              content: noten.lexicalOrdered.pivot?.verzeichnisNr,
+              styles: {
+                fontSize: fontSize,
+                cellPadding,
+                halign: 'center',
+              },
+            };
+          },
         },
         {
           header: 'Titel (alphabetisch)',
-          getJsPdfValue: (noten: ExportNoten) => noten.lexicalOrdered.titel,
+          getJsPdfValue: (noten: ExportNoten) => {
+            return {
+              content: noten.lexicalOrdered.titel,
+              styles: {
+                fontSize: fontSize,
+                cellPadding,
+              },
+            };
+          },
         },
       ];
     }
 
-    this.pdfService.createListPdf(noten, listConfig, { filename: this.formGroup.get('name').value });
+    this.pdfService.createListPdf(noten, listConfig, {
+      filename: this.formGroup.get('name').value,
+    });
   }
 }
 
