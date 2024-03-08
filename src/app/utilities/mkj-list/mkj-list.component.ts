@@ -11,13 +11,13 @@ import {
   signal,
 } from '@angular/core';
 import { LazyLoadEvent, TableState } from 'primeng/api';
-import { Table, TableRowReorderEvent } from 'primeng/table';
+import { Table } from 'primeng/table';
+import { Observable, of } from 'rxjs';
+import { GetListInput, GetListOutput } from 'src/app/interfaces/api-middleware';
 import { InfoService } from 'src/app/services/info.service';
 import { ListConfiguration } from '../_list-configurations/_list-configuration.class';
 import { AbstractListDatasource } from '../_list-datasources/_abstract-list-datasource.class';
 import { MkjListHelper } from './mkj-list-helper.class';
-import { GetListInput, GetListOutput } from 'src/app/interfaces/api-middleware';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'mkj-list',
@@ -77,20 +77,15 @@ export class MkjListComponent<T> implements OnChanges {
 
   public onRowReordered(rowIndex: number, direction: 1 | -1): void {
     const fromIndex = rowIndex;
-    const toIndex = rowIndex + direction;
-    if (
-      fromIndex === toIndex ||
-      fromIndex < 0 ||
-      toIndex < 0 ||
-      fromIndex >= this.values.length ||
-      toIndex >= this.values.length
-    ) {
-      return;
+    let toIndex = rowIndex + direction;
+    if (toIndex < 0) {
+      toIndex = this.values.length - 1;
+    }
+    if (toIndex >= this.values.length) {
+      toIndex = 0;
     }
     const values = [...this.values];
-    const replaceValue = values[fromIndex];
-    values[fromIndex] = values[toIndex];
-    values[toIndex] = replaceValue;
+    values.splice(toIndex, 0, values.splice(fromIndex, 1)[0]);
     this.values = [...values];
     this.table.clear();
     this.onRowReorder.emit(this.values);

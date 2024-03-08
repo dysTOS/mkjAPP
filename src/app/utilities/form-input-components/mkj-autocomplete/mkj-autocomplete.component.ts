@@ -55,7 +55,7 @@ export class MkjAutocompleteComponent<
   }
 
   public onSelect(value: TModel): void {
-    if (this.listConfig.controlValueIsDataKey) {
+    if (this.listConfig.controlValueIsDataKey || this.listConfig.allowCustomValues) {
       const dataKey = this.listConfig.dataKey ?? 'id';
       this.change(value?.[dataKey as keyof TModel] as TControlModel);
     } else {
