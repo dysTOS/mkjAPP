@@ -1,0 +1,12 @@
+<div class="flex flex-column align-items-center gap-2">
+  @if (label) {
+    <span>{{ label }}</span>
+  }
+  <p-rating
+    [class.editable]="!readonly"
+    [ngModel]="value$ | async"
+    [stars]="stars"
+    [cancel]="!readonly"
+    (ngModelChange)="change($event)"
+  ></p-rating>
+</div>

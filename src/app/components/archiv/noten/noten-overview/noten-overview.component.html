@@ -1,21 +1,19 @@
 <mkj-list
   [datasource]="datasource"
   [configuration]="listConfig"
-    [templateMap]="{
-        rowexpansion: rowexpansion,
-    }"
+  [templateMap]="{
+    rowexpansion: rowexpansion,
+    bewertungTemplate: bewertungTemplate
+  }"
   (onDoubleClick)="navigateToEditView($event)"
-  >
+>
 </mkj-list>
 
 <ng-template #rowexpansion let-noten>
   @if (noten) {
     <mkj-display-model [model]="noten"></mkj-display-model>
   }
-  <div
-    *visibleFor="[PermissionMap.NOTEN_SAVE]"
-    class="col-12 flex justify-content-center"
-    >
+  <div *visibleFor="[PermissionMap.NOTEN_SAVE]" class="col-12 flex justify-content-center">
     <button
       pButton
       pRipple
@@ -25,4 +23,10 @@
       (click)="navigateToEditView(noten)"
     ></button>
   </div>
+</ng-template>
+
+<ng-template #bewertungTemplate let-noten>
+  @if (noten.bewertung != null) {
+    <mkj-rating [value]="noten.bewertung" [readonly]="true"></mkj-rating>
+  }
 </ng-template>

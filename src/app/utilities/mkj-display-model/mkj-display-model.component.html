@@ -16,6 +16,15 @@
         </div>
       }
     }
+    @if (config.rateable) {
+      <div class="col-12 flex justify-content-center">
+        <mkj-rating
+          label="Meine Bewertung"
+          [value]="bewertung?.bewertung"
+          (valueChange)="setVote(this.model, $event)"
+        ></mkj-rating>
+      </div>
+    }
   </div>
   <div class="col-12 flex text-sm opacity-50 justify-space-start gap-4 mt-2">
     @if (model.created_at) {

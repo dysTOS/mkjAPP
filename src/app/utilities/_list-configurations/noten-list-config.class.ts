@@ -39,6 +39,13 @@ export class NotenListConfig implements ListConfiguration<Noten> {
       sortable: true,
     },
     {
+      header: 'Bewertung',
+      field: 'bewertung',
+      type: 'template',
+      templateName: 'bewertungTemplate',
+      styleClass: 'not-on-small',
+    },
+    {
       header: 'Komponist',
       field: 'komponist',
       type: 'string',

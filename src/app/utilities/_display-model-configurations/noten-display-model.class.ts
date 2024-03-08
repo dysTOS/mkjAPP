@@ -6,6 +6,8 @@ import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Injectable()
 export class NotenDisplayModel implements DisplayModelConfiguration<Noten> {
+  rateable: boolean = true;
+
   constructor(
     private datePipe: MkjDatePipe,
     private configService: ConfigurationService

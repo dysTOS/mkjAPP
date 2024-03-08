@@ -1,0 +1,11 @@
+:host ::ng-deep p-rating.editable {
+  .p-rating {
+    display: flex;
+    gap: 1rem;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}

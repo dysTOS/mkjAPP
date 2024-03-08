@@ -8,6 +8,7 @@ export interface Noten {
   gattung?: string;
   dauer?: any;
   schwierigkeit?: number;
+  bewertung?: number;
   ausgeliehenAb?: string;
   ausgeliehenVon?: string;
   anmerkungen?: string;
