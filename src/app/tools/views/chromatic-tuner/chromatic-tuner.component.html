@@ -28,8 +28,8 @@
   }
   <div
     class="needle"
-    [style.--offset]="tunerCtx.centsOffPitch + 'deg'"
-    [style.--color-value]="tunerCtx.centsOffPitch ?? 0"
+    [style.--offset]="(tunerCtx.displayCents | async) + 'deg'"
+    [style.--color-value]="(tunerCtx.displayCents | async) ?? 0"
   ></div>
   <div class="dot"></div>
 </div>
@@ -43,7 +43,7 @@
           class="note"
           [class.cursor-pointer]="!this.tunerConfig.autoMode"
           [class.active]="tunerCtx.noteIndex === i || playingKey?.keyName === note.keyName"
-          [style.--color-value]="tunerCtx.centsOffPitch"
+          [style.--color-value]="tunerCtx.displayCents | async"
           (click)="onKeyClick(note)"
         >
           {{ note | enharmonicKeyNote: false : true }}

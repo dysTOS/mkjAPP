@@ -8,10 +8,12 @@ export interface MkjAppChangeLog {
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
   {
-    date: '07.03.2024',
+    date: '10.03.2024',
     version: '0.9.7 - BETA',
     changes: {
       Notenmappen: 'Das Inhaltsverzeichnis kann jetzt als PDF exportiert werden.',
+      Noten: 'Es können jetzt Bewertungen für Noten vergeben werden.',
+      Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
     },
   },
   {

@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Subject, bufferTime, map } from 'rxjs';
 import { UiDropdownOption } from 'src/app/interfaces/UiConfigurations';
 import { getAudioContext } from '../constants/getAudioContext.function';
 import { PitchDetectionAlgorithms } from '../constants/pda-algorithm-options';
 import { KeyPitchesConfig } from '../interfaces/key-pitches.interface';
 import { KeyPitchesFactory } from './key-pitches-factory.class';
-import { Subject, bufferTime, debounceTime, map } from 'rxjs';
 
 @Injectable()
 export class TunerContext implements OnDestroy {
@@ -31,7 +31,7 @@ export class TunerContext implements OnDestroy {
   public keys = new KeyPitchesFactory().getAllKeys();
 
   public readonly pitchDetectionAlgorithms: UiDropdownOption[] = PitchDetectionAlgorithms;
-  public selectedPDA = this.pitchDetectionAlgorithms[2].value;
+  public selectedPDA = this.pitchDetectionAlgorithms[1].value;
 
   constructor() {
     this.init();

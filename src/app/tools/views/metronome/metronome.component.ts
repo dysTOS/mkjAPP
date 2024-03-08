@@ -65,5 +65,9 @@ export class MetronomeComponent extends MusicTool implements OnDestroy {
     const avg = intervalsMs.reduce((acc, curr) => acc + curr, 0) / intervalsMs.length;
     const bpm = Math.round(60000 / avg);
     this.ctx.metronomeConfig.bpm = Math.min(240, Math.max(30, bpm));
+    this.ctx.stop();
+    if (this.isPlaying) {
+      this.ctx.start(this.accents);
+    }
   }
 }

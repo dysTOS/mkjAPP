@@ -20,7 +20,6 @@ export interface Noten {
     verzeichnisNr?: string;
     orderIndex?: number;
   };
-  //TODO: add  'bewertung',
 }
 
 export interface Notenmappe {

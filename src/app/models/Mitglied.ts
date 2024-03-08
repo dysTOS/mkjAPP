@@ -27,7 +27,7 @@ export interface Mitglied {
   updated_at?: string;
 }
 
-//TODO refactor to use 'Anschrift'-Model related to 'Mitglied'
+//TODO refactor to use 'Anschrift'-Model related to 'Mitglied' - partially done
 
 export const MitgliedGeschlechtMap = [
   { label: 'Männlich', value: 'M' },

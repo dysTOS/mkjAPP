@@ -25,5 +25,11 @@ export class MappeNotenListConfig implements ListConfiguration<Noten> {
       type: 'string',
       field: 'titel',
     },
+    {
+      header: 'Beliebtheit',
+      type: 'template',
+      templateName: 'bewertungTemplate',
+      field: 'bewertung',
+    },
   ];
 }

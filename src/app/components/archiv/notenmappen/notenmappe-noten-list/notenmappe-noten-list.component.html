@@ -7,7 +7,8 @@
   [templateMap]="{
     caption: captionTemplate,
     rowexpansion: rowexpansion,
-    verzeichnisNrTemplate: verzeichnisNrTemplate
+    verzeichnisNrTemplate: verzeichnisNrTemplate,
+    bewertungTemplate: bewertungTemplate
   }"
   (onRowReorder)="syncNotenSubject.next($event)"
 ></mkj-list>
@@ -66,5 +67,11 @@
         (valueChange)="addNotenToMappe($event)"
       ></mkj-autocomplete>
     </div>
+  }
+</ng-template>
+
+<ng-template #bewertungTemplate let-noten>
+  @if (noten.bewertung != null) {
+    <mkj-rating [value]="noten.bewertung" [readonly]="true"></mkj-rating>
   }
 </ng-template>
