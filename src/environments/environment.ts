@@ -10,6 +10,7 @@ const config = CONFIG_MAP.local;
 export const environment = {
   production: config.production,
   apiUrl: config.apiUrl,
+  wsHost: config.wsHost,
   appTitle: config.appTitle,
   publictest: config.publictest,
 };

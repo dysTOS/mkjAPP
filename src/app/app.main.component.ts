@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 import { AppComponent } from './app.component';
 import { MenuLabels } from './services/menu.service';
 import { ThemeService } from './services/theme.service';
+import { WebsocketService } from './services/websocket.service';
 
 @Component({
   selector: 'app-main',
@@ -38,7 +39,8 @@ export class AppMainComponent implements OnInit, AfterViewInit, OnDestroy {
     public themeService: ThemeService,
     public app: AppComponent,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private socketService: WebsocketService
   ) {}
 
   public ngOnInit(): void {

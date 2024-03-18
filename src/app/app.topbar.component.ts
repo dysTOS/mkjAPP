@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
 import { MenuService } from './services/menu.service';
 import { environment } from 'src/environments/environment';
+import { UserNotificationsService } from './services/api/user-notifications-api.service';
 
 @Component({
   selector: 'app-topbar',
@@ -85,9 +86,19 @@ export class AppTopbarComponent implements OnInit {
 
   constructor(
     public appMain: AppMainComponent,
-    public menuService: MenuService
-  ) {}
+    public menuService: MenuService,
+    private userNotificationsService: UserNotificationsService
+  ) {
+    this.userNotificationsService.getNotifications().subscribe((response) => {
+      console.log('Unread Notifications', response);
+      this.userNotificationsService.markAsRead('6f641fe3-c7bd-4d14-85bf-940df4e78bfc').subscribe((response) => {
+        console.log('Marked as read', response);
+        this.userNotificationsService.getUnreadNotifications().subscribe((response) => {
+          console.log('Unread Notifications', response);
+        });
+      });
+    });
+  }
 
   public ngOnInit(): void {}
 }
-

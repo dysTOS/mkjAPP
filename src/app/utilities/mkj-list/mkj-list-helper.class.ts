@@ -50,7 +50,6 @@ export abstract class MkjListHelper {
     andFilters: MkjListInputFilter<T>[];
     orFilters: MkjListInputFilter<T>[];
   } {
-    console.log(filters);
     const andFilters: MkjListInputFilter<T>[] = [];
     const orFilters: MkjListInputFilter<T>[] = [];
     if (!filters) return { andFilters, orFilters };
