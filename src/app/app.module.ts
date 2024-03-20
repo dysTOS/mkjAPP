@@ -205,6 +205,7 @@ import { CircleAccidentalCountPipePipe } from './tools/pipes/circle-accidental-c
 import { CircleParallelMinorPipePipe } from './tools/pipes/circle-parallel-minor-pipe.pipe';
 import { MitgliedInstrumenteListComponent } from './components/mitglieder/mitglied-instrumente-list/mitglied-instrumente-list.component';
 import { MkjRatingComponent } from './utilities/form-input-components/mkj-rating/mkj-rating.component';
+import { MkjUserNotificationsComponent } from './utilities/mkj-user-notifications/mkj-user-notifications.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -410,6 +411,7 @@ registerLocaleData(localeDe);
     CircleParallelMinorPipePipe,
     MitgliedInstrumenteListComponent,
     MkjRatingComponent,
+    MkjUserNotificationsComponent,
   ],
   providers: [
     mkjAppInitializer(),

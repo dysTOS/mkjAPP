@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AppMainComponent } from './app.main.component';
-import { MenuService } from './services/menu.service';
+import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
+import { AppMainComponent } from './app.main.component';
+import { UserNotification } from './models/User-Notifications';
 import { UserNotificationsService } from './services/api/user-notifications-api.service';
+import { MenuService } from './services/menu.service';
 
 @Component({
   selector: 'app-topbar',
@@ -16,6 +18,10 @@ import { UserNotificationsService } from './services/api/user-notifications-api.
 
       <div class="app-name font-bold" style="color: white">
         <h3>{{ AppTitle }}</h3>
+      </div>
+
+      <div class="inline-block flex h-full align-items-center mr-4" style="float: inline-end">
+        <mkj-user-notifications></mkj-user-notifications>
       </div>
 
       <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
@@ -81,24 +87,11 @@ import { UserNotificationsService } from './services/api/user-notifications-api.
     `,
   ],
 })
-export class AppTopbarComponent implements OnInit {
+export class AppTopbarComponent {
   public readonly AppTitle = environment.appTitle;
 
   constructor(
     public appMain: AppMainComponent,
-    public menuService: MenuService,
-    private userNotificationsService: UserNotificationsService
-  ) {
-    this.userNotificationsService.getNotifications().subscribe((response) => {
-      console.log('Unread Notifications', response);
-      this.userNotificationsService.markAsRead('6f641fe3-c7bd-4d14-85bf-940df4e78bfc').subscribe((response) => {
-        console.log('Marked as read', response);
-        this.userNotificationsService.getUnreadNotifications().subscribe((response) => {
-          console.log('Unread Notifications', response);
-        });
-      });
-    });
-  }
-
-  public ngOnInit(): void {}
+    public menuService: MenuService
+  ) {}
 }

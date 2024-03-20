@@ -1,0 +1,19 @@
+<i
+  pBadge
+  class="pi pi-bell text-2xl cursor-pointer"
+  [value]="this.menuItems.length"
+  [severity]="this.menuItems.length ? 'danger' : 'info'"
+  (click)="this.menuItems.length ? notificationmenu.toggle($event) : null"
+></i>
+
+<p-menu #notificationmenu [model]="menuItems" [popup]="true">
+  <ng-template pTemplate="item" let-item>
+    <div class="flex flex-column gap-2 p-menuitem-link flex align-items-center p-1">
+      <div class="flex gap-2">
+        <i [class]="item.icon"></i><span>{{ item.label }}</span>
+      </div>
+      <div class="opacity-80">{{ item.subLabel }}</div>
+      <div></div>
+    </div>
+  </ng-template>
+</p-menu>
