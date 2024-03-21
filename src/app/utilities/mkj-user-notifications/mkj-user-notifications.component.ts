@@ -30,7 +30,18 @@ export class MkjUserNotificationsComponent {
 
     this._subs.add(
       webSocketService.getUserNotificationsChannel().subscribe((notification: UserNotification) => {
-        console.log(notification);
+        const menuItem = this.mapNotificationToMenuItem(notification);
+        this.menuItems = this.menuItems.filter((item) => item.notification.id !== notification.id);
+        this.menuItems = [menuItem, ...this.menuItems];
+        this.menuItems.sort((a, b) => {
+          if (a.notification.created_at < b.notification.created_at) {
+            return 1;
+          }
+          if (a.notification.created_at > b.notification.created_at) {
+            return -1;
+          }
+          return 0;
+        });
       })
     );
   }
@@ -38,17 +49,7 @@ export class MkjUserNotificationsComponent {
   private getUnreadNotifications(): void {
     this.userNotificationsService.getUnreadNotifications().subscribe((notifications) => {
       this.menuItems = notifications.map((notification) => {
-        return {
-          label: this.getLabel(notification),
-          subLabel: this.getSubLabel(notification),
-          icon: this.getIcon(notification),
-          command: () => {
-            this.markAsRead(notification);
-            this.getCommand(notification);
-          },
-          unread: notification.read_at == null,
-          notification: notification,
-        };
+        return this.mapNotificationToMenuItem(notification);
       });
     });
   }
@@ -59,10 +60,26 @@ export class MkjUserNotificationsComponent {
     });
   }
 
+  private mapNotificationToMenuItem(notification: UserNotification): MenuItem {
+    return {
+      label: this.getLabel(notification),
+      subLabel: this.getSubLabel(notification),
+      icon: this.getIcon(notification),
+      command: () => {
+        this.markAsRead(notification);
+        this.getCommand(notification);
+      },
+      unread: notification.read_at == null,
+      notification: notification,
+    };
+  }
+
   private getLabel(notification: UserNotification): string {
     switch (notification.type) {
       case UserNotificationType.TerminCreated:
         return 'Neuer Termin';
+      case UserNotificationType.TerminUpdated:
+        return 'Termin aktualisiert';
       default:
         return 'Sonstiges';
     }
@@ -72,6 +89,9 @@ export class MkjUserNotificationsComponent {
       case UserNotificationType.TerminCreated:
         const termin = notification.data as Termin;
         return termin?.name + ' ' + this.datePipe.transform(termin.vonDatum, 'd. MMMM YYYY');
+      case UserNotificationType.TerminUpdated:
+        const updatedTermin = notification.data as Termin;
+        return updatedTermin?.name + ' ' + this.datePipe.transform(updatedTermin.vonDatum, 'd. MMMM YYYY');
       default:
         return 'Sonstiges';
     }
@@ -80,12 +100,15 @@ export class MkjUserNotificationsComponent {
     switch (notification.type) {
       case UserNotificationType.TerminCreated:
         return 'pi pi-calendar-plus';
+      case UserNotificationType.TerminUpdated:
+        return 'pi pi-refresh';
       default:
         return '';
     }
   }
   private getCommand(notification: UserNotification): void {
     switch (notification.type) {
+      case UserNotificationType.TerminUpdated:
       case UserNotificationType.TerminCreated:
         this.router.navigate(['/termine/details', (notification.data as Termin).id]);
         return;

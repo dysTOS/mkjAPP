@@ -19,7 +19,7 @@ export class WebsocketService {
 
   public getUserNotificationsChannel(): Observable<Notification> {
     return new Observable((observer) => {
-      this._echo.private('users.' + this.userService.getCurrentUserId()).notification((e) => {
+      this._echo.private('App.Models.User.' + this.userService.getCurrentUserId()).notification((e) => {
         observer.next(e);
       });
     });

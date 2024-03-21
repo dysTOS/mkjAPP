@@ -10,5 +10,6 @@ export interface UserNotification<T = any> {
 }
 
 export enum UserNotificationType {
-  TerminCreated = 'App\\Notifications\\TerminCreated',
+  TerminCreated = 'App\\Notifications\\TerminCreatedNotification',
+  TerminUpdated = 'App\\Notifications\\TerminUpdatedNotification',
 }

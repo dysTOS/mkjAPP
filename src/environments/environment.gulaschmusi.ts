@@ -7,4 +7,5 @@ export const environment = {
   apiUrl: config.apiUrl,
   appTitle: config.appTitle,
   publictest: config.publictest,
+  wsHost: config.wsHost,
 };
