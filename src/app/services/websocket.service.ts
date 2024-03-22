@@ -31,8 +31,8 @@ export class WebsocketService {
       broadcaster: 'reverb',
       key: 'akkq3uvoftnearumcyzb',
       wsHost: environment.wsHost,
-      wsPort: 8080,
-      wssPort: 8080,
+      wsPort: environment.production ? 443 : 8080,
+      wssPort: environment.production ? 443 : 8080,
       forceTLS: environment.production,
       enabledTransports: ['ws', 'wss'],
       authorizer: (channel, options) => {
