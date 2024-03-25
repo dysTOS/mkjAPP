@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 import { AppComponent } from './app.component';
 import { MenuLabels } from './services/menu.service';
 import { ThemeService } from './services/theme.service';
-import { WebsocketService } from './services/websocket.service';
+import { WebsocketService } from './services/api/websocket.service';
 
 @Component({
   selector: 'app-main',

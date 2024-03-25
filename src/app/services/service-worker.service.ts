@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { InfoService } from './info.service';
 import { PushNotificationsService } from './push-notifications.service';
+import { UserNotificationService } from './user-notification.service';
+import { UserNotification, UserNotificationType } from '../models/User-Notifications';
 
 @Injectable({
   providedIn: 'root',
@@ -19,31 +21,40 @@ export class ServiceWorkerService {
     private swUpdate: SwUpdate,
     private swPush: SwPush,
     private pushNotiService: PushNotificationsService,
-    private infoService: InfoService
+    private infoService: InfoService,
+    private userNotificationService: UserNotificationService
   ) {
     this.updateSub$ = this.swUpdate.versionUpdates.subscribe((update) => {
       if (environment.production === false) {
         console.log('SW_UPDATE:', update);
       }
       if (update.type === 'VERSION_READY') {
-        this.infoService
-          .confirm(
-            "Um das Update zu installieren, muss die APP kurz neu geladen werden. Du kannst auch später unter 'Einstellungen -> Lokale Einstellungen' manuell neu laden.",
-            {
-              header: 'UPDATE verfügbar!',
-              icon: 'pi pi-exclamation-triangle',
-              rejectLabel: 'Später',
-              acceptLabel: 'Neu laden',
-            }
-          )
-          .subscribe((_) => {
-            this.swUpdate
-              .activateUpdate()
-              .then((res) => {
-                document.location.reload();
-              })
-              .catch((err) => console.log(err));
-          });
+        const notification: UserNotification = {
+          type: UserNotificationType.SwUpdate,
+          command: () => {
+            this.infoService
+              .confirm(
+                "Um das Update zu installieren, muss die APP kurz neu geladen werden. Du kannst auch später unter 'Einstellungen -> Lokale Einstellungen' manuell neu laden.",
+                {
+                  header: 'UPDATE verfügbar!',
+                  icon: 'pi pi-exclamation-triangle',
+                  rejectLabel: 'Später',
+                  acceptLabel: 'Neu laden',
+                }
+              )
+              .subscribe((_) => {
+                this.swUpdate
+                  .activateUpdate()
+                  .then((res) => {
+                    // document.location.reload();
+                    this.infoService.success('Update erfolgreich installiert!');
+                  })
+                  .catch((err) => console.log(err));
+              });
+          },
+        };
+
+        this.userNotificationService.addNotification(notification);
       }
     });
 

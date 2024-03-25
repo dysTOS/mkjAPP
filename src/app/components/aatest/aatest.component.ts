@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
 import { NotenApiService } from 'src/app/services/api/noten-api.service';
+import { UserNotificationAPIService } from 'src/app/services/api/user-notifications-api.service';
 import { FileService } from 'src/app/services/file.service';
 import { LoggerService } from 'src/app/services/logger.service';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
@@ -22,7 +23,8 @@ export class AatestComponent {
     private notenService: NotenApiService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userNotificationService: UserNotificationAPIService
   ) {
     this.activeIndex = this.route.snapshot.params['activeIndex'];
   }
@@ -36,10 +38,7 @@ export class AatestComponent {
   }
 
   public push() {
-    this.pushService.push().subscribe({
-      next: (res) => console.log(res),
-      error: (err) => console.log(err),
-    });
+    this.userNotificationService.testSocket('sdf' + Math.random()).subscribe((res) => console.log(res));
   }
 
   public notenTest() {}

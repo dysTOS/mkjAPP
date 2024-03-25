@@ -7,9 +7,11 @@ export interface UserNotification<T = any> {
   read_at?: string;
   created_at?: string;
   updated_at?: string;
+  command?: () => void;
 }
 
 export enum UserNotificationType {
   TerminCreated = 'App\\Notifications\\TerminCreatedNotification',
   TerminUpdated = 'App\\Notifications\\TerminUpdatedNotification',
+  SwUpdate = 'SwUpdate',
 }

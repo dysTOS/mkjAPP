@@ -4,7 +4,7 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { Observable, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UserService } from './authentication/user.service';
+import { UserService } from '../authentication/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class WebsocketService {

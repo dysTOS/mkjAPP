@@ -6,7 +6,7 @@ import { UserNotification } from 'src/app/models/User-Notifications';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
-export class UserNotificationsService {
+export class UserNotificationAPIService {
   private apiURL = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -29,5 +29,10 @@ export class UserNotificationsService {
   public markAllAsRead(): Observable<MessageOutput> {
     const url = this.apiURL + 'usernotifications/markallasread';
     return this.http.get<MessageOutput>(url);
+  }
+
+  public testSocket(dataString: string): Observable<any> {
+    const url = this.apiURL + 'testsocket';
+    return this.http.post<any>(url, { data: dataString });
   }
 }

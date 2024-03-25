@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { AppMainComponent } from './app.main.component';
-import { UserNotification } from './models/User-Notifications';
-import { UserNotificationsService } from './services/api/user-notifications-api.service';
 import { MenuService } from './services/menu.service';
 
 @Component({
