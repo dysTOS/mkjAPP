@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StandardHttpOptions } from 'src/app/interfaces/api-middleware';
 import { Bewertung } from 'src/app/models/Bewertung';
-import { Noten } from 'src/app/models/Noten';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,8 +17,8 @@ export class BewertungenApiService {
     return this.http.post<Bewertung>(`${this.apiUrl}/noten/get`, { noten_id: notenId }, StandardHttpOptions);
   }
 
-  public setNotenVote(notenId: string, vote: number): Observable<Noten> {
-    return this.http.post<Noten>(
+  public setNotenVote(notenId: string, vote: number): Observable<{ message: String; bewertung: number }> {
+    return this.http.post<{ message: String; bewertung: number }>(
       `${this.apiUrl}/noten/set`,
       { noten_id: notenId, bewertung: vote },
       StandardHttpOptions

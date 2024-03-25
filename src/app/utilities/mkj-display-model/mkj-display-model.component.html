@@ -18,11 +18,13 @@
     }
     @if (config.rateable) {
       <div class="col-12 flex justify-content-center">
-        <mkj-rating
-          label="Meine Bewertung"
-          [value]="bewertung?.bewertung"
-          (valueChange)="setVote(this.model, $event)"
-        ></mkj-rating>
+        <mkj-content-loader [loading]="personalVote === null">
+          <mkj-rating
+            label="Meine Bewertung"
+            [value]="personalVote?.bewertung"
+            (valueChange)="setVote(this.model, $event)"
+          ></mkj-rating>
+        </mkj-content-loader>
       </div>
     }
   </div>

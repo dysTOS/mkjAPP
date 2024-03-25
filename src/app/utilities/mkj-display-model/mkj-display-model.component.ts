@@ -15,7 +15,7 @@ export class MkjDisplayModelComponent<T> implements AfterViewInit {
   @Input({ required: true })
   public model: T;
 
-  public bewertung: Bewertung = null;
+  public personalVote: Bewertung = null;
 
   constructor(
     @Inject(DISPLAY_MODEL)
@@ -29,7 +29,7 @@ export class MkjDisplayModelComponent<T> implements AfterViewInit {
     this.setValues();
     if (this.config.rateable) {
       this.bewertungenService.getNotenVote((this.model as Noten).id).subscribe((res) => {
-        this.bewertung = res;
+        this.personalVote = res ?? {};
         this.cd.markForCheck();
       });
     }
@@ -45,6 +45,7 @@ export class MkjDisplayModelComponent<T> implements AfterViewInit {
   public setVote(noten: Noten, vote: number): void {
     this.bewertungenService.setNotenVote(noten.id, vote).subscribe((res) => {
       this.infoService.success('Bewertung gespeichert');
+      noten.bewertung = res.bewertung;
     });
   }
 }
