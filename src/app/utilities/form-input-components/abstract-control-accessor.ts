@@ -38,6 +38,9 @@ export abstract class AbstractControlAccessor<T> implements ControlValueAccessor
   @Input()
   public placeholder: string = '';
 
+  @Input()
+  public readonly: boolean = false;
+
   @Output()
   public valueChange = new EventEmitter<T>();
 

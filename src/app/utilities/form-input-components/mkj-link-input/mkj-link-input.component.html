@@ -1,63 +1,74 @@
-<div class="link-list mt-2">
-  @for (link of links; track link; let index = $index) {
-    <div class="flex flex-column">
-      @if (index !== 0) {
-        <p-divider class="w-full"></p-divider>
-      }
-      <div class="flex justify-content-between">
-        <div class="link">
-          <a [href]="link.url" target="_blank" rel="noopener">
-            <i class="pi pi-external-link mr-2"></i>
-            <span>{{ link.label }}</span>
-          </a>
+@if (readonly === false) {
+  <p-accordion>
+    <p-accordionTab [header]="(label ?? 'Links') + ' (' + links.length + ')'">
+      <ng-template [ngTemplateOutlet]="linkTemplate"></ng-template>
+    </p-accordionTab>
+  </p-accordion>
+} @else {
+  <ng-template [ngTemplateOutlet]="linkTemplate"></ng-template>
+}
+
+<ng-template #linkTemplate>
+  <div class="link-list mt-2">
+    @for (link of links; track link; let index = $index) {
+      <div class="flex flex-column">
+        @if (index !== 0) {
+          <p-divider class="w-full"></p-divider>
+        }
+        <div class="flex justify-content-between">
+          <div class="link">
+            <a [href]="link.url" target="_blank" rel="noopener">
+              <i class="pi pi-external-link mr-2"></i>
+              <span>{{ link.label }}</span>
+            </a>
+            @if (!readonly) {
+              <span class="url mt-2">{{ link.url }}</span>
+            }
+          </div>
           @if (!readonly) {
-            <span class="url mt-2">{{ link.url }}</span>
+            <button
+              pButton
+              class="p-button-rounded p-button-text p-button-danger"
+              pTooltip="Link löschen"
+              icon="pi pi-trash"
+              (click)="removeLink(index)"
+            ></button>
           }
         </div>
-        @if (!readonly) {
-          <button
-            pButton
-            class="p-button-rounded p-button-text p-button-danger"
-            pTooltip="Link löschen"
-            icon="pi pi-trash"
-            (click)="removeLink(index)"
-          ></button>
-        }
       </div>
-    </div>
-  }
-</div>
+    }
+  </div>
 
-@if(!readonly){
-  <div class="flex flex-column gap-3 mt-5">
-    <span class="p-float-label">
-      <input
-        type="text"
-        [(ngModel)]="addLink.label"
-        (ngModelChange)="touch()"
-        pInputText
-        inputId="label"
-        [disabled]="disabled$ | async"
-        placeholder="z.B. Youtube"
-            [ngClass]="{
-                'ng-invalid ng-dirty': !addLink.label && addLink.url
-            }"
-        (keyup.enter)="addLinkToList()"
+  @if (!readonly) {
+    <div class="flex flex-column gap-3 mt-5">
+      <span class="p-float-label">
+        <input
+          type="text"
+          [ngModel]="addLink.label"
+          (ngModelChange)="setValue('label', $event)"
+          pInputText
+          inputId="label"
+          [disabled]="disabled$ | async"
+          placeholder="z.B. Youtube"
+          [ngClass]="{
+            'ng-invalid ng-dirty': !addLink.label && addLink.url
+          }"
+          (keyup.enter)="addLinkToList()"
         />
         <label for="label">Name</label>
       </span>
       <span class="p-float-label">
         <textarea
           type="text"
-          [(ngModel)]="addLink.url"
-          (ngModelChange)="touch()"
+          [ngModel]="addLink.url"
+          (ngModelChange)="setValue('url', $event)"
           pInputTextarea
           inputId="label"
           [disabled]="disabled$ | async"
           placeholder="z.B. youtube.com/abc2345dfa2"
-            [ngClass]="{
-                'ng-invalid ng-dirty': !addLink.url && addLink.label
-            }"
+          [ngClass]="{
+            'ng-invalid ng-dirty': !addLink.url && addLink.label
+          }"
           (keyup.enter)="addLinkToList()"
         ></textarea>
         <label for="label">Link</label>
@@ -72,3 +83,4 @@
       ></button>
     </div>
   }
+</ng-template>
