@@ -14,19 +14,19 @@ export class WebsocketService {
     private httpClient: HttpClient,
     private userService: UserService
   ) {
-    // this.init();
+    this.init();
   }
 
   public getUserNotificationsChannel(): Observable<Notification> {
     const subject = new Subject<Notification>();
-    // this.userService
-    //   .getCurrentUser()
-    //   .pipe(first())
-    //   .subscribe((user) => {
-    //     this._echo.private('App.Models.User.' + this.userService.getCurrentUserId()).notification((e) => {
-    //       subject.next(e);
-    //     });
-    //   });
+    this.userService
+      .getCurrentUser()
+      .pipe(first())
+      .subscribe((user) => {
+        this._echo.private('App.Models.User.' + this.userService.getCurrentUserId()).notification((e) => {
+          subject.next(e);
+        });
+      });
 
     return subject.asObservable();
   }
