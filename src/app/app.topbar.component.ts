@@ -17,9 +17,9 @@ import { MenuService } from './services/menu.service';
         <h3>{{ AppTitle }}</h3>
       </div>
 
-      <div class="inline-block flex h-full align-items-center mr-4" style="float: inline-end">
+      <!-- <div class="inline-block flex h-full align-items-center mr-4" style="float: inline-end">
         <mkj-user-notifications></mkj-user-notifications>
-      </div>
+      </div> -->
 
       <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)">
         <i class="pi pi-bars" style="font-size: 25px"></i>

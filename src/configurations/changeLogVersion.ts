@@ -1,4 +1,4 @@
-export const MkjAppVersion = '0.9.8 - BETA';
+export const MkjAppVersion = '0.9.7 - BETA';
 
 export interface MkjAppChangeLog {
   date: string;
@@ -7,14 +7,14 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
-  {
-    date: '30.03.2024',
-    version: '0.9.8 - BETA',
-    changes: {
-      Benachrichtigungen: 'Implementierung von Echtzeit-Benachrichtigungen.',
-      Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
-    },
-  },
+  //   {
+  //     date: '30.03.2024',
+  //     version: '0.9.8 - BETA',
+  //     changes: {
+  //       Benachrichtigungen: 'Implementierung von Echtzeit-Benachrichtigungen.',
+  //       Bugfixes: 'Diverse Bugfixes und Verbesserungen der Benutzeroberfläche.',
+  //     },
+  //   },
   {
     date: '10.03.2024',
     version: '0.9.7 - BETA',
