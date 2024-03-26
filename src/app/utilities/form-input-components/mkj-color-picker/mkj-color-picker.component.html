@@ -1,20 +1,23 @@
 <div class="flex align-items-center">
-  <span class="p-float-label">
-    <input
-      type="text"
-      [ngModel]="formControl?.value ?? value"
-      (ngModelChange)="change($event)"
-      pInputText
-      inputId="color"
-      [disabled]="disabled$ | async"
-      pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
-    />
-    <label for="color">{{ label }}</label>
+  <span class="p-float-label w-full">
+    <p-inputGroup>
+      <input
+        type="text"
+        [ngModel]="formControl?.value ?? value"
+        (ngModelChange)="change($event)"
+        pInputText
+        inputId="color"
+        [disabled]="disabled$ | async"
+        pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+      />
+      <label for="color">{{ label }}</label>
+      <p-inputGroupAddon>
+        <p-colorPicker
+          [ngModel]="formControl?.value ?? value"
+          (ngModelChange)="change($event)"
+          [disabled]="disabled$ | async"
+        ></p-colorPicker>
+      </p-inputGroupAddon>
+    </p-inputGroup>
   </span>
-  <p-colorPicker
-    [ngModel]="formControl?.value ?? value"
-    (ngModelChange)="change($event)"
-    [disabled]="disabled$ | async"
-    class="ml-3 ml-1"
-  ></p-colorPicker>
 </div>

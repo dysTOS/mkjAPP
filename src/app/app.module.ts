@@ -87,6 +87,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 // Application Components
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -244,6 +246,8 @@ registerLocaleData(localeDe);
     DataViewModule,
     DialogModule,
     DividerModule,
+    InputGroupModule,
+    InputGroupAddonModule,
     DropdownModule,
     FieldsetModule,
     FileUploadModule,

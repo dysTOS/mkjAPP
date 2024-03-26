@@ -1,36 +1,19 @@
 <mkj-form-wrapper [formGroup]="formGroup" [component]="this">
-    <div class="p-fluid grid">
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-boolean-input
-                label="Aktiv"
-                formControlName="aktiv"
-            ></mkj-boolean-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-input
-                label="Name"
-                formControlName="name"
-            ></mkj-text-input>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-color-picker
-                label="Farbe"
-                formControlName="color"
-            ></mkj-color-picker>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-dropdown
-                label="Gruppe"
-                dataKey="id"
-                formControlName="gruppe_id"
-                [options]="GruppeDropdown"
-            ></mkj-dropdown>
-        </div>
-        <div class="p-field col-12 lg:col-3 md:col-6">
-            <mkj-text-area-input
-                label="Anmerkungen"
-                formControlName="anmerkungen"
-            ></mkj-text-area-input>
-        </div>
+  <div class="p-fluid grid">
+    <div class="p-field col-12 pb-4">
+      <mkj-boolean-input label="Aktiv" formControlName="aktiv"></mkj-boolean-input>
     </div>
+    <div class="p-field col-12 lg:col-4 md:col-6">
+      <mkj-text-input label="Name" formControlName="name"></mkj-text-input>
+    </div>
+    <div class="p-field col-12 lg:col-4 md:col-6">
+      <mkj-color-picker label="Farbe" formControlName="color"></mkj-color-picker>
+    </div>
+    <div class="p-field col-12 lg:col-4 md:col-6">
+      <mkj-dropdown label="Gruppe" dataKey="id" formControlName="gruppe_id" [options]="GruppeDropdown"></mkj-dropdown>
+    </div>
+    <div class="p-field col-12">
+      <mkj-text-area-input label="Anmerkungen" formControlName="anmerkungen"></mkj-text-area-input>
+    </div>
+  </div>
 </mkj-form-wrapper>
