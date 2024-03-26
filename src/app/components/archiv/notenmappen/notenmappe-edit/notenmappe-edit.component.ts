@@ -45,7 +45,7 @@ export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
 
   protected initToolbar(): void {
     this.toolbarService.backButton = true;
-    this.toolbarService.header = 'Bearbeiten';
+    this.toolbarService.header = 'Mappe';
     this.toolbarService.buttons = [
       {
         label: 'PDF Export',
@@ -54,12 +54,12 @@ export class NotenmappeEditComponent extends AbstractFormComponent<Notenmappe> {
         click: () => this.exportPdf(),
       },
       {
-        label: 'Mappe bearbeiten',
+        label: 'Bearbeiten',
         icon: 'pi pi-pencil',
         hidden: this.getId() === 'new',
         click: () => {
           this.editMode = !this.editMode;
-          this.toolbarService.buttons[0].highlighted = this.editMode;
+          this.toolbarService.buttons.find((b) => b.label === 'Bearbeiten').highlighted = this.editMode;
         },
         permissions: [PermissionKey.NOTENMAPPE_SAVE, PermissionKey.NOTENMAPPE_ASSIGN],
       },
