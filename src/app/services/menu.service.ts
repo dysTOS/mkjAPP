@@ -133,7 +133,6 @@ export class MenuService implements OnDestroy {
       label: 'Tools',
       icon: 'mdi mdi-timer-music-outline',
       enumLabel: MenuLabels.TOOLS,
-      permission: PermissionKey.USER_DELETE,
       children: [
         {
           label: 'Stimmgerät',

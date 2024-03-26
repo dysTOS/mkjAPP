@@ -289,11 +289,7 @@ import { MetronomeComponent } from './tools/views/metronome/metronome.component'
             {
               path: 'tools',
               component: RouterOutletWrapperComponent,
-              canActivate: [RouteGuard],
               title: environment.appTitle + ' -  TOOLS',
-              data: {
-                permissions: [PermissionKey.USER_DELETE],
-              },
               children: [
                 {
                   path: 'tuner',
