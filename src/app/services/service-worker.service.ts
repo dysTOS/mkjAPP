@@ -30,6 +30,7 @@ export class ServiceWorkerService {
       }
       if (update.type === 'VERSION_READY') {
         const notification: UserNotification = {
+          id: UserNotificationType.SwUpdate,
           type: UserNotificationType.SwUpdate,
           command: () => {
             this.infoService
@@ -46,10 +47,13 @@ export class ServiceWorkerService {
                 this.swUpdate
                   .activateUpdate()
                   .then((res) => {
-                    // document.location.reload();
-                    this.infoService.success('Update erfolgreich installiert!');
+                    this.infoService.info('App wird neu gestartet!');
+                    document.location.reload();
                   })
-                  .catch((err) => console.log(err));
+                  .catch((err) => {
+                    this.infoService.info('App wird neu gestartet!');
+                    document.location.reload();
+                  });
               });
           },
         };

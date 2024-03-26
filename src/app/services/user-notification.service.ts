@@ -65,10 +65,18 @@ export class UserNotificationService {
   }
 
   private markAsRead(notification: UserNotification): void {
+    if (notification.id === UserNotificationType.SwUpdate) {
+      this.removeNotification(notification);
+      return;
+    }
     this.apiService.markAsRead(notification.id).subscribe(() => {
-      const notifications = this._userNotifications.value.filter((n) => n.id !== notification.id);
-      this._userNotifications.next(notifications);
+      this.removeNotification(notification);
     });
+  }
+
+  private removeNotification(notification: UserNotification): void {
+    const notifications = this._userNotifications.value.filter((n) => n.id !== notification.id);
+    this._userNotifications.next(notifications);
   }
 
   private mapNotificationToMenuItem(notification: UserNotification): MenuItem {
@@ -106,7 +114,7 @@ export class UserNotificationService {
         const updatedTermin = notification.data as Termin;
         return updatedTermin?.name + ' ' + this.datePipe.transform(updatedTermin.vonDatum, 'd. MMMM YYYY');
       case UserNotificationType.SwUpdate:
-        return '';
+        return 'Installieren?';
       default:
         return 'Sonstiges';
     }

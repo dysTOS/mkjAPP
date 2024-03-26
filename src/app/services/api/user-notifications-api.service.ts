@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { MessageOutput } from 'src/app/interfaces/api-middleware';
 import { UserNotification } from 'src/app/models/User-Notifications';
 import { environment } from 'src/environments/environment';
