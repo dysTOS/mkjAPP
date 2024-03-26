@@ -3,6 +3,7 @@
   class="pi pi-bell text-2xl cursor-pointer"
   [value]="this.menuItems.length"
   [severity]="this.menuItems.length === 0 ? 'danger' : 'info'"
+  [class.p-disabled]="this.menuItems.length === 0"
   (click)="this.menuItems.length ? notificationmenu.toggle($event) : null"
 ></i>
 
