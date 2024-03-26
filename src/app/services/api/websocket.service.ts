@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, Subject, first, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../authentication/user.service';
 
@@ -18,11 +18,17 @@ export class WebsocketService {
   }
 
   public getUserNotificationsChannel(): Observable<Notification> {
-    return new Observable((observer) => {
-      this._echo.private('App.Models.User.' + this.userService.getCurrentUserId()).notification((e) => {
-        observer.next(e);
+    const subject = new Subject<Notification>();
+    this.userService
+      .getCurrentUser()
+      .pipe(first())
+      .subscribe((user) => {
+        this._echo.private('App.Models.User.' + this.userService.getCurrentUserId()).notification((e) => {
+          subject.next(e);
+        });
       });
-    });
+
+    return subject.asObservable();
   }
 
   private init(): void {
