@@ -20,12 +20,12 @@ jobs:
 
             - name: Update environment file
               run: |
-                sed -i 's/\x27production\x27/${{secrets.TEST_PRODUCTION}}/g' src/environments/environment.prod.ts
-                sed -i 's/\x27publictest\x27/${{secrets.TEST_PUBLICTEST}}/g' src/environments/environment.prod.ts
-                sed -i 's/\x27appTitle\x27/${{secrets.TEST_APPTITLE}}/g' src/environments/environment.prod.ts
-                sed -i 's/\x27apiUrl\x27/${{secrets.TEST_APIURL}}/g' src/environments/environment.prod.ts
-                sed -i 's/\x27wsHost\x27/${{secrets.TEST_WSHOST}}/g' src/environments/environment.prod.ts
-                sed -i 's/\x27wsAppKey\x27/${{secrets.TEST_WSAPPKEY}}/g' src/environments/environment.prod.ts
+                sed -i "s/'production'/${{secrets.TEST_PRODUCTION}}/g" src/environments/environment.prod.ts
+                sed -i "s/'publictest'/${{secrets.TEST_PUBLICTEST}}/g" src/environments/environment.prod.ts
+                sed -i "s/'appTitle'/${{secrets.TEST_APPTITLE}}/g" src/environments/environment.prod.ts
+                sed -i "s/'apiUrl'/${{secrets.TEST_APIURL}}/g" src/environments/environment.prod.ts
+                sed -i "s/'wsHost'/${{secrets.TEST_WSHOST}}/g" src/environments/environment.prod.ts
+                sed -i "s/'wsAppKey'/${{secrets.TEST_WSAPPKEY}}/g" src/environments/environment.prod.ts
 
             - name: Install dependencies
               run: npm ci
