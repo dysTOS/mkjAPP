@@ -35,7 +35,7 @@ export class WebsocketService {
     (window as any).Pusher = Pusher;
     this._echo = new Echo({
       broadcaster: 'reverb',
-      key: 'akkq3uvoftnearumcyzb',
+      key: environment.wsAppKey,
       wsHost: environment.wsHost,
       wsPort: environment.production ? 443 : 8080,
       wssPort: environment.production ? 443 : 8080,

@@ -18,9 +18,14 @@ jobs:
                   node-version: 20
                   cache: "npm"
 
-            - name: Change environment
+            - name: Update environment file
               run: |
-                sed -i 's/config.appTitle/"${{secrets.FTP_SERVER}}"/g' src/environments/environment.publictest.ts
+                sed -i 's/'production'/"${{secrets.TEST_PRODUCTION}}"/g' src/environments/environment.prod.ts
+                sed -i 's/'publictest'/"${{secrets.TEST_PUBLICTEST}}"/g' src/environments/environment.prod.ts
+                sed -i 's/'appTitle'/"${{secrets.TEST_APPTITLE}}"/g' src/environments/environment.prod.ts
+                sed -i 's/'apiUrl'/"${{secrets.TEST_APIURL}}"/g' src/environments/environment.prod.ts
+                sed -i 's/'wsHost'/"${{secrets.TEST_WSHOST}}"/g' src/environments/environment.prod.ts
+                sed -i 's/'wsAppKey'/"${{secrets.TEST_WSAPPKEY}}"/g' src/environments/environment.prod.ts
 
             - name: Install dependencies
               run: npm ci
