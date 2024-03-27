@@ -1,5 +1,5 @@
 export const environment = {
-  production: null,
+  production: 'production',
   publictest: 'publictest',
   appTitle: 'appTitle',
   apiUrl: 'apiUrl',
