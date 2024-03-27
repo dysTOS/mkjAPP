@@ -65,7 +65,8 @@ export class UserNotificationService {
   }
 
   private markAsRead(notification: UserNotification): void {
-    if (notification.id === UserNotificationType.SwUpdate) {
+    console.log(notification);
+    if (notification.type === UserNotificationType.SwUpdate || notification.type === UserNotificationType.TestSocket) {
       this.removeNotification(notification);
       return;
     }

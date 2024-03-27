@@ -13,5 +13,6 @@ export interface UserNotification<T = any> {
 export enum UserNotificationType {
   TerminCreated = 'App\\Notifications\\TerminCreatedNotification',
   TerminUpdated = 'App\\Notifications\\TerminUpdatedNotification',
+  TestSocket = 'App\\Notifications\\TestSocket',
   SwUpdate = 'SwUpdate',
 }

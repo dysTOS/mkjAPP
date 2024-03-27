@@ -18,6 +18,15 @@ jobs:
                   node-version: 20
                   cache: "npm"
 
+            - name: Update environment file
+              run: |
+                sed -i 's+'production'+${{secrets.GMR_PRODUCTION}}+g' src/environments/environment.prod.ts
+                sed -i "s+'publictest'+${{secrets.GMR_PUBLICTEST}}+g" src/environments/environment.prod.ts
+                sed -i "s+'appTitle'+${{secrets.GMR_APPTITLE}}+g" src/environments/environment.prod.ts
+                sed -i "s+'apiUrl'+${{secrets.GMR_APIURL}}+g" src/environments/environment.prod.ts
+                sed -i "s+'wsHost'+${{secrets.GMR_WSHOST}}+g" src/environments/environment.prod.ts
+                sed -i "s+'wsAppKey'+${{secrets.GMR_WSAPPKEY}}+g" src/environments/environment.prod.ts
+
             - name: Install dependencies
               run: npm ci
 

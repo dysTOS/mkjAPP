@@ -8,7 +8,7 @@ export interface MkjAppChangeLog {
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
   {
-    date: '30.03.2024',
+    date: '27.03.2024',
     version: '0.9.8 - BETA',
     changes: {
       Benachrichtigungen: 'Implementierung von Echtzeit-Benachrichtigungen.',
