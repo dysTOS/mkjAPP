@@ -21,10 +21,10 @@ jobs:
             - name: Update environment file
               run:
                 sed -e "s/'appTitle'/${{secrets.TEST_APPTITLE}}/g" -e
-                "s/'apiUrl'/'${{secrets.TEST_APIURL}}'/g" -e
-                "s/'wsHost'/'${{secrets.TEST_WSHOST}}'/g" -e
-                "s/'wsAppKey'/'${{secrets.TEST_WSAPPKEY}}'/g" -e
-                "s/'publictest'/'${{secrets.TEST_PUBLICTEST}}'/g" -e
+                "s/'apiUrl'/${{secrets.TEST_APIURL}}/g" -e
+                "s/'wsHost'/${{secrets.TEST_WSHOST}}/g" -e
+                "s/'wsAppKey'/${{secrets.TEST_WSAPPKEY}}/g" -e
+                "s/'publictest'/${{secrets.TEST_PUBLICTEST}}/g" -e
                 's/'production'/${{secrets.TEST_PRODUCTION}}/g' src/environments/environment.prod.ts
 
             - name: Install dependencies
