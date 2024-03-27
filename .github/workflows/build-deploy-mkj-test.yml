@@ -19,7 +19,7 @@ jobs:
                   cache: "npm"
 
             - name: Update environment file
-              run: |
+              run:
                 sed -e "s/'appTitle'/${{secrets.TEST_APPTITLE}}/g" -e
                 "s/'apiUrl'/'${{secrets.TEST_APIURL}}'/g" -e
                 "s/'wsHost'/'${{secrets.TEST_WSHOST}}'/g" -e
