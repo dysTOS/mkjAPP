@@ -20,7 +20,7 @@ jobs:
 
             - name: Update environment file
               run: |
-                sed -i "s/production: null/production: ${{secrets.TEST_PRODUCTION}}/g" src/environments/environment.prod.ts
+                sed -i "s/production: null/production: $TEST_PRODUCTION/g" src/environments/environment.prod.ts
                 sed -i "s/'publictest'/'${{secrets.TEST_PUBLICTEST}}'/g" src/environments/environment.prod.ts
                 sed -i "s/'appTitle'/'${{secrets.TEST_APPTITLE}}'/g" src/environments/environment.prod.ts
                 sed -i "s/'apiUrl'/'${{secrets.TEST_APIURL}}'/g" src/environments/environment.prod.ts
