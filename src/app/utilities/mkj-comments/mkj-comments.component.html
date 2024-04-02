@@ -1,0 +1,81 @@
+@for (c of comments; track c) {
+  <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
+}
+@if (subCommentId == null) {
+  <div class="mt-4">
+    <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
+  </div>
+}
+
+<ng-template #commentTemplate let-comment>
+  <div class="comment">
+    <div class="comment__header">
+      <div>
+        <i class="pi pi-user header-icon mr-2"></i
+        ><span class="header-text">
+          {{ comment.mitglied_name }}
+        </span>
+      </div>
+      <span class="date">
+        {{ comment.updated_at | date: 'E d. MMM yyyy | HH:mm' }}
+      </span>
+    </div>
+    <div class="comment__text">{{ comment.text }}</div>
+    <div class="comment__footer">
+      <div>
+        @if (comment.number_child_comments > 0) {
+          <button
+            pButton
+            class="p-button-small p-button-text p-button-secondary"
+            label="Antworten: {{ comment.number_child_comments }}"
+            [icon]="comment.loading ? 'pi pi-spin pi-spinner' : 'pi pi-arrow-down'"
+            [disabled]="comment.loading"
+            (click)="getComments(comment)"
+          ></button>
+        }
+      </div>
+      <button
+        pButton
+        class="p-button-small p-button-text p-button-secondary"
+        [label]="subCommentId === comment.id ? 'Abbrechen' : 'Kommentieren'"
+        [icon]="subCommentId === comment.id ? 'pi pi-times' : null"
+        (click)="this.initCommentInput(comment)"
+      ></button>
+    </div>
+    @if (subCommentId === comment.id) {
+      <div class="comment__input_wrapper">
+        <ng-template
+          [ngTemplateOutlet]="inputTemplate"
+          [ngTemplateOutletContext]="{ $implicit: comment }"
+        ></ng-template>
+      </div>
+    }
+    @if (comment.subComments?.length > 0) {
+      <div class="comment__subcomments">
+        @for (c of comment.subComments; track c) {
+          <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
+        }
+      </div>
+    }
+  </div>
+</ng-template>
+
+<ng-template #inputTemplate let-comment>
+  <div class="comment__input">
+    <mkj-text-input
+      label="Kommentar"
+      placeholder="Kommentieren..."
+      class="w-full"
+      [disabled]="saving"
+      [(value)]="commentText"
+      (onEnter)="createComment(comment)"
+    ></mkj-text-input>
+    <button
+      pButton
+      class="p-button-small p-button-text p-button-secondary"
+      [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-send'"
+      [disabled]="saving"
+      (click)="createComment(comment)"
+    ></button>
+  </div>
+</ng-template>

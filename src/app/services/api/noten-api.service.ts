@@ -6,11 +6,12 @@ import { environment } from 'src/environments/environment';
 import { Noten } from '../../models/Noten';
 import { AbstractCrudApiService } from './_abstract-crud-api-service.class';
 import { KeyOf } from 'src/app/types/KeyOf';
+import { GenericFieldValueService } from './_generic-field-value-serivce.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NotenApiService extends AbstractCrudApiService<Noten> {
+export class NotenApiService extends AbstractCrudApiService<Noten> implements GenericFieldValueService {
   protected controllerApiUrlKey: string = 'noten';
   private apiURL = environment.apiUrl;
 

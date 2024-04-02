@@ -23,6 +23,10 @@
       (click)="navigateToEditView(noten)"
     ></button>
   </div>
+
+  <div class="card">
+    <mkj-comments [modelType]="'noten'" [modelId]="noten.id"></mkj-comments>
+  </div>
 </ng-template>
 
 <ng-template #bewertungTemplate let-noten>

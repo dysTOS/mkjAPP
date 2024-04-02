@@ -1,6 +1,7 @@
 export interface DisplayModelConfiguration<T> {
   fields: DisplayModelField<T>[];
   rateable?: boolean;
+  commentable?: boolean;
 }
 
 export interface DisplayModelField<T> {
