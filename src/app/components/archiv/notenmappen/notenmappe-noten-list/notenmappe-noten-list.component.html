@@ -31,20 +31,11 @@
       ></mkj-text-input>
     }
   </div>
-  @if (noten) {
+  @if (noten && !editMode) {
     <mkj-display-model [model]="noten"></mkj-display-model>
   }
-  <div class="col-12 card flex gap-2 justify-content-center">
-    @if (hasSavePermission) {
-      <button
-        pButton
-        label="Bearbeiten"
-        icon="pi pi-pencil"
-        class="p-button-secondary p-button-rounded"
-        (click)="navigateToNoten(noten)"
-      ></button>
-    }
-    @if (hasAssignPermission && editMode) {
+  @if (hasAssignPermission && editMode) {
+    <div class="col-12 card flex gap-2 justify-content-center">
       <button
         pButton
         label="Entfernen"
@@ -52,8 +43,8 @@
         class="p-button-rounded p-button-danger"
         (click)="detachNotenFromMappe(noten)"
       ></button>
-    }
-  </div>
+    </div>
+  }
 </ng-template>
 
 <ng-template #captionTemplate>

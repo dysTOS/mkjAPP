@@ -1,8 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { GetListInput } from 'src/app/interfaces/api-middleware';
 import { Kommentar } from 'src/app/models/Kommentar';
+import { PermissionKey } from 'src/app/models/User';
 import { ModelType } from 'src/app/models/_ModelType';
 import { KommentarApiService } from 'src/app/services/api/kommentar-api.service';
+import { UserService } from 'src/app/services/authentication/user.service';
+import { InfoService } from 'src/app/services/info.service';
 
 @Component({
   selector: 'mkj-comments',
@@ -13,21 +17,27 @@ export class MkjCommentsComponent implements OnInit {
   @Input({ required: true }) modelType: ModelType;
   @Input({ required: true }) modelId: string;
 
-  @ViewChild('inputTemplate') inputTemplate: any;
-
   public comments: Kommentar[] = [];
   public commentText: string;
   public subCommentId: string;
 
   public saving = false;
+  public initLoading = false;
+  public isAdmin = this.userService.hasPermission(PermissionKey.USER_DELETE);
+  public mitgliedId = this.userService.currentMitglied.value?.id;
 
-  constructor(private apiService: KommentarApiService) {}
+  constructor(
+    private apiService: KommentarApiService,
+    private userService: UserService,
+    private infoService: InfoService
+  ) {}
 
   public ngOnInit(): void {
-    this.getComments();
+    this.initLoading = true;
+    this.getComments().subscribe(() => (this.initLoading = false));
   }
 
-  public getComments(parent?: Kommentar): void {
+  public getComments(parent?: Kommentar): Observable<void> {
     if (parent) {
       (parent as any).loading = true;
     }
@@ -49,11 +59,11 @@ export class MkjCommentsComponent implements OnInit {
         },
       ],
       sort: {
-        field: 'updated_at',
+        field: 'created_at',
         order: 'asc',
       },
     };
-
+    const subject = new Subject<void>();
     this.apiService.getList(input).subscribe((response) => {
       if (parent) {
         parent.subComments = response.values;
@@ -61,7 +71,10 @@ export class MkjCommentsComponent implements OnInit {
       } else {
         this.comments = response.values;
       }
+      subject.next();
+      subject.complete();
     });
+    return subject;
   }
 
   public createComment(parent?: Kommentar): void {
@@ -85,6 +98,25 @@ export class MkjCommentsComponent implements OnInit {
     this.commentText = text || '';
   }
 
+  public deleteComment(comment: Kommentar): void {
+    this.infoService
+      .confirmDelete('Möchtest du diesen Kommentar wirklich löschen?', () => this.apiService.delete(comment.id))
+      .subscribe((res) => {
+        if (res?.id) {
+          comment = res;
+          this.comments = [...this.comments];
+          return;
+        }
+        const parent = this.findParentComment(comment, this.comments);
+        if (parent) {
+          parent.subComments = parent.subComments?.filter((c) => c.id !== comment.id);
+          parent.number_child_comments--;
+        } else {
+          this.comments = this.comments.filter((c) => c.id !== comment.id);
+        }
+      });
+  }
+
   private insertComment(comment: Kommentar): void {
     this.commentText = '';
     this.subCommentId = null;
@@ -105,7 +137,7 @@ export class MkjCommentsComponent implements OnInit {
         return item;
       } else if (item.subComments) {
         const result = this.findParentComment(c, item.subComments);
-        if (result) return result;
+        return result;
       }
     }
 

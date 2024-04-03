@@ -8,6 +8,8 @@
     (onBlur)="touch()"
     [class.ng-dirty]="formControl?.invalid"
     [class.ng-invalid]="formControl?.invalid"
+    [readOnly]="readonly"
+    [placeholder]="placeholder"
     class="w-full"
   ></textarea>
   <label [for]="label">{{ label }}</label>

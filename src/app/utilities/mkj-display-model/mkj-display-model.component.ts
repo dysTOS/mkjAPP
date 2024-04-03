@@ -1,21 +1,35 @@
-import { Inject, Component, Input, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { DisplayModelConfiguration } from '../_display-model-configurations/display-model-configuration.interface';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
+import { Bewertung } from 'src/app/models/Bewertung';
+import { Noten } from 'src/app/models/Noten';
 import { DISPLAY_MODEL } from 'src/app/providers/display-model';
 import { BewertungenApiService } from 'src/app/services/api/bewertungen-api.service';
 import { InfoService } from 'src/app/services/info.service';
-import { Noten } from 'src/app/models/Noten';
-import { Bewertung } from 'src/app/models/Bewertung';
+import { DisplayModelConfiguration } from '../_display-model-configurations/display-model-configuration.interface';
 
 @Component({
   selector: 'mkj-display-model',
   templateUrl: './mkj-display-model.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MkjDisplayModelComponent<T> implements AfterViewInit {
   @Input({ required: true })
   public model: T;
 
+  @Input()
+  public hideActions = false;
+
   public personalVote: Bewertung = null;
+
+  public actionButtonLabelLUT = {
+    details: 'Details',
+    edit: 'Bearbeiten',
+    duplicate: 'Duplizieren',
+  };
+
+  public actionButtonIconLUT = {
+    details: 'pi pi-list',
+    edit: 'pi pi-pencil',
+    duplicate: 'pi pi-copy',
+  };
 
   constructor(
     @Inject(DISPLAY_MODEL)

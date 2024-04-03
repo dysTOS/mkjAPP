@@ -1,6 +1,11 @@
-@for (c of comments; track c) {
-  <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
-}
+<mkj-content-loader [loading]="initLoading">
+  <div class="flex flex-column gap-2">
+    @for (c of comments; track c) {
+      <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
+    }
+  </div>
+</mkj-content-loader>
+
 @if (subCommentId == null) {
   <div class="mt-4">
     <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>
@@ -13,8 +18,11 @@
       <div>
         <i class="pi pi-user header-icon mr-2"></i
         ><span class="header-text">
-          {{ comment.mitglied_name }}
+          {{ comment.mitglied_name || 'Gelöschter Kommentar' }}
         </span>
+        @if (isAdmin || comment.mitglied_id === mitgliedId) {
+          <i class="pi pi-trash ml-2 cursor-pointer" pTooltip="Kommentar löschen" (click)="deleteComment(comment)"></i>
+        }
       </div>
       <span class="date">
         {{ comment.updated_at | date: 'E d. MMM yyyy | HH:mm' }}
@@ -62,14 +70,13 @@
 
 <ng-template #inputTemplate let-comment>
   <div class="comment__input">
-    <mkj-text-input
+    <mkj-text-area-input
       label="Kommentar"
       placeholder="Kommentieren..."
       class="w-full"
       [disabled]="saving"
       [(value)]="commentText"
-      (onEnter)="createComment(comment)"
-    ></mkj-text-input>
+    ></mkj-text-area-input>
     <button
       pButton
       class="p-button-small p-button-text p-button-secondary"

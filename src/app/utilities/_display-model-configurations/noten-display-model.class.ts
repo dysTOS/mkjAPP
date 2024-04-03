@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
-import { DisplayModelConfiguration, DisplayModelField } from './display-model-configuration.interface';
+import {
+  DisplayModelAction,
+  DisplayModelConfiguration,
+  DisplayModelField,
+} from './display-model-configuration.interface';
 import { Noten } from 'src/app/models/Noten';
 import { MkjDatePipe } from 'src/app/pipes/mkj-date.pipe';
 import { ConfigurationService } from 'src/app/services/configuration.service';
+import { ModelType } from 'src/app/models/_ModelType';
+import { PermissionKey } from 'src/app/models/User';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class NotenDisplayModel implements DisplayModelConfiguration<Noten> {
   rateable: boolean = true;
+  commentable = ModelType.Noten;
 
   constructor(
     private datePipe: MkjDatePipe,
-    private configService: ConfigurationService
+    private configService: ConfigurationService,
+    private router: Router
   ) {}
+
+  public actions: DisplayModelAction<Noten>[] = [
+    {
+      type: 'edit',
+      permission: [PermissionKey.NOTEN_SAVE],
+      action: (model: Noten) => this.router.navigate(['archiv', 'noten', model.id]),
+    },
+  ];
 
   public fields: DisplayModelField<Noten>[] = [
     {

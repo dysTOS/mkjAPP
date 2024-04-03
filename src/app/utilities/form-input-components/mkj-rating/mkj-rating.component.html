@@ -3,6 +3,7 @@
   [class.editable]="!readonly"
   [ngModel]="value$ | async"
   [stars]="stars"
-  [cancel]="!readonly"
+  [cancel]="!readonly && value != null"
+  [disabled]="disabled"
   (ngModelChange)="change($event)"
 ></p-rating>

@@ -5,98 +5,82 @@
     <p-tabPanel [selected]="true" header="Infos">
       @if (termin) {
         <div>
-          <mkj-display-model [model]="termin"></mkj-display-model>
+          <mkj-display-model [model]="termin" [hideActions]="true"></mkj-display-model>
           <div class="col-12 flex justify-content-center mb-5">
-            <mkj-termin-teilnahme-selector
-              [termin]="termin"
-            ></mkj-termin-teilnahme-selector>
+            <mkj-termin-teilnahme-selector [termin]="termin"></mkj-termin-teilnahme-selector>
           </div>
           <p-accordion>
             <p-accordionTab header="Eingemeldete Teilnahmen">
               <ng-template pTemplate="content">
-                <teilnahmen-overview
-                  [termin]="termin"
-                ></teilnahmen-overview> </ng-template
-              ></p-accordionTab>
-            </p-accordion>
-            <div style="color: grey; font-size: 0.9em" class="col-12">
-              <p-divider></p-divider>
-              <div
-                class="flex flex-wrap justify-content-between sm:col-mt-1"
-                >
-                <div>
-                  {{
-                  termin.oeffentlich
-                  ? "Öffentlich auf mk-jainzen.at"
-                  : "Nicht sichtbar auf mk.jainzen.at"
-                  }}
-                </div>
-                <div class="text-right">
-                  @if (termin.created_at) {
-                    <div>
-                      Erstellt am:
-                      {{
-                      termin?.created_at | mkjDate : "d. MMM YYYY"
-                      }}
-                    </div>
-                  }
-                  @if (termin.updated_at) {
-                    <div>
-                      Aktualisiert am:
-                      {{
-                      termin?.updated_at | mkjDate : "d. MMM YYYY"
-                      }}
-                    </div>
-                  }
-                </div>
+                <teilnahmen-overview [termin]="termin"></teilnahmen-overview> </ng-template
+            ></p-accordionTab>
+          </p-accordion>
+          <div style="color: grey; font-size: 0.9em" class="col-12">
+            <p-divider></p-divider>
+            <div class="flex flex-wrap justify-content-between sm:col-mt-1">
+              <div>
+                {{ termin.oeffentlich ? 'Öffentlich auf mk-jainzen.at' : 'Nicht sichtbar auf mk.jainzen.at' }}
+              </div>
+              <div class="text-right">
+                @if (termin.created_at) {
+                  <div>
+                    Erstellt am:
+                    {{ termin?.created_at | mkjDate: 'd. MMM YYYY' }}
+                  </div>
+                }
+                @if (termin.updated_at) {
+                  <div>
+                    Aktualisiert am:
+                    {{ termin?.updated_at | mkjDate: 'd. MMM YYYY' }}
+                  </div>
+                }
               </div>
             </div>
           </div>
-        }
-      </p-tabPanel>
-
-      <p-tabPanel header="Anwesenheitsliste">
-        <div class="col-12">
-          <anwesenheits-liste [termin]="termin"></anwesenheits-liste>
         </div>
-      </p-tabPanel>
+      }
+    </p-tabPanel>
 
-      <p-tabPanel header="Musikstücke">
-        <div class="col-12">
-          <p-table
-            [value]="gespielteNoten"
-            [loading]="notenLoading"
-            responsiveLayout="scroll"
-            styleClass="p-datatable-sm p-datatable-striped"
-            >
-            <ng-template pTemplate="caption">
-              <mkj-autocomplete
-                [value]="selectedNoten"
-                [datasource]="notenDatasource"
-                [listConfig]="notenAutoCompleteConfig"
-                            [label]="
-                                configService.uiNaming.Noten + ' hinzufügen'
-                            "
-                (valueChange)="attachNoten($event)"
-                ></mkj-autocomplete
-              ></ng-template>
-              <ng-template pTemplate="body" let-noten>
-                <tr>
-                  <td>{{ noten.titel }}</td>
-                  <td style="color: grey">{{ noten.gattung }}</td>
-                  <td>
-                    <button
-                      pButton
-                      class="p-button-rounded p-button-outlined p-button-sm p-button-danger m-0 p-0"
-                      icon="pi pi-trash"
-                      pTooltip="Entfernen"
-                      (click)="detachNoten(noten)"
-                    ></button>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-        </p-tabPanel>
-      </p-tabView>
-    </mkj-content-loader>
+    <p-tabPanel header="Anwesenheitsliste">
+      <div class="col-12">
+        <anwesenheits-liste [termin]="termin"></anwesenheits-liste>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="Musikstücke">
+      <div class="col-12">
+        <p-table
+          [value]="gespielteNoten"
+          [loading]="notenLoading"
+          responsiveLayout="scroll"
+          styleClass="p-datatable-sm p-datatable-striped"
+        >
+          <ng-template pTemplate="caption">
+            <mkj-autocomplete
+              [value]="selectedNoten"
+              [datasource]="notenDatasource"
+              [listConfig]="notenAutoCompleteConfig"
+              [label]="configService.uiNaming.Noten + ' hinzufügen'"
+              (valueChange)="attachNoten($event)"
+            ></mkj-autocomplete
+          ></ng-template>
+          <ng-template pTemplate="body" let-noten>
+            <tr>
+              <td>{{ noten.titel }}</td>
+              <td style="color: grey">{{ noten.gattung }}</td>
+              <td>
+                <button
+                  pButton
+                  class="p-button-rounded p-button-outlined p-button-sm p-button-danger m-0 p-0"
+                  icon="pi pi-trash"
+                  pTooltip="Entfernen"
+                  (click)="detachNoten(noten)"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</mkj-content-loader>

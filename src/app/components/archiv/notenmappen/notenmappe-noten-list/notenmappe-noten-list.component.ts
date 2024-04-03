@@ -37,7 +37,6 @@ export class NotenmappeNotenListComponent implements OnChanges {
   public tableLocked: boolean = false;
 
   public readonly hasAssignPermission: boolean = false;
-  public readonly hasSavePermission: boolean = false;
 
   public readonly PermissionMap = PermissionKey;
 
@@ -59,7 +58,6 @@ export class NotenmappeNotenListComponent implements OnChanges {
     private route: ActivatedRoute
   ) {
     this.hasAssignPermission = this.userService.hasPermission(PermissionKey.NOTENMAPPE_ASSIGN);
-    this.hasSavePermission = this.userService.hasPermission(PermissionKey.NOTEN_SAVE);
     this._subs.sink = this.syncNotenSubject
       .pipe(distinctUntilChanged(), debounceTime(500))
       .subscribe((noten) => this.syncNotenToMappe(noten));

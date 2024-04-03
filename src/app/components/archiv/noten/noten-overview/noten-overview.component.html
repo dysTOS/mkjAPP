@@ -13,20 +13,6 @@
   @if (noten) {
     <mkj-display-model [model]="noten"></mkj-display-model>
   }
-  <div *visibleFor="[PermissionMap.NOTEN_SAVE]" class="col-12 flex justify-content-center">
-    <button
-      pButton
-      pRipple
-      label="Bearbeiten"
-      icon="pi pi-pencil"
-      class="p-button-secondary p-button-rounded p-button-raised"
-      (click)="navigateToEditView(noten)"
-    ></button>
-  </div>
-
-  <div class="card">
-    <mkj-comments [modelType]="'noten'" [modelId]="noten.id"></mkj-comments>
-  </div>
 </ng-template>
 
 <ng-template #bewertungTemplate let-noten>

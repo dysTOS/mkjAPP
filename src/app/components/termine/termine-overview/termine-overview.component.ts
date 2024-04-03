@@ -50,8 +50,6 @@ export class TermineOverviewComponent {
   constructor(
     public datasource: TermineListDatasource,
     public listConfig: TermineListConfig,
-    private termineApiService: TermineApiService,
-    private infoService: InfoService,
     private router: Router,
     private route: ActivatedRoute,
     private namingService: ConfigurationService,
@@ -72,24 +70,6 @@ export class TermineOverviewComponent {
         label: 'Export',
       },
     ];
-  }
-
-  public duplicateAusrueckung(ausrueckung: Termin) {
-    const duplicateAusrueckung = _.cloneDeep(ausrueckung);
-    duplicateAusrueckung.id = null;
-    duplicateAusrueckung.created_at = null;
-    duplicateAusrueckung.updated_at = null;
-    duplicateAusrueckung.name = duplicateAusrueckung.name + ' - KOPIE';
-
-    this.termineApiService.create(duplicateAusrueckung).subscribe({
-      next: (res) => {
-        this.navigateEditor(res);
-        this.infoService.success('Termin dupliziert!');
-      },
-      error: (err) => {
-        this.infoService.error(err);
-      },
-    });
   }
 
   public navigateSingleAusrueckung(ausrueckung: Termin) {
