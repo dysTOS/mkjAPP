@@ -62,7 +62,16 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  checkInput(): boolean {
+  public onForgotPassword() {
+    if (this.user.email == null) {
+      this.infoService.error('Bitte gib deine E-Mail Adresse ein und drücke dann auf "Passwort vergessen".');
+      return;
+    }
+
+    this.authService.forgotPassword(this.user.email).subscribe();
+  }
+
+  private checkInput(): boolean {
     if (this.user.email && this.user.passwort) return true;
     return false;
   }
