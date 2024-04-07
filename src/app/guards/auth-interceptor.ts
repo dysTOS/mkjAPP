@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       catchError((httpErrorResponse: HttpErrorResponse, _: Observable<HttpEvent<any>>) => {
         if (httpErrorResponse.status === HttpStatusCode.Unauthorized) {
-          if (!this.tokenService.isLoggedIn()) {
+          if (!this.tokenService.isLoggedIn() && req.headers.has('Authorization')) {
             setTimeout(() => this.infoService.info('Sitzung abgelaufen/ungültig!'), 1000);
           }
           this.authStateService.setAuthState(false);

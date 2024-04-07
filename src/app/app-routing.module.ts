@@ -47,6 +47,7 @@ import { SynthesizerComponent } from './tools/views/synthesizer/synthesizer.comp
 import { TransposerComponent } from './tools/views/transposer/transposer.component';
 import { CircleOfFifthsComponent } from './tools/views/circle-of-fifths/circle-of-fifths.component';
 import { MetronomeComponent } from './tools/views/metronome/metronome.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { MetronomeComponent } from './tools/views/metronome/metronome.component'
       [
         { path: 'signup', component: SignupComponent },
         { path: 'login', component: LoginComponent },
+        { path: 'reset-password', component: PasswordResetComponent },
         { path: 'error', component: AppErrorComponent },
         { path: 'access', component: AppAccessdeniedComponent },
         { path: 'notfound', component: AppNotfoundComponent },

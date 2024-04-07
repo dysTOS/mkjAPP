@@ -209,6 +209,7 @@ import { MitgliedInstrumenteListComponent } from './components/mitglieder/mitgli
 import { MkjRatingComponent } from './utilities/form-input-components/mkj-rating/mkj-rating.component';
 import { MkjUserNotificationsComponent } from './utilities/mkj-user-notifications/mkj-user-notifications.component';
 import { MkjCommentsComponent } from './utilities/mkj-comments/mkj-comments.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 // FullCalendarModule.registerPlugins([
 //     dayGridPlugin,
@@ -339,6 +340,7 @@ registerLocaleData(localeDe);
     MkjDashboardComponent,
     SignupComponent,
     LoginComponent,
+    PasswordResetComponent,
     MitgliederOverviewComponent,
     MitgliederEditComponent,
     NotenOverviewComponent,

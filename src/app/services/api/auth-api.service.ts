@@ -1,9 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {
+  MessageOutput,
+  UserLoginInput,
+  UserLoginOutput,
+  UserRegistrationInput,
+} from 'src/app/interfaces/api-middleware';
 import { environment } from 'src/environments/environment';
 import { User } from '../../models/User';
-import { UserRegistrationInput, UserLoginInput, UserLoginOutput } from 'src/app/interfaces/api-middleware';
 
 @Injectable({
   providedIn: 'root',
@@ -40,13 +45,18 @@ export class AuthAPIService {
     return this.http.post<any>(url, user);
   }
 
-  public forgotPassword(email: string): Observable<any> {
+  public forgotPassword(email: string): Observable<MessageOutput> {
     const url = this.apiURL + 'forgot-password';
     return this.http.post<any>(url, { email });
   }
 
-  public resetPassword(token: string, email: string, password: string): Observable<any> {
+  public resetPassword(
+    token: string,
+    email: string,
+    password: string,
+    password_confirmation: string
+  ): Observable<MessageOutput> {
     const url = this.apiURL + 'reset-password';
-    return this.http.post<any>(url, { token, email, password });
+    return this.http.post<any>(url, { token, email, password, password_confirmation });
   }
 }

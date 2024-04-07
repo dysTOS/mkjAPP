@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { UserNotificationService } from 'src/app/services/user-notification.service';
 import { SubSink } from 'subsink';
@@ -8,7 +8,7 @@ import { SubSink } from 'subsink';
   templateUrl: './mkj-user-notifications.component.html',
   styleUrl: './mkj-user-notifications.component.scss',
 })
-export class MkjUserNotificationsComponent implements OnDestroy {
+export class MkjUserNotificationsComponent implements OnInit, OnDestroy {
   public menuItems: MenuItem[] = [];
 
   private _subs = new SubSink();
@@ -23,6 +23,10 @@ export class MkjUserNotificationsComponent implements OnDestroy {
         cd.markForCheck();
       })
     );
+  }
+
+  public ngOnInit(): void {
+    this.userNotificationsService.updateUnreadNotifications();
   }
 
   public ngOnDestroy(): void {

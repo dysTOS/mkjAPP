@@ -27,13 +27,17 @@ export class UserNotificationService {
     private router: Router,
     webSocketService: WebsocketService
   ) {
-    this.getUnreadNotifications();
-
     this._subs.add(
       webSocketService.getUserNotificationsChannel().subscribe((notification: UserNotification) => {
         this.insertNotification(notification);
       })
     );
+  }
+
+  public updateUnreadNotifications(): void {
+    this.apiService.getUnreadNotifications().subscribe((notifications) => {
+      this._userNotifications.next(notifications);
+    });
   }
 
   public addNotification(notification: UserNotification): void {
@@ -56,12 +60,6 @@ export class UserNotificationService {
       return 0;
     });
     this._userNotifications.next(notifications);
-  }
-
-  private getUnreadNotifications(): void {
-    this.apiService.getUnreadNotifications().subscribe((notifications) => {
-      this._userNotifications.next(notifications);
-    });
   }
 
   private markAsRead(notification: UserNotification): void {
