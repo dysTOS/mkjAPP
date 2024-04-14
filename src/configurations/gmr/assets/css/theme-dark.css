@@ -1324,7 +1324,7 @@ body a {
 .layout-wrapper .topbar .app-name {
   vertical-align: middle;
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 0.25rem;
   height: 25px;
 }
 .layout-wrapper .topbar #topbar-menu-button {

@@ -68,7 +68,9 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.forgotPassword(this.user.email).subscribe((res) => this.infoService.info(res.message));
+    this.authService
+      .forgotPassword(this.user.email)
+      .subscribe({ next: (res) => this.infoService.info(res.message), error: (err) => this.infoService.error(err) });
   }
 
   private checkInput(): boolean {
