@@ -52,3 +52,4 @@ testem.log
 .DS_Store
 Thumbs.db
 .angular/cache/
+.nx/cache/18.3.4-nx.win32-x64-msvc.node

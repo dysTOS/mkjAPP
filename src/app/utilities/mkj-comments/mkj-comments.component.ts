@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { GetListInput } from 'src/app/interfaces/api-middleware';
 import { Kommentar } from 'src/app/models/Kommentar';
@@ -29,7 +29,8 @@ export class MkjCommentsComponent implements OnInit {
   constructor(
     private apiService: KommentarApiService,
     private userService: UserService,
-    private infoService: InfoService
+    private infoService: InfoService,
+    private cd: ChangeDetectorRef
   ) {}
 
   public ngOnInit(): void {
@@ -103,8 +104,10 @@ export class MkjCommentsComponent implements OnInit {
       .confirmDelete('Möchtest du diesen Kommentar wirklich löschen?', () => this.apiService.delete(comment.id))
       .subscribe((res) => {
         if (res?.id) {
-          comment = res;
+          comment = { ...comment, ...res };
           this.comments = [...this.comments];
+          console.log('comment', comment);
+          this.cd.detectChanges();
           return;
         }
         const parent = this.findParentComment(comment, this.comments);

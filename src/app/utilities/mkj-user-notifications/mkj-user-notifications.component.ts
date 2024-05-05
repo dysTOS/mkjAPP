@@ -10,6 +10,7 @@ import { SubSink } from 'subsink';
 })
 export class MkjUserNotificationsComponent implements OnInit, OnDestroy {
   public menuItems: MenuItem[] = [];
+  public sidebarVisible = false;
 
   private _subs = new SubSink();
 

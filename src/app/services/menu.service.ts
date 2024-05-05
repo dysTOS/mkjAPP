@@ -30,7 +30,7 @@ export const MenuLabels = {
   TEST: 20,
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MenuService implements OnDestroy {
   public readonly MainMenu: MkjMenuItem[] = [
     {

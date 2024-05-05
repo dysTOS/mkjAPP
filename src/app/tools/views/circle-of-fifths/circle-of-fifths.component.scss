@@ -1,7 +1,14 @@
 @use "sass:math";
 
-$size: 95vw; // $window
 $border: 1px solid #efefef;
+
+:host {
+  --size: 95vw;
+
+  @media (orientation: landscape) {
+    --size: 65vh;
+  }
+}
 
 .accidental {
   vertical-align: super;
@@ -10,9 +17,9 @@ $border: 1px solid #efefef;
 
 .circle-of-fifths {
   font-family: "Volkhov";
-  font-size: $size/20;
-  width: $size;
-  height: $size;
+  font-size: calc(var(--size) / 20);
+  width: var(--size);
+  height: var(--size);
   border: $border;
   margin: auto;
   border-radius: 50%;
@@ -22,10 +29,10 @@ $border: 1px solid #efefef;
   color: black;
 
   box-shadow:
-    0 calc($size/40) calc($size/40) rgba(0, 0, 0, 0.25),
-    inset 0 0 0 calc($size/8) white,
-    inset 0 0 0 calc($size/4.8) rgba(0, 0, 0, 0.1),
-    inset 0 0 0 $size white;
+    0 calc(var(--size) / 40) calc(var(--size) / 40) rgba(0, 0, 0, 0.25),
+    inset 0 0 0 calc(var(--size) / 8) white,
+    inset 0 0 0 calc(var(--size) / 4.8) rgba(0, 0, 0, 0.1),
+    inset 0 0 0 var(--size) white;
 
   $inner-size: 30%;
   &::after {
@@ -39,7 +46,7 @@ $border: 1px solid #efefef;
     border-radius: 50%;
     box-sizing: border-box;
     background-color: var(--surface-0);
-    box-shadow: inset 0 calc($size/40) calc($size/40) rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 calc(var(--size) / 40) calc(var(--size) / 40) rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -78,7 +85,7 @@ $border: 1px solid #efefef;
     position: absolute;
     width: 1px;
     background-color: rgba(0, 0, 0, 0.1);
-    height: $size;
+    height: var(--size);
   }
 
   > * {
@@ -100,16 +107,17 @@ $border: 1px solid #efefef;
 
 @mixin key-pos($key-pos) {
   $a: ($key-pos - 4) * (math.$pi / 6);
-  $dist: $size * 0.33;
+  $dist: calc(var(--size) * 0.33);
 
-  transform: translate(cos($a) * $dist, sin($a) * $dist);
+  transform: translate(calc(cos($a) * $dist), calc(sin($a) * $dist));
 
   > .step {
-    transform: translate(cos($a) * ($size/10), sin($a) * ($size/10)) translate(-50%, -50%);
+    transform: translate(calc(cos($a) * (var(--size) / 10)), calc(sin($a) * (var(--size) / 10))) translate(-50%, -50%);
   }
 
   > .literal {
-    transform: translate(cos($a) * (-$size/12), sin($a) * (-$size/12)) translate(-50%, -50%);
+    transform: translate(calc(cos($a) * (calc(var(--size) * -1) / 12)), calc(sin($a) * (calc(var(--size) * -1) / 12)))
+      translate(-50%, -50%);
   }
 
   > .sig {
@@ -117,8 +125,8 @@ $border: 1px solid #efefef;
   }
 
   &::before {
-    transform: translate(cos($a) * -$dist, sin($a) * -$dist) translate(0%, -50%) rotate(calc(math.$pi / 12) * 1rad)
-      rotate(calc($a + math.$pi / 2) * 1rad);
+    transform: translate(calc(cos($a) * ($dist * -1)), calc(sin($a) * ($dist * -1))) translate(0%, -50%)
+      rotate(calc(math.$pi / 12) * 1rad) rotate(calc($a + math.$pi / 2) * 1rad);
   }
 }
 

@@ -35,6 +35,9 @@ export class CircleOfFifthsComponent extends MusicTool {
   }
 
   public update(): void {
+    if (this.selectedMode === null) {
+      this.selectedTonic = 'C';
+    }
     this.circleSteps = this._keyFactory.getCircleOfFifths(this.selectedTonic, this.selectedMode);
   }
 }

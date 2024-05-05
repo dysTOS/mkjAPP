@@ -31,7 +31,7 @@ export class PasswordResetComponent implements OnInit {
 
     this.authService.resetPassword(queryParams.token, queryParams.email, this.pwd, this.pwdCheck).subscribe({
       next: (result) => {
-        setTimeout(() => this.infoService.success(result.message), 1000);
+        setTimeout(() => this.infoService.success(result.message), 500);
         this.router.navigate(['login']);
       },
       error: (error) => {

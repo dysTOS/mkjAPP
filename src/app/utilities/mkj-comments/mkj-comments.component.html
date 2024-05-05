@@ -1,6 +1,6 @@
 <mkj-content-loader [loading]="initLoading">
   <div class="flex flex-column gap-2">
-    @for (c of comments; track c) {
+    @for (c of comments; track c.updated_at) {
       <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
     }
   </div>
@@ -20,7 +20,7 @@
         ><span class="header-text">
           {{ comment.mitglied_name || 'Gelöschter Kommentar' }}
         </span>
-        @if (isAdmin || comment.mitglied_id === mitgliedId) {
+        @if (isAdmin || (comment.mitglied_id === mitgliedId && comment.mitglied_name)) {
           <i class="pi pi-trash ml-2 cursor-pointer" pTooltip="Kommentar löschen" (click)="deleteComment(comment)"></i>
         }
       </div>
@@ -60,7 +60,7 @@
     }
     @if (comment.subComments?.length > 0) {
       <div class="comment__subcomments">
-        @for (c of comment.subComments; track c) {
+        @for (c of comment.subComments; track c.updated_at) {
           <ng-template [ngTemplateOutlet]="commentTemplate" [ngTemplateOutletContext]="{ $implicit: c }"></ng-template>
         }
       </div>

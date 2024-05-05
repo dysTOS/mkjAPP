@@ -1,4 +1,4 @@
-export const MkjAppVersion = '0.9.8 - BETA';
+export const MkjAppVersion = '0.9.9 - BETA';
 
 export interface MkjAppChangeLog {
   date: string;
@@ -7,6 +7,13 @@ export interface MkjAppChangeLog {
 }
 
 export const MkjAppChangeLog: MkjAppChangeLog[] = [
+  {
+    date: '01.05.2024',
+    version: '0.9.9 - BETA',
+    changes: {
+      Authorisierung: 'Das Passwort kann jetzt per E-Mail zurückgesetzt werden.',
+    },
+  },
   {
     date: '27.03.2024',
     version: '0.9.8 - BETA',
