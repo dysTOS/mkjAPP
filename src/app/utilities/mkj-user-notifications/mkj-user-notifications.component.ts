@@ -28,4 +28,9 @@ export class MkjUserNotificationsComponent implements OnDestroy {
   public ngOnDestroy(): void {
     this._subs.unsubscribe();
   }
+
+  public markAllAsRead(): void {
+      this.userNotificationsService.markAllAsRead();
+      this.menuItems = [];
+  }
 }

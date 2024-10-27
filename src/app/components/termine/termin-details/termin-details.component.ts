@@ -67,11 +67,14 @@ export class TerminDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params.subscribe((e) => {
+            this.loading = true;
+            this.termin = null;
             this.termineApiService.getById(e.id).subscribe(
                 (ausrueckung) => {
                     this.termin = ausrueckung;
                     this.updateToolbarButtons();
                     this.getGespielteNoten();
+                    this.loading = false;
                 },
                 (error) => this.infoService.error(error),
                 () => (this.loading = false)

@@ -1,11 +1,13 @@
-import { MkjDropdownOption } from "../utilities/form-input-components/mkj-dropdown/mkj-dropdown.component";
+import {
+    MkjDropdownOption
+} from '../utilities/form-input-components/mkj-dropdown/mkj-dropdown.component';
 
 export abstract class UtilFunctions {
     public static getDropdownOptionsFromEnum(
         enumObject: any
     ): MkjDropdownOption[] {
         return Object.entries(enumObject).map((entry) => {
-            return { label: entry[0], value: entry[1] };
+            return {label: entry[0], value: entry[1]};
         });
     }
 
@@ -25,8 +27,8 @@ export abstract class UtilFunctions {
     }
 
     public static generateRandomHexColor(): string {
-        let color = "#";
-        const possible = "0123456789ABCDEF";
+        let color = '#';
+        const possible = '0123456789ABCDEF';
 
         for (let i = 0; i < 6; i++) {
             color += possible.charAt(
@@ -38,7 +40,9 @@ export abstract class UtilFunctions {
     }
 
     public static isDarkBackground(backgroundColor: string): boolean {
-        if (!backgroundColor) return false;
+        if (!backgroundColor) {
+            return false;
+        }
         const color = backgroundColor.substring(1); // remove the leading '#'
         const r = parseInt(color.substring(0, 2), 16);
         const g = parseInt(color.substring(2, 4), 16);
