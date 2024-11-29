@@ -36,21 +36,18 @@ export class UserNotificationService {
         );
     }
 
-  public updateUnreadNotifications(): void {
-    this.apiService.getUnreadNotifications().subscribe((notifications) => {
-      this._userNotifications.next(notifications);
-    });
-  }
-
-  public addNotification(notification: UserNotification): void {
-    this.insertNotification(notification);
-  }
-    public markAllAsRead(): void {
-        this.apiService.markAllAsRead().subscribe();
+    public updateUnreadNotifications(): void {
+        this.apiService.getUnreadNotifications().subscribe((notifications) => {
+            this._userNotifications.next(notifications);
+        });
     }
 
     public addNotification(notification: UserNotification): void {
         this.insertNotification(notification);
+    }
+
+    public markAllAsRead(): void {
+        this.apiService.markAllAsRead().subscribe();
     }
 
     private insertNotification(notification: UserNotification): void {
@@ -78,7 +75,8 @@ export class UserNotificationService {
     }
 
     private markAsRead(notification: UserNotification): void {
-        if (notification.type === UserNotificationType.SwUpdate || notification.type === UserNotificationType.TestSocket) {
+        if (notification.type === UserNotificationType.SwUpdate
+            || notification.type === UserNotificationType.TestSocket) {
             this.removeNotification(notification);
             return;
         }
