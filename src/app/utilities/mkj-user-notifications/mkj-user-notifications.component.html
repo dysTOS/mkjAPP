@@ -1,22 +1,28 @@
 <i
-  pBadge
-  class="pi pi-bell text-2xl cursor-pointer"
-  style="color: var(--primary-color-text)"
-  severity="warning"
-  [value]="this.menuItems.length"
-  [class.p-disabled]="this.menuItems.length === 0"
-  [class.hide-badge]="this.menuItems.length === 0"
-  (click)="this.menuItems.length ? notificationmenu.toggle($event) : null"
+    pBadge
+    class="pi pi-bell text-2xl cursor-pointer text-white"
+    severity="warning"
+    [value]="this.menuItems.length"
+    [class.p-disabled]="this.menuItems.length === 0"
+    [class.hide-badge]="this.menuItems.length === 0"
+    (click)="this.menuItems.length ? notificationmenu.toggle($event) : null"
 ></i>
 
-<p-menu #notificationmenu [model]="menuItems" [popup]="true">
-  <ng-template pTemplate="item" let-item>
-    <div class="flex flex-column gap-2 p-menuitem-link flex align-items-center p-1">
-      <div class="flex gap-2">
-        <i [class]="item.icon"></i><span>{{ item.label }}</span>
-      </div>
-      <div class="opacity-80">{{ item.subLabel }}</div>
-      <div></div>
+
+<p-overlayPanel #notificationmenu>
+    <div class="mb-3">
+        <button pButton label="Alle gelesen" icon="mdi mdi-email-open-outline"
+                class="p-button-outlined p-button-sm" (click)="markAllAsRead(); notificationmenu.hide()"></button>
     </div>
-  </ng-template>
-</p-menu>
+    <p-menu [model]="menuItems" [popup]="false">
+        <ng-template pTemplate="item" let-item>
+            <div class="flex flex-column gap-2 p-menuitem-link align-items-center">
+                <div class="flex gap-2">
+                    <i [class]="item.icon"></i><span>{{ item.label }}</span>
+                </div>
+                <div class="opacity-80">{{ item.subLabel }}</div>
+                <div></div>
+            </div>
+        </ng-template>
+    </p-menu>
+</p-overlayPanel>
