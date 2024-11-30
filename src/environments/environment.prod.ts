@@ -1,6 +1,6 @@
 export const environment = {
-  production: 'production',
-  publictest: 'publictest',
+  production: true,
+  publictest: false,
   appTitle: 'appTitle',
   apiUrl: 'apiUrl',
   wsHost: 'wsHost',
